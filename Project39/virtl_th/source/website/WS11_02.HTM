@@ -1,0 +1,621 @@
+<html>
+<!--sbp;1.1e;CD;092696-->
+<head>
+<title>Building Your Own WebSite: Before You Start</title>
+</head>
+<BODY BGCOLOR="#FFFFFF">
+<center>
+<img src="figs/website.gif" alt="WebSite" WIDTH=216 HEIGHT=72>
+<h1>Chapter 2 <br> Before You Start</h1>
+</center>
+"Before You Start" chapters are easy to skip. It's tempting to jump 
+right to installing the software. However, we politely request that you 
+read this chapter before installing WebSite.
+<p>
+To make completing pre-install requirements less painful, the chapter 
+starts with a checklist of the important items you need. Once you 
+complete the checklist, go to <a href="ws11_03.htm"> Chapter 3, 
+<i>Installing WebSite,</i> </a> and install WebSite.
+<p>
+If you aren't sure about something on the checklist, take some time and 
+read the rest of this chapter. You'll find the basic information you need 
+regarding hardware, software, and connectivity requirements. We also 
+discuss the pros and cons of running WebSite as a desktop application 
+or as a service. Additional resources are listed if you want more 
+detailed information about any of the topics covered.
+<p>
+So sharpen your pencil and complete the checklist, then get ready to 
+unleash the power of WebSite.
+<p>
+<h2> WebSite Installation Requirements</h2>
+Before you install WebSite, please complete this checklist. These 
+requirements are explained in the remainder of this chapter.
+<p>
+<h3> Hardware</h3>
+<ul>
+<li>
+80486 or higher microprocessor; Pentium recommended
+<p>
+<li>
+16 MB RAM for Windows NT; 32 MB recommended
+<p>
+<li>
+12 MB RAM for Windows 95; 24 MB recommended
+<p>
+<li>
+10 MB free hard disk space (for program files only)
+<p>
+<li>
+VGA video display adapter; SVGA recommended 
+<p>
+<li>
+CD-ROM drive or 3.5" floppy drive (depending on how media is
+received)
+<p>
+<li>
+Network card or modem (9600 bps minimum; 14.4 or 28.8 kbps 
+recommended)
+</ul>
+<h3> Software</h3>
+<ul>
+<li>
+Windows NT 3.51 or higher, with Service Pack 4 installed 
+recommended; WebSite runs successfully under all beta versions of 
+Windows NT 4.0
+<p>
+	-OR-
+<p>
+Windows 95
+<p>
+<li>
+Web browser
+</ul>
+<h3> Connectivity</h3>
+<ul>
+<li>
+TCP/IP stack installed and running
+<p>
+<li>
+IP Address:_____.____.____.____
+<p>
+<li>
+Fully Qualified Domain Name (FQDN) for your server 
+<br>
+hostname.domain name: 
+______________________________
+<p>
+<li>
+Internet email address for WebSite server administrator: 
+________________________
+<p>
+<li>
+Domain Name System (DNS) server (optional, but highly 
+recommended)
+<br>
+DNS Server 1:_____.____.____.____    
+DNS Server 2:_____.____.____.____
+<p>
+<li>
+WebSite server registered with DNS (optional, but highly 
+recommended)
+</ul>
+<h3> Other</h3>
+<ul>
+<li>
+System Date/Time set to the correct date, time, and time zone
+<p>
+<li>
+Administrator or Backup privileges for installing WebSite as a service 
+(NT only)
+</ul>
+<h3> Add-ons and Application Development Tools (Optional)</h3>
+<ul>
+<li>
+PolyForm, Web forms construction kit, from O'Reilly &amp; 
+Associates
+<p>
+<li>
+WebBoard, Web conferencing system, from O'Reilly &amp; 
+Associates
+<p>
+<li>
+Graphics editor/viewer such as LView Pro, Paint Shop Pro, Adobe 
+Photoshop, or Corel Photo-Paint 
+<p>
+<li>
+Audio editor/player such RealAudio, Sound Recorder, or Gold 
+Wave
+<p>
+<li>
+Video editor/player such as QuickTime or MPEGPlay
+<p>
+<li>
+Adobe Acrobat Exchange, Distiller (available in Acrobat Pro), or 
+Amber
+<p>
+<li>
+Visual Basic development environment; Pro version 4.0 
+recommended
+<p>
+<li>
+Visual C++, 2.x
+<p>
+<li>
+Java Developers Kit (JDK) for Win32 from Sun Microsystems, 
+Inc.
+<p>
+<li>
+Delphi programming environment from Borland International, 
+Inc.
+<p>
+<li>
+NT Perl programming language
+<p>
+<li>
+POSIX Shell and tools from the Windows NT Resource Kit
+</ul>
+<h2> Hardware Requirements</h2>
+One of the major advantages of WebSite is that it runs on readily 
+available, relatively low-cost hardware. The minimum hardware requirement 
+allows WebSite to run at a level of performance equal to a Web server 
+running on a similarly configured UNIX system. WebSite is a 
+powerful, rugged server, limited only by the hardware on which you 
+choose to run it and connect it to the Internet.
+<p>
+If you expect high volume traffic or plan to run many heavy-duty 
+applications such as database services, you should expand your 
+hardware. Perhaps the single most significant hardware component 
+that affects performance is RAM. WebSite performance increases 
+substantially with increased amounts of RAM. 
+<p>
+WebSite also fully supports symmetric multiprocessing (that is, 
+multiple processors in a single computer) to handle processing-intense 
+web applications. You may also want to investigate a high-speed 
+connection to the Internet, such as ISDN or a leased T1 or T3 line.
+<h2> Software Requirements</h2>
+WebSite runs under two operating systems: Windows NT 3.51 (or 
+higher) or Windows 95. Under Windows NT, WebSite can run on 
+either a FAT file system or NTFS. WebSite also runs successfully 
+under all beta versions of Windows NT 4.0 and the new shell that is 
+part of that version.
+<p>
+Note that previous versions of WebSite ran under Windows NT 3.5; 
+WebSite requires version 3.51 of Windows NT. In addition, we 
+recommend you install Service Pack 4 for Windows NT. This service 
+pack fixed several bugs that can adversely affect WebSite's 
+performance. You can obtain the service pack from the Microsoft Web 
+site.
+<p>
+You must also have a Web browser to take advantage of WebSite's 
+online resources and capabilities. 
+<p>
+You can upgrade to WebSite from any previous version of WebSite 
+(1.0, 1.1, or any of the interim service releases). You do not need to 
+uninstall an existing copy of WebSite to upgrade. All configuration 
+information and any data files you created with a previous version of 
+WebSite are preserved during the upgrade process.
+<h2> Connectivity Requirements</h2>
+Networking and connectivity issues are often at the root of problems 
+you may encounter when starting WebSite. For that reason, please 
+read this section thoroughly. 
+<h3> TCP/IP</h3>
+WebSite requires that your system have a TCP/IP stack installed and 
+running. TCP/IP is the suite of networking protocols that the World 
+Wide Web--in fact, the whole Internet--requires. TCP/IP stands for 
+Transmission Control Protocol/Internet Protocol. You don't need to 
+understand all the nuances of TCP/IP, but you do have to have it 
+running successfully on your computer to use WebSite. TCP/IP 
+capability is built in to both Windows NT and Windows 95 and no 
+additional software is needed.
+<p>
+If you are on a networked system or have an existing Internet 
+connection, you probably don't have to worry about your TCP/IP setup. 
+Check with your network administrator or Internet service provider to 
+make sure you have the items required by WebSite.
+<p>
+If you don't have TCP/IP running, you must set it up before installing 
+WebSite. You can do so through the Network option of the Control 
+Panel. For more information on installing and configuring TCP/IP on 
+your computer, see the operating system's documentation.
+<p>
+In any of the following cases, your system must be running TCP/IP. 
+You can use your WebSite server in one of three ways: (1) as an 
+internal web server to be reached only by other computers on your 
+internal network---an intranet, (2) as a web server connected to the 
+Internet and reachable by other computers on the Internet, or (3) as a 
+development system for Web applications with no physical connection 
+to the Internet or a network.
+<h4> IP address</h4>
+An important piece of information you need to know about your 
+TCP/IP setup is the IP address assigned to your server. The IP address 
+is a set of four numbers, one to three digits each, separated by periods 
+(or dots), for example, 204.148.40.6. You will need the IP address for 
+testing the server.
+<h4> TCP/IP connection to an internal network</h4>
+Using WebSite on an intranet to provide an internal web (such as for a 
+department or departments of a company) requires that the network be 
+running TCP/IP, and that the computer on which you install WebSite 
+has a properly configured connection to that network. If you are on a 
+network, get the IP address for the WebSite server from your network 
+administrator.
+<h4> TCP/IP connection to the Internet</h4>
+If you want your web to be reachable by other computers on the 
+Internet, you need an Internet connection that puts your computer ``on 
+the Internet.'' There are three primary ways a computer can be 
+connected to the Internet, as shown in Figure 2-1.
+<p>
+<hr>
+<i>Figure 2-1: Connecting to the Internet</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0201.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<DL>
+<DT>
+<b>Dial-up shell account</b>
+<DD>
+Although inexpensive and readily available, a dial-up shell account 
+will not work for WebSite because it does not support the TCP/IP 
+protocol suite.
+<blockquote>
+<b>NOTE</b>
+<br>
+Commercial online service providers such as Prodigy, CompuServe, 
+and America Online currently offer some type of Internet access and 
+expect to offer fuller access in the near future. However, these services 
+will not give you the kind of connection necessary to run the WebSite 
+server.
+</blockquote>
+<DT>
+<b>PPP or SLIP Account</b>
+<DD>
+Also, a dial-up account, PPP (Point-to-Point Protocol) and SLIP 
+(Serial Line Internet Protocol) can work for WebSite because they 
+support TCP/IP and graphical Web browsers such as Mosaic. A 
+PPP/SLIP account requires a high-speed modem (9600 bits per second 
+minimum; 14.4 or 28.8 kbps are better) to connect your computer to an 
+Internet service provider. Once the connection is established, your 
+computer is actually part of the Internet. If both types of accounts are 
+available, we recommend a PPP account.
+<p>
+Your PPP/SLIP provider will assign an IP address for your computer. 
+The service provider will also assign (or let you choose) a name for 
+your computer, provide DNS name server addresses, and register your 
+computer's name with DNS (see below for more).
+<p>
+If you choose to use a PPP or SLIP connection, you will need software 
+to dial the Internet service provider and establish the proper 
+connection. The Remote Access Service (RAS) under Windows NT or 
+Dial-Up Networking under Windows 95 can handle these tasks. 
+<p>
+Most Internet Service Providers (ISPs) charge monthly fees and hourly 
+usage fees. They may also have special packages for businesses 
+requiring 24-hour connections. You should discuss various packages 
+with your Internet service provider before choosing a connection.
+<p>
+<DT>
+<b>Dedicated Line</b>
+<DD>
+The most expensive and difficult to set up, a dedicated line (such as a 
+T1 line) gives you a full-time, high-speed connection to the Internet. If 
+you expect a lot of traffic on your WebSite server, you should consider 
+a dedicated line, which requires an additional piece of hardware, a 
+router, to handle Internet traffic. If you already have full-time access to 
+the Internet from your computer, you probably have a dedicated line. 
+Check with your network administrator to make sure your computer is 
+configured correctly and that you have the correct IP address.
+<p>
+ISDN (Integrated Services Digital Network) is a specialized type of 
+phone line that can be used for both voice and data (at the same time). 
+If ISDN is available from the local phone company, an ISDN line can 
+work for either an on-demand (PPP/SLIP) or full-time (dedicated line) 
+network and achieve speeds as great as some leased-line connections. 
+ISDN connections require a special piece of hardware similar to a 
+modem.
+</DL>
+<h3> Internet Email Address of the WebSite Administrator</h3>
+During installation WebSite requests the Internet email address for the 
+WebSite server administrator. This address includes a name and a 
+domain name. The easy way to spot an Internet email address is to 
+look for the @ separating two names. For example, 
+<i>website@ora.com</i> is the email address for WebSite customer
+service.
+<p>
+The email address can be for any location, not necessarily the system 
+on which the WebSite server resides. Also, the email address is for the 
+WebSite administrator, not the system administrator (although it may 
+be the same person and thus the same address). This email address is 
+used in a few WebSite documents, such as search forms.
+<h3> Fully Qualified Domain Name (FQDN)</h3>
+In addition to a unique numeric address (the IP number), every 
+computer that is on a TCP/IP network (internal or Internet) may also 
+have a unique name, called a domain name. For example, 
+<i>website.ora.com, www.ncsa.uiuc.edu,</i> and <i>www.census.gov</i> are 
+domain names used to identify computers connected to the Internet. You'll 
+notice that these names have multiple pieces separated by periods (or 
+dots, as they are generally called). The first piece in these domain 
+names is the hostname; the rest is the name of the domain in which 
+the host exists. 
+<p>
+For WebSite, you need to know the fully qualified domain name for 
+your server. A fully qualified domain name (FQDN) includes the full 
+hierarchical name of the computer--that is, the hostname and the name 
+of the domain. An FQDN is written from the most specific address (a 
+hostname) to the least specific address (a top-level domain). 
+Sometimes fully qualified domain names are called fully qualified 
+hostnames (FQHN). The designations mean the same thing, and you 
+may find them used interchangeably in this book and in other WebSite 
+support materials.
+<p>
+So if your server's hostname is <i>happy</i> and the domain is 
+<i>dopey.com,</i> then your server's FQDN is <i>happy.dopey.com.</i> 
+Either your Internet Service Provider or network administrator can 
+provide you with the FQDN for your WebSite server.
+<h3> Domain Name System (Optional)</h3>
+While domain names are easier for people to remember, computers on 
+the Internet use the numeric IP addresses to communicate with each 
+other. Mapping IP addresses to fully qualified domain names is the job 
+of the Domain Name System (DNS). Domain name servers are set up 
+around the Internet to provide IP information when you submit a 
+request using a domain name rather than an IP address.
+<p>
+Having DNS available for your WebSite server makes interactions 
+with the Internet faster. To use DNS, you must configure TCP/IP with 
+addresses for DNS name servers. Again, if you are on a TCP/IP 
+network (internal or Internet), this is probably already configured for 
+you. Ask your Internet Service Provider or network administrator for 
+these addresses.
+<h3> DNS Registration of WebSite Server (Optional)</h3>
+Your Internet service provider or network administrator will know 
+how to register your server's name with DNS. Registering with DNS 
+makes it faster for browsers to find your WebSite server. It has no 
+effect on how well your server performs, but it will affect how fast 
+others can reach the information on your web.
+<h2> Add-ons and Application Development Tools</h2>
+Depending on how you plan to use your web, you may want to install 
+some additional software. Add-on applications let you enhance your 
+web with specialized elements (such as graphics, video, and audio) 
+and functionality (forms processing, conferencing) to your web. 
+Application development tools are essential for writing CGI programs. 
+<p>
+The following lists are by no means comprehensive. However, they 
+include some of the most useful tools readily available on the Web as 
+shareware or commercially from a software vendor. Web technology is 
+changing daily and new add-ons, plug-ins, and programming 
+environments will be continually appearing. Look for your favorites 
+the next time we publish this list!
+<p>
+<h3> Add-on Applications for WebSite</h3>
+Add-on applications let you add interest and functionality to your web. 
+Full-color images, video, and audio elements require tools to create 
+and preview. Web utilities help you monitor and fine-tune your 
+server's performance and analyze the information you gather from 
+visitors to your web. Adding interactivity to your web, processing form 
+data, and other capabilities require programs beyond those included 
+with WebSite. Here's a list of some of our favorites for completing 
+these objectives; check WebSite Central for others: 
+<p>
+<ul>
+<li>
+PolyForm, from O'Reilly &amp; Associates, for constructing web 
+forms and processing the submitted data without writing CGI 
+programs
+<p>
+<li>
+WebBoard, from O'Reilly &amp; Associates, for adding threaded 
+conferencing to your web
+<p>
+<li>
+LView Pro, Paint Shop Pro, Adobe Photoshop, and Corel PhotoPaint 
+for creating, editing, converting, and viewing full-color images
+<p>
+<li>
+Real Audio, Sound Recorder, and Gold Wave for creating, editing, 
+and reviewing audio files (requires a sound card)
+<p>
+<li>
+QuickTime and MPEGPlay for creating and viewing MPEG 
+movies
+<p>
+<li>
+Adobe Acrobat Exchange, Distiller (available in Acrobat Pro), or 
+Amber for creating and viewing PDF files.
+</ul>
+<h3> Application Development Tools</h3>
+To write and execute Common Gateway Interface (CGI) programs on 
+your web, you need a few additional pieces of software. CGI programs 
+allow you to execute operations in other Windows, NT shell, or DOS 
+applications and return the data to the web browser. For example, you 
+may have a Microsoft Access database of customer information, which 
+is updated often and needs to be readily available to your sales people. 
+First, you write a CGI program in Visual Basic or Delphi to execute a 
+query on the database. Then you attach the CGI program to a URL. To 
+run the CGI program, the user simply asks a web browser for that 
+URL. The URL points to the CGI program, which executes the query 
+and returns the answer to the browser. CGI programming is 
+thoroughly covered in Chapters 15 through 18.
+<p>
+Depending on what type of programs you write and use on your web, 
+you may need the following software:
+<p>
+<DL>
+<DT>
+<b>Visual Basic development environment (Visual Basic Professional 4.0 
+recommended)</b>
+<DD>
+Used for writing CGI programs, including ones that execute other 
+Windows applications such as Microsoft Access, WordPerfect, or 
+Lotus 123. The Professional version is recommended, and is required 
+for any serious database work. Visual Basic 4.0 is also recommended 
+because it is a full 32-bit application. You do not need the Visual Basic 
+environment to run Windows CGI programs, such as those included 
+with WebSite or ones you may get from other sources. See Chapter 16, 
+<i>Developing Applications with Windows CGI,</i> for more 
+information.
+<p>
+<DT>
+<b>Visual C++ programming language</b>
+<DD>
+Used for writing CGI programs in Visual C++. This powerful 
+programming language adds even more capabilities to your web. 
+Visual C++ 2.x is recommended. See Chapter 17, <i>Developing 
+Windows CGI Applications with C++ and MFC.</i>
+<p>
+<DT>
+<b>Java Developer's Kit</b>
+<DD>
+Used for creating Java applets for your web. Java is a new 
+programming language designed for the Internet. It is small, robust, 
+and architecture neutral. You can download the JDK from Sun 
+Microsystems' web site. 
+<p>
+<DT>
+<b>Delphi programming environment</b>
+<DD>
+Used for writing CGI programs. Developed by Borland International, 
+Delphi is an object-oriented programming environment available in 
+both 16-bit and 32-bit versions. Delphi allows you to create Windows 
+CGI programs quickly and easily. Creating CGI programs with Delphi 
+follows the same principles as creating CGI programs with any other 
+development environment (such as Visual Basic). See Chapter 16 for 
+more information.
+<p>
+<DT>
+<b>NT Perl programming language</b>
+<DD>
+Used to create and execute Perl-based CGI programs. Perl is a 
+high-level programming language that has strong text and file manipulation 
+features and is well suited to most CGI programming tasks. In fact, 
+Perl is often called the "Swiss Army Chainsaw of Programming."
+Many CGI programs that run on UNIX-based web servers are written 
+in Perl and are readily available on the Internet. An updated version of 
+NT Perl, which also runs under Windows 95 and supports sockets as 
+file handles, is available on WebSite Central. See Chapter 18, <i>The 
+Standard and DOS CGI Interfaces,</i> for more information. 
+<p>
+<DT>
+<b>POSIX shell and tools from the Windows NT Resource Kit 3.5</b>
+<DD>
+Used for running CGI programs in the POSIX subsystem. These 
+scripts have usually been developed for the UNIX Korn shell. Note 
+that supporting tools such as sed and awk are not included in the 
+Resource Kit, but ports of these tools are available from other sources. 
+See Chapter 18 for more information.
+</DL>
+<h2> Service or Application?</h2>
+The WebSite server can be run as a system service or as a desktop 
+application, under either Windows NT or Windows 95. There is no 
+difference in performance or operation of the server or related tools. 
+You can change how WebSite is running at any time through the 
+Server Admin application.
+<p>
+The advantage of running WebSite as a service is that it runs when no 
+one is logged onto the computer (a security feature), and it can restart 
+automatically without someone having to log in and launch it (such as 
+after a power failure). Under Windows NT 3.51, you can set up 
+WebSite to display or not display its icon when it runs as a service. 
+Under Windows 95 or Windows NT 4.0, the WebSite server icon 
+appears in the system Tray of the Task bar. To run as a service under 
+Windows NT, WebSite must have administrator privileges.
+<p>
+With WebSite as a desktop application, you can start it manually or 
+have it start automatically whenever you log in (by placing it in your 
+startup group). Although WebSite will not stay running when you log 
+out, you can leave it running and simply lock your screen to prevent 
+unauthorized use. The advantage of running WebSite as an application 
+is that it is easier to stop and start, an advantage when you are initially 
+setting up or administering the server and web.
+<p>
+Unless you are familiar with Windows NT services and the identity 
+issues involved, we recommend you start by using WebSite as a 
+desktop application. You will find it easier to set up initially and can 
+switch it to a service later. If you are already using several other 
+services on your computer and are familiar with how they work, you 
+may prefer to run WebSite as a service from the beginning.
+<h2> To Learn More</h2>
+If you'd like more information about these topics or about other Web 
+and Internet topics in general, we suggest reading the online help and 
+documentation for your operating system. We also recommend the 
+following books published by <a href="http://www.ora.com/"> 
+O'Reilly &amp; Associates</a>:
+<p>
+<ul>
+<li>
+<i>The Whole Internet for Windows 95,</i> by Ed Krol and Paula 
+Ferguson
+<p>
+<li>
+<i>The Whole Internet User's Guide and Catalog,</i> Second Edition, by 
+Ed Krol
+<p>
+<li>
+<i>Managing Internet Information Services: World Wide Web, 
+Gopher, FTP, and More,</i> by Cricket Liu, Jerry Peek, Russ Jones, Bryan 
+Buus, and Adrian Nye
+<p>
+<li>
+<i>Getting Connected: The Internet at 56K and Up,</i> by Kevin Dowd
+<p>
+<li>
+<i>Networking Personal Computers with TCP/IP,</i> by Craig Hunt
+<p>
+<li>
+<i>HTML: The Definitive Guide,</i> by Chuck Musciano and Bill 
+Kennedy
+<p>
+<li>
+<i>Designing for the Web: Getting Started in a New Medium,</i> by 
+Jennifer Niederst with Edie Freedman
+<p>
+<li>
+<i>CGI Programming on the World Wide Web,</i> by Shishir 
+Gundavaram
+<p>
+<li>
+<i>Java in a Nutshell: A Desktop Quick Reference for Java 
+Programmers,</i> by David Flanagan
+<p>
+<li>
+<i>Exploring Java,</i> by Patrick Niemeyer and Joshua Peck
+<p>
+<li>
+<i>Learning Perl,</i> by Randal L. Schwartz
+<p>
+<li>
+<i>Programming perl,</i> by Larry Wall and Randal L. Schwartz
+<p>
+<li>
+<i>Programming Perl 5 (due October 1996),</i> by Larry Wall and 
+Randal L. Schwartz
+<p>
+<li>
+<i>Perl 5 Desktop Reference,</i> by Johan Vromans
+<p>
+<li>
+<i>Inside the Windows 95 Registry (due Summer 1996),</i> by Ron 
+Petrusha
+<p>
+<li>
+<i>DNS and BIND,</i> by Paul Albitz and Cricket Liu
+</ul>
+<p>
+Also, check out the resources at
+<a href="http://software.ora.com/">O'Reilly Software Online.</a>
+<p>
+<hr>
+<p>
+<center>
+<A HREF = "ws11_03.htm"> Go to Chapter 3, <i>Installing WebSite</i></A>
+<p>
+<A HREF = "StartHere.htm"> Return to the Start Page</a>
+<p>
+<IMG SRC="figs/ORSlogo.gif" border=0 ALT=[Home]">
+<p>
+&copy; 1996 O'Reilly &amp; Associates, Inc.  All rights reserved.
+</center>
+<p>
+<hr>
+</body>
+</html>

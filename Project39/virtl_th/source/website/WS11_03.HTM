@@ -1,0 +1,1182 @@
+<html>
+<!--sbp;1.1e;CD;092696-->
+<head>
+<title>Building Your Own WebSite: Installing WebSite</title>
+</head>
+<BODY BGCOLOR="#FFFFFF">
+<center>
+<img src="figs/website.gif" alt="WebSite" WIDTH=216 HEIGHT=72>
+<h1>Chapter 3 <br> Installing WebSite</h1>
+</center>
+Before starting installation, you'll need to collect some information 
+about your hardware, software, connectivity, and other options before 
+you can begin to install WebSite. This information is described in 
+<a href="ws11_02.htm">Chapter 2,<i> Before You Start.</i></a> With that 
+information and a properly configured system and Internet connection 
+(either dialup or through a network), installing WebSite is a simple 
+job handled by the setup program.
+<p>
+Installing WebSite takes only a few minutes. Following installation, 
+you must test the server. These tests include making sure the server is 
+running and testing the server from both the local computer and a 
+remote computer. Running these tests is important to ensure that the 
+server is installed correctly and operating properly.
+<p>
+During installation, WebSite uses the information you provide as well 
+as information from your Windows 95 or Windows NT system 
+Registry and configuration files to set the basic parameters for the 
+server. This general information is recorded in the General property 
+sheet page of Server Admin. 
+<p>
+This chapter begins with a quick start summary, followed by detailed 
+installation instructions for both a new installation of WebSite 1.1 and 
+an upgrade from WebSite 1.0 for Windows 95 and Windows NT. 
+Next, it walks through the server tests and the general information 
+included in Server Admin. Finally, it tells you how to activate the 
+administrator's account, install WebSite as a service, and where to find 
+help.
+<h2> Quick Start Summary</h2>
+Take the following steps to install and test WebSite. These steps are 
+explained fully in the next sections.
+<blockquote>
+<b>NOTE</b>
+Depending on how you received the software, some of these steps may
+differ.
+</blockquote>
+<p>
+<ol>
+<li>
+Complete the WebSite Installation Requirements checklist (see 
+<a href="ws11_02.htm">Chapter 2</a>). You may need to ask your 
+network administrator or Internet Service Provider for information 
+about the Connectivity section.
+<p>
+<li>
+If you are upgrading from a previous version of WebSite, make backup 
+copies of the DENNY and EIT Registry keys. 
+<p>
+<li>
+If you are running other Windows applications, close them before 
+starting installation.
+<p>
+<li>
+Start the WebSite Setup program by opening the WebSite
+folder on the distribution media with File Manager or Windows Explorer
+and double-clicking setup.exe.  
+<p>
+<li>
+Enter your name and company or organization information to 
+personalize your copy of WebSite.
+<p>
+<li>
+Choose the destination directory for the WebSite software.
+<p>
+<li>
+If you have an existing web document structure, provide the full 
+pathname for the existing document root.
+<p>
+<li>
+Choose the server run mode.
+<p>
+<li>
+Enter the Fully Qualified Domain Name for the server.
+<p>
+<li>
+Enter the Administrator's email address.
+<p>
+<li>
+Test the server's operation from the local computer.
+<p>
+<li>
+Test the server's operation from a remote computer.
+<p>
+<li>
+Run the server self-test.
+<p>
+<li>
+Review the General page of Server Admin.
+<p>
+<li>
+Activate the WebSite server administrator account.
+<p>
+<li>
+Follow the links on the WebSite Resources page.
+</ol>
+<h2> Installing the WebSite Software</h2>
+WebSite is distributed in several ways:  diskettes, CD-ROM,
+downloadable self-extracting file, or pre-loaded on your computer's
+hard disk.  Depending on the medium used for your copy of WebSite, you
+may need to adjust the following instructions.  The 
+software includes the WebSite Server and Server Admin software; the 
+WebSite applications Map This! Image Map Editor, WebView, and 
+WebIndex; and WebSite Resources, a collection of valuable information,
+links to other resources,  and the server's self-test.  These 
+components are installed by the WebSite Setup program.
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+You must have installed TCP/IP as a network protocol in order for 
+WebSite to operate, even if you don't plan to allow Internet access. For 
+more information on installing TCP/IP in Windows NT or Windows 
+95, see your Windows documentation. 
+</blockquote>
+<p>
+<h3> Performing a New Installation</h3>
+The following procedures will install the WebSite software. Read each 
+installation screen for instructions and information. Some of the steps 
+listed are specific to a Windows NT or Windows 95 installation. 
+<p>
+To install WebSite for the first time, complete these steps:
+<p>
+<ol>
+<li>
+Start your computer and log on to Windows NT or Windows 95. If you 
+are installing WebSite under Windows NT, you must be the 
+Administrator or have Administrator privileges.
+<p>
+<li>
+If you received the software on diskettes, insert Disk 1 into the
+first 3.5" drive (A or B) on your system.  If you received the
+software on CD-ROM, insert the CD-ROM into your CD-ROM drive.
+<p>
+<li>
+Start the WebSite Setup program by opening the <i>WebSite</i> folder
+on the distribution media in the File Manager (NT) or Windows Explorer
+(Windows 95) and double-clicking on the file <i>Setup</i> (or
+<i>Setup.exe</i>).
+<p>
+<li>
+The WebSite Setup program displays the welcome screen. Click Next 
+to begin installation.
+<p>
+<li>
+In the Registration window, enter your name and company or 
+organization information to personalize your copy of WebSite. Click 
+Next to continue. (See Figure 3-1.)
+<p>
+<hr>
+<i>Figure 3-1: WebSite Registration Screen</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0301.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+WebSite asks you to confirm this information. Choose Yes to continue, 
+or No to reenter the information.
+<p>
+<li>
+Choose the installation directory for the WebSite software. The default 
+is <i>\WebSite</i>, but you can install the software in another directory. 
+Click Next to accept the default, or click Browse to choose another 
+directory.
+<p>
+<li>
+If you don't have an existing web on your computer, accept the defaults 
+for the document root and home page in the Existing Web dialog box. 
+(See Figure 3-2.) If you do have an existing web, type the root 
+directory of your web documents and the name of your index document. 
+<p>
+<hr>
+<i>Figure 3-2: Existing Web Dialog Box</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0302.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Choose how you want the WebSite server to run in the Server Run 
+Mode dialog box. 
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+If you choose to install WebSite as a service under Windows NT, you 
+should be well-acquainted with the subject of Windows NT identity. 
+By default, a service assumes the identity of the system account (you 
+can change this on the services control panel). WebSite requires this 
+default setup to run properly. If you encounter problems running 
+WebSite check the identity of the server's account and make sure it is 
+the system account. We also recommend you first test WebSite as a 
+desktop application.
+</blockquote>
+<p>
+If installing under Windows NT, choose one of the following (see
+Figure 3-3):
+<p>
+<ul>
+<li>
+Application (manual start). Installs the WebSite server as an 
+application that you must start each time you log in to Windows NT. 
+This is the default setting.
+<p>
+<li>
+Application (login start). Installs the WebSite server as an application 
+in the Startup Group, causing it to start automatically when you login 
+to Windows NT.
+<p>
+<li>
+Service (invisible). Installs the WebSite server as a service. The 
+WebSite server icon does not appear on the Desktop.
+<p>
+<li>
+Service (icon visible). Installs the WebSite server as a service. The 
+WebSite server icon appears on the Desktop, and you can interact with 
+it. If you are installing under NT 4.0, the icon is placed in the Tray. 
+You can later change it to a Task Bar icon, if desired.
+</ul>
+<p>
+<hr>
+<i>Figure 3-3: Server Run Mode Dialog Box</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0303.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+If installing under Windows 95, choose one of the following:
+<p>
+<ul>
+<li>
+Application (manual start). Installs the WebSite server as an 
+application that you must start each time you log in to Windows 95. 
+The server icon appears in the Tray, but you can later change it to 
+appear on the Task Bar, if desired. This is the default setting.
+<p>
+<li>
+Application (login start). Installs the WebSite server as an application 
+in the Startup folder, causing it to start automatically when you log in 
+to Windows 95. The server icon appears in the Tray, but you can later 
+change it to appear on the Task Bar, if desired.
+<p>
+<li>
+Service (system start). Installs the WebSite server as a service. The 
+server icon appears in the Tray, but you can later change it to appear 
+on the Task Bar, if desired.
+</ul>
+<p>
+<li>
+Enter the host's fully qualified domain name in the Host's Domain 
+Name dialog box and then click Next (Figure 3-4). The domain name 
+includes the server's specific name and the larger domain name, such 
+as myserver.mycompany.com. This is the name used in URLs to reach 
+your WebSite server and is also called the Fully Qualified Domain 
+Name (FQDN). If you don't have an FQDN for your server, use the IP 
+address (for example, 123.333.222.123).
+<p>
+<hr>
+<i>Figure 3-4: Host's Domain Name Dialog Box</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0304.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Enter an email address that WebSite will use for mailto: URLs in the 
+Administrator's Email Address dialog box. This address can be at your 
+site or at another site. For example, your website might be 
+<i>comp-bear.com</i> but your email might be received at 
+<i>tech.comp-bear.com</i>. Use the address at which email is received, 
+and then click Next. 
+<p>
+<li>
+The WebSite Setup program installs the software on your system. The 
+program displays progress indicators and tells you which files are 
+being installed. Setup also adds information to your Windows Registry 
+and builds the program group or Start menu folder.
+<p>
+<li>
+If you are installing under Windows NT and selected Service as the 
+run mode, Setup displays the Service Startup dialog box with 
+instructions for starting the WebSite server as a service (Figure 3-5). 
+See the section <a href="#service">Running WebSite as a Service,</a>
+later in this chapter, for details. Press Next to continue.
+<p>
+<hr>
+<i>Figure 3-5: Windows NT Service Startup Dialog Box</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0305.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+By default, the service identity is System Account. If you are going to 
+make any changes, be sure you are familiar with ``identity'' under 
+Windows NT. 
+</blockquote>
+<p>
+<li>
+Under Windows NT, Setup next displays information about the 
+Windows NT Performance Monitor (Figure 3-6). The Performance 
+Monitor gives you information about the performance of your system 
+and selected programs and services. For more information about using 
+the Performance Monitor, see your Windows NT documentation and 
+Chapter 13, <i>Logging,</i> in this book.
+<p>
+<hr>
+<i>Figure 3-6: Windows NT Performance Monitor Information</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0306.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Setup next displays the WebSite Setup Complete dialog box (Figure 
+3-7). You can choose to view the README file and/or start WebSite. 
+Click Finish to close the Setup program.
+<p>
+<hr>
+<i>Figure 3-7: WebSite Setup is Complete</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0307.gif" ALT="(IMAGE)">
+</center>
+<hr>
+</ol>
+<p>
+You're now ready to begin testing the installation as described later in 
+this chapter.
+<h3> Upgrading from a Previous Version of WebSite</h3>
+If you are upgrading from a previous version of WebSite, you need to 
+perform the following actions:
+<p>
+<ul>
+<li>
+Back up the Registry keys 
+HKEY_LOCAL_MACHINE\SOFTWARE\Denny and 
+HKEY_LOCAL_MACHINE\SOFTWARE\EIT. Use the Registry 
+editor (<i>regedt32.exe</i> or <i>regedit.exe</i>) supplied with Windows NT 
+or Windows 95 to export or save each of these keys and their subtrees. 
+These programs are usually installed in your <i>\Windows</i> directory. Save 
+the keys under a new name.
+<p>
+<li>
+If you are upgrading from a previous installation that was installed 
+as a Windows NT service, check the identity under which WebSite is 
+running. If you run as an application, WebSite assumes the identity of 
+the person currently logged on. As a service, it assumes a separate 
+identity, which by default is the system account, configurable by the 
+control panel.
+<p>
+<li>
+Back up your entire WebSite installation, from the server root on 
+down. If something goes wrong with the update installation, you'll be 
+glad you did this!
+</ul>
+<p>
+After you've completed the actions in the above list, perform these 
+steps:
+<p>
+<ol>
+<li>
+Start your computer and log on to Windows NT or Windows 95. If you 
+are installing WebSite under Windows NT, you must be the 
+Administrator or have Administrator privileges.
+<p>
+<li>
+Make sure the WebSite server is not running.
+<p>
+<li>
+If you received the software on diskettes, insert Disk 1 into the
+first 3.5" drive (A or B) on your system.  If you received the
+software on CD-ROM, insert the CD-ROM into your CD-ROM drive.
+<p>
+<li>
+Start the WebSite Setup program by opening the <i>WebSite</i> folder
+on the distribution media in the File Manager (NT) or Windows Explorer
+(Windows 95) and double-clicking on the file <i>Setup</i> (or
+<i>Setup.exe</i>).
+<p>
+<li>
+The WebSite Setup program displays the welcome screen. Click Next 
+to begin installation.
+<p>
+<li>
+In the Registration window, enter your name and company 
+information to personalize your copy of WebSite and click Next.
+<p>
+<li>
+WebSite asks you to confirm this information. Choose Yes to continue, 
+or No to reenter the information.
+<p>
+<li>
+The Setup program displays the Updating Existing Installation dialog 
+box (Figure 3-8). This dialog box shows the location of the existing 
+WebSite software, and warns you that the format of WebIndex files 
+has changed. You'll need to rebuild your indexes after installing this 
+update.
+<p>
+<hr>
+<i>Figure 3-8: Updating Existing Installation Dialog Box</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0308.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+The WebSite Setup program installs the selected files on your system. 
+The program displays progress indicators and tells you which files are 
+being installed. Setup also adds information to your Windows 
+Registry.
+<p>
+<li>
+The setup program displays the Windows CGI Update dialog box 
+(Figure 3-9). For more information about CGI programming, see 
+Section 4 of this book.
+<p>
+<hr>
+<i>Figure 3-9: Windows CGI Update Information</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0309.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+When complete, Setup displays the WebSite Setup Complete dialog 
+box (See Figure 3-7). You can view the README file and start WebSite. 
+Click Finish to close the Setup program.
+</ol>
+<p>
+You're now ready to begin testing the installation as described in the 
+next sections. 
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+Remember to rebuild your indexes with the new version of WebIndex. 
+For information on using WebIndex, see Chapter 6, <i>Indexing and 
+Searching Your Documents.</i>
+</blockquote>
+<h2> Testing the WebSite Server</h2>
+After installing WebSite, you must test the server to verify that it is 
+installed and operating properly. The verification test has four 
+parts:
+<p>
+<ul>
+<li>Making sure the server starts properly
+<p>
+<li>Viewing a WebSite document from the local computer
+<p>
+<li>Viewing a WebSite document from a remote computer
+<p>
+<li>Running the server self-test and demonstration (from the default 
+home page)
+</ul>
+<p>
+<h3> Is the Server Running?</h3>
+When you finish WebSite Setup, the first test is to make sure the 
+WebSite server starts and stays running. If you asked Setup to start 
+WebSite when it finished, the server should be running. Depending on 
+how you chose to run WebSite during setup, the server icon should 
+appear on your screen if the server started with no problems. If you 
+can see the icon on your screen, then the server has passed the first 
+test--it's running. The icon title indicates the server's status as idle or 
+busy. Note that under Windows 95, the server's icon may be in the 
+Tray portion of the Task bar. To see its status in a pop-up label, move 
+the mouse cursor over the server icon in the Tray.
+<p>
+If the icon doesn't appear and you asked Setup to start the server, then 
+you may have elected to run the server as a service with no desktop 
+icon (under Windows NT only). To check that the server is running, 
+open the Services settings in the Control Panel. Scroll through the list 
+of services until you see Web Server and check the status. If it says 
+``started,'' the server is running and has passed the first test.
+<p>
+If you didn't ask Setup to start the server, you must do so now. Under 
+Windows 95, click on the WebSite Server item (in the WebSite 1.1 
+program folder of the Start menu). Under Windows NT, double-click 
+on the WebSite Server icon in the WebSite 1.1 program group (if you 
+are using Windows NT 4.0 with the new user interface shell, follow 
+the Windows 95 instruction). The server should start and minimize to 
+an icon on the desktop.
+<p>
+If the server does not start, check the server log (in the logs directory 
+of WebSite) for possible reasons. The most common is that TCP/IP is 
+not configured properly. Also see Appendix C, <i>Troubleshooting 
+Tips.</i>
+<h3> Can You View a WebSite Document from the Local Computer?</h3>
+The easiest way to test if your computer and WebSite are set up 
+correctly is with a Web browser. To test your setup, follow these 
+steps:
+<p>
+<ol>
+<li>
+Make sure your TCP/IP connection is open. If you are on a TCP/IP 
+network or have a dedicated connection to the Internet, this is probably 
+transparent to you. If you are on a standalone computer and get your 
+TCP/IP connectivity with a dial-up SLIP or PPP account, make sure 
+that the connection is working.
+<p>
+<li>
+Make sure your WebSite server is running (as described in the 
+preceding section).
+<p>
+<li>
+With your Web browser, open the following file (use Open or Open 
+Location from the File menu):
+<p>
+<pre>	file:///C:/WebSite/wsdocs/index.html
+</pre>
+<p>
+(Use the drive letter and WebSite directory appropriate for your 
+installation.) 
+<p>
+<li>
+The browser displays the server's Welcome page file, as shown in 
+Figure 3-10. However, displaying this document does not verify that 
+the server is working because the browser did not find it by contacting 
+the server. (You can view local files in a browser without using the 
+server.)
+<p>
+<hr>
+<i>Figure 3-10: WebSite Resources Welcome Page</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0310.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Select the hypertext link Click Here in the Important paragraph. The 
+link is for the URL
+<p>
+<pre>	http://localhost/wsdocs/index.html
+</pre>
+<p>
+The browser sends out the request for this URL, which is interpreted 
+by the browser and server as the Welcome page document on the local 
+computer. (Note that using localhost in a URL won't work when you 
+try to reach your server from another computer.)
+<p>
+If the server and computer are set up correctly, the server's Welcome 
+page again appears in the browser window, as shown in Figure 3-10. 
+This time, however, the browser contacted the server and the server 
+returned the document. The URL field shows the URL 
+<i>http://localhost/wsdocs/index.html.</i>
+<p>
+<li>
+Next, test the server using the IP address. In the URL field of the 
+browser, type in the URL for the server's Welcome page, using the 
+following format:
+<p>
+<pre>	http://server.IP.address/wsdocs/index.html
+</pre>
+<p>
+where <i>server.IP.address</i> is the IP address of your server, such as 
+123.234.29.1. The browser should display the same document as 
+shown in Figure 3-10, except that the URL field displays the URL with 
+the server's IP address.
+<p>
+<li>
+If your server's domain name is registered with DNS, test the server 
+using the domain name. In the URL field of the browser, type in the 
+URL for the server's Welcome page, using the following format:
+<p>
+<pre>	http://your.server.name/wsdocs/index.html
+</pre>
+<p>
+where <i>your.server.name</i> is the fully qualified domain name (FQDN) of 
+your server, such as <i>www.comp-bear.com</i>. The browser should display 
+the document shown in Figure 3-10, except that the URL field displays 
+the URL with the server's name.
+</ol>
+<h3> Can You View a WebSite Document from Another Computer?</h3>
+The next step in testing the server is to view a document on your 
+WebSite server from a different computer, either one on your internal 
+network or one connected to the Internet. This test is essentially the 
+same as the previous one, only from a different location. To complete 
+this test you must have access to another computer that has a working 
+Web browser. 
+<p>
+To test the WebSite server from another computer, follow these 
+steps:
+<p>
+<ol>
+<li>
+Make sure your WebSite server is running.
+<p>
+<li>
+From the other computer, launch a Web browser such as Spyglass 
+Mosaic or Netscape Navigator.
+<p>
+<li>
+Specify the URL for your server's Welcome page, using the following 
+format:
+<p>
+<pre>	http://server.IP.address/wsdocs/index.html
+</pre>
+<p>
+where <i>server.IP.address</i> is the IP address of your server. The browser 
+uses the URL to locate your WebSite server. If everything is set up 
+correctly, you will see the WebSite Welcome page (Figure 3-10).
+<p>
+<li>
+If your server's domain name is registered with DNS, test the server by 
+specifying the URL again, using the following format:
+<p>
+<pre>	http://your.server.name/wsdocs/index.html
+</pre>
+<p>
+where <i>your.server.name</i> is the fully qualified domain name (FQDN) of 
+your server. If everything is set up correctly, you will see the WebSite 
+Welcome page (Figure 3-10), with the domain name in the URL 
+field.
+</ol>
+<p>
+If you performed this test from a computer on your local network and 
+it does not work, make sure the server is running and then check the 
+TCP/IP configuration of the computer and the network. If you continue 
+to have difficulties, consult your network or system administrator.
+<p>
+If you conducted this test from a computer connected to the Internet 
+and it failed, try again. Sometimes heavy traffic on the Internet can 
+cause connections to time-out. If after several tries you still cannot 
+reach the server, recheck the TCP/IP connections on both computers. 
+Also make sure your server's name is a fully qualified domain name 
+and that it is registered with DNS. If you continue to have difficulties, 
+consult your Internet service provider.
+<h3> Running the Server Self-Test and Demonstration</h3>
+So far you have tested that the server is running, that it can serve 
+documents locally, and that the IP address and/or hostname is 
+resolving correctly. Now it's time to put the server through its paces by 
+running the server self-test. This last test has two primary benefits: 
+first, it tests that the server is configured correctly and that all the 
+features are working; second, it introduces you to the server's many 
+capabilities. 
+<p>
+Depending on what you plan to do with your WebSite server, the self-
+test can provide valuable examples and plentiful ideas. Note that some 
+of the items in the server self-test are quite advanced. Don't worry if 
+you don't understand them at first. The rest of this book is dedicated to 
+explaining WebSite's features and how (and why!) you use them. 
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+Since you will want to run the self-test and demonstration more than 
+once (for example, whenever you make major configuration changes to 
+your web or to collect data for troubleshooting problems), we created a 
+checklist that includes all the server's features tested. You can find the 
+checklist in Appendix A; we recommend you photocopy it, date it, and 
+then complete it as you work through the self-test.
+</blockquote>
+<p>
+To start the WebSite self-test and demonstration, do one of the 
+following:
+<p>
+<ul>
+<li>In your Web browser, open the URL 
+<i>http://localhost/wsdocs/32demo/.</i>
+<p>
+<li>From the WebSite Resources, or server's Welcome, page (see Figure
+3-10), click on the link to <i>Server Self-Test and Demonstration.</i>
+</ul>
+<p>
+Note the checklist near the beginning of the self-test. If you are not 
+currently able to meet all these requirements (for example, you may 
+not have all the viewers or programming languages installed), we still 
+recommend you complete the self-test. Just note that some features will 
+not work correctly. For example, if your browser is not configured for 
+sound, you will receive an error message when you test the audio link. 
+Such an error is not a server problem, it only indicates that your 
+browser could be configured differently.
+<p>
+Remember to record the server's responses to each item in the self-test 
+on a copy of the checklist from Appendix A. If you encounter too 
+many errors, please read the Frequently Asked Questions, available 
+from the Welcome page. 
+<h2> Using the Server's Control Menu</h2>
+Although powerful and fully-featured, the server requires very little 
+attention from you. In fact, it has very few commands available to you 
+directly, since all server configuration is done through the Server 
+Admin application. The server's Control menu lists only three items: 
+Properties, Pause, and Exit. You can display the server's Control menu 
+by maximizing the server's icon or by single-clicking on the 
+minimized server icon with the right mouse button (Windows 95) or 
+the left mouse button (Windows NT).
+<p>
+The three Control menu items include:
+<p>
+<DL>
+<DT>
+<b>Properties</b>
+<DD>
+Displays the server's property sheet. You can change 
+the server's configuration on the property sheet (also called the Server 
+Admin application). The server's general properties are covered in the 
+following section of this chapter; the other properties are covered 
+thoroughly in Section 3 of this book.
+<p>
+<DT>
+<b>Pause</b>
+<DD>
+Lets you pause the server without exiting it. Pausing the 
+server is useful for quick updates to your web or for server 
+maintenance. When you pause the server, a dialog box pops up in 
+which you can enter a message that users requesting documents from 
+your web will see. (Note that some browsers replace this message with 
+their own error message.) This message lets the user know that the 
+server is only temporarily offline. 
+<p>
+If you are running WebSite as a service under Windows NT, the Pause 
+item is not available from the WebSite Control menu. You must use 
+the Services Control Panel or the utility wsctl. See 
+<a href="#service">Running WebSite as a Service,</a> later in this chapter.
+<p>
+<DT>
+<b>Exit or Close</b>
+<DD>
+Stops the server and closes the application. Once the 
+server exits, users receive no messages when they request 
+documents.
+</DL>
+<h2> Reviewing WebSite's General Properties</h2>
+During installation, WebSite puts specific information about your 
+server in the Windows 95 or Windows NT Registry. This 
+configuration information is used by many of the WebSite 
+applications, including Server Admin, which you use to administer the 
+server. We will deal with Server Admin in great detail in Section 3 of 
+this book, but for now, let's take a look at the most general information 
+included there. You may need to make changes to the general setup at 
+some point and this will acquaint you with the particulars. Also, if you 
+choose to change whether WebSite runs as a service or a desktop 
+application under Windows NT, you need to make that change 
+here.
+<p>
+To view the general information, launch Server Admin from the 
+WebSite program list or group. The General page is displayed, as 
+shown in Figure 3-11. 
+<p>
+<hr>
+<i>Figure 3-11: Server Admin General Page</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0311.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+The top of the page provides information about your WebSite 
+server:
+<p>
+<DL>
+<DT>
+<b>Working Directory</b>
+<DD>
+Indicates where WebSite is installed. This 
+directory is also called the server root. We discuss this concept in 
+detail in Chapter 9, <i>Mapping.</i> Do not change this entry unless you 
+move WebSite to a new location.
+<p>
+<DT>
+<b>CGI Temporary Directory</b>
+<DD>
+Indicates the temporary location 
+Common Gateway Interface (CGI) programs use. CGI programs are 
+discussed in detail in Section 4. You can change this directory if 
+necessary by typing in a new one.
+<p>
+<DT>
+<b>Administrator Address</b>
+<DD>
+Shows the complete email address of the 
+WebSite server administrator. Notice that the address is the Internet 
+address you entered during setup. You can change the address here by 
+typing in a new one.
+<p>
+<DT>
+<b>Run Mode</b>
+<DD>
+Specifies how WebSite will run the next time it is started. If you want 
+to change WebSite's mode from an application to a service, you must 
+first select a new run mode and then restart the server. For running 
+WebSite as a service under NT, see the instructions later in this 
+chapter.
+<p>
+Under Windows 95 there are four run modes: 
+<p>
+<ul>
+<li>
+Application (minimized), login or manual start with the server icon in 
+the Task Bar
+<p>
+<li>
+Application (tray), login or manual start with the server icon in the 
+Tray
+<p>
+<li>
+System service (minimized), continuously running with the server icon 
+in the Task Bar
+<p>
+<li>
+System service (tray), continuously running with the server icon in the 
+Tray
+</ul>
+<p>
+Under Windows NT 3.51 there are three run modes: 
+<p>
+<ul>
+<li>
+Application (minimized), login or manual start with the server icon on 
+the Desktop (the default)
+<p>
+<li>
+System Service (hidden), continuously running with no server icon
+<p>
+<li>
+System Service (minimized), continuously running with the server 
+icon on the Desktop
+</ul>
+<p>
+Under Windows NT 4.0 two additional run modes let you choose to 
+show the server's icon in the Tray for both service and application.
+</DL>
+<p>
+The rest of the page provides information about your WebSite server's 
+network connections:
+<p>
+<DL>
+<DT>
+<b>Normal Port</b>
+<DD>
+Tells the server what port number to use. The normal 
+(TCP/IP) port is 80. Unless you know what you are doing, don't 
+change this number.
+<p>
+<DT>
+<b>Timeouts (Receive and Send)</b>
+<DD>
+Fairly standard settings. You may 
+need to increase the timeouts if you are on a slow line, or if users 
+complain that your server seems "slow" or "cuts off" documents. 
+Increase the timeouts to 180 seconds for a PPP/SLIP connection.
+<p>
+<DT>
+<b>Maximum Simultaneous Connects</b>
+<DD>
+Limits the number of 
+simultaneous connections. You may need to adjust this for your line 
+speed, to guarantee a minimum level of service. For example, if you 
+have a 28.8 line and 10 simultaneous connections, each user sees only 
+a 2800 baud line, which is very slow for Web traffic. In this case, you 
+would want to decrease the number of maximum connects. If you are 
+on a high-speed line (ISDN, T1, or T3) or running on an internal 
+network, the number can be higher.
+<p>
+<DT>
+<b>Hold Connections Open for Re-Use</b>
+<DD>
+Specifies whether or not the server should use the Connection: Keep 
+Alive feature. Several browsers support Keep Alive (including 
+Spyglass Mosaic) to make the transfer of documents more efficient and 
+less time-consuming. This feature permits the browser to reuse a 
+connection for fetching inline graphics and other elements that are 
+referenced in an HTML document. If your users experience trouble, 
+you should experiment with switching this feature on and off.
+<p>
+<DT>
+<b>Winsock Vendor Information</b>
+<DD>
+Lists the valid Winsock programs 
+detected on your system. WebSite uses Microsoft's Winsock Version 
+1.1. You cannot change this field.
+</DL>
+<p>
+As you can see, much of the information on this page is rarely 
+changed. However, if you have a problem with the server, technical 
+support may ask you to change some of the values on this screen. 
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+When you make a change to Server Admin and close it, the server is 
+updated as soon as the server is idle.  When the update is made, 
+you'll hear the computer beep, indicating that the server's 
+configuration has been updated. If the server is not running, 
+you will not hear a beep, but the configuration is 
+in effect the next time you start the server.
+</blockquote>
+<h2> Activating the Administrator Account</h2>
+WebSite comes with a default user account called <i>Admin.</i> This 
+account is dormant, meaning it has no password and belongs to no 
+groups. To activate the account you must assign a password and add it 
+to at least one group. The Admin account is useful for restricting 
+certain URLs and server functions to a single account and for remotely 
+administering WebSite. (To learn about restricting access to URLs on 
+your web, see Chapter 12, <i>Controlling Access to Your Web;</i> for 
+instructions on remote administration, see Chapter 14, <i>Remote 
+Administration</i>.)
+<p>
+To activate the administrator account, you must first select a password. 
+Then complete these steps:
+<p>
+<ol>
+<li>
+Launch Server Admin from the WebSite program list or program 
+group and click on the tab for the Users page (Figure 3-12).
+<p>
+<hr>
+<i>Figure 3-12: Server Admin Users Page</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0312.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+In the Users field, select the user <i>Admin</i> from the pulldown list 
+(as shown) and click on the Password button. The Change Password 
+dialog appears.
+<p>
+<li>
+Since there is no old password, put the cursor in the New Password 
+field and type in the new password. Press TAB and type in the new 
+password again. The password is hidden. Press OK when finished.
+<p>
+<li>
+In the Group Membership section of the Users page, highlight 
+Administrators in the Available Groups list and press Add. The group 
+name moves to the Member Of list. Repeat for the group name Users. 
+(You can accomplish the same task by double-clicking on the group 
+name.) Figure 3-13 shows this section with the group memberships 
+assigned.
+<p>
+<hr>
+<i>Figure 3-13: Adding Users to Group</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0313.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Press OK to update the server and finish the activation. If the server is 
+running, wait for it to beep before trying to use the new account.
+</ol>
+<a name=service>
+<h2> Running WebSite as a Service</h2>
+You can elect to run WebSite as a service rather than a desktop 
+application under Windows 95 or Windows NT. The advantage of 
+running WebSite as a service is that it runs even when no one is 
+logged on to the computer, a helpful feature if you run your server 24 
+hours a day and don't want to leave an open account on an unattended 
+computer. In addition, running WebSite as a service allows it to restart 
+automatically when the operating system reboots. 
+<p>
+Under Windows 95, the service mode operates in the same fashion as 
+the application mode, except the server runs without anyone being 
+logged in. That is, the Control menu options are available for the 
+server by clicking on the right mouse button. Under Windows NT, 
+however, some of those functions are not available. This section 
+discusses how to set up WebSite as a service and how to start, stop, 
+pause, and continue the service with a simple utility program.
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+If you are installing WebSite as a service on a Windows NT system, 
+you should be well-acquainted with the subject of Windows NT 
+identity. By default, a service assumes the identity of the system 
+account (you can change this on the services control panel). WebSite 
+requires this default setup to run properly. If you encounter problems 
+running WebSite, check the identity of the server's account and make 
+sure it is the system account. We also recommend you first test 
+WebSite as a desktop application.
+</blockquote>
+<h3> Setting up the Service</h3>
+To change WebSite from a desktop application to a system service 
+requires only a few quick steps. All the information the operating 
+system needs is in place--you simply have to shut down the server as 
+an application, make one change in Server Admin, and start it up 
+again as a service as described in these steps:
+<p>
+<ol>
+<li>
+Exit the WebSite server if it is running.
+<p>
+<li>
+Launch Server Admin and make sure the General page is 
+displayed.
+<p>
+<li>
+On the General page, from the Run Mode pulldown list select System 
+Service, with the desired icon option. 
+<p>
+<li>
+Close Server Admin.
+<p>
+<li>
+Under Windows 95, start the server from the WebSite Start menu 
+folder. The server is now running as a service.
+<p>
+<li>
+Under Windows NT, you must complete some additional steps. In the 
+Windows NT Control Panel, open Services.
+<p>
+<li>
+Scroll through the listed services until you come to Web Server, as 
+shown in Figure 3-14.
+<p>
+<hr>
+<i>Figure 3-14: Windows NT Services Window</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0314.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+<li>
+Highlight Web Server and press Start. Services starts the WebSite 
+server and, if you elected to run it with a desktop icon, the server icon 
+appears on your screen.
+<p>
+<li>
+If you want WebSite to start automatically whenever the system starts, 
+press Startup on the Services window and complete the necessary 
+information. Refer to the operating system guide for more help in 
+setting up services. 
+</ol>
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+To return WebSite to a desktop application, simply stop the service, 
+reset the Run Mode in Server Admin, and launch the server as an 
+application.
+</blockquote>
+<h3> Starting, Stopping, Pausing, and Continuing the Service</h3>
+As described in the previous section, under Windows NT you can start 
+the WebSite service from the Services window of the Control Panel. In 
+addition, a utility program comes with WebSite for Windows NT that 
+lets you start, stop, pause, and continue the server from the command 
+line. The utility is called <i>wsctrl</i> and is located in the WebSite 
+Support directory. 
+<p>
+You can use <i>wsctrl</i> as a quick alternative to the Control Panel or as 
+part of regularly scheduled maintenance activities. If you pause the 
+server with <i>wsctrl</i>, the server sends a Service Unavailable message so 
+that users know the server is only temporarily offline (this is the same 
+effect as using the Pause control option when the server is running as a 
+desktop application).
+<p>
+You run <i>wsctrl</i> from a Command Prompt (depending on how your 
+path is set up, you may need to use the full pathname of the program 
+or be in the <i>WebSite\support</i> directory). <i>wsctrl</i> requires 
+one of the following four options:
+<p>
+<ul>
+<li>start--starts the server as a service
+<p>
+<li>stop--stops the server
+<p>
+<li>pause--pauses the server while it is running
+<p>
+<li>continue--restarts the server from a paused state
+</ul>
+<p>
+If you forget these options, simply type <i>wsctrl</i> at the command prompt 
+and the program displays usage information.
+<h2> For More Help</h2>
+Several sources of help are available to WebSite users, including:
+<p>
+<ul>
+<li>This book, <i>Building Your Own WebSite</i>
+<p>
+<li>WebSite Resources
+<p>
+<li>WebSite Online Help
+<p>
+<li>WebSite Central (<i>http://website.ora.com/</i>) and O'Reilly Software 
+Online (<i>http://software.ora.com/</i>)
+<p>
+<li>WebSite Technical Support
+</ul>
+<h3> Getting the Most out of This Book</h3>
+<i>Building Your Own WebSite</i> provides comprehensive instructions for 
+installing and using the various applications and tools that make up 
+WebSite. This book takes a task-oriented approach, presenting as 
+much procedural material as possible in a real-life, hands-on manner. 
+The numerous tutorials give you an opportunity to practice the skills 
+you need for building and maintaining a successful web. We 
+encourage you to work through the tutorials and apply the steps to 
+your own specific web.
+<p>
+In addition, we've included scenarios for how your web can be more 
+practical and useful to others. Helpful hints, ideas for using the server, 
+and notes for avoiding difficulties are scattered throughout the book. 
+And don't overlook the appendixes, which include valuable reference 
+and troubleshooting material. For example, if you're having problems 
+with WebSite, first consult Appendix C, <i>Troubleshooting Tips.</i>
+<h3> Using WebSite Resources</h3>
+The WebSite Resources icon in the program group or Start menu 
+folder is the starting point for a wealth of information about WebSite. 
+Various diagnostic tools, examples, reference material, tutorials, and 
+links to other resources are available from WebSite Resources. These 
+online resources are HTML-based and require a browser to view. The 
+server self-test, troubleshooting tips, the latest release notes, Visual 
+Basic examples, and the Windows CGI specification are among the 
+resources you can tap from the Resources home page. We suggest you 
+start with the WebSite Resources when you need information about 
+WebSite that you can't find in this book.
+<h3> Using Online Help</h3>
+Each WebSite application has online help available through either a 
+menu item or a screen button. In addition, you can bring up the help 
+system by pressing F1 in any window.
+<p>
+The WebSite online help gives definitions and specific procedures 
+regarding the current application. As in online help for other 
+Windows-based applications, WebSite help includes hyperlinks to 
+associated topics and topic searching.
+<h3> Checking out Web Resources</h3>
+You should also regularly consult the Web-based resources for news 
+and information on WebSite and other O'Reilly software products. 
+WebSite Central is a web site dedicated to supporting WebSite by the 
+staff of O'Reilly &amp; Associates. WebSite Central provides product 
+information, answers to frequently and infrequently asked questions 
+(FAQs and IFAQs), troubleshooting help, advice for particular 
+implementations of WebSite, ideas for new uses of WebSite, sample 
+HTML files, helpful utility programs, and opportunities to interact 
+with the technical support staff and other WebSite users. You will find 
+the Tech Center helpful as you expand your web and add features to it. 
+The WebSite-Talk mailing list allows you to ask questions of other 
+WebSite users and to gain from their experience.
+<p>
+Reaching WebSite Central is simple; point your browser at 
+<a href="http://website.ora.com"> http://website.ora.com. </a>
+<p>
+We also recommend you visit O'Reilly's umbrella Web site, O'Reilly 
+Software Online (<a href="http://software.ora.com">http://software.ora.com
+</a>). From this page you can 
+learn about other O'Reilly software products such as PolyForm and WebBoard 
+as well as general news about O'Reilly's products.
+<h3> Contacting Technical Support</h3>
+If you've thoroughly investigated all the other sources for help and still 
+need assistance, O'Reilly &amp; Associates provides technical support 
+on a per-incident basis or through annual technical support contracts. 
+For per-incident support, call (707) 829-0515 or (800) 932-9302 
+between 7:00 a.m. and 5:00 p.m. (Pacific Time). For more information 
+or to set up an annual tech support contract, call O'Reilly Customer 
+Service at (800) 998-9938 or send email to <i>website@ora.com.</i>
+<p>
+<HR>
+<p>
+<center>
+<a href="StartHere.htm">Return to the Start Page</a>
+<p>
+<IMG SRC="figs/ORSlogo.gif" border=0 ALT=[Home]">
+<p>
+&copy; 1996 O'Reilly &amp; Associates, Inc.  All rights reserved.
+<p>
+</center>
+<hr>
+</BODY>
+</HTML>

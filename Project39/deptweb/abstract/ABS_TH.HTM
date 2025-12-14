@@ -1,0 +1,100 @@
+<html>
+<script language="JavaScript">
+<!-- Beginning of JavaScript Applet -->
+/* Copyright (C)1996 Web Integration Systems, Inc. DBA Websys, Inc.
+   All Rights Reserved.
+
+   This applet can be re-used or modified, if credit is given in 
+   the source code.
+
+   We will not be held responsible for any unwanted effects due to the 
+   usage of this applet or any derivative.  No warrantees for usability 
+   for any specific application are given or implied.
+
+   Chris Skinner, January 30th, 1996.   
+*/
+
+function scrollit_r2l(seed)
+{
+   sub_scrollit_r2l(seed,seed);
+}
+
+function sub_scrollit_r2l(seed,org_seed)
+{
+        var m1  = "Welcome to Department Intranet. If you got an idea, comment or any suggestion please do not keep them in your mind. Tell me by e-mail to s6014110@diamond.ce.kmitl.ac.th or s6014226@diamond.ce.kmitl.ac.th or s6014556@diamond.ce.kmitl.ac.th...";
+        var msg = m1;
+        var out = " ";
+        var c   = 1;
+
+        if (seed > 100) 
+        {
+                seed--;
+	        var cmd  = "sub_scrollit_r2l(" + seed + "," + org_seed + ")";
+                timerTwo = window.setTimeout(cmd,100);
+        }
+        else if (seed <= 100 && seed > 0) 
+        {
+                for (c = 0; c < seed; c++) 
+                {
+                        out += " ";
+                }
+                out += msg;
+                seed--;
+                var cmd = "sub_scrollit_r2l(" + seed + "," + org_seed + ")";
+                window.status = out;
+                timerTwo = window.setTimeout(cmd,100);
+        }
+        else if (seed <= 0) 
+        {
+                if (-seed < msg.length) 
+                {
+                        out += msg.substring(-seed,msg.length);
+                        seed--; 
+	                var cmd = "sub_scrollit_r2l(" + seed + "," + org_seed + ")";
+                        window.status = out;
+                        timerTwo = window.setTimeout(cmd,100);
+                }
+                else 
+                {
+                        window.status = " "; 
+ 	  	        var cmd = "scrollit_r2l(" + org_seed + "," + org_seed + ")";
+                        timerTwo = window.setTimeout(cmd,1);
+                }
+        }
+}
+<!-- End of JavaScript code -->
+</script>
+<Title>Department Intranet</Title>
+<Body Background = "error.gif" onload = "window.setTimeout('scrollit_r2l(100)',1);">
+<center><h1><Font Face = AngsanaUPC Color = Red Size = 6>โครงงานระบบให้บริการข้อมูลข่าวสารภายในภาควิชา</Font></h1></center>
+<Font Face = AngsanaUPC Color = Purple Size = 4> 
+<spacer size = 400>อาจารย์ที่ปรึกษา <br>
+</Font>
+<Font Face = AngsanaUPC Color = Blue Size = 4>
+<spacer size = 500>อาจารย์สมศักดิ์	วลัยรัชต์<br>
+<spacer size = 500>อาจารย์ประสาร	ตังติสานนท์<br>
+</Font>
+<Font Face = AngsanaUPC Color = Purple Size = 4>
+<spacer size = 400>โดย <br>
+</Font>
+<Font Face = AngsanaUPC Color = Blue Size = 4 >
+<spacer size = 500>นายชาญชัย           พิพัฒน์พิทยาสกุล  36014110<br>
+<spacer size = 500>นางสาวนิลเนตร     วงศ์งาม	     36014226<br>
+<spacer size = 500>นางสาวอรวดี        พานิชอัตรา           36014556<br><br>
+</Font>
+<b><Font Face = AngsanaUPC Color = purple Size = 5>บทคัดย่อ</Font></b><br>
+<Font Face = AngsanaUPC Color = Blue Size = 4>
+<pre>
+<spacer size = 60>โครงงานระบบให้บริการข้อมูลข่าวสารภายในภาควิชา เป็นโครงงานที่ถูกพัฒนาขึ้น เพื่อศึกษาถึงความเป็นไปได้ในการนำ
+ระบบคอมพิวเตอร์มาประยุกต์ใช้ในการให้บริการข้อมูลข่าวสารภายในภาควิชาว่ามีความเป็นไปได้มากน้อยเพียงใด โดยการทำงานของ
+ระบบนี้จะได้มาจากการศึกษา และ ปรับปรุงระบบเดิม คือ ระบบที่ทำงานโดยมนุษย์เพียงอย่างเดียว  ให้มาเป็นระบบกึ่งอัตโนมัติ โดยให้
+คอมพิวเตอร์ทำการเก็บข้อมูลที่เกี่ยวข้องกับเอกสารต่าง  ๆ  ที่เข้ามาภายในภาควิชา โดยระบบจะให้ผู้ใช้ทำการป้อนข้อมูลต่าง  ๆ  เช่น
+เลขที่เอกสาร   หัวข้อเรื่องเอกสาร   การเลือกรายชื่อผู้รับ หรือ อาจารย์ที่เกี่ยวข้อง  การเลือกประเภทแฟ้มข้อมูลที่เอกสารนั้นเกี่ยวข้อง 
+เป็นต้น ระบบจะทำการจัดส่งข้อมูลเหล่านี้ไปยังผู้รับหรืออาจารย์ที่เกี่ยวข้อง และจัดการข้อมูลต่าง ๆ ภายในฐานข้อมูลโดยอัตโนมัติ โดย
+ผู้รับหรืออาจารย์สามารถเรียกดูเอกสารของตนเอง หรือเอกสารทั่วไปได้  ซึ่งผู้ใช้สามารถเรียกดูเอกสารได้จากหน้าแรกจนสิ้นสุดหน้าที่
+มีลายเซ็นต์ของผู้ออกเอกสารนั้น  ผู้ใช้สามารถเรียกดูรายละเอียดของเอกสารแต่ละเอกสารได้ทุกเวลา ระบบจะทำการปรับปรุงฐานข้อมูล
+ทุกเดือนเพื่อไม่ให้ฐานข้อมูลมีขนาดใหญ่เกินไป นอกจากนี้ระบบยังออกแบบให้ผู้ใช้สามารถปรับปรุงรายการบางรายการด้วยตัวเอง เช่น 
+รายชื่ออาจารย์ และประเภทของแฟ้มข้อมูล ซึ่งในที่นี้สามารถเพิ่มหรือลบก็ได้ ในกรณีที่มีการเปลี่ยนแปลงในอนาคต
+</pre>
+</Font>
+<html>

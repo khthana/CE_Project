@@ -1,0 +1,78 @@
+Files in this diskette are for
+"Application Development on WWW"
+
+Dr.Voravat Limpoka Advisor.
+
+Tawatchai Anuponganant  36014187   Tel.866-6039
+Vitaya Vinyunavan       36014406   Tel.321-8984
+====================================================
+
+CGI32.ZIP
+        CGI Framework 32-bit for Delphi
+
+CGIDB32.ZIP
+        Delphi component to connect CGI application to Database
+
+CGIHELP.ZIP
+        Help file for Delphi CGI Framework
+
+APPENDIX.ZIP
+        MS-Word 6.0 document for the appendix of the thesis
+
+CHAPTER.ZIP
+        MS-Word 6.0 document for the content of the thesis
+
+FRIEND.ZIP
+        Example of CGI application by Visual Basic 4.0.
+        This application is working with MS-Access database file
+        named "LAEM.MDB"
+
+ABSTRACT.HTM
+        Project's abstract in HTML format.
+
+PROJECT.JAVA
+        JAVA Source code for shopping online example. 
+        You must compile this file to make JAVA Applet.
+        This JAVA Applet work with CGI Application in PROJECT.ZIP
+        Make sure you copy JAVA Applet to the correct directory depend on
+        your HTTP Server program , ie. if you use WebSite from O'Reily & Association
+        you must store this applet in directory "......./WebSite/Java/".
+
+PROJECT.ZIP
+        This is CGI part of shopping online example by Visual Basic 4.0 
+        You may have to edit two constant in CGI_MAIN.BAS  those are 
+        "CGI_File" and "Database_File", and then compile to make .EXE
+       
+
+
+======================================================
+How to use FRIEND.ZIP
+
+1.    First , you must have HTTP server for Windows on your machine.
+2.    You must install Visual-Basic in this machine too. This example use Visual Basic 4.0
+3.    In HTTP Server , there will be directory to store CGI application.
+       This directory usually named "CGI-WIN"
+4.    Create new directory in "CGI-WIN" for this CGI-Example
+5.    Unzip file "FRIEND.ZIP" ,  you will get 
+	CGI_MAIN.BAS
+	CGI32.BAS
+	STARTER.BAS
+	FRIEND.VBP
+	FRIEND.EXE
+	LAEM.MDB
+	LAEM.LDB
+6.    .BAS files are Visual Basic module.  You MUST edit CGI_MAIN.BAS.
+       You DO NOT do anything with CGI32.BAS and STARTER.BAS.
+        LAEM.MDB and LAEM.LDB  is MS-Access database file.  This example will
+        working with database in this file.
+
+        You have to edit only 2 line in CGI_MAIN.BAS.
+        In the declarations part , there are two constants  CGI_File and Database_File.
+        You must edit this constant properly with your system.
+
+=============================================================
+
+
+				GOOD LUCK !!!!!
+
+ps.   any problem , you can solve with yourself !!!     ;)

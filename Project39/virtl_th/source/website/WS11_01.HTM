@@ -1,0 +1,714 @@
+<html>
+<!--sbp;1.1e;CD;092696-->
+<head>
+<title>Building Your Own WebSite: Why Publish with WebSite?</title>
+</head>
+<BODY BGCOLOR="#FFFFFF">
+<center>
+<img src="figs/website.gif" alt="WebSite" WIDTH=216 HEIGHT=72>
+<h1>Chapter 1 <br>  Why Publish with WebSite?</h1>
+</center>
+<p>
+You have information--product literature, technical specs, 
+financial data, customer and employee records, employment 
+opportunities, schedules of events, reports. The information is in 
+a variety of formats--text, graphics, video, audio. People want 
+that information--customers, vendors, colleagues, friends, family. 
+<p> 
+How do you get this varied information into the hands of the right 
+people (and keep it out of the hands of the wrong people)? Publish 
+it with WebSite, the powerful, fully featured, easy-to-use Web 
+server from O'Reilly &amp; Associates.  
+<p>
+With WebSite you can publish your information directly on the 
+Internet and reach the millions of people who use the World Wide 
+Web every day. Or, you can use WebSite to publish on an internal 
+network and share important company information with the people who 
+need it most. You can even use WebSite's virtual server capability 
+to publish in both environments with a public web connected to the 
+Internet and a private web running on your internal LAN.  
+<p>
+To administer, build, and manage your web, WebSite comes with a 
+complete set of tools. WebView lets you see and develop your web in 
+a graphical environment. The HotDog Web Editor lets you create HTML 
+files with ease, while MapThis! makes creating clickable image maps 
+a breeze. WebIndex lets you create search indexes for all or any 
+parts of your web. With Server Admin you configure your server 
+through an easy-to-use graphical interface.  
+<p>
+This book is dedicated to showing you how WebSite works and how you 
+can use it to meet your information goals. This first chapter sets 
+the stage with ideas for using WebSite, some background on the Web, 
+an overview of the WebSite server and tools, and a look at some of 
+WebSite's key features.  
+<h2> How Can I Use WebSite?</h2>
+Running a Web server is essentially a new way to publish 
+information. Publishing on the Web differs from traditional 
+paper-based publishing by giving you the ability to include 
+multimedia elements, to link information from many locations, to 
+update and distribute information quickly, and to create virtual 
+documents from other sources and applications. Taking these general 
+capabilities as a jumping-off point, let's look at some ways you 
+might want to use WebSite in publishing your own information.  
+<p> 
+<ul>
+<li>
+Whether your business is a global corporation or an independent consultancy, 
+WebSite lets you tell other people on the Internet about your 
+business. Product and service information, competitive analyses, 
+philosophy of business, biographies of key people, employment 
+opportunities, press releases, and pricing data are topics you may 
+want to include. WebSite's powerful Common Gateway Interface (CGI) 
+lets you create forms for interactive contact with visitors to your 
+web. Links to and from other webs bring more traffic to your own web.  
+<p>
+<li>
+In a department or office, WebSite is an easy way to make data 
+readily available to others on the local area network. For example, 
+you have employee records, accounting information, sales 
+projections, project plans, and customer data that coworkers need 
+to use on a regular basis. You can easily create and maintain web 
+documents for these valuable records. If you have existing 
+databases and spreadsheets of data to share, you can use WebSite's 
+CGI to generate virtual documents with current data from those 
+applications. Instead of making a request directly to the 
+application, the user gives information to the CGI program through 
+a browser. The CGI program makes the request of the application and 
+displays the information in a web document. WebSite's full 32-bit 
+framework for developing CGI programs to execute Windows 
+applications is a powerful tool in building a web. Note, too, that 
+this particular application of WebSite is an internal use and does 
+not require access to the Internet.  
+<p>
+<li>
+WebSite's virtual server capability lets you host webs for other 
+clients, departments, or individuals. Each web has its own IP 
+address and is completely separate from the other webs, yet all 
+share one copy of WebSite. WebSite's Identity wizard and graphical 
+setup of virtual servers is a new feature of Version 1.1.  
+<p>
+<li>
+Often, large companies have frequently updated procedural 
+information to share among employees. If you are responsible for 
+updating and distributing this information, you know how difficult 
+it is to keep track of multiple copies. If you receive updates 
+regularly, you know how time-consuming it is to file the new 
+procedures and dispose of the old. Putting procedures (or other 
+frequently updated information) on a WebSite server solves both 
+the updating and distribution problems. Updates are completed once, 
+and when the files are added to the WebSite server the distribution 
+is complete. The files don't even have to be in HTML; simply 
+configure your users' browsers to correctly display or download 
+other file types such as Microsoft Word or WordPerfect. For 
+sensitive information, WebSite lets you restrict access to 
+particular users or groups of users. This solution works well for 
+companies with only one location or with many locations around the 
+world, since the Internet is an existing global network.  
+<p>
+<li>
+A company with business partners in different buildings, cities, 
+states, or around the world can use WebSite to exchange product 
+designs, specs, reviews, and progress reports. For example, at 
+company headquarters in California, product managers can post 
+designs and specs for a manufacturer in Singapore to review and 
+download. The factory in Singapore can post responses, revised 
+designs (based on capability), and progress reports on their 
+WebSite for the company to review and respond to. Exchanging 
+information on products under development takes full advantage of 
+WebSite's access control restrictions.  
+<p>
+<li>
+Managers required to write and distribute weekly or monthly status 
+reports will find WebSite a great time saver. They can write the 
+report and make it available on the server. Those who need to read 
+it can retrieve it at their convenience, completely eliminating the 
+copying and distributing steps.  
+<p>
+<li>
+Setting up a WebSite server can be a great solution for busy 
+educators. You can create a web with links to course descriptions, 
+current assignments, summer reading lists, and class schedules. 
+Your web can also have links to external resources such as 
+libraries or databases that your students need for research. A CGI 
+program for pulling students' grades from your electronic grade 
+book allows your students to always know where they stand in your 
+class. Of course, you want to restrict the CGI program's URL to 
+require user authentication. Including a mailto URL on a web page 
+leaves your students no excuse for not communicating with you.  
+<p>
+<li>
+Clubs, civic organizations, and church groups have information that 
+is valuable to members and non-members alike. WebSite is a perfect 
+vehicle for publishing that information. You can include the 
+history, current events, and biographies of officers and leaders. 
+News about special projects or needs can be set up in a What's New 
+page. Including links to other sites and resources on the Internet 
+helps your members find other useful information. A CGI program can 
+be used for collecting and posting comments from members. If the 
+club members are far apart, you can use your web for electing 
+officers by creating a forms-based ballot requiring user authentication.  
+<p>
+<li>
+If you just want to have fun, use WebSite as a personal server. Put 
+up a web about your interests and your life philosophy. Include 
+photos, artwork, audio, and video clips. Write a weekly newsletter 
+and post it for your family and close friends. Like-minded (or 
+possibly unlike-minded) readers will gather around your WebSite and 
+create a virtual community. Changing your WebSite often and making 
+it interesting (as is true of interactions in any community) is the 
+key for a successful personal web.  
+</ul> 
+<p>
+These are just a few ideas; you probably have many more for 
+publishing your information. This list referred to several features 
+of the Internet, the World Wide Web, and WebSite. Read on to learn 
+more about them.  
+<h2> How Does It Work?</h2> 
+The Internet, the World Wide Web, WebSite. How do they all fit 
+together? How do users find your information? To answer these 
+questions, take a few minutes to look at the big picture and some 
+basic concepts.  
+<h3> An Overview</h3>
+Figure 1-1 depicts the components of the Internet and 
+particularly the World Wide Web.
+<p>
+<hr>
+<i>Figure 1-1: The World Wide Web</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0101.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<p>
+In this illustration, you can see that
+<p>
+<ul>
+<li>
+The Internet is a network of networks that spans the globe.
+<p>
+<li>
+The World Wide Web is a collection of linked information on the Internet.
+<p>
+<li>
+Web browsers, such as Spyglass Mosaic or Netscape Navigator, find 
+and display information from the Web.
+<p>
+<li>
+Web servers, such as WebSite, house that information and send it to 
+the browser when requested.
+<p>
+<li>
+Your information in text, graphic, or multimedia format is the most 
+important piece of this picture. Publishing your information is why 
+you are setting up a Web server.  
+</ul>
+<p>
+Figure 1-2 seems quite similar to Figure 1-1. 
+It shows the same Web components but on an internal network, 
+such as a local area network, instead of the Internet--sometimes 
+called an intranet. You can use WebSite in either situation: on the 
+Internet for public, global use; or on an internal network for 
+local, private use.  
+<p>
+<hr>
+<i>Figure 1-2: An Internal Web</i>
+<p>
+<center>
+<IMG SRC="figs/WS11_0102.gif" ALT="(IMAGE)">
+</center>
+<hr>
+<h3> Basic Concepts</h3>
+Whether you plan to run a public or a private WebSite server, you 
+should be familiar with the few basic concepts that make it work. 
+As you use WebSite and explore its capability, these concepts will 
+become clear. This section describes the concepts, gives you a bit 
+of history, and introduces the specifications on which the Web relies.  
+<h4> Hypertext</h4>
+When Tim Berners-Lee decided to use hypertext technology in 
+developing the World Wide Web, he did away with the typical linear 
+approach to published material. You're familiar with that: you open 
+a book, skim the table of contents, and go to a specific topic. To 
+find similar information in the same book, you may have to check 
+the index (or a cross-reference) and turn there.  
+<p>
+Hypertext, on the other hand, allows for many relations within a 
+document and between documents. Hypertext links in a web document 
+allow the reader to instantly find additional information, which 
+may be text, graphics, video, or audio and may be located half a 
+world away! ``Web'' is an apt term to picture how hypertext works 
+on the Internet, where links can span computers around the globe. 
+By using hypertext as a navigational system, users can move freely 
+from one document to another, regardless of where the documents are 
+located.  
+<h4> Web browsers</h4>
+The Web is based on client/server architecture. Simply put, a 
+server holds documents that a client requests. On the Web, the 
+client is called a browser. A Web browser takes a user's request 
+(in the form of a URL, explained below), retrieves the document 
+from the proper Web server, interprets the contents, and presents 
+it to the user. 
+<p> 
+A graphical Web browser, such as Mosaic, can display text and GIF 
+graphics. Web browsers have varying capabilities of manipulating 
+the display of text. We recommend you test your web documents on 
+several browsers to verify their proper appearance.  
+<p>
+A Web browser can also be configured to automatically call external 
+viewers, such as Lview, Wham, and MPEGPlay, or other applications 
+to properly display specific types of documents. Web browsers are 
+becoming more sophisticated every day with built-in capabilities. 
+It is important that you keep up on browser improvements so that 
+the documents on your web take full advantage of new features.  
+<h4> Web servers</h4>
+The other half of the client/server relationship is the server. On 
+the Web, a server houses documents and returns them to a Web client 
+when requested. As its name implies, a server ``serves'' up the 
+document to the client. The WebSite server is a fully featured Web 
+server providing support for multiple IP addresses (virtual 
+servers), mapping capabilities, basic user authentication and 
+access control, automatic directory listing, and logging. These 
+topics are discussed in detail in Section 3 of this book.  
+<p> 
+Web servers not only return text and multimedia documents to 
+browsers, they can also execute special programs that enable them 
+to act as gateways to other applications or information resources. 
+These programs are called Common Gateway Interface (CGI) programs. 
+WebSite supports CGIs for the Windows environment, the standard 
+(POSIX) environment, and the DOS environment. 
+<p>
+For example, a WebSite Windows CGI program can execute a request 
+for data from a Microsoft Access database or a calculation from a 
+Lotus 123 spreadsheet and return the results to the browsers in an 
+HTML document. WebSite's full 32-bit support for Windows CGIs makes 
+it unique among Web servers. Windows CGIs for WebSite can be 
+written with a variety of tools including Visual Basic 4, Visual 
+C++, and Delphi. Section 4 of this book provides a detailed 
+discussion of CGIs.  
+<h4> Hypertext Markup Language (HTML)</h4>
+Text documents on the Web are ASCII (plain text) files that contain 
+codes of a special tagging language called Hypertext Markup 
+Language (HTML). HTML describes the structure of a document but not 
+its exact formatting. That is, you can identify some text as a 
+top-level heading with a special tag: 
+<p>
+<pre>&lt;H1&gt;Hypertext Markup Language (HTML)&lt;/H1&gt;
+</pre>
+<p>
+However, how that text looks to the user depends on the browser. 
+The head will certainly stand out, but it doesn't mean it will 
+appear as 18-point Helvetica boldface while the body text is 
+12-point Times Roman. Working with HTML means adjusting your 
+thinking away from WYSIWYG (what you see is what you get) desktop 
+publishing to deciding what role an element plays in your document. 
+Is it a head? Is it text? Is it a list? In many ways, HTML 
+formatting simplifies the life of an author because if concentrates 
+on content, not format.  
+<p> 
+The most powerful part of HTML is the ability to embed hypertext 
+links in documents. As you guessed, links have special tags. HTML 
+also includes tags that ask the user for input, either with simple 
+questions or complex forms.  
+<p>
+The current version of HTML is version 2.0. It is based on some of 
+the concepts of SGML, the Standard Generalized Markup Language, 
+which is an ISO standard used for marking up documents for both 
+print and online publication. The next version of the HTML 
+specification, HTML 3, will move HTML into full SGML compliance and 
+provide more tags. WebSite supports both HTML 2.0 and HTML 3. 
+Chapter 5, <i>HTML Tutorial and Quick Reference,</i> covers HTML 
+in detail, and also covers HotDog, the HTML editor shipped with WebSite.
+<h4> Global addressing: URLs</h4>
+With documents residing on Web servers around the world, how do Web 
+browsers know where to find a specific document? Every document on 
+the Web has a unique address called a Uniform Resource Locator, or 
+URL. You can think of URLs as a global addressing system that 
+provides several pieces of information to the Web browser.  
+<p>
+Let's look at the URL for the list of external viewers at the NCSA 
+at the University of Illinois at Urbana-Champaign:
+<p>
+<pre>http://www.ncsa.uiuc.edu/SDG/Software/WinMosaic/viewers.html
+</pre>
+<p>
+The first part of the URL, <i>http://,</i> tells what protocol is used to 
+reach the target server. In this URL the protocol is HTTP, which 
+means this is a Web server. (Yes, you can reach FTP servers and 
+Gopher servers by using URLs with the correct protocol.) The rest 
+of the URL is the path for the document. The server name is first 
+(<i>www.ncsa.uiuc.edu</i>), followed by the full URL path of the document 
+<i>viewers.html</i>.  
+<p> 
+The URL path is not necessarily the same as the physical path of 
+the file on the server. The URL path is determined by how the web 
+is mapped on the server. Chapter 9, <i>Mapping,</i> covers mapping 
+in detail; the important thing to remember now is that the physical 
+path and the URL path may have absolutely no correlation to each other.
+<p>
+Often URLs don't include filenames. For example, the URL for 
+WebSite Central, the web site dedicated to WebSite information and 
+support is: 
+<p>
+<pre>http://website.ora.com/
+</pre>
+<p>
+With this URL, the browser can locate the server and a directory 
+within the server's web, but not a specific document. Which 
+document to return is up to the server. If the server has a default 
+home page or index file defined, and a file by that name exists in 
+the specified URL directory, the server returns that document. If 
+the file doesn't exist, the server returns a directory listing. The 
+server can also be configured to return nothing to protect 
+sensitive information. Automatic directory listing, with its many 
+features, is discussed in Chapter 11, <i>Automatic Directory Listings.</i>
+<h4> HTTP</h4>
+The ``glue'' that holds the Web together is the Hypertext Transfer 
+Protocol (HTTP). Web browsers and Web servers use HTTP when 
+requesting and returning documents. In HTTP, every document request 
+from a Web browser to a Web server is a new connection. For 
+example, when a Web browser requests an HTML document from a Web 
+server, the connection is opened, the document is transferred, and 
+the connection is closed.  
+<p>
+The current version of HTTP is 1.0 (often written as HTTP/1.0). 
+WebSite meets the HTTP/1.0 specification and includes all the 
+required features. If you're interested, the HTTP/1.0 specification 
+is available through the Tech Center at WebSite Central 
+(<i>http://website.ora.com/</i>).
+<h3> A Brief History of the World Wide Web</h3>
+The World Wide Web originated in 1989 at the European Particle 
+Physics Laboratory (CERN) in Geneva, Switzerland. Tim Berners-Lee, 
+an Oxford University graduate who came to CERN with a background in 
+text processing and real-time communications, wanted to create a 
+new kind of information system in which researchers could 
+collaborate and exchange information during the course of a 
+project. He saw the need for physicists to collaborate in real 
+time, and not just on one project, but on many.  
+<p> 
+Tim used hypertext technology to link together a web of documents 
+that could be traversed in any manner to seek out information. In 
+cooperation with others at CERN, Tim defined an Internet-based 
+architecture using open, public specifications and free, sample 
+implementations for both clients and servers. The team at CERN 
+implemented a line-mode browser, which is the lowest common 
+denominator among browsers and can be used from almost any kind of 
+terminal. Lynx, a browser with a full-screen interface, was later 
+developed at the University of Kansas. Although these browsers 
+supported the hypertext environment, they did not support graphic 
+or multimedia elements.  
+<p> 
+The widespread appeal of the Web did not come until 1993 with the 
+release of Mosaic, a graphical browser. Marc Andreessen, a student 
+at the University of Illinois at Urbana- Champaign (UIUC), was 
+working part-time at the National Center for Supercomputing 
+Applications (NCSA) at the university. His job was to build tools 
+for scientific visualization. Out of that work came Mosaic, a Web 
+browser with an easy-to-use interface that lets you click on a link 
+to navigate the Web, as well as the ability to display graphics. 
+Extending Mosaic with external viewers added multimedia capability.  
+<p> 
+The World Wide Web and graphical browsers have made the Internet 
+important beyond the scientific or educational community. Most 
+references you see to the Internet in consumer or business-oriented 
+settings are to the World Wide Web. Generally you'll see a picture 
+of a Web browser showing a home page. The Web has made an exciting 
+contribution to the information age. We will continue to see 
+refinements to Web servers and browsers and a major shift in the 
+information publishing paradigm.  
+<h2> What Comes with WebSite?</h2>
+WebSite includes the Web server and a full range of tools to manage 
+the server and develop your web. This section briefly describes 
+those components and also touches on security and performance 
+issues, topics which may be of concern to you.  
+<p>
+<h3> WebSite Server and Tools </h3>
+<DL>
+<DT><IMG SRC="figs/webserv.gif" ALT="(IMAGE)">
+<B>WebSite Server</B>
+<DD>
+The heart of WebSite, the server handles requests from clients 
+(browsers) for documents, whether they be text, graphic, multimedia, or 
+virtual. The WebSite server is a full 32-bit, multi-threaded HTTP server 
+that runs under Windows NT or Windows 95. The server takes full 
+advantage of the operating system's Registry and multithreading 
+support.  Under NT, the server can run as an application or 
+as a service. Usually the server appears as an icon on 
+your desktop or task bar with the status shown as either idle 
+or busy. Configuring the server is the job of Server Admin.
+<P>
+<DT>
+<IMG SRC="figs/serv_adm.gif" ALT="(IMAGE)">
+<B>Server Admin</B>
+<DD>
+Server Admin lets you configure the WebSite server to meet the needs of 
+your environment. Although the install program handles the basic 
+configuration, you will probably want to enhance your server by changing 
+some settings. Mapping, identities for virtual servers, automatic 
+directory listings, access control, and logging parameters are set 
+through Server Admin. The General settings in Server Admin are covered 
+in <a href="WS11_03.htm">Chapter 3, <I>Installing WebSite</I>;</a>
+the other settings are covered in Section 3 (Chapters 9 to 14).
+<P>
+<DT>
+<IMG SRC="figs/webview.gif" ALT="(IMAGE)">
+<B>WebView</B>
+<DD>
+WebView helps you build and manage your web by graphically depicting it. 
+WebView shows all hypertext links between and within documents-internal 
+or external, broken or complete. WebView not only lets you see your web 
+from a bird's eye view, it also lets you edit individual files. In 
+WebView you can launch an appropriate editing application based on the 
+file's type, or you can drag a file into the desired application using 
+WebView's drag and drop capability. If you're building a new web, start 
+with WebView. If you are managing an existing web, use WebView to make 
+improvements and fix problems. WebView diagnoses HTML coding problems 
+and lets you see activity reports on any part of your web. WebView works 
+on any web, not just the local one. WebView also includes HTTP proxy 
+support to work behind a firewall. WebView is the subject of Chapter 
+4, <I>Managing Your Web Using WebView</I>.
+<P>
+<DT>
+<IMG SRC="figs/webindex.gif" ALT="(IMAGE)">
+<B>WebIndex and WebFind</B>
+<DD>
+WebIndex and WebFind work together to provide full-text
+search capability for users of your web. WebIndex appears in
+the WebSite program group or program list while WebFind is
+a CGI program. WebIndex lets you create the indexes used
+in WebFind searches. Before WebFind can work, you must
+run the WebIndex program and indicate which portion of
+your Web is to be searchable. You can create multiple
+indexes with WebIndex and keep them separate or merge
+them. A variety of preferences allow you to tailor index
+contents. When users click on a WebFind hypertext link in
+one of your documents, WebFind first displays a search form
+for the user to complete and then executes the search.
+WebIndex and WebFind are covered in Chapter 6, <I>Indexing
+and Searching Your Documents</I>.
+<P>
+<DT>
+<IMG SRC="figs/mapthis.gif" ALT="(IMAGE)">
+<B>Map This!</B>
+<DD>
+Clickable image maps-images that have hotspots that send
+the user to other locations-are a great addition to any web.
+Many webs use clickable image maps on the home page to
+help users navigate through the contents of the Web.
+Map This! lets you create clickable image
+maps easily, in a graphical environment. Map
+This! supports both NCSA-file based maps and client side 
+image maps supported by some browsers.  Map This! is the topic 
+of Chapter 7, <I>Working with Image Maps</I>.
+</DL>
+<h3> Performance and Security Issues</h3>
+Before you make your web available to users either on the Internet 
+or on a local area network, you probably have some questions about 
+performance and security. How much load can the server handle? Will 
+it handle requests fast enough in a busy environment? What will 
+cause performance degradation? Will the rest of my files be safe if 
+browsers have access to my web? Can I impose additional security? 
+If you've asked any of these questions, take a few minutes to read 
+this section.  
+<h4> Performance</h4>
+The WebSite server is as robust as any Web server currently in use. 
+Given the same basic hardware setup (network connection, disk 
+capacity, disk speed, CPU type and speed), the WebSite server 
+performs as well as any other NT- or UNIX-based Web server (and, 
+historically, UNIX has been the platform of choice for Internet 
+servers). In an equal hardware environment, WebSite is as fast or 
+faster and can handle an equal load.  
+<p>
+In addition, WebSite fully supports symmetric multi-processing. 
+Running on a computer with multiple 486 CPUs, the server can 
+saturate a T1 line. Running the server on a single Pentium with a 
+fast bus would have the same effect. In short, server performance 
+is limited only by the hardware being used. To improve performance, 
+we recommend upgrading your hardware--both the computer system 
+(particularly RAM) and your Internet connection.  
+<p>
+For a more detailed discussion of WebSite's performance capability 
+and the results of performance tests, see the Performance White 
+Paper in the Developer's Corner of the Tech Center at WebSite 
+Central.  
+<h4> Security</h4>
+Security is certainly an issue of concern for server 
+administrators. Unauthorized access to computers and files on the 
+Internet can range from annoying to disastrous depending on the 
+intruder's intent and abilities. Even if your web is on a private 
+network or otherwise protected, you may still have some security 
+concerns.  
+<p> 
+Although no Internet service is 100% safe, the World Wide Web is 
+safer by design. If you think of the Web as a web, the limited 
+nature of what a user can see or have access to becomes clear. The 
+Web has boundaries, defined by the document links. A Web browser 
+doesn't have the capability to freely browse a server; it can only 
+view documents that are part of the document tree, beginning with 
+the document root. This limitation is controlled by mapping, which 
+is the topic of Chapter 9.  
+<p> 
+In addition, WebSite provides two standard (basic) methods of 
+access control, which can be applied to the whole Web or any URL in 
+your web: 
+<p>
+<ul>
+<p>
+<li>
+Class restrictions, which allow or deny access to the Web (or 
+portions of the Web) based on the Internet address or hostname of 
+the Web browser. Class restrictions are often referred to as IP or 
+hostname filtering.  
+<p>
+<li>
+User authentication, which allows or denies access to the Web (or 
+portions of the Web) based on a username and password. Usernames 
+and passwords are specific to the server and are not related to 
+usernames and groups established on your system. Making someone a 
+user on your server does not give them an account on your computer.  
+</ul>
+<p>
+Perhaps the best advice we can give to deal with security issues is 
+to keep an eye out for any suspicious activity on your server. You 
+should also regularly check WebSite Central for security updates.
+<p>
+<blockquote>
+<b>NOTE</b>
+<br>
+You may need greater security than the basic security 
+provided with WebSite 1.1. For example, if you want to conduct 
+credit card transactions over the Web, you may want to use 
+encryption-based security. Two protocols provide this enhanced 
+security for Web transactions: SSL (Secure Sockets Layer) and 
+S-HTTP (Secure HTTP). Both of these protocols are available in 
+WebSite Professional. Please contact O'Reilly &amp; Associates 
+Customer Service at 800-998-9938 for information on upgrading to 
+WebSite Professional.  
+</blockquote>
+<h2> What Are Some WebSite Features?</h2>
+As you use WebSite, you'll discover many powerful, easy-to-use 
+features.  The following list covers some of those features and 
+should give you some ideas for using WebSite to meet your 
+information publishing needs.  
+<p>
+Some of the features you'll see in WebSite Version 1.1 include: 
+<p>
+<ul>
+<p>
+<li>
+Full support for multiple virtual servers (multiple home pages, 
+each with its own IP address) through graphical administration and 
+in all the WebSite tools 
+<p>
+<li>
+Server has a pause feature to allow for maintenance and more 
+elegant shutdowns 
+<p>
+<li>
+The WebSite server can run as a ``service'' under Windows 95, 
+allowing the server to run continuously when no one is logged in. 
+Under Windows 95, the server icon can appear in the Tray or on the 
+Task Bar (regardless of whether you run it as a service or an 
+application).  
+<p>
+<li>
+Server supports the Connection: Keep Alive feature implemented by 
+the Microsoft Internet Explorer and supported by most other 
+browsers, including Spyglass Mosaic (This feature permits browsers 
+to reuse connections for fetching inline graphics and other 
+elements that are referenced in an HTML document. The Keep Alive 
+feature makes transfer of documents more efficient and less time-consuming.) 
+<p>
+<li>
+A manual switch for Keep Alive is available on the General page of 
+Server Admin. If the server experiences problems with Keep Alive, 
+we recommend you turn off the feature.
+<p>
+<li>
+Preferences in WebView including HTTP proxy support for working behind a 
+firewall
+<p>
+<li>
+WebView supports incremental display of trees and interrupts the 
+display of a tree at any point; also tests links in virtual 
+documents and automatic directory lists created on the local server 
+<p>
+<li>
+WebIndex creates multiple indexes, merges indexes, and accepts a 
+variety of preferences for tailoring index contents
+<p>
+<li>
+Map This! image map editor works with both NCSA file-based image 
+maps and client side image maps (processed by the browser)
+<p>
+<li>
+Server-side includes allow you to splice into an HTML document the 
+contents of another HTML document or the value of a variable, such 
+as the date or time (WebSite includes a special set of page counter 
+server-side includes that indicate how many users have visited your web.) 
+<p>
+<li>
+Server-side include processing operates on normal CGI output and on 
+documents resulting from local redirects. To enable SSI processing 
+of CGI output, simply use the content type wwwserver/html-ssi 
+instead of text/html in the CGI program.  
+<p>
+<li>
+Automatic directory listings can use the HTML 3 table format
+<p>
+<li>
+Automatic directory listings can be disabled on a per-URL basis
+<p>
+<li>
+Access control can be applied when both user authentication and 
+class restrictions are met or when either are met
+<p>
+<li>
+wsauth utility lets you manage users and groups from a browser or 
+the command line, including adding users from a flat file database, 
+providing a mechanism for self-registration, and allowing users 
+to change their own passwords via the browser
+<p>
+<li>
+You can create separate access logs for virtual servers
+<p>
+<li>
+Access logs can be generated in one of three formats. The older 
+NCSA/CERN format includes basic information (and was used in 
+previous versions of WebSite). The combined NCSA/CERN format 
+includes fields for the referring URL and the browser type. The 
+Windows log format lets you import access log data directly to many 
+Windows programs for processing and analysis.  
+<p>
+<li>
+Remote administration is supported by all the WebSite tools
+<p>
+<li>
+A new Windows CGI 32-bit framework with full support for Visual 
+Basic 4.0, Visual C++, and other 32-bit programming tools, such as 
+Borland's Delphi. (The CGI chapters in this book have been 
+significantly reworked to provide more conceptual underpinning. 
+Windows CGI examples are given in Visual Basic 4.0, and a new 
+chapter on using Visual C++ for writing Windows CGIs has been 
+added.) 
+<p>
+<li>
+Support for server-push CGI applications 
+<p>
+<li>
+Support for forms-based uploading to the server
+</ul>
+<p>
+<hr>
+<p>
+<center>
+<A HREF = "WS11_02.htm">Go to Chapter 2, <i>Before You Start</i></A>
+<p>
+<A HREF = "StartHere.htm">Return to the Start Page</i></A>
+<p>
+<IMG SRC="figs/ORSlogo.gif" border=0 ALT=[Home]">
+<p>
+<i>&copy; 1996 O'Reilly &amp; Associates, Inc.  All rights reserved.</i>
+</center>
+<p>
+<hr>
+</body>
+</html>

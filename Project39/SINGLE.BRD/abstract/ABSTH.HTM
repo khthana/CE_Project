@@ -1,0 +1,79 @@
+<BODY BACKGROUND="border.gif" > 
+
+<center>
+<font size=16>
+<font color=#0011aa>
+<b><i>Advance Single Board<IMG SRC="fan.gif" ALT="*" ></i></b>
+</font>
+
+
+<CENTER>
+<TABLE ID="Banner" BORDER CELLPADDING=2>
+ <TD ALIGN=LEFT> <IMG SRC="dot.gif" ALT="*"  ALIGN="TOP"> </A></TD>
+ <TD ALIGN=LEFT> <A HREF="abseng.htm">Abstract in English</A> </TD>
+ <TD ALIGN=LEFT> <A HREF="sch.gif">ลายวงจร</A> </TD>
+ <TD ALIGN=LEFT> <A HREF="pcb.gif">ลายวงจรพิมพ์</A> </TD>
+ <TD ALIGN=LEFT> <IMG SRC="dot.gif" ALT="*"  ALIGN="TOP"> </A></TD>
+</TABLE>
+</CENTER>
+
+<IMG SRC="redchip.gif" ALT="*" >
+<table width=80% cellpadding=5>
+<tr><td>
+<table border="5" bgcolor="#ffffc0"   cellpadding=5>
+<tr><td>
+<body text="#000000">
+<CENTER><B>บทคัดย่อ</B></CENTER>
+<P><IMG SRC="webthing.gif" ALT="*" > ในปัจจุบันได้มีบริษัทต่างๆพัฒนาซิงเกิลบอร์ด (Single Board) รุ่นต่างๆออกมาสู่ท้องตลาดมากมาย ซึ่งแต่ละรุ่น แต่ละบริษัท ต่างก็มีจุดเด่นจุดด้อยต่างกันไป  โครงงานนี้จึงมีจุดประสงค์สำคัญคือ เป็นการศึกษาข้อมูลเกี่ยวกับลักษณะที่น่าสนใจ ของซิงเกิลบอร์ดแต่ละแบบ ซึ่งได้รับความนิยมในการใช้งานจริงอยู่ในปัจจุบัน และนำข้อมูลดังกล่าวที่ได้มาพัฒนา และออกแบบซิงเกิลบอร์ดรุ่นใหม่ให้มีความสามารถ  ,คุณลักษณะที่ผู้ใช้สามารถนำไปใช้ประโยชน์ตามต้องการได้โดยสะดวกมากยิ่งขึ้น
+<P><IMG SRC="webthing.gif" ALT="*" >โดยในการออกแบบได้มีการออกแบบใหม่ทั้งหมด ทั้งในส่วนของฮาร์ดแวร์ (Hardware) ที่ใช้ชิป (Chip) ในตระกูล MCS-51 ซึ่งได้รับความนิยมอย่างสูงในปัจจุบันเป็นหน่วยประมวลผลกลาง (Central Processing Unit) หลัก  และในด้านซอฟแวร์ (Software) ซึ่งประกอบไปด้วยโปรแกรมย่อย (Subprogram) ที่สำคัญๆ เช่น โปรแกรมควบคุมการทำงานของซิงเกิลบอร์ด (Monitor) , โปรแกรมสร้าง/ แก้ไขข้อความ (Editor), โปรแกรมแปลรหัสคำสั่ง (Assembler), โปรแกรมตรวจสอบการทำงาน (Debugger) ฯ ที่จำเป็นสำหรับผู้ใช้งานเพื่อนำไปใช้ในการศึกษาการทำงาน , พัฒนาต้นแบบอุปกรณ์ต่างๆ ฯ ตามต้องการต่อไป
+</body>
+</td></tr></table>
+</td></tr></table>
+<TD><IMG SRC="dogruns.gif" ALT="" WIDTH=400 HEIGHT=30></TD>
+</center>
+
+<center>
+<TABLE BORDER>
+<TH COLSPAN=2>รายละเอียดของซิงเกิลบอร์ด</TH>
+<TR>
+<TD>หน่วยประมวลผลกลาง</TD>
+<TD>80C31 uC (สัญญาณนาฬิกา 11.0592 MHz)</TD>
+</TR>
+<TR>
+<TD>รีจิสเตอร์ภายใน</TD><TD>128 ไบต์ </TD>
+</TR>
+<TR>
+<TD>หน่วยความจำโปรแกรม</TD><TD>32/32 กิโลไบต์ (0000-7FFFH)<BR> [2764 | 27128 | 27256]</TD>
+</TR>
+<TR>
+<TD>หน่วยความจำข้อมูล</TD><TD>0/32 กิโลไบต์ (0000-7FFFH) (ฺBattery Backup)<BR> [2764 | 27128 | 27256 | 6264 | 62256]
+</TD>
+</TR>
+<TR>
+<TD>หน่วยความจำข้อมูลและโปรแกรม</TD><TD>8/30 KBYTE 8000-F7FFH (มีแบตเตอรีสำรอง)<BR> [6264 | 62256]
+</TD>
+</TR>
+</TR>
+<TR>
+<TD>หน่วยแสดงผล </TD><TD>LCD 4 บรรทัด * 20 ตัวอักษร<BR> LED 1 ตัวแสดงไฟปิด-เปิด</TD>
+</TR>
+<TR>
+<TD>คีย์บอร์ด</TD><TD><A HREF="key.gif">48 คีย์ (ตัวอักษร+ตัวเลข) </A></TD>
+</TR>
+<TR>
+<TD>สวิทช์</TD><TD> รีเซต<BR> เบรค </TD>
+</TR>
+<TR>
+<TD> เสียง </TD><TD>ลำโพงบนบอร์ด (1 BIT) </TD>
+</TR>
+<TR>
+<TD>ออปชัน</TD><TD>DS1202 ,RTC6246 (8 PIN DIP) <BR>MEMORY SOCKET (28 PIN DIP) </TD>
+</TR>
+<TR>
+<TD>มอนิเตอร์โปรแกรม  </TD><TD>โหมด Stand Alone / Remote monitor  with PC </TD>
+</TR>
+<TR>
+<TD>ขนาดของบอร์ด</TD><TD>6.5 x 8.5 นิ้ว </TD>
+</TR>
+</TABLE>
+</center>
