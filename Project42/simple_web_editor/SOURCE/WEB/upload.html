@@ -1,0 +1,15 @@
+print "Content-type:text/html\n\n";
+print <<myHTML;
+<html>
+<head><title>file upload</title></head>
+<body>
+<form method='post' enctype='multipart/form-data' action='cgi/load.cgi'>
+File Name: <INPUT TYPE=file NAME=file  SIZE=35 ><br>
+<File to upload: <input type=text name=upname size=35 ><br>
+Notes about the file: <input type=text name=note><br>
+<br>
+<input type=submit name=upload value=upload> to upload the file!
+</form>
+</body>
+</html>
+myHTML

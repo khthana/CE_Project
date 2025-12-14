@@ -1,0 +1,183 @@
+unit hrproject_TLB;
+
+// ************************************************************************ //
+// WARNING                                                                  //
+// -------                                                                  //
+// The types declared in this file were generated from data read from a     //
+// Type Library. If this type library is explicitly or indirectly (via      //
+// another type library referring to this type library) re-imported, or the //
+// 'Refresh' command of the Type Library Editor activated while editing the //
+// Type Library, the contents of this file will be regenerated and all      //
+// manual modifications will be lost.                                       //
+// ************************************************************************ //
+
+// PASTLWTR : $Revision:   1.11.1.62  $
+// File generated on 18/4/00 22:04:07 from Type Library described below.
+
+// ************************************************************************ //
+// Type Lib: C:\WINNT\Profiles\suyada\Desktop\project\server\hrproject.tlb
+// IID\LCID: {3F6E1A61-F4DF-11D3-B1FE-0080488389E9}\0
+// Helpfile: 
+// HelpString: Project1 Library
+// Version:    1.0
+// ************************************************************************ //
+
+interface
+
+uses Windows, ActiveX, Classes, Graphics, OleCtrls, StdVCL;
+
+// *********************************************************************//
+// GUIDS declared in the TypeLibrary. Following prefixes are used:      //
+//   Type Libraries     : LIBID_xxxx                                    //
+//   CoClasses          : CLASS_xxxx                                    //
+//   DISPInterfaces     : DIID_xxxx                                     //
+//   Non-DISP interfaces: IID_xxxx                                      //
+// *********************************************************************//
+const
+  LIBID_hrproject: TGUID = '{3F6E1A61-F4DF-11D3-B1FE-0080488389E9}';
+  IID_Ihrserver: TGUID = '{DE39FD49-F664-11D3-B203-0080488389E9}';
+  CLASS_hrserver: TGUID = '{DE39FD4B-F664-11D3-B203-0080488389E9}';
+type
+
+// *********************************************************************//
+// Forward declaration of interfaces defined in Type Library            //
+// *********************************************************************//
+  Ihrserver = interface;
+  IhrserverDisp = dispinterface;
+
+// *********************************************************************//
+// Declaration of CoClasses defined in Type Library                     //
+// (NOTE: Here we map each CoClass to its Default Interface)            //
+// *********************************************************************//
+  hrserver = Ihrserver;
+
+
+// *********************************************************************//
+// Interface: Ihrserver
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {DE39FD49-F664-11D3-B203-0080488389E9}
+// *********************************************************************//
+  Ihrserver = interface(IDataBroker)
+    ['{DE39FD49-F664-11D3-B203-0080488389E9}']
+    function Get_ptblEmployee: IProvider; safecall;
+    function Get_ptblEducation: IProvider; safecall;
+    function Get_ptblTraining: IProvider; safecall;
+    function Get_ptblAbsent: IProvider; safecall;
+    function Get_ptblDayoff: IProvider; safecall;
+    function Get_ptblLate: IProvider; safecall;
+    function Get_ptblDepartment: IProvider; safecall;
+    function Get_ptblOTWorktime: IProvider; safecall;
+    function Get_ptblTimeenter: IProvider; safecall;
+    function Get_pqrEducation: IProvider; safecall;
+    function Get_pqrTraining: IProvider; safecall;
+    function Get_pqrNamePersonal: IProvider; safecall;
+    function Get_pqrDeptEmp: IProvider; safecall;
+    function Get_qrDeptName: IProvider; safecall;
+    function Get_qrDeptId: IProvider; safecall;
+    function Get_qrseqTrain: IProvider; safecall;
+    function Get_qrSeqEdu: IProvider; safecall;
+    function Get_qrcntDept: IProvider; safecall;
+    function Get_qrIdEmp: IProvider; safecall;
+    function Get_qrempsurname: IProvider; safecall;
+    function Get_Query1: IProvider; safecall;
+    function Get_qrNamePersonal: IProvider; safecall;
+    function Get_qrDeptEmp: IProvider; safecall;
+    function Get_qrTraining: IProvider; safecall;
+    function Get_qrEducation: IProvider; safecall;
+    function Get_qrinsertEmptbl: IProvider; safecall;
+    function Get_qrempid: IProvider; safecall;
+    function Get_qremp_worked: IProvider; safecall;
+    function Get_qremp_earning: IProvider; safecall;
+    function Get_ProviderInsertemp: IProvider; safecall;
+    property ptblEmployee: IProvider read Get_ptblEmployee;
+    property ptblEducation: IProvider read Get_ptblEducation;
+    property ptblTraining: IProvider read Get_ptblTraining;
+    property ptblAbsent: IProvider read Get_ptblAbsent;
+    property ptblDayoff: IProvider read Get_ptblDayoff;
+    property ptblLate: IProvider read Get_ptblLate;
+    property ptblDepartment: IProvider read Get_ptblDepartment;
+    property ptblOTWorktime: IProvider read Get_ptblOTWorktime;
+    property ptblTimeenter: IProvider read Get_ptblTimeenter;
+    property pqrEducation: IProvider read Get_pqrEducation;
+    property pqrTraining: IProvider read Get_pqrTraining;
+    property pqrNamePersonal: IProvider read Get_pqrNamePersonal;
+    property pqrDeptEmp: IProvider read Get_pqrDeptEmp;
+    property qrDeptName: IProvider read Get_qrDeptName;
+    property qrDeptId: IProvider read Get_qrDeptId;
+    property qrseqTrain: IProvider read Get_qrseqTrain;
+    property qrSeqEdu: IProvider read Get_qrSeqEdu;
+    property qrcntDept: IProvider read Get_qrcntDept;
+    property qrIdEmp: IProvider read Get_qrIdEmp;
+    property qrempsurname: IProvider read Get_qrempsurname;
+    property Query1: IProvider read Get_Query1;
+    property qrNamePersonal: IProvider read Get_qrNamePersonal;
+    property qrDeptEmp: IProvider read Get_qrDeptEmp;
+    property qrTraining: IProvider read Get_qrTraining;
+    property qrEducation: IProvider read Get_qrEducation;
+    property qrinsertEmptbl: IProvider read Get_qrinsertEmptbl;
+    property qrempid: IProvider read Get_qrempid;
+    property qremp_worked: IProvider read Get_qremp_worked;
+    property qremp_earning: IProvider read Get_qremp_earning;
+    property ProviderInsertemp: IProvider read Get_ProviderInsertemp;
+  end;
+
+// *********************************************************************//
+// DispIntf:  IhrserverDisp
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {DE39FD49-F664-11D3-B203-0080488389E9}
+// *********************************************************************//
+  IhrserverDisp = dispinterface
+    ['{DE39FD49-F664-11D3-B203-0080488389E9}']
+    property ptblEmployee: IProvider readonly dispid 1;
+    property ptblEducation: IProvider readonly dispid 2;
+    property ptblTraining: IProvider readonly dispid 3;
+    property ptblAbsent: IProvider readonly dispid 4;
+    property ptblDayoff: IProvider readonly dispid 5;
+    property ptblLate: IProvider readonly dispid 6;
+    property ptblDepartment: IProvider readonly dispid 7;
+    property ptblOTWorktime: IProvider readonly dispid 8;
+    property ptblTimeenter: IProvider readonly dispid 9;
+    property pqrEducation: IProvider readonly dispid 10;
+    property pqrTraining: IProvider readonly dispid 11;
+    property pqrNamePersonal: IProvider readonly dispid 12;
+    property pqrDeptEmp: IProvider readonly dispid 13;
+    property qrDeptName: IProvider readonly dispid 14;
+    property qrDeptId: IProvider readonly dispid 15;
+    property qrseqTrain: IProvider readonly dispid 16;
+    property qrSeqEdu: IProvider readonly dispid 17;
+    property qrcntDept: IProvider readonly dispid 18;
+    property qrIdEmp: IProvider readonly dispid 19;
+    property qrempsurname: IProvider readonly dispid 20;
+    property Query1: IProvider readonly dispid 21;
+    property qrNamePersonal: IProvider readonly dispid 22;
+    property qrDeptEmp: IProvider readonly dispid 23;
+    property qrTraining: IProvider readonly dispid 24;
+    property qrEducation: IProvider readonly dispid 25;
+    property qrinsertEmptbl: IProvider readonly dispid 26;
+    property qrempid: IProvider readonly dispid 27;
+    property qremp_worked: IProvider readonly dispid 28;
+    property qremp_earning: IProvider readonly dispid 29;
+    property ProviderInsertemp: IProvider readonly dispid 30;
+    function GetProviderNames: OleVariant; dispid 22929905;
+  end;
+
+  Cohrserver = class
+    class function Create: Ihrserver;
+    class function CreateRemote(const MachineName: string): Ihrserver;
+  end;
+
+implementation
+
+uses ComObj;
+
+class function Cohrserver.Create: Ihrserver;
+begin
+  Result := CreateComObject(CLASS_hrserver) as Ihrserver;
+end;
+
+class function Cohrserver.CreateRemote(const MachineName: string): Ihrserver;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_hrserver) as Ihrserver;
+end;
+
+end.

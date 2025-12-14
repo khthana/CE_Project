@@ -1,0 +1,5582 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Grids, DBGrids, ComCtrls, StdCtrls, DBTables, Db, DBCtrls,Quickrpt,
+  TeEngine, Series, ExtCtrls, TeeProcs, Chart, ColorGrd, Menus;
+
+type
+  TForm2 = class(TForm)
+    f: TPageControl;
+    TabSheet1: TTabSheet;
+    GroupBox7: TGroupBox;
+    Label27: TLabel;
+    Label28: TLabel;
+    Edit19: TEdit;
+    GroupBox6: TGroupBox;
+    Label15: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label22: TLabel;
+    Label24: TLabel;
+    Label26: TLabel;
+    Label23: TLabel;
+    Label20: TLabel;
+    Label19: TLabel;
+    Label16: TLabel;
+    Label2: TLabel;
+    Edit10: TEdit;
+    Edit13: TEdit;
+    Edit17: TEdit;
+    ComboBox6: TComboBox;
+    Edit18: TEdit;
+    Edit15: TEdit;
+    Edit14: TEdit;
+    Edit12: TEdit;
+    Button14: TButton;
+    Button11: TButton;
+    GroupBox8: TGroupBox;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    Edit16: TEdit;
+    TabSheet3: TTabSheet;
+    Label32: TLabel;
+    Edit21: TEdit;
+    Button1: TButton;
+    GroupBox9: TGroupBox;
+    Label33: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label42: TLabel;
+    Label41: TLabel;
+    Label38: TLabel;
+    Label37: TLabel;
+    Label34: TLabel;
+    Edit22: TEdit;
+    Edit24: TEdit;
+    Edit25: TEdit;
+    Edit28: TEdit;
+    Edit29: TEdit;
+    Edit30: TEdit;
+    Edit27: TEdit;
+    Edit26: TEdit;
+    Edit23: TEdit;
+    GroupBox10: TGroupBox;
+    Label44: TLabel;
+    Label45: TLabel;
+    Edit31: TEdit;
+    GroupBox11: TGroupBox;
+    Label46: TLabel;
+    Label48: TLabel;
+    Edit33: TEdit;
+    TabSheet4: TTabSheet;
+    Label25: TLabel;
+    Button2: TButton;
+    Edit20: TEdit;
+    GroupBox12: TGroupBox;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label43: TLabel;
+    Label47: TLabel;
+    Label50: TLabel;
+    Label52: TLabel;
+    Label53: TLabel;
+    Label54: TLabel;
+    Label59: TLabel;
+    Label60: TLabel;
+    Label3: TLabel;
+    Edit32: TEdit;
+    Edit34: TEdit;
+    Edit35: TEdit;
+    Edit36: TEdit;
+    Edit39: TEdit;
+    Edit40: TEdit;
+    Edit41: TEdit;
+    Edit43: TEdit;
+    GroupBox13: TGroupBox;
+    Label55: TLabel;
+    Label56: TLabel;
+    Edit42: TEdit;
+    RadioButton5: TRadioButton;
+    RadioButton6: TRadioButton;
+    Edit46: TEdit;
+    TabSheet5: TTabSheet;
+    PageControl2: TPageControl;
+    TabSheet11: TTabSheet;
+    ListView1: TListView;
+    GroupBox14: TGroupBox;
+    Label67: TLabel;
+    Label65: TLabel;
+    ComboBox10: TComboBox;
+    Button3: TButton;
+    TabSheet12: TTabSheet;
+    ListView2: TListView;
+    GroupBox15: TGroupBox;
+    Label68: TLabel;
+    Label69: TLabel;
+    Edit44: TEdit;
+    Edit48: TEdit;
+    Button4: TButton;
+    TabSheet6: TTabSheet;
+    PageControl3: TPageControl;
+    TabSheet13: TTabSheet;
+    Label72: TLabel;
+    Button5: TButton;
+    GroupBox16: TGroupBox;
+    Label75: TLabel;
+    Label83: TLabel;
+    Edit51: TEdit;
+    Edit49: TEdit;
+    GroupBox17: TGroupBox;
+    TabSheet14: TTabSheet;
+    Label85: TLabel;
+    Label62: TLabel;
+    Button6: TButton;
+    Edit57: TEdit;
+    Edit45: TEdit;
+    TabSheet7: TTabSheet;
+    Label87: TLabel;
+    Label89: TLabel;
+    Label90: TLabel;
+    Label91: TLabel;
+    Label92: TLabel;
+    Label93: TLabel;
+    Label94: TLabel;
+    Label95: TLabel;
+    Edit59: TEdit;
+    ComboBox15: TComboBox;
+    Edit61: TEdit;
+    Edit62: TEdit;
+    Edit63: TEdit;
+    ComboBox16: TComboBox;
+    Edit64: TEdit;
+    Edit65: TEdit;
+    ComboBox17: TComboBox;
+    ComboBox18: TComboBox;
+    Button7: TButton;
+    Button9: TButton;
+    DBGrid2: TDBGrid;
+    Button10: TButton;
+    TabSheet8: TTabSheet;
+    Label63: TLabel;
+    Button12: TButton;
+    Edit47: TEdit;
+    GroupBox18: TGroupBox;
+    Label64: TLabel;
+    Label66: TLabel;
+    Label71: TLabel;
+    Label73: TLabel;
+    Label78: TLabel;
+    Label79: TLabel;
+    Label80: TLabel;
+    Label1: TLabel;
+    Edit50: TEdit;
+    Edit52: TEdit;
+    Edit53: TEdit;
+    Edit54: TEdit;
+    Edit58: TEdit;
+    Edit66: TEdit;
+    Edit67: TEdit;
+    GroupBox19: TGroupBox;
+    Label108: TLabel;
+    Label109: TLabel;
+    Edit75: TEdit;
+    Edit68: TEdit;
+    TabSheet9: TTabSheet;
+    PageControl4: TPageControl;
+    TabSheet15: TTabSheet;
+    Button8: TButton;
+    Button21: TButton;
+    TabSheet16: TTabSheet;
+    TabSheet17: TTabSheet;
+    TabSheet10: TTabSheet;
+    TabSheet2: TTabSheet;
+    ListView8: TListView;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Label4: TLabel;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit2: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Label5: TLabel;
+    ComboBox2: TComboBox;
+    Label6: TLabel;
+    Edit9: TEdit;
+    Edit11: TEdit;
+    Label7: TLabel;
+    Edit37: TEdit;
+    Label8: TLabel;
+    Edit38: TEdit;
+    Label9: TLabel;
+    Edit55: TEdit;
+    Label10: TLabel;
+    Edit56: TEdit;
+    Button27: TButton;
+    TabSheet18: TTabSheet;
+    ComboBox1: TComboBox;
+    ComboBox3: TComboBox;
+    ComboBox4: TComboBox;
+    DBGrid6: TDBGrid;
+    ComboBox5: TComboBox;
+    ComboBox7: TComboBox;
+    Label13: TLabel;
+    Edit1: TEdit;
+    ListView3: TListView;
+    ListView4: TListView;
+    Label14: TLabel;
+    Edit69: TEdit;
+    TabSheet19: TTabSheet;
+    GroupBox5: TGroupBox;
+    PageControl1: TPageControl;
+    TabSheet20: TTabSheet;
+    TabSheet21: TTabSheet;
+    TabSheet22: TTabSheet;
+    TabSheet23: TTabSheet;
+    TabSheet24: TTabSheet;
+    TabSheet25: TTabSheet;
+    Memo1: TMemo;
+    Button30: TButton;
+    DBGrid1: TDBGrid;
+    DBGrid3: TDBGrid;
+    Button31: TButton;
+    DBGrid7: TDBGrid;
+    Button32: TButton;
+    DBGrid8: TDBGrid;
+    Button33: TButton;
+    DBGrid9: TDBGrid;
+    Button34: TButton;
+    DBGrid10: TDBGrid;
+    Button35: TButton;
+    Label21: TLabel;
+    Edit60: TEdit;
+    Label31: TLabel;
+    Edit70: TEdit;
+    Label49: TLabel;
+    Edit71: TEdit;
+    Label51: TLabel;
+    CheckBox1: TCheckBox;
+    TabSheet26: TTabSheet;
+    GroupBox4: TGroupBox;
+    PageControl5: TPageControl;
+    TabSheet27: TTabSheet;
+    TabSheet28: TTabSheet;
+    TabSheet29: TTabSheet;
+    Button36: TButton;
+    Button37: TButton;
+    Button38: TButton;
+    Edit72: TEdit;
+    Label70: TLabel;
+    ComboBox8: TComboBox;
+    Label74: TLabel;
+    Label76: TLabel;
+    ComboBox9: TComboBox;
+    Chart1: TChart;
+    Series1: TPieSeries;
+    Series2: TBarSeries;
+    ComboBox11: TComboBox;
+    Label77: TLabel;
+    Label81: TLabel;
+    Edit73: TEdit;
+    Label82: TLabel;
+    Label84: TLabel;
+    ComboBox12: TComboBox;
+    Label86: TLabel;
+    Edit74: TEdit;
+    Label88: TLabel;
+    ComboBox13: TComboBox;
+    Label96: TLabel;
+    ComboBox14: TComboBox;
+    Label97: TLabel;
+    Edit78: TEdit;
+    Label98: TLabel;
+    Edit80: TEdit;
+    PopupMenu1: TPopupMenu;
+    PopupMenu2: TPopupMenu;
+    N1: TMenuItem;
+    GroupBox20: TGroupBox;
+    DBGrid4: TDBGrid;
+    Button28: TButton;
+    Button20: TButton;
+    GroupBox21: TGroupBox;
+    DBGrid5: TDBGrid;
+    Button29: TButton;
+    Button39: TButton;
+    CheckBox1_a: TCheckBox;
+    Edit55_k: TEdit;
+    CheckBox1_b: TCheckBox;
+    Edit50_a: TEdit;
+    CheckBox1_c: TCheckBox;
+    ComboBox50_a: TComboBox;
+    Button15_k: TButton;
+    Button24: TButton;
+    DBGrid5_k: TDBGrid;
+    Button22_k: TButton;
+    Button23_k: TButton;
+    DataSource2: TDataSource;
+    Query2: TQuery;
+    Query3_k: TQuery;
+    DataSource1: TDataSource;
+    Query1: TQuery;
+    Label12: TLabel;
+    ComboBoxin_1: TComboBox;
+    CheckBox2_a: TCheckBox;
+    CheckBox2_b: TCheckBox;
+    Edit_in_1: TEdit;
+    Edit_in_2: TEdit;
+    Button16_dd: TButton;
+    Button_in_1: TButton;
+    DBGrid4_t: TDBGrid;
+    Button16_r: TButton;
+    PageControl1_k: TPageControl;
+    TabSheet18_k: TTabSheet;
+    Label1_k: TLabel;
+    Label2_k: TLabel;
+    Bevel1: TBevel;
+    Bevel2: TBevel;
+    Edit38_k: TEdit;
+    Edit39_k: TEdit;
+    Button13_k: TButton;
+    TabSheet18_k2: TTabSheet;
+    Bevel4: TBevel;
+    Bevel5: TBevel;
+    Button14_k: TButton;
+    TabSheet31: TTabSheet;
+    PageControl6: TPageControl;
+    TabSheet19_a: TTabSheet;
+    Bevel6: TBevel;
+    Label103: TLabel;
+    DBGrid_admin_1: TDBGrid;
+    checkbox_search_1: TCheckBox;
+    checkbox_search_2: TCheckBox;
+    CheckBox_search_3: TCheckBox;
+    edit_search_1: TEdit;
+    edit_search_2: TEdit;
+    ComboBox_search_1: TComboBox;
+    Button_search_1: TButton;
+    TabSheet32: TTabSheet;
+    Bevel7: TBevel;
+    Label104: TLabel;
+    Label105: TLabel;
+    Label106: TLabel;
+    Bevel8: TBevel;
+    Bevel9: TBevel;
+    Label107: TLabel;
+    edit_admin_1: TEdit;
+    edit_admin_2: TEdit;
+    Edit_admin_3: TEdit;
+    CheckBox_admin_1: TCheckBox;
+    CheckBox_admin_2: TCheckBox;
+    Button_admin_1: TButton;
+    DBGrid_admin_2: TDBGrid;
+    TabSheet33: TTabSheet;
+    Label110: TLabel;
+    Edit_admin_T3_1: TEdit;
+    Button_admin_t3_1: TButton;
+    GroupBox_admin_1: TGroupBox;
+    Label111: TLabel;
+    Label112: TLabel;
+    Edit_admin_T3_3: TEdit;
+    Edit_admin_T3_4: TEdit;
+    edit_admin_t3_6: TEdit;
+    edit_admin_t3_7: TEdit;
+    GroupBox_admin_2: TGroupBox;
+    Button_admin_t3_2: TButton;
+    Button_admin_t3_3: TButton;
+    Button_admin_t3_4: TButton;
+    TabSheet34: TTabSheet;
+    Label113: TLabel;
+    DBGrid11: TDBGrid;
+    Button15: TButton;
+    Edit76: TEdit;
+    ComboBox19: TComboBox;
+    ComboBox20: TComboBox;
+    ComboBox21: TComboBox;
+    Label114: TLabel;
+    Label115: TLabel;
+    Label116: TLabel;
+    Label117: TLabel;
+    Label118: TLabel;
+    ComboBox23: TComboBox;
+    Label119: TLabel;
+    ComboBox24: TComboBox;
+    Button16: TButton;
+    Label120: TLabel;
+    Label121: TLabel;
+    ComboBox26: TComboBox;
+    Label122: TLabel;
+    ComboBox27: TComboBox;
+    Button18: TButton;
+    ComboBox22: TComboBox;
+    ComboBox25: TComboBox;
+    PopupMenu_item: TPopupMenu;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    Label100: TLabel;
+    Label101: TLabel;
+    Label102: TLabel;
+    Edit38_stores: TEdit;
+    Edit55_stores: TEdit;
+    TabSheet36: TTabSheet;
+    PageControl7: TPageControl;
+    TabSheet38: TTabSheet;
+    GroupBox1: TGroupBox;
+    ListView5: TListView;
+    Button23: TButton;
+    combobox50: TComboBox;
+    Button40: TButton;
+    Button41: TButton;
+    Button42: TButton;
+    TabSheet39: TTabSheet;
+    Label57: TLabel;
+    Label58: TLabel;
+    Edit81: TEdit;
+    Edit82: TEdit;
+    Button43: TButton;
+    Button44: TButton;
+    Memo2: TMemo;
+    TabSheet37: TTabSheet;
+    Label11: TLabel;
+    Label99: TLabel;
+    Edit77: TEdit;
+    Edit79: TEdit;
+    Button22: TButton;
+    Button25: TButton;
+    Button26: TButton;
+    TabSheet35: TTabSheet;
+    Bevel10: TBevel;
+    Bevel11: TBevel;
+    Button17: TButton;
+    DBGrid_update: TDBGrid;
+    Button_update2: TButton;
+    TabSheet40: TTabSheet;
+    Label123: TLabel;
+    Button45: TButton;
+    Bevel12: TBevel;
+    DBGrid_search_item: TDBGrid;
+    Bevel13: TBevel;
+    Label125: TLabel;
+    Button19: TButton;
+    Label126: TLabel;
+    ComboBox28: TComboBox;
+    TabSheet30: TTabSheet;
+    Label127: TLabel;
+    DBGrid12: TDBGrid;
+    Button46: TButton;
+    ComboBox29: TComboBox;
+    Label128: TLabel;
+    Edit83: TEdit;
+    Button47: TButton;
+    Button48: TButton;
+    Label129: TLabel;
+    Label130: TLabel;
+    Edit_admin_4: TEdit;
+    Label131: TLabel;
+    ComboBox30: TComboBox;
+    ListView6: TListView;
+    Label132: TLabel;
+    ComboBox31: TComboBox;
+    Label134: TLabel;
+    ComboBox32: TComboBox;
+    Label133: TLabel;
+    ComboBox33: TComboBox;
+    edit_stores_name: TEdit;
+    Edit_comment: TEdit;
+    Label136: TLabel;
+    Label135: TLabel;
+    DBGrid4_k: TDBGrid;
+    TabSheet41: TTabSheet;
+    DBGrid_stores: TDBGrid;
+    Label137: TLabel;
+    Edit_stores: TEdit;
+    Bevel3: TBevel;
+    Bevel14: TBevel;
+    Button16_k: TButton;
+    Button13: TButton;
+    Edit_search_item1: TEdit;
+    Edit56_stores: TEdit;
+    Button15_stores: TButton;
+    DBGrid4_stores: TDBGrid;
+    Label61: TLabel;
+    Edit84: TEdit;
+    Label124: TLabel;
+    Edit85: TEdit;
+    Label138: TLabel;
+    Edit86: TEdit;
+
+    procedure Button8Click(Sender: TObject);
+    procedure RadioButton4Click(Sender: TObject);
+    procedure RadioButton3Click(Sender: TObject);
+    procedure Button11Click(Sender: TObject);
+    procedure Edit21KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button19Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Edit20KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Button2Click(Sender: TObject);
+    procedure Edit49KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button12Click(Sender: TObject);
+    procedure ListView8DblClick(Sender: TObject);
+    procedure RadioButton6Click(Sender: TObject);
+    procedure RadioButton5Click(Sender: TObject);
+    procedure Button27Click(Sender: TObject);
+    procedure Button28Click(Sender: TObject);
+    procedure Button29Click(Sender: TObject);
+    procedure Button14Click(Sender: TObject);
+    procedure ComboBox1Enter(Sender: TObject);
+    procedure ComboBox4Enter(Sender: TObject);
+    procedure Edit45KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Edit47KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure ComboBox5Enter(Sender: TObject);
+    procedure ComboBox7Enter(Sender: TObject);
+    procedure ComboBox15Enter(Sender: TObject);
+    procedure ComboBox2Enter(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure ComboBox3Enter(Sender: TObject);
+    procedure TabSheet15Show(Sender: TObject);
+    procedure TabSheet18Show(Sender: TObject);
+    procedure TabSheet20Show(Sender: TObject);
+    procedure TabSheet21Show(Sender: TObject);
+    procedure TabSheet24Show(Sender: TObject);
+    procedure TabSheet22Show(Sender: TObject);
+    procedure TabSheet23Show(Sender: TObject);
+    procedure TabSheet18Hide(Sender: TObject);
+    procedure TabSheet15Hide(Sender: TObject);
+    procedure TabSheet20Hide(Sender: TObject);
+    procedure TabSheet24Hide(Sender: TObject);
+    procedure TabSheet22Hide(Sender: TObject);
+    procedure TabSheet21Hide(Sender: TObject);
+    procedure TabSheet23Hide(Sender: TObject);
+    procedure Button33Click(Sender: TObject);
+    procedure Button30Click(Sender: TObject);
+    procedure Button34Click(Sender: TObject);
+    procedure Button32Click(Sender: TObject);
+    procedure Button31Click(Sender: TObject);
+    procedure Edit60KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure ComboBox10Change(Sender: TObject);
+    procedure ListView1Click(Sender: TObject);
+    procedure TabSheet11Show(Sender: TObject);
+    procedure TabSheet7Show(Sender: TObject);
+    procedure TabSheet7Hide(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure TabSheet12Show(Sender: TObject);
+    procedure ListView1DblClick(Sender: TObject);
+    procedure ListView2DblClick(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure TabSheet12Hide(Sender: TObject);
+    procedure TabSheet25Show(Sender: TObject);
+    procedure TabSheet25Hide(Sender: TObject);
+    procedure Button35Click(Sender: TObject);
+    procedure Edit71KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure ListView3DblClick(Sender: TObject);
+    procedure ListView4DblClick(Sender: TObject);
+    procedure DBGrid2DblClick(Sender: TObject);
+    procedure ComboBox9Enter(Sender: TObject);
+    procedure TabSheet28Show(Sender: TObject);
+    procedure Button36Click(Sender: TObject);
+    procedure ComboBox8Enter(Sender: TObject);
+    procedure TabSheet1Show(Sender: TObject);
+    procedure TabSheet3Show(Sender: TObject);
+    procedure TabSheet4Show(Sender: TObject);
+    procedure TabSheet13Show(Sender: TObject);
+    procedure TabSheet14Show(Sender: TObject);
+    procedure ComboBox11Change(Sender: TObject);
+    procedure Edit73KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure ComboBox12Change(Sender: TObject);
+    procedure ComboBox12Enter(Sender: TObject);
+    procedure Button38Click(Sender: TObject);
+    procedure ComboBox13Enter(Sender: TObject);
+    procedure ComboBox14Enter(Sender: TObject);
+    procedure ComboBox14Change(Sender: TObject);
+    procedure DBGrid6DblClick(Sender: TObject);
+    procedure Button20Click(Sender: TObject);
+    procedure Button39Click(Sender: TObject);
+    procedure Button21Click(Sender: TObject);
+    procedure CheckBox1_aClick(Sender: TObject);
+    procedure CheckBox1_bClick(Sender: TObject);
+    procedure CheckBox1_cClick(Sender: TObject);
+    procedure Button15_kClick(Sender: TObject);
+    procedure Button22_kClick(Sender: TObject);
+    procedure TabSheet16Enter(Sender: TObject);
+    procedure TabSheet16Exit(Sender: TObject);
+    procedure TabSheet17Enter(Sender: TObject);
+    procedure TabSheet17Exit(Sender: TObject);
+    procedure CheckBox2_aClick(Sender: TObject);
+    procedure CheckBox2_bClick(Sender: TObject);
+    procedure Button_in_1Click(Sender: TObject);
+    procedure Button16_rClick(Sender: TObject);
+    procedure Button17Click(Sender: TObject);
+    procedure TabSheet18_kEnter(Sender: TObject);
+    procedure Button16_kClick(Sender: TObject);
+    procedure Button13_kClick(Sender: TObject);
+    procedure Button14_kClick(Sender: TObject);
+    procedure TabSheet18_k2Enter(Sender: TObject);
+    procedure TabSheet18_k2Exit(Sender: TObject);
+    procedure Edit56_storesChange(Sender: TObject);
+    procedure Edit55_storesExit(Sender: TObject);
+    procedure Edit38_storesExit(Sender: TObject);
+    procedure Button15_storesClick(Sender: TObject);
+    procedure TabSheet31Exit(Sender: TObject);
+    procedure fChange(Sender: TObject);
+    procedure checkbox_search_1Click(Sender: TObject);
+    procedure checkbox_search_2Click(Sender: TObject);
+    procedure CheckBox_search_3Click(Sender: TObject);
+    procedure Button_search_1Click(Sender: TObject);
+    procedure CheckBox_admin_1Click(Sender: TObject);
+    procedure CheckBox_admin_2Click(Sender: TObject);
+    procedure Button_admin_1Click(Sender: TObject);
+    procedure Button_admin_t3_1Click(Sender: TObject);
+    procedure Edit_admin_T3_3Click(Sender: TObject);
+    procedure Edit_admin_T3_4Click(Sender: TObject);
+    procedure Button_admin_t3_2Click(Sender: TObject);
+    procedure Button_admin_t3_3Click(Sender: TObject);
+    procedure Button_admin_t3_4Click(Sender: TObject);
+    procedure TabSheet32Enter(Sender: TObject);
+    procedure TabSheet32Exit(Sender: TObject);
+    procedure TabSheet19_aEnter(Sender: TObject);
+    procedure TabSheet19_aExit(Sender: TObject);
+    procedure TabSheet34Show(Sender: TObject);
+    procedure Edit76KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure TabSheet34Hide(Sender: TObject);
+    procedure Button15Click(Sender: TObject);
+    procedure ComboBox20Enter(Sender: TObject);
+    procedure ComboBox19Enter(Sender: TObject);
+    procedure ComboBox23Enter(Sender: TObject);
+    procedure ComboBox24Enter(Sender: TObject);
+    procedure ComboBox26Enter(Sender: TObject);
+    procedure ComboBox27Enter(Sender: TObject);
+    procedure Button24Click(Sender: TObject);
+    procedure Button16_ddClick(Sender: TObject);
+    procedure Button13Click(Sender: TObject);
+    procedure N2Click(Sender: TObject);
+    procedure N3Click(Sender: TObject);
+    procedure DBGrid4_kDblClick(Sender: TObject);
+    procedure TabSheet37Show(Sender: TObject);
+    procedure Button25Click(Sender: TObject);
+    procedure Button22Click(Sender: TObject);
+    procedure Button26Click(Sender: TObject);
+    procedure ListView2Change(Sender: TObject; Item: TListItem;
+      Change: TItemChange);
+    procedure Button7Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
+    procedure Button40Click(Sender: TObject);
+    procedure Button23Click(Sender: TObject);
+    procedure Button41Click(Sender: TObject);
+    procedure Button42Click(Sender: TObject);
+    procedure TabSheet39Show(Sender: TObject);
+    procedure Button43Click(Sender: TObject);
+    procedure Button44Click(Sender: TObject);
+    procedure ListView5DblClick(Sender: TObject);
+    procedure Button45Click(Sender: TObject);
+    procedure Edit_search_item1Change(Sender: TObject);
+    procedure Button_update2Click(Sender: TObject);
+    procedure ComboBox29Enter(Sender: TObject);
+    procedure ComboBox29Change(Sender: TObject);
+    procedure TabSheet30Show(Sender: TObject);
+    procedure TabSheet30Hide(Sender: TObject);
+    procedure Button46Click(Sender: TObject);
+    procedure DBGrid5_kDblClick(Sender: TObject);
+    procedure Button23_kClick(Sender: TObject);
+    procedure DBGrid4_tDblClick(Sender: TObject);
+    procedure Button48Click(Sender: TObject);
+    procedure Button47Click(Sender: TObject);
+    procedure ComboBox30Enter(Sender: TObject);
+    procedure ComboBox30Change(Sender: TObject);
+    procedure ListView6Click(Sender: TObject);
+    procedure ComboBox31Enter(Sender: TObject);
+    procedure ComboBox31Change(Sender: TObject);
+    procedure ComboBox32Change(Sender: TObject);
+    procedure ComboBox33Change(Sender: TObject);
+    procedure DBGrid_storesDblClick(Sender: TObject);
+    procedure Edit56_storesExit(Sender: TObject);
+    procedure DBGrid_search_itemDblClick(Sender: TObject);
+    procedure TabSheet40Enter(Sender: TObject);
+    procedure TabSheet41Enter(Sender: TObject);
+  private
+  public
+    { Public declarations }
+    procedure RefreshListView8;
+    procedure RefreshListView4;
+    procedure ShowDurableDetail(du_id : string );
+    procedure ShowCompanyDetail(com_id : integer);
+    procedure Tabsheet25Change;
+    procedure Tabsheet24Change;
+    procedure Tabsheet23Change;
+    procedure Tabsheet22change;
+    procedure Tabsheet30Change;
+    procedure ShowDurableList;
+    procedure Tabsheet21Change;
+    function ComNameToComID(com_name : string):integer;
+    function ComIDToComName(com_id : integer):string;
+  end;
+  TSearch = object
+    Data :array[1..10] of string;
+    count : integer;
+    index : integer;
+  end;
+
+var
+  Form2: TForm2;
+  ///////////////
+   temp:string;
+   item:integer;
+   isuser :boolean;
+   isitem:boolean;
+   isnameitem:boolean;
+   ChkDay : array[1..2] of string;
+   SearchArray : TSearch;
+   SearchCountArray :TSearch;
+
+  implementation
+uses unit1,unit3,unit4,unit5,unit6,unit2_2, Unit2_3, Unit7_1, Unit7_4,
+  Unit7_2, Unit7_3, Unit7_5, Unit7_6, Unit2_4, Unit9, Unit10,
+  Unit7_7, Unit7_8, Unit7, Unit8, Unit_store, Unit12;
+{$R *.DFM}
+function Tform2.ComNameToComID(com_name : string):integer;
+var
+   i:integer;
+   com_id,temp : string;
+   v1:variant;
+begin
+     i:= 1;
+     com_id := '';
+     temp := com_name;
+     while temp[i] <> ' ' do
+     begin
+          v1 := temp[i];
+           com_id := com_id + v1 ;
+           i:= i+1;
+     end;
+     comNameTocomID := strtoint(com_id);
+end;
+function Tform2.ComIDToComName(com_id : integer):string;
+begin
+     form3.query2.Close;
+     form3.query2.sql.Clear;
+     form3.query2.SQL.Add(' select com_name from company ');
+     form3.query2.sql.Add(' where com_id = :com_id ');
+     form3.query2.ParamByName('com_id').asinteger := com_id;
+     form3.query2.Open;
+     comIDToComName := inttostr(com_id) +' : '  +form3.query2.fieldvalues['com_name'];
+end;
+procedure Tform2.Tabsheet21Change;
+begin
+     form7_4.Query1.Close;
+     form7_4.Query1.sql.Clear;
+     form7_4.Query1.Params.Clear;
+     if edit60.text <> '' then
+     begin
+     form7_4.Query1.sql.Add(' Declare @du_dayEnd datetime  ');
+     form7_4.Query1.sql.Add(' set @du_dayEnd = :du_dayEnd  ');
+     end;
+     form7_4.Query1.SQL.add(' select du_id, du_name, du_status, du_dayend ') ;
+     form7_4.Query1.SQL.add('from durable');
+     form7_4.Query1.SQL.add('where du_status <> ''แทงจำหน่าย'' and du_dayend > getdate()');
+// if select type
+     if combobox30.text <>  'ทุกประเภท' then
+     begin
+        form7_4.query1.sql.add(' and du_type = :du_type ');
+        form7_4.Query1.ParamByName('du_type').asstring := combobox30.text;
+     end;
+// if select lenght
+     if edit60.text <> '' then
+     begin
+          form7_4.query1.sql.add('  and du_dayend <= @du_dayend');
+          form7_4.Query1.ParamByName('du_dayend').asstring := edit60.text;
+     end;
+     form7_4.Query1.SQL.add('order by du_ID');
+     form7_4.Query1.Open;
+     dbgrid3.Columns[0].fieldname := 'du_id';
+     dbgrid3.Columns[1].fieldname := 'du_name';
+     dbgrid3.Columns[2].fieldname := 'du_status';
+     dbgrid3.Columns[3].fieldname := 'du_dayend';
+end;
+procedure Tform2.ShowDurableList;
+begin
+     form3.query1.Close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear;
+     form3.query1.sql.add(' select * from durable where du_id > 0 ');
+// if type
+     if combobox20.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox20.Text;
+      end;
+// if status
+     if combobox21.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox21.Text;
+      end;
+// if room
+     if combobox19.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox19.Text;
+      end;
+      if form3.query1.Text <> '' then
+      begin
+      form3.query1.sql.add(' order by du_name,du_id');
+      form3.query1.Open;
+      end;
+      form3.query1.First;
+end;
+procedure Tform2.ShowCompanyDetail(com_id:integer);
+begin
+ try
+    form3.query3.Close;
+    form3.query3.sql.text := 'select * from company where com_id = :com_id';
+    form3.query3.ParamByName('com_id').asinteger := com_id;
+    form3.query3.open;
+    if form3.Query3.RecordCount > 0 then
+    begin
+         Form2_4 := TForm2_4.create (nil);
+         form2_4.Label4.Caption := 'ID :' +inttostr(form3.query3.fieldvalues['com_id']) ;
+         form2_4.com_id :=  form3.query3.fieldvalues['com_id'] ;
+         form2_4.edit1.text :=  form3.query3.fieldvalues['com_name'];
+         form2_4.edit2.text :=  form3.query3.fieldvalues['com_phone'];
+         form2_4.edit3.text :=  form3.query3.fieldvalues['com_add'];
+    end;
+    tabsheet15show(nil);
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+procedure Tform2.Tabsheet30change;
+begin
+ try
+     form7_8.query1.Close;
+     form7_8.query1.SQL.Clear ;
+     form7_8.query1.sql.add(' select distinct t1.du_room,t2.du_id, t2.du_name, t2.du_type ');
+     form7_8.query1.sql.add(' from durable t1,durable t2');
+     form7_8.query1.sql.add(' where t1.du_room = t2.du_room');
+// check status choose combobox
+     if combobox14.text <>  'ทุกห้อง' then
+       begin
+        form7_8.query1.sql.add(' and t1.du_room = :du_room');
+        form7_8.Query1.ParamByName('du_room').asstring := combobox29.text;
+       end;
+      form7_8.query1.sql.add(' order by t1.du_room');
+      form7_8.query1.Open;
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure Tform2.Tabsheet22change;
+var i :integer;
+begin
+ try
+     form7_3.query1.Close;
+     form7_3.query1.SQL.Clear ;
+     form7_3.query1.sql.Text := 'select distinct t1.du_id,t1.du_name,t1.du_status,t2.fix_day,t2.fix_lose,t2.fix_cost ';
+     form7_3.query1.sql.add(' from durable t1,fixhis t2');
+     form7_3.query1.sql.add(' where t1.du_id = t2.du_id');
+     form7_3.query1.SQL.Add(' and t1.du_id in (select du_id ');
+     form7_3.query1.sql.add(' from fixhis ');
+     form7_3.query1.sql.add(' where du_id = :du_id ');
+     i := -1 ;
+     repeat
+     i := i+1;
+     until  listview6.items.item[i].checked ;
+     form7_3.query1.ParamByName('du_id').asstring := listview6.items.item[i].caption ;
+// check listview6  for durable check
+     for i := 0 to  listview6.Items.Count-1  do
+        if listview6.items.item[i].checked  then
+        begin
+                  form7_3.query1.close;
+                  form7_3.query1.sql.add('or du_id = :du_id' +inttostr(i)) ;
+                  form7_3.query1.ParamByName('du_id'+inttostr(i)).asstring := listview6.items.item[i].caption ;
+        end; {end for}
+     form7_3.query1.SQL.add(' )');
+    form7_3.query1.sql.add(' order by t1.du_id,t2.fix_day');
+    form7_3.query1.Open;
+    dbgrid7.Columns[0].fieldname := 'du_id';
+    dbgrid7.Columns[1].fieldname := 'du_name';
+    dbgrid7.Columns[2].fieldname := 'du_status';
+    dbgrid7.Columns[3].fieldname := 'fix_day';
+    dbgrid7.Columns[4].fieldname := 'fix_lose';
+    dbgrid7.Columns[5].fieldname := 'fix_cost';
+ except
+       showmessage('have error');
+       raise;
+ end;
+end;
+
+procedure Tform2.Tabsheet23Change;
+begin
+ try
+     form7_5.query1.Close;
+     form7_5.query1.SQL.Clear ;
+     form7_5.query1.sql.Text := 'select distinct t1.du_type,t2.du_id, t2.du_name, t2.du_status';
+     form7_5.query1.sql.add(' from durable t1,durable t2');
+     form7_5.query1.sql.add(' where t1.du_type = t2.du_type');
+// check status choose combobox
+     if combobox12.text <>  'ทุกประเภท' then
+       begin
+        form7_5.query1.sql.add(' and t1.du_type = :du_type');
+        form7_5.Query1.ParamByName('du_type').asstring := combobox12.text;
+       end;
+      form7_5.query1.sql.add(' order by  t1.du_type');
+      form7_5.query1.Open;
+  dbgrid8.Columns[0].fieldname := 'du_type';
+  dbgrid8.Columns[1].fieldname := 'du_id';
+  dbgrid8.Columns[2].fieldname := 'du_name';
+  dbgrid8.Columns[3].fieldname := 'du_status';
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure Tform2.Tabsheet24Change;
+begin
+//check type complete
+ try
+     form7_2.query1.Close;
+     form7_2.query1.SQL.Clear ;
+     form7_2.Query1.Params.Clear;
+     if edit73.text <> '' then
+     begin
+     form7_2.Query1.sql.Add(' Declare @du_StatusDay datetime  ');
+     form7_2.Query1.sql.Add(' set @du_StatusDay = :du_StatusDay  ');
+     end;
+     form7_2.query1.sql.add(' select distinct t1.du_status,t2.du_id, t2.du_name, t2.du_type ');
+     form7_2.query1.sql.add(' from durable t1,durable t2');
+     form7_2.query1.sql.add(' where t1.du_status = t2.du_status ');
+
+// check status choose combobox
+     if combobox11.text <>  'ทุกสถานะ' then
+       begin
+        form7_2.query1.sql.add(' and t1.du_status = :du_status');
+        form7_2.Query1.ParamByName('du_status').asstring := combobox11.text;
+       end;
+// check du_statusDay limit
+     if edit73.Text <> '' then
+       begin
+        form7_2.query1.sql.add(' and t1.du_statusDay >= @du_statusDay ');
+        form7_2.query1.ParamByName('du_statusDay').asstring := edit73.text;
+       end;
+      form7_2.query1.sql.add(' order by  t1.du_status');
+      form7_2.query1.Open;
+      dbgrid9.Columns[0].fieldname := 'du_status';
+      dbgrid9.Columns[1].fieldname := 'du_id';
+      dbgrid9.Columns[2].fieldname := 'du_name';
+      dbgrid9.Columns[3].fieldname := 'du_type';
+
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.Tabsheet25Change;
+begin
+     form7_6.query1.Close;
+     form7_6.Query1.sql.Clear;
+     form7_6.Query1.Params.Clear;
+     if edit71.text <> '' then
+     begin
+     form7_6.Query1.sql.Add(' Declare @chk_day datetime ');
+     form7_6.Query1.sql.Add(' set @chk_day = :chk_day  ');
+     end;
+     form7_6.query1.SQL.add(' select t2.du_id ,t2.chk_day ,t2.admin_id ,t2.teacher_id ,t2.chk_statusBefore ,t1.du_status ,t1.du_lose ');
+     form7_6.Query1.SQL.add(' from durable t1, checkdu t2 ');
+     form7_6.Query1.SQL.add(' where t1.du_id = t2.du_id ');
+     if checkbox1.Checked then
+       begin
+         form7_6.Query1.SQL.add(' and t2.teacher_id <> '' '' ');
+       end
+     else
+       begin
+         form7_6.Query1.SQL.add(' and t2.teacher_id = '' '' ');
+       end;
+// if select Type
+     if combobox31.text <>  'ทุกประเภท' then
+     begin
+        form7_6.query1.sql.add(' and t1.du_type = :du_type ');
+        form7_6.Query1.ParamByName('du_type').asstring := combobox31.text;
+     end;
+// if select status
+     if combobox32.text <>  'ทุกสถานะ' then
+     begin
+        form7_6.query1.sql.add(' and t1.du_status = :du_status ');
+        form7_6.Query1.ParamByName('du_status').asstring := combobox32.text;
+     end;
+// if select type of Maintain
+     if combobox33.text <>  'ทุกประเภท' then
+     begin
+        form7_6.query1.sql.add(' and t1.du_Maintain = :du_Maintain ');
+        form7_6.Query1.ParamByName('du_Maintain').asstring := combobox33.text;
+     end;
+
+// if have day
+     if edit71.text <> '' then
+       begin
+         form7_6.Query1.SQL.add(' and t2.chk_day > @chk_day  ');
+         form7_6.Query1.ParamByName('chk_day').asstring := edit71.text;
+       end;
+     form7_6.Query1.Open;
+     dbgrid10.Columns[0].fieldname := 'du_id';
+     dbgrid10.Columns[1].fieldname := 'chk_day';
+     dbgrid10.Columns[2].fieldname := 'admin_id';
+     dbgrid10.Columns[3].fieldname := 'teacher_id';
+     dbgrid10.Columns[4].fieldname := 'chk_statusbefore';
+     dbgrid10.Columns[5].fieldname := 'chk_statusafter';
+     dbgrid10.Columns[6].fieldname := 'du_status';
+     dbgrid10.Columns[7].fieldname := 'du_lose';
+
+end;
+procedure TForm2.ShowDurableDetail(du_id : string);
+begin
+// show durable information
+     form6 := Tform6.create(nil);
+        with form3.query3  do begin
+             Close;
+             SQL.text := 'select * from durable where du_id = :du_id';
+             ParamByName('du_id').asstring := du_id;
+             Open;
+             if FieldValues['du_id'] = null then begin
+                showmessage('ไม่มีวะ');
+                exit;
+             end;
+             form6.visible := true;
+             form6.edit10.text := FieldValues['du_id'];
+             form6.edit12.Text := FieldValues['du_Name'];
+             form6.edit13.Text := FieldValues['du_se'];
+             form6.combobox3.Text := FieldValues['du_type'];
+             form6.edit17.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayincome']);
+             form6.edit14.Text := FieldValues['du_brand'];
+             form6.Edit15.Text := FieldValues['du_gen'];
+             form6.Edit18.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayEnd']);
+             form6.combobox1.text := FieldValues['du_room'];
+             form6.combobox6.text := fieldvalues['du_maintain'];
+             form6.edit3.text := FieldValues['du_comment'];
+             form6.Edit19.Text := FieldValues['Du_vender'];
+             form6.combobox4.Text := comIDTocomName(FieldValues['com_id']);
+             form6.edit2.text := FieldValues['admin_id'];
+             form6.edit20.text := formatdatetime('dd/mm/yyyy',fieldvalues['du_statusDay']);
+// check status
+             form6.combobox2.text := FieldValues['du_status'];
+   // good
+             if FieldValues['du_status'] = 'ดี' then
+             begin
+                  form6.combobox2.Items.Add('ดี');
+                  form6.combobox2.Items.Add('เสีย')
+             end;
+   // borrow
+             if FieldValues['du_status'] = 'ยืม' then
+             begin
+                  // open borrow table to query2
+                  form3.query2.close;
+                  form3.Query2.sql.Text := 'select * from borrow where du_id = :du_id';
+                  form3.query2.ParamByName('du_id').asstring := du_id;
+                  form3.query2.Open;
+                 with form6 do
+                 begin
+                  label25.Caption := 'วันที่ยืม';
+                  label10.caption := 'ผู้ยืม';
+                  label11.Caption := 'admin';
+                  label6.Caption := 'อุปกรณ์ที่ติดไป';
+                  label25.Visible := true;
+                  label10.Visible := true;
+                  label11.Visible := true;
+                  label6.Visible := true;
+                  edit21.Visible := true;
+                  edit1.Visible := true;
+                  edit6.Visible := true;
+                  edit8.Visible := true;
+                  edit21.Text := formatdatetime('dd/mm/yyyy',form3.query2.fieldvalues['bor_day']);
+                  edit1.text := form3.query2.fieldvalues['user_id'];
+                  edit6.text := form3.query2.fieldvalues['admin_id'];
+                  edit8.text := form3.query2.fieldvalues['bor_ship'];
+                 end;
+                  form3.query2.close;
+
+             end;
+   // lose
+             if FieldValues['du_status'] = 'เสีย' then
+             begin
+                  form6.label6.Visible := true;
+                  form6.edit8.Visible := true;
+                  form6.edit8.Text := FieldValues['du_lose'];
+                  form6.combobox2.Items.Add('ดี');
+                  form6.combobox2.Items.Add('เสีย');
+                  form6.Edit8.Enabled := true;
+                  form6.Edit8.Color := clWindow; 
+             end;
+   // send to fix
+             if FieldValues['du_status'] = 'ส่งซ่อม' then
+             begin
+                  form6.label6.Visible := true;
+                  form6.label25.Visible := true;
+                  form6.label10.Visible := true;
+                  form6.label11.Visible := true;
+                  form6.label29.Visible := true;
+                  form6.edit8.visible := true;
+                  form6.edit21.visible := true;
+                  form6.edit1.visible := true;
+                  form6.edit6.visible := true;
+                  form6.edit26.visible := true;
+                  form6.edit8.Text := FieldValues['du_lose'];
+                  form3.Query2.Close;
+                  form3.Query2.SQL.Text := 'select * from fix where du_id = :du_id';
+                  form3.query2.ParamByName('du_id').asstring := du_id ;
+                  form3.query2.open;
+                  form6.edit21.Text := formatdatetime('dd/mm/yyyy',form3.query2.fieldvalues['fix_day']);
+                  form6.Edit1.Text := form3.query2.fieldvalues['fix_vender'];
+                  form6.edit6.text := form3.Query2.fieldvalues['com_id'];
+                  form6.edit26.text := form3.query2.fieldvalues['fix_ship'];
+             end;
+  // can't fix
+             if FieldValues['du_status'] = 'ซ่อมไม่ได้' then  // can't fix
+             begin
+                  form6.label6.visible := true;
+                  form6.label7.visible := true;
+                  form6.edit8.visible := true;
+                  form6.edit9.Visible := true;
+                  form6.edit8.Text := FieldValues['du_lose'];
+                  form6.edit9.text := FieldValues['du_unfix'];
+             end;
+// over
+             if FieldValues['du_status'] = 'แทงจำหน่าย' then   // over
+             begin
+                  form6.label6.visible := true;
+                  form6.label7.visible := true;
+                  form6.label8.visible := true;
+                  form6.label21.visible := true;
+                  form6.edit8.visible := true;
+                  form6.edit9.Visible := true;
+                  form6.edit11.visible := true;
+                  form6.edit16.visible := true;
+                  form6.edit28.visible := true;
+                  form6.edit29.visible := true;
+                  form6.edit8.Text := FieldValues['du_lose'];
+                  form6.edit9.text := FieldValues['du_unfix'];
+                  // show where over and who do Over
+                  close;
+                  sql.text := ' select * from OverDu where du_ID = :du_id ';
+                  ParamByName('du_id').asstring := du_id;
+                  open;
+                  form6.edit11.text := formatdatetime('dd/mm/yyyy',FieldValues['du_DayOver']);
+                  form6.edit16.Text := FieldValues['Teacher_ID1'];
+                  form6.edit28.Text := FieldValues['Teacher_ID2'];
+                  form6.edit29.Text := FieldValues['Teacher_ID3'];
+             end;
+        end;
+// history fix
+        form3.query3.close;
+        form3.query3.SQL.Text := 'select * from fixhis where du_id = :du_id ';
+        form3.query3.ParamByName('du_id').asstring := du_id;
+        form3.query3.Open;
+        form3.query3.First;
+        if form3.query3.fieldValues['du_id'] <> null then
+        begin
+             while not form3.query3.Eof do
+             begin
+                  with form6.listview1.Items.add  do
+                  begin
+                       caption := formatdatetime('dd/mm/yyyy',form3.query3.fieldValues['Fix_day']);
+                       if form3.query3.fieldValues['Fix_dayback'] = null then
+                          subItems.add('')
+                       else
+                           subItems.add(formatdatetime('dd/mm/yyyy',form3.query3.fieldValues['Fix_dayback']));
+                       if form3.query3.fieldValues['com_id'] = null then
+                          subItems.add('')
+                       else
+                       subItems.add(form3.query3.fieldValues['com_id']);
+                       if form3.query3.fieldValues['Fix_result'] = null then
+                          subItems.add('')
+                       else
+                       subItems.add(form3.query3.fieldValues['Fix_result']);
+                       if form3.query3.fieldValues['Fix_cost'] = null then
+                          subItems.add('')
+                       else
+                       subItems.add(form3.query3.fieldValues['Fix_cost']);
+                       if form3.query3.fieldValues['Admin_ID'] = null then
+                          subItems.add('')
+                       else
+                       subItems.add(form3.query3.fieldValues['Admin_ID']);
+                       form3.query3.Next;
+
+                  end;
+             end;
+        end;
+// fix count
+        form3.query3.close;
+        form3.query3.SQL.Text := 'select sum(fix_cost) ';
+        form3.query3.sql.Add(' from fixHis ');
+        form3.query3.sql.Add(' where du_id = :du_id ');
+        form3.query3.ParamByName('du_id').asstring := du_id;
+        form3.query3.Open;
+        form3.query3.First;
+        if form3.query3.fieldvalues['column1'] <> null then
+        form6.edit27.Text := form3.query3.fieldvalues['column1'];
+
+
+// history borrow
+        form3.query3.close;
+        form3.query3.SQL.Text := 'select * from borrowhis where du_id = :du_id ';
+        form3.query3.ParamByName('du_id').asstring := du_id;
+        form3.query3.Open;
+        form3.query3.First;
+        if form3.query3.fieldValues['du_id'] <> null then
+        begin
+             while not form3.query3.Eof do
+             begin
+                  with form6.listview2.Items.add  do
+                  begin
+                       caption := formatdatetime('dd/mm/yyyy',form3.query3.fieldValues['bor_day']);
+                       subItems.add(formatdatetime('dd/mm/yyyy',form3.query3.fieldValues['bor_dayReturn']));
+                       subItems.add(form3.query3.fieldValues['User_Id']);
+                       subItems.add(form3.query3.fieldValues['Admin_Id']);
+                       form3.query3.Next;
+                  end;
+             end;
+        end;
+// show last check information
+        form3.query3.close;
+        form3.query3.SQL.Text := 'select * from checkdu where du_id = :du_id ';
+        form3.query3.ParamByName('du_id').asstring := du_id;
+        form3.query3.Open;
+        form3.query3.First;
+        if form3.query3.fieldValues['du_id'] <> null then
+        begin
+             form6.edit22.text := formatdatetime('dd/mm/yyyy',form3.query3.fieldValues['chk_day']);
+             form6.edit23.text := form3.query3.fieldValues['admin_id'];
+             form6.edit24.text := form3.query3.fieldValues['Teacher_id'];
+             form6.edit4.text := form3.query3.fieldValues['chk_statusbefore'];
+        end;
+end;
+
+//end;
+procedure TForm2.RefreshListView4;
+begin
+// show borrow durable in list view
+     form3.query1.close;
+     form3.query1.SQL.text := 'select *  from borrow where user_id = :user_id ' ;
+     form3.Query1.ParamByName('User_ID').asstring := edit57.text;
+     form3.query1.open;
+     form3.query1.First;
+     form2.ListView4.Items.Clear;
+     while not form3.query1.Eof do
+     begin
+          with form2.listview4.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldValues['bor_day']));
+               subItems.add(form3.query1.fieldValues['admin_ID']);
+               subItems.add(form3.query1.fieldValues['bor_ship']);
+               form3.query1.Next;
+          end;
+     end;
+
+end;
+procedure Tform2.RefreshListView8;
+begin
+        form3.query1.close;
+        form3.query1.SQL.text := 'select *  from borrow where user_id = :user_id ';
+        form3.Query1.ParamByName('User_ID').asstring := edit49.text;
+        form3.query1.open;
+        form3.query1.First;
+        form2.ListView3.Items.Clear;
+        while not form3.query1.Eof do
+        begin
+             with form2.listview3.Items.add  do
+             begin
+                  caption := form3.query1.fieldValues['du_id'];
+                  subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldValues['bor_day']));
+                  subItems.add(form3.query1.fieldValues['admin_ID']);
+                  subItems.add(form3.query1.fieldValues['bor_ship']);
+                  form3.query1.Next;
+             end;
+        end;
+
+end;
+procedure TForm2.Button8Click(Sender: TObject);
+begin
+     company_add := Tcompany_add.create (nil);
+     enabled := false;
+end;
+
+procedure TForm2.RadioButton4Click(Sender: TObject);
+begin
+     edit16.Enabled := true;
+     edit16.Color := clwhite;
+end;
+
+procedure TForm2.RadioButton3Click(Sender: TObject);
+begin
+     edit16.Enabled := false;
+     edit16.Color := clScrollBar;
+end;
+
+procedure TForm2.Button11Click(Sender: TObject);
+begin
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select Du_ID from durable where DU_Id = ' +char(39) +edit10.text +char(39);
+     form3.Query1.Open;
+     if form3.Query1.fieldvalues['Du_ID'] <> null then  begin
+        showmessage('มีเลขครุภัณฑ์ซ้ำ');
+        exit;
+     end;
+     if edit10.Text = '' then begin
+        showmessage('ไม่ได้ใส่เลขครุภัณฑ์ง');
+        exit;
+     end;
+     if combobox5.text = '' then begin
+        showmessage('ไม่ได้เลือกบริษัท');
+        exit;
+     end;
+//insert in durable
+form3.Database1.StartTransaction;
+try
+     form3.Query1.Close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear;
+     form3.Query1.sql.Add(' Declare @datein datetime ,@dateend datetime ');
+     form3.Query1.sql.Add(' set @datein= :du_dayincome set @dateend= :du_DayEnd ');
+     form3.Query1.SQL.add(' insert into durable (du_ID,du_se,du_type,du_dayincome,du_maintain,du_comment,du_name,du_brand,du_gen,du_DayEnd,du_room,du_vender,com_id,du_status,du_lose,admin_id)');
+     form3.Query1.SQL.Add(' values(:du_ID,:du_se,:du_type, @datein ,:du_maintain,:du_comment,:du_name,:du_brand,:du_gen,@dateend ,:du_room,:du_vender,:com_id,:du_status,:du_lose,:admin_id)');
+     with form3.Query1 do  begin
+          Parambyname('du_ID').asstring := edit10.Text;
+          Parambyname('du_se').asstring := edit13.Text;
+          Parambyname('du_type').asstring := combobox1.Text;
+          Parambyname('du_dayincome').asstring := edit17.Text;/////
+          Parambyname('du_maintain').asstring := combobox6.Text;
+          Parambyname('du_name').asstring := edit12.Text;
+          Parambyname('du_brand').asstring := edit14.Text;
+          Parambyname('du_gen').asstring := edit15.Text;
+          Parambyname('du_DayEnd').asstring := edit18.Text;/////////
+          Parambyname('du_room').asstring := combobox3.Text;
+          Parambyname('du_comment').asstring := edit3.Text;
+          Parambyname('du_vender').asstring := edit19.Text;
+          Parambyname('com_ID').asinteger := comNameToComID(combobox5.text);
+          if RadioButton3.Checked then
+             Parambyname('du_status').asstring := 'ดี';
+          if RadioButton4.checked then
+             Parambyname('du_status').asstring := 'เสีย';
+             Parambyname('du_lose').asstring := edit16.Text;
+             Parambyname('admin_ID').asstring := form1.admin_id;
+          execSQL;
+     end;
+     form3.Database1.Commit;
+     showmessage('การเพิ่มเรียบร้อย');
+except
+      showmessage('have error');
+      form3.Database1.Rollback;
+      raise;
+end;
+end;
+
+procedure TForm2.Edit21KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then begin
+        with form3.query1 do begin
+             Close;
+             SQL.text := 'select * from durable where du_id = :du_id';
+             ParamByName('du_id').asstring := edit21.text;
+             Open;
+             if FieldValues['du_id'] = null then begin
+                showmessage('ไม่มีวะ');
+                exit;
+             end;
+             if not((FieldValues['du_status'] = 'เสีย') or (FieldValues['du_status'] = 'ซ่อมไม่ได้')) then begin
+                showmessage('สถานะไม่พร้อมส่ง');
+                exit;
+             end;
+             edit22.Text := FieldValues['du_Name'];
+             edit24.Text := FieldValues['du_se'];
+             edit25.Text := FieldValues['du_type'];
+             edit28.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayincome']);
+             edit29.Text := FieldValues['du_status'];
+             edit23.Text := FieldValues['du_brand'];
+             Edit26.Text := FieldValues['du_gen'];
+             Edit27.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayEnd']);
+             Edit1.Text := FieldValues['Du_vender'];
+             Edit5.Text := comIDToComName(FieldValues['com_id']);
+             if FieldValues['du_status'] = 'เสีย' then
+             edit4.Text := FieldValues['du_lose'];
+
+        end;
+     end;
+
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+     form1.Close;
+end;
+
+procedure TForm2.Button19Click(Sender: TObject);
+begin
+     if edit21.text = '' then
+     begin
+          showmessage('ใส่เลขครุภัณฑ์ก่อน');
+          exit;
+     end;
+     form5 :=  Tform5.Create(nil);
+     form3.Query2.Close;
+     Form3.Query2.SQL.Text := 'select * from FixHis where du_id = :du_id';
+     form3.query2.ParamByName('du_id').asstring := edit21.text;
+     form5.DBGrid1.DataSource := form3.DataSource2;
+     form3.Query2.Open;
+     form5.Visible := true;
+
+end;
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+     if (edit21.text = '') or (combobox7.text = '')then  begin
+        showmessage('ไม่ได้ใส่เลขครุภัณฑ์หรือไม่ได้เลือกบริษัท');
+        exit;
+     end;
+     with form3.query1 do begin
+         Close;
+         SQL.text := 'select * from durable where du_id = :du_id';
+         ParamByName('du_id').asstring := edit21.text;
+         Open;
+// check have durable
+         if FieldValues['du_id'] = null then begin
+            showmessage('ไม่มีวะ');
+            exit;
+         end;
+//  check status can send to fix
+         if not((FieldValues['du_status'] = 'เสีย') or (FieldValues['du_status'] = 'ซ่อมไม่ได้')) then begin
+            showmessage('สถานะไม่พร้อมส่ง');
+            exit;
+         end;
+    end;
+
+// insert new row in Fix Table
+form3.Database1.StartTransaction;
+try
+   with  form3  do
+   begin
+          query1.Close;
+          Query1.sql.Clear;
+          Query1.Params.Clear;
+          Query1.sql.Add(' Declare @Fix_day datetime  ');
+          Query1.sql.Add(' set @Fix_day = :Fix_day ');
+          query1.SQL.add(' insert into fix(du_id,Fix_day,com_id,admin_id,fix_ship,fix_vender) ');
+          query1.SQL.Add(' values(:du_id,@Fix_day,:com_id,:admin_id,:fix_ship,:fix_vender)');
+          with query1 do begin
+               Parambyname('du_ID').asstring := edit21.Text;
+               Parambyname('Fix_day').asstring := edit33.Text;/////
+               Parambyname('Com_id').asinteger := strtoint(combobox7.Text);
+               Parambyname('Fix_Vender').asstring := edit31.Text;
+               Parambyname('Fix_ship').asstring := edit6.Text;
+               Parambyname('admin_id').asstring := form1.admin_iD ;
+               execSQL;
+// update Du_status in durable table = fix
+               Close;
+               SQL.Text := 'update durable set du_status = :du_status where du_id =:du_id';
+               Parambyname('du_status').asstring := 'ส่งซ่อม';
+               Parambyname('du_id').asstring := edit21.Text;
+               execSQL;
+         end;
+     end;
+     form3.Database1.Commit;
+     showmessage('การส่งซ้อมเรียบร้อย');
+// delete all edit.text in page
+     edit21.Text := '';
+     edit22.Text := '';
+     edit24.Text := '';
+     edit25.Text := '';
+     edit28.Text := '';
+     edit29.Text := '';
+     edit4.Text := '';
+     edit23.Text := '';
+     edit26.Text := '';
+     edit27.Text := '';
+     edit30.Text := '';
+     edit5.Text := '';
+     edit31.Text := '';
+     combobox7.text := '';
+     edit6.text := '';
+     edit33.text := '';
+except
+      showmessage('have error');
+      form3.Database1.Rollback;
+      raise;
+end;
+end;
+
+procedure TForm2.Edit20KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then begin
+        with form3.query1 do begin
+// find durable in durable table
+             Close;
+             SQL.text := 'select * from durable  where du_id = :du_id';
+             ParamByName('du_id').asstring := edit20.text;
+             Open;
+             if FieldValues['du_id'] = null then begin
+                showmessage('ไม่มีวะ');
+                exit;
+             end;
+// check durable status
+           if FieldValues['du_status'] <> 'ส่งซ่อม'  then begin
+                showmessage('อุปกรณ์ชิ้นนี้ไม่ได้ส่งซ้อม');
+                exit;
+             end;
+             edit32.Text := FieldValues['du_Name'];
+             edit34.Text := FieldValues['du_se'];
+             edit35.Text := FieldValues['du_type'];
+             edit36.Text := formatdatetime('dd/mm/yyyy',(FieldValues['du_dayincome']));
+             edit41.Text := FieldValues['du_brand'];
+             Edit40.Text := FieldValues['du_gen'];
+             Edit39.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayEnd']);
+             edit2.Text := FieldValues['du_lose'];
+// show fix status
+             form3.Query1.Close;
+             Form3.Query1.SQL.Text := 'select * from fix where du_id = :du_id ';
+             form3.query1.ParamByName('du_id').asstring := edit20.text;
+             form3.Query1.Open;
+             edit7.text := form3.query1.FieldValues['Fix_ship'];
+             edit69.Text := formatdatetime('dd/mm/yyyy',form3.query1.FieldValues['Fix_day']);
+             edit43.text := form3.query1.FieldValues['admin_id'];
+        end;
+     end;
+
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+// check enter yet
+     if edit20.text = '' then begin
+        showmessage('ไม่ได้ใส่เลขครุภัณฑ์');
+        exit;
+     end;
+// check durable
+     form3.Query1.Close;
+     form3.query1.SQL.text := 'select * from durable where du_id = :du_id';
+     form3.query1.ParambyName('du_id').asstring := edit20.text;
+     form3.query1.open;
+// check have or not
+     if form3.query1.FieldValues['du_id'] = null then
+        begin
+        showmessage('ไม่มีครุภัณฑ์');
+        exit;
+        end;
+// check status = fix or not
+     if form3.query1.FieldValues['du_status'] <> 'ส่งซ่อม' then
+        begin
+        showmessage('สถานะครุภัณฑ์ ไม่ได้ส่งซ่อม แต่เป็น ' +form3.query1.FieldValues['du_status']);
+        exit;
+        end;
+//  Open Fix Table to Query2
+        form3.Query2.Close;
+        form3.query2.SQL.text := 'select *  from Fix where du_id = :du_id';
+        form3.query2.ParambyName('du_id').asstring := edit20.text;
+        form3.query2.open;
+ 
+form3.Database1.StartTransaction;
+try
+// IF can fix
+     if radioButton5.Checked then begin
+  // Insert in FisHis Table
+        form3.query1.Close;
+        form3.Query1.sql.Clear;
+        form3.Query1.Params.Clear;
+        form3.Query1.sql.Add(' Declare @Fix_day datetime ,@Fix_dayback datetime ');
+        form3.Query1.sql.Add(' set @Fix_day = :Fix_day set @Fix_dayback = :Fix_dayback ');
+        Form3.Query1.SQL.add(' insert into fixhis(du_id,Fix_day,Fix_dayback,com_id,Fix_cost,Fix_lose,Fix_result,Fix_detail,Admin_ID)');
+        Form3.Query1.SQL.Add(' values(:du_id,@Fix_day,@Fix_dayback,:com_id,:Fix_cost,:Fix_lose,:Fix_result,:Fix_detail,:Admin_ID)');
+        form3.Query1.ParamByName('du_id').asstring := edit20.text;
+        form3.query1.ParambyName('Fix_day').asstring := formatdatetime('dd/mm/yyyy',form3.Query2.FieldValues['fix_day']);
+        form3.query1.ParambyName('Fix_dayback').asstring := edit8.text;
+        form3.Query1.ParamByName('com_ID').asinteger := form3.Query2.FieldValues['com_id'];
+        form3.query1.ParamByName('fix_cost').ascurrency := StrToFloat(edit42.text);
+        form3.Query1.ParamByName('Fix_lose').asstring := edit2.text;
+        form3.query1.ParambyName('Fix_result').asstring := 'ดี';
+        form3.Query1.ParamByName('Fix_detail').asstring := edit56.text;
+        form3.Query1.ParamByName('Admin_ID').asstring := form1.admin_iD ;
+        form3.query1.execSQL;
+  // update durable status in Durable Table
+        form3.query1.Close;
+        form3.query1.SQL.text := 'update durable set du_status = ''ดี'' , du_room = :du_room where du_id = :du_id ' ;
+        form3.query1.ParambyName('du_room').asstring :=  combobox4.text;
+        form3.query1.ParamByName('du_id').asstring := edit20.text;
+        form3.Query1.ExecSQL;
+  // delete in Fix Table
+        form3.query1.Close;
+        Form3.Query1.SQL.Text := 'delete Fix where du_id = :du_id';
+        form3.query1.ParamByName('du_id').asstring := edit20.text;
+        form3.query1.ExecSQL;
+        form3.query1.close;
+     end;
+// If can't fix
+     if RadioButton6.Checked then
+     begin
+  // Insert in FisHis Table
+        form3.query1.Close;
+        form3.Query1.sql.Clear;
+        form3.Query1.Params.Clear;
+        form3.Query1.sql.Add(' Declare @Fix_day datetime ,@Fix_dayback datetime ');
+        form3.Query1.sql.Add(' set @Fix_day = :Fix_day set @Fix_dayback = :Fix_dayback ');
+        Form3.Query1.SQL.add(' insert into fixhis(du_id,Fix_day,Fix_dayback,com_id,Fix_lose,Fix_result,Fix_unfix,fix_cost)');
+        Form3.Query1.SQL.Add(' values(:du_id,@Fix_day,@Fix_dayback,:com_id,:Fix_lose,:Fix_result,:Fix_unfix,:Fix_cost)');
+        form3.Query1.ParamByName('du_id').asstring := edit20.text;
+        form3.query1.ParambyName('Fix_day').asstring := formatdatetime('dd/mm/yyyy',form3.Query2.FieldValues['fix_day']);
+        form3.query1.ParambyName('Fix_dayback').asstring := edit8.text;
+        form3.Query1.ParamByName('com_ID').asinteger := form3.Query2.FieldValues['com_id'];
+        form3.Query1.ParamByName('Fix_lose').asstring := edit2.text;
+        form3.query1.ParambyName('Fix_result').asstring := 'เสีย';
+        form3.Query1.ParamByName('Fix_unfix').asstring := edit46.text;
+        form3.query1.ParamByName('fix_cost').ascurrency := 0;
+        form3.query1.execSQL;
+  // update durable status in Durable Table
+        form3.query1.Close;
+        form3.query1.SQL.text := 'update durable set du_status = ''ซ่อมไม่ได้'' , du_room = :du_room ,du_unfix = :du_unfix where du_id = :du_id ' ;
+        form3.query1.ParambyName('du_room').asstring :=  combobox4.text;
+        form3.query1.ParamByName('du_id').asstring := edit20.text;
+        form3.query1.ParamByName('du_unfix').asstring := edit46.text;
+        form3.Query1.ExecSQL;
+  // delete in Fix Table
+        form3.query1.Close;
+        Form3.Query1.SQL.Text := 'delete Fix where du_id = :du_id';
+        form3.query1.ParamByName('du_id').asstring := edit20.text;
+        form3.query1.ExecSQL;
+        form3.query1.close;
+     end;
+     form3.Database1.Commit;
+     showmessage('รับคืนเรียบร้อย');
+     edit20.Text := '';
+     edit32.Text := '';
+     edit34.Text := '';
+     edit35.Text := '';
+     edit36.Text := '';
+     edit2.Text := '';
+     edit7.Text := '';
+     edit43.Text := '';
+     edit41.Text := '';
+     edit40.Text := '';
+     edit39.Text := '';
+     combobox4.Text := '';
+     edit42.Text := '';
+     edit56.Text := '';
+     edit46.Text := '';
+     edit8.Text := '';
+     edit69.Text := '';
+
+
+except
+      showmessage('have error');
+      form3.Database1.Rollback;
+      raise;
+end;
+
+end;
+
+procedure TForm2.Edit49KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+//check student borrow before or not?
+     if key = 13 then  begin
+        form3.query1.close;
+        form3.query1.SQL.text := 'select *  from Tuser where id = :id';
+        form3.Query1.ParamByName('ID').asstring := edit49.text;
+        form3.query1.open;
+        if form3.query1.FieldValues['id'] = null then begin
+           showmessage('ไม่มีนักศึกษาหรืออาจารย์ชื่อนี้');
+           exit
+        end;
+        refreshListView8;
+     end;
+
+end;
+
+procedure TForm2.Button5Click(Sender: TObject);
+begin
+//check have student?
+     form3.query1.close;
+     form3.query1.SQL.text := 'select *  from Tuser where id = :id';
+     form3.Query1.ParamByName('ID').asstring := edit49.text;
+     form3.query1.open;
+     if form3.query1.FieldValues['id'] = null then begin
+        showmessage('ไม่มีนักศึกษาหรืออาจารย์ชื่อนี้');
+        exit
+     end;
+//check have durable or status = good ?
+     form3.query1.close;
+     form3.query1.SQL.text := 'select *  from durable where du_id = :du_id';
+     form3.Query1.ParamByName('du_ID').asstring := edit51.text;
+     form3.query1.open;
+     if form3.query1.FieldValues['du_id'] = null then begin
+        showmessage('ไม่มีเลขครุภัณฑ์เลขนี้');
+        exit
+     end;
+     if form3.Query1.FieldValues['du_status'] <> 'ดี' then begin
+        showmessage('คุรุภัณฑ์นี้ สถานะ = ' +form3.Query1.FieldValues['du_status'] );
+        exit
+     end;
+
+
+form3.Database1.StartTransaction;
+try
+//update status durable = borrow
+     form3.query1.close;
+     form3.Query1.sql.Clear;
+     form3.query1.SQL.add(' update durable set du_status = :du_status  where du_id = :du_id' );
+     form3.query1.ParamByName('du_status').asstring := 'ยืม';
+     form3.Query1.ParamByName('du_ID').asstring := edit51.text;
+     form3.query1.ExecSQL ;
+//add borrowing to borrow table
+     form3.query1.close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear;
+     form3.Query1.sql.Add(' Declare @bor_day datetime ');
+     form3.Query1.sql.Add(' set @bor_day = :bor_day ');
+     form3.query1.SQL.add(' insert into borrow(du_id,user_id,admin_id,bor_ship,bor_day) ');
+     form3.query1.SQL.add(' values(:du_id,:User_ID,:Admin_ID,:Bor_ship,@bor_day)');
+     form3.query1.ParamByName('du_id').asstring := edit51.text;
+     form3.Query1.ParamByName('User_ID').asstring := edit49.text;
+     form3.Query1.ParamByName('Admin_id').asstring := form1.admin_iD ;
+     form3.query1.ParamByName('bor_ship').asstring := edit9.text;
+     form3.query1.ParambyName('bor_day').asstring := edit11.text;
+     form3.query1.ExecSQL;
+     form3.Database1.Commit;
+     showmessage('การยืมเรียบร้อย');
+     edit51.text := '';
+     edit9.text := '';
+     edit11.text := '';
+     refreshListView8; //form2 procedure
+except
+      showmessage('เกิดความผิดพลาด โปรดตรวจสอบข้อมูลอีกครั้ง');
+      form3.Database1.Rollback;
+      raise;
+end; //try..except
+end;
+
+procedure TForm2.Button6Click(Sender: TObject);
+begin
+//check have durable or status = borrow ?
+     form3.query1.close;
+     form3.query1.SQL.text := 'select *  from durable where du_id = :du_id';
+     form3.Query1.ParamByName('du_id').asstring := edit45.text;
+     form3.query1.open;
+     if form3.query1.FieldValues['du_id'] = null then begin
+        showmessage('ไม่มีเลขครุภัณฑ์เลขนี้');
+        exit
+     end;
+     if form3.Query1.FieldValues['du_status'] <> 'ยืม' then begin
+        showmessage('คุรุภัณฑ์นี้ สถานะ = ' +form3.Query1.FieldValues['du_status'] );
+        exit
+     end;
+     form3.query2.close;
+     form3.query2.SQL.text := 'select * from borrow where du_id = :du_id';
+     form3.query2.ParamByName('du_id').asstring := edit45.text ;
+     form3.Query2.Open;
+
+form3.Database1.StartTransaction;
+try
+//add BorrowHis Table
+     form3.Query1.Close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear; //  insert into borrowhis dup PK no cheack PK
+     form3.Query1.sql.Add(' Declare @bor_day datetime,@bor_dayreturn datetime ');
+     form3.Query1.sql.Add(' set @bor_day= :bor_day  set @bor_dayreturn= :bor_dayreturn ');
+     form3.query1.SQL.add(' Insert into borrowhis(du_id,user_id,bor_day,bor_dayreturn,Admin_ID) ');
+     form3.query1.sql.Add(' values(:du_id,:user_id,@bor_day,@bor_dayreturn,:Admin_ID) ');
+     form3.query1.ParambyName('du_id').asstring := form3.query2.fieldvalues['du_id'];
+     form3.query1.ParambyName('user_id').asstring := form3.query2.fieldvalues['user_id'];
+     form3.query1.ParambyName('bor_day').asstring := formatdatetime('dd/mm/yyyy',form3.query2.fieldvalues['bor_day']);
+     form3.query1.ParambyName('bor_dayreturn').asstring := edit38.text;
+     form3.query1.ParambyName('Admin_ID').asstring := form1.admin_iD ;
+     form3.query1.ExecSQL;
+     form3.query2.close;
+//update status durable = good
+     form3.query1.close;
+     form3.query1.SQL.text := 'update durable set du_status = :du_status  where du_id = :du_id';
+     form3.query1.ParamByName('du_status').asstring := 'ดี';
+     form3.Query1.ParamByName('du_ID').asstring := edit45.text;
+     form3.query1.ExecSQL ;
+//delete Borrow Table
+     form3.Query1.Close;
+     form3.query1.sql.text := 'delete borrow where du_id = :du_id';
+     form3.query1.ParamByName('du_id').asstring := edit45.text ;
+     form3.query1.execSQL;
+     form3.Database1.Commit;
+     showmessage('การคืนเรียบร้อย');
+     refreshlistview4;
+     edit45.text := '';
+     edit38.text := '';
+except
+      showmessage('have error');
+      form3.Database1.Rollback;
+      raise;
+end;//try..except
+end;
+
+procedure TForm2.Button12Click(Sender: TObject);
+begin
+// check put durable id and TeacherAdmin ID
+     if (edit47.text = '') and (edit75.text = '') then begin
+        showmessage('ใส่ข้อความไม่ครบ');
+        exit;
+     end;
+//check TeacherId and password
+        with form3.query1 do begin
+             Close;
+             SQL.text := 'select * from durable where du_id = :du_id';
+             ParamByName('du_id').asstring := edit47.text;
+             Open;
+             if (( FieldValues['du_status'] <> 'ซ่อมไม่ได้' )
+                and ( FieldValues['du_status'] <> 'เสีย' ))then
+             begin
+                 showmessage('ครุภัณฑ์นี้สถานะเป็น ' +fieldvalues['du_status']);
+                 exit;
+             end;
+       end;
+     if ((edit55.Visible = true) and (edit55.text = '')) then
+     begin
+          showmessage('กรุณาใส่วันที่แทงจำหน่าย');
+          exit;
+     end;
+//check ID and Password And status
+     form3.query1.close;
+     form3.query1.SQL.text := 'select *  from TAdmin where id = :id and password = :password ' ;
+     form3.Query1.ParamByName('ID').asstring := edit75.text;
+     form3.query1.ParamByName('password').asstring := form1.encode(edit68.text);
+     form3.query1.open;
+     if form3.query1.fieldValues['id'] = null then begin
+        showmessage('Incorrect User name and Password ');
+        exit
+     end;
+     if form3.query1.FieldValues['status'] <> 'TA' then begin
+        showmessage('Status = ' +form3.query1.fieldvalues['status']);
+        exit
+     end;
+// Ark  conferm
+     if MessageDlg('You sure to do that ?',
+        mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
+     begin
+          exit;
+     end;
+
+
+form3.Database1.StartTransaction;
+try
+     form3.query1.close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear;
+     form3.Query1.sql.Add(' select * from OverDu  ');
+     form3.Query1.sql.Add(' where du_id = :du_id  ');
+     form3.Query1.ParamByName('du_ID').asstring := edit47.text;
+     form3.Query1.Open;
+// if 1 teacher
+     if ((form3.query1.FieldValues['teacher_id1'] = null )
+        and (form3.query1.FieldValues['teacher_id2'] = null) )then
+     begin
+          form3.query1.Close;
+          form3.Query1.sql.Clear;
+          form3.Query1.Params.Clear;
+          form3.query1.SQL.add(' insert into Overdu (du_ID,teacher_ID1) values(:du_ID,:teacher_ID1) ');
+          form3.query1.ParamByName('teacher_ID1').asstring := edit75.text ;
+          form3.Query1.ParamByName('du_ID').asstring := edit47.text;
+          form3.query1.ExecSQL ;
+          showmessage('ผู้รับผิดชอบคนที่ 1 เรียบร้อย_');
+          edit85.text := edit75.text;
+          edit75.text := '';
+          edit68.text := '';
+     end
+     else
+// if 2 teacher
+     if ((form3.query1.FieldValues['teacher_id1'] <> null )
+     and (form3.query1.FieldValues['teacher_id2'] = null ))then
+     begin
+          form3.query1.Close;
+          form3.Query1.sql.Clear;
+          form3.Query1.Params.Clear;
+          form3.query1.SQL.add(' update  Overdu set teacher_ID2 = :teacher_ID2 ');
+          form3.query1.SQL.add(' where du_ID = :du_ID ');
+          form3.query1.ParamByName('teacher_ID2').asstring := edit75.text ;
+          form3.Query1.ParamByName('du_ID').asstring := edit47.text;
+          form3.query1.ExecSQL ;
+          showmessage('ผู้รับผิดชอบคนที่ 2 เรียบร้อย_');
+          edit86.text := edit75.text;
+          edit75.text := '';
+          edit68.text := '';
+     end
+     else
+// if 3 teacher
+     if ((form3.query1.FieldValues['teacher_id1'] <> null )
+        and (form3.query1.FieldValues['teacher_id2'] <> null) )then
+     begin
+          form3.query1.Close;
+          form3.Query1.sql.Clear;
+          form3.Query1.Params.Clear;
+          form3.Query1.sql.Add(' Declare @du_dayOver datetime  ');
+          form3.Query1.sql.Add(' set @du_dayOver = :du_dayOver  ');
+          form3.query1.SQL.add(' update Overdu set teacher_ID3 = :teacher_ID3,du_dayOver = @du_DayOver ');
+          form3.query1.SQL.add(' where du_ID = :du_ID ');
+          form3.query1.ParamByName('teacher_ID3').asstring := edit75.text ;
+          form3.query1.ParamByName('du_dayOver').asstring := edit55.text;
+          form3.Query1.ParamByName('du_ID').asstring := edit47.text;
+          form3.query1.ExecSQL ;
+          //update status durable = over
+          form3.query1.close;
+          form3.Query1.sql.Clear;
+          form3.Query1.Params.Clear;
+          form3.query1.SQL.add(' update durable set du_status = :du_status   where du_id = :du_id ');
+          form3.query1.ParamByName('du_status').asstring := 'แทงจำหน่าย';
+          form3.Query1.ParamByName('du_ID').asstring := edit47.text;
+          form3.query1.ExecSQL ;
+          showmessage('การแทงจำหน่ายสมบูรณ์');
+          edit47.Text := '';
+          edit50.Text := '';
+          edit52.Text := '';
+          edit53.Text := '';
+          edit54.Text := '';
+          edit37.Text := '';
+          edit67.Text := '';
+          edit66.Text := '';
+          edit58.Text := '';
+          edit75.Text := '';
+          edit68.Text := '';
+          edit55.Text := '';
+          edit78.text := '';
+          edit80.text := '';
+          edit85.text := '';
+          edit86.text := '';
+     end;
+     form3.Database1.Commit;
+     edit55.Visible := false;
+except
+      form3.Database1.Rollback;
+      showmessage('have error');
+      raise;
+end;
+
+end;
+
+procedure TForm2.ListView8DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview8.SelCount = 0 then
+     begin
+          exit;
+     end;
+     form2.ShowDurableDetail(listview8.selected.caption);
+end;
+
+procedure TForm2.RadioButton6Click(Sender: TObject);
+begin
+     edit46.Enabled := true;
+     edit46.Color :=  clwhite;
+     edit42.Enabled := false;
+     edit42.color := clsilver;
+     edit56.Enabled := false;
+     edit56.Color := clsilver;
+     edit42.text := '';
+     edit56.text := '';
+
+end;
+
+procedure TForm2.RadioButton5Click(Sender: TObject);
+begin
+     edit46.Enabled := false;
+     edit46.Color := clsilver;
+     edit46.text := '';
+     edit42.Enabled := true;
+     edit42.Color := clwhite;
+     edit56.Enabled := true;
+     edit56.Color := clwhite;
+end;
+
+procedure TForm2.Button27Click(Sender: TObject);
+begin
+     listview8.Items.Clear;
+     showDurableList;
+      form3.query1.First;
+      while not form3.query1.Eof do
+      begin
+          with form2.listview8.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_status']);
+               subItems.add(form3.query1.fieldvalues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_type']);
+               subItems.add(form3.query1.fieldvalues['du_room']);
+               form3.query1.Next;
+          end;
+
+     end;
+
+end;
+
+procedure TForm2.Button28Click(Sender: TObject);
+begin
+     form2_2 := Tform2_2.Create(application);
+     form2.enabled:= false;
+end;
+
+procedure TForm2.Button29Click(Sender: TObject);
+begin
+     form2_3 := Tform2_3.Create(nil);
+     enabled := false;     
+end;
+
+procedure TForm2.Button14Click(Sender: TObject);
+begin
+     edit10.text := '';
+     edit13.text := '';
+     edit17.text := '';
+     combobox6.text := '';
+     edit3.text := '';
+     edit12.text := '';
+     edit14.text := '';
+     edit15.text := '';
+     edit18.text := '';
+     edit19.text := '';
+     radiobutton3.Checked := true;
+     combobox1.text := '';
+     combobox3.Text := '';
+end;
+
+procedure TForm2.ComboBox1Enter(Sender: TObject);
+begin
+     combobox1.Items := form1.Type_Items.Items;
+end;
+
+procedure TForm2.ComboBox4Enter(Sender: TObject);
+begin
+     combobox4.Items := form1.room_items.Items ;
+end;
+
+procedure TForm2.Edit45KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+     begin
+// check durable in durable Table
+         form3.query1.close;
+         form3.query1.SQL.text := 'select *  from durable where du_id = :du_id';
+         form3.Query1.ParamByName('du_ID').asstring := edit45.text;
+         form3.query1.open;
+         if form3.query1.FieldValues['du_id'] = null then begin
+            showmessage('ไม่มีครุภัณฑ์เลขนี้');
+            exit;
+         end;
+//  check durable have borrow or not
+         form3.query1.close;
+         form3.query1.SQL.text := 'select *  from borrow where du_id = :du_id';
+         form3.Query1.ParamByName('du_ID').asstring := edit45.text;
+         form3.query1.open;
+         if form3.query1.fieldValues['du_id'] = null then
+          begin
+            showmessage('ครุภัณฑ์เลขนี้ไม่ได้ถูกยืม');
+            exit;
+          end {if}
+         else
+          begin
+         edit57.Text := form3.query1.fieldValues['user_id'];
+         refreshListView4;
+          end; {else}
+     end;
+end;
+
+procedure TForm2.Edit47KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+     begin
+        with form3.query1 do begin
+             Close;
+             SQL.text := 'select * from durable where du_id = :du_id';
+             ParamByName('du_id').asstring := edit47.text;
+             Open;
+             if FieldValues['du_id'] = null then begin
+                showmessage('ไม่มีวะ');
+                edit47.Clear;
+                exit;
+             end;
+             edit78.text := fieldvalues['du_status'];
+             edit50.Text := FieldValues['du_Name'];
+             edit52.Text := FieldValues['du_se'];
+             edit53.Text := FieldValues['du_type'];
+             edit54 .Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayincome']);
+             edit29.Text := FieldValues['du_status'];
+             edit67.Text := FieldValues['du_brand'];
+             Edit66.Text := FieldValues['du_gen'];
+             Edit58.Text := formatdatetime('dd/mm/yyyy',FieldValues['du_dayEnd']);
+             if (FieldValues['du_status'] = 'ซ่อมไม่ได้') or (FieldValues['du_status'] = 'เสีย') then
+             begin
+                  edit80.Text := FieldValues['du_lose'];
+                  edit80.visible := true;
+                  Label98.visible := true;
+                  if FieldValues['du_status'] = 'ซ่อมไม่ได้' then
+                  begin
+                     edit37.Text := FieldValues['du_unfix'];
+                     Label1.caption := 'สาเหตุที่ซ่อมไม่ได้';
+                     edit37.visible := true;
+                     Label1.visible := true
+                  end;
+             end else begin
+                 showmessage('ครุภัณฑ์นี้สถานะเป็น ' +fieldvalues['du_status']);
+             end;
+// check in OverDu table
+             Close;
+             SQL.text := 'select * from Overdu where du_id = :du_id';
+             ParamByName('du_id').asstring := edit47.text;
+             Open;
+             if fieldvalues['teacher_ID1'] <> null then
+                edit85.text := fieldvalues['teacher_ID1'];
+             if fieldvalues['teacher_ID2'] <> null then
+             begin
+                edit86.text := fieldvalues['teacher_ID2'];
+                edit55.Visible := true;
+             end;
+       end;
+     end;
+end;
+
+procedure TForm2.ComboBox5Enter(Sender: TObject);
+begin
+     combobox5.Items := form1.com_items.Items ;
+
+end;
+
+procedure TForm2.ComboBox7Enter(Sender: TObject);
+begin
+     combobox7.Items := form1.com_items.Items ;
+end;
+
+procedure TForm2.ComboBox15Enter(Sender: TObject);
+begin
+     combobox15.Items := form1.type_items.Items ;
+end;
+
+procedure TForm2.ComboBox2Enter(Sender: TObject);
+begin
+     combobox2.Items := form1.room_items.items;
+end;
+
+procedure TForm2.Button10Click(Sender: TObject);
+var
+   i :integer;
+begin
+try
+     dbgrid2.DataSource := form3.datasource1;
+     form3.query1.Close;
+     form3.Query1.sql.Clear;
+     form3.Query1.Params.Clear;
+ // check day
+     form3.query1.sql.add(' select * from durable where du_id > 0 ');
+     if edit59.text <> '' then
+        begin
+           form3.query1.sql.add(' and du_id = ' +'''' +edit59.text +'''' );
+        end;
+
+     if combobox15.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = ' +'''' +combobox15.text +'''')
+       else
+           form3.query1.sql.Add(' and du_type = ' +'''' +combobox15.text +'''');
+      end;
+
+     if combobox16.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = ' +'''' +combobox16.text +'''' )
+       else
+           form3.query1.sql.Add(' and du_status = ' +'''' +combobox16.text +'''');
+      end;
+
+     if combobox2.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = ' +'''' +combobox2.text +'''' )
+       else
+           form3.query1.sql.Add(' and du_room = ' +'''' +combobox2.text +'''');
+      end;
+
+     if combobox28.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_Maintain = ' +'''' +combobox28.text +'''' )
+       else
+           form3.query1.sql.Add(' and du_maintain = ' +'''' +combobox28.text +'''');
+      end;
+
+     if edit61.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add( 'select * from durable where du_name ' +'''' +edit61.text +'''' )
+       else
+           form3.query1.sql.Add(' and du_name = ' +'''' +edit61.text +'''' );
+      end;
+
+     if edit62.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_brand = ' +'''' +edit62.text +''''  )
+       else
+           form3.query1.sql.Add(' and du_brand = ' +'''' +edit62.text +'''' );
+      end;
+
+      if edit63.Text <> '' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_gen = ' +'''' +edit63.text +''''  )
+       else
+           form3.query1.sql.Add(' and du_gen = ' +'''' +edit61.text +'''' );
+      end;
+
+      if ((edit64.Text <> '') and (combobox17.text <> '')) then
+      begin
+       if form3.query1.SQL.Text = '' then
+         begin
+           form3.query1.sql.add('select * from durable ');
+           form3.query1.sql.add(' where du_dayincome ' +combobox17.text +'''' +edit64.text +''''  )
+         end
+       else
+           form3.query1.sql.Add(' and du_dayincome ' +combobox17.text  +'''' +edit64.text +'''');
+      end;
+
+      if ((edit65.Text <> '') and (combobox18.text <> '')) then
+      begin
+       if form3.query1.SQL.Text = '' then
+         begin
+           form3.query1.sql.add('select * from durable ');
+           form3.query1.sql.add(' where du_dayEnd ' +combobox18.text  +'''' +edit65.text +''''  )
+         end
+       else
+           form3.query1.sql.Add(' and du_dayEnd ' +combobox18.text  +'''' +edit65.text +'''' );
+      end;
+
+      if form3.query1.Text <> '' then
+      begin
+      form3.query1.sql.add(' order by du_id');
+      form3.query1.Open;
+      end;
+     dbgrid2.Columns[0].fieldname := 'du_iD';
+     dbgrid2.Columns[1].fieldname := 'du_name';
+     dbgrid2.Columns[2].fieldname := 'du_type';
+     dbgrid2.Columns[3].fieldname := 'du_brand';
+     dbgrid2.Columns[4].fieldname := 'du_status';
+     dbgrid2.Columns[5].fieldname := 'du_gen';
+     dbgrid2.Columns[6].fieldname := 'du_room';
+     dbgrid2.Columns[7].fieldname := 'du_maintain';
+     dbgrid2.Columns[8].fieldname := 'du_dayincome';
+     dbgrid2.Columns[9].fieldname := 'du_dayend';
+
+// manage SearchArray
+      SearchArray.count := SearchArray.count+1;
+      SearchArray.index := SearchArray.index+1;
+      if searchArray.count > 10 then
+        begin
+             for i := 1 to SearchArray.count-1 do
+             begin
+                  if i < 10 then
+                  SearchArray.Data[i] := SearchArray.Data[i+1];
+                  if i = 10 then
+                  SearchArray.Data[i] := form3.query1.SQL.text;
+                  SearchArray.count := 10 ;
+                  SearchArray.index := 10;
+             end;
+        end
+      else
+        begin
+             SearchArray.data[SearchArray.count] := form3.query1.sql.text;
+        end;
+      if SearchArray.index >= 2 then
+      button7.enabled :=true;
+
+// count durable in search
+     form3.query2.Close;
+     form3.Query2.sql.Clear;
+     form3.Query2.Params.Clear;
+ // check day
+     form3.query2.sql.add(' select count(*) from durable where du_id > 0 ');
+     if edit59.text <> '' then
+        begin
+           form3.query2.sql.add(' and du_id = ' +'''' +edit59.text +'''' );
+        end;
+
+     if combobox15.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_type = ' +'''' +combobox15.text +'''')
+       else
+           form3.query2.sql.Add(' and du_type = ' +'''' +combobox15.text +'''');
+      end;
+
+     if combobox16.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_status = ' +'''' +combobox16.text +'''' )
+       else
+           form3.query2.sql.Add(' and du_status = ' +'''' +combobox16.text +'''');
+      end;
+
+     if combobox2.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_room = ' +'''' +combobox2.text +'''' )
+       else
+           form3.query2.sql.Add(' and du_room = ' +'''' +combobox2.text +'''');
+      end;
+
+     if combobox28.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_Maintain = ' +'''' +combobox28.text +'''' )
+       else
+           form3.query2.sql.Add(' and du_maintain = ' +'''' +combobox28.text +'''');
+      end;
+
+     if edit61.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add( 'select * from durable where du_name ' +'''' +edit61.text +'''' )
+       else
+           form3.query2.sql.Add(' and du_name = ' +'''' +edit61.text +'''' );
+      end;
+
+     if edit62.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_brand = ' +'''' +edit62.text +''''  )
+       else
+           form3.query2.sql.Add(' and du_brand = ' +'''' +edit62.text +'''' );
+      end;
+
+      if edit63.Text <> '' then
+      begin
+       if form3.query2.SQL.Text = '' then
+           form3.query2.sql.add('select * from durable where du_gen = ' +'''' +edit63.text +''''  )
+       else
+           form3.query2.sql.Add(' and du_gen = ' +'''' +edit61.text +'''' );
+      end;
+
+      if ((edit64.Text <> '') and (combobox17.text <> '')) then
+      begin
+       if form3.query2.SQL.Text = '' then
+         begin
+           form3.query2.sql.add('select * from durable ');
+           form3.query2.sql.add(' where du_dayincome ' +combobox17.text +'''' +edit64.text +''''  )
+         end
+       else
+           form3.query2.sql.Add(' and du_dayincome ' +combobox17.text  +'''' +edit64.text +'''');
+      end;
+
+      if ((edit65.Text <> '') and (combobox18.text <> '')) then
+      begin
+       if form3.query2.SQL.Text = '' then
+         begin
+           form3.query2.sql.add('select * from durable ');
+           form3.query2.sql.add(' where du_dayEnd ' +combobox18.text  +'''' +edit65.text +''''  )
+         end
+       else
+           form3.query2.sql.Add(' and du_dayEnd ' +combobox18.text  +'''' +edit65.text +'''' );
+      end;
+
+      if form3.query2.Text <> '' then
+      begin
+      form3.query2.Open;
+      form3.query2.First;
+      end;
+      edit83.Text := form3.query2.fieldvalues['column1'];
+// manage SearchCountArray
+      SearchCountArray.count := SearchCountArray.count+1;
+      SearchCountArray.index := SearchCountArray.index+1;
+      if searchCountArray.count > 10 then
+        begin
+             for i := 1 to SearchCountArray.count-1 do
+             begin
+                  if i < 10 then
+                  SearchCountArray.Data[i] := SearchCountArray.Data[i+1];
+                  if i = 10 then
+                  SearchCountArray.Data[i] := form3.query2.SQL.text;
+                  SearchCountArray.count := 10 ;
+                  SearchCountArray.index := 10;
+             end;
+        end
+      else
+        begin
+             SearchCountArray.data[SearchArray.count] := form3.query2.sql.text;
+        end;
+      if SearchCountArray.index >= 2 then
+      button7.enabled :=true;
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.ComboBox3Enter(Sender: TObject);
+begin
+     combobox3.Items := form1.room_items.Items ;
+
+end;
+
+procedure TForm2.TabSheet15Show(Sender: TObject);
+begin
+     form3.Query2.Close;
+     form3.query2.sql.text := 'select * from company';
+     form3.query2.Open;
+     dbgrid6.DataSource := form3.DataSource2;
+end;
+
+procedure TForm2.TabSheet18Show(Sender: TObject);
+begin
+// show room
+   form3.Query2.Close;
+   form3.query2.sql.text := 'select * from room';
+   form3.query2.open;
+   dbgrid4.DataSource := form3.DataSource2;
+// show type
+   form3.Query3.Close;
+   form3.query3.sql.text := 'select * from type';
+   form3.query3.open;
+   dbgrid5.DataSource := form3.DataSource3;
+end;
+
+procedure TForm2.TabSheet20Show(Sender: TObject);
+begin
+  form7_1 := Tform7_1.create(nil);
+  memo1.Lines.Assign(form7_1.QuickRep.Description);
+  form7_1.Query1.Open;
+  Dbgrid1.DataSource := form7_1.datasource1;
+  dbgrid1.Columns[0].fieldname := 'user_ID';
+  dbgrid1.Columns[1].fieldname := 'column2';
+  dbgrid1.Columns[2].fieldname := 'column3';
+  dbgrid1.Columns[3].fieldname := 'column4';
+  dbgrid1.Columns[4].fieldname := 'du_ID';
+  dbgrid1.Columns[5].fieldname := 'du_type';
+  dbgrid1.Columns[6].fieldname := 'du_name';
+
+end;
+
+procedure TForm2.TabSheet21Show(Sender: TObject);
+begin
+  form7_4 := Tform7_4.create(nil);
+  memo1.Lines.Assign(form7_4.QuickRep.Description);
+  form7_4.Query1.Open;
+  Dbgrid3.DataSource := form7_4.datasource1;
+  dbgrid3.Columns[0].fieldname := 'du_id';
+  dbgrid3.Columns[1].fieldname := 'du_name';
+  dbgrid3.Columns[2].fieldname := 'du_status';
+  dbgrid3.Columns[3].fieldname := 'du_dayend';
+
+end;
+
+procedure TForm2.TabSheet24Show(Sender: TObject);
+begin
+  form7_2 := Tform7_2.create(nil);
+  memo1.Lines.Assign(form7_2.QuickRep.Description);
+  form7_2.Query1.Open;
+  Dbgrid9.DataSource := form7_2.datasource1;
+  dbgrid9.Columns[0].fieldname := 'du_status';
+  dbgrid9.Columns[1].fieldname := 'du_id';
+  dbgrid9.Columns[2].fieldname := 'du_name';
+  dbgrid9.Columns[3].fieldname := 'du_type';
+
+end;
+
+procedure TForm2.TabSheet22Show(Sender: TObject);
+begin
+  form7_3 := Tform7_3.create(nil);
+  memo1.Lines.Assign(form7_3.QuickRep.Description);
+  form7_3.Query1.Open;
+  Dbgrid7.DataSource := form7_3.datasource1;
+  dbgrid7.Columns[0].fieldname := 'du_id';
+  dbgrid7.Columns[1].fieldname := 'du_name';
+  dbgrid7.Columns[2].fieldname := 'du_status';
+  dbgrid7.Columns[3].fieldname := 'fix_day';
+  dbgrid7.Columns[4].fieldname := 'fix_lose';
+  dbgrid7.Columns[5].fieldname := 'fix_cost';
+
+  form7_3.query1.First;
+  form3.Query1.Close;
+  form3.query1.SQL.clear;
+  form3.query1.SQL.text  := 'select distinct du_id ';
+  form3.query1.sql.add(' from fixhis ');
+  form3.query1.sql.add(' group by du_id ');
+  form3.query1.open;
+
+  form3.query1.First;
+  listview6.Items.Clear;
+   while not form3.query1.Eof do
+   begin
+        with listview6.Items.add  do
+        begin
+             caption := form3.query1.fieldValues['du_id'];
+             form3.query1.Next;
+        end;
+   end;
+
+end;
+
+procedure TForm2.TabSheet23Show(Sender: TObject);
+begin
+  form7_5 := Tform7_5.create(nil);
+  memo1.Lines.Assign(form7_5.QuickRep.Description);
+  form7_5.Query1.Open;
+  Dbgrid8.DataSource := form7_5.datasource1;
+  dbgrid8.Columns[0].fieldname := 'du_type';
+  dbgrid8.Columns[1].fieldname := 'du_id';
+  dbgrid8.Columns[2].fieldname := 'du_name';
+  dbgrid8.Columns[3].fieldname := 'du_status';
+
+end;
+
+procedure TForm2.TabSheet18Hide(Sender: TObject);
+begin
+//     form3.Query2.Close;
+//     form3.Query3.Close;
+
+end;
+
+procedure TForm2.TabSheet15Hide(Sender: TObject);
+begin
+//     form3.query2.Close;
+end;
+
+procedure TForm2.TabSheet20Hide(Sender: TObject);
+begin
+     form7_1.query1.Close;
+end;
+
+procedure TForm2.TabSheet24Hide(Sender: TObject);
+begin
+     form7_2.query1.Close;
+end;
+
+procedure TForm2.TabSheet22Hide(Sender: TObject);
+begin
+     form7_3.query1.Close;
+end;
+
+procedure TForm2.TabSheet21Hide(Sender: TObject);
+begin
+     form7_4.query1.Close;
+end;
+
+procedure TForm2.TabSheet23Hide(Sender: TObject);
+begin
+     form7_5.query1.Close;
+end;
+
+procedure TForm2.Button33Click(Sender: TObject);
+begin
+     form7_5.QuickRep.Preview
+end;
+
+procedure TForm2.Button30Click(Sender: TObject);
+begin
+     form7_1.QuickRep.Preview
+end;
+
+procedure TForm2.Button34Click(Sender: TObject);
+begin
+     form7_2.QuickRep.Preview
+end;
+
+procedure TForm2.Button32Click(Sender: TObject);
+begin
+     form7_3.QuickRep.Preview
+end;
+
+procedure TForm2.Button31Click(Sender: TObject);
+begin
+     form7_4.QuickRep.Preview
+end;
+
+procedure TForm2.Edit60KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+     begin
+     tabsheet21change;
+     end;
+end;
+
+procedure TForm2.ComboBox10Change(Sender: TObject);
+begin
+     if combobox10.Text = 'เสีย' then
+     begin
+        label65.Visible := true;
+        edit70.Visible := true;
+     end
+end;
+
+procedure TForm2.ListView1Click(Sender: TObject);
+begin
+     if listview1.SelCount <> 0 then
+     begin
+          groupbox14.Visible := true;
+          groupbox14.Caption := 'ผลการตรวจสอบของครุภัณฑ์เลขที่ ' +listview1.Selected.Caption;
+          form3.query1.close;
+          form3.query1.sql.text := 'select du_status from durable where du_id = :du_id ';
+          form3.query1.ParamByName('du_id').asstring := listview1.Selected.Caption;
+          form3.query1.open;
+          if  (form3.query1.FieldValues['du_status'] <> 'ดี') and (form3.query1.FieldValues['du_status'] <> 'เสีย') then
+            begin
+               label67.visible := false;
+               combobox10.Visible := false;
+               exit;
+            end
+          else
+            begin
+               label67.visible := true;
+               combobox10.Visible := true;
+            end;
+     end;
+end;
+
+procedure TForm2.TabSheet11Show(Sender: TObject);
+begin
+     listview1.Items.Clear;
+// show 1 2 3 month maintain that never check
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select du_id ,du_name,du_maintain,du_dayincome,du_status';
+     form3.Query1.SQL.add(' from durable t1 ');
+     form3.Query1.SQL.add(' WHERE GETDATE() >= (SELECT DATEADD(month, CONVERT(int, t1.du_maintain), du_dayincome) ');
+     form3.Query1.SQL.add(' FROM durable t2 ');
+     form3.Query1.SQL.add(' WHERE t1.du_id = t2.du_id AND du_maintain <> ''เทอม'' AND du_maintain <> ''ประจำปี'' )');
+     form3.Query1.SQL.add(' and du_status <> ''แทงจำหน่าย'' ');
+     form3.Query1.SQL.add(' and du_id not in (select du_id from checkdu )');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['du_dayincome']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show 1 2 3 month maintain that have been check
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select t1.du_id ,t1.du_name,t1.du_maintain,t3.chk_day,t1.du_status';
+     form3.Query1.SQL.add(' from durable t1, checkdu t3 ');
+     form3.Query1.SQL.add(' WHERE GETDATE() >= (SELECT DATEADD(month, CONVERT(int, t1.du_maintain), t3.chk_day) ');
+     form3.Query1.SQL.add(' FROM durable t2 ');
+     form3.Query1.SQL.add(' WHERE t1.du_id = t2.du_id AND t1.du_maintain <> ''เทอม'' AND t1.du_maintain <> ''ประจำปี'' )');
+     form3.Query1.SQL.add(' and t1.du_status <> ''แทงจำหน่าย'' ');
+     form3.Query1.SQL.add(' and t1.du_id = t3.du_id ');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['chk_day']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show TERM maintain first time
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select t1.du_id ,t1.du_name,t1.du_maintain,t1.du_dayincome ,t1.du_status';
+     form3.Query1.SQL.add(' from durable t1,chkDay t2 ');
+     form3.Query1.SQL.add(' where ');
+     form3.Query1.SQL.add(' t1.du_maintain = ''เทอม'' ');
+     form3.Query1.SQL.add(' and t2.chkDay_time = ''เทอม'' ');
+     form3.Query1.SQL.add(' and t1.du_dayincome <= t2.chkDay_Day ');
+     form3.Query1.SQL.add(' and t2.chkDay_Day <= getDate() ');
+     form3.Query1.SQL.add(' and du_id not in (select du_id from checkdu )');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['du_dayincome']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show TERM maintain
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select t1.du_id ,t1.du_name,t1.du_maintain,t3.chk_day,t1.du_status';
+     form3.Query1.SQL.add(' from durable t1,chkDay t2, checkdu t3 ');
+     form3.Query1.SQL.add(' where t1.du_id = t3.du_id  ');
+     form3.Query1.SQL.add(' and t1.du_maintain = ''เทอม'' ');
+     form3.Query1.SQL.add(' and t2.chkDay_time = ''เทอม'' ');
+     form3.Query1.SQL.add(' and t3.chk_day <= t2.chkDay_Day ');
+     form3.Query1.SQL.add(' and t2.chkDay_Day <= getDate() ');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['chk_day']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show Year maintain first time
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select t1.du_id ,t1.du_name,t1.du_maintain,t1.du_dayincome ,t1.du_status';
+     form3.Query1.SQL.add(' from durable t1,chkDay t2 ');
+     form3.Query1.SQL.add(' where ');
+     form3.Query1.SQL.add(' t1.du_maintain = ''ประจำปี'' ');
+     form3.Query1.SQL.add(' and t2.chkDay_time = ''ประจำปี'' ');
+     form3.Query1.SQL.add(' and t1.du_dayincome <= t2.chkDay_Day ');
+     form3.Query1.SQL.add(' and t2.chkDay_Day <= getDate() ');
+     form3.Query1.SQL.add(' and du_id not in (select du_id from checkdu )');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['du_dayincome']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show Year maintain
+     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select t1.du_id ,t1.du_name,t1.du_maintain,t3.chk_day,t1.du_status';
+     form3.Query1.SQL.add(' from durable t1,chkDay t2, checkdu t3 ');
+     form3.Query1.SQL.add(' where t1.du_id = t3.du_id  ');
+     form3.Query1.SQL.add(' and t1.du_maintain = ''ประจำปี'' ');
+     form3.Query1.SQL.add(' and t2.chkDay_time = ''ประจำปี'' ');
+     form3.Query1.SQL.add(' and t3.chk_day <= t2.chkDay_Day ');
+     form3.Query1.SQL.add(' and t2.chkDay_Day <= getDate() ');
+     // if type
+     if combobox23.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox23.Text;
+      end;
+      // if status
+     if combobox22.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox22.Text;
+      end;
+      // if room
+     if combobox24.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox24.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(formatdatetime('dd/mm/yyyy',form3.query1.fieldvalues['chk_day']));
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+// show du_maintain = term that never check
+{     form3.Query1.Close;
+     form3.Query1.SQL.Text := 'select du_id ,du_name,du_maintain,du_dayincome,du_status';
+     form3.Query1.SQL.add(' from durable t1 ');
+     form3.Query1.SQL.add(' WHERE GETDATE() >=  ');
+     form3.Query1.SQL.add(' FROM durable t2 ');
+     form3.Query1.SQL.add(' WHERE t1.du_id = t2.du_id AND du_maintain <> ''เทอม'' AND du_maintain <> ''ประจำปี'' )');
+     form3.Query1.SQL.add(' and du_status <> ''แทงจำหน่าย'' ');
+     form3.Query1.SQL.add(' and du_id not in (select du_id from checkdu )');
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview1.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(form3.query1.fieldvalues['du_dayincome']);
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               form3.query1.Next;
+          end;
+     end;
+ }
+
+end;
+
+procedure TForm2.TabSheet7Show(Sender: TObject);
+begin
+     form3.Query1.Close;
+     form3.Query1.SQL.text := 'select * from durable';
+     form3.query1.open;
+     dbgrid2.DataSource := form3.Datasource1 ;
+     dbgrid2.Columns[0].fieldname := 'du_iD';
+     dbgrid2.Columns[1].fieldname := 'du_name';
+     dbgrid2.Columns[2].fieldname := 'du_type';
+     dbgrid2.Columns[3].fieldname := 'du_brand';
+     dbgrid2.Columns[4].fieldname := 'du_status';
+     dbgrid2.Columns[5].fieldname := 'du_gen';
+     dbgrid2.Columns[6].fieldname := 'du_room';
+     dbgrid2.Columns[7].fieldname := 'du_maintain';
+     dbgrid2.Columns[8].fieldname := 'du_dayincome';
+     dbgrid2.Columns[9].fieldname := 'du_dayend';
+end;
+
+procedure TForm2.TabSheet7Hide(Sender: TObject);
+begin
+     form3.Query1.Close;
+end;
+
+procedure TForm2.Button3Click(Sender: TObject);
+begin
+     if (listview1.SelCount = 0) or (combobox10.text = '' ) then
+     begin
+          showmessage('กรุณาเลือกอุปกรณ์ก่อน');
+          exit;
+     end;
+// find if first time
+     form3.Query1.Close;
+     form3.query1.SQL.text := 'select du_id from checkdu where du_id = :du_id';
+     form3.query1.ParamByName('du_id').asstring := listview1.Selected.Caption;
+     form3.query1.Open;
+     form3.query1.First;
+     form3.Database1.StartTransaction;
+     try
+     if form3.query1.fieldValues['du_id'] <> null then
+     begin
+// if not first time
+            form3.Query1.Close;
+            form3.query1.SQL.text := 'update checkdu set Admin_id = :Admin_id ,chk_day = getdate() ,teacher_id = '''' ,chk_statusbefore = :chk_statusbefore ,chk_StatusAfter = :chk_statusAfter ';
+            form3.query1.sql.add(' where du_id = :du_id');
+            form3.query1.ParamByName('Admin_id').asstring := form1.admin_iD;
+            form3.query1.ParamByName('chk_statusbefore').asstring := listview1.Selected.SubItems.Strings[3] ;
+            form3.query1.ParamByName('du_id').asstring := listview1.Selected.Caption;
+            form3.query1.ParambyName('chk_statusAfter').asstring := combobox10.text ;
+            form3.query1.ExecSQL;
+       end
+     else
+       begin
+// if first time
+            form3.Query1.Close;
+            form3.query1.SQL.text := 'insert into checkdu (du_id,teacher_id,chk_day,admin_id,chk_statusbefore,chk_statusAfter)';
+            form3.query1.sql.add(' values (:du_id,'''',getdate(),:admin_id,:chk_statusbefore,:chk_statusAfter) ');
+            form3.query1.ParamByName('du_id').asstring := listview1.Selected.Caption;
+            form3.query1.ParamByName('Admin_id').asstring := form1.admin_iD;
+            form3.query1.ParamByName('chk_statusbefore').asstring := listview1.Selected.SubItems.Strings[3];
+            form3.query1.ParambyName('chk_statusAfter').asstring := combobox10.text ;
+            form3.query1.ExecSQL;
+       end;
+// update status
+     form3.query1.Close;
+     form3.query1.sql.text := 'update durable set du_status = :du_status ,du_lose = :du_lose where du_id = :du_id ';
+     form3.query1.ParamByName('du_status').asstring := combobox10.text;
+     form3.query1.ParamByName('du_lose').asstring := edit70.text;
+     form3.query1.ParamByName('du_id').asstring := listview1.Selected.Caption;
+     form3.query1.ExecSQL;
+     form3.Database1.Commit;
+     showmessage('อุปกรณ์หมายเลข ' +listview1.selected.caption +' ตรวจสอบเรียบร้อย');
+     listview1.Selected.Delete;
+     except
+      form3.Database1.Rollback;
+      showmessage('have error');
+      raise;
+     end;
+     combobox10.Text := '';
+     combobox10.Visible := false;
+     edit70.Text := '';
+     edit70.Visible := false;
+     label67.Visible := false;
+     label65.Visible := false;
+     groupbox14.Visible := false;
+
+end;
+
+procedure TForm2.TabSheet12Show(Sender: TObject);
+begin
+     listview2.Items.Clear;
+//   Maintain type = 1 2 3
+     form3.query1.Close;
+     form3.query1.SQL.text := 'select t3.du_id,t1.du_name,t1.du_maintain,t3.chk_day,t3.chk_statusBefore,t1.du_status,t3.admin_id ';
+     form3.Query1.SQL.add(' from durable t1, checkdu t3 ');
+     form3.Query1.SQL.add(' WHERE GETDATE() <= (SELECT DATEADD(month, CONVERT(int, t1.du_maintain), t3.chk_day) ');
+     form3.Query1.SQL.add(' FROM durable t2 ');
+     form3.Query1.SQL.add(' WHERE t1.du_id = t2.du_id ');
+     form3.query1.sql.add(' AND t1.du_maintain <> ''เทอม'' AND t1.du_maintain <> ''ประจำปี'' )');
+     form3.Query1.SQL.add(' and t1.du_status <> ''แทงจำหน่าย'' ');
+     form3.Query1.SQL.add(' and t1.du_id = t3.du_id and t3.teacher_id = '''' ');
+     // if type (1 2 3)
+     if combobox26.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox26.Text;
+      end;
+      // if status (1 2 3)
+     if combobox25.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox25.Text;
+      end;
+      // if room (1 2 3)
+     if combobox27.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox27.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview2.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(form3.query1.fieldvalues['chk_day']);
+               subItems.add(form3.query1.fieldvalues['chk_statusBefore']);
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               subItems.add(form3.query1.fieldvalues['admin_id']);
+               form3.query1.Next;
+          end;
+     end;
+//   Maintain type = term and year
+     form3.query1.Close;
+     form3.query1.SQL.text := 'select t3.du_id,t1.du_name,t1.du_maintain,t3.chk_day,t3.chk_statusBefore,t1.du_status,t3.admin_id ';
+     form3.Query1.SQL.add(' from durable t1,chkDay t2, checkdu t3 ');
+     form3.query1.sql.add(' where t1.du_maintain = t2.chkDay_time ');
+     form3.Query1.SQL.add(' and t2.chkDay_day <= t3.chk_day ');
+     form3.Query1.SQL.add(' and t1.du_status <> ''แทงจำหน่าย'' ');
+     form3.Query1.SQL.add(' and t1.du_id = t3.du_id and t3.teacher_id = '''' ');
+     // if type (term and year)
+     if combobox26.Text <> 'ทุกประเภท' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_type = :du_type' )
+       else
+           form3.query1.sql.Add(' and du_type = :du_type');
+       form3.query1.ParamByName('du_type').asstring := combobox26.Text;
+      end;
+     // if status (term and year)
+     if combobox25.Text <> 'ทุกสถานะ' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_status = :du_status' )
+       else
+           form3.query1.sql.Add(' and du_status = :du_status');
+       form3.query1.ParamByName('du_status').asstring := combobox25.Text;
+      end;
+      // if room (term and year)
+     if combobox27.Text <> 'ทุกห้อง' then
+      begin
+       if form3.query1.SQL.Text = '' then
+           form3.query1.sql.add('select * from durable where du_room = :du_room ' )
+       else
+           form3.query1.sql.Add(' and du_room = :du_room');
+       form3.query1.ParamByName('du_room').asstring := combobox27.Text;
+      end;
+     form3.query1.Open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with listview2.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_name']);
+               subItems.add(form3.query1.fieldvalues['du_maintain']);
+               subItems.add(form3.query1.fieldvalues['chk_day']);
+               subItems.add(form3.query1.fieldvalues['chk_statusBefore']);
+               subItems.add(form3.query1.fieldvalues['du_status']);
+               subItems.add(form3.query1.fieldvalues['admin_id']);
+               form3.query1.Next;
+          end;
+     end;
+
+
+end;
+
+procedure TForm2.ListView1DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview1.SelCount = 0 then
+     begin
+          exit;
+     end;
+     showDurableDetail(listview1.selected.caption);
+end;
+
+procedure TForm2.ListView2DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview2.SelCount = 0 then
+     begin
+          exit;
+     end;
+     showDurableDetail(listview2.selected.caption);
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+var
+   i :integer;
+begin
+     form3.query1.Close;
+     form3.query1.SQL.text := 'select status from TAdmin where id = :id and password = :password ';
+     form3.query1.ParamByName('id').asstring := edit44.text;
+     form3.query1.ParamByName('password').asstring := form1.encode(edit48.text);
+     form3.query1.Open;
+     if form3.query1.FieldValues['status'] <> 'TA' then
+     begin
+          showmessage('Not Teacher admin');
+          exit;
+     end;
+     i := 0;
+     while i <= listview2.Items.Count-1  do
+     begin
+          if listview2.items.item[i].checked  then
+          begin
+               form3.Database1.StartTransaction;
+               try
+                  form3.query1.close;
+                  form3.query1.sql.text := 'update checkdu set teacher_id = :teacher_id where du_id = :du_id';
+                  form3.query1.ParamByName('teacher_id').asstring := edit44.text;
+                  form3.query1.ParamByName('du_id').asstring := listview2.items.item[i].caption ;
+                  form3.query1.ExecSQL;
+                  listview2.Items.Delete(i);
+                  i := i -1 ;
+                  form3.Database1.Commit;
+               except
+                  showmessage('have error');
+                  form3.Database1.Rollback;
+                  raise;
+               end; {end try}
+          end; {end for}
+          i := i+1;
+      end; { end while}
+end;
+
+procedure TForm2.TabSheet12Hide(Sender: TObject);
+begin
+     edit44.Text := '';
+     edit48.text := '';
+end;
+
+procedure TForm2.TabSheet25Show(Sender: TObject);
+begin
+  form7_6 := Tform7_6.create(nil);
+  memo1.Lines.Assign(form7_6.QuickRep.Description);
+  form7_6.Query1.Open;
+  Dbgrid10.DataSource := form7_6.datasource1;
+  dbgrid10.Columns[0].fieldname := 'du_id';
+  dbgrid10.Columns[1].fieldname := 'chk_day';
+  dbgrid10.Columns[2].fieldname := 'admin_id';
+  dbgrid10.Columns[3].fieldname := 'teacher_id';
+  dbgrid10.Columns[4].fieldname := 'chk_statusbefore';
+  dbgrid10.Columns[5].fieldname := 'chk_statusafter';
+  dbgrid10.Columns[6].fieldname := 'du_status';
+  dbgrid10.Columns[7].fieldname := 'du_lose';
+
+  end;
+
+procedure TForm2.TabSheet25Hide(Sender: TObject);
+begin
+     form7_6.query1.Close;
+end;
+
+procedure TForm2.Button35Click(Sender: TObject);
+begin
+     form7_6.QuickRep.Preview;
+     form7_6.QRLabel2.Caption := 'อุปกรณ์ที่ตรวจสอบตั้งแต่วันที่ ' +edit71.Text ;
+end;
+
+procedure TForm2.Edit71KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+       tabsheet25change;
+end;
+
+procedure TForm2.CheckBox1Click(Sender: TObject);
+begin
+     tabsheet25change;
+end;
+
+procedure TForm2.ListView3DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview3.SelCount = 0 then
+     begin
+          exit;
+     end;
+     showDurableDetail(listview3.selected.caption);
+end;
+
+procedure TForm2.ListView4DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview4.SelCount = 0 then
+     begin
+          exit;
+     end;
+     showDurableDetail(listview4.selected.caption);
+
+end;
+
+procedure TForm2.DBGrid2DblClick(Sender: TObject);
+begin
+     if dbgrid2.DataSource.DataSet['du_id'] = '' then
+        exit;
+     showDurableDetail(dbgrid2.dataSource.dataSet['du_id']);
+
+
+end;
+
+procedure TForm2.ComboBox9Enter(Sender: TObject);
+begin
+     combobox9.items := form1.Type_Items.Items;
+     combobox9.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.TabSheet28Show(Sender: TObject);
+begin
+     if combobox9.text = '' then
+     begin
+          showmessage('ไม่ได้ใส่ประเภทที่จะแสดง');
+          exit;
+     end;
+     chart1.Series[1].active := false;
+     chart1.Series[0].active := true;
+     chart1.Series[0].clear;
+     form3.query1.close;
+     form3.query1.SQL.Text := 'select du_status,count(*) from durable ';
+     if combobox9.Text <> 'ทุกประเภท' then
+       begin
+            form3.query1.SQL.Add (' where du_type = :du_type');
+            form3.query1.ParamByName('du_type').asstring := combobox9.text;
+       end ;
+            form3.query1.sql.add(' group by du_status');
+     form3.query1.open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+        with form2.listview8.Items.add  do
+          begin
+             chart1.Series[0].add(form3.query1.FieldValues['COLUMN2'],form3.query1.fieldvalues['du_status'],ColorPalette[1+Random(MaxDefaultColors)]);
+             form3.query1.Next;
+          end;
+     end;
+
+
+end;
+
+procedure TForm2.Button36Click(Sender: TObject);
+begin
+     if edit72.text = '' then
+     begin
+          showmessage('ใส่ช่วงปีก่อน');
+          exit;
+     end;
+     chart1.Series[0].active := false;
+     chart1.Series[1].active := true;
+     chart1.Series[1].clear;
+     form3.Query1.Close;
+     if combobox8.text = 'ทุกประเภท' then
+     begin
+          form3.query1.SQL.Text := 'SELECT count(*) ,Datepart(month ,t2.bor_day) ';
+          form3.query1.sql.add(' from durable t1, borrowhis t2 ');
+          form3.query1.sql.add(' where t1.du_id = t2.du_id and Datepart(year ,t2.bor_day) = :year');
+          form3.query1.sql.add(' group by  Datepart(month ,t2.bor_day)');
+          form3.query1.ParamByName('year').asstring := edit72.text;
+     end;
+     if (combobox8.text <> 'ทุกประเภท')  then
+     begin
+          form3.query1.SQL.Text := 'SELECT count(*) ,Datepart(month ,t2.bor_day) ';
+          form3.query1.sql.add(' from durable t1, borrowhis t2 ');
+          form3.query1.sql.add(' where t1.du_id = t2.du_id and Datepart(year ,t2.bor_day) = :year and t1.du_type = :du_type');
+          form3.query1.sql.add(' group by  Datepart(month ,t2.bor_day)');
+          form3.query1.ParamByName('year').asstring := edit72.text;
+          form3.query1.ParamByName('du_type').asstring := combobox8.text;
+     end;
+     form3.query1.open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with form2.listview8.Items.add  do
+          begin
+               chart1.Series[1].add(form3.query1.FieldValues['COLUMN1'],form3.query1.fieldvalues['column2'],ColorPalette[1+Random(MaxDefaultColors)]);
+               form3.query1.Next;
+          end;
+     end;
+
+
+end;
+
+procedure TForm2.ComboBox8Enter(Sender: TObject);
+begin
+     combobox8.items := form1.Type_Items.Items;
+     combobox8.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.TabSheet1Show(Sender: TObject);
+begin
+     edit17.text := formatdatetime('dd/mm/yyyy',date());
+end;
+
+procedure TForm2.TabSheet3Show(Sender: TObject);
+begin
+     edit33.text := formatdatetime('dd/mm/yyyy',date());
+end;
+
+procedure TForm2.TabSheet4Show(Sender: TObject);
+begin
+     edit8.text := formatdatetime('dd/mm/yyyy',date());
+end;
+
+procedure TForm2.TabSheet13Show(Sender: TObject);
+begin
+     edit11.text := formatdatetime('dd/mm/yyyy',date());
+end;
+
+procedure TForm2.TabSheet14Show(Sender: TObject);
+begin
+     edit38.text := formatdatetime('dd/mm/yyyy',date());
+end;
+
+procedure TForm2.ComboBox11Change(Sender: TObject);
+begin
+     if combobox11.text = '' then
+     begin
+          showmessage('choose some status first');
+          exit;
+     end;
+     Tabsheet24Change;
+end;
+
+procedure TForm2.Edit73KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+     tabsheet24Change
+end;
+
+procedure TForm2.ComboBox12Change(Sender: TObject);
+begin
+     if combobox12.text = '' then
+      begin
+           showmessage('choose some Type first');
+           exit;
+      end;
+     tabsheet23change;
+end;
+
+procedure TForm2.ComboBox12Enter(Sender: TObject);
+begin
+     combobox12.Items := form1.Type_Items.Items;
+     combobox12.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.Button38Click(Sender: TObject);
+begin
+// show chart for cost fix
+// check put  year or not
+     if edit74.text = '' then
+     begin
+          showmessage('ใส่ช่วงปีก่อน');
+          exit;
+     end;
+     chart1.Series[0].active := false;
+     chart1.Series[1].active := true;
+     chart1.Series[1].clear;
+     form3.Query1.Close;
+// check choose type or not
+     form3.query1.SQL.Text := 'SELECT sum(fix_cost) ,Datepart(month ,t2.fix_day) ';
+     form3.query1.sql.add(' from durable t1, fixhis t2 ');
+     if combobox13.text = 'ทุกประเภท' then
+     begin
+          form3.query1.sql.add(' where t1.du_id = t2.du_id and Datepart(year ,t2.fix_day) = :year');
+          form3.query1.ParamByName('year').asstring := edit74.text;
+     end;
+     if (combobox13.text <> 'ทุกประเภท') then
+     begin
+          form3.query1.sql.add(' where t1.du_id = t2.du_id and Datepart(year ,t2.fix_day) = :year and t1.du_type = :du_type');
+          form3.query1.ParamByName('year').asstring := edit74.text;
+          form3.query1.ParamByName('du_type').asstring := combobox13.text;
+     end;
+     form3.query1.sql.add(' group by  Datepart(month ,t2.fix_day)');
+     form3.query1.open;
+     form3.query1.First;
+     while not form3.query1.Eof do
+     begin
+          with form2.listview8.Items.add  do
+          begin
+               chart1.Series[1].add(form3.query1.FieldValues['COLUMN1'],form3.query1.fieldvalues['column2'],ColorPalette[1+Random(MaxDefaultColors)]);
+               form3.query1.Next;
+          end;
+     end;
+
+end;
+
+procedure TForm2.ComboBox13Enter(Sender: TObject);
+begin
+     combobox13.items := form1.Type_Items.Items;
+     combobox13.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox14Enter(Sender: TObject);
+begin
+     combobox14.Items := form1.Type_Items.Items;
+     combobox14.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox14Change(Sender: TObject);
+begin
+// check status choose combobox
+     form3.Query1.close;
+     form3.query1.sql.text := 'select du_id ';
+     form3.query1.SQL.Add(' from fixhis ');
+     form3.query1.sql.Add(' where du_id in (select du_id from durable ');
+     if combobox14.text <>  'ทุกประเภท' then
+       begin
+        form3.query1.sql.add(' where du_type = :du_type');
+        form3.Query1.ParamByName('du_type').asstring := combobox14.text;
+       end;
+     form3.query1.sql.add(')');
+     form3.query1.SQL.Add(' group by du_id ');
+     form3.query1.Open;
+     form3.query1.First;
+     listview6.Items.Clear;
+     while not form3.query1.Eof do
+     begin
+          with listview6.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               form3.query1.Next;
+          end;
+     end;
+end;
+
+procedure TForm2.DBGrid6DblClick(Sender: TObject);
+begin
+     if form3.query2['com_id'] = null then
+        exit;
+     showCompanyDetail(form3.query2['com_id']);
+
+end;
+
+procedure TForm2.Button20Click(Sender: TObject);
+begin
+     if form3.Query2.FieldValues['room_name']  = null then
+     begin
+          showmessage('Please Choose Room');
+          exit;
+     end;
+     if MessageDlg('Are you sure you want to delete ' +form3.Query2.FieldValues['room_name'] +'?',
+     mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          form3.query1.Close;
+          form3.query1.sql.text := 'delete room where room_name = :room_name';
+          form3.query1.ParamByName('room_name').asstring := form3.Query2.FieldValues['room_name'];
+          form3.query1.ExecSQL;
+          form1.updateRoom_Items;
+     end;
+     TabSheet18show(sender);
+     
+end;
+
+procedure TForm2.Button39Click(Sender: TObject);
+begin
+     if form3.Query3.FieldValues['type_name']  = null then
+     begin
+          showmessage('Please Choose Type');
+          exit;
+     end;
+     if MessageDlg('Are you sure you want to delete ' +form3.Query3.FieldValues['type_name'] +'?',
+     mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          form3.query1.Close;
+          form3.query1.sql.text := 'delete Type where type_name = :type_name';
+          form3.query1.ParamByName('type_name').asstring := form3.Query3.FieldValues['type_name'];
+          form3.query1.ExecSQL;
+          form1.updateType_Items;
+     end;
+     TabSheet18show(sender);
+
+end;
+
+procedure TForm2.Button21Click(Sender: TObject);
+begin
+     if form3.Query2.FieldValues['com_id']  = null then
+     begin
+          showmessage('Please Choose Company');
+          exit;
+     end;
+     if MessageDlg('Are you sure you want to delete Company ID: ' +inttostr(form3.Query2.FieldValues['com_id']) +'?',
+     mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          form3.query1.Close;
+          form3.query1.sql.text := 'delete company where com_id = :com_id';
+          form3.query1.ParamByName('com_id').asinteger := form3.Query2.FieldValues['com_id'];
+          form3.query1.ExecSQL;
+          form1.updateCom_Items;
+     end;
+     TabSheet15show(sender);
+
+end;
+
+procedure TForm2.CheckBox1_aClick(Sender: TObject);
+begin
+query2.close;
+  if (form2.CheckBox1_a.Checked) then
+   begin
+     edit50_a.Visible:=false;
+     form2.ComboBox50_a.Visible:=false;
+     form2.CheckBox1_b.Checked:=false;
+     form2.CheckBox1_c.Checked:=false;
+     form2.CheckBox1_c.enabled:=false;
+     form2.CheckBox1_b.enabled:=false;
+     edit55_k.Visible:=true;
+     edit55_k.SetFocus;
+   end
+   else
+      begin
+     form2.CheckBox1_b.Checked:=false;
+     form2.CheckBox1_c.Checked:=false;
+     form2.CheckBox1_c.enabled:=true;
+     form2.CheckBox1_b.enabled:=true;
+      edit55_k.Text:='';
+      edit55_k.Visible:=false;
+      end
+
+end;
+
+procedure TForm2.CheckBox1_bClick(Sender: TObject);
+begin
+query2.close;
+  if (form2.CheckBox1_b.Checked) then
+   begin
+     edit50_a.Visible:=true;
+     edit50_a.SetFocus;
+     form2.CheckBox1_a.Checked:=false;
+     form2.CheckBox1_a.enabled:=false;
+  end
+  else
+      begin
+     edit50_a.text:='';
+     edit50_a.Visible:=false;
+     if (not form2.CheckBox1_c.Checked) then
+          begin
+          form2.CheckBox1_a.Checked:=false;
+          form2.CheckBox1_a.enabled:=true;
+          end;
+     end;
+
+end;
+
+procedure TForm2.CheckBox1_cClick(Sender: TObject);
+begin
+query2.close;
+  if (form2.CheckBox1_c.Checked) then
+   begin
+     form2.ComboBox50_a.Visible:=true;
+     combobox50_a.ItemIndex:=0;
+     combobox50_a.SetFocus;
+     form2.CheckBox1_a.Checked:=false;
+     form2.CheckBox1_a.enabled:=false;
+  end
+  else
+      begin
+     form2.ComboBox50_a.Visible:=false;
+     if (not form2.CheckBox1_b.Checked) then
+          begin
+          form2.CheckBox1_a.Checked:=false;
+          form2.CheckBox1_a.enabled:=true;
+          end;
+      end;
+
+
+end;
+
+procedure TForm2.Button15_kClick(Sender: TObject);
+begin
+if (edit55_k.text<>'')and(form2.CheckBox1_a.Checked=true) then
+   begin
+       query2.close;
+       query2.sql.Clear;
+       query2.Params.Clear;
+       query2.sql.Add('Use data_stores select * from Tuser where (id = '+''''+edit55_k.Text+''''+')and (status=''user'')' );
+       query2.Open;
+form2.DBGrid5_k.Columns[0].fieldname := 'id';
+form2.DBGrid5_k.Columns[1].fieldname := 'name';
+form2.DBGrid5_k.Columns[2].fieldname := 'comment';
+   end;
+
+if (form2.CheckBox1_b.Checked=true)or(form2.CheckBox1_c.Checked=true) then
+   begin
+       query2.close;
+       query2.sql.Clear;
+       query2.Params.Clear;
+       if (edit50_a.Text<>'')and (form2.CheckBox1_b.Checked=true)and (form2.CheckBox1_c.Checked=false)then
+           begin
+           query2.sql.Add('Use data_stores select * from Tuser where (name LIKE '+''''+edit50_a.Text+'%'+''''+')and (status=''user'') order by comment,id');
+           query2.open;
+           end;
+       if (edit50_a.Text<>'')and(form2.CheckBox1_b.Checked=true)and (form2.CheckBox1_c.Checked=true)then
+           begin
+           query2.sql.Add('Use data_stores select * from Tuser where (name LIKE '+''''+edit50_a.Text+'%'+''''+ ') and (status=''user'') and (comment='+''''+combobox50_a.Text+''''+') order by comment,id');
+           query2.open;
+           end;
+       if (form2.CheckBox1_b.Checked=false)and (form2.CheckBox1_c.Checked=true)then
+           begin
+           query2.sql.Add('Use data_stores select * from Tuser  where (status=''user'') and (comment='+''''+combobox50_a.Text+''''+ ') order by comment,id');
+           query2.open;
+           end;
+form2.DBGrid5_k.Columns[0].fieldname := 'id';
+form2.DBGrid5_k.Columns[1].fieldname := 'name';
+form2.DBGrid5_k.Columns[2].fieldname := 'comment';
+   end;
+
+
+end;
+
+procedure TForm2.Button22_kClick(Sender: TObject);
+begin
+query2.close;
+edit55_k.Text:='';
+edit50_a.Text:='';
+edit55_k.visible:=false;
+edit50_a.visible:=false;
+checkbox1_a.Checked:= false;
+checkbox1_b.Checked:= false;
+checkbox1_c.Checked:= false;
+checkbox1_a.visible:= true;
+checkbox1_b.visible:= true;
+checkbox1_b.visible:= true;
+     form2.Visible := false;
+     form9_a.Visible := true;//////form
+     Form9_a.Edit3.SetFocus; ////// form
+
+end;
+
+procedure TForm2.TabSheet16Enter(Sender: TObject);
+begin
+form2.Query1.Close;
+form2.Query2.close;
+
+end;
+
+procedure TForm2.TabSheet16Exit(Sender: TObject);
+begin
+query2.close;
+edit55_k.Text:='';
+edit50_a.Text:='';
+edit55_k.visible:=false;
+edit50_a.visible:=false;
+checkbox1_a.Checked:= false;
+checkbox1_b.Checked:= false;
+checkbox1_c.Checked:= false;
+checkbox1_a.visible:= true;
+checkbox1_b.visible:= true;
+checkbox1_b.visible:= true;
+
+end;
+
+procedure TForm2.TabSheet17Enter(Sender: TObject);
+begin
+Query1.Close;
+Query2.close;
+comboboxin_1.ItemIndex:=0;
+
+end;
+
+procedure TForm2.TabSheet17Exit(Sender: TObject);
+begin
+query2.close;
+edit_in_1.Text:='';
+edit_in_2.Text:='';
+edit_in_1.Visible:=false;
+edit_in_2.Visible:=false;
+checkbox2_a.Checked:=false;
+checkbox2_b.Checked:=false;
+checkbox2_a.Visible:=true;
+checkbox2_b.Visible:=true;
+
+end;
+
+procedure TForm2.CheckBox2_aClick(Sender: TObject);
+begin
+     if checkbox2_a.Checked then
+        begin
+        checkbox2_b.Checked:=false;
+        edit_in_2.Text:='';
+        edit_in_2.Visible:=false;
+        checkbox2_b.enabled:=false;
+        edit_in_1.Visible:=true;
+        edit_in_1.SetFocus;
+
+        end
+        else
+            begin
+            edit_in_1.Text:='';
+            edit_in_1.Visible:=false;
+            checkbox2_b.enabled:=true;
+
+            end;
+
+end;
+
+procedure TForm2.CheckBox2_bClick(Sender: TObject);
+begin
+     if checkbox2_b.Checked then
+        begin
+        checkbox2_a.Checked:=false;
+        edit_in_1.Text:='';
+        edit_in_1.Visible:=false;
+        checkbox2_a.enabled:=false;
+        edit_in_2.Visible:=true;
+        edit_in_2.SetFocus;
+
+        end
+        else
+            begin
+            edit_in_2.Text:='';
+            edit_in_2.Visible:=false;
+        checkbox2_a.enabled:=true;
+            end;
+
+end;
+
+procedure TForm2.Button_in_1Click(Sender: TObject);
+begin
+//If (edit_in_1.Text<>'') or (edit_in_2.Text<>'') then
+//        begin
+       query2.close;
+       query2.sql.Clear;
+       query2.Params.Clear;
+      if comboboxin_1.ItemIndex = 0 then
+      begin
+      if checkbox2_a.Checked then  query2.sql.Add('Use data_stores select * from Tuser where (id = '+''''+edit_in_1.Text+''''+')and (status=''in'') order by id' );
+      if checkbox2_b.Checked then  query2.sql.Add('Use data_stores select * from Tuser where (name like '+''''+edit_in_2.Text+'%'+''''+')and (status=''in'') order by id' );
+      end
+      else
+      begin
+      if checkbox2_a.Checked then  query2.sql.Add('Use data_stores select * from Tuser where (id = '+''''+edit_in_1.Text+''''+')and (status=''out'') order by id' );
+      if checkbox2_b.Checked then  query2.sql.Add('Use data_stores select * from Tuser where (name like '+''''+edit_in_2.Text+'%'+''''+')and (status=''out'') order by id' );
+      end;
+
+      if checkbox2_a.Checked or checkbox2_b.Checked then query2.Open
+      else
+          begin
+           query2.SQL.Add(' Use Data_stores select * from Tuser where  status = :1  order by id ' );
+           if comboboxin_1.ItemIndex = 0 then
+           query2.Params[0].value := 'in'
+           else
+           query2.Params[0].value := 'out';
+           query2.open;
+          end;
+
+      DBGrid4_t.Columns[0].fieldname := 'id';
+      DBGrid4_t.Columns[1].fieldname := 'name';
+      DBGrid4_t.Columns[2].fieldname := 'comment';
+
+      //      end;
+
+end;
+
+procedure TForm2.Button16_rClick(Sender: TObject);
+begin
+query2.close;
+edit_in_1.Text:='';
+edit_in_2.Text:='';
+edit_in_1.Visible:=false;
+edit_in_2.Visible:=false;
+checkbox2_a.Checked:=false;
+checkbox2_b.Checked:=false;
+checkbox2_a.Visible:=true;
+checkbox2_b.Visible:=true;
+form2.Visible :=false;
+
+end;
+
+procedure TForm2.Button17Click(Sender: TObject);
+begin
+If MessageDlg(' เมื่อท่าน UPDATE ชั้นของนักศึกษาแล้วจะทำให้ ชั้นของนศปีสุดท้ายของห้อง P คือ TmpP ส่วนห้อง D คือ TmpD!!!! ท่านต้องการทำงานนี้หรือไม่ ',mtwarning,[mbOK,mbcancel],0)=mrok then
+    begin
+          query1.close;
+          query1.params.Clear;
+          query1.sql.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+          query1.sql.Add(' Use Data_stores Update Tuser set comment = ''TmpD'' where comment =''4D'' and status = ''user'' ');
+          query1.sql.Add(' Update Tuser set comment = ''4D'' where comment =''3D'' and status = ''user'' ');
+          query1.sql.Add(' Update Tuser set comment = ''3D'' where comment =''2D'' and status = ''user'' ');
+          query1.sql.Add('  Update Tuser set comment = ''2D'' where comment =''1D'' and status = ''user'' ');
+          query1.sql.Add(' Update Tuser set comment = ''TmpP'' where comment =''3P'' and status = ''user'' ');
+          query1.sql.Add(' Update Tuser set comment = ''3P'' where comment =''2P'' and status = ''user'' ');
+          query1.sql.Add(' Update Tuser set comment = ''2P'' where comment =''1P'' and status = ''user'' ');
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+          query1.ExecSQL;
+         query2.close;
+         query2.sql.Clear;
+         query2.Params.Clear;
+         query2.sql.Add(' select * from Tuser where comment <> ''tmpd'' and comment <> ''tmpp'' and status =''user'' order by comment ');
+         query2.open;
+         DBGrid_update.Columns[0].fieldname := 'id';
+         DBGrid_update.Columns[1].fieldname := 'name';
+         DBGrid_update.Columns[2].fieldname := 'comment';
+          showmessage(' Update เรียบร้อย ');
+    end;
+
+end;
+
+procedure TForm2.TabSheet18_kEnter(Sender: TObject);
+begin
+query1.close;
+query2.close;
+edit38_k.Text:='';
+edit_comment.Text:='';
+edit_stores_name.Text:='';
+edit39_k.Text:='0';
+
+end;
+
+procedure TForm2.Button16_kClick(Sender: TObject);
+begin
+       query2.close;
+       query2.sql.Clear;
+       query2.Params.Clear;
+       query2.sql.Add('Use data_stores select store_name,item,name,comment from stores where store_name LIKE '+''''+Edit_stores.Text+'%'+'''');
+       query2.Open;
+       dbgrid_stores.Columns[0].fieldname := 'store_name';
+       dbgrid_stores.Columns[1].fieldname := 'item';
+       dbgrid_stores.Columns[2].fieldname := 'name';
+       dbgrid_stores.Columns[3].fieldname := 'comment';
+
+end;
+
+procedure TForm2.Button13_kClick(Sender: TObject);
+var store_name : string;item:integer;
+begin
+Try
+     IF (edit38_k.Text<>'') and (edit39_k.Text<>'') Then
+        Begin
+           query3_k.close;
+           query3_k.sql.Clear;
+           query3_k.params.Clear;
+           query3_k.sql.Add('Use data_stores select store_name,item from stores where store_name = :name ');
+           query3_k.params[0].value := edit38_k.Text;
+           query3_k.open;
+           If query3_k.RecordCount = 1 Then
+              begin
+              // stores name is exist in database then count item++
+If MessageDlg(' รหัสวัสดุซ้ำต้องการทำงานต่อหรือไม่ ถ้าทำงานต่อจะเป็นการเพิ่มจำนวนวัสดุ ? ',mtwarning,[mbOK,mbcancel],0)=mrok then
+           begin
+              store_name:=query3_k.Fields[0].asstring;
+              item:= query3_k.Fields[1].asinteger+strToint(form2.Edit39_k.text);
+              query1.close;
+              query1.sql.Clear;
+              query1.params.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+              query1.sql.Add(' Use data_stores Update stores set item= :item where store_name ='+''''+store_name+'''');
+              query1.params[0].value := item;
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+              query1.ExecSQL;
+              query1.sql.Clear;
+              query1.params.Clear;
+              query1.sql.Add('Use data_stores select * from stores where store_name = :name order by store_name');
+              query1.Params[0].value := edit38_k.Text;
+              query1.Open;
+       dbgrid4_k.Columns[0].fieldname := 'store_name';
+       dbgrid4_k.Columns[1].fieldname := 'item';
+       dbgrid4_k.Columns[2].fieldname := 'name';
+       dbgrid4_k.Columns[3].fieldname := 'comment';
+         end
+              end
+              else
+              begin
+              query1.close;
+              query1.sql.Clear;
+              query1.params.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+              query1.sql.Add(' Use data_stores insert into stores(store_name,item,name,comment) VALUES ( :name , :item , :3 ,:4 ) ');
+              query1.params[0].value := edit38_k.Text;
+              query1.Params[1].value := strtoint(edit39_k.text);
+              query1.Params[2].value := edit_stores_name.text;
+              query1.Params[3].value := edit_comment.Text;
+
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+              query1.ExecSQL;
+              query1.close;
+              query1.sql.Clear;
+              query1.params.Clear;
+              query1.sql.Add('Use data_stores select * from stores where store_name = :name order by store_name');
+              query1.Params[0].value := edit38_k.Text;
+              query1.Open;
+       dbgrid4_k.Columns[0].fieldname := 'store_name';
+       dbgrid4_k.Columns[1].fieldname := 'item';
+       dbgrid4_k.Columns[2].fieldname := 'name';
+       dbgrid4_k.Columns[3].fieldname := 'comment';
+               end;
+    edit39_k.Text := '0';
+    edit38_k.SetFocus;
+        End
+        else
+    MessageDlg(' กรุณากรอกรายละเอียดให้ครบ ',mterror,[mbOK],0);
+     except
+on EDBEngineError do MessageDlg('ไม่ใช่งานของคุณ!!!',mtError,[mbOK],0);
+on Econverterror do
+   begin
+   MessageDlg(edit2.text+'is not integer type!!!',mtError,[mbOK],0);
+   edit39_k.Text := '0';
+   end;
+end;
+end;
+
+procedure TForm2.Button14_kClick(Sender: TObject);
+var  store_name:string;item:integer;
+begin
+Try
+     IF (edit38_k.Text<>'') and (edit39_k.Text<>'') Then
+        Begin
+           query3_k.close;
+           query3_k.sql.Clear;
+           query3_k.params.Clear;
+           query3_k.sql.Add(' Use data_stores select store_name,item from stores where store_name = :name ');
+           query3_k.params[0].value := edit38_k.Text;
+           query3_k.open;
+           If query3_k.RecordCount = 1 Then
+              begin
+              // stores name is exist in database then count item++
+              store_name:=query3_k.Fields[0].asstring;
+              item:= query3_k.Fields[1].asinteger-strToint(edit39_k.text);
+              If item <= 0 then
+                 begin
+                 If MessageDlg(' ขณะนี้จำนวนของ วัสดุที่ท่านได้ลบไปนั้นไม่มีเหลือใน store แล้วท่านต้องการลบรายชื่อวัสดุนี้ออกจากฐานข้อมูลหรือไม่!!!! ',mtwarning,[mbOK,mbcancel],0)=mrok then
+                    begin
+                   query1.close;
+                   query1.sql.Clear;
+                   query1.params.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+                   query1.sql.Add(' Use data_stores delete stores where store_name='+''''+store_name+''' ');
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+                   query1.ExecSQL;
+                   end;
+              // item =0 item exist in database
+                   item := 0;
+                   query1.close;
+                   query1.sql.Clear;
+                   query1.params.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+                   query1.sql.Add(' Use data_stores Update stores set item= :item where store_name ='+''''+store_name+'''');
+                   query1.params[0].value := item;
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+                   query1.ExecSQL;
+                   query1.sql.Clear;
+                   query1.params.Clear;
+              end
+              else
+                  begin
+                   // item > 0
+                   query1.close;
+                   query1.sql.Clear;
+                   query1.params.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+                   query1.sql.Add(' Use data_stores Update stores set item= :item where store_name ='+''''+store_name+'''');
+                   query1.params[0].value := item;
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+                   query1.ExecSQL;
+                   end;
+           edit38_k.SetFocus;
+           //show
+           query1.close;
+           query1.sql.Clear;
+           query1.Params.Clear;
+           query1.sql.Add('Use data_stores select * from stores where store_name ');
+           query1.Open;
+           dbgrid4_k.Columns[0].fieldname := 'store_name';
+           dbgrid4_k.Columns[1].fieldname := 'item';
+
+           end// stores name is exist in database then count item++
+              else
+              MessageDlg(' ไม่มีชื่อของวัสดุนี้อยู่ใน ฐานข้อมูล ',mterror,[mbOK],0);
+        End
+        else
+     MessageDlg(' โปรดกรอกข้อมูลให้ครบถ้วน ',mterror,[mbOK],0);
+except
+on Econverterror do
+   begin
+     MessageDlg(edit2.text+'is not integer type!!!',mtError,[mbOK],0);
+     edit39_k.Text := '0';
+   end;
+end;
+    edit39_k.Text :='0';
+
+end;
+
+procedure TForm2.TabSheet18_k2Enter(Sender: TObject);
+begin
+query1.close;
+query2.close;
+edit56_stores.Text:='';
+edit55_stores.Text:='';
+edit38_stores.Text:='0';
+
+item :=-1;
+isuser := false;
+isitem:=false;
+isnameitem:=false;
+
+end;
+
+procedure TForm2.TabSheet18_k2Exit(Sender: TObject);
+begin
+query1.close;
+query2.close;
+
+end;
+
+procedure TForm2.Edit56_storesChange(Sender: TObject);
+var
+   s1,s2,s3:string;
+   int1,i:integer;
+
+begin
+ if((edit56_stores.Text<>'')and(length(temp)<=length(edit56_stores.Text))) then
+    begin
+           s3:= edit56_stores.Text;
+           temp:=s3;
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+edit56_stores.Text+'%'+'''');
+           query1.open;
+           s1:= query1.Fields[0].asstring;
+           for i:=length(edit56_stores.text) to length(s1)-1 do
+           begin
+                s2:=s2+s1[i+1]
+           end;
+           int1:=length(edit56_stores.text);
+           edit56_stores.Text:=edit56_stores.Text+s2;
+           edit56_stores.SelStart:=int1;
+           edit56_stores.SelLength:=length(s1);
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+s3+'%'+'''');
+
+           query1.open;
+    end//end of if//<>text
+    else
+        begin
+          if(edit56_stores.Text<>'')then
+           begin
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+ edit56_stores.Text+'%'+'''');
+           query1.open;
+           end
+           else
+           query1.close;
+        end;
+  temp:=edit56_stores.Text;
+
+end;
+
+procedure TForm2.Edit55_storesExit(Sender: TObject);
+begin
+if edit55_stores.Text <>'' then
+begin
+
+           query2.close;
+           query2.sql.Clear;
+           query2.params.Clear;
+           query2.sql.Add(' Use data_stores select * from Tuser where id = :id ');
+           query2.params[0].value := edit55_stores.Text;
+           query2.open;
+           if (query2.RecordCount=0)then
+              if (MessageDlg('ไม่พบรายชื่อสมาชิกต้องการเปลี่ยนแปลงหรือไม่ ',mterror,[mbOK,mbcancel],0)=mrok)then
+                 edit55_stores.SetFocus
+                 else isuser:=false
+            else isuser := true;
+end
+else
+         isuser :=false;
+
+          query2.close;
+end;
+
+procedure TForm2.Edit38_storesExit(Sender: TObject);
+begin
+   if (edit38_stores.text <>'') and (edit38_stores.text <> '0' ) then
+    isitem :=true
+    else isitem :=false;
+
+end;
+
+procedure TForm2.Button15_storesClick(Sender: TObject);
+begin
+     if ( isuser and isnameitem and (item >0 ) and
+     ( strToInt(edit38_stores.Text) <= item ) ) then
+        begin
+        query2.close;
+        query2.params.Clear;
+        query2.sql.Clear;
+        query2.sql.Add('DECLARE @datevar1 datetime set @datevar1 = :0 select * from borrow_stores where store_name = :1 and id_user = :2 and date = @datevar1 ');
+        query2.Params[0].value := datetostr(date);
+        query2.Params[1].value := edit56_stores.Text;
+        query2.Params[2].value := edit55_stores.Text;
+        query2.open;
+        /////  borrow old item
+
+        if query2.RecordCount = 0 then
+        begin
+        ///////////// insert where not in database
+               query1.close;
+               query1.params.Clear;
+               query1.sql.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) ,@datevar datetime ,@date_du datetime  SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+               query1.sql.Add(' set @datevar = :0 ');
+               query1.sql.Add(' insert into borrow_stores(store_name,id_user,date,item,admin_id ) ');
+               query1.sql.Add(' VALUES (:2 , :3 , @datevar , :4 , :5  ) ');
+               query1.sql.Add(' Update stores set item = :7 where store_name = :8 ' );
+               query1.parambyname('0').asstring := datetostr(Date);
+
+               query1.parambyname('2').value := edit56_stores.Text;
+               query1.parambyname('3').value := edit55_stores.Text;
+
+               query1.parambyname('4').value :=strToint(edit38_stores.Text);
+               query1.parambyname('5').value :=form1.Edit1.Text;
+               //// Update
+               query1.parambyname('7').value :=item-strToint(edit38_stores.Text);
+               query1.parambyname('8').value :=edit56_stores.Text;
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+            query1.ExecSQL;
+         end
+            else
+            begin
+            ///////////////UPdate
+            query1.close;
+            query1.params.Clear;
+            query1.sql.Clear;
+            query1.sql.Add(' DECLARE @TranName VARCHAR(20) ,@datevar datetime , @du_date datetime SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+            query1.sql.Add('  set @datevar = :date ');
+            query1.sql.Add(' update borrow_stores set item = :item where store_name = :name and id_user = :user and date = @datevar  ');
+            query1.sql.add(' update stores set item = :newitem where store_name = :name ');
+
+            query1.Parambyname('date').asstring := datetostr(Date);
+            query1.Parambyname('item').value := strToInt(edit38_stores.text)+query2.Fields[3].asinteger;
+            query1.Parambyname('name').value := edit56_stores.Text;
+            query1.Parambyname('user').value := edit55_stores.Text;
+            query1.Parambyname('newitem').value :=item-strToint(edit38_stores.Text);
+            query1.sql.Add(' COMMIT TRANSACTION @TranName ');
+            query1.ExecSQL;
+            end;
+
+        ///////////////////// select for show
+        query2.close;
+        query2.params.Clear;
+        query2.sql.Clear;
+        query2.sql.Add(' DECLARE @datevar datetime set @datevar = :0 ');
+        query2.sql.Add(' select * from borrow_stores where store_name = :1 and id_user = :2 and  date = @datevar  ');
+
+        query2.Params[0].asstring := datetostr(Date);
+        query2.Params[1].value := edit56_stores.Text;
+        query2.Params[2].value := edit55_stores.Text;
+        query2.open;
+        dbgrid4_stores.Columns[0].fieldname := 'store_name';
+        dbgrid4_stores.Columns[1].fieldname := 'id_user';
+        dbgrid4_stores.Columns[2].fieldname := 'admin_id';
+        dbgrid4_stores.Columns[3].fieldname := 'date';
+        dbgrid4_stores.Columns[4].fieldname := 'item';
+
+        item :=-1;
+        isuser := false;
+        isitem:=false;
+        isnameitem:=false;
+        edit55_stores.Text:='';
+        edit38_stores.Text:='0';
+        edit56_stores.SetFocus;
+        end
+else
+showmessage(' ไม่สามารถให้ยืมได้ เพราะว่าจำนวนวัสดุที่ยืมนั้นมากกว่าจำนวนวัสดุที่มีอยู่ใน Store ');
+end;
+
+procedure TForm2.TabSheet31Exit(Sender: TObject);
+begin
+query1.Close;
+query1.sql.Clear;
+query1.sql.Add(' Use data_stores ');
+query1.ExecSQL;
+
+end;
+
+procedure TForm2.fChange(Sender: TObject);
+begin
+if ( f.ActivePage = tabsheet31 ) then/////////
+   begin
+     if ((form1.status  <> 'TA')
+         and (form1.Edit1.text <> 'sa')
+         and (form1.Edit1.text <> 'Sa')
+         and (form1.Edit1.text <> 'sA')
+         and (form1.Edit1.text <> 'SA') ) then
+       begin
+       showmessage(' คุณไม่สามารถใช้งานส่วนนี้ได้เพราะเป็นส่วนของ System Admin ');
+       f.ActivePage:= tabsheet2;///////////
+       end;
+   end;
+end;
+
+procedure TForm2.checkbox_search_1Click(Sender: TObject);
+begin
+     if      checkbox_search_1.Checked then
+     begin
+     checkbox_search_2.Enabled:=false;
+     checkbox_search_3.Enabled:=false;
+     edit_search_1.Text:='';
+     edit_search_1.Visible:=true;
+     end
+     else
+     begin
+     edit_search_1.Visible:=false;
+     checkbox_search_2.Enabled:=true;
+     checkbox_search_3.Enabled:=true;
+     end
+
+
+
+end;
+
+procedure TForm2.checkbox_search_2Click(Sender: TObject);
+begin
+     if      checkbox_search_2.Checked then
+     begin
+     checkbox_search_1.Enabled:=false;
+     edit_search_2.Text:='';
+     edit_search_2.Visible:=true;
+     end
+     else
+         begin
+         if not  checkbox_search_3.Checked then
+            checkbox_search_1.Enabled:=true;
+         edit_search_2.Visible:=false;
+         end;
+
+end;
+
+procedure TForm2.CheckBox_search_3Click(Sender: TObject);
+begin
+     if      checkbox_search_3.Checked then
+     begin
+     checkbox_search_1.Enabled:=false;
+     combobox_search_1.ItemIndex:=0;
+     combobox_search_1.Visible:=true;
+     end
+     else
+         begin
+         if not  checkbox_search_3.Checked then
+            checkbox_search_1.Enabled:=true;
+            combobox_search_1.Visible:=false;
+         end;
+
+end;
+
+procedure TForm2.Button_search_1Click(Sender: TObject);
+begin
+if (edit_search_1.text<>'')and(CheckBox_search_1.Checked=true) then
+   begin
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       query1.sql.Add('Use data_stores select * from Tadmin where id = '+''''+edit_search_1.Text+'''');
+       query1.Open;
+DBGrid_admin_1.Columns[0].fieldname := 'id';
+DBGrid_admin_1.Columns[1].fieldname := 'name';
+DBGrid_admin_1.Columns[2].fieldname := 'status';
+   end;
+
+if (CheckBox_search_3.Checked=true)or(CheckBox_search_2.Checked=true) then
+   begin
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       if (edit_search_2.Text<>'')and (CheckBox_search_2.Checked=true)and (CheckBox_search_3.Checked=false)then
+           begin
+           query1.sql.Add('Use data_stores select * from Tadmin where (name LIKE '+''''+edit_search_2.Text+'%'+''''+')order by id');
+           query1.open;
+           end;
+       if (CheckBox_search_3.Checked=true)and (CheckBox_search_2.Checked=false) then
+           begin
+                  if combobox_search_1.ItemIndex=0 then    query1.sql.Add('Use data_stores select * from Tadmin where status =''TA'' order by id');
+                  if combobox_search_1.ItemIndex=1 then    query1.sql.Add('Use data_stores select * from Tadmin where status =''AD'' order by id');
+                  query1.open;
+           end;
+       if (edit_search_2.Text<>'')and (CheckBox_search_2.Checked=true)and (CheckBox_search_3.Checked=true)then
+           begin
+           if combobox_search_1.ItemIndex=0 then query1.sql.Add('Use data_stores select * from Tadmin where (name LIKE '+''''+edit_search_2.Text+'%'+''''+')and (status='+'''TA'''+') order by id');
+           if combobox_search_1.ItemIndex=1 then query1.sql.Add('Use data_stores select * from Tadmin where (name LIKE '+''''+edit_search_2.Text+'%'+''''+')and (status='+'''AD'''+') order by id');
+           query1.open;
+           end;
+DBGrid_admin_1.Columns[0].fieldname := 'id';
+DBGrid_admin_1.Columns[1].fieldname := 'name';
+DBGrid_admin_1.Columns[2].fieldname := 'status';
+   end;
+
+
+end;
+
+procedure TForm2.CheckBox_admin_1Click(Sender: TObject);
+begin
+     IF checkbox_admin_1.Checked then
+             checkbox_admin_2.Enabled:=false
+         else
+             begin
+             checkbox_admin_2.Enabled:=true;
+             checkbox_admin_2.Checked:=false;
+             end;
+
+
+end;
+
+procedure TForm2.CheckBox_admin_2Click(Sender: TObject);
+begin
+       IF checkbox_admin_2.Checked then
+             checkbox_admin_1.Enabled:=false
+         else
+             begin
+             checkbox_admin_1.Enabled:=true;
+             checkbox_admin_1.Checked:=false;
+             end;
+
+end;
+
+procedure TForm2.Button_admin_1Click(Sender: TObject);
+begin
+try
+      if( ( edit_admin_1.Text<>'') and
+          (Length(edit_admin_1.Text)<=15)
+          and
+          (edit_admin_2.Text<>'') and
+          (Length(edit_admin_2.text)<=25) and
+          (edit_admin_3.Text <>'') and
+          (edit_admin_3.Text = edit_admin_4.Text) and
+          (checkbox_admin_1.Checked or checkbox_admin_2.Checked))
+         then
+         begin
+         // check login name is not math
+         Query1.Close;
+         query1.sql.Clear;
+         Query1.Params.Clear;
+         Query1.sql.Add('use master select name From syslogins where name = :0 ');
+         Query1.Params[0].value := edit_admin_1.Text;
+         Query1.open;
+         if (query1.RecordCount > 0)  then
+            begin
+               showmessage(' Login ID :'+edit_admin_1.Text+' มีอยู่แล้วในฐานข้อมูลกรุณาเปลี่ยนหใม่ ');
+               edit_admin_1.SetFocus;
+            end
+
+         else
+               begin
+               showmessage('ท่านได้เพิ่ม Admin');
+///////////////////////////////////////////////////////ADD
+
+                 Query1.Close;
+                 Query1.sql.Clear;
+                 query1.SQL.Add('use master execute sp_addlogin ');
+                 query1.sql.add(''''+edit_admin_1.text+''''+','+''''+edit_admin_3.text+''''+','+ 'data_stores  ');
+                 query1.sql.add(' use data_stores ');
+                 if checkbox_admin_2.Checked   then query1.sql.add('execute sp_adduser '+''''+edit_admin_1.text+''''+' ,'+''''+'admin_'+Edit_admin_1.Text+''''+','+'AD');
+                 if checkbox_admin_1.Checked   then query1.sql.add('execute sp_adduser '+''''+edit_admin_1.text+''''+' ,'+''''+'admin_'+Edit_admin_1.Text+''''+','+'TA');
+                 ////////  insert into Tadmin
+                 query1.sql.add(' insert into Tadmin(id,password,status,name) ');
+                 query1.sql.add(' values ( :1 ,:2, :3 , :4 ) ');
+                 query1.params[0].value := Edit_admin_1.Text;
+                 query1.params[1].value := form1.encode(Edit_admin_3.Text);
+                 /////////////
+                 if checkbox_admin_1.Checked then query1.Params[2].value := 'TA';
+                 if checkbox_admin_2.Checked then query1.Params[2].value := 'AD';
+                 query1.Params[3].value := edit_admin_2.Text;
+                 query1.ExecSQL;
+                 // show on form
+                 query1.close;
+                 query1.sql.Clear;
+                 query1.Params.Clear;
+                 query1.sql.Add('Use data_stores select * from Tadmin where id = '+''''+edit_admin_1.Text+'''');
+                 query1.Open;
+                 dbgrid_admin_2.Columns[0].fieldname := 'id';
+                 dbgrid_admin_2.Columns[1].fieldname := 'name';
+                 dbgrid_admin_2.Columns[2].fieldname := 'status';
+                 //// retrun to new user
+                 edit_admin_2.Text:='';
+                 edit_admin_3.Text:='';
+                 edit_admin_1.Text:='';
+                 edit_admin_4.Text:='';
+                 checkbox_admin_1.Checked:=false;
+                 checkbox_admin_1.Enabled :=true;
+                 checkbox_admin_2.Checked:=false;
+                 checkbox_admin_2.Enabled :=true;
+                    showmessage('Update เรียบร้อนย');
+                 edit_admin_1.SetFocus;
+              end;
+         end
+         else // of if
+             begin
+      if    ( edit_admin_1.Text='') then showmessage(' Login ID ไม่สามารถเป็น null ได่ ');
+      if    (edit_admin_1.SelLength >15) then showmessage(' Login ID ห้ามเกิน 15 ตัวอักษร ');
+      if    (edit_admin_2.Text='') then showmessage(' ท่านไม่ได้เติมชื่อ ');
+      if    (edit_admin_2.SelLength>25) then showmessage(' Name ห้ามเกิน 25 ตัวอักษร ');
+      if    (edit_admin_3.Text ='') then showmessage(' Password ไม่สามารถเป็น null ได่ ');
+      if    (edit_admin_3.Text <> edit_admin_4.Text ) then showmessage(' รหัสผ่านไม่เหมือนกัน ');
+      if    (not checkbox_admin_1.Checked and not checkbox_admin_2.Checked ) then showmessage(' โปรดเลือกสถานะว่าเป็นอะไร');
+             end;
+  except
+  showmessage('have error');
+  raise;
+  end;
+
+end;
+
+procedure TForm2.Button_admin_t3_1Click(Sender: TObject);
+begin
+   if edit_admin_t3_1.Text<>'' then
+   begin
+     query1.close;
+     query1.params.Clear;
+     query1.sql.Clear;
+     query1.sql.Add(' Use data_stores select * from Tadmin where id = :0 ');
+     query1.Params[0].value := edit_admin_t3_1.Text;
+     query1.open;
+     if query1.RecordCount = 0 then
+        showmessage('ไม่พบหมายเลข ID :'+edit_admin_t3_1.Text)
+        else
+            begin
+                 edit_admin_t3_3.Text:=query1.Fields[3].asstring;
+                 edit_admin_t3_4.Text:=query1.Fields[1].asstring;
+                 groupbox_admin_1.Enabled:=true;
+                 groupbox_admin_2.Enabled:=true;
+                 /// enable
+                 edit_admin_t3_1.Enabled:=false;
+                 edit_admin_t3_1.Color := clmenu;
+                 button_admin_t3_1.Enabled:=false;
+                 showmessage('สามารทำการแก้ไขและลบข้อมูลของ ID:'+edit_admin_t3_1.Text);
+            end;
+        end
+     else
+         showmessage(' กรุณาเติมหมายเลข ID ง');
+
+end;
+
+procedure TForm2.Edit_admin_T3_3Click(Sender: TObject);
+begin
+ edit_admin_t3_6.Visible:=true;
+
+end;
+
+procedure TForm2.Edit_admin_T3_4Click(Sender: TObject);
+begin
+ edit_admin_t3_7.Visible:=true;
+
+end;
+
+procedure TForm2.Button_admin_t3_2Click(Sender: TObject);
+begin
+/////  check name < 25
+     query1.close;
+     query1.sql.Clear;
+     query1.Params.Clear;
+     query1.sql.Add(' Use Data_stores update Tadmin set name = :1 where id = :2 ');
+     query1.Params[0].value := edit_admin_t3_6.Text;
+     query1.Params[1].value := edit_admin_t3_1.Text;
+     if edit_admin_t3_6.Text <>'' then query1.ExecSQL;
+     query1.close;
+     query1.sql.Clear;
+     query1.Params.Clear;
+     query1.sql.Add(' Use Master execute sp_password '+''''+edit_admin_t3_4.Text+''''+','+''''+edit_admin_t3_7.Text+'''');
+     query1.sql.Add(','+''''+edit_admin_t3_1.Text+'''');
+     query1.sql.Add(' Use Data_stores update Tadmin set password = :0 where id = :1 ');
+     query1.params[0].value := form1.encode(edit_admin_t3_7.Text);
+     query1.params[1].value := edit_admin_t3_1.Text;
+     if edit_admin_t3_7.Text <>''  then   query1.ExecSQL;
+
+     if (edit_admin_t3_6.Text <>'')or( edit_admin_t3_7.Text <>'') then
+         begin
+         showmessage(' Update เรียบร้อย ');
+         groupbox_admin_1.Enabled:=false;
+         groupbox_admin_2.Enabled:=false;
+         edit_admin_t3_3.Text:='';
+         edit_admin_t3_4.Text:='';
+         edit_admin_t3_6.Text:='';
+         edit_admin_t3_7.Text:='';
+         edit_admin_t3_6.visible:=false;
+         edit_admin_t3_7.visible:=false;
+         edit_admin_t3_1.Text:='';
+         edit_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.Color:=clwindow;
+         button_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.SetFocus;
+         end
+     else showmessage(' กรุณาเติมชื่อหรือ รหัส ที่ต้องการเปลี่ยนแปลงใหม่ก่อน Update ')
+
+
+end;
+
+procedure TForm2.Button_admin_t3_3Click(Sender: TObject);
+begin
+     if MessageDlg(' คุณแน่ใจหรือไม่ที่จะลบข้อมูลทิ้ง ',mtwarning,[mbok,mbcancel],0) = mrok then
+        begin
+             query1.close;
+             query1.sql.Clear;
+             query1.params.Clear;
+             query1.sql.Add(' Use Data_stores delete Tadmin where id = :0 ');
+             query1.params[0].value := edit_admin_t3_1.Text;
+             query1.ExecSQL;
+             query1.close;
+             query1.sql.Clear;
+             query1.params.Clear;
+             query1.sql.Add(' Use Data_stores exec sp_dropuser ''admin_'+edit_admin_T3_1.Text+'''');
+             query1.sql.Add('  Use master exec sp_droplogin '+''''+edit_admin_T3_1.Text+'''');
+             query1.ExecSQL;
+             showmessage(' ได้ลบข้อมูลเรียบร้อยแล้ว');
+             ///////
+         groupbox_admin_1.Enabled:=false;
+         groupbox_admin_2.Enabled:=false;
+         edit_admin_t3_3.Text:='';
+         edit_admin_t3_4.Text:='';
+         edit_admin_t3_6.Text:='';
+         edit_admin_t3_7.Text:='';
+         edit_admin_t3_6.visible:=false;
+         edit_admin_t3_7.visible:=false;
+         edit_admin_t3_1.Text:='';
+         edit_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.Color:=clwindow;
+         button_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.SetFocus;
+        end;
+
+end;
+
+procedure TForm2.Button_admin_t3_4Click(Sender: TObject);
+begin
+         groupbox_admin_1.Enabled:=false;
+         groupbox_admin_2.Enabled:=false;
+         edit_admin_t3_3.Text:='';
+         edit_admin_t3_4.Text:='';
+         edit_admin_t3_6.Text:='';
+         edit_admin_t3_7.Text:='';
+         edit_admin_t3_6.visible:=false;
+         edit_admin_t3_7.visible:=false;
+         edit_admin_t3_1.Text:='';
+         edit_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.Color:=clwindow;
+         button_admin_t3_1.Enabled:=true;
+         edit_admin_t3_1.SetFocus;
+
+end;
+
+procedure TForm2.TabSheet32Enter(Sender: TObject);
+begin
+            edit_admin_1.Enabled:=true;
+            edit_admin_2.Enabled:=true;
+            edit_admin_3.Enabled:=true;
+            edit_admin_1.text:='';
+            edit_admin_2.text:='';
+            edit_admin_3.text:='';
+            edit_admin_4.text:='';
+            checkbox_admin_1.Enabled:=true;
+            checkbox_admin_2.Enabled:=true;
+            checkbox_admin_1.Checked:=false;
+            checkbox_admin_2.Checked:=false;
+            ////
+//            label49_a.Visible:=false;
+//            edit_admin_4.visible:=false;
+//            edit_admin_4.Text:='';
+//            button_admin_2.visible:=false;
+//            button_admin_3.visible:=false;
+
+
+end;
+
+procedure TForm2.TabSheet32Exit(Sender: TObject);
+begin
+query1.close;
+
+end;
+
+procedure TForm2.TabSheet19_aEnter(Sender: TObject);
+begin
+checkbox_search_1.Checked:=false;
+checkbox_search_2.Checked:=false;
+checkbox_search_3.Checked:=false;
+checkbox_search_1.Enabled:=true;
+checkbox_search_2.Enabled:=true;
+checkbox_search_3.Enabled:=true;
+edit_search_1.Visible:=false;
+edit_search_2.Visible:=false;
+combobox_search_1.Visible:=false;
+
+end;
+
+procedure TForm2.TabSheet19_aExit(Sender: TObject);
+begin
+query1.close;
+
+end;
+
+procedure TForm2.TabSheet34Show(Sender: TObject);
+begin
+  form7_7 := Tform7_7.create(nil);
+  memo1.Lines.Assign(form7_7.QuickRep.Description);
+  form7_7.Query1.Open;
+  Dbgrid11.DataSource := form7_7.datasource1;
+  dbgrid11.Columns[0].fieldname := 'store_name';
+  dbgrid11.Columns[1].fieldname := 'item';
+
+end;
+
+procedure TForm2.Edit76KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+     if key = 13 then
+     begin
+          form7_7.Query1.Close;
+          form7_7.query1.SQL.Clear;
+          form7_7.query1.sql.Add(' select * ');
+          form7_7.query1.sql.Add(' from stores ');
+          if edit76.text <> '' then
+          begin
+               form7_7.query1.sql.Add(' where item <= :item');
+               form7_7.Query1.ParamByName('item').asinteger := strtoint(edit76.text);
+          end;
+          form7_7.query1.Open;
+          dbgrid11.Columns[0].fieldname := 'store_name';
+          dbgrid11.Columns[1].fieldname := 'item';
+
+     end;
+end;
+
+procedure TForm2.TabSheet34Hide(Sender: TObject);
+begin
+     form7_7.query1.Close;
+end;
+
+procedure TForm2.Button15Click(Sender: TObject);
+begin
+     form7_7.QuickRep.Preview
+end;
+
+procedure TForm2.ComboBox20Enter(Sender: TObject);
+begin
+     combobox20.items := form1.Type_Items.Items;
+     combobox20.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox19Enter(Sender: TObject);
+begin
+     combobox19.items := form1.room_items.Items;
+     combobox19.Items.Add('ทุกห้อง');
+end;
+
+procedure TForm2.ComboBox23Enter(Sender: TObject);
+begin
+     combobox23.items := form1.Type_Items.Items;
+     combobox23.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox24Enter(Sender: TObject);
+begin
+     combobox24.items := form1.room_items.Items;
+     combobox24.Items.Add('ทุกห้อง');
+end;
+
+procedure TForm2.ComboBox26Enter(Sender: TObject);
+begin
+     combobox26.items := form1.Type_Items.Items;
+     combobox26.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox27Enter(Sender: TObject);
+begin
+     combobox27.items := form1.room_items.Items;
+     combobox27.Items.Add('ทุกห้อง');
+end;
+
+procedure TForm2.Button24Click(Sender: TObject);
+begin
+         query2.close;
+         query2.sql.Clear;
+         query2.Params.Clear;
+         query2.sql.Add(' select * from Tuser where status = ''user'' and comment <>''TmpD'' and comment <>''TmpP'' order by comment ');
+         query2.open;
+form2.DBGrid5_k.Columns[0].fieldname := 'id';
+form2.DBGrid5_k.Columns[1].fieldname := 'name';
+form2.DBGrid5_k.Columns[2].fieldname := 'comment';
+
+end;
+
+procedure TForm2.Button16_ddClick(Sender: TObject);
+begin
+         query2.close;
+         query2.sql.Clear;
+         query2.Params.Clear;
+         query2.sql.Add(' select * from Tuser where status = ''out'' or status = ''in'' order by id ');
+         query2.open;
+         DBGrid4_t.Columns[0].fieldname := 'id';
+         DBGrid4_t.Columns[1].fieldname := 'name';
+         DBGrid4_t.Columns[2].fieldname := 'comment';
+
+end;
+
+procedure TForm2.Button13Click(Sender: TObject);
+begin
+       query2.close;
+       query2.sql.Clear;
+       query2.Params.Clear;
+       query2.sql.Add('Use data_stores select store_name,item,name,comment from stores order by store_name ');
+       query2.Open;
+       dbgrid_stores.Columns[0].fieldname := 'store_name';
+       dbgrid_stores.Columns[1].fieldname := 'item';
+       dbgrid_stores.Columns[2].fieldname := 'name';
+       dbgrid_stores.Columns[3].fieldname := 'comment';
+end;
+
+procedure TForm2.N2Click(Sender: TObject);
+begin
+     if  dbgrid4_k.FieldCount<>0 then
+     begin
+
+          button13_k.OnClick(Sender);
+     end;
+end;
+
+procedure TForm2.N3Click(Sender: TObject);
+begin
+     if  dbgrid4_k.FieldCount<>0 then
+     begin
+          button14_k.OnClick(Sender);
+     end;
+
+end;
+
+procedure TForm2.DBGrid4_kDblClick(Sender: TObject);
+begin
+      if dbgrid4_k.FieldCount<>0 then
+    begin
+     if dbgrid4_k.DataSource.DataSet['store_name'] = '' then
+        exit;
+     edit38_k.Text :=dbgrid4_k.dataSource.dataSet['store_name'];
+    end;
+end;
+
+procedure TForm2.TabSheet37Show(Sender: TObject);
+begin
+     form3.Query1.Close;
+     form3.query1.Params.Clear;
+     form3.query1.SQL.text := ' select *  ';
+     form3.query1.sql.Add(' from chkDay ');
+     form3.query1.open;
+     form3.query1.First;
+     if form3.query1.RecordCount < 0 then
+     begin
+          button22.Visible := false;
+          button25.Visible := true;
+          button26.Visible := false;
+          edit77.Enabled := true;
+          edit79.Enabled := true;
+
+     end
+     else
+     begin
+          button22.Visible := true;
+          button25.Visible := false;
+          button26.Visible := false;
+          edit77.text := formatdatetime('dd/mm/yyyy',form3.query1.FieldValues['chkDay_Day']);
+          form3.query1.Next;
+          edit79.text := formatdatetime('dd/mm/yyyy',form3.query1.FieldValues['chkDay_Day']);
+          edit77.Enabled := false;
+          edit79.Enabled := false;
+     end;
+end;
+
+procedure TForm2.Button25Click(Sender: TObject);
+begin
+  form3.Database1.StartTransaction;
+  try
+     form3.query1.close;
+     form3.Query1.Params.Clear;
+     form3.Query1.SQL.Text := ' delete chkDay';
+     form3.query1.ExecSQL;
+// insert chk = term
+     form3.query1.close;
+     form3.Query1.Params.Clear;
+     form3.query1.SQL.Clear;
+     form3.Query1.sql.Add(' Declare @ChkDay_Day datetime ');
+     form3.Query1.sql.Add(' set @ChkDay_Day = :ChkDay_Day  ');
+     form3.Query1.SQL.add(' insert into ChkDay (chkDay_time,ChkDay_Day)');
+     form3.Query1.SQL.Add(' values( ''เทอม'' ,@ChkDay_Day)');
+     form3.query1.ParamByName('ChkDay_Day').asstring := edit77.text;
+     form3.query1.ExecSQL;
+
+// insert chk = year
+     form3.query1.close;
+     form3.Query1.Params.Clear;
+     form3.query1.SQL.Clear;
+     form3.Query1.sql.Add(' Declare @ChkDay_Day datetime ');
+     form3.Query1.sql.Add(' set @ChkDay_Day = :ChkDay_Day  ');
+     form3.Query1.SQL.add(' insert into ChkDay (chkDay_time,ChkDay_Day)');
+     form3.Query1.SQL.Add(' values(''ประจำปี'' ,@ChkDay_Day)');
+     form3.query1.ParamByName('ChkDay_Day').asstring := edit79.text;
+     form3.query1.ExecSQL;
+
+     form3.Database1.commit;
+     button22.Visible := true;
+     button25.Visible := false;
+     button26.Visible := false;
+  except
+      form3.database1.Rollback;
+      raise;
+  end;
+end;
+
+procedure TForm2.Button22Click(Sender: TObject);
+begin
+     ChkDay[1] := edit77.text ;
+     ChkDay[2] := edit79.text ;
+     button25.visible := true;
+     button26.visible := true;
+     button22.visible := false;
+     edit77.Enabled := true;
+     edit79.Enabled := true;
+
+end;
+
+procedure TForm2.Button26Click(Sender: TObject);
+begin
+     edit77.text := ChkDay[1] ;
+     edit79.text := ChkDay[2] ;
+     button25.visible := false;
+     button26.visible := false;
+     button22.visible := true;
+     edit77.Enabled := false;
+     edit79.Enabled := false;
+end;
+
+procedure TForm2.ListView2Change(Sender: TObject; Item: TListItem;
+  Change: TItemChange);
+var i,count: integer;
+begin
+     count := 0 ;
+     for i := 0 to listview2.Items.Count-1 do
+     begin
+          if listview2.Items.Item[i].checked then
+          count := count +1;
+     end;
+     groupbox15.Caption := 'ยืนยันครุภัณฑ์จำนวน ' +inttostr(count) +' ชิ้น';
+end;
+
+procedure TForm2.Button7Click(Sender: TObject);
+begin
+     button9.enabled := true;
+     SearchArray.Index := SearchArray.Index -1;
+     SearchCountArray.Index := SearchCountArray.Index -1;
+     if Searcharray.Index <= 1 then
+     begin
+          button7.Enabled := false;
+     end;
+// show
+     form3.query1.Close;
+     form3.query1.Params.Clear;
+     form3.query1.sql.text := SearchArray.Data[SearchArray.index];
+     form3.query1.open;
+// count
+     form3.query2.Close;
+     form3.query2.Params.Clear;
+     form3.query2.sql.text := SearchCountArray.Data[SearchCountArray.index];
+     form3.query2.open;
+     edit83.Text := form3.query2.fieldvalues['column1'];
+end;
+
+procedure TForm2.Button9Click(Sender: TObject);
+begin
+     button7.enabled := true;
+     SearchArray.Index := SearchArray.Index +1;
+     SearchCountArray.Index := SearchCountArray.Index +1;
+     if Searcharray.Index >= SearchArray.count  then
+     begin
+          button9.Enabled := false;
+     end;
+// show
+     form3.query1.Close;
+     form3.query1.Params.Clear;
+     form3.query1.sql.text := SearchArray.Data[SearchArray.index];
+     form3.query1.open;
+// show
+     form3.query2.Close;
+     form3.query2.Params.Clear;
+     form3.query2.sql.text := SearchCountArray.Data[SearchCountArray.index];
+     form3.query2.open;
+     edit83.Text := form3.query2.fieldvalues['column1'];
+end;
+
+procedure TForm2.Button40Click(Sender: TObject);
+var
+   i : integer;
+begin
+     i := 0;
+     while i <= listview5.Items.Count-1  do
+     begin
+          if listview5.items.item[i].checked  then
+          begin
+               form3.Database1.StartTransaction;
+               try
+               // delete in durable
+                  form3.query1.close;
+                  form3.query1.sql.text := 'delete durable ';
+                  form3.query1.sql.add(' where du_id = :du_id ');
+                  form3.query1.ParamByName('du_id').asstring := listview5.items.item[i].caption;
+                  form3.query1.ExecSQL;
+               // delete in fixhis
+                  form3.query1.close;
+                  form3.query1.sql.text := 'delete fixhis ';
+                  form3.query1.sql.add(' where du_id = :du_id ');
+                  form3.query1.ParamByName('du_id').asstring := listview5.items.item[i].caption;
+                  form3.query1.ExecSQL;
+               // delete in borrowhis
+                  form3.query1.close;
+                  form3.query1.sql.text := 'delete borrowhis ';
+                  form3.query1.sql.add(' where du_id = :du_id ');
+                  form3.query1.ParamByName('du_id').asstring := listview5.items.item[i].caption;
+                  form3.query1.ExecSQL;
+                  
+                  listview5.items.delete(i);
+                  i := i-1;
+                  form3.Database1.Commit;
+               except
+                  showmessage('have error');
+                  form3.Database1.Rollback;
+                  raise;
+               end; {end try}
+          end; {end for}
+          i := i+1;
+      end; { end while}
+end;
+
+procedure TForm2.Button23Click(Sender: TObject);
+begin
+     listview5.Items.Clear;
+//  show all
+     if combobox50.text = 'ทั้งหมด' then
+     begin
+          form3.query1.close;
+          form3.query1.SQL.text := 'select t1.du_id,t2.du_dayOver from durable t1 ,Overdu t2 ';
+          form3.query1.sql.Add( ' where t1.du_status = ''แทงจำหน่าย'' ');
+          form3.query1.sql.Add( ' and t1.du_id = t2.du_id ');
+          form3.query1.open;
+     end;
+//  show have data
+     if combobox50.text = 'ที่มีข้อมูลการให้บริการ' then
+     begin
+          form3.query1.close;
+          form3.query1.SQL.text := 'select t1.du_id,t2.du_dayOver from durable t1,OverDu t2 ';
+          form3.query1.sql.Add( ' where t1.du_status = ''แทงจำหน่าย'' ');
+          form3.query1.sql.Add( ' and ( t1.du_id in (select du_id from fixhis)');
+          form3.query1.sql.Add( ' or t1.du_id in (select du_id from borrowhis) ) ');
+          form3.query1.sql.Add( ' and t1.du_id = t2.du_id ');
+          form3.query1.open;
+     end;
+//  show No data
+     if combobox50.text = 'ไม่มีข้อมูลการให้บริการ' then
+     begin
+          form3.query1.close;
+          form3.query1.SQL.text := 'select t1.du_id,t2.du_dayOver from durable t1,Overdu t2 ';
+          form3.query1.sql.Add( ' where du_status = ''แทงจำหน่าย'' ');
+          form3.query1.sql.Add( ' and  t1.du_id not in (select du_id from fixhis)');
+          form3.query1.sql.Add( ' and t1.du_id not in (select du_id from borrowhis) ');
+          form3.query1.sql.Add( ' and t1.du_id = t2.du_id ');
+          form3.query1.open;
+     end;
+// show in listview 5
+      form3.query1.First;
+      while not form3.query1.Eof do
+      begin
+          with form2.listview5.Items.add  do
+          begin
+               caption := form3.query1.fieldValues['du_id'];
+               subItems.add(form3.query1.fieldValues['du_dayOver']);
+               form3.query1.Next;
+          end;
+     end;
+end;
+
+procedure TForm2.Button41Click(Sender: TObject);
+var
+   i:integer;
+begin
+     i := 0;
+     while i <= listview5.Items.Count-1  do
+     begin
+          if listview5.items.item[i].checked  then
+          begin
+               form3.Database1.StartTransaction;
+               try
+               // delete in borrowhis
+                  form3.query1.close;
+                  form3.query1.sql.text := 'delete borrowhis ';
+                  form3.query1.sql.add(' where du_id = :du_id ');
+                  form3.query1.ParamByName('du_id').asstring := listview5.items.item[i].caption;
+                  form3.query1.ExecSQL;
+
+                  listview5.items.item[i].checked := false;
+                  form3.Database1.Commit;
+               except
+                  showmessage('have error');
+                  form3.Database1.Rollback;
+                  raise;
+               end; {end try}
+          end; {end for}
+          i := i+1;
+      end; { end while}
+end;
+
+procedure TForm2.Button42Click(Sender: TObject);
+var
+   i :integer;
+begin
+     i := 0;
+     while i <= listview5.Items.Count-1  do
+     begin
+          if listview5.items.item[i].checked  then
+          begin
+               form3.Database1.StartTransaction;
+               try
+               // delete in borrowhis
+                  form3.query1.close;
+                  form3.query1.sql.text := 'delete fixhis ';
+                  form3.query1.sql.add(' where du_id = :du_id ');
+                  form3.query1.ParamByName('du_id').asstring := listview5.items.item[i].caption;
+                  form3.query1.ExecSQL;
+
+                  listview5.items.item[i].checked := false;
+                  form3.Database1.Commit;
+               except
+                  showmessage('have error');
+                  form3.Database1.Rollback;
+                  raise;
+               end; {end try}
+          end; {end for}
+          i := i+1;
+      end; { end while}
+end;
+
+procedure TForm2.TabSheet39Show(Sender: TObject);
+begin
+// borrow min
+     form3.query1.Close;
+     form3.query1.Params.Clear;
+     form3.Query1.SQL.Text := 'select min(bor_day) from borrowhis';
+     form3.query1.Open;
+     form3.query1.First;
+     edit81.Text := formatdatetime('dd/mm/yyyy',form3.Query1.fieldvalues['column1']);
+// fix min
+     form3.query1.Close;
+     form3.query1.Params.Clear;
+     form3.Query1.SQL.Text := 'select min(fix_day) from fixhis';
+     form3.query1.Open;
+     form3.query1.First;
+     edit82.Text := formatdatetime('dd/mm/yyyy',form3.Query1.fieldvalues['column1']);
+end;
+
+procedure TForm2.Button43Click(Sender: TObject);
+begin
+     form3.query1.Close;
+     form3.query1.Params.clear;
+     form3.query1.SQL.text := ' delete borrowhis ';
+     form3.query1.sql.add(' where bor_day < ' +'''' +edit81.text +'''' );
+     form3.query1.ExecSQL;
+end;
+
+procedure TForm2.Button44Click(Sender: TObject);
+begin
+     form3.query1.Close;
+     form3.query1.Params.clear;
+     form3.query1.SQL.text := ' delete fixhis ';
+     form3.query1.sql.add(' where fix_day < ' +'''' +edit82.text +'''');
+     form3.query1.ExecSQL;
+end;
+
+procedure TForm2.ListView5DblClick(Sender: TObject);
+begin
+// check click right or not
+     if listview5.SelCount = 0 then
+     begin
+          exit;
+     end;
+     form2.ShowDurableDetail(listview5.selected.caption);
+end;
+
+procedure TForm2.Button45Click(Sender: TObject);
+begin
+try
+        query2.close;
+        query2.params.Clear;
+        query2.sql.Clear;
+        query2.sql.add('  select * from borrow_stores where store_name = :1 order by id_user ');
+        query2.ParamByName('1').asstring := edit_search_item1.Text;
+        query2.open;
+       dbgrid_search_item.Columns[0].fieldname := 'id_user';
+       dbgrid_search_item.Columns[1].fieldname := 'store_name';
+       dbgrid_search_item.Columns[2].fieldname := 'date';
+       dbgrid_search_item.Columns[3].fieldname := 'item';
+       // edit_borrow_item.Text := intTostr(query2.Fields[4].asinteger)
+except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.Edit_search_item1Change(Sender: TObject);
+var
+   s1,s2,s3:string;
+   int1,i:integer;
+begin
+ if((edit_search_item1.Text<>'')and(length(temp)<=length(edit_search_item1.Text))) then
+    begin
+           s3:= edit_search_item1.Text;
+           temp:=s3;
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+edit_search_item1.Text+'%'+'''');
+           query1.open;
+           s1:= query1.Fields[0].asstring;
+           for i:=length(edit_search_item1.text) to length(s1)-1 do
+           begin
+                s2:=s2+s1[i+1]
+           end;
+           int1:=length(edit_search_item1.text);
+           edit_search_item1.Text:=edit_search_item1.Text+s2;
+           edit_search_item1.SelStart:=int1;
+           edit_search_item1.SelLength:=length(s1);
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+s3+'%'+'''');
+           query1.open;
+    end//end of if//<>text
+    else
+        begin
+          if(edit_search_item1.Text<>'')then
+           begin
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name LIKE'+''''+ edit_search_item1.Text+'%'+'''');
+           query1.open;
+           end
+           else
+           query1.close;
+        end;
+  temp:=edit_search_item1.Text;
+end;
+
+procedure TForm2.Button_update2Click(Sender: TObject);
+begin
+       query1.close;
+       query1.sql.Clear;
+       query1.sql.add(' use data_stores delete tuser where id not in ( select user_id from borrow ) ');
+       query1.sql.add(' and ( comment = ''tmpd'' or comment =''tmpp'') ');
+       query1.ExecSQL;
+       showmessage(' ได้ลบข้อมูลนักศึกษาที่จบการศึกษาแล้ว ');
+//     query2.sql.Add(' select * from Tuser where comment = ''tmpd'' or comment = ''tmpp'' and status =''user'' order by comment ');
+//     query2.open;
+//     DBGrid_update.Columns[0].fieldname := 'id';
+//     DBGrid_update.Columns[1].fieldname := 'name';
+//     DBGrid_update.Columns[2].fieldname := 'comment';
+end;
+
+procedure TForm2.ComboBox29Enter(Sender: TObject);
+begin
+     combobox29.Items := form1.room_items.Items ;
+     combobox29.Items.Add('ทุกห้อง');
+end;
+
+procedure TForm2.ComboBox29Change(Sender: TObject);
+begin
+     if combobox29.text = '' then
+     begin
+          showmessage('choose some Room first');
+          exit;
+     end;
+     Tabsheet30Change;
+end;
+
+procedure TForm2.TabSheet30Show(Sender: TObject);
+begin
+  form7_8 := Tform7_8.create(nil);
+  memo1.Lines.Assign(form7_8.QuickRep.Description);
+  form7_8.Query1.Open;
+  Dbgrid12.DataSource := form7_8.datasource1;
+  dbgrid12.Columns[0].fieldname := 'du_room';
+  dbgrid12.Columns[1].fieldname := 'du_id';
+  dbgrid12.Columns[2].fieldname := 'du_name';
+  dbgrid12.Columns[3].fieldname := 'du_type';
+end;
+
+procedure TForm2.TabSheet30Hide(Sender: TObject);
+begin
+     form7_8.query1.Close;
+end;
+
+procedure TForm2.Button46Click(Sender: TObject);
+begin
+     form7_8.QuickRep.Preview
+end;
+
+procedure TForm2.DBGrid5_kDblClick(Sender: TObject);
+begin
+try
+       Form10 := TForm10.create (nil);
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       query1.sql.Add('Use data_stores select * from Tuser ');
+       query1.sql.add(' where (id = :id  ) ') ;
+       query1.sql.add(' and (status= ''user'' )' );
+       query1.ParamByName('id').asstring := query2['id'] ;
+       query1.Open;
+       if  query1.RecordCount =0 then
+       begin
+            ShowMessage('ไม่พบรหัสนักศึกษาในทะเบียนสมาชิกโปรดตรวจสอบใหม่อีกครั้ง');
+       end
+       else
+       begin
+           form10.edit2.Text:=query1.Fields[0].asstring;
+           form10.edit3.Text:=query1.Fields[2].value;
+           form10.edit4.Text:=query1.Fields[3].asstring;
+       end;//end of else
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.Button23_kClick(Sender: TObject);
+begin
+     if Query2.FieldValues['id']  = null then
+     begin
+          showmessage('Please Choose Name or ID');
+          exit;
+     end;
+     if MessageDlg('Are you sure you want to delete ID user is ID=> ' +Query2.FieldValues['id'] +'?',
+    mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          query1.Close;
+          query1.sql.text := 'delete tuser where id = :id';
+          query1.ParamByName('id').asstring := Query2.FieldValues['id'];
+          query1.ExecSQL;
+          showmessage(' เรียบร้อย');
+          query2.close;
+     end;
+end;
+
+procedure TForm2.DBGrid4_tDblClick(Sender: TObject);
+begin
+try
+       User := Tuser.create (nil);
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       query1.sql.Add('Use data_stores select id,name,comment from Tuser ');
+       query1.sql.add(' where (id = :id  ) ') ;
+       query1.ParamByName('id').asstring := query2['id'] ;
+       query1.Open;
+       if  query1.RecordCount =0 then
+       begin
+            ShowMessage('ไม่พบรหัสนักศึกษาในทะเบียนสมาชิกโปรดตรวจสอบใหม่อีกครั้ง');
+       end
+       else
+       begin
+          user.edit1.Text:=query1.Fields[0].asstring;
+           user.edit2.Text:=query1.Fields[1].value;
+           user.edit3.Text:=query1.Fields[2].asstring;
+       end;//end of else
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.Button48Click(Sender: TObject);
+begin
+     if Query2.FieldValues['id']  = null then
+     begin
+          showmessage('Please Choose Name or ID');
+          exit;
+     end;
+     if MessageDlg('Are you sure you want to delete ID user is ID=> ' +Query2.FieldValues['id'] +'?',
+    mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+     begin
+          query1.Close;
+          query1.sql.text := 'delete tuser where id = :id';
+          query1.ParamByName('id').asstring := Query2.FieldValues['id'];
+          query1.ExecSQL;
+          showmessage(' เรียบร้อย');
+          query2.close;
+     end;
+end;
+
+procedure TForm2.Button47Click(Sender: TObject);
+begin
+       adduser := Tadduser.create (nil);
+end;
+
+procedure TForm2.ComboBox30Enter(Sender: TObject);
+begin
+     combobox30.Items := form1.Type_Items.Items;
+     combobox30.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox30Change(Sender: TObject);
+begin
+     if combobox30.Text = '' then
+     begin
+          showmessage('Choose some type first');
+          exit;
+     end;
+     Tabsheet21Change;
+end;
+
+procedure TForm2.ListView6Click(Sender: TObject);
+var i :integer;
+begin
+     i := -1 ;
+     repeat
+           if (listview6.Items.Count-1 = i)  then
+           begin
+                showmessage('Select some Durable');
+                exit;
+           end;
+     i := i+1;
+     until  listview6.items.item[i].checked ;
+     tabsheet22change;
+end;
+
+procedure TForm2.ComboBox31Enter(Sender: TObject);
+begin
+     combobox31.Items := form1.Type_Items.Items;
+     combobox31.Items.Add('ทุกประเภท');
+end;
+
+procedure TForm2.ComboBox31Change(Sender: TObject);
+begin
+     if combobox31.Text = '' then
+     begin
+          showmessage('Choose some type first');
+          exit;
+     end;
+     Tabsheet25Change;
+end;
+
+procedure TForm2.ComboBox32Change(Sender: TObject);
+begin
+     if combobox32.text = '' then
+     begin
+          showmessage('choose some status first');
+          exit;
+     end;
+     Tabsheet25Change;
+end;
+
+procedure TForm2.ComboBox33Change(Sender: TObject);
+begin
+     if combobox33.Text = '' then
+     begin
+          showmessage('Choose some Maintain first');
+          exit;
+     end;
+     Tabsheet25Change;
+end;
+
+procedure TForm2.DBGrid_storesDblClick(Sender: TObject);
+begin
+try
+       Form11 := TForm11.create (nil);
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       query1.sql.Add('Use data_stores select * from stores ');
+       query1.sql.add(' where (store_name = :store_name  ) ') ;
+       query1.ParamByName('store_name').asstring := query2['store_name'] ;
+       query1.Open;
+       if  query1.RecordCount =0 then
+       begin
+            ShowMessage('ไม่พบรหัสวัสดุโปรดตรวจสอบใหม่อีกครั้ง');
+       end
+       else
+       begin
+           form11.edit1.Text:=query1.Fields[0].asstring;
+           form11.Edit_temp.Text:= inttostr(query1.fields[1].asinteger);
+           form11.edit2.Text:=query1.Fields[2].asstring;
+           form11.edit3.Text:=query1.Fields[3].asstring;
+       end;//end of else
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.Edit56_storesExit(Sender: TObject);
+begin
+           query1.close;
+           query1.sql.Clear;
+           query1.params.Clear;
+           query1.sql.Add(' Use data_stores select * from stores where store_name ='+''''+edit56_stores.Text+'''');
+           query1.open;
+           if query1.RecordCount > 0 then
+           begin
+           isnameitem :=true;
+           item := query1['item'];
+           edit84.Text := inttostr(item);
+           end
+           else
+           begin
+           isnameitem :=false;
+           item := -1;
+           edit84.Text:= ' ไม่มีรหัสนี้ ';
+           end;
+end;
+
+procedure TForm2.DBGrid_search_itemDblClick(Sender: TObject);
+begin
+try
+       Form12 := TForm12.create (nil);
+       query1.close;
+       query1.sql.Clear;
+       query1.Params.Clear;
+       query1.sql.Add(' DECLARE @datevar1 datetime set @datevar1 = :date ');
+       query1.sql.Add(' Use data_stores select * from borrow_stores ');
+       query1.sql.add(' where (store_name = :store_name  ) and ') ;
+       query1.sql.add('  (id_user = :id_user  ) and ') ;
+       query1.sql.add('  (date = @datevar1  ) ') ;
+       query1.ParamByName('store_name').asstring := query2['store_name'] ;
+       query1.ParamByName('id_user').asstring := query2['id_user'] ;
+       query1.ParamByName('date').value := query2['date'] ;
+       query1.Open;
+       if  query1.RecordCount =0 then
+       begin
+            ShowMessage('เลือกก่อนนะ');
+       end
+       else
+       begin
+           form12.edit1.Text:=query1.Fields[0].asstring;
+           form12.edit2.Text:= inttostr(query1.fields[3].asinteger);
+           form12.edit_name.Text:=query1.Fields[1].asstring;
+       end;//end of else
+ except
+       showmessage('have error');
+      raise;
+ end;
+end;
+
+procedure TForm2.TabSheet40Enter(Sender: TObject);
+begin
+     query2.close;
+end;
+
+procedure TForm2.TabSheet41Enter(Sender: TObject);
+begin
+     query2.close;
+end;
+
+end.

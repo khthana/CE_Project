@@ -1,0 +1,113 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, BPN;
+
+const
+  MaxHD = 7;         {for Form}
+  MaxCell = 25;      {for Form}
+
+type
+  TForm2 = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Bevel1: TBevel;
+    Button1: TButton;
+    Button2: TButton;
+    GroupBox1: TGroupBox;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    GroupBox2: TGroupBox;
+    Label12: TLabel;
+    Label13: TLabel;
+    ComboBox3: TComboBox;
+    ComboBox4: TComboBox;
+    procedure Button2Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  C : array[1..MaxHD] of TCombobox;
+implementation
+
+uses Unit1, Main, Unit3;
+
+{$R *.DFM}
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+  Form2.Close;
+  Form1.Close;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Form2.Close;
+  Form1.Close;
+end;
+
+procedure TForm2.FormActivate(Sender: TObject);
+var
+  i, j : integer;
+begin
+  for j:=1 to BPN.Num_HD do
+    begin
+    C[j] := TComboBox.Create(Form2);
+    C[j].Parent := Form2.GroupBox1;
+    C[j].DropDownCount := 8;
+    C[j].Height := 21;
+    C[j].Width := 36;
+    C[j].Left := 112+(37*(j-1));
+    C[j].Top := 62;
+    C[j].Text := inttostr(j);
+    C[j].TabOrder := j;
+    for i := 0 to MaxCell-1 do
+      C[j].Items[i] := IntToStr(i+1);
+  end;
+
+end;
+
+procedure TForm2.Button1Click(Sender: TObject);
+var
+  i : integer;
+begin
+  if (ComboBox1.Text = '') or
+     (ComboBox2.Text = '') or
+     (ComboBox3.Text = '') or
+     (ComboBox4.Text = '')
+  then begin
+     MessageDlg('Missing Input !  ' +
+         'Please specify value for every input field.', mtError,[mbOK],0);
+      Exit;
+  end;
+  BPN.Cells[0] := StrToInt(Combobox1.text);
+  for i := 1 to BPN.Num_HD do
+    BPN.Cells[i] := StrToInt(C[i].text);
+  BPN.Cells[BPN.Num_HD+1] := StrToInt(Combobox2.text);
+  BPN.HDCell_Type := Combobox3.text;
+  BPN.OPCell_Type := Combobox4.text;
+  Form2.Visible := false;
+  Form3.ShowModal;
+end;
+
+end.

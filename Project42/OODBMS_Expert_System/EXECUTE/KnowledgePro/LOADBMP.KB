@@ -1,0 +1,8 @@
+(* PRNBMP.KB
+
+   Sample program that uses the new bitmap display feature. *)
+
+#include kpprnbmp.tpx
+
+x is load_bitmap ('test1.bmp').
+bitmap (?x,5,5,20,10).

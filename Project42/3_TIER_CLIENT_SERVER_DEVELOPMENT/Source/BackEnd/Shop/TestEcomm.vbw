@@ -1,0 +1,14 @@
+frmAddShop = 2, 61, 508, 478, C, 3, 0, 521, 497, C
+frmMain = 22, 55, 525, 509, , 8, 18, 501, 433, C
+frmDeleteShop = 0, 0, 0, 0, C, 88, 88, 477, 434, C
+frmRetrieveShop = 0, 0, 0, 0, C, 44, 44, 433, 390, C
+frmUpdateShop = 140, 109, 618, 514, , 45, 24, 509, 458, C
+ModShop = 22, 22, 540, 451, C
+frmAddItem = 131, 92, 615, 512, , 44, 44, 530, 479, C
+frmAddCategory = 5, 17, 516, 436, C, 22, 22, 530, 438, C
+frmDeleteCategory = 0, 0, 402, 346, C, 0, 0, 389, 346, C
+frmUpdateCategory = 110, 110, 499, 456, C, 27, 13, 530, 488, C
+frmRetrieveCategory = 22, 22, 539, 413, C, 132, 132, 521, 478, C
+frmUpdateItem = 13, 36, 488, 432, C, 44, 44, 519, 500, C
+frmRetrieveItem = 22, 22, 549, 303, C, 88, 88, 477, 434, C
+frmDeleteItem = 0, 0, 0, 0, C, 66, 66, 455, 412, C

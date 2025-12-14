@@ -1,0 +1,111 @@
+------ Create Row type for save Actor 2 persons
+
+CREATE ROW TYPE actor_t
+(
+ACTOR1 varchar(20),
+ACTOR2  varchar(20)
+);
+
+------ Create table movie for save detail
+
+CREATE TABLE movie
+(
+MOVIEID serial primary key,
+MOVIECODE varchar(15) not null unique,
+MOVIENAME varchar(35) not null,
+ACTOR actor_t,
+MOVIECLASS varchar(20),
+PUBLISHING varchar(20),
+YEAR integer,
+FILM media_t
+);
+
+------ Create table addressmovie for save address of movie
+
+CREATE TABLE ADDRESSMOVIE
+(
+MOVIEID integer REFERENCES movie (movieid) ON DELETE CASCADE, 
+SHELFID integer REFERENCES movieshelf (shelfid) ON DELETE CASCADE,
+LAYER integer not null,
+PART char(1) not null,
+primary key (MOVIEID,SHELFID)
+);
+
+------ Create table movieshelf for save detail
+
+CREATE TABLE MOVIESHELF
+(
+SHELFID serial primary key,
+SHELFNAME varchar(10) not null,
+LAYER integer
+);
+
+------ Create table addressmovieshelf for save detail
+
+CREATE TABLE ADDRESSMOVIESHELF
+(
+SHELFID integer REFERENCES movieshelf (shelfid) ON DELETE CASCADE,
+ROOMID integer REFERENCES room (roomid) ON DELETE CASCADE,
+POSITION position_t not null,
+PRIMARY KEY (SHELFID,ROOMID)
+);
+
+------ Insert Into Table
+ 
+------ Insert Into Movie Table
+-1
+INSERT INTO MOVIE
+VALUES(0,"MV001","SPEED 2 CRUISE CONTROL",
+ROW("SANDRA BULLOCK","JASAN PATRIC ")::Actor_t,"ACTION","UNIVERSAL PICTURE",1997,
+'"E:\PROJECT\DATAUSESINDB\MOVIE\SPEED2.AVI"');
+
+
+INSERT INTO MOVIE
+VALUES(0,"MV002","THAT THING YOU DO",
+ROW("TOM HANG","LIV TYLER")::Actor_t,"COMEDY","20TH CENTURY FOX",1997,
+'"E:\PROJECT\DATAUSESINDB\MOVIE\THAT THING YOU DO.AVI"');
+
+
+INSERT INTO MOVIE
+VALUES(0,"MV003","AS GOOD AS IT GET",
+ROW("JACK NICROSON","HAREN HUNTER")::Actor_t,"COMEDY","TRISTAR PICTURE",1998,
+'"E:\PROJECT\DATAUSESINDB\MOVIE\AS GOOD AS IT.AVI"');
+
+
+INSERT INTO MOVIE
+VALUES(0,"MV004","BROKEN ARROW",
+ROW("JOHN TRAVOTA"," ")::Actor_t,"ACTION","20TH CENTURY FOX",1996,
+'"E:\PROJECT\DATAUSESINDB\MOVIE\BROKEN~1.AVI"');
+
+
+INSERT INTO MOVIE
+VALUES(0,"MV005","STARSHIP TROOPERS",
+ROW("JIM CARRY","TOM CRUISE")::Actor_t,"ACTION","TRISTAR PICTURE",1999,
+'"E:\PROJECT\DATAUSESINDB\MOVIE\Starship Troopers.AVI"');
+
+-------- Insert Into Addressmovie
+
+INSERT INTO ADDRESSMOVIE
+VALUES(1,1,1,"L");
+
+INSERT INTO ADDRESSMOVIE
+VALUES(2,1,1,"L");
+
+INSERT INTO ADDRESSMOVIE
+VALUES(3,1,1,"L");
+
+INSERT INTO ADDRESSMOVIE
+VALUES(4,1,1,"L");
+
+INSERT INTO ADDRESSMOVIE
+VALUES(5,1,1,"L");
+
+------- Insert Into Movieshelf
+
+INSERT INTO MOVIESHELF
+VALUES(0,"MVS001",3)
+
+------- Insert Into Addressmovieshelf 
+
+INSERT INTO ADDRESSMOVIESHELF
+VALUES(1,1,ROW(10095,3420)::POSITION_T);

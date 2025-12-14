@@ -1,0 +1,553 @@
+(* ========================= DESTOOLS.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Main Window Create
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+  ====================================================================== *)
+
+#define	MB_YESNOCANCEL	3
+#define	MB_ICONQUESTION	32
+#define	IDCANCEL		2
+#define	IDYES			6
+#define	IDNO			7
+
+topic CreateToolsWin.
+  (* Create Main Window and Work area *)
+  use_font ( element ( ?ref:fontHandleList ,1) , [control, window] ).
+  CreateToolBarWin ().
+
+  attach_icon ( ?ref:wTools, ?ref:desToolIcon ).
+  ToolEvent:MakeMenu is F.
+  Current:menuHandle is menu ( [ 
+          [&File, &New, '&Open...',  '&Paste from Clipboard', [ ], 
+                  &Save, 'Save &As...', '&Copy to Clipboard', [], E&xit], 
+          [&Edit, '&Delete', '&Copy' ],
+          [&Tools, '&Select object', '&Check box', '&Button', '&Radio button',
+                           'Child &window', '&Hyper-region', '&Text object',
+                           '&Edit box', '&List box', 'C&ombo box', 
+                           'Hori&zontal scroll bar', '&Vertical scroll bar',
+                    [], 
+                 [ '&Icons', '&File Icon...', '&System Icon...' ],
+                   'Bitma&ps...'],
+          [&Options, [ &Font, '&Default Font...', '&Selected Object Font...' ],
+                     [ &Color, '&Default Background Color...', '&Selected Object Background Color...',
+                            '&Main Window Background Color...' ] ,
+                      '&Styles...', 
+                       [],
+                      'F&ull code'], 
+          [&Help, &Contents, [], '&About...'] ], menuTopic ).
+  disable_menu_item ( ?Current:menuHandle, [ '&Delete', '&Copy' ,'&Selected Object Background Color...', '&Selected Object Font...'  ] ).
+  check_menu_item ( ?Current:menuHandle, 'F&ull code' ).
+  selectObject is selectObject.
+  show_window ( ?ref:wTools ).
+
+  topic CreateToolBarWin.
+    ref:wTools is window (ToolEvent , , , , , ?ref:DesignTitle, [popup,thickframe, siblings,titlebar,minimizebox,controlmenu], , , lightgray, [close_event, resize_event]  ).
+    CreateToolBar ().
+    :GridPlacement is ?ref:ToolBMP:wd + 3.
+    set_display_pos (?GridPlacement, 1.425).
+    text ( 'Grid: ').
+    edit_box ( '0.5', GridSelect, , 1.25, 5, 1.25, [visible, thinframe, autoHscroll  ] ).
+    check_box ( 'Grid On', gridState, ?GridPlacement, 3, t ).
+    move_window (?ref:wTools, 5, element (system_info (), 2) - ?ref:ToolBMP:ht - 3 ).
+    resize_window (?ref:wTools, ?ref:ToolBMP:wd + 15, ?ref:ToolBMP:ht + 3 ).
+
+    topic CreateToolBar.
+      bitmap (?ref:ToolBMP, 1, 1).
+      :ButtonWidth is ?ref:ToolBMP:wd / 6.
+      :ButtonHeight is ?ref:ToolBMP:ht / 2.
+      :Row is 1.
+      :Col is 1.
+      mark:regHandles is apply (CreateToolRow, sublist (?mark:objectNameList, 1, 6)).
+      :Row is 1 + ?ButtonHeight.
+      :Col is 1.
+      mark:regHandles gets apply (CreateToolRow, sublist (?mark:objectNameList, 7, 6)).
+  
+      topic CreateToolRow (name).
+         CreateToolRow is hyper_region (?name, ?Col, ?Row, ?ButtonWidth, ?ButtonHeight).
+         Col is ?Col + ?ButtonWidth.
+      end.
+    end. (* CreateToolBar *)
+  end.  (* CreateToolBarWin *)
+
+  topic GridSelect ( i, e, handle ).
+     WorkEventTopic:Mouse_up_event:GridPos:grid is get_text ( ?handle ).
+  end.
+
+  topic GridState ( i, e, handle ).
+     WorkEventTopic:Mouse_up_event:GridPos:gridOn is get_check_box ( ?handle ) .
+  end.
+
+(* ==================== Mark topic for hyper-regions on Tool window ================ *)
+
+  topic Mark (item).
+    set_display_window (?ref:wWork).
+    if ?item is selectObj 
+       then use_mouse_cursor ( ?ref:wWork, arrow)
+       else use_mouse_cursor ( ?ref:wWork, cross).
+    selectObject is concat (?item, 'ect').
+    if exists ( lastRegion ) then invert_hyper_region ( ?lastRegion ).
+    :lastRegion is element ( ?regHandles, where ( ?mark:objectNameList, ?item ) ).
+    invert_hyper_region ( ?lastRegion ).
+  end.
+
+  topic MenuTopic (item).
+    :index is where (?CreateToolsWin:Mark:menuNameList, ?item).
+    if ?index > 0 then
+       mark (element (?CreateToolsWin:Mark:objectNameList, ?index))
+    else
+       do (?item).
+  
+(* ....................  File menu topics ....................  *)
+
+    topic &New.
+       RemoveOld ( ).
+       InitialScreen ( 'desdef.tpx' ).
+    end. (* &New *)
+  
+    topic '&Open...' (temp).
+      temp is file_menu ( , , , [ [ 'Library Files (*.tpx)', '*.tpx' ], [ 'Application Files (*.kb)', '*.kb' ] ] ).
+      if ?temp is [ ] then exit ( ).
+      ref:saveFile is ?temp.  
+      RemoveOld ( ).
+      InitialScreen ( ?ref:saveFile ).
+    end. (* &Open... *)
+
+    topic '&Paste from clipboard' ( temp ).
+      temp is first ( read_clipboard ( ) ).
+      if ?temp is [ ] then exit ( ).
+      new_file ( 'temp.txt' ).
+      write ( 'temp.txt', ?temp ).
+      close ( 'temp.txt').
+      RemoveOld ( ).
+      InitialScreen ( 'temp.txt' ).
+      ref:modified is t.
+    end. (* Paste from clipboard *)
+
+    topic &Save.
+       if ?ref:saveFile is [ ] then
+          'Save &As...' ( )
+       else 
+          new_file ( ?ref:saveFile ) and
+          write ( ?ref:saveFile, CreateFullCode ( ) ) and
+          close ( ?ref:saveFile ) and
+          ref:modified is f.
+    end.
+  
+    topic 'Save &As...' (temp).
+      temp is save_as (  , , ,  [ [ 'Library Files (*.tpx)', '*.tpx' ], [ 'Application Files (*.kb)', '*.kb' ] ] ).
+      if ?temp <> [ ] then
+         ref:saveFile is ?temp and
+         new_file ( ?ref:saveFile ).
+         write ( ?ref:saveFile, CreateFullCode ( ) ) and
+         close ( ?ref:saveFile ) and
+         ref:modified is f.
+    end.
+
+    topic '&Copy to clipboard'.
+       text_to_clipboard ( CreateFullCode ( ) ).
+    end.
+  
+    topic E&xit.
+      ExitDesign ( ).
+    end.
+  
+    topic CreateFullCode.
+       if not (?ref:FullCode) then
+          CreateFullCode is CreateQuickCode () and
+          exit ().
+
+       CreateFullCode is combine ( ?topicCode, ObjectCode ( ), FontCode ( ), ?endCode ).
+       
+       topic ObjectCode ( 	tUserTopics ).
+         if children ( User ) <> [ ] then
+            tUserTopics is combine ( MainWindowObject:CreateCode, MenuObject:CreateCode, 
+                           concat ( User: ,  concat ( children (User), ':CreateCode' ) ) ) 
+         else 
+            tUserTopics is [ MainWindowObject:CreateCode, MenuObject:CreateCode ].
+         ObjectCode is combine ('    topic CreateObjects.', '    (* Do not add code to this topic *)',do ( ?tUserTopics ), '    end. (* CreateObjects *)', '' ).
+       end. (* ObjectCode *)
+    
+       topic FontCode ( temp ).
+          temp is concat ( '      fontList is ' , list_to_string ( ?ref:fontList, ', ' , '[', ']' , '''' ), '.' ) .
+          FontCode is combine ('     topic CreateFonts.', '    (* Do not change the code in this topic *)', '', ?temp ).
+       end. (* FontCode *)
+    end. (* CreateFullCode *)
+
+    topic CreateQuickCode.
+       CreateQuickCode is combine ( concat ('#', 'include desscrob.src'), 
+            FontCode ( ), ObjectCode ( ), 'show_window (?!wHandle).' ).
+       
+       topic ObjectCode.
+         if children ( User ) <> [ ] then
+            ObjectCode is combine ( MainWindowObject:CreateCode, MenuObject:CreateCode, 
+                           concat ( User: ,  concat ( children (User), ':CreateCode' ) ) ) 
+         else 
+            ObjectCode is [ MainWindowObject:CreateCode, MenuObject:CreateCode ].
+
+         ObjectCode is apply (string_to_list, ??ObjectCode).
+         ObjectCode is string_replace (?ObjectCode, 'DrawScreen:').
+         ObjectCode is apply (list_2_string, ?ObjectCode).
+
+         topic list_2_string (item).
+           list_2_string is list_to_string (?item, ' ').
+         end.
+       end. (* ObjectCode *)
+    
+       topic FontCode.
+          FontCode is concat ( 'fontList is ' , list_to_string ( ?ref:fontList, ', ' , '[', ']' , '''' ), '.' ).
+          FontCode gets 'fontHandleList is apply (create_char_font, ?fontList).'.
+       end. (* FontCode *)
+    end. (* CreateQuickCode *)
+
+(* .................... Edit Menu topics .................... *)
+
+    topic '&Delete'.
+       close_window ( ?Current:handle ).
+       remove_topic ( ?Current:object ).
+       Current:NoCurrent ( ).
+    end.
+  
+    topic '&Copy' ( 	tType, tHandle ).
+       do ( concat ( ?Current:object, :Copy ) ).
+       [ tType, tHandle ] is_c ?concat ( 'User:', ?ref:objectName, [ :type, :handle] ).
+       Current ( ?tType, ?tHandle, concat ( User:, ?ref:objectName ) ).
+    end.
+  
+ 
+(* .................... Tools topics ....................  *)
+
+    topic '&File Icon...' ( 	tFile ).
+       disable_window ( [ ?ref:wWork, ?ref:wTools ]  ).
+       tFile is file_menu ( , , , [ [ 'Icon', '*.ico' ] ] ).  
+       if ?tFile <> [ ] 
+          then &Icons ( ?tFile ).
+       enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+    end.
+
+    topic '&System Icon...'.
+       disable_window ( [ ?ref:wWork, ?ref:wTools ]  ).
+       use_font ( element ( ?ref:fontHandleList, 1 ), [ control, window ] ).
+       :wIcon is window ( , 31.85714285714286, 2.5, 30.85714285714286, 18, 'Working Window', [titlebar, thickFrame, popup, siblings], ?ref:wMain ).
+       text ( '
+  Icon name:' ).
+       button2 ( '  &Ok  ', Done, 3.285714285714286, 14.5, 10.42857142857143, 1.5 ).
+       button2 ( &Cancel, Done, 16.14285714285714, 14.5, 10.42857142857143, 1.5 ).
+       :lb is list_box ( [ Exclamation, Stop, Info, App, Edit, Help, Tool, Question ], NewIcon, 3.285714285714286, 3, 23.71428571428572, 7.8125, F, F, list_select_event ).
+       set_list_box ( ?lb, exclamation ).
+       :wShow is window ( , 12,11, 5, 3, , [ child, visible ], ?wIcon ).
+       :icoHandle is load_icon ( exclamation_icon ).
+       icon ( ?icoHandle,1,1 ).
+       NewIcon:currentIcon is Exclamation_icon.
+       show_window ( ?wIcon ).
+
+       topic NewIcon ( item ).
+          :currentIcon is concat ( ?item, _icon ).
+          text ( #e ).
+          delete_icon ( ?icoHandle ).
+          icoHandle is load_icon ( ?currentIcon ).
+          icon ( ?icoHandle, 1,1 ).
+       end.
+
+       topic Done ( item ).
+          close_window ( ?wIcon ).
+          if ?item is '  &Ok  '
+             then &Icons ( ?NewIcon:currentIcon ).
+          enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+       end.
+              
+    end.
+
+    topic '&Icons' (	file, tHandle, tMakeList, temp, tH, tW ).
+       ref:objectName is concat ( Object, ?ref:objectNumber ) .
+       [ temp, temp, tW, tH ] is_c  window_info ( ?ref:wWork ).
+       new ( concat ( '!main:User:', ?ref:objectName ), Icon_fileObject, 
+                   [ [ icon_file, ?file, 1, 1 ] , 1 ] ).
+    end.
+
+    topic 'Bitma&ps...' (	tFile, tHandle, tMakeList ).
+       disable_window ( [ ?ref:wWork, ?ref:wTools ]  ).
+       tFile is file_menu ( , , , [ [ 'Bitmap', '*.bmp'], [ 'Microsoft Windows DIB', '*.dib' ] ] ).  
+       if ?tFile <> [ ] then 
+          ref:objectName is concat ( Object, ?ref:objectNumber ) and
+          new ( concat ( '!main:User:', ?ref:objectName ), Bitmap_fileObject,
+               [  [ bitmap_file, ?tFile, 1, 1, 30, 10 ], 1 ] ).
+       enable_window ( [ ?ref:wWork, ?ref:wTools ]  ).
+    end.
+
+(* .................... Options topics ....................  *)
+
+    topic '&Default Font...' ( temp, tFont ).
+       temp is FontDlg ( ?ref:wWork, element ( ?ref:fontList, ?ref:defaultFont ), , t ).
+       if ?temp is [ ] then exit ( ).
+       ref:defaultTextColor is last ( ?temp ).
+       temp is first (?temp).
+       if not ( one_of ( ?ref:fontList, ?temp ) )
+          then ref:fontList gets [ ?temp ] and
+                 ref:fontHandleList gets create_char_font ( ?temp ) and
+                 ref:defaultFont is list_length ( ?ref:fontList ).
+    end.
+
+    topic '&Selected Object Font...' ( temp, tTextColor, tFont, tLastHandle, tLastTopic ).
+       temp is FontDlg ( ?ref:wWork, element ( ?ref:fontList, ?ref:defaultFont ), , t ).
+       if ?temp is [ ] then exit ( ).
+       tTextColor is last ( ?temp ).
+       temp is first (?temp).
+       if not ( one_of ( ?ref:fontList, ?temp ) )
+          then ref:fontList gets [ ?temp ] and
+                 ref:fontHandleList gets create_char_font ( ?temp ) and
+                 :tFont is list_length ( ?ref:fontList ).
+       concat ( ?Current:object, [ :font, :textColor ] ) is_c [ ?tFont, ?tTextColor ].
+       do ( concat ( ?Current:object, :NewFont ) ).
+    end.
+
+    topic '&Default Background Color...'.
+       load ( concat (?ref:startDir, 'descolor.hkb' )).
+       ref:defaultBackColor is Color ( ?ref:defaultBackColor ).
+       remove_topic ( Color ).
+       show_window ( ?ref:wWork ).
+    end.
+
+    topic '&Selected Object Background Color...' ( temp ).
+       load ( concat (?ref:startDir, 'descolor.hkb' )).
+       [ temp, concat ( ?Current:object, :backColor ) ] is Color ( ?concat ( ?Current:object, :backColor ) ).
+       remove_topic ( Color ).
+       set_window_colors ( ?Current:handle, ,?temp ).
+       if ?concat ( ?Current:object, :type ) is 'radio_button'
+          then set_window_colors ( ?concat ( ?Current:object, :rbHandle ), , ?temp ).
+       show_window ( ?ref:wWork ).
+    end.
+
+    topic '&Main Window Background Color...'.
+       load ( concat (?ref:startDir, 'descolor.hkb' )).
+       MainWindowObject:backColor is Color ( ?MainWindowObject:backColor ).
+       remove_topic ( Color ).
+       set_window_colors ( ?ref:wWork, , ?MainWindowObject:backColor ).
+       show_window ( ?ref:wWork ).
+    end.
+
+    topic '&Styles...' .
+      load (concat (?ref:startDir, 'dessty1.hkb')).
+      GetMainStyle (?ref:wWork, ?MainWindowObject:style, 
+                    ?MainWindowObject:title, 
+                    ?MenuObject:objectText, F).
+      set_focus ( ?ref:wWork ).
+      if ?GetMainStyle <> [ ] then
+         [ MainWindowObject:style, 
+           MainWindowObject:title] is_c ?GetMainStyle.
+      remove_topic ( GetMainStyle ).
+    end.
+  
+    topic 'F&ull code'.
+       ref:FullCode is not ( ?ref:FullCode ).
+       if ?ref:FullCode then
+          check_menu_item (?Current:menuHandle, 'F&ull code')
+       else
+          uncheck_menu_item (?Current:menuHandle, 'F&ull code').
+    end.
+
+    topic &Contents.
+      dde_execute (?HelpChannel, '!Help (Search, Design).').
+      wait ().
+      dde_close (?HelpChannel).
+      reset (HelpChannel).
+
+      topic DDEHelpTopic.
+        continue ().
+      end.
+
+      topic HelpChannel.
+        HelpChannel is dde_open (DDEHelpTopic, KPWIN, 'KPHELP.CKB').
+        if ?HelpChannel is [] then
+           load_program (concat (?ref:startDir, 'kphelp.ckb'), 0) and
+           HelpChannel is dde_open (DDEHelpTopic, KPWIN, 'KPHELP.CKB').
+      end.
+    end.
+
+    topic '&About...'.
+      use_font ( system_font ).
+      :About is window ( , 22, 2.75, 49, 23.75, , dialogwindow).
+      icon (?ref:desToolIcon , 21.5, 5).
+      button2 (Ok, continue, 18, 20.5, 11.5, 2, t).
+      window (,10.5, 8.5, 29.5, 11.5, , [ child, visible, siblings ], ?About).
+      text ('             Version 2.2', , '        Copyright © 1992', , '    Knowledge Garden, Inc.', 'Stony Brook Technology Center', '     12-8 Technology Drive', '   Setauket, NY 11733  USA', , '           (516) 246-5400', '       FAX: (516) 246-5452').
+      window (,7, 2, 36.5, 2.5, , [ child, visible, siblings ], ?About).
+      text ('               KPWin Designer').
+      show_window (?About).
+      make_modal (?About).
+      wait ().
+      close_window (?About).
+    end.
+
+  end. (* menuTopic *)
+end. (* CreateMain *)
+
+(* =========================== Initial Screen ============================ *)
+
+topic InitialScreen ( file ).
+  (* ----- load code into memory ----- *)
+  ref:objectNumber is 1.
+  if ?file is 'desdef.tpx' 
+     then load ( concat (?ref:startDir, 'desdef.lkb' ))
+     else load ( ?file ).
+
+  (* Get the topic name for the loaded file.
+      Create all of the fonts for the objects.
+      Assign fontHandleList and fontList to children of ref for reference.
+      Create the objects which reference all of the fonts. *)
+  ref:userTopicName is remove ( children ( ), [ file, name ] ).
+  do ( concat ( ?ref:userTopicName, :CreateFonts ) ).
+  [ ref:fontHandleList , ref:fontList ] is_c [ ?fontHandleList, ?fontList ].
+  remove_topic ( [ fontHandleList, fontList ] ).
+  do ( concat ( ?ref:userTopicName, :CreateObjects ) ).
+
+  show_window ( ?ref:wWork ).
+
+  (* ---- read code in as text ---- *)
+  CreateToolsWin:MenuTopic:CreateFullCode:topicCode is read ( ?file, , 'topic CreateObjects' ) .
+  CreateToolsWin:MenuTopic:CreateFullCode:endCode is '      fontHandleList is apply ( create_char_font, ?fontList ).
+    end. (* CreateFonts *)
+
+ 
+  end. 
+
+(* ============================================================== *)
+'.
+  close ( ?file ).
+  remove_topic ( combine ( ?ref:userTopicName, !wHandle ) ).
+  Current:handle is [ ].
+end.
+
+(* ========================== Create screen objects ======================== *)
+
+topic Screen_object ( params, font, textColor, backColor, extraParam ).
+  if exists ( ref:wWork ) then	(* this tells us that the main window has been created *)
+     ( if first ( ?params ) is menu then
+          MenuObject ( ?params ) 
+       else
+          ref:objectName is concat ( Object, ?ref:objectNumber ) and
+          new ( concat ( '!main:User:', ?ref:objectName ), concat ( first ( ?params ), Object ), 
+                       [ ?params, ?font, ?textColor, ?backColor, ?extraParam ] ) ) 
+  else
+       MainWindowObject ( ?params, ?font ).
+end.
+
+(* ========================= Tools Event Topic ========================== *)
+
+topic ToolEvent (info, event, handle).
+  do (?event).
+
+  topic close_event.
+    ToolEvent is ExitDesign ().
+  end.
+
+  topic resize_event.
+    if ?MakeMenu then
+       exit ().
+    if last (?info) is 1 then
+       hide_window (?ref:wWork).
+    if last (?info) is 0 then
+       show_window (?ref:wWork).
+  end.
+end.
+
+topic Current ( type, newHandle, objectName,	tGraphics ).
+  (* Enables and disables various menu options depending on the current object. *)
+  if one_of ( [ bitmap_file, icon_file, hyper_region ], ?type ) 
+     then disable_menu_item ( ?menuHandle, [ &Copy, '&Selected Object Font...', '&Selected Object Background Color...' ] ) and
+            enable_menu_item ( ?menuHandle, &Delete )
+     else enable_menu_item ( ?menuHandle, [ &Delete, &Copy, '&Selected Object Font...', '&Selected Object Background Color...' ] ).
+  :handle is ?newHandle.
+  :object is concat ( User:, ?objectName ).
+
+  topic NoCurrent.
+     disable_menu_item ( ?menuHandle, [  '&Delete', '&Copy', '&Selected Object Font...', 
+             '&Selected Object Background Color...' ] ).
+     Current:handle is [ ].
+     Current:lastGraphic is [ ].
+  end.
+
+end. (* Current *)
+
+(* ============================== Select Object =================================== *)
+
+topic SelectObject .
+  use_mouse_cursor ( ?ref:wWork, arrow ).
+  (* change event list for ref:wWork so it won't call the drop the object routine *)
+end. (* SelectObject *)
+
+(* ============================ Remove old setup =========================== *)
+
+topic RemoveOld.
+  close_window ( ?ref:wWork ).
+  if exists ( bmpHandleList ) then delete_bitmap ( ?bmpHandleList ).
+  if exists ( icoHandleList ) then delete_icon ( ?icoHandleList ).
+  remove_topic ( [ bmpHandleList, icoHandleList, User, ref:wWork, 
+             concat ( InitialScreen:, ?ref:userTopicName) ] ).
+end.
+
+(* =========================== Setup ======================================= *)
+
+topic Setup.
+  ref:modified is f.
+  ref:FullCode is t.
+  ref:DesignTitle is 'KPWin Designer'.
+  ref:startDir is current_directory ().
+  ref:wMain is window ( , 1, 1, first (system_info ()), element (system_info (), 2) - 5, , [ overlapped, thickframe, titlebar, showchildren], , , lightgray).
+  ref:wDummyParent is window ( , 1, 1, 1, 1, , [ overlapped, thickframe, titlebar, showchildren]).   (* never to be shown. *)
+  attach_icon ( ?ref:wMain, load_icon ( kptool_icon ) ).
+  [ ref:defaultFont, ref:defaultTextColor, ref:defaultBackColor, selectObject, 
+      WorkEventTopic:Mouse_up_event:GridPos:grid, WorkEventTopic:Mouse_up_event:GridPos:gridOn, ToolEvent:MakeMenu ] is_c 
+        [ 1, black, white, selectObject, 0.5, T, T ].
+  [ ref:newRB, WorkEventTopic:startDrag,  WorkEventTopic:move, WorkEventTopic:drag ] = f.
+  [ ref:saveFile, MenuObject:objectText ] is [ ].
+  CreateToolsWin:Mark:objectNameList is [ SelectObj, Check_BoxObj, Button2Obj, Radio_ButtonObj, 
+          Child_WindowObj, Hyper_RegionObj, Text_LabelObj, Edit_BoxObj, List_BoxObj, Combo_BoxObj, 
+          Horz_Scroll_BarObj, Vert_Scroll_BarObj ].
+  CreateToolsWin:Mark:menuNameList is ['&Select object', '&Check box', '&Button', '&Radio button',
+         'Child &window', '&Hyper-region', '&Text object',
+         '&Edit box', '&List box', 'C&ombo box', 
+         'Hori&zontal scroll bar', '&Vertical scroll bar'].
+
+  ref:desCur is load_mouse_cursor ( concat (?ref:startDir, 'design.cur')).
+  ref:desToolIcon is load_icon ( kptool_icon ).
+  ref:ToolBMP is load_bitmap (concat (?ref:startDir, 'destools.bmp')).
+  ref:ToolBMP:[wd, ht] is_c bitmap_info (?ref:ToolBMP).
+end.
+
+topic ExitDesign.
+  if not (?ref:modified) then
+     exit_kp ().
+
+  :ExitMessage is 'Save changes to current working window?'.
+  MessageBox ( ?ref:wTools, ?ExitMessage, ?ref:DesignTitle, MB_YESNOCANCEL + MB_ICONQUESTION).
+  if ?MessageBox is IDYES then
+     CreateToolsWin:MenuTopic (&Save) and
+     (if not (?ref:modified) then
+         exit_kp ())
+  else
+     (if ?MessageBox is IDNO then
+        exit_kp ()).
+  ExitDesign is t.
+end.
+
+topic UserLib. 
+  UserLib is load_library ('USER.EXE').
+end.
+
+topic MessageBox (PARENTHANDLE, MESSAGE, TITLE, TYPE).
+  MessageBox is call (?UserLib, MessageBox, [ word (?PARENTHANDLE),  
+                                    lpstr (MESSAGE), lpstr (TITLE), word (?TYPE) ], int).
+end.

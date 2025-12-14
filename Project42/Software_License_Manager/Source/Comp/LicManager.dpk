@@ -1,0 +1,49 @@
+package LicManager;
+
+{$R *.RES}
+{$R 'SLM_01.dcr'}
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Software License Manager 1.0 (by O & Joe)'}
+{$IMPLICITBUILD ON}
+
+requires
+  VCL50,
+  VCLSMP50;
+
+contains
+  Wincrypt in 'Wincrypt.pas',
+  CryptEMsg in 'CryptEMsg.pas',
+  uDFPAPI in 'uDFPAPI.pas',
+  Smart in 'Smart.pas',
+  uPublicKey in 'uPublicKey.pas' {frmPBKeyDlg},
+  ProEXE in 'ProEXE.pas',
+  SLMCompEditor in 'SLMCompEditor.pas',
+  SLMReg in 'SLMReg.pas',
+  SLM_01 in 'SLM_01.pas',
+  uDisable in 'uDisable.pas' {dlgDecision},
+  uLicInfo in 'uLicInfo.pas' {frmLicInfo},
+  uLicConfig in 'uLicConfig.pas' {frmLCfgEditor},
+  uLicRequest in 'uLicRequest.pas' {frmLicRequest},
+  SLMPropEditor in 'SLMPropEditor.pas';
+
+end.

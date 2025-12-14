@@ -1,0 +1,397 @@
+<html>
+<head>
+<title>Update Category</title>
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" height="798">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">ADMINISTRATION</font></strong></font></div>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffff"> 
+    <td height="15"> 
+      <hr>
+ 
+    </td>
+  </tr>
+  <tr bgcolor="#ffffcc"> 
+    <td height="698"> 
+      <div align="center"> 
+        <table width="100%" border="0">
+          <tr> 
+            <td width="25%" valign="top" height="676"> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td height="48"> 
+                    <div align="center"><b><font face="MS Sans Serif" size="3">Administrator 
+                                Command</font></b></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td height="31"> 
+                    <form method="post" action="AdminCategory.ASP?WCI=UpdateCategory&amp;WCE=formShopDesc&amp;WCU" 
+                  name="formShopDesc">
+                      <div align="center"> 
+			<input type="image" name="Submit1" value="Shop Description" alt="Shop description"
+			 src="/ecom/pic/ShopDesc2.GIF" width="100" height="50">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+		    <form name="space"  method="post">
+                     <div align="center"> 
+		      <img src="/ecom/pic/ShopCat1.GIF" width="100" height="50" alt="Shop categories">
+		     </div>
+		    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <form method="post" action="AdminCategory.ASP?WCI=UpdateCategory&amp;WCE=formShopItem&amp;WCU" 
+                  name="formShopItem">
+                      <div align="center"> 
+			<input type="image" name="Submit3" value="Shop Item" alt="Shop items"
+			 src="/ecom/pic/ShopItem2.GIF" width="100" height="50">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                    
+	       <form method="post" action="AdminCategory.ASP?WCI=UpdateCategory&amp;WCE=formLogout&amp;WCU" 
+                  name="formLogout">
+                      <div align="center"> 
+                        <input type="image" name="cmdLogout" value="Logout" src="/ecom/pic/Logout.GIF" width="100" height="50" alt="logout">
+ 
+                      </div>
+                    </form>
+</td>
+                </tr>
+              </table>
+            </td>
+            <td width="75%" height="676" valign="top" align="middle"> 
+              <p align="center">&nbsp;</p>
+              <p align="center"><font color="#000000"><b><font size="3" face="MS Sans Serif" color="#ff3300">Update 
+                Category in your shop</font></b></font></p>
+              <form method="post" action="AdminCategory.ASP?WCI=UpdateCategory&amp;WCE=formListCategoryDetail&amp;WCU" 
+            name="formListCategoryDetail">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="8%">&nbsp;</td>
+                    <td width="41%"> 
+                      <div align="center"> 
+                        <select name="CategoryList" size="5">
+			<wc@>strCategoryList</wc@>
+                        </select>
+ 
+                      </div>
+                    </td>
+                    <td width="6%">&nbsp; </td>
+                    <td width="45%"> 
+                      <div align="center"> 
+                        <p> 
+                          <input type="submit" name="btnListCategory" value="List Category Detail"> 
+ 
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+              <form method="post" action="AdminCategory.ASP?WCI=UpdateCategory&amp;WCE=formUpdateCategory&amp;WCU" 
+            name="formUpdateCategory">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F1</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF1" value= <wc@>strF1
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F11</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF11" value= <wc@>strF11
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F2</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF2" value= <wc@>strF2
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F12</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF12" value= <wc@>strF12
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F3</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF3" value= <wc@>strF3
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F13</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF13" value= <wc@>strF13
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F4</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF4" value= <wc@>strF4
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F14</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF14" value= <wc@>strF14
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F5</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF5" value= <wc@>strF5
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F15</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF15" value= <wc@>strF15
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F6</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF6" value= <wc@>strF6
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F16</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF16" value= <wc@>strF16
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F7</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF7" value= <wc@>strF7
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F17</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF17" value= <wc@>strF17
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F8</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF8" value= <wc@>strF8
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F18</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF18" value= <wc@>strF18
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F9</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF9" value= <wc@>strF9
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F19</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF19" value= <wc@>strF19
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F10</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp; </td>
+                    <td width="35%"> 
+                      <input name="txtF10" value= <wc@>strF10
+                    </WC@> >
+                    </td>
+                    <td width="3%"> 
+                      <div align="left"></div>
+                    </td>
+                    <td width="5%"> 
+                      <div align="center"><b><font face="MS Sans Serif">F20</font></b></div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*"> 
+                      <input name="txtF20" value= <wc@>strF20
+                    </WC@> >
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="35%">&nbsp;</td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="35%"> 
+                      <div align="right"> 
+                        <input type="submit" name="Submit" value="Update"> 
+ 
+                      </div>
+                    </td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="35%">&nbsp;</td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="5%"><b></b></td>
+                    <td width="3%">&nbsp;</td>
+                    <td width="*">&nbsp;</td>
+                  </tr>
+                </table>
+              </form>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><A href="AdminCategory.ASP?WCI=UpdateCategory&WCE=AddNew&WCU" 
+                  name=AddNew>Add 
+                                Category</A></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><A href="AdminCategory.ASP?WCI=UpdateCategory&WCE=Delete&WCU" 
+                  name=Delete>Delete 
+                                Category</A></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><b><font color="#ff3300">Update 
+                                Category</font></b></font></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

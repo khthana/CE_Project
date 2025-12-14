@@ -1,0 +1,6 @@
+This text file lists all new contents by version. It starts with version 2.0,
+previous information is only available as stated in the main documentation.
+
+2.0 - RELEASE 12/16/1999
+- fixed a bug that could cause page faults when using the "senderName" property (rare case)
+- added functionality: single CC recipient / name possible

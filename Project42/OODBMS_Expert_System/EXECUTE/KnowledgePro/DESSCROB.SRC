@@ -1,0 +1,52 @@
+(* ========================= DESSCROB.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Screen Objects
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   Topic screen_object creates the object on the screen with specified
+   parameters. 
+
+   When preparing your application, be sure to include this file in its 
+   compiled form:
+
+                  DESSCROB.HKB
+
+  ====================================================================== *)
+
+topic screen_object ( param, font, textColor, backColor ).
+  use_font ( element ( ?fontHandleList, ?font ), [window, control ]).
+  screen_object is evaluate ( ?param ) .
+  if ?textColor <> [] then set_window_colors ( ?screen_object, ?textColor, ?backColor ).
+
+  topic child_window.
+     param is replace_elements ( ?param, 1, window ).
+     child_window is evaluate ( ?param ).
+     set_display_window ( ?!wHandle ).
+  end.
+
+  topic text_label ( name, col, row, width, height, textColor, backColor ).
+     text_label is window ( , ?col, ?row, ?width, ?height, , [ child, visible ], ?!wHandle, ?textColor, ?backColor ).
+     set_text ( ?text_label, ?name ).     
+     set_display_window ( ?!wHandle ).
+  end.
+
+  topic bitmap_file ( file, c, r, w, h, bitmapC, bitmapR, bitmapW, bitmapH ).
+     bitmap_file is load_bitmap ( ?file ).
+     bitmap ( ?bitmap_file, ?c, ?r, ?w, ?h, ?bitmapC, ?bitmapR, ?bitmapW, ?bitmapH ).
+  end.
+
+  topic icon_file ( file, c, r ).
+     icon_file is load_icon ( ?file ).
+     icon ( ?icon_file, ?c, ?r ).
+  end.
+
+end.

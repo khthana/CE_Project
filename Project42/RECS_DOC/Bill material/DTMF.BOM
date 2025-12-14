@@ -1,0 +1,62 @@
+Bill of Material for D:\USER\MEELARP\RECS_DOC\SCH\DTMF.Sch
+
+Used Part Type           Designator           
+==== =================== ==================== 
+4    0.01uF              C3_1 C3_2 C6_3 C6_4  
+11   0.1uF               A6_1 A9_1 C1_3 C1_4  
+                         C3_3 C6_1 C6_2 C6_7  
+                         C9_1 CD_1 CTR1_1     
+1    0-270K              R3_6                 
+1    10                  R9_1                 
+4    100K                R3_1 R3_2 R3_5 VR9_1 
+7    10K                 R4_1 R6_3 R6_4 RIC8  
+                         RKEY RO RQ1_1        
+2    10uF/6.3V           C1_1 C1_2            
+1    11.059MHz           XTAL7_1              
+1    15V                 ZDD_1                
+4    1K                  R2_1 R6_1 R6_2 RQ2_1 
+2    1N4001              D1_1 DRE             
+6    1N4148              D7_1 DD_1 DD_2 DD_3  
+                         DD_4 DREY1           
+1    1uF                 C9_2                 
+1    2.7K                RD_3                 
+1    22/16               CD_2                 
+1    220/25              C9_3                 
+1    220uF               C6_5                 
+1    22K                 RD_2                 
+1    3.3uF               C7_3                 
+1    3.579545MHz         XTAL3_1              
+1    3.579MHz            XTAL2_1              
+3    30PF                C7_1 C7_2 C7_4       
+1    330                 RQ2_3                
+1    33K                 R7_1                 
+1    39K                 R3_3                 
+1    4.7K                RQ2_2                
+1    4.7uF               C6_6                 
+2    470                 RQ1_2 RTR1_2         
+1    470k                R6_5                 
+1    485                 IC8                  
+1    4N26                IC4                  
+1    560                 RD1                  
+1    56K                 R3_4                 
+1    5k                  R6_6                 
+1    600-600-0           TRAN1                
+2    7805                IC1 IC5              
+1    820                 RTR1_1               
+1    8870                IC3                  
+1    89C51               IC7                  
+1    BC547               Q2                   
+1    BC557               Q1                   
+1    ELECTRET MICROPHONE J5                   
+2    HHH                 JVCCA JVCCA_         
+1    ISD2560             IC6                  
+1    KEY EN              S2                   
+1    KEYPAD              J27                  
+2    LINE IN             J1 J1                
+2    LLL                 JGNDA JGNDA_         
+1    LM386               IC9                  
+1    MC145412            IC2                  
+1    RESET               S7_1                 
+1    REY-DPDT            REY1                 
+2    RS485               J2 J3                
+1    SPEAKER             SP                   

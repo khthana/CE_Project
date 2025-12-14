@@ -1,0 +1,15 @@
+defineProcedure Void projectCF::StringSet::instance:Clear()
+language : "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $StringSet S;
+ $List <StringSet> SS;
+ $SS = StringSet from StringSet;
+ $scan (SS,S) {
+	 $S.delete();
+ };
+  $return;
+
+};

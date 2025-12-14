@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+push(@INC,"/cgi-bin");
+require('cgi_lib2.cgi');
+require('write_main2.cgi');
+ReadParse(*mydata);
+$|=1;
+
+use DBI;
+$database = 'webboard';
+$user = 'web';
+$password = 'project';
+
+print "Content-type:text/html\n\n";
+$dbh = DBI->connect("DBI:mysql:$database",$user,$password);
+
+$i=1;
+while ($i != 11) {
+	if ($mydata{$i} ne '') {
+		$sth = $dbh->prepare("select no,Room from head_post where Id_post='$mydata{$i}'");
+		$sth->execute;
+		while (@field = $sth->fetchrow_array) {
+			$no = $field[0];
+			$room = $field[1];
+			}
+		$sth = $dbh->prepare("select No_post from room where Room='$room'");
+		while (@field = $sth->fetchrow_array) {
+			$no_change = $field[0];
+			}
+		$dbh->do("delete from head_post where Id_post='$mydata{$i}'");
+		$dbh->do("delete from head_reply where Id_post='$mydata{$i}'");
+		$dbh->do("delete from Detail_post where Id_post='$mydata{$i}'");
+		$dbh->do("delete from detail_reply where Id_post='$mydata{$i}'");
+		$p = $no_change;
+		for ($p;$p<$no_change;$p++) {
+			$j=$p;
+			$j++;
+			
+		}
+	$i++;
+	}
+ 
+&write_main2();
+

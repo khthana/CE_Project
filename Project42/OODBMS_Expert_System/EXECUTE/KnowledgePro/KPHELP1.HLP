@@ -1,0 +1,5809 @@
+//##define
+
+ Format
+	##define NAME VALUE
+
+ Action
+	NAME is defined as a constant with the value given 
+	by VALUE. All occurences of NAME in the current file 
+	are replaced by VALUE.
+
+ Parameters
+	NAME is a string. It may not contain spaces.
+
+	VALUE may be a number or string. VALUE consists of 
+	the first non-space character following NAME and 
+	extends to the end of the line.
+
+ Example
+	##define PI 3.14159
+
+	This example creates a constant called PI and gives 
+	it a value 3.14159.
+
+	##define Customer  'John Smith'
+
+	All occurences of Customer in the current file will 
+	be replaced by 'John Smith'.
+
+ Notes
+	Compiler options may not extend beyond the end of 
+	the line.  The compiler option must be the only 
+	statement on the line.
+
+	The statement
+
+	##define PI 3.14159
+
+	differs from
+
+	PI = 3.14159.
+
+	The latter statement creates a topic name PI and 
+	assigns a value to it. This occurs when the 
+	application executes. The ##define statement simply 
+	substitutes each occurence of PI with 3.14159 before 
+	the file is compiled. No topic is created. If you 
+	examine the application using make_topic_list, you 
+	will not see PI defined, nor will you see it in the 
+	procedure or value lists or trace files. You will 
+	only see the substituted value.
+
+//##include
+
+ Format
+	##include FILE TOPIC1, TOPIC2,....
+	@FILE TOPIC1, TOPIC2,....
+
+ Action
+	The specified topics are copied from FILE into the 
+	current file at the current position. If no topics 
+	are specified, the entire file is copied.
+
+ Parameters
+	FILE is the name of a file containing KnowledgePro 
+	statements. The default extension is KB. FILE may be 
+	a source or compiled application.
+
+	TOPIC1 is the name of topics located in FILE.
+
+	TOPIC2 is the name of topics located in FILE.
+
+ Example
+	##include OBJECT.LKB GraphicButton PushButton
+
+	The topics GraphicButton and PushButton are loaded 
+	from the file OBJECT.LKB at the time the application 
+	is compiled.
+
+ Errors
+	F_NO_NAME, I_CANT_OPEN, I_CANT_READ, 
+	I_V_TOPIC_NOT_FOUND
+
+ Notes
+	Compiler options may not extend beyond the end of 
+	the line. The compiler option must be the only 
+	statement on the line.
+
+ See Also
+	#mload#m, #mload_topic#m
+
+//##no_optimize_primitives
+
+ Format
+	##no_optimize_primitives
+
+ Action
+	Turns off primitive optimization in the current 
+	application. The default for optimization is set 
+	from the Options submenu of the Development 
+	Environment.
+
+ Notes
+	Compiler options may not extend beyond the end of 
+	the line. The compiler option must be the only 
+	statement on the line.
+
+	See the note following ##optimize_primitives.
+
+ See Also
+	#m##optimize_primitives#m
+
+//##optimize_primitives
+
+ Format
+	##optimize_primitives
+
+ Action
+	Turns on primitive optimization.
+	When primitive optimization is on, KnowledgePro 
+	tries to replace function calls with direct calls to 
+	primitive functions.  For example
+
+	function (param, param...)
+
+	is replaced by
+
+	~function (param, param...).
+
+	This means that KnowledgePro calls its internal 
+	function first and does not search the topic 
+	hierarchy for a matching function. Calls to existing 
+	topics are not replaced in this manner, nor are 
+	calls to topics which are not primitives, but are 
+	not defined in the application.
+
+	Optimization applies only to the current file. It is 
+	reset to the default value at the beginning of each 
+	file being compiled. The default value may be 
+	changed by selecting the Optimize Primitives options 
+	from the Options submenu in the devlopment 
+	environment.
+
+	Optimization occurs after the entire file has been 
+	compiled. For each statement in the form,
+
+	function (param1, param2 ...)
+
+	the normal KnowledgePro topic search is made. If 
+	function cannot be found in the topic hierarchy, a 
+	search of the KnowledgePro internal command table is 
+	made. If the function is found in the command table, 
+	KnowledgePro replaces
+
+	function (param1, param2 ...)
+
+	with
+
+	~function (param1, param2 ...)
+
+	Commands of the form
+
+	do (command, param1, param2 ...)
+
+	will be optimized to
+	
+	~do (command, param1, param2 ...)
+	
+	Note that command cannot be replaced by ~command, so 
+	the normal topic search will occur.
+	
+	Optimization can result in a 10-20% speed increase 
+	in some applications.
+
+ Example
+	##optimize_primitives
+	window ().
+	test ().
+	topic test.
+	   text (wow).
+	end.
+	topic text (msg).
+	   ~text ('##sThe message is ',?msg, ##n).
+	end.
+
+	The first two lines compile to:
+	~window ().
+	test ().
+
+	The call to the command, window, is converted to a 
+	direct call, ~window.
+
+	The commands in topic test compile to:
+	text (wow).
+
+	Note that even though text is the name of a 
+	primitive function, it is not converted because the 
+	application contains a topic called text which can 
+	be reached from the current topic, test. This user 
+	defined topic is called.
+
+	The commands in topic text compile to:
+ 	~text ('##sThe message is ', ~value_of (msg),##n).
+
+	This command already contains a direct call to a 
+	primitive function.
+
+ Notes
+	Compiler options may not extend beyond the end of 
+	the line. The compiler option must be the only 
+	statement on the line.
+	Several problems may arise when optimization is 
+	used. Consider the following somewhat frivolous 
+	example:
+
+	(concat (win, dow)) ().
+
+	This function call is constructed at runtime, and 
+	cannot be optimized by the compiler. Function calls 
+	created during the running of an application cannot 
+	be optimized and will cause a search through the 
+	topic hierarchy.
+
+	A more serious example is:
+	load ('mywin.kb')
+	window ().
+
+	This compiles to:
+	~load ('mywin.kb')
+	~window ().
+
+	Suppose MYWIN.KB contains a redefinition of the 
+	window command:
+
+	topic window ( ).
+	  ~window (, , , , , , , , black, red).
+	end.
+
+	This topic is not called. The optimizer has 
+	converted the call to window to ~window because the 
+	topic window in MYWIN.KB could not be found when the 
+	command was compiled. If you plan to do this, turn 
+	off optimization.
+
+ See Also
+	#m##no_optimize_primitives#m
+
+//##protect
+
+ Format
+	##protect
+
+ Action
+	The current topic and its children are protected so 
+	that it cannot be examined by show_topic or 
+	get_procedures. If new is used on a protected topic, 
+	the new topic is also protected. If a topic contains 
+	an im_a command which references a protected topic, 
+	the topic containing the im_a command becomes 
+	protected. The protection state of a topic is not 
+	effected by debug ( ) or no_debug ( ) commands.
+
+ Example
+	To protect a topic include ##protect within the topic
+ 	definition. For example,
+
+	topic protected_topic.
+	  ##protect
+	  text ('I can''t be seen with show_topic').
+	end.
+
+	To protect an entire file, include ##protect as the 
+	first statement in the file. The procedures 
+	associated with !main can still be made visible in 
+	this case by unscrupulous individuals employing a 
+	simple trick. To examine the procedures of !main in 
+	the file SECRET.CKB, use the following:
+
+	load ('secret.ckb', spy).
+	show_topic (spy).
+
+	To avoid this problem, SECRET.CKB should be 
+	structured as
+
+	##protect
+	do (main_topic).
+	topic main_topic.
+	  (* The important code goes here *)
+	end.
+
+	In this case, prying individuals can only see the 
+	statement
+
+	do (main_topic).
+ Notes
+	Compiler options may not extend beyond the end of 
+	the line. The compiler option must be the only 
+	statement on the line.
+
+//?
+
+ Format  
+	value_of (TOPIC, PARAMETER1,PARAMETER2 ,... )
+
+ Alternate
+	?TOPIC  (PARAMETER1, PARAMETER2,  ...)
+
+ Action  
+	Find the list of items assigned to a topic.  If 
+	TOPIC has already been evaluated, the current value 
+	is returned.  The system searches the hierarchy for 
+	TOPIC.  If TOPIC is not yet evaluated, the commands 
+	associated with it are immediately executed until 
+	the maximum number of legal values for the topic has
+	been reached,  or an exit,  stop, or exit_kp is executed.
+	
+	If the number of legal values was not set,  all 
+	of the commands in the topic are executed.   This  
+	command implements a backward chaining function. 
+	The optional PARAMETERS are parameters which can  
+	be passed to the topic if it is evaluated at this time.  If TOPIC
+	can't be found, an error message is given.
+
+ Parameters
+	TOPIC is a topic or list of topics whose values you want to find.
+	If these values have not yet been determined the topics' commands
+	are executed.
+
+	PARAMETER1, PARAMETER2, ... are parameters passed to  
+	TOPIC when it is executed.
+
+ Returns  
+	The value or list of values of the specified topic or topics.
+
+ Example
+	ask ('What do you want to buy?', 	  
+	   buy,[computer,stereo,vcr]).
+	do (?buy).
+
+	When the user selects one of the list of options it is assigned to 
+	the topic buy.  The topic with that value is performed.
+
+	food is [apple,peas,beans].
+	apple is red.
+	first_color is ?first(?food).
+
+	first (?food) returns the value apple so first_color is assigned 
+	the value of the topic apple which is red.           
+
+	find is John_phone.
+	John_phone is '555-1632'.
+	call is ??find.
+
+	The value of call is the value of the value of find which is 555-1632.
+ Error
+	I_V_TOPIC_NOT_FOUND
+
+ Note
+	?x(a,b) 	is equivalent to 	do (?x,a,b).
+
+	x is evaluated and then the result of this evaluation is 
+	passed the parameter a and b and is executed.
+
+	?(x(a,b))  is evaluated to  value_of (do (x,a,b)).
+
+ See Also
+	#mtopic_value#m
+
+//Access multi-media extensions
+ 
+ Multi-media extensions to Windows are accessible through 
+ Dynamic Link Libraries (DLLs). 
+ 
+ For more information on calling DLLs, refer to the topic How 
+ to #mCall a Dynamic Link Library DLL#m.
+ 
+ The example below demonstrates playback of sound wave files.
+ 
+ mmLib is load_library ('mmsystem.dll').
+ waveFile is file_menu ('*.wav', , 'Play sound file').
+ sayFile (?waveFile).
+ free_library (?mmLib).
+ 
+ topic playCommand ( command ).
+   (* play a multimedia MCI command. The command is 
+ 	passed as a list of strings *)
+   while ?command <> [ ] then 
+     call (?mmLib, mciExecute, 
+ 	[pointer (address (first (?command)))], int) and 
+     command = rest (?command). 
+ end.
+ 
+ topic sayFile (file).
+    (* Open, play and then close the file. *)
+    playCommand (concat ('open ',?file,' type waveaudio')).
+    playCommand (concat ('play ',?file,' from 0 wait')).
+    playCommand (concat ('close ',?file) ).
+ end.
+ 
+//address
+
+ Format 	
+	address (DATA)
+
+ Action
+	Retrieves the physical address of a data item.
+
+ Parameters
+	DATA is a number, string or list of number or 
+	strings.
+
+ Returns	
+	The address of DATA.
+
+ Notes
+	KnowledgePro uses a complicated internal memory 
+	representation. The address function accesses this 
+	representation at a low level, so extreme caution 
+	must be exercised when using it to avoid corrupt 
+	data and system crashes. address is only needed when 
+	accessing routines in a DLL which require a pointer 
+	to a particular data structure.
+
+	Addresses may not be valid after a wait. Windows may 
+	move blocks of memory during idle states. This may 
+	result in the movement of KnowledgePro data items. 
+	KnowledgePro manages all its internal memory in such 
+	a manner that data retrieved in the normal way, i.e 
+	through the ? operator or through a function call, 
+	is always valid. The following example illustrates 
+	how an address may become invalid.
+
+	window ( ).
+	text ('Click the button.').
+	button (Ok, OK).
+	x = 'abcdef'.
+	p = address (?x).  
+	(* p now contains the address of 'abcdef' *)
+
+	text (?p).      	
+	(* p is valid at this point *)
+
+	topic OK.
+	  window ( ).
+	  text (?p).   
+	  (* p still contains a number, but it may not be the
+		address of 'abcdef' *)
+	end.
+
+	The number stored in p may no longer point to a 
+	valid address when the button topic is executed 
+	because KnowledgePro goes into a wait state at the 
+	end of the application. Passing ?p to an external 
+	routine at this point via user or call may result in 
+	a protection violation when running in protected 
+	mode and incorrect results in real mode.
+
+	Addresses may also become invalid due to the action 
+	of the KnowledgePro garbage collector. For example:
+
+	x = 'abcdef'.
+	p = address (?x). 
+	(*p stores the address of 'abcdef' *)
+	x = 'ghijk'.     
+	(*now no topic has 'abcdef' as its value *)
+	collect ( ).     
+	(*force garbage collection, the node containing
+	 'abcdef' is freed *)
+
+	This program creates a topic called x, creates a 
+	node containing 'abcdef' and assigns that node as 
+	the value of topic x. The statement x = 'ghijk' 
+	creates a node containing 'ghijk' and assigns it as 
+	the value of topic x. As long as a node is the value 
+	of a topic, the garbage collector will not touch it. 
+	After the second assignment, 'abcdef' is no longer 
+	the value of a topic and will be freed. Passing ?p 
+	to an external routine via user or call may result 
+	in a protection violation when running in protected 
+	mode and will most certainly produce incorrect 
+	results.
+
+	To avoid this problem, either disable garbage 
+	collection or ensure that the value whose address is 
+	required is always the value of a topic.
+
+ See Also
+	#mcall#m, #muser#m
+
+//adjust_drag_rect
+
+ Format
+	adjust_drag_rect (RECTANGLE)
+
+ Action
+	This function resizes the dragging rectangle.
+
+ Parameters
+	RECTANGLE is a four element list consisting of 
+	the coordinates of the new rectangle. The 
+	elements of the list are:
+	
+	[StartColumn, StartRow, EndColumn,EndRow].
+
+ Example	
+	(* Resize a button  *)
+	button_cursor = [ ]. 
+
+	(*Keeps track of the current mouse cursor for 
+	dragging *)
+
+	(* Create a parent and a button. We trap the 
+	mouse_down_event and mouse_move_event in the 
+	button. The mouse_down is so we can start 
+	resizing, the mouse_move is to figure out what 
+	cursor to display. *)
+
+	w1 is window (test,,,,,,,,,,[mouse_drag_event, 
+	   mouse_up_event]).
+	b is button ( hello, button_topic,20,5,,, 
+	   [mouse_move_event, mouse_down_event]).
+	
+	(* column, row, width, height is the start 
+	col, start row, width and height of the button. 
+	We will update this when we are done resizing. *)
+
+	info is window_info (?b).
+	[column,row,width,height] is_c ?info.
+	
+	topic button_topic (info, event, handle).
+	   do (?e).
+  
+	   topic mouse_down_event.
+
+   	(*Set button_topic to t to prevent any 
+	other processing of the mouse_down_event. If we 
+	don't have a new cursor, we aren't near an edge 
+	so we aren't dragging.
+
+	Next, we disable the window to prevent the 
+	button from doing anything funny while the mouse 
+	is in it. Finally, we call start_drag to draw a 
+	box and setup dragging. *)
+
+    	   button_topic = t.
+	   if ?button_cursor = [ ] then
+   	      exit ( ).
+	   info is window_info (?b).
+	   [column,row,width,height] is_c ?info.
+	   disable_window (?b).
+	   use_mouse_cursor (?w1, ?button_cursor).
+	   start_drag (?w1, [?column, ?row, ?column + 
+      	      ?width, ?row + ?height]).
+	end.
+
+  	topic mouse_move_event (tCol, tRow ).
+   	(* Figure out a new cursor based on how 
+	close we are to the edge of the button.  *)
+  	   tCol is first (?i).
+  	   if ?tCol < 2 then  
+	      button_cursor = size_we and 
+      	      use_mouse_cursor (?b, size_we) and 
+      	      drag is left and 
+      	      exit ( ).
+
+    	   if ?tCol > ?w - 0.5 then 
+     	      button_cursor = size_we and 
+      	      use_mouse_cursor (?b, size_we) and 
+     	      drag is right and 
+     	      exit ( ).
+
+    	   tRow is element (?i,2).
+    	   if ?tRow < 2 then 
+               button_cursor = size_ns and 
+               use_mouse_cursor (?b, size_ns) and 
+     	     drag is up and 
+     	     exit ( ).
+
+   	   if ?tRow > ?h - 0.5 then 
+              button_cursor = size_ns and 
+              use_mouse_cursor (?b, size_ns) and 
+              drag is down and 
+              exit ( ). 
+
+    	   button_cursor = [ ].
+    	   use_mouse_cursor (?b, arrow).
+  	end.
+  	end.
+
+ topic test ( info,event,handle).
+  do (?e).
+
+  topic mouse_drag_event.
+  (* Call adjust_drag_rect according to the 
+      current value of topic drag to redraw the box 
+      at the new cursor position. adjust_drag_rect 
+      is passed the new rectangle for the box and 
+      redraws it. If topic drag has no value then 
+      no topics are called*)
+    do (?drag).
+
+    topic left.
+        adjust_drag_rect ( [first (?info), ?row, 
+	?column  + ?width, ?row + ?height]).            
+    end.
+
+    topic right.
+       adjust_drag_rect ([?column, ?row, first (?info), 
+	?row + ?height]).
+    end.
+
+    topic up.
+       adjust_drag_rect ([?column, element (?info,2), 
+	?column + ?width, ?row + ?height] ).
+    end.
+
+    topic down.
+       adjust_drag_rect ([?column, ?row, ?column + 
+    	?width, element (?info,2)]).
+    end.
+ end. (* drag event *)
+
+ topic mouse_up_event (tInfo).
+ (* Restore the cursor, enable the button and 
+     move and size the button to fit the new 
+     rectangle. stop_drag turns off dragging and 
+     cleans up some of the data needed to drag a box. 
+     Always call stop_drag when you are done.*)
+    use_mouse_cursor (?w1, arrow).
+    do (?drag).
+    tInfo is window_info (?b).
+    [column,row,width,height] is_c ?tInfo.
+    drag = [ ].
+     stop_drag ( ).
+     enable_window (?b).	
+
+    topic left.
+       hide_window (?b).
+       move_window (?b, first (?info), ?row).
+       resize_window (?b, ?column - first (?info) + 
+			?width, ?height).
+       show_window (?b).
+    end.
+
+    topic right.
+        resize_window (?b, first (?info) - ?column, 
+	   	?height).
+     end.
+
+    topic up.
+       hide_window (?b).
+       move_window (?b, ?column, element (?info,2)).
+       resize_window (?b, ?width, ?row - 
+            element (?info,2) + ?height).
+      show_window (?b).  
+   end.
+
+   topic down.
+       resize_window (?b, ?width, element(?info,2) - ?row).	
+   end.
+ end.
+
+ Notes
+	This command has no effect if start_drag has not 
+	been called or stop_drag has been called. Do not 
+	mix calls to adjust_drag_rect with drag_rect.  
+	Call stop_drag and the reinitialize the dragging 
+	rectangle with start_drag before moving the 
+	drag_rectangle.
+
+ See Also
+	#mdrag_rect#m, #mstart_drag#m, #mstop_drag#m
+
+//Alphabetic Listing of Functions
+
+ #m##define#m
+ #m##include#m
+ #m##no_optimize_primitives#m
+ #m##optimize_primitives#m
+ #m##protect#m
+ #m?#m
+ #maddress#m
+ #mand#m
+ #mapply#m
+ #marith#m
+ #mask#m
+ #mattach_icon#m
+ #mauto_hyper_off#m
+ #mauto_hyper_on#m
+ #mbitmap#m
+ #mbitmap_info#m
+ #mbitmap_to_clipboard#m
+ #mbutton#m
+ #mbyte#m
+ #mcall#m
+ #mcalling_topic#m
+ #mcapture_hyper_region#m
+ #mchain#m
+ #mchange_directory#m
+ #mchar_to_number#m
+ #mcheck_box#m
+ #mcheck_menu_item#m
+ #mchild_windows#m
+ #mchildren#m
+ #mclass#m
+ #mclear#m
+ #mclose#m
+ #mclose_all#m
+ #mclose_window#m
+ #mcollect#m
+ #mcollect_not_ok#m
+ #mcollect_ok#m
+ #mcombine#m
+ #mcombo_box#m
+ #mcompare#m
+ #mcompile_string#m
+ #mconcat#m
+ #mcontinue#m
+ #mcreate_bitmap#m
+ #mcreate_char_font#m
+ #mcreate_font#m
+ #mcreate_topic#m
+ #mcurrent_directory#m
+ #mdate#m
+ #mdde#m
+ #mdde_advise#m
+ #mdde_close#m
+ #mdde_execute#m
+ #mdde_off#m
+ #mdde_open#m
+ #mdde_request#m
+ #mdde_unadvise#m
+ #mdde_write#m
+ #mdebug#m
+ #mdelay#m
+ #mdelete_bitmap#m
+ #mdelete_file#m
+ #mdelete_font#m
+ #mdelete_hyper_region#m
+ #mdelete_icon#m
+ #mdelete_mouse_cursor#m
+ #mdelete_selected_text#m
+ #mdifferent#m
+ #mdir#m
+ #mdisable_menu_item#m
+ #mdisable_window#m
+ #mdo#m
+ #mdo_local#m
+ #mdouble#m
+ #mdword#m
+ #medit_box#m
+ #medit_file#m
+ #medit_line#m
+ #medit_window#m
+ #melement#m
+ #menable_all_windows#m
+ #menable_menu_item#m
+ #menable_window#m
+ #merase_bitmap#m
+ #merror_message#m
+ #mevaluate#m
+ #mexists#m
+ #mexit#m
+ #mexit_kp#m
+ #mexit_windows#m
+ #mfile_menu#m
+ #mfirst#m
+ #mflatten#m
+ #mfloat#m
+ #mfont_list#m
+ #mformat_number#m
+ #mfree_library#m
+ #mfull_name#m
+ #mget_active_window#m
+ #mget_byte#m
+ #mget_check_box#m
+ #mget_combo_box#m
+ #mget_cursor_pos#m
+ #mget_demon#m
+ #mget_display_pos#m
+ #mget_display_window#m
+ #mget_double#m
+ #mget_dword#m
+ #mget_error_topic#m
+ #mget_event_topic#m
+ #mget_file_pos#m
+ #mget_float#m
+ #mget_focus#m
+ #mget_int#m
+ #mget_list_box#m
+ #mget_long#m
+ #mget_number_of_values#m
+ #mget_parameters#m
+ #mget_pointer#m
+ #mget_procedures#m
+ #mget_radio_button#m
+ #mget_read_only#m
+ #mget_scroll_bar#m
+ #mget_selected_text#m
+ #mget_string#m
+ #mget_text#m
+ #mget_text_modified#m
+ #mget_title#m
+ #mget_top_window#m
+ #mget_word#m
+ #mgets#m
+ #mgets_c#m
+ #mgroup_box#m
+ #mhas_value#m
+ #mhide_window#m
+ #mhorz_scroll_bar#m
+ #mhorz_scroll_text#m
+ #mhyper_cursor#m
+ #mhyper_display#m
+ #mhyper_region#m
+ #micon#m
+ #mim_a#m
+ #minsert_text#m
+ #mint#m
+ #mintersect#m
+ #minvert_hyper_region#m
+ #mis#m
+ #mis_c#m
+ #mis_list#m
+ #mlast#m
+ #mlist_box#m
+ #mlist_length#m
+ #mlist_of_char#m
+ #mlist_to_string#m
+ #mload#m
+ #mload_bitmap#m
+ #mload_icon#m
+ #mload_library#m
+ #mload_mouse_cursor#m
+ #mload_program#m
+ #mload_topic#m
+ #mlong#m
+ #mlower#m
+ #mlpbyte#m
+ #mlpdouble#m
+ #mlpdword#m
+ #mlpfloat#m
+ #mlpint#m
+ #mlplong#m
+ #mlpstr#m
+ #mlpstruct#m
+ #mlpword#m
+ #mmake#m
+ #mmake_c#m
+ #mmake_modal#m
+ #mmake_topic_list#m
+ #mmemory#m
+ #mmenu#m
+ #mmove_window#m
+ #mneg#m
+ #mnew#m
+ #mnew_file#m
+ #mnew_kb#m
+ #mno_debug#m
+ #mnot#m
+ #mnumber_to_char#m
+ #mnumeric_sort#m
+ #moffset_hyper_region#m
+ #mone_of#m
+ #mor#m
+ #mparent#m
+ #mparent_window#m
+ #mperform#m
+ #mpointer#m
+ #mprimitive#m
+ #mprint#m
+ #mput_byte#m
+ #mput_double#m
+ #mput_dword#m
+ #mput_float#m
+ #mput_int#m
+ #mput_long#m
+ #mput_pointer#m
+ #mput_string#m
+ #mput_word#m
+ #mradio_button#m
+ #mread#m
+ #mread_char#m
+ #mread_clipboard#m
+ #mread_line#m
+ #mread_response#m
+ #mremove#m
+ #mremove_topic#m
+ #mrepeat#m
+ #mreplace#m
+ #mreplace_elements#m
+ #mreset#m
+ #mresize_window#m
+ #mrest#m
+ #mrule#m
+ #mrun#m
+ #msave_as#m
+ #msave_bitmap#m
+ #msave_edit_file#m
+ #msave_topic#m
+ #msay#m
+ #msearch_text#m
+ #mselect_text#m
+ #mset_active_window#m
+ #mset_check_box#m
+ #mset_combo_box#m
+ #mset_cursor_pos#m
+ #mset_demon#m
+ #mset_display_pos#m
+ #mset_display_window#m
+ #mset_error_topic#m
+ #mset_event_topic#m
+ #mset_file_pos#m
+ #mset_focus#m
+ #mset_list_box#m
+ #mset_number_of_values#m
+ #mset_parameters#m
+ #mset_procedures#m
+ #mset_radio_button#m
+ #mset_read_only#m
+ #mset_scroll_bar#m
+ #mset_text#m
+ #mset_text_modified#m
+ #mset_title#m
+ #mset_top_window#m
+ #mshow_topic#m
+ #mshow_window#m
+ #msingle_step#m
+ #msingle_step_off#m
+ #msort#m
+ #mstop#m
+ #mstring_copy#m
+ #mstring_info#m
+ #mstring_length#m
+ #mstring_replace#m
+ #mstring_to_list#m
+ #mstring_where#m
+ #msublist#m
+ #msystem_info#m
+ #mtask_list#m
+ #mtask_windows#m
+ #mtext#m
+ #mtext_to_clipboard#m
+ #mtile_child_windows#m
+ #mtime#m
+ #mtopic_value#m
+ #mtrace#m
+ #mtrace_off#m
+ #mtype_cast#m
+ #mtypeface_list#m
+ #muncheck_menu_item#m
+ #munion#m
+ #mupdate_window#m
+ #mupper#m
+ #muse_font#m
+ #muse_mouse_cursor#m
+ #muser#m
+ #mvalue_of#m
+ #mvalue_of#m
+ #mvert_scroll_bar#m
+ #mvert_scroll_text#m
+ #mwait#m
+ #mwhere#m
+ #mwhile#m
+ #mwindow#m
+ #mwindow_info#m
+ #mwindow_list#m
+ #mword#m
+ #mwrite#m
+
+//and
+
+ Format
+ 	and (BOOLEAN1, BOOLEAN2 )
+
+ Alternate
+  	BOOLEAN1 and BOOLEAN2  
+	BOOLEAN1 & BOOLEAN2
+
+ Action
+	The infix and is most commonly used to combine 
+	conditional statements in a rule.  The conditions are 
+	evaluated and the two boolean values are anded 
+	together to produce the resulting value. In the 
+	functional form, lists are anded item by item. 
+	Anything anded with a value of [ ] gives a result of  
+	[ ].  The values T, T and Yes are treated as a  
+	boolean value of true,  anything else is treated as 
+	false.
+
+ Parameters
+ 	BOOLEAN1,  BOOLEAN2 are single boolean values, lists 
+	of boolean values or expressions that evaluate to 
+	either of these.
+
+ Returns
+	A boolean value or a list of boolean values that  
+	is the result of anding together the two lists of 
+	booleans. and returns T if both elements are T and F 
+	otherwise. List are anded element by element. 
+	Missing elements are treated as [].
+
+ Example
+	if ?color is red and
+	   ?shape is round and
+ 	   ?skin is smooth 
+	   then fruit is apple.
+
+ Note
+	When and is used as an infix operator (between two 
+	boolean expressions)  the second expression is not 
+	evaluated if the first expression evaluates to 
+	false.  The condition in the above example would be 
+	represented internally as:
+
+	[and,[eq,?color,red],[delay,
+	[and,[eq,?shape,round],[delay,
+	[eq,?skin,smooth]]]]]
+
+	delay is used to prevent evaluation until the  
+	first boolean expression is evaluated.
+
+//Append values to a list
+ 
+ The list, as the fundamental data type in KnowledgePro, can 
+ be a collection of various pieces of information. Once a 
+ topic is assigned a value or a list with the #mmake#m 
+ (alternate forms: is, =) function, you can add items to the 
+ list with the #mgets#m function. Here's an example:
+ 
+ Inventory is [VCR, 'CD Player'].
+ Inventory gets Camcorder.
+ 
+ Inventory now has the values [VCR, 'CD Player', Camcorder].
+ 
+//apply
+
+ Format
+	apply  (TOPIC, LIST1 ,LIST2... )
+
+ Action
+	TOPIC is executed, using successive elements of the 
+	argument lists as parameters. TOPIC is called until 
+	the shortest list runs out of elements. TOPIC is 
+	called as:
+
+	TOPIC (element(?LIST1,1){,element(?LIST2,1) ...})and
+	TOPIC (element(?LIST1,2){,element(?LIST2,2) ...})and 
+	...
+
+	until one of the lists is exhausted.
+
+ Parameters
+	TOPIC is a topic name or list of names.  Each topic 
+	is called and is passed successive elements of each 
+	list as parameters until one of the lists is 
+	exhausted.
+
+	LIST1,LIST2... is a list or sequence of lists whose 
+	elements are passed as parameters of TOPIC.
+
+ Returns
+	The list of results of executing the topic.
+
+ Notes
+	apply always returns a list.
+
+ Example
+	The following example sums the elements of a list:
+
+	ls = [1,2,3,4,5,6,7,8,9,10]. 
+	x = total (?ls).
+
+	topic total (list,sum).
+	   sum = 0.
+	   apply (addToTotal, ?list).
+	    total = ?sum.
+	 
+ 	   topic addToTotal (x).
+	      sum = ?sum + ?x.
+	    end.
+	end.
+
+	Notice the use of sum as a local variable. This is 
+	an efficient way to create a temporary topic which 
+	is removed as soon as the topic finishes executing.  
+	Using apply in this manner is about twice as fast as 
+	performing the equivalent operation using a while or 
+	repeat loop. The equivalent while loop is:
+
+	total = 0.
+	while ?ls <>[]
+	   then total = ?x + first (?ls) and
+	   ls = rest (?ls).
+
+//arith
+
+ Format
+	arith (OPERATOR, NUMBER1, NUMBER2 )
+
+ Alternate
+	NUMBER1 OPERATOR NUMBER2
+
+ Action 	
+	Perform arithmetic operations on numbers.  If 
+	NUMBER1 and NUMBER2 are both lists,  the  
+	operation is performed sequentially on pairs of 
+	elements.   If one item is a list and the other  
+	is a single element,  the element operates on each 
+	item in the list.  In infix expressions,  
+	operators fall into three categories, denoted by 
+	their order of precedence:
+
+	1] - (negation)
+	2] *, /, div, ^
+	3] +, -, mod, %
+
+	Operators of the same precedence are evaluated from 
+	left to right.  Expressions within parentheses are 
+	evaluated first. Parentheses should be used to 
+	clearly denote the desired order of arithmetic 
+	operators. [ ] and non-numeric items are treated as 
+	zero.  Division by zero results in 1.7E+308, the 
+	maximum numeric value.
+
+ Parameters 
+	OPERATOR is one of the list of legal operators that 
+	describes the type of operation to be performed.
+
+	The legal operators for the alternate form are :
+	+ , - , / , * , div , mod , ^ , % .
+
+	The legal operators for the first form are:
+	=, - , / , * , div , mod , ^ , % , add , sub,
+	mul , int_divide, divide, mod_f, expon, and 
+	per_cent. 
+        
+	div returns the integer result of dividing two 
+	numbers.
+	
+	mod returns the remainder resulting from dividing 
+	two numbers.
+
+	^ returns the result of raising the first number to 
+	the power of the second.
+	
+	% takes the percentage of a number.
+
+	NUMBER1, NUMBER2  are the two lists of numbers on 
+	which to perform the operations.
+
+ Returns
+	The result of the operation performed.
+
+ Example
+	list1 = [2,3].
+	list2 = [5,7].
+	sum = ?list1 + ?list2.
+
+	sum is assigned [7,10 ] .
+
+	sum is [2,3,4] + [9,10].
+
+	sum is assigned [11,13,4 ] .
+
+	list1 = [4,6,8].
+	divisor = 2.
+	result = ?list1/ ?divisor.
+
+	result is assigned [2,3,4 ] .
+
+	x = 5 ^ 3.
+	y = 167 div 10.
+	z = 17 mod 5.
+
+	x is assigned the value 125 .
+	y is assigned the value 16 .
+	z is assigned the value 2 .
+
+ Note
+	The operators add, sub, mul, divide, int_divide, 
+	mod_f, expon, and per_cent may be used in the form 
+	operator (NUMBER1, NUMBER2).
+
+	x = mul(3,4).
+
+	x will be assigned the value 12.
+
+//ask
+
+ Format
+	ask (QUESTION, TOPIC, LIST)
+
+ Action
+	Clears the window.  Places a question on the screen 
+	and waits for the user to either select an answer 
+	from a list box or type an answer into an edit line.
+
+
+ Parameters
+	QUESTION is the question that appears on the screen 
+	as a  prompt for the user.  The following control 
+	codes can be embedded within the text of QUESTION  
+	to control the display of information on the 
+	screen:
+
+	##n	start a new line
+	##p	start a new page
+	##e	erase the contents of the window
+	##l	put each list item on a new line (default)
+	##s	put each list item on the same line
+	##o	no spaces after a list item
+	##i	insert a space after each list item (default) 
+	##m	begin or end marked text
+	##r	call a topic in memory
+	####		display the character ## 
+	##h		disables processing of ## control codes
+	##INTEGER	print the ASCII character of INTEGER
+	##xINTEGER	move to column INTEGER
+	##yINTEGER	move to row INTEGER
+	##gHANDLE	display a bitmap.  HANDLE is the handle 
+			returned by load_bitmap.
+	##fCOLOR	change foreground color to COLOR
+	##bCOLOR  	change background color to COLOR
+	##d		return to default colors
+	##cTEXT##c	TEXT is compiled and evaluated
+	##vTEXT##v	TEXT is compiled, evaluated and any value 
+			returned is displayed
+	##rTOPIC	TOPIC is executed.  If TOPIC returns a 
+			value, the value is displayed
+
+	TOPIC is the topic or list of topics where the 
+	answer given to the prompt is assigned.  If no 
+	TOPIC is named, the answer is assigned to the 
+	current topic.  If the topic does not exist,  it is 
+	created
+
+	LIST is a list of possible responses to the prompt 
+	which appear in a list box.  The list box allows the 
+	user to select multiple answers unless the TOPIC has 
+	been previously defined as single valued.  If no 
+	LIST is given, an edit line is provided for the 
+	user to type in the response to the question.
+
+	See Chapter 3 for information on using control 
+	codes.
+ 
+	The following color names may be placed after the ##f and ##b:
+	black, blue, green, cyan, red, magenta, yellow, white, none 
+
+	none is the default.  Text with a background of none 
+	has the same color background as the window.  At 
+	least one blank space must follow the name of the 
+	color. In addition, to using defined color names,  
+	colors can also be defined numerically.
+
+ Returns 
+	The answer provided by the user.
+
+ Example
+	yn is [yes,no].
+	ask ('Do you want to continue?', go_on,?yn).
+
+	In this simple example the question is placed on the  
+	screen along with a list box that displays the 
+	value of the topic yn which is [yes,no].  The answer 
+	is stored in the topic named go_on.
+
+	yn is [yes,no].
+	brand is brandx.
+	ask (['##sIs your',?brand, 'computer ##fred 100% 
+	compatible? ##d'], compatible,?yn).
+
+	This more complicated example shows a question that 
+	is made up of a  list of  3 elements.   This 
+	allows us to print a question which uses the 
+	brand of the computer previously defined. Also we 
+	used control codes to change color for emphasis.  
+	The question displayed reads:
+
+	Is your brandx computer 100% compatible?
+
+	The words 100% compatible are displayed in red.
+
+ Errors
+	ask calls:
+	text, list_box, make, edit_line
+
+	These functions can generate their own error 
+	messages.
+
+	I_READ_ONLY_TOPIC,  I_TOO_MANY_VALUES,  
+	I_CANT_CREATE_TEMP_FILE
+
+ See Also
+	#mlist_box#m, #mread_response#m
+
+//attach_icon
+
+ Format
+	attach_icon (HANDLE, ICON_HANDLE )
+
+ Action
+	The icon from ICON_HANDLE is assigned to the window. 
+	The icon is displayed when the window is minimized.  
+	An icon should only be assigned to a window using 
+	the Overlapped style.
+
+ Parameters
+	HANDLE is the handle of the window is which assigned 
+	the icon.  The default is the current display 
+	window.
+
+	ICON_HANDLE is the handle of an icon previously 
+	loaded with load_icon. If ICON_HANDLE is [ ] and an 
+	icon was previously assigned to HANDLE, the icon is 
+	removed from the window.  If ICON_HANDLE is a list, 
+	only the first item is used.
+
+ Returns
+	The handle of the window's icon.  This is not the 
+	same as ICON_HANDLE or HANDLE.
+
+ Example
+	w1 is window (,1,1,40,20,samples, Overlapped).
+	IC = load_icon ('MY.ICO').
+	attach_icon (?w1, ?IC).
+	show_window (?w1,2).
+
+	In this example we open the window but don't display 
+	it on the screen since it has not been assigned a 
+	visible style. The icon MY.ICO is assigned to the 
+	window and then show_window displays the window as 
+	an icon.
+
+ Errors
+	I_NOT_ICON, I_INVALID_WINDOW
+
+ See Also
+	#mdelete_icon#m, #micon#m, #mload_icon#m
+
+//auto_hyper_off
+
+ Format
+	auto_hyper_off (HANDLE)
+
+ Action
+	Turns the automatic hypertext feature off. When the 
+	automatic hypertext is off, only text strings which 
+	have been surrounded with ##m characters and hyper-
+	regions can be selected as hypertext.
+
+ Parameters
+	HANDLE is a handle or a list of handles of windows 
+	where automatic hypertext is not operable.  The 
+	default is the current display window.
+
+ Note	
+	When a window is created it defaults to 
+	auto_hyper_off so unless the automatic hypertext 
+	feature has been activated using auto_hyper_on, this 
+	topic is not necessary.
+
+ Errors
+	I_INVALID_WINDOW
+
+ See Also
+	#mauto_hyper_on#m
+
+//auto_hyper_on
+
+ Format 	
+	auto_hyper_on (HANDLE )
+
+ Action
+	Turns the automatic hypertext feature on. When the 
+	automatic hypertext is on, any text strings can be 
+	selected as hypertext by either clicking the mouse 
+	or by pressing ENTER. If no text is highlighted, the 
+	word under the text cursor or the mouse cursor is 
+	selected.  To select a group of words they must 
+	first be marked by clicking and dragging the mouse 
+	or pressing SHIFT and the CURSOR KEYS.
+
+ Parameters
+	HANDLE is a handle or a list of handles of windows 
+	that contain automatic hypertext.  The default is 
+	the current display window.
+
+ Note	
+	The default is for the automatic hypertext function 
+	to be off.
+
+ Errors
+	I_INVALID_WINDOW
+
+ See Also
+	#mauto_hyper_off#m
+
+//Background Color
+
+ Background color can be changed for the entire window,
+ the selected object or for the default background color
+ used to create new objects.  Background color is
+ changed from Tools/Color option of the menu in the
+ Design window.  Text color is set from the  Tools/Fonts
+ on the main menu.
+
+ See Also:
+   #mSelecting an object#m
+
+//bitmap
+
+ Format
+	bitmap (BITMAP_HANDLE, COLUMN, ROW, WIDTH,
+	HEIGHT,  BMP_COLUMN, BMP_ROW, BMP_WIDTH,
+	BMP_HEIGHT,  ROP_CODE)
+
+ Action
+	Displays the bitmap associated with the handle at 
+	the specified screen position.  BMP_COLUMN, BMP_ROW, 
+	BMP_WIDTH and BMP_HEIGHT define the dimensions of a 
+	source rectangle within the bitmap.  The bitmap is 
+	stretched or compressed to fit the destination 
+	rectangle.
+
+ Parameters
+	BITMAP_HANDLE a handle to a bitmap or list of 
+	handles.
+
+	COLUMN, ROW the position of the upper left corner of 
+	the bitmap. The default is the current position. If 
+	either of these parameters is a list, only the first 
+	element is used.
+
+	WIDTH, HEIGHT the width and height of the area to 
+	contain the bitmap. The default is the full bitmap 
+	size. The bitmap is compressed to fit the area. If 
+	either of these parameters is a list, only the first 
+	element is used.
+
+	BMP_COLUMN, BMP_ROW define the upper left corner of 
+	a source rectangle of the bitmap.  The default is 1,1.
+	If either of these is a list only the first element
+	is used.
+
+	BMP_HEIGHT, BMP_WIDTH are the width and height of 
+	the source rectangle of the bitmap.  The default
+	is the full bitmap size minus the origin.  If either
+	of these parameter is a list, only the first element
+	is used.
+
+	ROP_CODE is the raster operation to be performed.  
+	Raster operations codes define how a bitmap will be 
+	displayed on the screen.  ROP_CODE may be a numeric 
+	value or one of the following:
+
+	BLACKNESS   Turns the entire bitmap black.
+
+	DSTINVERT   Inverts the region on the screen which 
+	the bitmap occupies. The actual bitmap does not 
+	appear.
+
+	NOTSRCCOPY   Inverts the bitmap and combines it with 
+	the screen colors and bitmaps.  Uses the boolean OR 
+	operator.
+
+	NOTSRCERASE   Combines the bitmap with current 
+	screen bitmaps and colors and inverts the result.  
+	Uses the XOR boolean operator.
+
+	SRCAND   Combines the bitmap with the current screen 
+	bitmaps and colors.  Uses the boolean AND operator.
+
+	SRCCOPY   Copies the bitmap to the screen.  This is 
+	the default code.
+
+	SRCERASE   Inverts the screen colors and bitmaps and 
+	combines the result where the bitmap will display. 
+	Uses the boolean AND operator.
+
+	SRCINVERT   Combines the bitmap with the current 
+	screen.  Uses the boolean XOR operator.
+
+	SRCPAINT   Combines the bitmap and the screen colors 
+	and bitmaps.  Uses the boolean OR operator.
+
+	WHITENESS   Turns the bitmap area white.
+
+	The default is SRCCOPY.  If this parameter is a 
+	list, only the first element is used.  For details 
+	on raster operations, see Microsoft Windows Software 
+	Development Kit Reference Volume 2.
+
+ Example
+	logo is load_bitmap ('LOGO.BMP').
+	bitmap (?logo, 10, 5).
+
+	loads the bitmap in the file LOGO.BMP then displays 
+	the logo at column 10, row 5 of the current display 
+	window.
+
+	picture is load_bitmap ('PICTURE.BMP').
+	bitmap (?picture,2,4,10,4,3,5,5,2).
+
+	loads the bitmap PICTURE.BMP and displays the 
+	rectangular region of the bitmap which begins at 
+	column 3 row 5 and extends 5 columns by 2 rows. This 
+	rectangle is expanded to fit an area 10 columns wide 
+	by 4 rows high which begins at column 2, row 4 of 
+	the current display window.
+
+ Errors
+	I_NOT_BITMAP
+
+ Notes
+	BITMAP_HANDLE is returned from create_bitmap, 
+	load_bitmap or read_clipboard.
+
+	KnowledgePro creates an initial bitmap in the color 
+	of the window background.  This is the initial 
+	destination bitmap.
+
+ See Also
+	#mbitmap_to_clipboard#m, #mdelete_bitmap#m, 
+	#mload_bitmap#m, #mread_clipboard#m, 
+	#mcreate_bitmap#m, #merase_bitmap#m, 
+	#msave_bitmap#m
+
+//bitmap_info
+
+ Format
+	bitmap_info (BITMAP_HANDLE)
+
+ Action
+	Retrieves information about the device-dependent 
+	bitmap associated with BITMAP_HANDLE.
+
+ Parameters
+	BITMAP_HANDLE a handle to a bitmap or list of 
+	handles.
+
+ Returns
+	A list containing information about the bitmap 
+	associated with BITMAP_HANDLE.
+
+	The list contains:
+
+       Element		Information
+
+	1		the bitmap width in units of system 
+			character width.
+
+	2		the bitmap height in units of system 
+			character height.
+
+	3		the number of scan lines that the bitmap 
+			occupies.
+
+	4		the number of bytes in each scan line.
+
+	5		the number of color planes in the bitmap.
+
+	6		the number of adjacent color bits on each 
+			plane needed to define a pixel.
+
+ Errors
+	I_NOT_BITMAP
+
+ See Also
+	#mbitmap#m, #mload_bitmap#m
+
+//bitmap_to_clipboard
+
+ Format
+	bitmap_to_clipboard (BITMAP_HANDLE )
+
+ Action
+	Makes a copy of the bitmap and places it in the 
+	clipboard.
+
+ Parameters
+	BITMAP_HANDLE is the handle to a bitmap.  If this 
+	item is a list, only the first element is used. The 
+	bitmap handle is assigned by load_bitmap, 
+	create_bitmap or read_clipboard.
+
+ Example
+	graph is load_bitmap ('SALES.BMP').
+	bitmap_to_clipboard (?graph).
+
+	copies the bitmap SALES.BMP into the clipboard.  
+	This can also be written:
+
+	bitmap_to_clipboard (load_bitmap ('SALES.BMP)).
+
+ Errors
+	I_NOT_BITMAP, I_CANT_OPEN_BITMAP
+
+ See Also
+	#mbitmap#m, #mcreate_bitmap#m, #mdelete_bitmap#m, 
+	#mload_bitmap#m,#mread_clipboard#m
+
+//Booleans, Rules and Arithmetic
+
+  Creating rules    #x35#mrule#m
+
+  Forming boolean expressions:
+    Comparing expressions     #x35#mcompare#m
+    ANDing boolean expressions#x35#mand#m
+    Negating a boolean expression #x35#mnot#m
+    ORing boolean expressions #x35#mor#m
+
+  Performing arithmetic:
+    Performing arithmetic expressions   #x35#marith#m
+    Negating a number   #x35#mneg#m
+
+  Arithmetic operators:
+
+    + 	Addition
+    - 	Subtraction or Negation
+    / 	Division
+    * 	Multiplication
+    ^	Exponential   #x35x = 4 ^ 3.    x is assigned 64.
+    MOD	Remainder of Division#x35x = 22 MOD 4.   x is  assigned 2.
+    DIV	Integer Division #x35x = 22 DIV 4.   x is assigned 5.
+    %	Percentage       #x35x = 20 % 10.   x is assigned 2.
+
+  
+//Browse
+
+ The Browse tool reads topic libraries (collections of 
+ topics) and shows the contents in a hypertext listing. You 
+ can select the topics, view the topics contents and copy the 
+ contents into your application. The sample topic library, 
+ LIBRARY.TPX demonstrates the typical topic library format. 
+ This library also contains several useful topics that you 
+ might use in your development.
+
+//Build an expert system
+ 
+ Using KnowledgePro's built-in backward chaining feature, you 
+ can build a rule-based application or add rule-based 
+ functionality as a part of your program.
+ 
+ Backward chaining occurs automatically when a search for the 
+ value of a topic locates a topic but the topic has not been 
+ assigned a value. This means that the execution of the 
+ current topic is temporarily suspended and the search topic 
+ is immediately executed. This is done so that the value of 
+ the topic can be determined as it executes. The topic 
+ executes until the maximum legal number of values has been 
+ assigned to it, all its commands are executed or an 
+ #mclear#m, #mexit#m, #mstop#m, #mexit_kp#m or 
+ #mexit_windows#m command is executed.
+ 
+ Problems which are easily represented in the form of a 
+ decision tree are usually good candidates for a rule-based 
+ approach.  Rules are basically if...then statements (or 
+ #mrule#m) that take an action or actions only if a certain 
+ set of conditions is met. In the following example, also 
+ shown in the manual, information regarding an insurance 
+ payment is needed to make a decision:
+ 
+ 	if ?'patient covered' is yes and 
+ 	   ?'type of service' is hospital and 
+ 	   ?'hospital coverage' is yes then
+ 		payment is all.
+ 
+ KnowledgePro backward chains, or searches for the topics 
+ 'patient covered', 'type of service' and 'hospital coverage' 
+ to satisfy the rule. Each of these topics may be further a 
+ set of rules, or simply a question asked of the user.
+ 
+ KnowledgePro's main advantage is using expert system 
+ technology is that it is not the only way to construct an 
+ intelligent solution. However, you can combine the power of 
+ the rule-based approach with a procedural programming 
+ language which results in a flexible, programmable, expert 
+ system.
+ 
+//button
+
+ Format
+	button (TEXT, EVENT_TOPIC, COLUMN, ROW, WIDTH, 	  
+		SELECTED, EVENT_LIST)
+
+ Action
+	A button is created at COLUMN, ROW in the current 
+	display window.  If an EVENT_LIST is specified, 
+	EVENT_TOPIC is called whenever the selected events 
+	occur while the focus is on the button.
+
+ Parameters
+	BUTTON_TEXT is the text to appear on the button.
+
+	EVENT_TOPIC is the topic or list of topics to be 
+	performed when an event on the EVENT_LIST occurs 
+	while the focus is on the button.  EVENT_TOPIC is 
+	called as:
+
+	EVENT_TOPIC (EVENT_INFO,EVENT_NAME,HANDLE).
+
+	EVENT_INFO depends on the event that occurs.  A 
+	description of events is provided in Appendix A.
+
+	EVENT_NAME is the name of the event that occurred.
+
+	HANDLE is the handle assigned to the button.
+
+	If EVENT_TOPIC sets its value to true after being 
+	called by a lose_focus_event, close_event, 
+	char_event, or a sys_char_event, further processing 
+	of the event is canceled. Whenever EVENT_TOPIC is 
+	called its value is reset before it is executed.  If 
+	no EVENT_TOPIC is defined, no events are 
+	recognized.
+
+	COLUMN, ROW is the button location.  The default is 
+	the current display position.  COLUMN and ROW are 
+	relative to the upper left corner of the display 
+	area of the current display window.
+
+	WIDTH is the width of the button in system 
+	characters.  The default is the width of BUTTON_TEXT + 2.
+
+	SELECTED is a boolean value.  If the value is true, 
+	then the button will appear highlighted.  The default is false.
+
+	EVENT_LIST is a list of events that cause the 
+	EVENT_TOPIC to be called.  If no event is specified, 
+	the default event handled by a button is a select_event.
+
+ Returns	
+	HANDLE, the handle of the button.
+
+ Example
+	message is 'Any message'.
+	b1 is button (Copy, action,30,10,,t).
+	button (Quit, action).
+	set_focus (?b1).
+
+	topic action (item).
+	   if ?item is copy
+	      then text_to_clipboard (?message).
+	   close_window ().
+	end.
+
+	These commands place two buttons on the screen.  The 
+	Copy button is at column 30 row 10.  The Quit button 
+	is placed next to the Copy button.  The Copy button 
+	is highlighted so we set the focus on that button.  
+	Since no event is specified, the topic action is 
+	called when the default event,  select_event, 
+	occurs.  If the Copy button is selected, text is 
+	copied to the clipboard.  When either button is 
+	selected, the window containing the buttons is 
+	closed.
+
+ Errors
+	I_OUT_OF_MEMORY
+
+//button2
+
+ Format
+	button2 (TEXT, EVENT_TOPIC, COLUMN, ROW, WIDTH, 
+		HEIGHT,  SELECTED,EVENT_LIST)
+
+ Action
+	A button is created at COLUMN, ROW in the current 
+	display window.  If an EVENT_LIST is specified, 
+	EVENT_TOPIC is called whenever the selected events 
+	occur while the focus is on the button.
+
+ Parameters
+	BUTTON_TEXT is the text to appear on the button.
+
+	EVENT_TOPIC is the topic or list of topics to be 
+	performed when an event on the EVENT_LIST occurs 
+	while the focus is on the button.  EVENT_TOPIC is 
+	called as:
+
+	EVENT_TOPIC (EVENT_INFO,EVENT_NAME,HANDLE).
+
+	EVENT_INFO depends on the event that occurs.  A 
+	description of events is provided in Appendix A.
+
+	EVENT_NAME is the name of the event that occurred.
+
+	HANDLE is the handle assigned to the button.
+
+	If EVENT_TOPIC sets its value to true after being 
+	called by a lose_focus_event, close_event, 
+	char_event, or a sys_char_event, further processing 
+	of the event is canceled. Whenever EVENT_TOPIC is 
+	called its value is reset before it is executed.  If 
+	no EVENT_TOPIC is defined, no events are 
+	recognized.
+
+	COLUMN, ROW is the button location.  The default is 
+	the current display position.  COLUMN and ROW are 
+	relative to the upper left corner of the display 
+	area of the current display window.
+
+	WIDTH, HEIGHT is the width and height of the button 
+	in system characters.  The default is the width of 
+	BUTTON_TEXT + 2.
+
+	SELECTED is a boolean value.  If the value is true, 
+	then the button will appear highlighted.  The default is false.
+
+	EVENT_LIST is a list of events that cause the 
+	EVENT_TOPIC to be called.  If no event is specified, 
+	the default event handled by a button is a select_event.
+
+ Returns	
+	HANDLE, the handle of the button.
+
+ Example
+	message is 'Any message'.
+	b1 is button (Copy, action,30,10,,t).
+	button (Quit, action).
+	set_focus (?b1).
+
+	topic action (item).
+	  if ?item is copy
+	     then text_to_clipboard (?message).
+	  close_window ().
+	end.
+
+	These commands place two buttons on the screen.  The 
+	Copy button is at column 30 row 10.  The Quit button 
+	is placed next to the Copy button.  The Copy button 
+	is highlighted so we set the focus on that button.  
+	Since no event is specified, the topic action is 
+	called when the default event,  select_event, 
+	occurs.  If the Copy button is selected, text is 
+	copied to the clipboard.  When either button is 
+	selected, the window containing the buttons is 
+	closed.
+
+ Errors
+	I_OUT_OF_MEMORY
+
+//call
+
+ Format
+	call (LIBRARY_HANDLE, FUNCTION, PARAMETER_LIST, 
+	          RETURN_TYPE)
+
+ Action
+	Calls a function in a DLL.
+
+ Parameters
+	LIBRARY_HANDLE is the handle of a Dynamic Link 
+	Library (DLL). The library must have been loaded 
+	with load_library. If this parameter is a list, only 
+	the first element is used.
+
+	FUNCTION is the name or ordinal number of an 
+	exported function from the DLL. If this parameter is 
+	a list, only the first element is used.
+
+	PARAMETER_LIST is a list describing the parameters 
+	passed to the function. The list consists of an 
+	element for each parameter passed to the function. 
+	Each element is a list which describes the data 
+	being passed. Use the functions int, word, lpint, 
+	lpstr etc. to create the appropriate parameters.
+
+	RETURN_TYPE is a string describing the type of data 
+	returned by the DLL routine. It should be one of: 
+	byte, double, dword, float, int, long, word, lpbyte, 
+	lpdouble, lpdword, lpfloat, lpint, lplong, lpword, 
+	lpstr, pointer, void. Types beginning with lp 
+	represent far pointers to the specified data type. 
+	Use pointer for (void far *) data. If this parameter 
+	is a list, only the first element is used. The 
+	default is int.
+
+ Returns
+	The value returned by the DLL function converted to 
+	RETURN_TYPE.
+
+ Notes
+	KnowledgePro is an untyped language. This means that 
+	in most commands, you can mix numbers, strings, 
+	lists etc.. freely. Most DLLs are written in typed 
+	languages like C, C++ or Pascal. In a typed 
+	language, you must tell the compiler what kind of 
+	data each variable represents. The compiler uses 
+	this information to generate code. Most typed 
+	languages have fairly rigid rules for converting 
+	among the types handled by the language.
+
+	When communicating with a routine written in a typed 
+	language, KnowledgePro must convert its internal, 
+	loosely typed data to the type expected by the DLL 
+	function. There are two methods of doing this: write 
+	an interface DLL in a language such as C or C++  as 
+	described in Chapter 8 and call it with the user 
+	command or use the type conversion functions 
+	described above and use the call command. The first 
+	method is slightly faster, but requires knowledge of 
+	programming in another language and the details of 
+	writing a DLL. See the Chapter 8 or the Microsoft 
+	Windows Software Development Kit (SDK) documentation 
+	for details on writing a DLL.
+
+ Example
+	The follow example shows how to call an internal 
+	Windows function to place a message box on the 
+	screen.
+
+	The SDK documentation declares MessageBox as:
+
+	int MessageBox (HWND hWndParent, LPSTR lpText,
+				LPSTR lpTitle, WORD wType)
+
+	where the parameters are:
+
+	hWndParent - the handle of the window which owns the 
+	message box. An HWND is an unsigned int.
+
+	lpText - a pointer to the text of the message.
+
+	lpTitle - a pointer to the message box title.
+
+	wType - a code describing the number and type of 
+	buttons in the message box. We use a 1 to indicate 
+	an OK and a cancel button.
+
+	The function returns a code indicating which button 
+	has been selected. A 1 means the Ok button, a 2 is 
+	the cancel button. This is all described in the 
+	Windows SDK.
+
+	msg = 'Select Ok to Continue'.
+	title = 'KnowledgePro'.
+
+	lib = load_library ('user.exe').  
+	(* the function we want to call is in user.exe *)
+
+	w = window (,,,,,,[visible, OverlappedWindow],,,,). 
+	(* open a window *)
+
+	ret = call (?lib, MessageBox,[word (?w),lpstr (msg), 
+	lpstr (title), word (1)], int).
+
+	if ?ret = 1 
+	   then text ('You pressed Ok.')
+	   else text ('Why did you cancel?').
+
+	Notice the use of the lpstr function to pass the 
+	title and message string to the MessageBox function. 
+	lpstr is passed a topic name.  It makes a copy of 
+	the topic's value and returns a pointer to the copy.  
+	MessageBox operators on this copy.  On return from 
+	the messageBox function, the copied data is assigned 
+	as the value of the topic specified in the lpstr 
+	command.  If the DLL changed the data, it would 
+	operate on a copy of the data rather than on 
+	KnowledgePro's internal data structures.
+
+//Call a Dynamic Link Library DLL
+ 
+ KnowledgePro gives you access to any Dynamic Link Library 
+ that adheres to the Windows DLL format.
+ 
+ Use the #mcall#m function to invoke a function from one of 
+ the DLLs. You must first load the library with the 
+ #mload_library#m function. Before calling the DLL function, 
+ you should be familiar with the parameters and parameter 
+ types as well as the return type. KnowledgePro supplies 
+ various functions for handling these data types. Refer to 
+ the function #mtype_cast#m for more information on handling 
+ data types.
+ 
+ The following example, calls the Microsoft Windows DLL which 
+ contains various functions to interact with the Windows 
+ environment.
+ 
+ 	message is 'Select Ok to Continue'.
+ 	title is 'KnowledgePro'.
+ 	ok_and_cancel_button = 1.
+ 
+ 	lib is load_library ('USER.EXE').    
+ 	w is window (, , , , , , [visible, overlappedWindow]). 
+ 
+ 	result is call (?lib, MessageBox, [ word (?w), 
+ 		lpstr (message), lpstr (title),
+ 		word (?ok_and_cancel_button) ], int).
+ 
+ 	if ?result is 1 then 
+ 		text ('You pressed Ok.')
+ 	else 
+ 		text ('You pressed cancel.').
+ 	free_library (?lib).
+ 
+//Call topics by name
+ 
+ Although KnowledgePro calls all topics by name, 
+ KnowledgePro's flexibility allows you to construct a name of 
+ a topic on-the-fly and call that topic. In the following 
+ example, either one of the topics MyTopic1 or MyTopic2 can 
+ be called by concatenating a number onto the string MyTopic 
+ with the #mconcat#m function:
+ 
+ 	ask ('Select a number:', number, [1, 2]).
+ 	do (concat ('MyTopic', ?number))
+ 
+ 	topic MyTopic1.
+ 	  text ('##e You selected MyTopic1').
+ 	end.
+ 
+ 	topic MyTopic2.
+ 	  text ('##e You selected MyTopic2').
+ 	end.
+ 
+//Call Windows API functions
+ 
+ KnowledgePro gives you access to all of the Windows API 
+ functions found in the Microsoft Windows Software 
+ Development Kit (SDK). Use the #mcall#m function to call a 
+ Windows function from one of the Dynamic Link Libraries. You 
+ must first load the library with the #mload_library#m 
+ function. Before calling the Windows function, you should be 
+ familiar with the parameters and parameter types as well as 
+ the return type. KnowledgePro supplies various functions for 
+ handling these data types. Refer to the function 
+ #mtype_cast#m for more information on handling data types.
+ 
+ The following example, calls the Windows function MessageBox 
+ to display a dialog window message.
+ 
+ 	message is 'Select Ok to Continue'.
+ 	title is 'KnowledgePro'.
+ 	ok_and_cancel_button = 1.
+ 
+ 	lib is load_library ('USER.EXE').    
+ 	w is window (, , , , , , [visible, overlappedWindow]). 
+ 
+ 	result is call (?lib, MessageBox, [ word (?w), 
+ 		lpstr (message), lpstr (title),  
+ 		word (?ok_and_cancel_button) ], int).
+ 
+ 	if ?result is 1 then 
+ 	   text ('You pressed Ok.')
+ 	else 
+ 	   text ('You pressed cancel.').
+ 	free_library (?lib).
+ 
+//calling_topic
+
+ Format
+	calling_topic (COUNT)
+
+ Action
+	This is used to find the full name of the topic that 
+	contains the current command.  It also returns the 
+	parameters that were passed to the calling topics.
+
+ Parameters
+	COUNT is an integer (0 <= COUNT<= 65535) which 
+	indicates the call to return.
+
+	0 	the topic that contains the current command  
+		i.e. the current topic.
+
+	1  	the topic that called the current topic.
+
+	2  	the topic that called the topic that contains 
+		the current topic.
+
+		If count extends beyond !main, [ ] is returned.
+
+ Returns
+	Returns the full name of the topic containing the 
+	command and its evaluated parameters as a list
+
+	[full_name, parameter1, parameter2...]
+
+ Example
+	y = dog.
+	level1 (cow, fish).
+
+	topic level1 (p1, p2).
+	  level2 (?y, cat).
+
+	  topic level2 (p3, p4).
+	     :x = calling_topic (0).
+	     :y = calling_topic (1).
+	     :z = calling_topic (2).
+	  end. (*level2*)
+
+	end. (*level1*)
+
+	level2:x has the value [!main:level1:level2,dog,cat].
+	level2: y has the value [!main:level1, cow, fish].
+	level2:z has the value [!main].
+
+ Note
+	If calling_topic is included in the then or else 
+	part of the rule, or in a while or repeat statement, 
+	that rule, while or repeat will be considered as a 
+	call when computing call levels.
+
+ Errors
+	I_INVALID_ELEMENT
+
+//Cancel events
+ 
+ Many of the events in KnowledgePro can be cancelled. To 
+ cancel an event is to prevent it from occurring. You can 
+ cancel an event by setting the event topic to true (or t). 
+ Once the event topic is set and the event topic terminates, 
+ the event will be cancelled. For example, to prevent a 
+ window from closing, you can cancel the #mclose_event#m as 
+ described above:
+ 
+ 	window (mytopic,,,,,,,,,,close_event). 
+ 	text ('Try to close this window!').
+ 
+ 	topic mytopic (info, event, handle). 
+   	   if ?event is close_event then 
+ 	      mytopic is t. 
+ 	end. 
+ 
+//capture_hyper_region
+
+ Format 	
+	capture_hyper_region (REGION_HANDLE)
+
+ Action
+	Copies the screen contained within a hyper region to 
+	a bitmap.
+
+ Parameters
+	REGION_HANDLE is a region handle or list of 
+	handles.
+
+ Returns
+	A handle to the bitmap.
+
+ Example
+	topic captureWindow ( wHandle ).
+	   set_display_window ( ?wHandle ). 
+	   clientWidth is element (window_info(?wHandle),10).
+	   clientHeight is element (window_info (?wHandle),11).
+	   tempRegion is hyper_region (,1,1,?clientWidth, ?clientHeight).
+	   update_window ( ?wHandle ). 
+	   captureWindow is capture_hyper_region (?tempRegion). 
+	end.  (* windowToClipboard *)
+
+	This topic sets a hyper-region over the client area 
+	of a window.  The contents of the hyper-region are 
+	captured and saved into a bitmap.  The bitmap handle 
+	is stored in the topic captureWindow.
+
+ Errors
+	I_NOT_REGION, I_CANT_OPEN_BITMAP
+
+ See Also
+	#mhyper_region#m
+
+//Center a window
+ 
+ To center a window, use the #msystem_info#m function to find 
+ the width and height in system characters of the screen.
+ 
+ 	topic CenterWindow ( width, height, title ).
+ 	   systemWidth is first ( system_info ( ) ).
+ 	   systemHeight is element ( system_info ( ),2 ).
+ 	   centerWindow is window ( ,(?systemWidth - ?width) / 2,
+ 	                       (?systemHeight - ?height) / 2, ?width,?height, 
+ 	                        ?title, [overlapped,visible]).
+ 	end.
+ 
+//Center text in a window
+ 
+ When strings are printed on the screen or printer, the size 
+ of the string could vary depending on the font selected. To 
+ determine the size of a string in a particular font, use the 
+ #mstring_info#m function. string_info returns the width and 
+ height in system characters of the desired string.
+ 
+ This function is especially useful when positioning text 
+ with a variable sized font. In the following example, 
+ string_info, is used to center a string within a window:
+ 
+ 	w1 is window ().
+ 	name is Bill.
+ 	message is concat ('Hello ', ?name).
+ 	centerString (?w1, ?message).
+ 
+ 	topic centerString (wHandle, string).
+ 	   clientWidth is element (window_info (?wHandle), 10).
+ 	   stringWidth is first (string_info (?string)).
+ 	   startPos is (?clientWidth - ?stringWidth) / 2.
+ 	   text (concat ('##x', ?startPos), ?string).
+ 	end.
+ 
+//chain
+
+ Format
+	chain (COMMAND, SHOW_CODE)
+
+ Action 	
+	Terminates the current application and begins 
+	executing a DOS command or Windows program. In the 
+	runtime version it also terminates KnowledgePro.
+
+ Parameters 	
+	COMMAND is any legal DOS command or program or 
+	Windows program batch file or program name.  If   
+	this parameter is  [ ]  or absent, the 
+	application is exited and COMMAND is executed.  
+	If no extension is provided, .EXE is assumed.
+
+	SHOW_CODE is a code indicating how the program 
+	should be displayed.  If this parameter is a list, 
+	only the first element is used.  Possible values 
+	are:
+
+	0	hidden
+	1	normal
+	2	minimized (iconic)
+	3	maximized
+	4	not active window - does not get the focus
+	5	normal - window gets the focus
+	7	minimized, but window does not get focus
+
+	The default is 1.
+
+ Returns
+	If successful, it does not return.  Error conditions 
+	are returned as numeric codes.  Error codes are:
+
+	0	Out of memory
+	2	The program was not found
+	3	The path was not found
+	5	Invalid task
+	6	The DLL could not create a data segment
+	10 	Incorrect Windows version
+	11	Invalid .EXE file
+	12	OS/2 application
+	13	DOS 4.0 application
+	14	Unknown .EXE type
+	15	.EXE created for earlier version of Windows
+	16	Attempt tp load a second instance of a non-
+		sharable .EXE file
+	17	Attempt to load an application which links to a 
+		non-sharable DLL already in use
+	18	Attempt to load a protected mode application in 
+		real mode
+
+ Example
+	chain (notepad).
+
+ Note
+	To run DOS commands, chain to COMMAND.COM /C.  For 
+	example:
+
+	chain ('COMMAND.COM /C TYPE DEMO.KB|MORE').
+
+	It is best to chain to the .PIF file for DOS 
+	applications. This gives you control over memory, 
+	program switches, etc. For example:
+
+	chain ('123.PIF').
+
+ Errors
+	I_EXT_STRING_LONG, I_NO_TIMERS
+
+//Change fonts within a text string
+ 
+ Fonts can be changed within a text string using the control 
+ code #m##r#m to run a topic which changes the font.  For 
+ example, to make a word within a line helvetica italic you 
+ can use this code:
+ 
+    helv13 is create_char_font ([1.25, 1.1428, 400,'f','f','f',0,1,34,'Helv']).
+    helv13Bold is create_char_font ([1.25, 1.1428, 400,'t','f','f',0,1,34,'Helv']).
+    use_font (?helv13).
+    text ('This text is in a helvetica font with ##ri italics##rd in the middle.').
+ 
+    topic i.
+       use_font (?helv13Bold).
+    end.
+ 
+    topic d.
+       use_font (?helv13).
+    end.
+ 
+ In this example the ##r calls the topic i which changes the  font to an italic 
+ font before the word italics.  After italics, ##rd returns to the default helvetica font.
+ 
+//Change the hypertext cursor
+ 
+ Normally the cursor changes to a pointing hand whenever it 
+ passes over hypertext or hyper-regions.  This shows the user 
+ that these are special areas.  You can change how the cursor 
+ displays over hypertext and hyper-regions using the 
+ #mhyper_cursor#m function.
+ 
+//Change the mouse cursor
+ 
+ The #muse_mouse_cursor#m function lets you change the mouse 
+ cursor for a window.
+ 
+ If you don't use a cursor that you've loaded with the 
+ #mload_mouse_cursor#m function, there are several cursors 
+ which are already part of the Windows resources.  These 
+ cursors can be used directly by use_mouse_cursor.  The 
+ following list of cursors are available:
+ 
+ 	ARROW	standard arrow cursor
+ 	CROSS		crosshair cursor
+ 	IBEAM		I-beam cursor.
+ 	ICON		empty icon.
+ 	SIZE		square with a smaller square in its lower-
+ 			right corner.
+ 	SIZE_NE_SW	double pointed cursor with arrows pointing 
+ 			northeast and southwest.
+ 	SIZE_NS	double pointed cursor with arrows pointing 
+ 			north and south.
+ 	SIZE_NW_SE	double pointed cursor with arrows pointing 
+ 			northwest and southeast
+ 	SIZE_WE	double pointed cursor with arrows pointing 
+ 			west and east.
+ 	UP_ARROW	vertical arrow.
+ 	WAIT		hourglass.
+ 	HAND		hand cursor with a pointing finger.
+ 
+//change_directory
+
+ Format
+	change_directory (PATH)
+
+ Action
+	Changes the current working directory to the drive 
+	and directory specified by path.
+
+ Parameters
+	PATH is the new directory. If this parameter is a 
+	list, only the first element is used. If only a 
+	drive is specified, the current working directory is 
+	switched to the current directory on that drive. If 
+	no drive is specified, the current working directory 
+	is switched to the specified directory on the 
+	current drive.
+
+ Example
+	change_directory ( 'c:\kpwin\dbase').
+	wMain is window ( resetDirectory, 2,2,80,20,
+	'Main Window', [overlappedWindow,visible],,,, 
+	get_focus_event ).
+
+	topic resetDirectory.
+  	  change_directory ( 'c:\kpwin\dbase').
+	end.
+
+	This shows how you can ensure that you're in a 
+	specific directory whenever you return to a window.  
+	The window is assigned an event topic resetDirectory 
+	which is called whenever the window gets the focus. 
+	The topic uses change_directory to set the 
+	directory.
+
+	Notice that the window does not receive a 
+	get_focus_event when it is first created so we use 
+	change_directory to initialize the directory at the 
+	beginning of the application.
+
+ Errors
+	I_INVALID_PATH
+
+ Notes
+	Under Windows, each task has a current working 
+	directory, this command switches the current 
+	directory for KnowledgePro.
+
+ See Also
+	#mcurrent_directory#m
+
+//Changing the Default Setup
+
+ When DESIGN starts up it reads a file named
+ DESDEF.TPX for its default setup.  You can select any
+ file produced using design as a default startup file by
+ renaming it DESDEF.TPX.  Be sure to save the old file
+ before renaming.  If you select a new default file,
+ compile the file to the file DESDEF.LKB.  This will speed
+ up your loading time since the code will not have to be
+ recompiled every time you start DESIGN.
+
+ Basically, when a setup is loaded into DESIGN any code
+ outside of CreateObjects and CreateFonts is ignored so
+ you can modify the code inside of the design topic to suit
+ your own needs.  Remember though that if you delete
+ the topic WindowEventTopic the fonts will not be deleted
+ when you are through with the screen.
+
+ See Also:
+   #mThe screen_object Topic#m
+
+//Changing the Properties of an Object
+
+ To change the properties of an object double click on the
+ object, select the desired values and then select Save.
+
+ See Also:
+   #mDefining Event Topics#m
+
+//char_to_number
+
+ Format
+	char_to_number (CHARACTER)
+
+ Action
+	This topic is used to convert a character to its 
+	equivalent ASCII value.
+
+ Parameters
+	CHARACTER is a character,  string or list of 
+	characters or strings.
+
+ Returns
+	The integer ASCII value of each of the characters.  
+	If CHARACTER is a string or list, a list of integers 
+	is returned.
+
+ Example
+	x = char_to_number (A).
+
+	x is assigned the value 65.
+
+	y = char_to_number([DOG,CAT]).
+
+	y is assigned the value [[68,79,71], [67,65,84 ]] .
+
+ See Also
+	#mnumber_to_char#m
+
+//Check for other KPWIN applications
+ 
+ Here's a tip that will allow your KPWIN applications to 
+ check if you're trying to run more than one instance.
+ 
+ The topic is called GetInstance and will return a count 
+ value indicating how many copies of the program you are 
+ running. Simply pass in the name that appears in the 
+ titlebar of you application, or simpler yet, just pass in 
+ the word: KnowledgePro.
+  
+ GetInstance calls the infrequently used KPWIN functions 
+ #mtask_list#m and #mtask_windows#m to obtain information 
+ about what programs are running in Windows. Calling 
+ #mget_title#m will retrieve all of the titles for all of the 
+ windows available. Here's the topic:
+  
+ 	topic GetInstance (TITLE).
+ 	  AllHandles is task_windows (task_list ()).
+ 	  AllHandles is flatten (?AllHandles).
+ 	  AllTitles is get_title (?AllHandles).
+ 	  InstanceList is where (?AllTitles, ?TITLE, 100).
+ 	  if ?InstanceList is 0 then
+ 	      GetInstance is 0
+ 	  else
+ 	      GetInstance is list_length (?InstanceList).
+ 	end.
+  
+ If you are just concerned about other sessions of KPWIN 
+ running, call this topic at the beginning of your 
+ application:
+  
+ 	  if GetInstance (KnowledgePro) > 1 then
+ 	     exit_kp ().
+  
+ If you are concerned about your application and don't care 
+ about other KPWIN applications running, check for the title 
+ of your application's window. Of course, your application 
+ must first open a titled window.
+ 
+ 	  wMain is window ().
+ 	  set_title (?wMain, 'My Application').
+ 	  if GetInstance ('My Application') > 1 then
+ 	     exit_kp ().
+ 
+ Finally, note that for the runtime system, the #mclear#m 
+ function could be substituted for the #mexit_kp#m.
+ 
+//check_box
+
+ Format
+	check_box (TEXT, EVENT_TOPIC, COLUMN, ROW, 
+		         SELECTED,  EVENT_LIST)
+
+ Action
+	A check box with the name TEXT is created at COLUMN, 
+	ROW in the current display window.
+
+ Parameters
+	TEXT is the text appearing with the check box.  If 
+	this parameter is a list, only the first element is 
+	used.
+
+	EVENT_TOPIC is the topic to be performed when an 
+	event on the EVENT_LIST occurs while the focus is on 
+	the check box. EVENT_TOPIC is called as:
+
+	EVENT_TOPIC (EVENT_INFO,EVENT_NAME,HANDLE).
+
+	EVENT_INFO depends on the event that occurs.  A 
+	description of events is provided in Appendix A.
+
+	EVENT_NAME is the name of the event that occurred.
+
+	HANDLE is the handle assigned to the check box.
+
+	If EVENT_TOPIC sets its value to true after being 
+	called by a lose_focus_event, close_event, 
+	char_event, or a sys_char_event, further processing 
+	of the event is canceled. Whenever EVENT_TOPIC is 
+	called its value is reset before it is executed.  If 
+	no EVENT_TOPIC is defined, no events are 
+	recognized.
+
+	COLUMN, ROW is the check box location.  The default 
+	is the current display position. COLUMN and ROW are 
+	relative to the upper left corner of the display 
+	area of the current display window.
+
+	SELECTED is a boolean value. If the boolean is true, 
+	the check box is checked.  The default is false.
+
+	EVENT_LIST is a list of events that will cause the 
+	EVENT_TOPIC to be called.  The events are described 
+	in detail in Appendix A.  If no event is specified, 
+	the default event handled by a check box is a 
+	select_event.
+
+ Returns
+	HANDLE, the handle of the check box.
+
+ Example
+	check_box ('United States', country, 10,5,t).
+	check_box (Canada, country, 10, 7).
+
+	This creates two check boxes.  The box labeled 
+	United States is checked as the default.  The topic 
+	country is called when either check box is selected 
+	and the name of the country is passed to the topic 
+	as a parameter.
+
+ Errors
+	I_OUT_OF_MEMORY
+
+ See Also
+	#mget_check_box#m, #mset_check_box#m	
+
+//check_menu_item
+
+ Format
+	check_menu_item (HANDLE, ITEM )
+
+ Action
+	A check mark is placed next to the specified item.  
+	Checks are usually used to show menu items that can 
+	be toggled between two states.  uncheck_menu_item is 
+	used to remove the check from an item.  This topic 
+	no effect if the menu item is already checked.
+
+ Parameters
+	HANDLE the handle of the menu that contains the 
+	items you want to place a check next to.  If this 
+	parameter is a list, only the first element is used.
+
+	ITEM is the name of a menu item, or list of items.
+
+ Example
+	window ().
+	m1 is menu ([[File, New, Backups, Save],[Quit]], menu_topics).
+	check_menu_item (?m1, Backups).
+
+	These topics open a window with a menu with two 
+	main options, File and Quit.  File has a Popup menu 
+	with the items New, Backups and Save.  Backups has a 
+	check next to it.
+
+ See Also
+	#mdisable_menu_item#m, #menable_menu_item#m, 
+	#mmenu#m, #muncheck_menu_item#m	
+
+//child_windows
+
+ Format 	
+	child_windows (HANDLE)
+
+ Action
+	Used to find the child windows that belong to a 
+	specified window or list of windows.
+
+ Parameters
+	HANDLE a window handle or list of window handles.  
+	The default is the current display window.
+
+ Returns
+	A list of the child windows of all the selected 
+	windows.  This includes screen objects inside the 
+	window and windows which contain the style child.  
+	It does not include popup windows with HANDLE as a 
+	parent.
+
+ Example
+	w1 is window ().
+	c1 is check_box (item1).
+	c2 is check_box (item2).
+	c3 is check_box (item3).
+	w2 is window (,1,1,20,5,,,?w1).
+	b1 is button (Stop).
+	b2 is button (Go).
+	x is child_windows (?w1).
+	y is child_windows (?w2).
+
+	x is assigned the list [?c1, ?c2, ?c3].
+	y is assigned the list [?b1, ?b2].
+
+ Errors
+	I_INVALID_WINDOW
+
+ See Also
+	#mparent_window#m, #mwindow_info#m
+
+//children
+
+ Format
+	children (TOPIC )
+
+ Action
+	Returns the names of the topics which are immediate 
+	children of the topic specified.
+
+ Parameters
+	TOPIC contains the names of the topics whose 
+	children you want to find. If a list of TOPICs is 
+	given,  a list of children for each of the topics is 
+	returned.
+
+ Returns
+	A list of the children of TOPIC.
+
+ Example
+	topic calculate_stress.
+	    topic get_measure.
+	        topic read_result.
+	        end. 
+	     end.
+
+	     topic materials.
+    	     end.
+	end.
+
+	check is children (calculate_stress).
+
+	The list [get_measure,materials] is assigned to 
+	check.  Notice that the topic read_result, which is 
+	a child of get_measure is not returned as a child of 
+	calculate_stress.
+
+ See Also
+	#mparent#m, #mmake_topic_list#m, #mshow_topic#m, 
+	#mcalling_topics#m,#mfull_name#m
+
+//Choose a screen object
+ 
+ When you're building a user interface it's important that 
+ the screen objects you select are the ones best suited for 
+ the information being gathered.  One of the advantages to an 
+ environment such as Microsoft Windows is that there is a 
+ uniform interface style among applications.  To make the 
+ best use of the environment, you need to be aware of the 
+ standards and use them whenever possible.
+ 
+ When you're deciding on the type of screen object to use for 
+ a particular task,  you should consider what type of input 
+ the task requires.  A user can perform three basic 
+ operations :
+ 
+ 	#mEnter a new value#m
+ 	#mChoose one or more listed items#m
+ 	#mSelect an action to perform#m
+ 
+ Each of these types of actions is associated with a 
+ different group of screen objects. Click on one of the items 
+ for more information on that subject.
+ 
+//Choose an appropriate window style
+ 
+ There are four basic window types: overlapped, popup and child.
+ 
+ An overlapped window is, typically, the main window of an 
+ application. This window should be given the styles 
+ controlMenu, titleBar, maximizeBox and minimizeBox. It 
+ usually uses a thickFrame style to allow it to be resized.  
+ These styles are included in the composite style 
+ overlappedWindow. The overlapped window should also be 
+ assigned an icon using #mattach_icon#m.
+ 
+ A popup window usually is associated with gathering input or 
+ prompting the user before continuing with the application. 
+ When combined with a dialogFrame, a popup window becomes a 
+ dialog window, used more commonly for prompts. Popups can be 
+ opened anywhere on the screen.  The popup window's location 
+ is measured relative to the upper left corner of the screen.  
+ The popup window is the default style used by KnowledgePro.   
+ 
+ A child window differs from the popup, in that it always 
+ appears within the confines of the parent. Child windows are 
+ usually used to organize or partition information within the 
+ parent. Child windows are used to implement the Multiple 
+ Document Interface (MDI) feature of Windows.
+ 
+ Refer to the #mwindow#m function for details on creating a window.
+ 
+//Choose one or more listed items
+ 
+ The user can select one or more items from a list of options 
+ using the following objects:
+ 
+ 	#mlist_box#m
+ 	#mcombo_box#m
+ 	#mcheck_box#m
+ 	#mradio_button#m
+ 
+ You should first decide whether only one, or more than one, 
+ answer is possible for the question. 
+ 
+ Allowing multiple responses:
+ 
+ If you are asking the user to enter information which can 
+ have more than one value, you will probably want to use a 
+ list box or a set of check boxes.  A list box can be defined 
+ to allow only one answer or to accept multiple answers.   
+ The items in the list box or check boxes provide the answers 
+ from which the user may make one or more selections.
+ 
+ If there are more than 8 selections, you should probably use 
+ a list box because its scroll bars will make it easier to 
+ fit all of the choices neatly on the screen.  A list box is 
+ also probably the best choice if you don't know ahead of 
+ time exactly how many selections there will be.  This may be 
+ the case if the possible responses to a question are 
+ determined by the application.  
+ 
+ A set of check boxes is used when there are only a few 
+ selections and they are clearly defined and unchanging.  
+ There are times when the choice between a list box and a 
+ check box will depend on how the other material on the 
+ screen looks and how each fits into the screen.  
+ 
+ Single valued responses:
+ 
+ When you want the user to select one and only one item, you 
+ can use either a list box, combo box or a radio button.  
+ 
+ Radio buttons, like check boxes, are most effective when 
+ used with less than eight choices.  List boxes are used when 
+ there are many choices. Combo boxes are similar to list 
+ boxes except the list is hidden until the user expands it.  
+ A combo box is commonly used when there is limited space.  
+ 
+ When the information you're trying to find can be defined as 
+ a number within a specific range, you can use scroll bars 
+ for data entry.  The scroll bar allows the user to move a 
+ slider to indicate where in a range of values an answer 
+ lies.  
+ 
+//class
+
+ Format
+	class (TOPIC)
+
+ Action
+	Used to find all of the topics from which TOPIC 
+	inherits commands and sub-topics.  When a topic 
+	inherits commands and sub-topics from another topic 
+	it is said to be a member of the class of the first 
+	topic.  This occurs when im_a or new is used as in 
+	the example shown below.
+
+ Parameters
+	TOPIC is a topic name or list of topic names of 
+	topics whose class membership you want to find. The 
+	default is the current topic.
+
+ Returns
+	A list of the classes from which each topic has 
+	inherited commands and sub-topics.  If a topic 
+	inherits from several classes, the classes are 
+	returned as a sub-list.  If a topic is not a member 
+	of any class, [] is returned.
+
+ Example
+	new (customer1, CreditCustomer).
+	y is class (customer1).
+
+	topic CreditCustomer.
+	  im_a (customer).
+		.
+		.
+		.
+	end.
+
+	new creates the topic customer1 and then does an
+
+	im_a (CreditCustomer).
+
+	inside customer1.  This causes any sub-topics in 
+	CreditCustomer to be copied into customer1 and the 
+	commands in CreditCustomer to be executed.  The 
+	command
+
+	im_a (customer).
+
+	makes customer1 a member of the class customer so y 
+	is assigned the list [CreditCustomer, customer].
+
+ Error
+	I_V_TOPIC_NOT_FOUND
+
+ See Also
+	#mim_a#m, #mnew#m
+
+//clear
+
+ Format
+	clear ( )
+
+ Action
+	Terminates the execution of the application and 
+	removes it from memory. All windows and files are 
+	closed and all libraries are unloaded.  Open 
+	bitmaps, icons and fonts are deleted.
+
+ Notes
+	clear ( )
+
+	performs the same action as choosing Clear from the 
+	main menu. In the runtime version, KnowledgePro is 
+	exited.
+
+ See Also
+	#mexit_kp#m, #mexit_window#m, #mstop#m
+
+//close
+
+ Format
+	close (FILE)
+
+ Action
+	File or list of files named are closed.
+
+ Parameters
+	FILE is the name of a file or a list of files you  
+	want to close.   Remember that any names containing 
+	a period must be enclosed in single quotes.
+
+ Returns
+	T or F for each file in FILE, depending on the 
+	success in closing the file.
+
+ Example
+	close ('COMMANDS.DAT').
+
+ Note
+	Closing a file tells KnowledgePro that you are 
+	finished accessing the file.  Files are closed 
+	automatically when an application is terminated, but 
+	it is a good idea to explicitly close all files as 
+	soon as you have finished using them.  This releases 
+	memory used by the file for other purposes.  Also, 
+	KnowledgePro does not write directly to disk files: 
+	it writes to a memory buffer.  When the buffer fills 
+	or the file is closed, the contents of the buffer 
+	are written to the disk.  If a system crash occurs 
+	before the file is closed, valuable information 
+	could be lost.
+
+ Errors
+	I_CANT_CLOSE, I_FILE_NOT_OPEN
+
+ See Also
+	#mclose_all#m
+
+//close_all
+
+ Format
+	close_all ( )
+
+ Action
+	Closes all open files.
+
+ Returns
+	A list of T or F's , depending on the success in 
+	closing the files.
+
+ Note
+	Closing a file tells KnowledgePro that you are 
+	finished accessing the file.  Files are closed 
+	automatically when an application is terminated, but 
+	it is a good idea to explicitly close all files as 
+	soon as you are finished using them.  This releases 
+	memory used by the file for other purposes.  Also, 
+	KnowledgePro does not write directly to disk files: 
+	it writes to a memory buffer.  When the buffer fills 
+	or the file is closed, the contents of the buffer 
+	are written to the disk.  If a system crash occurs 
+	before the file is closed, valuable information 
+	could be lost.
+
+ Errors
+	I_CANT_CLOSE, I_FILE_NOT_OPEN
+
+ See Also
+	#mclose#m
+
+//close_window
+
+ Format
+	close_window (HANDLE)
+
+ Action
+	A window or screen object is closed and the memory 
+	allocated to it is released.  Garbage collection is 
+	performed.  If the window is the current display or 
+	active window, the previous display or active window 
+	becomes current.  The window and all screen objects 
+	receive close_events.
+
+ Parameters
+	HANDLE is the handle or list of handles of the 
+	windows and screen objects to close.  If no handle 
+	is specified, the current display window is closed.
+
+ Example
+	window ( ).
+	say ('The phone number is 555-3269.').
+	close_window ( ).
+
+	The window is closed.
+
+ Errors
+	I_INVALID_WINDOW
+
+ See Also
+	#mhide_window#m, #mdisable_window#m
+
+//collect
+
+ Format
+	collect ( )
+
+ Action
+	This topic forces garbage collection. Garbage 
+	collection is the process of freeing the memory  
+	no longer needed by the application.
+
+ See Also
+	#mcollect_ok#m, #mcollect_not_ok#m
+
+//collect_not_ok
+
+ Format
+	collect_not_ok ( )
+
+ Action
+	This topic turns off the ability of the system  
+	to do garbage collection.  During time critical 
+	operations,  you may want to turn off garbage 
+	collection. Be sure to turn garbage collection back 
+	on or unused memory will not be recovered.
+
+ See Also
+	#mcollect#m, #mcollect_ok#m
+
+//collect_ok
+
+ Format
+	collect_ok ( )
+
+ Action 	
+	This topic allows garbage collection to take  
+	place, but does not force it to occur.  This is the 
+	default setting.
+
+ See Also
+	#mcollect#m, #mcollect_not_ok#m
+
+//Color
+
+ The Color tool creates custom colors from a specified mix of 
+ red, green, and blue. Sliders are provided to allow you to 
+ adjust manually the proper mixture of colors. The final 
+ result is a RGB color number that can be used in your 
+#mwindow#m command's parameters for text color and 
+ background color. Functions that use the ##f and ##b control 
+ codes can also accept these colors to change the text.
+
+//combine
+
+ Format
+	combine (LIST1, LIST2, LIST3 ...)
+
+ Action 	
+	This topic is used to append one or more lists to an initial list.
+
+ Parameters
+	LIST1, LIST2, LIST3... are lists to be combined into a new list.
+
+ Returns
+	The list that is formed by appending the items in 
+	LIST2, LIST3 and so on to the list in LIST1.
+
+ Example
+	Jim_sales = [100,234,110].
+	Beth_sales = [22,56].
+	Ed_sales = [11,17].
+	master_list is combine (?Jim_sales,?Beth_sales, ?Ed_sales).
+
+	All of the individual values for each of the  
+	salesperson's list are combined on master_list . 
+	master_list is given the value [100,234,110,22,56,11,17] .
+
+	if list_length (combine (?Jim_sales,?Beth_sales, 
+	  ?Ed_sales)) > 100 
+	  then say ('Great work!').
+
+	In this example we combine the items on all three 
+	lists and if the length of the resulting list is 
+	greater than 100, a message is printed.
+
+//Combine bitmap images
+ 
+ The addition of the raster operation code to the #mbitmap#m 
+ function, lets you combine bitmap images in various ways. 
+ 
+ NOTE: All of the operations listed below only operate on the 
+ region of the screen where the new bitmap is to display. The 
+ remainder of the screen is left unaltered.
+ 
+ BLACKNESS		Turns the entire bitmap black.
+
+ DSTINVERT		Inverts the current screen's contents 
+			only. The actual bitmap does not appear.
+
+ NOTSRCCOPY		Inverts the bitmap and copies it to the 
+			screen.
+
+ NOTSRCERASE	Combines the bitmap with the current 
+			screen contents using the boolean OR 
+			operator and inverts the result.
+
+ SRCAND		Combines the bitmap with the current 
+	 		screen's contents using the boolean AND 
+ 			operator.
+
+ SRCCOPY		Copies the bitmap to the screen. This is 
+ 			the default action.
+
+ SRCERASE		Inverts the current screen and combines it 
+ 			with the bitmap using the boolean AND 
+	 		operator.
+
+ SRCINVERT		Combines the bitmap with the current 
+	 		screen's contents using the boolean XOR 
+ 			operator.
+
+ SRCPAINT		Combines the bitmap with the current 
+ 			screen's contents using the boolean OR 
+ 			operator.
+
+ WHITENESS		Turns the entire bitmap white.
+ 
+//combo_box
+
+ Format
+	combo_box (SELECTION_LIST, EVENT_TOPIC, COLUMN, 
+		          ROW, WIDTH, HEIGHT, SELECTION, STYLE, 
+		          EVENT_LIST)
+
+ Action
+	Creates a screen object consisting of a selection 
+	field similar to an edit line combined with a list 
+	box in the current display window. Depending on the 
+	style of the combo box, the user may edit the 
+	contents of the selection field. Selecting items 
+	from the list box displays the selected text in the 
+	selection field. If the list box is not displayed, 
+	it may be opened by pressing ALT + DOWN ARROW or 
+	selecting the icon to the right of the selection 
+	field.
+
+ Parameters
+	SELECTION_LIST is a list of selections which fills 
+	the list box.
+
+	EVENT_TOPIC is the topic or list of topics to be 
+	performed when an event on the EVENT_LIST occurs. 
+	EVENT_TOPIC is called as:
+
+	EVENT_TOPIC (EVENT_INFO, EVENT_NAME, HANDLE).
+
+	where EVENT_INFO is the current selection in the 
+	selection field of the combo box.
+
+	EVENT_NAME is the name of the event which occurred.
+
+	HANDLE is the handle of the combo box.
+
+	If EVENT_TOPIC sets its value to T after being 
+	called by a lose_focus_event, close_event, 
+	char_event or sys_char_event, further processing of 
+	the event is cancelled. When EVENT_TOPIC is called, 
+	its value is reset before the topic is called. If no 
+	EVENT_TOPIC is defined, no events are recognized.
+
+	COLUMN, ROW is the combo box location. The default 
+	is the current display position. column and row are 
+	relative to the upper left corner of the display 
+	area of the current window. If either of these 
+	parameters are lists, only the first element is 
+	used.
+
+	WIDTH, HEIGHT is the combo box size in units of 
+	average system character width and height. The 
+	default width is the maximum string width of the 
+	items on SELECTION_LIST. The default height is large 
+	enough to fit the number of list items up to a 
+	maximum of 7 items. Scroll bars let you scroll 
+	through items not visible. If either of these 
+	parameters are lists, only the first element is 
+	used.
+
+	SELECTION is a string which appears in the 
+	selection field of the combo box. The default is the 
+	first element of SELECTION_LIST. If this parameter 
+	is a list, only the first element is used. If 
+	selection is not a member of SELECTION_LIST, the 
+	selection field of the combo box appears blank.
+
+	STYLE is a list of styles for the combo box. Styles 
+	may be
+
+	DROPDOWN - the listbox is displayed when the user 
+	selects an icon next to selection field.
+
+	DROPDOWNLIST - similar to dropdown, except the 
+	selection field cannot be edited.
+
+	SIMPLE - the list box is displayed at all times.
+
+	SORT - strings in the selection list are 
+	automatically sorted. The sort style may be combined 
+	with the other three styles.
+
+	The default is [DROPDOWN, SORT].
+
+	EVENT_LIST a list of events that cause EVENT_TOPIC 
+	to be called. See Appendix A.  The default is 
+	lose_focus_event.
+
+ Returns
+	The handle of the combo box.
+
+ Notes
+	Due to a bug in Microsoft Windows, combo boxes do 
+	not process double_click_events correctly. A 
+	double_click_event is generated by pressing the 
+	ENTER key when the focus is on the combo_box, but a 
+	double click generates a list_select_event and a 
+	lose_focus_event.
+
+ See Also
+	#mset_combo_box#m, #mget_combo_box#m
+
+//Commands for Controlling Text Display
+
+  ####     #x8Display the character ##
+  ##c      #x8Call enclosed topics. Do Not Display the Values.
+  ##d      #x8Default screen colors
+  ##e      #x8Erase the screen, new page
+  ##h     #x8Stops further processing of display commands.  
+	#x8Any ##'s embedded in the text are printed.
+  ##i      #x8Insert a space after each list item (DEFAULT)
+  ##l      #x8New line for each list item (DEFAULT)
+  ##m      #x8Define hypertext phrase
+  ##n      #x8New line
+  ##o      #x8No spaces after a list item
+  ##p      #x8New page
+  ##r      #x8Call a topic in memory
+  ##s      #x8List items on the same line
+  ##t      #x8Tab five spaces
+  ##v      #x8Call enclosed topics. Display their values.
+  ##INTEGER      #x15Print the ASCII character
+  ##xINTEGER     #x15Move to Column X
+  ##yINTEGER     #x15Move to Row Y
+  ##fCOLOR       #x15Change foreground color
+  ##bCOLOR       #x15Change background color
+ 
+//compare
+
+ Format
+	compare (COMPARISON_OPERATOR, VALUE1, VALUE2, 
+		     COMPARE_TYPE, CASE_SENSITIVE)
+
+ Alternate
+	VALUE1 COMPARISON_OPERATOR VALUE2
+
+	COMPARE_FUNCTION (VALUE1, VALUE2, COMPARE_TYPE, 	   
+ 	   			  CASE_SENSITIVE)
+
+ Action
+	This topic is used to perform numeric or   
+	string comparisons between items.  Lists are 
+	compared element by element.  The alternate form of 
+	compare is most frequently used in rules.
+
+ Parameters
+	COMPARISON_OPERATOR must be one of the legal 
+	comparison operators.  The legal COMPARISON_OPERATORS 
+	are  =, is , < > , is_not , < , > , <= , =<, >=,  =<
+
+	In the first format, the following comparison 
+	functions are also legal: eq, ne, lt, gt, ge, le
+
+	If this parameter is a list, only the first element 
+	is used.
+
+	VALUE1, VALUE2 are the values to be compared.
+
+	COMPARE_TYPE is a string which indicates whether the 
+	comparison is to be made based upon the language 
+	selected by the user from the Control Panel or by 
+	ASCII value.  Legal values are LANGUAGE or ASCII.  
+	The default is LANGUAGE.  If this parameter is a 
+	list, only the first element is used.
+
+	CASE_SENSITIVE is a boolean.  If it is T, the 
+	comparison is made in a case sensitive manner.  If 
+	it is F, case is ignored in comparing strings.  The 
+	default is F.  If this parameter is a list, only the 
+	first element is used.
+
+ Returns
+	T for a successful comparison, otherwise F.
+
+ Example
+	test is compare (<>,[a,b,c],[d,e]).
+
+	test is assigned a value of T .
+
+	test is compare (=,[a,b,c],[[a,b],c]).
+
+	test is assigned a value of F .
+
+	test is compare (=,list_length ([a,b,c]),3).
+
+	test is assigned a value of T .
+
+	'number enrolled' is 15.
+	new_students = 5 .
+	'class free' is yes.
+
+	if ?'number enrolled' + ?new_students  < 30 and
+	   ?'class free' is yes
+	   then say ('Put new students in room 8.').
+
+ Note
+	The operators eq, ne, lt, gt, le and ge may be used 
+	in the form COMPARISON_OPERATOR (VALUE1, VALUE2, 
+	COMPARE_TYPE, CASE_SENSITIVE). 
+
+	For example,
+
+	x = ne (cat,dog).
+
+	x is assigned the value T.
+
+	When comparing strings according to language, 
+	compare uses the national language selected by the 
+	user.  This function takes into account different 
+	alphabetic orderings, diacritical marks and special 
+	cases.  This function does not perform ASCII 
+	comparisons.  Instead, it uses a table of primary 
+	and secondary values.  For example, a section of the 
+	table for a hypothetical language might be:
+
+			   Secondary Value
+
+	Primary Value	1	2	3	4
+
+			1	A	Ã	a 	ã
+
+			2	B	b
+
+			3	C	c
+
+			4	D	d
+
+	The letter d has a primary value of 4 and a 
+	secondary value of 2.  When performing a comparison, 
+	the primary value takes precedence over the 
+	secondary value, i.e. the secondary value is ignored 
+	unless a comparison based on primary values shows 
+	that the strings are equivalent.  The following 
+	examples show this effect
+
+	A = A	Primary values equal
+
+	A < a	Primary values equal, secondary values unequal
+
+	Ab < ab	 Primary values equal, secondary values unequal (A<a)
+
+	ab < Ac  Primary values equal, secondary values unequal (b<c)
+
+	Each of these comparisons result in T.
+
+	When comparing strings of different lengths, length 
+	takes precedence over secondary values, i.e. shorter 
+	strings will precede longer strings as long as the 
+	primary values in the shorter string equal the 
+	primary values in the longer string.  For example:
+
+	ab < ABC
+
+	ABC < AD
+
+//compile_string
+
+ Format
+	compile_string (TEXT)
+
+ Action
+	Compiles TEXT and returns a list representing the 
+	internal format of the commands.
+
+ Parameters
+	TEXT is a string or list of strings to be compiled.
+
+ Returns
+	The internal representation of the items compiled.
+
+ Example
+	x = 'say (''Hi There'').'.
+	p = compile_string(?x).
+
+	The topic x is assigned the string
+
+	say ('Hi There').
+
+	 Note the use of two single quotes to use the string 
+	character for a single quote. The topic p is assigned the value
+
+	[say, 'Hi There'].
+
+	The period is not included as part of p because it 
+	is not used in the internal representation.
+
+ Note
+	The result of compile_string may be attached  
+	to the procedure list of a topic as follows :
+
+	x = 'say (''Hi There'').'.
+	set_procedures (test, compile_string (?x)).
+
+	In this example, the value of topic x is compiled 
+	and assigned to the topic test.  Executing
+
+	do (test).
+
+	causes the message Hi There to be displayed.
+
+	compile_string is not supported in the runtime 
+	version of KnowledgePro.
+
+ Errors
+	I_CANT_CREATE_TEMP_FILE
+	Also, compile_string can result in compiler error 
+	messages.
+
+ See Also
+	#mset_procedures#m, #mevaluate#m
+
+//Compiler Directives
+   Define a constant#x35#m##define#m
+   Disable optimization#x35#m##no_optimize_primitives#m
+   Include source code from another file#x35#m##include#m
+   Optimize KnowledgePro calls#x35#m##optimize_primitives#m
+   Protects topics#x35#m##protect#m
+
+//concat
+
+ Format
+	concat (TEXT1, TEXT2,TEXT3 ,...)
+
+ Action
+	concat is used to combine several items into a  
+	single string.  Each element of the second list is 
+	concatenated with each element of the first list to 
+	form the new list.  If more than two parameters  
+	are used,  the elements of the third list are 
+	concatenated with the result of concatenating the 
+	first two lists.  The fourth list is concatenated  
+	with the result of the first three and so on.
+
+ Parameters
+	TEXT1, TEXT2, TEXT3,... are the text that is concatenated.
+
+ Returns
+	The new string.
+
+ Example 
+	x = concat (a,b).
+
+	x has the value ab.
+
+	x = concat (a,b,c).
+
+	x has the value abc.
+
+	x = concat (a,[b,c]).
+
+	x has the value  [ab,ac].
+
+	x = concat ([a,b],c).
+
+	x has the value  [ac,bc] .
+
+	x = concat ([a,b],[c,d]).
+
+	x has the value [ac,ad,bc,bd].
+
+	x = concat ([a,b],[c,d,e]).
+
+	x has the value [ac,ad,ae,bc,bd,be] .
+
+ See Also
+	concat works on strings.  For a similar function for 
+	lists, see #mcombine#m.
+
+//continue
+
+ Format
+	continue (NUMBER)
+
+ Action
+	The continue topic is called to cancel a wait.  wait 
+	is used to stop execution of the topics in an 
+	application, usually until the user can read a 
+	screen or respond to a request for information.
+
+ Parameters
+	NUMBER is a value that is passed to the wait topic.  
+	When control returns to the wait , this number is 
+	returned by the wait.  This can be used to provide 
+	information about which topic contained the continue 
+	that ended the wait.
+
+ Example
+	window ( ).
+	text ('Place the diskette marked data in drive A:').
+	button (Ok, continue, 10,4).
+	wait ( ).
+	close_window ( ).
+
+	A window is opened and a message and an Ok button 
+	are displayed in the window.  The wait topic halts 
+	execution of the application until a continue topic 
+	is called.  When the user clicks on the Ok button, 
+	the button calls continue, the wait is canceled and 
+	the window is closed.
+
+ See Also
+	#mwait#m
+
+//Conversion between Lists and Strings
+
+  ASCII Values to characters  #x28#mnumber_to_char#m
+  Characters to ASCII values  #x28#mchar_to_number#m
+  List to string    #x28#mlist_to_string#m
+  String to list    #x28#mstring_to_list#m
+  String to list of characters#x28#mlist_of_char#m
+  String to lower case  #x28#mlower#m
+  String to upper case  #x28#mupper#m
+
+//Converting from KnowledgePro (DOS) ver. 1.X
+
+  To use the application include the line:
+            @ CONVERT.SRC
+  as the first line in your application. Make sure that     
+  CONVERT.SRC is in the same directory as your application 
+  and recompile the application using KnowledgePro 
+  (Windows).  To run the knowledge base select File/Run.
+             
+  CONVERT will translate commands that have changed between    
+  environments and will inactivate DOS commands that do not    
+  exist under windows.  If you want to see the major 
+  differences between the versions you may want to print
+  CONVERT.SRC.      
+             
+  Even though many applications will immediately run after      
+  including CONVERT, you'll probably want to modify them to 
+  take advantage of the many features of the windows environment.   
+             
+  Here are a few areas to watch out for:    
+             
+    1] Colors - The colors supported are different between 
+         versions. Since Windows does not use colored windows
+         in the same way as DOS, you're probably better off 
+         getting rid of all your colors and then adding them as needed.   
+               
+    2] The DOS version let you refer to the device names       
+         con: , lst: , aux: , kbd:   
+         without surrounding them with quotes. If you have    
+         done this, you must include the quotes before 
+         using the application under KnowledgePro (Windows).     
+             
+    3] The WINDOWS version handles hypertext differently 
+         than the DOS version. For example:    
+             
+        window (,10,5,40,10).       
+        say ('This is an example of #m#mhypertext#m#m').   
+        close_window ().
+             
+        topic hypertext.
+          say ('This text overwrites the old text.').      
+        end.     
+             
+ In the DOS version, the hypertext returns to the 
+ original screen once the second message is read 
+ and waits for input. In WINDOWS, hypertext returns
+ to the next command line. If the hypertext is 
+ displayed in a new window this does not create a 
+ problem but in the example above, the first 
+ message is not automatically redisplayed.
+ This can easily be remedied by opening a new window.    
+             
+        topic hypertext.
+           window (,10,5,40,10).     
+           say ('This text overwrites the old text.').      
+           close_window ().
+        end.     
+             
+  This change adds flexibility to hypertext that you 
+   will come to appreciate as you dive into the system.         
+
+    
+//Copy highlighted text to the clipboard
+ 
+ Once text has been highlighted in a screen object, you can 
+ copy it to the clipboard from within your program with the 
+ #mget_selected_text#m function.
+ 
+//Create graphic buttons
+ 
+ Graphic buttons, as an alternative to text buttons, can 
+ enhance the look of your application and provide access to 
+ information through pictures. The following topic is an 
+ example of creating a graphic button in KnowledgePro:
+ 
+ topic GraphicButton (bmpFile, event, col, row, tSize, tWidth, 
+ 			tHeight, tParent ).
+    :gbEvent is ?event.
+    :bmpObject is load_bitmap ( ?bmpFile).
+     tSize is bitmap_info (?bmpObject ).
+     tWidth is first (?tSize).
+     tHeight is element (?tSize,2).
+     tParent is get_display_window ( ).
+    :w1 is window ( ,?col,?row,?tWidth+0.75, ?tHeight+0.35,, 
+ 		[childwindow ,visible],?tParent,,12632256).
+   :w2 is window (,1.3, 1.15, ?tWidth+0.75, ?tHeight+0.35, , 
+		[child, siblings,showChildren, visible], ?w1,,gray).
+   :w3 is window ( dip,1.3,1.15,?tWidth,?tHeight,, 
+		[child, siblings,showChildren, visible],?w1,,, 
+		   mouse_down_event ).
+    bitmap (?bmpObject ).
+    set_display_window ( ?tParent ).
+ 
+   topic dip.
+      move_window (?w3,1.5,1.2).
+      move_window (?w3,1.3,1.15).
+     do (?gbEvent).
+   end.
+ end.
+ 
+ By using some object-oriented techniques, you can create a 
+ graphic pushbutton that maintains it's pushed or un-pushed 
+ state. The following topic demonstrates the creation of a 
+ sticky button:
+ 
+ topic StickyButton ( bmpFile, event, col, row, tSize, 
+    tWidth, tHeight, tParent ).
+    im_a (GraphicButton, [?bmpFile, ?event, ?col, ?row] ).
+    :gbEvent is ?event.
+    ?gbEvent is F.
+ 
+      topic dip.
+         if ??gbEvent  then 
+            ?gbEvent is F and
+             move_window ( ?w3, 1.3, 1.15 )
+         else ?gbEvent is T and
+             move_window ( ?w3, 1.5, 1.2 ).
+       end.
+ 
+ end.
+ 
+//Create Objects
+
+#rb  Create:#rd
+    Button      #x28#mbutton#m
+    Check box   #x28#mcheck_box#m
+    Combo box#x28#mcombo_box#m
+    Edit objects#x28#medit_box#m
+            #x28#medit_line#m
+            #x28#medit_file#m
+            #x28#medit_window#m
+    Group box   #x28#mgroup_box#m
+    List box    #x28#mlist_box#m
+    Menu        #x28#mmenu#m
+    Radio button#x28#mradio_button#m
+    Scroll bar  #x28#mhorz_scroll_bar#m
+            #x28#mvert_scroll_bar#m
+    Window      #x28#mwindow#m
+
+#rb Ask a question#rd
+#x28#mask#m
+#x28#mread_response#m
+
+#rb Get a file name #rd
+#x28#mfile_menu#m
+      #x28#msave_as#m
+      #x28#msave_edit_file#m
+
+//create_bitmap
+
+ Format
+	create_bitmap (WIDTH, HEIGHT, PLANES, BITSPERPIXEL, 
+	   BITS)
+
+ Action
+	Creates a bitmap.
+
+ Parameters
+	WIDTH is the width of the bitmap.
+
+	HEIGHT is the height.
+
+	PLANES is the number of planes.
+
+	BITSPERPIXEL is the number of bits for each on-
+	screen pixel.
+
+	BITS is the bitmap data.  This is a list of numbers.  
+	Each element of the list represents a byte in the 
+	bitmap.  Each bit in the byte represents a bit on 
+	the screen.  Monochrome bitmaps are stored in a one-
+	bit, one-plane format.  
+
+	Each screen line is represented as a continuous 
+	scan.  Each scan is padded to be a multiple of 16 
+	bits.
+	
+	Color bitmaps use a one-bit, three plane format.  
+	Data is stored in 3 patterns, one each for red, 
+	green and blue.  All red data first, one scan line 
+	at a time, then green and finally blue.  Each scan 
+	line is a multiple of 16 characters.
+
+	If WIDTH, HEIGHT, PLANES or BITSPERPIXEL are lists, 
+	only the first element is used.
+
+ Returns
+	The handle to the bitmap.
+
+ Example
+	The following example displays a 20 pixel x 5 pixel 
+	bit map in the upper left corner of a window on a 
+	system with a character size of 16 x 7 bits.  The 
+	bitmap displays the word HELLO.  The bitmap is 
+	constructed from the following binary data:
+
+	0101	0001	0111	0111	0001	51771000
+	0101	0111	0111	0111	0101	57775000
+	0001	0011	0111	0111	0101	13775000
+	0101	0111	0111	0111	0101	57775000
+	0101	0001	0001	0001	0001	51111000
+
+	Note that 0 represents a black pixel and 1 
+	represents a white pixel.  Also note that the hex 
+	representation is padded to a multiple of 16 bits.
+
+	bits =[	hex('51'),hex('77'),hex('10'),hex('00'),           
+		hex('57'),hex('77'),hex('50'),hex('00'),           
+		hex('13'),hex('77'),hex('50'),hex('00'),           
+		hex('57'),hex('77'),hex('50'),hex('00'),           
+		hex('51'),hex('11'),hex('10'),hex('00')].
+	b = create_bitmap (20 / 7, 5/16,1,1, ?bits).
+
+	window ().
+	bitmap (?b).
+
+	topic hex (num).
+  	  temp1 = list_of_char (?num).
+	  temp2 = 0.
+	  i = list_length (?temp1).
+	  expn = 0.
+	  while ?i > 0
+	     then temp2 = ?temp2 + 
+	        num_val (element(?temp1,?i)) * (16^?expn) and
+	        expn = ?expn + 1 and
+	         i = ?i - 1.
+	  hex = ?temp2.
+
+	  topic num_val (n).
+	     if (?n => '0' and ?n <= '9')
+	       then num_val = char_to_number (?n) - 
+		 char_to_number ('0')
+	     else if (?n >= 'A' and ?n <= 'F')
+	          then num_val = char_to_number (?n) - 
+		    char_to_number ('A') + 10
+	     else if (?n >= 'a' and ?n <= 'f')
+	          then num_val = char_to_number (?n) - 
+		  char_to_number ('a') + 10
+	     else num_val = 0.
+	  end. (* num_val *)
+	end. (* hex *)
+
+ Errors
+	I_CANT_OPEN_BITMAP
+
+ See Also
+	#mbitmap#m, #mload_bitmap#m,#mbitmap_to_clipboard#m, 
+	#mread_clipboard#m, #mdelete_bitmap#m
+
+//create_char_font
+
+ Format
+	create_char_font (FONT_DESCRIPTION)
+
+ Action
+	create_char_font is passed parameters that describe 
+	a logical font.  Windows uses this description to 
+	select the physical font that is the closest to the  
+	specified description.  A handle to the physical  
+	font is returned.  create_char_font creates fonts 
+	which will appear proportionally on different screen 
+	displays.
+
+ Parameters
+	FONT_DESCRIPTION is a list containing the following  
+	elements:
+
+	HEIGHT is the desired height of the characters in 
+	system characters. This parameter specifies line 
+	spacing for the font.  It may contain a decimal 
+	number.
+
+	WIDTH is the desired width of the font in system 
+	characters. If WIDTH is 0, a font is chosen based on 
+	the height.  It may contain a decimal number.
+
+	WEIGHT is a number from 0 to 1000. This parameter 
+	specifies the darkness of the characters. Typical 
+	values are:
+
+ 	400 - normal             
+	700 - bold
+
+	Typically, any value from 0 to 550 is normal, a 
+	value greater than 550  is bold.
+
+	ITALIC is a boolean. If ITALIC is true, the 
+	characters are printed in italics. The default is 
+	false.
+
+	UNDERLINE is a boolean. If UNDERLINE is true, the 
+	characters are underlined. The default is false.
+
+	STRIKEOUT is a boolean. If STRIKEOUT is true, the 
+	characters are printed with a line drawn through 
+	them. The default is false.
+
+	CHARSET specifies the character set.
+ 	Currently only two values are used: 
+	0   	ANSI character set             
+	255 	OEM (machine dependent) character set.
+
+	QUALITY describes how closely you want to match the 
+	specified font to the real font. Three values are 
+	accepted:  
+	 0   default             
+	 1   draft quality             
+	 2   proof quality  
+ 
+	Proof quality indicates that you don't want the font  
+	increased in size to match the character height or  
+	width that you request. Proof quality fonts are more 
+	attractive, but may be smaller that you request. 
+ 
+	Default font allows the quality to be determined by  
+	the device creating the font.
+
+	PITCH_AND_FAMILY is the sum of two numbers: 
+ 
+	the pitch:
+	0  	default pitch - pitch set by device
+	1   	fixed pitch - all characters the same width
+	2 	variable pitch - characters of variable width
+ 
+	and the family:
+	0	don't care
+	16	roman - variable pitch with serif
+	32	swiss - variable pitch without serif
+	48	modern - fixed pitch
+	64 	script - characters resembling italic 	
+		handwriting
+	80	decorative - fancy characters 
+ 
+	Fixed pitch indicates that you want all the 
+	characters to be the same width.
+
+	FACE_NAME specifies the typeface name. Typefaces 
+	standard with Windows include:   
+ 
+	'Tms Rmn', Courier, Helv, Modern, Script, Roman, 
+	Terminal,System
+
+ Returns 
+	The handle of the font.
+
+ Example
+	fontTr10 is create_char_font([1,0.85,400,f,f,f,0,1,18,
+	   'Tms Rmn']).
+	fontHelv10 is create_char_font ([1.25,1.1428,400,
+	   f,f,f,0,1,34,Helv]).
+	use_font (?FontTr10).
+	text ('This is Times Roman').
+	use_font (?fontHelv10).
+	text ('This is Helvetica').
+
+ Note     
+	The font must be selected with use_font before it is 
+	used.  When you are finished using a font, you 
+	should release its memory using delete_font. Do not 
+	delete any fonts which are still in use in a window.
+
+	The application FONT.CKB will help you create 
+	attractive system character fonts.  Select one of 
+	the fonts displayed and then COPY to copy the font 
+	command to the clipboard.
+
+	To see a list of the fonts currently installed on 
+	your system run FONTPRN.CKB. If you are creating 
+	tables of data, do not use proportional fonts.
+
+ Errors   
+   	I_CANT_CREATE_FONT
+
+ See Also
+	#muse_font#m, #mdelete_font#m, #mtypeface_list#m, 
+	#mfont_list#m, #mcreate_font#m
+
+//create_font
+
+ Format
+	create_font (FONT_DESCRIPTION)
+
+ Action 	
+	create_font is passed parameters that describe a 
+	logical font.  Windows uses this description to 
+	select the physical font that is the closest to the  
+	specified descriptions.  A handle to the physical  
+	font is returned.
+
+ Parameters
+	FONT_DESCRIPTION is a list containing the following  
+	elements:
+
+	HEIGHT is the desired height of the characters in 
+	units of pixels. This parameter specifies line 
+	spacing for the font.
+
+	WIDTH is the desired width of the font in units of 
+	pixels. If WIDTH is 0, a font is chosen based on the 
+	height.
+
+	WEIGHT is a number from 0 to 1000. This parameter 
+	specifies the darkness of the characters. Typical 
+	values are:  
+	 400 - normal 
+	 700 - bold
+
+	ITALIC is a boolean. If ITALIC is true, the 
+	characters are printed in italics. The default is 
+	false.
+
+	UNDERLINE is a boolean. If UNDERLINE is true, the 
+	characters are underlined. The default is false.
+
+	STRIKEOUT is a boolean. If STRIKEOUT is true, the 
+	characters are printed with a line drawn through 
+	them. The default is false.
+
+	CHARSET specifies the character set. Currently only  
+	two values are used:  
+	0 	ANSI character set 
+	255	OEM (machine dependent) character set.
+
+	QUALITY describes how closely you want to match the 
+	specified font to the real font. Three values are 
+	accepted:  
+	0 	default          
+	1 	draft quality 
+	2 	proof quality
+
+	Proof quality indicates that you don't want the font  
+	increased in size to match the character height or  
+	width that you request. Proof quality fonts are more 
+	attractive, but may be smaller that you request.
+
+	Default font allows the quality to be determined by  
+	the device creating the font.
+
+	PITCH_AND_FAMILY is the sum of two numbers: 
+	the pitch:  
+	 0 	default pitch - pitch set by device             
+	 1 	fixed pitch - all characters the same width
+	 2 	variable pitch - characters of variable width  
+
+	and the family:  
+	0  	don't care          
+	16 	roman - variable pitch with serif
+	32 	swiss - variable pitch without serif
+	48 	modern - fixed pitch 
+	64 	script - characters resembling italic 	
+		handwriting
+	80 	decorative - fancy characters
+
+	Fixed pitch indicates that you want all the 
+	characters to be the same width.
+
+	FACE_NAME specifies the typeface name. Typefaces 
+	standard with Windows include:  
+ 	'Tms Rmn', Courier, Helv, Modern, Script, Roman, 
+	Terminal, System
+
+ Returns  
+   	The handle of the font.
+
+ Note    
+    	The font must be selected with use_font before it is 
+	used.  When you are finished with a font, you should 
+	release its memory using delete_font.
+
+	If you are creating tables of data, do not use 
+	proportional fonts.
+
+ Errors   
+   	I_CANT_CREATE_FONT
+
+ See Also
+	#muse_font#m, #mdelete_font#m, #mtypeface_list#m, 
+	#mfont_list#m, #mcreate_char_font#m
+
+//create_topic
+
+ Format
+	create_topic (TOPIC)
+
+ Action
+	Creates a new topic.  If TOPIC is a list, each of 
+	the topics specified by the list are created. If 
+	necessary parent topics are also created. Topics are 
+	normally created explicitly with a topic statement  
+	or implicitly the first time they are referenced.
+
+ Parameters 	
+	TOPIC is a topic name or list of topic names.
+
+ Example 	
+	create_topic (x:y).
+
+	This topic creates x if it does not already exist 
+	and then creates the topic y as a sub-topic of x.
+
+//current_directory
+
+ Format
+	current_directory ( )
+
+ Action
+	Finds the full path name of the current directory.
+
+ Returns
+	The full path name of the current directory.
+
+ Example
+	text ('The file could not be found in ##s', 
+	current_directory()).
+
+	If this command is executed while the current 
+	directory is C:\GARDEN it displays:
+
+	The file could not be found in C:\GARDEN.
+
+ See Also
+	#mchange_directory#m, #mdir#m
+
+//Customize the KnowledgePro environment
+ 
+ The KnowledgePro environment can be customized by adding 
+ your own programming tools to the development menu.
+ 
+ A tool can be just about any KPWIN application. Tools are 
+ applications which are spawned when you select an item from 
+ the Tools menu. KPWIN starts the tool application by 
+ starting a new instance of KPWIN and passing it the name of 
+ the tool to be executed. The new instance of KPWIN runs 
+ invisibly, so you won't see a new icon for each instance. 
+ Tools can do anything you want, but should follow a few 
+ simple rules:
+ 
+ 1. Tools are separate applications. The don't have direct 
+ access to the main instance of KPWIN. This means that they 
+ must communicate with the main instance of KPWIN via DDE, 
+ the clipboard or files.
+ 
+ 2. A tool will be automatically shut down when the instance 
+ of KPWIN which spawned it is terminated.
+ 
+ 3. Tools should have some way to shut themselves down. Since 
+ they are a separate instance of KPWIN, they should do an 
+ exit_kp and not just close the application's main window. If 
+ you don't do this, there will be an extra instance of KPWIN 
+ hanging around doing nothing until you shut down the first 
+ copy of KPWIN.
+ 
+ 4. Each time you choose an item from the Tools menu, you 
+ spawn a new instance of KPWIN. 
+ 
+ 5. You can add your application to the Tools menu by 
+ selecting Customize Tool Menu or by editing the win.ini 
+ file. The format of tools in the win.ini file is:
+ 
+ Tooln=[Title, Application, Initialization Command].
+ 
+ where:
+ 	n is an integer from 1 to 16. You can have up to 16 
+ 	tools on the menu.
+ 
+ 	Title is the text which will appear on the Tool menu, 
+ 	If this text contains spaces, periods etc., it must be 
+ 	enclosed in single quotes.
+ 
+ 	Application is the name of the KnowledgePro program 
+ 	which will be executed when the menu option is 
+ 	selected. If this text contains spaces, periods etc., 
+ 	it must be enclosed in single quotes. The application 
+ 	is loaded by the command:
+ 
+ 		KPWIN Application
+ 
+ 	Initialization Command is an optional string which 
+ 	will be sent to the application via a #mdde_execute#m 
+ 	command after the application is loaded. It must have 
+ 	proper KnowledgePro syntax, including a period after 
+ 	each command.
+ 
+ For example, 
+ 
+ 	Tool1=['&Fonts...', 'C:\win\kpwin\fonts\font2.ckb', 
+ 		'change_directory (c:\appfonts).'].
+ 
+ This setting adds Fonts... to the Tools menu. When this 
+ option is selected, the application,  
+ C:\windows\kpwin\fonts\font2.ckb is loaded and a 
+ change_directory command is executed to switch the 
+ application to a new directory.
+ 
+//date
+
+ Format
+	date ( )
+
+ Action
+	Reads the date from the system clock.  The format 
+	returned is [ month , day , year ]
+
+ Returns
+	A list in the format shown above which contains the 
+	current system date.
+
+ Example
+	today_date is date ().
+	date_string is list_to_string (?today_date, '/').
+	text (?date_string).
+
+	today_date is assigned the value  [8,24,91] if that 
+	is the current date.  8/24/91 is displayed in the 
+	current window.
+
+//dde
+
+ Format
+	dde ( )
+
+ Action
+	Allows KnowledgePro to act as the server in DDE 
+	conversations. A server responds to DDE requests 
+	initiated by other applications.
+
+	KnowledgePro responds to the task name KPWIN or 
+	KPWINRUN. The handle of a particular instance of 
+	KPWIN can also be given at the end of the name.
+
+	KnowledgePro accepts the DDE topics system, KPWIN, 
+	or the current application name. For the system DDE 
+	topic, KnowledgePro responds to requests for the 
+	items:
+
+	sysItems is the information that can be requested 
+	from the topic system.  These are sysItems, 
+	topics and formats.
+
+	topics are system, KPWIN and the names of the 
+	currently running knowledge bases.
+
+	formats is the list of data formats supported.  
+	These are text, bitmap and csv (comma separated 
+	variable).
+
+	For the other DDE topics, KnowledgePro accepts 
+	requests to return the value of KnowledgePro topics.
+
+ Note
+	dde ( ) is not required for KnowledgePro to act as a 
+	client to another DDE application.  To use 
+	KnowledgePro as a client use dde_open.
+
+	KnowledgePro is enabled to act as a DDE server by 
+	default.  This can also be changed from the 
+	Options/Remote Requests option on the menu of the 
+	development environment.
+
+	KnowledgePro can respond to client requests to open 
+	a channel, close a channel, request system 
+	information, execute topics, notify the client when 
+	a topic changes, and poke a value.  A description of 
+	poking a value is provided below.  All other 
+	functions are described in Chapter 8 of the manual.
+
+	A remote application can use a poke DDE message to 
+	assign a value to a topic.  The application should 
+	supply the topic name and the value to be assigned 
+	to the topic separated by commas.  If the value 
+	contains more than one item, such as a range of 
+	spreadsheet cells, it is stored as a list.  The data 
+	may be passed as either comma separated variable or 
+	text format. The search for the topic begins at 
+	!main, so to assign values to subtopics, use the 
+	full name of the topic.
+
+	For example, the Excel macro statement
+
+	=POKE(A1,"Pets",C2:D2)
+
+	assigns the contents of cells C2 and D2 to the topic 
+	!main:Pets. If C2 contains cat and D2 contains dog, 
+	Pets will have the value [cat, dog].
+
+	Demons may be used to check values and notify the 
+	user that a change to a topic has taken place. For 
+	example
+
+	set_demon (Pets, notify).
+
+	topic notify (topic_name, old_value, new_value).   
+	   if list_length (?new_value) > 5 
+		then window () and      
+		   say ('You have too many pets!') and 
+		   close_window () and 
+		   notify = True. 
+ 	end. (* notify *)
+
+	notify is called when Pets changes value.  If , for 
+	example Excel pokes a value to Pets which causes it 
+	to have more than 5 items, the demon notify is 
+	called and set to T.  This causes Pets to reject the 
+	new value.
+
+ See Also
+	#mdde_off#m
+
+//dde_advise
+
+ Format
+	dde_advise (DDE_HANDLE, REQUEST, FORMAT )
+
+ Action
+	Request the server task to notify KnowledgePro 
+	whenever REQUEST changes value. If the server can 
+	respond, a dde_ok_event occurs and the DDE_TOPIC 
+	defined in dde_open is called as:
+
+	DDE_TOPIC (INFORMATION,DDE_OK_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION contains the name of the request which 
+	was passed as REQUEST in the call to dde_advise.  
+	DDE_HANDLE is the handle passed in dde_advise.
+
+	If the server cannot respond to the request then a 
+	dde_fail_event occurs and the DDE_TOPIC set by 
+	dde_open is called as
+
+	DDE_TOPIC (INFORMATION,DDE_FAIL_EVENT,
+			DDE_HANDLE).	
+
+	INFORMATION contains the REQUEST which was named in 
+	the call to dde_advise.  REQUEST and DDE_HANDLE are 
+	passed so you can identify which DDE request failed.
+
+ Parameters
+	DDE_HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+	REQUEST is the information requested from the server 
+	task. The format of this parameter depends on the 
+	application connected to the DDE_HANDLE. If this 
+	parameter is a list, only the first item is used.
+
+	FORMAT is a format code.  The following formats are 
+	supported:
+
+	text		which can also be passed as the code 1
+	bitmap		which can also be passed as the code 2
+	csv		comma separated variable
+
+	The default is text.  If this element is a list 
+	only the first item is used.
+
+ Example
+	load_program ('Excel TAXES.XLS', 2).
+	handle is dde_open (ExcelTopic, '"Excel"', 		 
+	   '"TAXES.XCL"').
+	dde_advise (?handle, R4C6).
+
+	topic ExcelTopic (INFO, EVENT, HANDLE).
+	   do (?event).
+	
+	   topic dde_fail_event.
+		 ErrorMessage ( ).
+	   end.
+	
+	   topic dde_data_event.
+		if first (?info) < 100
+		   then trouble ( ).
+	   end.
+  	end.
+
+	In this example the program Excel is loaded along 
+	with the spreadsheet TAXES.XLS.  A dde channel is 
+	initiated and its handle is saved in the topic 
+	handle.  All dde events are handled by the dde topic 
+	ExcelTopic.  dde_advise tells the server to send a 
+	dde_data_event whenever the cell R4C6 changes its 
+	value.  If the server can't handle the request a 
+	dde_fail_event occurs and when ExcelTopic is called 
+	an error message is produced by the call to the 
+	topic ErrorMessage (not shown).  When Excel properly 
+	responds with an advise, a change in R4C6 causes a 
+	dde_data_event to occur.
+
+	The first item of the INFO parameter contains the 
+	new data.  If the new value is less than 100 the 
+	topic trouble is called.
+
+ Errors
+	I_INVALID_DDE_HANDLE,I_NO_ATOM,I_DDE_NO_MEM
+
+ See Also
+	#mdde_open#m, #mdde_request#m, #mdde_unadvise#m
+
+//dde_close
+
+ Format
+	dde_close (DDE_HANDLE)
+
+ Action
+	Terminates the conversation specified by DDE_HANDLE. 
+	No more dde events are processed for this 
+	conversation.  This does not affect KnowledgePro's 
+	ability to act as a server for requests from other 
+	applications.
+
+ Parameters
+	DDE_HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+ Errors
+	I_INVALID_DDE_HANDLE
+
+ See Also
+	#mdde_open
+
+//dde_execute
+
+ Format
+	dde_execute (DDE_HANDLE, COMMANDS )
+
+ Action
+	Request the server task to execute a series of 
+	commands.  If the server can execute the commands a 
+	dde_ok_event occurs and the DDE_TOPIC set by 
+	dde_open is called as:
+
+	DDE_TOPIC (INFORMATION,DDE_OK_EVENT,
+			DDE_HANDLE).
+
+	In the case of a dde_execute INFORMATION contains 
+	the empty list, [ ], since no data is returned.
+
+	When the server cannot respond to the dde_execute a 
+	dde_fail_event occurs and the DDE_TOPIC set by 
+	dde_open is called as
+
+	DDE_TOPIC (INFORMATION,DDE_FAIL_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION contains the empty list, [ ].
+
+ Parameters
+	DDE_ HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+	COMMANDS is a list of commands to be executed by the 
+	server task. The format of the list elements depends 
+	on the application connected to DDE_HANDLE.
+
+ Errors
+	I_INVALID_DDE_HANDLE,  I_DDE_NO_MEM
+
+ See Also
+	#mdde_open#m, #mdde_write#m
+
+//dde_off
+
+ Format
+	dde_off ( )
+
+ Action
+	Causes KnowledgePro to ignore DDE messages from 
+	client tasks.  DDE can also be enabled and 
+	disabled from Options on the main menu of the 
+	development environment.
+
+	This command does not affect KnowledgePro's relation 
+	as a client to another application.
+
+ See Also
+	#mdde#m
+
+//dde_open
+
+ Format
+	dde_open (DDE_TOPIC, APPLICATION, SUBJECT )
+
+ Action
+	Attempts to Initiate a DDE conversation with the 
+	specified application. The application acts as the 
+	server and KnowledgePro acts as the client in the 
+	conversation.
+
+ Parameters
+	DDE_TOPIC is the topic that handles DDE events. DDE 
+	events are dde_ok_event, dde_fail_event and 
+	dde_data_event . If this item is a list, only the 
+	first element is used.
+
+	APPLICATION is the name of the application which is 
+	to act as the server. Each application which can act 
+	as a server in a DDE conversation has an application 
+	name to which it responds. See the documentation 
+	accompanying the program for the application name. 
+	If this item is a list, only the first element is 
+	used.
+
+	SUBJECT identifies the subject of the DDE 
+	conversation. Microsoft Windows documentation calls 
+	this the topic of the conversation. We use the term 
+	subject to avoid confusion with KnowledgePro topics. 
+	If this item is a list, only the first element is 
+	used.
+
+ Returns	
+	DDE_HANDLE, a DDE channel handle. Since more than 
+	one conversation can be started, the handle is used 
+	to uniquely identify each particular conversation. 
+	If the application does not respond, [ ] is returned 
+	and no conversation is initiated.
+
+ Errors
+	I_NO_ATOM, I_INVALID_DDE_HANDLE
+
+ Note	
+	dde_open lets KnowledgePro act as a client to other 
+	applications.  This means it can read and write data 
+	and execute commands in other Windows DDE 
+	applications.
+
+	A call to dde_open must be made before any of the 
+	following functions can be called:
+
+		dde_advise
+		dde_close
+		dde_execute
+		dde_write
+		dde_request
+		dde_unadvise
+
+	When a dde channel is no longer needed, you should 
+	always use dde_close to close the channel.  To use 
+	KnowledgePro as a server, you must use
+
+	dde ( ).
+
+//dde_request
+
+ Format
+	dde_request (DDE_HANDLE, REQUEST, FORMAT)
+
+ Action
+	Request the server task to provide KnowledgePro with 
+	the data described by REQUEST.  If the server can 
+	respond to the request, a dde_data_event occurs and 
+	the DDE_TOPIC defined in dde_open is called as
+
+	DDE_TOPIC (INFORMATION, DDE_DATA_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION is a list that contains [DATA, REQUEST, 
+	FORMAT].
+
+	If the request can't be filled,  a dde_fail_event 
+	occurs and the DDE_TOPIC set by dde_open is called 
+	as:
+
+	DDE_TOPIC (INFORMATION, DDE_FAIL_EVENT, 
+			DDE_HANDLE).
+
+	INFORMATION contains the name of the item requested 
+	which was passed as REQUEST in dde_request.
+
+ Parameters
+	DDE_HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+	REQUEST is the information requested from the server 
+	task. The format depends on the application 
+	connected to the DDE_HANDLE. If this parameter is a 
+	list, only the first parameter is used.
+
+	FORMAT is a format code.  The following formats are 
+	supported:
+	text		which can also be passed as  1
+	bitmap		which can also be passed as 2
+	csv		comma separated variable
+
+	The default is text. If this parameter is a list 
+	only the first element is used.
+
+ Errors
+	I_INVALID_DDE_HANDLE, I_NO_ATOM, 
+	I_DDE_INVALID_FORMAT
+
+ See Also
+	#mdde_open#m, #mdde_advise#m
+
+//dde_unadvise
+
+ Format
+	dde_unadvise (DDE_HANDLE, REQUEST )
+
+ Action
+	Tells the server task to stop notifying KnowledgePro 
+	whenever REQUEST changes value.  If the server can 
+	respond to the request, a dde_ok_event occurs and 
+	the DDE_TOPIC defined in dde_init is called as:
+
+	DDE_TOPIC(INFORMATION,DDE_OK_EVENT,DDE_HANDLE).
+
+	INFORMATION contains the name of the request which 
+	was passed as REQUEST in the call to dde_unadvise.
+
+	If the request can't respond to this request,  a 
+	dde_fail_event occurs and the DDE_TOPIC which was 
+	defined in dde_open is called as:
+
+	DDE_TOPIC(INFORMATION,DDE_FAIL_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION contains the name of the request which 
+	was passed as REQUEST in the call to dde_unadvise.
+
+ Parameters
+	DDE_HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+	REQUEST is the information requested from the server 
+	task. The format of this parameter depends on the 
+	application connected to the DDE_HANDLE. If this 
+	parameter is a list, only the first parameter is 
+	used. If REQUEST is [ ] or 0, then all advise links 
+	with the server are terminated.
+
+ Errors
+	I_INVALID_DDE_HANDLE, I_NO_ATOM
+
+ See Also
+	#mdde_open#m, #mdde_advise#m
+
+//dde_write
+
+ Format
+	dde_write (DDE_HANDLE, ITEM, DATA, FORMAT)
+
+ Action
+	This topic sends unsolicited data to the server 
+	task.  If the data is successfully written to the 
+	server task a dde_ok_event occurs and the DDE_TOPIC 
+	defined in the call to dde_open is called as:
+
+	DDE_TOPIC (INFORMATION,DDE_OK_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION contains the name of the item being 
+	written which is passed as ITEM in the dde_write.
+
+	If the data can't be sent to the server task a 
+	dde_fail_event occurs and the DDE_TOPIC set by 
+	dde_open is called as
+
+	DDE_TOPIC (INFORMATION,DDE_FAIL_EVENT,
+			DDE_HANDLE).
+
+	INFORMATION again contains the contents of ITEM 
+	passed in the dde_write.
+
+ Parameters
+	DDE_HANDLE is the DDE channel handle returned by 
+	dde_open. This handle uniquely identifies the DDE 
+	conversation.
+
+	ITEM is the item in the server task to which the 
+	data is passed.  The format depends on the 
+	application connected to the DDE_HANDLE. If this 
+	parameter is a list, only the first parameter is 
+	used.
+
+	DATA is the data to be sent to the application. The 
+	format of the data depends on the receiving 
+	application. If this parameter is a list, only the 
+	first item is used. Comma separated variable (csv) 
+	data should be passed as a string with embedded 
+	commas.
+
+	FORMAT is a format code.  The following formats are 
+	supported:
+	text		which can also be passed as 1
+	bitmap		which can also be passed as 2
+	csv		comma separated variable
+
+	The default is text.  If this parameter is a list, 
+	only the first element is used.
+
+ Errors
+	I_INVALID_DDE_HANDLE, I_NO_ATOM, I_DDE_NO_MEM, 
+	I_DDE_INVALID_FORMAT
+
+//debug
+
+ Format
+	debug (TOPIC )
+
+ Action
+	Allows a topic and its children to be viewed with 
+	show_topic. and listed by make_topic_list.
+
+ Parameters
+	TOPIC is the name of a topic or a list of topic 
+	names.  The default is !main.
+
+ Errors
+	I_V_TOPIC_NOT_FOUND
+
+ See Also
+	#mno_debug#m
+
+//Debug a program
+ 
+ There are several very powerful debugging tools integrated 
+ into the KnowledgePro environment.  These include:
+ 
+ 	Topics		take a snapshot of a running application
+ 	Trace		trace each step of the execution of the 
+ 			application.
+ 	Calls		display the topic calls in the 	
+ 			application.
+ 	Evaluate	execute an application with another 
+ 			running in memory.
+ 
+ These debugging tools let you both look at and interact with 
+ a running application.  
+ 
+ The menu option Debug/Topics provides you with a snapshot of 
+ the current application.  When selected, Debug/Topics 
+ displays a list of the topic structure of the application.  
+ Indentation shows the nesting level of the topics in the 
+ application.  This is particularly helpful for new users who 
+ are experiencing difficulty with structure.
+ 
+ Any topic in the list can be expanded by clicking the mouse 
+ on a topic or moving the bar cursor with the arrow keys to 
+ the topic name and then pressing ENTER. The same topic 
+ listing can be shown from within your program with the 
+ #mmake_topic_list#m function.
+ 
+ While the topic list is a picture of the application at one 
+ particular time, trace is a record of the flow of the 
+ application, as it executes.  Output from the trace function 
+ shows topics as they are called and the result returned by 
+ each call.  Tracing can be turned on from inside the 
+ application with the #mtrace#m function, or by selecting 
+ Debug/Trace from the main menu.  The output of a trace can 
+ be sent to the printer, a file, or a window. The 
+ #mtrace_off#m function halts the tracing.
+ 
+ Debug/Calls on the main menu provides a list of all of the 
+ topics which have been called but not completed.  This 
+ provides a map of how you arrived at the current location in 
+ the application.  Like Debug/Topics it is a snapshot of the 
+ current state of the system, but calls also gives 
+ information about the flow through the application. 
+ 
+ There may be times when you want to change the state of a 
+ running application for testing or debugging. Another way to 
+ alter a running application is to compile and execute 
+ another application directly into the one already running.  
+ This can be done from the main menu using Debug/Evaluate.  
+ Before you select this option, make sure that the 
+ application you want to execute is located in the currently 
+ active edit window.  The application can be typed in, loaded 
+ from a file or copied from the clipboard.  When 
+ Debug/Evaluate is selected the contents of the current edit 
+ window are compiled and immediately executed.  The 
+ application already running is not erased but its state in 
+ memory may be changed as a result of the actions of the new 
+ application.   This feature is very useful for implementing 
+ standard tests or reports which might be needed during 
+ debugging.
+ 
+//Debugging
+
+    Execute one step at a time#x36#msingle_step#m
+    Make topic structure available#x36#mdebug#m
+    Trace                 #x36#mtrace#m
+    Trace off             #x36#mtrace_off#m
+    Turn off single stepping  #x36#msingle_step_off#m
+    Turn off topic structure availability  #x36#mno_debug#m
+
+//Define an event topic
+ 
+ An event topic is automatically called by KnowledgePro when 
+ the event listed in the command to create the screen object 
+ occurs. Many of the screen objects provide a default event 
+ so that you need not specify one. For example, the edit_line 
+ function provides a default #mlose_focus_event#m:
+ 
+ 	edit_line (,MyEventTopic).
+ 
+ When the cursor moves to another object or the mouse pointer 
+ selects another object, a lose_focus_event occurs. 
+ KnowledgePro then calls the event topic, in this case, 
+ MyEventTopic, with three parameters:
+ 
+ 	event information
+ 	event name
+ 	handle to the object
+ 
+ Typically, you may define an event topic with these 
+ parameters as:
+ 
+ 	topic MyEventTopic (info, event, handle).
+ 	  (* commands go here *)
+ 	end.
+ 
+ The information passed into the event topic, can be used to 
+ determine your next course of action.
+ 
+//Define object classes and sub-classes
+ 
+ A class is a description of a specific type of object.  In 
+ KnowledgePro a topic can behave like a class.  In the 
+ example below we define a class of object called a 
+ MessageWindow. When executed, this topic opens a window, 
+ displays a message and waits for the user to select a 
+ button.
+ 
+ topic MessageWindow (message).
+    :w1 is window (,18,5,42,18,,?style,?parent).
+    text (?message).
+    :b1 = button (Continue,Continue,15,?ButtonRow).
+    set_focus (?b1).
+    wait ().
+ 
+    topic style.
+       style is [popupWindow, visible].
+    end.
+
+    topic parent.
+        parent is [].
+    end.
+
+    topic ButtonRow.
+       ButtonRow is 12.
+    end.
+ 
+   topic Goodbye.
+      close_window (?w1).
+   end.
+ 
+    topic NewMessage (newOne).
+       set_text (?w1,?newOne).
+       set_focus (?b1).
+       wait ().
+    end.
+ 
+ end.
+ 
+ In the call to #mwindow#m in the first command, the style 
+ parameter is entered as ?style.  This tells KnowledgePro to 
+ use the value of the topic style as the parameter.  Since 
+ this topic does not yet have a value, the system calls the 
+ topic style to find it.  This technique is called backward 
+ chaining. Click on the phrase How to #mUse Backward 
+ Chaining#m for more information on this subject. The topics 
+ parent and buttonRow are also defined in this way.  These 
+ subtopics are called when MessageWindow is initialized.
+ 
+ The other subtopics found in MessageWindow are Goodbye and 
+ NewMessage.  These topics define actions that can be 
+ performed by MessageWindow objects once they have been 
+ created.  In the language of object-oriented programming 
+ they are called methods.
+ 
+ A sub-class is a type of class of objects which inherits 
+ properties from another class. For example we can create a 
+ new object type which is a sub-class of MessageWindow:
+ 
+ topic DialogMessage (Message).
+   :style is [dialogWindow, visible].
+   :buttonRow is 15.
+    im_a (MessageWindow, ?message).
+ end.
+ 
+ As in the case of MessageWindow, the topic is simply a 
+ definition of the object. To create an instance of the 
+ object, refer to How to #mDefine object instances#m.
+ 
+//Define object instances
+ 
+ A class or sub-class is a definition of an object or a 
+ template which describes a certain type of object.  When we 
+ want to create a specific object with this description and 
+ behavior we use the #mnew#m function as follows:
+ 
+ 	new (M1,MessageWindow,'This is my message.').
+ 	M1:NewMessage ('This is new stuff').
+ 	M1:Goodbye ().
+ 	remove_topic (M1).
+ 
+ new creates an instance of the object and executes its 
+ commands. This newly created topic (instance) contains all 
+ of the information from the original topic.
+ 
+//delay
+
+ Format
+	delay (TOPIC)
+
+ Action
+	Used internally to prevent the evaluation of 
+	parameters in rules, while and repeat until 
+	conditions have been evaluated.
+
+ Parameters
+	TOPIC is a KnowledgePro topic.
+
+ Returns 
+	Returns the parameter passed to delay.
+
+ Example
+	if ?sales > 200 and
+	   ?profit > 1000 
+	   then say ('Good Job').
+
+	Is translated by the compiler, into
+
+	rule (and (compare (>,?sales,200),
+	delay (compare ((>,?profit, 1000)))), 
+	delay (say ('Good Job'))).
+
+	delay is used to prevent the premature evaluation 
+	of profit and the execution of the second compare 
+	and the say topics. These topics are executed only 
+	if the first comparison succeeds.
+
+ Note
+	This topic is only used internally.  You may 
+	encounter it on a list of topics displayed in a 
+	debug or during a trace. delay is useful if you are 
+	working directly with topics in their internal 
+	representation in perform or set_procedures.
+
+//delete_bitmap
+
+ Format
+	delete_bitmap (BITMAP_HANDLE )
+
+ Action
+	Removes the bitmap from memory and makes its handle 
+	invalid.
+
+ Parameters
+	BITMAP_HANDLE is a handle or list of bitmap handles.
+
+ Note
+	Be careful that the bitmap handle is not still being 
+	used in a screen display. Close any windows or clear 
+	the window displaying the bitmap before deleting it.  
+	KnowledgePro uses the bitmap handle for re-painting 
+	the window.
+
+ Example
+	graph is load_bitmap ('GRAPH.BMP').
+	bitmap (?graph, 10,4).
+	hyper_region (graph1, 10,4,30,10).
+
+	topic graph1.
+	   displayData ().
+	   delete_bitmap (?graph).
+	end.
+
+	The color bitmap GRAPH.BMP is loaded and its handle 
+	is assigned to graph.  The bitmap is displayed at 
+	10,4 and is defined as a hyper-region that is linked 
+	to the topic graph1.  If the user clicks on the 
+	bitmap, graph1 is called, the bitmap is deleted and 
+	the topic displayData, which is defined elsewhere in 
+	the application, clears the window and displays the 
+	data used in the graph.
+
+ Errors
+	I_NOT_BITMAP, I_BITMAP_IN_USE
+
+ See Also
+	#mload_bitmap#m, #mcreate_bitmap#m, 
+	#mread_clipboard#m, #mbitmap_to_clipboard#m
+
+//delete_file
+
+ Format
+	delete_file (FILE)
+
+ Action
+	Remove the specified file.
+
+ Parameters
+	FILE is a file name or list of file names.
+
+ Returns
+	T if successful otherwise F.
+
+ Example
+	This example deletes all .TMP files in the current 
+	directory.
+
+	delete_file (dir ('*.tmp')).
+
+ Errors
+	I_CANT_OPEN
+
+//delete_font
+
+ Format
+	delete_font (FONT_HANDLE )
+
+ Action
+	Removes the specified font or list of fonts and 
+	frees any memory associated with it.
+
+ Parameters
+	FONT_HANDLE is the handle of a font or list of 
+	handles.
+
+ Note
+	Do not delete any font which is still being 
+	displayed in a window. KnowledgePro uses the font 
+	handle when repainting windows. Close or clear any 
+	window using the font before deleting the font.
+
+ Errors
+	I_INVALID_FONT, I_CANT_DELETE_FONT, I_FONT_IN_USE
+
+ See Also
+	#mcreate_font#m, #mset_font#m
+
+//delete_hyper_region
+
+ Format
+	delete_hyper_region (REGION_HANDLE)
+
+ Action
+	Deletes a hyper region. Since regions take up 
+	memory, they should be deleted when they are no 
+	longer needed.
+
+ Parameters
+	REGION_HANDLE is a region handle or list of region 
+	handles.
+
+ Example
+	w1 is window ().
+	bmpSelect is load_bitmap ('SELECT.BMP').
+	bitmap (?bmpSelect).
+	regSelect is hyper_region (select, 10, 10, 15, 5).
+
+	topic select.
+	   close_window (?w1).
+  	   delete_bitmap (?bmpSelect).
+	   delete_hyper_region (?regSelect).
+	   wNew is window ().
+	   text ('This is selected by the hyper-region").
+	end.
+
+	In this example we place a hyper-region over a 
+	bitmap.  When the region is selected the topic 
+	select is called.  select closes the first window.  
+	Since both the bitmap and the region are no longer 
+	needed, they are deleted to free up memory.
+
+ Errors
+	I_NOT_REGION
+
+ Note
+	An attempt to access a deleted region will result in 
+	an error.
+
+ See Also
+	#mhyper_region#m, #mcapture_hyper_region#m, 
+	#moffset_hyper_region#m
+
+
+//delete_icon
+
+ Format
+	delete_icon (ICON_HANDLE )
+
+ Action
+	Removes the icon from memory,  makes its handle 
+	invalid and frees any memory associated with the 
+	icon.
+
+ Parameters
+	ICON_HANDLE is a handle or list of icon handles 
+	loaded with the load_icon command.
+
+ Example
+	w1 is window (,,,,,,[OverlappedWindow, Visible]).
+	icoBasket is load_icon ('BASKET.ICO').
+	atach_icon (?w1, ?icoBasket).
+
+
+	(*Other commands may appear here *)
+
+
+	close_window (?w1).
+	delete_icon (?icoBasket).
+
+	An icon in the file BASKET.ICO is assigned to the 
+	window w1.  When w1 is closed, it is no longer 
+	needed so it can be deleted.
+
+ Note
+	Be careful that the icon is not still used for 
+	display. Close any window displaying an icon before 
+	deleting the icon.  KnowledgePro uses the icon 
+	handle when re-painting the window.  You can delete 
+	icons which have been attached to a window using 
+	attach_icon.  attach_icon makes a copy of the icon 
+	which is destroyed when the window is closed.
+
+ Errors
+	I_NOT_ICON, I_ICON_IN_USE
+
+ See Also
+	#mload_icon#m, #micon#m, #mattach_icon#m
+
+//delete_mouse_cursor
+
+ Format
+	delete_mouse_cursor (CURSOR_HANDLE )
+
+ Action
+	Removes the specified mouse cursor. The handle is no 
+	longer valid.
+
+ Parameters
+	CURSOR_HANDLE is a cursor handle or list of handles.
+
+ Errors
+	I_INVALID_CURSOR, I_INVALID_LIBRARY, 
+	I_INVALID_FUNCTION, I_CURSOR_IN_USE
+
+ Notes
+	Cursors are automatically deleted by clear ( ), but 
+	it is a good idea to delete cursors when they are no 
+	longer needed in order to free the memory used by 
+	the cursors. Attempts to use the cursor handle after 
+	it has been deleted will result in an error.
+
+ See Also
+	#mload_mouse_cursor#m, #muse_mouse_cursor#m
+
+//delete_selected_text
+
+ Format
+	delete_selected_text (HANDLE )
+
+ Action
+	Removes all selected text from the specified window. 
+	Subsequent text is moved accordingly. If no text is 
+	selected, no action is taken.
+
+ Parameters
+	HANDLE is the handle of a window or list of window 
+	handles. The default is the current display window.
+
+ Returns
+	The deleted text as a list of lines.
+
+ Errors
+	I_INVALID_WINDOW
+
+ Example
+	delete_selected_text can be used to create a  
+	function to cut text to the clipboard:
+
+	topic cut (win, t).
+	  t = delete_selected_text (?win).
+	  text_to_clipboard (?t).
+	end. (* cut *)
+
+	T is used as a local variable.
+
+ See Also
+	#mget_selected_text#m, #mselect_text#m
+
+//Description of Events
+
+ Each event description includes:
+
+ Recognized by:		lists the objects that recognize the event.
+
+ Description:		describes the event.
+
+ Mouse:			describes how the event is caused by the
+			mouse.
+
+ Keyboard:		describes how the event is caused by the 
+			keyboard.
+
+ Application:		describes how the event is caused from
+			within an application.
+
+ Info Passed:		describes the first parameter passed to  
+ 			EVENT_TOPIC.  All events pass the event 
+			name and the handle of the object as the 
+			second and third parameters respectively.
+
+ #mEvents recognized by all windows and screen objects#m
+ #mEvents received only in display and edit windows#m
+ #mEvents in button, radio buttons and check boxes#m
+ #mEvents in list boxes and combo boxes#m
+ #mEvents in horz_scroll_bars, vert_scroll_bars#m
+
+//Creating an Object
+
+ There are two main windows used in DESIGN. One is
+ the Design window which contains a menu bar and a
+ picture of the types of objects available and the other is
+ the Working Window which is the interface window you
+ are designing.  To create an object, click on the desired
+ object in the Design  window at the lower left of the
+ screen.  Once an object is  selected it remains the
+ selected object until a new object is  chosen.  Now click
+ and drag the mouse in the Working Window.   When the
+ mouse button is released the object is created.
+
+ See Also:
+    #mMoving and Sizing an Object#m
+    #mChanging the Properties of an Object#m
+    #mSelecting an object#m
+
+//Design
+
+ DESIGN lets you create an interface screen by
+ "dropping and dragging" objects. It then generates the
+ code for the screen.  You can add code and event topics
+ to the generated code, and use it directly in your
+ applications.  The modified code can be read back into
+ DESIGN for further changes and additions.  Libraries of
+ screens can be maintained to use as building blocks
+ in new applications.  To learn more about DESIGN
+ select one of the subjects shown below.
+
+ #mSwitching to the edit environment and to other applications#m
+
+ Creating and Modifying Objects
+    #mCreating an Object#m
+    #mMoving and Sizing an Object#m
+    #mChanging the Properties of an Object#m
+    #mDefining Event Topics#m
+    #mSelecting an object#m
+    #mFonts and text color#m
+    #mBackground color#m
+    #mDelete and Copy Objects#m
+
+ Saving, Modifying and Using the Code
+   #mSaving the Design#m
+   #mUsing the Code Created#m
+   #mReloading Modified Code#m
+
+ How it works
+   #mChanging the Default Setup#m
+   #mThe screen_object Topic#m
+   #mUsing Browse with Design#m
+
+//Defining Event Topics
+
+ When you define an event topic for an object be sure
+ you keep in mind the topic hierarchy in which the topic is
+ called.  The objects created by DESIGN are created
+ within a topic called CreateObjects which is itself in a
+ design topic initially called DrawScreen.  This means
+ that any local topics created as event topics can only be
+ called from within DrawScreen:CreateObjects unless
+ their full name is explicity used in the call.  If your event
+ topic is named as a global topic, the event will have to
+ be defined outside of DrawScreen to be properly called.
+ While this is fine for a small application, it is better
+ technique to embed your event topics within
+ DrawScreen and define the events as existing in
+ DrawScreen.  For example, if you define the event topic
+ Name, you should define it as DrawScreen:Name and
+ then place the topic inside of the code created by
+ DESIGN in the location specified in the code.  This lets
+ you delete all resources that have to do with the screen
+ when they are no longer needed.
+
+ See also:
+   #mReloading Modified Code#m
+
+//Delete and Copy Objects
+
+ The currently selected object can be deleted or copied
+ from Edit on the menu of the Design window.  When an
+ object is copied its colors, fonts, size and properties are
+ copied.  The copied object is placed in the upper right
+ hand corner of the screen.
+
+ See Also:
+   #mSelecting an object#m
+
+//Development Environment
+
+ The development environment provides pull-down menu options 
+ for various tasks, KnowledgePro uses the standard Multiple 
+ Document Interface (MDI) specifications, so that you can 
+ work on several files during your development. Each of the 
+ pull-down menu selections are described below with the 
+ corresponding short-cut key in parentheses.
+
+	#rb	File menu #rd
+
+ New		Opens a new document for editing.
+ Open		Opens an existing file for editing.
+ Close		Closes the current document.
+ Save		Saves the current document to a file.
+ Save As...	Saves the current document to a 
+ 		specified file name.
+ Print		Prints the contents of the current 
+		document.
+ Exit		Exits the KnowledgePro development 
+		environment. 		#x50(Alt+F4)
+
+	#rb	Edit menu #rd
+
+ Undo		Removes the last editing command.	#x50(Alt+Bksp)
+ Cut		Cuts highlighted text to the 
+		clipboard.				#x50(Shift+Del)
+ Copy		Copies highlighted text to the 
+		clipboard.				#x50(Ctrl+Ins)
+ Paste		Pastes text in from the clipboard.	#x50(Shift+Ins)
+ Delete		Deletes highlighted text.			#x50(Del)
+ Select All	Highlights all of the text.		
+ Word Wrap	Turns on the word wrap feature for 
+		all documents.
+ Include...	Copies the contents of a file into 
+		the current document.
+
+	#rb	Search menu #rd
+
+ Find...		Locates the specified text in a 
+		document.
+ Find Next 	Locates the next occurrence of the 
+		text.					#x50(F3)
+ Change...	Locates and changes the specified 
+		text.
+ Go To Line	Goes to a specified line in the 
+		file. 					#x50(F4)
+
+	#rb	Program menu #rd
+
+ Go		Runs the program in the current
+		window. 				#x50(F5)
+ Clear		Clears the current program from
+		memory.				#x50(F7)
+ Compile	Compiles a program on disk.
+ Run		Executes a program on disk.
+
+	#rb	Debug menu #rd
+
+ Topics		Opens a window with a hypertext listing
+		of the current topic hierarchy. 	#x50(F8)
+ Evaluate	Executes the contents of the current
+		document without clearing the existing
+		program.
+ Trace...		Traces program execution.
+ Calls		Shows a list of all of the topics
+ 		currently active.
+
+	#rb	Options menu #rd
+
+ Minimize on Use		Minimizes the development window
+			when a program is executed.
+ Create Backups		Automatically creates source code
+			backup files when you save a 
+			program.
+ Remote Requests	Enables KnowledgePro to act as a 
+			server for Dynamic Data Exchange.
+ Optimize Primitives	Optimizes the program by eliminating
+			topic searches for KnowledgePro 
+			functions.
+
+	#rb	Tools menu #rd
+
+ The tools menu is a customizeable menu to which you can add 
+ various programs to assist in your development. If you 
+ select the Customize Tools Menu, a window appears in which  
+ you enter the appropriate tool program information.
+
+	#rb	Window menu #rd
+
+ Cascade	Places all open windows in a cascading 
+		format.
+ Tile		Arranges all open windows so that all are
+		viewable.
+ Arrange Icons	Arranges the minimized program windows.
+ 
+ The window menu also shows all of the open program windows 
+ so that they are selectable.
+
+	#rb	Help menu #rd
+
+ Contents			Brings up the table of 
+				contents for the help system.
+ Search for Help on...		Brings up a window which 
+				you can select topics to 
+				search.
+ Tools				Shows help on available tools.
+ Development Environment	Shows this information.
+ Keyboard			Provides information on the 
+				keyboard.
+ How To			Shows a list of tips and 
+				techniques that are useful in 
+				your development.
+ Using Help			Provides help on using the 
+				help system.
+ About				Shows the version number and 
+				contact information for 			
+				KnowledgePro.
+//different
+
+ Format
+	different (LIST1, LIST2)
+
+ Action
+	Returns those items that are on the list LIST1  
+	that are not also on LIST2.
+
+ Parameters
+	LIST1, LIST2  Each element of LIST1 is checked for 
+	membership in LIST2.  If the item is also in LIST2, 
+	it is not included in the new list.
+
+ Returns
+	The list of items that is formed by each element 
+	of LIST1 that is not an element of LIST2.  The 
+	resulting list will contain no duplicate elements.
+
+ Example
+	members is [Ron, Jessica, Connie].
+	children is [Ron, Jessica].
+	members_not_children is different (?members, 	
+		?children).
+
+	The value of members_not_children is Connie.
+
+//dir
+
+ Format
+	dir (FILE_NAME, ATTRIBUTES)
+
+ Action 	
+	Provides a list of all the files on one or more DOS 
+	directories.
+
+ Parameters
+	FILE_NAME is any legal DOS file name or a list of 
+	file names.  The name can include path names and may 
+	include *  or ?  as wildcards.  The default is the 
+	current directory.
+
+	ATTRIBUTES is a string or list of strings which 
+	describes the directory.  Possible values are:
+	ARCH		archive files
+	HIDDEN	hidden files
+	NORMAL	normal files
+	RDONLY	read only files
+	SUBDIR	subdirectories
+	SYSTEM	system files
+	VOLID		volume ID
+
+	The default is NORMAL.  If the attibute list 
+	contains HIDDEN, RDONLY, SUBDIR, or SYSTEM, any 
+	NORMAL files that match the FILE_NAME are also 
+	returned.
+
+ Returns 
+	A list of all the files that fit the description of 
+	the directory and files to be searched.  If a list 
+	of DOS directories is provided as a parameter, a 
+	list of lists is returned with the names of the 
+	files in each of the named directories.  If no 
+	parameter is given, a list of all the files in the 
+	current drive and directory is returned.
+
+ Example 
+	direct is dir ('A:*.KB').
+
+	direct is assigned a list that contains the names of 
+	all the .KB files on drive A.
+
+ Error
+	I_UNKNOWN_FILE_TYPE
+
+ See Also
+	#mcurrent_dir#m, #mfile_menu#m, #msave_as#m
+
+//disable_draw
+
+ Format
+	disable_draw (HANDLE).
+
+ Action
+	 This function turns off the redraw flag for a 
+	 window and prevents the window from being repainted.
+
+ Parameters
+	HANDLE is the handle of a window or list of 
+	handles. The default is the current display window.
+
+ Example
+	(* Disable the parent and then update the edit 
+	lines. After updating turn drawing on so that 
+	the edit lines will repaint. *)
+		w = window ( ).
+		ed1 = edit_line ( ).
+		ed2 = edit_line ( ).
+		disable_draw (?w1).
+		set_text (?ed1, '11111').
+		set_text (?ed2, '11111').
+		enable_draw (?w1).
+
+ Errors
+	 I_INVALID_WINDOW
+
+ Notes
+	Disable a parent in order to disbale its child 
+	windows.
+
+ See Also
+	#menable_draw#m
+
+//disable_menu_item
+
+ Format
+	disable_menu_item (HANDLE, ITEM)
+
+ Action
+	The specified menu item is disabled. Keyboard and 
+	mouse input are ignored for this item.
+
+ Parameters
+	HANDLE the handle of the menu that contains the item 
+	to be disabled.  If this parameter is a list, only 
+	the first element is used.
+
+	ITEM the name of a menu item, or list of items.
+
+ Example
+	window ().
+	m1 is menu ([[File, New, Open, Save, Quit], [Edit]], 
+	   menu_topics).
+	disable_menu_item (?m1,Save).
+
+	When the menu is displayed the item Save appears 
+	grayed and is unselectable.  To enable it, use 
+	enable_menu_item.
+
+ Note
+	This command has no effect if the menu item is 
+	already disabled.
+
+ Errors
+	I_NO_MENU,  I_INVALID_WINDOW, I_MENU_NOT_FOUND
+
+ See Also
+	#mmenu#m, #menable_menu_item#m, 	
+	#mcheck_menu_item#m, 
+	#muncheck_menu_item#m
+
+//disable_window
+
+ Format
+	disable_window (HANDLE )
+
+ Action
+	The specified window or a screen object is disabled.  
+	Keyboard and mouse input are ignored.  The window or 
+	screen object cannot be moved or closed, although 
+	messages can be written to it.  If a disabled window 
+	is covered by another window, it can't be brought to 
+	the top or be made the active window.
+
+ Parameters
+	HANDLE is the handle of a window or other screen 
+	object.  The default is the current display window.  
+	This parameter may be a list.
+
+ Example
+	w1 is window ().
+	text ('This material is confidential.
+				DO NOT DISTRIBUTE').
+	disable_window (?w1).
+
+	The window W1 is disabled.
+
+ Note
+	This command has no effect if the window or screen 
+	object is already disabled.
+
+ Errors
+	I_NO_MENU, I_INVALID_WINDOW, I_MENU_NOT_FOUND
+
+ See Also
+	#menable_window#m, #mhide_window#m, 
+	#mshow_window#m, #mmake_modal#m
+
+//do
+
+ Format
+	do (TOPIC, PARAMETER1, PARAMETER2...)
+
+ Alternate
+	TOPIC (PARAMETER1, PARAMETER2...)
+
+ Action 	
+	Performs the commands associated with TOPIC. A list 
+	of parameters can optionally be passed to the 
+	topics.  When the topic name evaluates to a list, 
+	each topic on the list is evaluated in order.  
+	PARAMETER1, PARAMETER2, ... are passed to each topic 
+	as parameters.  If TOPIC does not exist, an error 
+	message is displayed.
+
+ Parameters
+	TOPIC is a topic or list of topic names to be 
+	performed.
+
+	PARAMETER1, PARAMETER2 ... are optional parameters 
+	that are passed to the topic or topics being 
+	performed.
+
+ Returns 
+	The value of TOPIC.
+
+ Example
+	do (interest).
+
+	All of the statements that belong to the topic named 
+	interest are performed.
+
+	flower is rose.
+	do (?flower).
+
+	The value of the topic flower,  rose, is retrieved.  
+	The topics that belong to topic rose are performed.
+
+	do (area,4,2).
+
+	topic area(height,width).
+  	   area = ?height * ?width.
+	end.
+
+	In this example, the parameter height takes on the 
+	value  4 and width takes on the value 2 in the topic 
+	area. This topic can also be written :
+
+	area (4,2).
+
+	The topic area is assigned the value 8.
+
+	vitamin_C_fruit is [orange, grapefruit].
+	do (?vitamin_C_fruit).
+
+	The topics associated with orange are performed 
+	and then the topics associated with grapefruit are 
+	performed.
+
+	The definition of a topic may contain more 
+	parameters than are actually passed to it.  For 
+	example
+
+	calculate (4,2).
+
+	topic calculate (height,width,depth).
+	  if ?depth is []
+  	     then calculate is ?height * ?width
+	  else calculate is ?height * ?width * ?depth.
+	end.
+
+	In this case, depth has the value  [ ] so calculate 
+	is assigned the value 8.  Passing more parameters 
+	than are defined, causes the extra parameters to be 
+	ignored.
+
+	g(x) (a,b,c)
+
+	is equivalent to
+
+	do (g (x),[a,b,c]).
+
+ See Also
+	Application structure and calling topics are 
+	discussed in Chapter 4.
+
+//do_local
+
+ Format
+	do_local (TOPIC, PARAMETER1, PARAMETER2... )
+
+ Action
+	do_local is similar to do. do_local calls TOPIC and 
+	passes it PARAMETER1, PARAMETER2, etc.  When TOPIC 
+	is called, it is performed as if it is located 
+	inside the topic containing do_local. This 
+	relocates TOPIC in the hierarchy of the application 
+	and changes the search order of its commands, sub-
+	topics and parameters.  TOPIC is executed as if its 
+	sub-topics and parameters are in the current topic.  
+	TOPIC's commands are executed within the current 
+	topic.  All searches for topic values begin with the 
+	current topic instead of the location in which TOPIC 
+	was defined.
+
+ Parameters
+	TOPIC a topic name or list of topic names.
+
+	PARAMETER1... parameters to be passed to each topic.
+
+ Example
+	x ().
+	z ().
+
+	topic x.
+	  :color is red.
+   	  y ().
+
+	  topic y.
+	    text ('The color is', ?color, ##n).
+	  end.
+	end.
+
+	topic z.
+	  :color is blue.
+	  do_local (x:y).
+ 	end.
+
+	The message
+
+	The color is
+	red
+	The color is
+	blue
+
+	is displayed.
+
+	When the command
+
+	do_local (x:y)
+
+	is executed, the value of color is sought local to z 
+	instead of x.
+
+ Note
+	This function should be used with caution. Since the 
+	scope of a topic executed with do_local is different 
+	than scope indicated in the source code, debugging 
+	can be difficult.
+
+ Errors
+	I_V_TOPIC_NOT_FOUND
+
+ See Also
+	#mim_a#m, #mnew#m
+
+//drag_rect
+
+ Format
+ drag_rect (COLUMN, ROW)
+
+ Action	
+	This function moves the upper left corner of the 
+	dragging rectangle to COLUMN, ROW.
+
+ Parameters	
+	COLUMN is the new x coordinate of the upper left 
+	corner of the dragging rectangle. If this 
+	parameter is a list, only the first element is 
+	used.
+
+	ROW is the new y coordinate of the upper left 
+	corner of the dragging rectangle. If this 
+	parameter is a list, only the first element is 
+	used.
+
+ Example	
+	(* Drag a button *)
+	(* Create a parent and a button.
+	We trap the mouse_down_event in the button 
+	so we can start moving it.*)
+
+	w1 is window (test,,,,,,,,,,[mouse_up_event, mouse_drag_event]).
+	b is button ( hello, button_topic, 20,5,,,  
+		[mouse_up_event, mouse_down_event]).
+
+	(* column, row, width, height is the start 
+	column, start row, width and height of the 
+	button. We will update this when we are done 
+	moving. *)
+
+	info is window_info (?b).
+	[column,row,width,height] is_c ?info.
+
+	topic button_topic (info,event,handle).
+	   do (?event).
+
+	      topic mouse_down_event.
+	         info is window_info (?b).
+                         [column,row,width,height] is_c ?info.
+ 	         disable_window (?b).
+	         start_drag (?w1, [?column, ?row, ?column + ?width, ?row + ?height]).
+ 	       end.
+    	end.
+
+	(* info, event and handle parameters are 
+	automatically passed to the event topic by 
+	KnowledgePro *)
+
+	topic test ( info,event,handle).
+	     do (?e).
+
+	(* Call drag_rect with the new mouse 
+	 position which is offset a little so the mouse 
+	is in the middle of the box instead of at the 
+	edge. *)
+	topic mouse_drag_event.
+	   drag_rect(first(?i) - 2,element (?i,2) - 1).
+	   mouse_drag_event = T.
+	end. (* drag event *)
+	topic mouse_up_event (tInfo).
+	(* Finish up the move. Restore the cursor, 
+	enable the button and move and size the 
+	button to fit the new rectangle. stop_drag 
+	turns off dragging and cleans up some of the 
+	data needed to drag a box. Always call it 
+	when you are done.*)
+	    stop_drag ( ).	
+    	    move_window (?b, first (?info) - 2, element (?info,2) - 1).
+       	    enable_window (?b).
+    	    use_mouse_cursor (?w1, arrow).
+	end. (* up event *)
+ end.
+
+ Notes
+	This command has no effect if start_drag has not 
+	been called or stop_drag has been called. Do not 
+	mix calls to drag_rect with adjust_drag_rect. 
+	Call stop_drag and the reinitialize the dragging 
+	rectangle with start_drag before resizing the 
+	dragging rectangle.
+
+ See Also
+	#madjust_drag_rect#m, #mstart_drag#m, #mstop_drag#m
+
+//Dynamic Data Exchange
+
+  Responding to DDE requests
+
+    Respond to DDE requests   #x28#mdde#m
+    Ignore DDE requests #x28#mdde_off#m
+
+  Controlling other applications using DDE:
+			
+    Open a channel		#x28#mdde_open#m
+    Request data     		#x28#mdde_request#m
+    Write data       		#x28#mdde_write#m
+    Execute commands  		#x28#mdde_execute#m
+    Advise of data change	#x28#mdde_advise#m
+    Stop advising of change  	#x28#mdde_unadvise#m
+    Close channel     		#x28#mdde_close#m
+    Call an external topic 		#x28#muser#m
+    Call a DLL function		#x28#mcall#m
+    Cast a value to a variable type#x28#mtype_cast#m
+
+  DLL Pointers
+    Get:
+						
+      byte from an address			#x45#mget_byte#m
+      double value from an address		#x45#mget_double#m
+      double word value from an address	#x45#mget_dword#m
+      floating point number value from an address#x45#mget_float#m
+      integer value from an address		#x45#mget_int#m
+      long value from an address		#x45#mget_long#m
+      pointer value from an address		#x45#mget_pointer#m
+      word value from an address		#x45#mget_word#m
+
+      pointer to a byte value			#x45#mlpbyte#m
+      pointer to a double value		#x45#mlpdouble#m
+      pointer to a double word		#x45#mlpdword#m
+      pointer to a floating point value	#x45#mlpfloat#m
+      pointer to a integer value		#x45#mlpint#m
+      pointer to a long integer 		#x45#mlplong#m
+      pointer to a string value		#x45#mlpstr#m
+      pointer to a structure			#x45#mlpstruct#m
+      pointer to a word value			#x45#mlpword#m
+
+    Put:	
+      byte value at an address		#x45#mput_byte#m
+      double value at an address		#x45#mput_double#m
+      double word value at an address	#x45#mput_dword#m
+      floating point value at an address	#x45#mput_float#m
+      integer value at an address		#x45#mput_int#m
+      long integer value at an address	#x45#mput_long#m
+      pointer value at an address		#x45#mput_pointer#m
+      string value at an address		#x45#mput_string#m
+      word value at an address		#x45#mput_word#m
+
+   Free library				#x45#mfree_library#m
+   Get physical address			#x45#maddress#m
+   Load library				#x45#mload_library#m
+ 

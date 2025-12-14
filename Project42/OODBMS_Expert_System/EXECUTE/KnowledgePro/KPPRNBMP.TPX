@@ -1,0 +1,38 @@
+(* KPPRNBMP.TPX
+
+   Topic library for bitmap printing support.
+
+   Two new functions are now available:
+
+     print_bitmap - prints a bitmap from a handle
+     print_window - captures a window and prints the image
+*)
+
+topic PrnBmpLib.
+  PrnBmpLib is load_library ('kpprnbmp.dll').
+end.
+
+topic print_bitmap (BMPHANDLE, SIZEOPTION).
+  (* Prints a bitmap. 
+     Parameters:
+            BMPHANDLE - a bitmap handle loaded with load_bitmap
+            SIZEOPTION - specify either:
+                                 BESTFIT - best and fastest fit to page
+                                 STRETCHTOPAGE - stretches image to fit 
+                                                 the page dimensions. *)
+  print_bitmap is user (?PrnBmpLib, print_bitmap, [?BMPHANDLE, ?SIZEOPTION]).
+end.
+
+topic print_window (WINHANDLE, AREA, SIZEOPTION).
+  (* Prints a window. 
+     Parameters:
+            WINHANDLE - a window handle
+            AREA - specify either:
+                           ALL     - prints the entire window
+                           CLIENT  - prints only the client area
+            SIZEOPTION - specify either:
+                                 BESTFIT - best and fastest fit to page
+                                 STRETCHTOPAGE - stretches image to fit 
+                                                 the page dimensions. *)
+  print_window is user (?PrnBmpLib, print_window, [?WINHANDLE, ?AREA, ?SIZEOPTION]).
+end.

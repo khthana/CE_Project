@@ -1,0 +1,19 @@
+defineProcedure Set <String> projectCF::Student::instance:Specialist()
+language :  "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $Set <String> Sp;
+ $Set <RegsSubj> SRS;
+ $String D;
+ $D = self.Dept();
+ $SRS = self.Registered;
+ $Sp = SRS.Subj.Name 
+		from SRS 
+		where SRS.GetResult() == "A"
+		and SRS.Subj.SubjectOf == D
+		and SRS.Subj.Type != "Lab & Project";
+  $return (Sp);
+
+};

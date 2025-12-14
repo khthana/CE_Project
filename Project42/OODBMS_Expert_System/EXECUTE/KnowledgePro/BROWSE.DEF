@@ -1,0 +1,12 @@
+; BROWSE.DEF : Defines the module parameters for the application.
+;
+
+NAME         'BROWSE'
+DESCRIPTION  'Knowledge Base from browse.kb by KPWin++ V1.00'
+EXETYPE      WINDOWS
+STUB         'WINSTUB.EXE'
+CODE         PRELOAD FIXED
+DATA         PRELOAD FIXED
+
+HEAPSIZE     4096
+STACKSIZE    16384

@@ -1,0 +1,152 @@
+setup ().
+
+topic Open.
+  close_all ().
+  temp is file_menu ('*.hyp',,'Text File to Read').
+  set_focus (?w1).
+  if ?temp is []
+     then exit ().
+  file is ?temp.
+  message is read (?file,'//','//').
+  close (?file).
+  set_title (?wmain, ?file).
+  top is string_replace (first (?message),'//').
+  enable_window ( [ ?b2, ?b3,?b4] ).
+  list is [].
+  mark (?top).
+end.
+
+topic Quit.
+    close_window (?wmain).
+end. (* mQuit *)
+
+topic Index.
+  set_focus (?w1).
+  if last (?list) <> ?top then mark (?top).
+end.
+
+topic Back.
+   set_focus (?w1).
+   if list_length (?list) = 1
+      then mark (?top)
+   else 
+      list is sublist (?list, 1, list_length (?list) - 1) and
+      item is last (?list) and
+      list is sublist (?list, 1, list_length (?list) - 1) and
+      (if ?item is help 
+          then help ()
+          else mark (?item)).
+end. (* Back *)
+
+topic PrintIt.
+  set_focus (?w1).
+  print (get_text ( ?w1)).
+end.
+
+topic Help.
+   set_focus (?w1).
+   if last (?list) is 'Help'
+      then exit ().
+   list gets Help.
+   set_text (?w1,'#rb Reading Hypertext#rd
+
+ The line below shows the font used for hypertext on your monitor.
+
+ #mThis is the font for hypertext on the current monitor.#m
+
+ To select hypertext, point and click with the mouse or, use TAB 
+ and SHIFT TAB to move the cursor among hypertext items and press 
+ ENTER to select the item.
+
+ To go back to the previous screen, select BACK.
+ To return to the first screen, select INDEX.
+ To print the current item, select PRINT.').
+  set_active_window (?w1).
+
+  topic 'This is the font for hypertext on the current monitor.'.
+    (* this is a dummy topic to catch the hypertext in the help screen.*)
+  end.
+
+end. (*Help*)
+
+topic Finish (info,event) .
+  do (?event).
+
+  topic close_event.
+    clear ().
+  end.
+
+  topic resize_event (width,bSize).
+     hide_window ( [?w1,?wb]).
+     width is first (?info).
+     if ?width >= 66 then bSize is [2, 12,1,23,1,34,1,45,1,56,1] else
+        if ?width >= 55 then bSize is [4,12,1,23,1,34,1,45,1,1,3] else
+           if ?width >= 44 then bSize is [4, 12,1,23,1,34,1,1,3,12,3] else
+               if ?width >= 33 then bSize is [4,12,1,23,1,1,3,12,3,23,3] else
+                   if ?width >= 22 then bSize is [6, 12, 1, 1,3,12,3,1,5,12,5] else
+                      bSize is [ 12,1,3,1,5,1,7,1,9,1,11].
+     resize_window (?wb, 100, first (?bSize)).
+     move_window (?b2, element ( ?bsize,2), element (?bsize,3) ).
+     move_window (?b3, element ( ?bsize,4), element (?bsize,5) ).
+     move_window (?b4, element ( ?bsize,6), element (?bsize,7) ).
+     move_window (?b5, element ( ?bsize,8), element (?bsize,9) ).
+     move_window (?b6, element ( ?bsize,10), element (?bsize,11) ).
+     move_window (?w1, 1, first (?bSize)+1 ). 
+     resize_window (?w1, element ( window_info (?wMain),10), element ( window_info ( ?wMain), 11) - first (?bSize) ).
+     show_window ([?w1,?wb]).
+  end.
+
+end.
+
+(* ================================= MARK ============================= *)
+
+topic  mark (item).
+    list gets?item.
+    displayText is read (?file, concat ('//',?item) ,'//') . 
+    if ?displayText is number_to_char (26) 
+       then displayText is '
+
+   There is no information for this item.'.
+    set_text (?w1,[#rb,?item,#rd, ?displayText] ).
+    set_file_pos (?file,0,beginning).
+end. (*mark*)
+
+
+(* ========================== SELECT FONTS =========================== *)
+
+topic b.
+  use_font (?boldFont).
+end.
+
+topic d.
+  use_font (?mainFont).
+end.
+
+(* ============================== SETUP =============================== *)
+
+topic setup.
+  hand is load_mouse_cursor ('hand.cur').
+  hyper_cursor (?hand).
+  wMain is window (Finish,15,2,66,23, ,[popupwindow, thickFrame,TitleBar, ControlMenu, MaximizeBox], , , , [close_event, resize_event] ).
+  make_modal (?wmain).
+  wB is window ( , 1,1,100,2, ,[child, visible, siblings, showChildren], ?wmain, , gray).
+  b1 is button (Open,open,1,1,11).
+  b2 is button (Index,index,12,1,11).
+  b3 is button (Back,back,23,1,11).
+  b4 is button (Print,printit,34,1,11).
+  b5 is button (Quit,quit,45,1,11).
+  b6 is button (Help,help,56,1,11).
+  w1 is window ( , 1,3, element ( window_info (?wMain), 10), element ( window_info (?wMain), 11)-2, , [child, siblings, horzScroll, vertScroll,showChildren, visible] ,?wmain).
+  mainFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  hyperFont is create_char_font ( [1,1,400,'F','T','F',0,1,34,'Helv']).
+  boldFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  bigFont is create_char_font ( [1.5,1.2857,400,'F','F','F',0,1,34,'Helv']).
+  use_font (?mainFont).
+  if last (system_info ()) > 2
+     then :color is green2
+     else :color is black.
+  hyper_display (?color,,?hyperFont).
+  show_window (?wmain).
+  list is []. (* keeps track of what you've looked at so far *)
+  disable_window ( [?b2,?b3,?b4] ).
+end.

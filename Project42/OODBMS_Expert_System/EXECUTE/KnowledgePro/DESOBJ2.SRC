@@ -1,0 +1,297 @@
+(* ========================= DESOBJ.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Screen Objects
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This module defines the object subclasses for the following:
+
+      edit box
+      list box
+      combo box
+
+  ====================================================================== *)
+
+
+
+topic Edit_BoxObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Edit Box Subclass *)
+
+  [ :type, :objectText, :eventTopic, :c, :r, :w, :h, :style, :eventList ] is_c ?describeList.
+  if not ( one_of ( ?style, visible ) ) then style gets visible.
+  :description is [ edit_box, , ObjectEventTopic, ?c, ?r, ?w, ?h, ?style, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  if ?objectText is [ ] then set_text ( ?handle, 'Edit Text' ) else set_text ( ?handle, ?objectText ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ edit_box, [ ], [ ], ?c, ?r, ?w, ?h, [ multiLine, thinFrame, visible ], [] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+     [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+     use_font ( element ( ?ref:fontHandleList, 1) , [window, control ] ).
+     :wInfo is window ( , 50.42857142857143, 10.6875, 38.57142857142857, 18.75, 'Edit Box Properties', [titlebar, thickFrame, popup], ?ref:wMain).
+     text ( ' 
+  Edit Box Style:').
+     :lb1 is list_box ( [AutoHscroll, AutoVscroll, CenterText, DialogFrame, HorzScroll, LeftText, 
+              MultiLine, NoHideSelect, RightText, ThinFrame, VertScroll], , 
+              4.428571428571429, 3.5, 30.71428571428572, 10.8125, T ).
+     set_list_box ( ?lb1, ?style ).
+     GetEvents:specialEvents is [  ].
+     :bEvents is button2 ( &Events, GetEvents, 3, 15.5, 10.42857142857143, 1.5 ).
+     button2 ( '  &Ok  ', Done, 14.42857142857143, 15.5, 10.42857142857143, 1.5 ).
+     button2 ( &Cancel, Done, 26, 15.5, 10.42857142857143, 1.5).
+
+     set_display_window ( ?ref:wMain ).
+     [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+     use_font ( element ( ?ref:fontHandleList, ?font ), control ).
+     set_text ( ?ref:wMain, '
+                                                       #fdarkblue TYPE IN DEFAULT EDIT TEXT').
+     :ed1 is edit_box ( ?objectText, , ( first ( system_info ( ) ) - ?tWidth )/2 , 3.5, ?tWidth , ?tHeight ,?style ).
+     show_window ( ?wInfo ).
+     set_focus ( ?ed1 ).
+
+     topic Done ( item,	tC, tR, tW, tH ).
+        if ?item is '  &Ok  '
+           then GetEvents:saveValues is T and
+                  objectText is get_text ( ?ed1 ) and
+                  style is combine ( get_list_box ( ?lb1 ), visible ) and
+                  [ tC, tR, tW, tH ] is_c window_info ( ?handle ) and
+                  close_window ( ?handle ) and
+                  set_display_window ( ?ref:wWork ) and
+                  use_font ( element ( ?ref:fontHandleList ) ,?font ) and
+                  handle is edit_box ( ?objectText, ObjectEventTopic, ?tC, ?tR, ?tW, ?tH, combine ( ?style, [ visible, thinframe ] ) ,
+                       [mouse_move_event, mouse_down_event, double_click_event] ) and
+                  ( if ?objectText is [ ] then set_text ( ?handle, 'Edit Text' ) ) and
+                  set_window_colors ( ?handle, ?textColor, ?backColor ).
+        set_text ( ?ref:wMain, [ ] ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?ed1, ?GetEvents:wEvents ] )
+           else close_window ( [ ?wInfo, ?ed1 ] ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+     end.
+
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow, tWidth, tHeight ) .
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is edit_box ( ?objectText, ObjectEventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?style,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?handle, ?textColor, ?backColor ).
+    if ?objectText is [ ] then set_text ( ?handle, 'Edit Text').
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), Edit_boxObject, [ [ edit_box, ?objectText, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?style, ?eventList ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( tObjectCode).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ', ' , ?font, ', ' , ?textColor, ', ' , ?backColor, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( edit_box, [ ?objectText ], [ ?eventTopic ], ?tInfo, [ ?style ], [ ?eventList ] ).
+    end.
+
+  end. (* CreateCode *)
+
+end. (* Edit_BoxObject *)
+
+
+
+topic List_BoxObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* List Box Subclass *)
+
+  [ :type, :objectText, :eventTopic, :c, :r, :w, :h, :multiselect, :sortList, :eventList ] is_c ?describeList.
+  :description is [ list_box, ?objectText, ObjectEventTopic, ?c, ?r, ?w, ?h, ?multiselect, ?sortList, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ list_box, [ 'List Box', Item1, Item2, Item3, Item4 ] , [ ], ?c, ?r, ?w, ?h, f, f, [] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+     [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+     wInfo is window ( , 29, 5.9375, 38.57, 15.5625, 'List Box Properties', [popup, titlebar, thinFrame], ?ref:wMain).
+     use_font ( element ( ?ref:fontHandleList, 1), [window, control] ).
+     text ( '
+  List Box Contents:').
+     :ed1 is edit_box ( ?objectText , , 3, 3.25, 32.42857142857143, 6 ).
+     :cb1 is check_box ( &Sort, , 3, 10.0625, ?sortList ).
+     :cb2 is check_box ( '&Multiple Select', , 11.85714285714286, 10.0625, ?multiselect ).
+     GetEvents:specialEvents is list_select_event.
+     :bEvents is button2 ( &Events, GetEvents, 3, 12.5625, 10.42857142857143, 1.5 ).
+     button2 ( '  &Ok  ', Done, 14.42857142857143, 12.5625, 10.42857142857143, 1.5 ).
+     button2 ( &Cancel, Done, 26, 12.5625, 10.42857142857143, 1.5).
+     show_window ( ?wInfo ).
+     set_focus ( ?ed1 ).
+
+     topic Done (item ).
+        if ?item is '  &Ok  '
+           then GetEvents:saveValues is T and
+                  objectText is get_text ( ?ed1 ) and
+                  sortList is get_check_box ( ?cb1 ) and
+                  ( if ?sortList then objectText is sort ( ?objectText ) ) and
+                  set_text ( ?handle, ?objectText ) and
+                  multiselect is get_check_box ( ?cb2 ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+     end.                   
+
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow, tWidth, tHeight ) .
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is list_box ( ?objectText, ObjectEventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?multiselect, ?sortList,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?handle, ?textColor, ?backColor ).
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:ObjectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), list_boxObject, [ [ list_box, ?objectText, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?multiselect, ?sortList, ?eventList ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ', ' , ?font, ', ' , ?textColor, ', ' , ?backColor, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( list_box, [ ?objectText ],  [ ?eventTopic ], ?tInfo, ?multiselect, ?sortList, [ ?eventList ]  ).    
+    end.
+
+  end. (* CreateCode *)
+
+end. (* List_BoxObject *)
+
+
+
+topic Combo_BoxObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Combo Box Subclass *)
+  [ :type, :objectText, :eventTopic, :c, :r, :w, :h, :selection, : style, :eventList ] is_c ?describeList.
+  :description is [ combo_box, ?objectText, ObjectEventTopic, ?c, ?r, ?w, ?h, ?selection, ?style, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ combo_box, 'Combo Box', [ ], ?c, ?r, ?w, [ ], [ ], [ dropdownlist, vscroll ], [ ] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+    [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+    use_font ( element ( ?ref:fontHandleList, 1) , [window, control ] ).
+    :wInfo is window ( , 42, 1.5, 38.57, 22, 'Working Window', [ popup, titlebar, thickFrame ], ?ref:wMain ).
+    text ( '
+  Combo Box Text:
+
+
+
+
+
+
+ 
+
+ Selected Item:
+
+
+
+  Style:').
+    :ed1 is edit_box ( ?objectText,  NewList , 3, 3, 31.28571428571428, 5.8125, , lose_focus_event ).
+    :cb1 is combo_box ( ?objectText , , 3, 10.5, 31, 6, ?selection, [DropDownList, VScroll] ).
+    :StyleList is [ DropDown, DropDownList, Simple ].
+    StyleBox is intersect ( ?style, ?StyleList ).
+    :rb1 is radio_button ( [ [ &DropDown, 3, 14, F ], [ DropDown&List, 3, 15.5, F ], [ Si&mple, 3, 17, F ]  ], StyleBox ).
+    set_radio_button ( element ( ?rb1, where (?StyleList, ?StyleBox) ), T ).
+    GetEvents:specialEvents is list_select_event.
+    :chb1 is check_box ( &Sort, , 19, 15.5, one_of (?style, Sort) ).
+    :chb2 is check_box ( '&Vertical Scroll Bar', , 19, 14, one_of (?style, VScroll) ).
+    :bEvents is button2 ( &Events, GetEvents, 3, 19, 10.42857142857143, 1.5 ).
+    button2 ( '  &Ok  ', Done, 14.42857142857143, 19, 10.42857142857143, 1.5 ).
+    button2 ( &Cancel, Done, 26, 19, 10.42857142857143, 1.5).
+    show_window ( ?wInfo ).
+    set_focus ( ?ed1 ).
+
+    topic NewList.
+       set_text ( ?cb1, get_text ( ?ed1 ) ).
+    end.
+
+    topic StyleBox ( item ).
+       StyleBox is string_replace (?item, &, '').
+    end.
+
+    topic Done ( item, 	tLastHandle, tLastTopic, tC, tR, tW, tH ).
+       if ?item is '  &Ok  '
+          then GetEvents:saveValues is T and
+                 objectText is get_text ( ?ed1 ) and
+                 selection is get_combo_box ( ?cb1 ) and
+                 style is ?StyleBox and 
+                 (if get_check_box (?chb1) then
+                    style gets Sort) and
+                 (if get_check_box (?chb2) then
+                    style gets VScroll) and
+                 [ tC, tR, tW ] is_c window_info ( ?handle ) and
+                 close_window ( ?handle ) and
+                 set_display_window ( ?ref:wWork ) and
+                 use_font ( element ( ?ref:fontHandleList, ?font ),  control ) and
+                 handle is combo_box ( ?objectText, ObjectEventTopic, ?tC, ?tR, ?tW, , ?selection, ?style, 
+                         [mouse_move_event, mouse_down_event, double_click_event] ) and
+                 set_window_colors ( ?handle, ?textColor, ?backColor ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+    end. (* Done *)
+
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow, tWidth ) .
+    [ tCol, tRow, tWidth ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is combo_box ( ?objectText, ObjectEventTopic, ?tCol, ?tRow, ?tWidth, [ ], ?selection,  ?style,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?handle, ?textColor, ?backColor ).
+  end.
+
+  topic Copy ( 	tList, tCol, tRow, tWidth, tHeight ).
+    [ tCol, tRow ] is 1.
+    tWidth is element ( window_info ( ), 3 ).
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), combo_boxObject, [ [ combo_box, ?objectText, ?eventTopic, ?tCol, ?tRow, ?tWidth, [ ], ?selection, ?style, ?eventList ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ', ' , ?font, ', ' , ?textColor, ', ' , ?backColor, ' ).' ).
+
+    topic PropertyList ( 	tC, tR, tW ).
+      [ tC, tR, tW ] is_c apply (WorkEventTopic:mouse_up_event:gridPos, window_info ( ?handle)).
+      PropertyList is combine ( combo_box, [ ?objectText ],  [ ?eventTopic ], ?tC, ?tR, ?tW, [ [ ] ], [ ?selection ], [ ?style ], [ ?eventList ] ).    
+    end.
+
+  end. (* CreateCode *)
+
+end.  (* Combo_BoxObject *)

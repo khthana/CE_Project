@@ -1,0 +1,370 @@
+
+                    ICQ TCP Protocol as used by STRICQ
+
+                    Written By:  Douglas F. McLaughlin
+
+                 $VER:  STRICQ TCP Protocol v0.2 12.22.98
+
+
+  This text will hopefully help explain a lot of the details of ICQ's TCP
+protocol version 2 (v2).  Not all available codes and packets have been
+completely deciphered, however, these packets are VERY rare and therefore
+hard to intuit a specific meaning.
+
+  First of all, this text would not be possible were it not for the help
+and hard work of a few other people.  A small portion of the DEFINEs are
+based upon work done by Matt Smith author of micq.  Most of the basic
+format of the TCP Message and Chat packets were worked out by the author of
+Licq (whose name I can't remember right now.)  The basis for the TCP File
+Direct packets comes from the source code icqfile.cpp.  This document and
+the final meshing of all this information into one protocol was done by
+Douglas F. McLaughlin author of STRICQ for the Amiga computer.  (And
+Mirabilis said it couldn't be done!)  Please do not spread this text
+without applying full credit to its author and the author's sources as
+mentioned in the paragraph.
+
+  All UDP packets referenced are fully described in the icq091.txt and this
+info will not be duplicated here.
+
+
+                             Starting with UDP
+
+  To begin working with TCP, you must start before your client ever logs
+into the ICQ server.  At the same time as the UDP socket is created, you
+need to also create a listen()ing TCP socket and obtain its IP and port for
+sending with the initial login packet sent via UDP.  (NOTE:  The actual IP
+can be sent as NULL and ICQ will fill in the IP obtained from the received
+UDP packet!)  Also be sure to set the client to client flag to 0x04 in the
+login packet so that other clients will know that your client is TCP
+capable.
+
+  Before moving too far along, it must be noted that each type of
+connection creates its own listen()ing socket.  ie. Message, Chat, and
+File connections will each have their own dedicated listener.  STRICQ
+follows the same convention as the PC client in that the Message socket is
+created at 'go online' time and the other two types are only created when
+that event occurs.  A chat listen socket is created only when someone
+requests a chat, the same for a file send/receive.
+
+  Next we move to the S_USER_ONLINE (0x006E) packet.  The important
+information contained in this packet are the IP, Port, and TCP flag
+fields.  (NOTE:  STRICQ does not use the 'RealIP' and only on VERY rare
+occasions does it have a problem connecting to another client.)  The IP and
+Port are obviously necessary for making a direct TCP connection.  Use the
+one byte TCP flag to determine whether a message packet should be sent via
+TCP or UDP.  If the flag is 0x04, attempt a TCP connect, otherwise send the
+message via UDP to the server for final delivery as an online message.
+
+
+                               Switch to TCP
+
+  Once the user has entered a message to be sent to another person and the
+client determines the receiver is TCP capable and this is the first
+message sent to the receiver, a TCP connection is to be initiated.  The
+first order of business is to use the IP:Port from the online packet and
+attempt a connect().
+
+
+                            The TCP Init Packet
+
+  After a succesfull connect(), several TCP packets are exchanged between
+the
+two clients which sets up the needed information and basically just says,
+"Hello."  Since we are assuming it is our client sending the first message
+and performed the connect(), it falls upon our end to start the ball
+rolling.  The following packet is a general TCP Init packet and is sent for
+ALL types of sockets, Message, Chat, and File.
+
+BYTE    Always 0xFF.  This is the TCP Init packet code.
+DWORD   Version.  For the purpose of this text it is 0x00000002 (v2).
+DWORD   Local TCP Message listen port.  If this is a Chat or File TCP Init
+        this number will be NULL.
+DWORD   Local UIN.
+DWORD   Local IP.
+DWORD   Local Real IP.  (STRICQ always dupes IP as Real IP.)
+BYTE    Always 0x04.  TCP capable flag, again!
+DWORD   Depending on what type of connection is being made,
+        Chat or File, use the appropriate listening port here.  If this is
+        a Message TCP Init, this number will be NULL.
+
+  After any TCP packet is built, the length of the packet is sent first
+followed by a second send() of the packet itself.  The easiest way to read
+this from the socket is to first read with a two-byte buffer, then perform
+a second read with a buffer size equal to the value retreived in the first
+read.  Don't forget that TCP is 'sizeless', you could only receive half of
+your packet, or more than one packet at one time, this is why sending the
+actual packet size first is so important.  I leave it as an exercize of the
+reader how best to read the packets from the socket.
+
+
+                          The TCP Message Packet
+
+  No reply will be sent from the remote end to a TCP Init packet.  Now,
+assuming we are sending a simple message, the follwing message packet is
+sent containing the actual message typed by our user.
+
+DWORD   Local UIN.
+WORD    Version.  For the purpose of this text it is 0x0002 (v2).
+WORD    Message Command.  For a simple message it is 0x07EE.
+WORD    Always 0x0000.  Unknown.
+DWORD   Local UIN.  Just in case you missed it the first time!
+WORD    Message Type.  For a simple message it is 0x0001.
+WORD    Message Text length.  (Plus 1 for the NULL.)
+STRING  Actual Message Text, NULL terminated.
+DWORD   Local IP.  This is the IP of the current socket being used, NOT the
+        listening socket.
+DWORD   Local Real IP.  STRICQ dupes the Local IP.
+DWORD   Local Port.  This is the Port of the current socket being used, NOT
+        the listening socket.
+BYTE    Always 0x02 in Win3.1 client, 0x04 otherwise.  Version?
+WORD    Local Status.  Online, Away, DND, etc.  These status codes are NOT
+        the same as sent via UDP!
+WORD    Message Command Type.  For a simple message it is 0x0010.
+
+For a Chat Request packet ONLY, also add the following:
+
+WORD    Text length plus 1 for NULL.  Never seen this used.  Always 0x0001.
+STRING  Text with ending NULL.  Never seen this used.  Always 0x00 (The
+NULL.)
+WORD    Always 0x0000.  Port.
+WORD    Always 0x0000.  Unknown.  Possible pad for the port.
+DWORD   Always 0x00000000.  Port
+
+Or for a File Send packet ONLY, also add the following:
+
+WORD    Always 0x0000.  Port.
+WORD    Always 0x0000.  Unknown.  Possible pad for the port.
+WORD    Text length plus 1 for NULL.
+STRING  The filename of the file to be sent.  If more than one file is to be
+        sent, this will say how many files are to be sent, ie. "5 Files".
+DWORD   Filesize.  If more than one file is to be sent, this is a TOTAL of
+        all file's sizes.
+DWORD   Always 0x00000000.  Port.
+
+And finally, for all packet types, add the following:
+
+DWORD   TCP Message Sequence.  Use this number for ALL Message ACK packets.
+        The first TCP packet sent after program startup will have the
+        sequence 0xFFFFFFFE.  The sequence is then decremented by one for
+        EVERY TCP packet sent AND received regardless of who the sender or
+        reveiver is and does not include ACK packets.
+
+
+                          The Message ACK Packet
+
+  Once the remote client receives the TCP Message packet and the packet was
+correctly formatted, an ACK packet will be sent.  The PC client's message
+window will not go away, and the little face window will continue to spin
+until this ACK packet is received back from the remote client.  The ACK
+packet is almost exactly the same as the received packet with a few
+changes.
+
+DWORD   Local UIN.
+WORD    Version.  For the purpose of this text it is 0x0002 (v2).
+WORD    Message Command.  For a simple message it is 0x07DA.
+WORD    Always 0x0000.  Unknown.
+DWORD   Local UIN.  Just in case you missed it the first time!
+WORD    Message Type.  For a simple message it is 0x0001.
+WORD    Auto Reply Text length.  (Plus 1 for the NULL.)
+STRING  Actual Auto Reply Text, NULL terminated.  If no Auto-Reply message
+        is to be sent, this text will just be the NULL.
+DWORD   Local IP.  This is the IP of the current socket being used, NOT the
+        listening socket.
+DWORD   Local Real IP.  Again, STRICQ dupes this as Local IP.
+DWORD   Local Port.  This is the Port of the current socket being used, NOT
+        the listening socket.
+BYTE    Always 0x02 with Win3.1 client.  0x04 otherwise.  Version?
+WORD    Local Status.  Online, Away, DND, etc.  These status codes are NOT
+        the same as sent via UDP!
+WORD    Message Command Type.  For a Message ACK it is 0x0000.
+
+For a Chat Request packet ONLY, also add the following:
+
+WORD    Text length plus 1 for NULL.  Never seen this used.  Always 0x0001.
+STRING  Text with ending NULL.  Never seen this used.  Always 0x00 (The
+NULL.)
+WORD    Local Chat Listen port in NETWORK order.  This is the port the
+        remote client will use to attempt a connect().
+WORD    Always 0x0000.  Unknown.  Possible pad for the port.
+DWORD   Local Chat Listen port in INTEL order.
+
+Or for a File Send packet ONLY, also add the following:
+
+WORD    Local File Listen port in NETWORK order.  This is the port the
+        remote client will use to attempt a connect().
+WORD    Always 0x0000.  Unknown.  Possible pad for the port.
+WORD    Text length plus 1 for NULL.  Always 0x0001 for an ACK.
+STRING  Actual Text.  Always 0x00 for an ACK.
+DWORD   Always 0x00000000 for an ACK.
+DWORD   Local File Listen port in INTEL order.
+
+And finally, for all packet types, add the following:
+
+DWORD   TCP Message Sequence.  Use the number received in the actual TCP
+        Message from the remote client.
+
+  Here is a list of changes or items to copy while creating the ACK packet:
+
+1.  The Message Command changes from 0x07EE to 0x07DA.
+2.  The Message Type is copied from the original message packet.
+3.  Any configured Auto-Reply will be sent with this packet.
+4.  The Message Command Type changes from 0x0010 to 0x0000.
+5.  If the receiver refuses the request (Chat or File) the status field
+    will be set to 0x0001.
+6.  The Chat or File ports are sent as NULL in the original packet and
+actually
+    filled in to the ACK packet by the receiver.
+7.  The Filename of a file send packet is set to NULL for the ACK.
+8.  The Filesize of a file send packet is set to NULL for the ACK.
+9.  The TCP Message Sequence is copied from the original message packet.
+
+  Just as a note, if the ACK packet is not correctly formatted, or the
+wrong kind of packet is sent back (Message ACK for Chat Request) the PC
+client will, without fail, crash!  This is based upon testing with the
+ICQ98a client.
+
+
+                       TCP Message Related #define's
+
+  And finally, here is a list of all known defines:
+
+/* TCP Message Commands */
+
+#define TCP_CANCEL           0x07D0
+#define TCP_ACK              0x07DA
+#define TCP_MESSAGE          0x07EE
+
+/* TCP Message Types */
+
+#define TCP_MSG_MSG          0x0001
+#define TCP_MSG_CHAT         0x0002
+#define TCP_MSG_FILE         0x0003
+#define TCP_MSG_URL          0x0004
+#define TCP_MSG_READAWAY     0x03E8
+#define TCP_MSG_READOCCUPIED 0x03E9
+#define TCP_MSG_READNA       0x03EA
+#define TCP_MSG_READDND      0x03EB
+#define TCP_MSG_READFFC      0x03EC
+
+/* TCP Message Command Types */
+
+#define TCP_MSG_AUTO         0x0000
+#define TCP_MSG_REAL         0x0010
+#define TCP_MSG_LIST         0x0020
+#define TCP_MSG_URGENT       0x0040
+#define TCP_MSG_INVISIBLE    0x0090
+#define TCP_MSG_UNK_1        0x00A0
+#define TCP_MSG_AWAY         0x0110
+#define TCP_MSG_OCCUPIED     0x0210
+#define TCP_MSG_UNK_2        0x0802
+#define TCP_MSG_NA           0x0810
+#define TCP_MSG_NA_2         0x0820
+#define TCP_MSG_DND          0x1010
+
+/* TCP Message Status' */
+
+#define TCP_STAT_ONLINE      0x0000
+#define TCP_STAT_REFUSE      0x0001
+#define TCP_STAT_AWAY        0x0004
+#define TCP_STAT_OCCUPIED    0x0009
+#define TCP_STAT_DND         0x000A
+#define TCP_STAT_NA          0x000E
+#define TCP_STAT_FREE_CHAT   TCP_STAT_ONLINE
+#define TCP_STAT_INVISIBLE   TCP_STAT_ONLINE
+
+
+                   Other Forms of the TCP Message Packet
+
+  The TCP Cancel packet is formatted just like a normal message, file, or
+chat packet.  It is sent if the user presses the cancel button after
+sending the message, file, or chat message and before the receiving end has
+sent an ACK packet.  A cancel packet will have all its fields set to NULL,
+no text or port information will be sent.  The Message Type will be the
+same as the original message and the Message Command Type will be 0x0010.
+Also, the TCP Message Sequence will be the same as the original message.
+
+  It should be mentioned that the URL message is formatted the same as a
+message sent through UDP.  The TCP_MSG_READxxx Message types are ONLY
+received when the local client is in that particular mode.  The Win95
+client can only send one Message Type at a time depending upon the status
+of the client the message is being read from.  What this means is that if
+your local client is in AWAY status mode, you will ONLY receive a message
+type of 0x03E8.  Your client's response when receiving one of these packets
+is to merely grab the configured message and send it with the ACK.  The PC
+clients do NOT notify the user when one of these messages are received.
+
+
+                          Reverse TCP Connections
+
+  Before going into Chat and File negotiation, one more very important
+aspect of TCP connection negotiation involves what I call the Reverse TCP
+connection.  This is a UDP packet containing IP and Port information that
+is sent when client A wants to connect to client B, but for some reason, be
+it a firewall or whatever, the connect() failed.  Here is the breakout of
+the Reverse TCP connect UDP packet.
+
+#define TCP_REQUEST        0x015E
+
+WORD    0x0002 UDP Version.
+WORD    0x015E Command.
+WORD    Sequence.
+DWORD   Local UIN.  (Sender)
+DWORD   Remote UIN. (Receiver)
+DWORD   Local IP.
+DWORD   Local Port in INTEL order.  Depending on the type of connection
+        being started, this will be either the Message, Chat, or File
+        listen()ing port.
+BYTE    Always 0x04.  Unknown, probably TCP Capable flag again.
+DWORD   Another Port in INTEL order.  Not sure what this is for.
+DWORD   Local Port in INTEL order.  This is a copy of the first Port.
+WORD    TCP Protocol version sender is using, for this example 0x0002.
+
+  This is the packet that client A builds and sends to client B via the
+server using UDP.  Once client B receives this packet from the server it
+will have 2 DWORDS of 0x00000000 appended to the end of the packet making
+it 8 bytes larger than what the sender sent.  I have never seen anything
+other than all NULLs for these extra bytes at the receiver end.
+
+  Here is the logic flow:
+
+1. User A types in a message to send to user B.
+
+2. Client A attempts to connect() with client B and fails.
+
+3. Client A builds the TCP_REQUEST packet and sends to the server.
+
+4. Client B receives the TCP_REQUEST packet with client A's IP:Port.
+
+5. Client B attempts to connect() to client A and suceeds.
+
+6. Client B sends the TCP Init packet to client A.
+
+7. Client A sends the message typed by user A in step 1.
+
+8. User B reads the message.
+
+  The client that performs a sucessful connect() (client B) sends the TCP
+Init packet.  After that, packet flow resumes as normal just as if client
+A had actually performed the connect().
+
+  The flow is essentially the same for Chat and File connections with a few
+small changes.  In the above example, client B knows the Reverse TCP connect
+is for an incoming message because client B did not ACCEPT anything from
+client A.  This is different for Chat and File.  Like so:
+
+0. User A requests to chat (or send a file) with user B.
+
+1. User B accepts the request of user A and client B sends the necessary
+   IP:Port information along with the Message ACK packet back to client A.
+
+2. Client A attempts a connect() to the supplied IP:Port and fails.
+
+Steps 3-6 from above are the same at this point.
+
+7. Client A sends the first actual Chat or File Init packet to client B.
+
+8. Client B responds with the appropriate next packet.
+
+  In this example, client B knows what to expect because the Chat or File
+Message packet has already arrived and been accepted by the user.
+

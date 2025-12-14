@@ -1,0 +1,294 @@
+(* ========================= DESOBJ3.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Screen Objects
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This module defines the object subclasses for the following:
+
+      horizontal scroll bar
+      vertical scroll bar
+      child window      
+      text object
+
+  ====================================================================== *)
+
+
+
+topic Horz_Scroll_BarObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Horizontal Scroll Subclass *)
+
+  [ :type, :eventTopic, :c, :r, :w, :h, :min, :max, :eventList ] is_c ?describeList.
+  :description is [ horz_scroll_bar, ObjectEventTopic, ?c, ?r, ?w, ?h, ?min, ?max, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ horz_scroll_bar, [ ], ?c, ?r, ?w, ?h, 0, 100, [] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+      [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+      :wInfo is window ( , 29, 6, 38.57, 9, 'Horizontal Scroll Bar Properties', [popup, titlebar, thickFrame], ?ref:wMain ).
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ]  ).
+      text ( '
+  Minimum:
+
+  Maximum:' ).
+      :ed1 is edit_box ( , , 12, 1.625, 21, 1.35, [visible, thinFrame, autoHscroll ] ).
+      :ed2 is edit_box ( , , 12, 3.625, 21, 1.35, [visible, thinFrame, autoHscroll ]  ).
+      set_text ( ?ed1, ?min ).
+      set_text ( ?ed2, ?max ).
+      GetEvents:specialEvents is scroll_event.
+      :bEvents is button2 ( &Events, GetEvents, 3, 6, 10.42857142857143, 1.5 ).
+      button2 ( '  &Ok  ', Done, 14.42857142857143, 6, 10.42857142857143, 1.5 ).
+      button2 ( &Cancel, Done, 26, 6, 10.42857142857143, 1.5).
+      show_window ( ?wInfo ).
+      set_focus ( ?ed1 ).
+
+      topic Done ( item ).
+        if ?item is '  &Ok  '
+           then GetEvents:saveValues is T and
+                  min is get_text ( ?ed1 ) and
+                  max is get_text ( ?ed2 ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+      end.
+  end. (* ChangeProperties *)
+
+  topic NewFont.
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), horz_scroll_barObject, [ [ horz_scroll_bar, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?min, ?max, ?eventList ] ] ).
+  end.
+
+  topic CreateCode (tInfo, tObjectCode).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[', ']', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( horz_scroll_bar, [ ?eventTopic ], ?tInfo, ?min, ?max, [ ?eventList ] ).    
+    end.
+
+  end. (* CreateCode *)
+
+end.  (* Horz_Scroll_BarObject *)
+
+
+
+topic Vert_Scroll_BarObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Vertical Scroll Subclass *)
+
+  [ :type, :eventTopic, :c, :r, :w, :h, :min, :max, :eventList ] is_c ?describeList.
+  :description is [ vert_scroll_bar, ObjectEventTopic, ?c, ?r, ?w, ?h, ?min, ?max, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ vert_scroll_bar, [ ], ?c, ?r, ?w, ?h, 0, 100, [] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+      [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+      :wInfo is window ( , 29, 6, 38.57, 9, 'Vertical Scroll Bar Properties', [popup, titlebar, thickFrame], ?ref:wMain ).
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ]  ).
+      text ( '
+  Minimum:
+
+  Maximum:' ).
+      :ed1 is edit_box ( , , 12, 1.625, 12, 1.35, [visible, thinFrame, autoHscroll ] ).
+      :ed2 is edit_box ( , , 12, 3.625, 12, 1.35, [visible, thinFrame, autoHscroll ]  ).
+      set_text ( ?ed1, ?min ).
+      set_text ( ?ed2, ?max ).
+      GetEvents:specialEvents is scroll_event.
+      :bEvents is button2 ( &Events, GetEvents, 3, 6, 10.42857142857143, 1.5 ).
+      button2 ( '  &Ok  ', Done, 14.42857142857143, 6, 10.42857142857143, 1.5 ).
+      button2 ( &Cancel, Done, 26, 6, 10.42857142857143, 1.5).
+      show_window ( ?wInfo ).
+      set_focus ( ?ed1 ).
+
+      topic Done ( item ).
+        if ?item is '  &Ok  '
+           then GetEvents:saveValues is T and
+                  min is get_text ( ?ed1 ) and
+                  max is get_text ( ?ed2 ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+      end.
+  end. (* ChangeProperties *)
+
+  topic NewFont.
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), vert_scroll_barObject, [ [ vert_scroll_bar, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?min, ?max, ?eventList ] ] ).
+  end.
+
+  topic CreateCode (tInfo, tObjectCode).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[', ']', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( vert_scroll_bar, [ ?eventTopic ], ?tInfo, ?min, ?max, [ ?eventList ] ).    
+    end.
+
+  end. (* CreateCode *)
+
+end.  (* Vert_ScrollObject *)
+
+
+
+topic child_WindowObject ( describeList, fontParam, textColorParam, backColorParam,	temp ).
+  (* Child Window Subclass *)
+
+  [ :type, :eventTopic, :c, :r, :w, :h, :title, :style, temp, :textColor, :backColor, :eventList ] is_c ?describeList.
+  style is remove ( ?style, [ visible, child, popup, popupwindow, overlapped, overlappedwindow ] ).
+  style gets [ child, visible ].
+  :description is [ window, ObjectEventTopic, ?c, ?r, ?w, ?h, ?title, ?style, ?ref:wWork, ?textColor, ?backColor, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  set_text ( ?handle, 'Window Text' ).
+
+  topic MakeList ( n,c,r,w,h,	temp ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ child_window, [ ], ?c, ?r, ?w, ?h, [ ], [ thinframe, siblings ], ?ref:defaultTextColor, ?ref:defaultBackColor, [ ] ].
+  end.
+
+  topic ChangeProperties (	tC, tR, tW, tH ). (* --- Allows you to change the properties of the object *)
+    load ( concat (?ref:startDir, 'dessty1.hkb')).
+    GetMainStyle ( ?handle, ?style, ?title, , T ).
+    if ?GetMainStyle <> [ ] then
+       [ style, title ] is_c ?GetMainStyle and
+       [ tC, tR, tW, tH ] is_c window_info ( ?handle ) and
+       close_window ( ?handle ) and
+       handle is window ( ObjectEventTopic, ?tC, ?tR, ?tW, ?tH, ?title, ?style, ?ref:wWork, ?textColor, ?backColor, 
+                         [mouse_move_event, mouse_down_event, double_click_event] ) and
+       use_font ( element ( ?ref:fontHandleList, ?font ), [ window, control ] ) and
+       text ( 'Window Text').
+    remove_topic ( GetMainStyle ).
+    enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow, tWidth, tHeight ) .
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ), [window, control ] ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is window ( ObjectEventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?title, ?style, ?ref:wWork, ?textColor, ?backColor,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    text ( 'Window Text').
+    set_display_window ( ?ref:wWork ).
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), child_windowObject, [ [ child_window, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?title, ?style, [ ] , ?textColor, ?backColor, ?eventList ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( 	tObjectCode).
+    tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+    tObjCode is concat ( '[ child_window ,' , list_to_string ( [?eventTopic ], , '[ ', '] ' , '''' ), list_to_string ( ?tInfo, ', ' ,', ', ', ' ) , list_to_string ( [ ?title ] , , '[ ','] , ' , '''' ), 
+               list_to_string ( ?style, ', ', '[ ', '], ', '''' ), '?!wHandle', ', ' , ?textColor, ', ' , 
+               ?backColor, list_to_string ( ?eventList, ',' , ', [' , '], ', ''''), '] ' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ', ' , ?font, ', ', ?textColor, ', ', ?backColor,' ).' ).
+  end. (* CreateCode *)
+
+end. (* WindowObject *)
+
+
+
+
+topic Text_LabelObject  ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Text Object Subclass *)
+
+  [ :type, :objectText, :c, :r, :w, :h, :textColor, :backColor ] is_c ?describeList.
+  :description is [ window, ObjectEventTopic, ?c, ?r, ?w, ?h, , [ child, thinframe, visible, siblings ], ?ref:wWork, ?textColor, ?backColor, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  set_text ( ?handle, ?objectText ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ text_label, 'Text Label', ?c, ?r, ?w, ?h, ?ref:defaultTextColor, ?ref:defaultBackColor ].
+  end.
+
+  topic ChangeProperties ( tCol, tRow, tWidth, tHeight ).  (* Allows you to change the properties of the object. *)
+     set_title ( ?ref:wMain, 'Modify Text' ).
+     set_display_window ( ?ref:wMain ).
+     [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+     use_font ( element ( ?ref:fontHandleList, ?font ), control ).
+     :ed1 is edit_box ( ?objectText, , 15, 2, ?tWidth, ?tHeight,
+          [ child, visible, autovscroll, thinframe, lefttext, autohscroll, multiline ], ?ref:wMain, t).
+     use_font ( element ( ?ref:fontHandleList, 1) , [ control ] ).
+     :b1 is button2 ( '  &Ok  ', Done, 2, 2, 11, 1.5 ).
+     :b2 is button2 ( &Cancel, Done, 2, 5, 11, 1.5 ).
+     :maxHeight is 4 + ?tHeight.
+     if ?maxHeight < 8 then
+        maxHeight is 8.
+     resize_window ( ?ref:wMain, 17 + ?tWidth, ?maxHeight ).
+     move_window ( ?ref:wMain, 4, 4 ).
+     show_window ( ?ref:wMain ).
+     set_focus ( ?ed1 ).
+     
+     topic Done ( item ).
+        if ?item is '  &Ok  '
+           then objectText is get_text ( ?ed1 ) and
+                   use_font ( element ( ?ref:fontHandleList, ?font), window ) and
+                   set_text ( ?handle, ?objectText ).
+        close_window ( [ ?ed1, ?b1, ?b2 ] ).
+        set_display_window ( ?ref:wWork ).
+        hide_window ( ?ref:wMain ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+     end.
+
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow, tWidth, tHeight ) .
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  [ window, control ] ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is window ( ObjectEventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, , 
+            [ child, thinframe, visible, siblings ], ?ref:wWork, ?textColor, ?backColor,
+            [mouse_move_event, mouse_down_event, double_click_event]   ).
+    text ( ?objectText ).
+    set_display_window ( ?ref:wWork ).
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), text_labelObject, [ [ text_label, ?objectText, ?tCol, ?tRow, ?tWidth, ?tHeight, ?textColor, ?backColor ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[', ']', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ',', ?font, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( text_label, [ ?objectText ], ?tInfo, ?textColor, ?backColor ).    
+    end.
+
+  end. (* CreateCode *)
+
+end.  (* TextObject *)

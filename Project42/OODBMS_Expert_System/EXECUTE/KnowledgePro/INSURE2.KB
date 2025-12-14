@@ -1,0 +1,119 @@
+(* =================================INSURE2.KB =============================
+   This is shows an alternate method of implementing an expert system 
+   without the strict rule-based approach. Refer to INSURE1.KB for the
+   rule-based version.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+============================================================================*)
+
+if not(exists(w1)) then w1 is window().
+
+ask ('#eHow is the patient related to the policyholder ?',relation,
+      [self,spouse,'natural child','other child']) .
+
+do (?relation).
+
+topic self.
+   text ('#eThis person is covered.').
+   button(Continue,Next,20,4).
+end. (* self *)
+
+topic spouse.
+ask ('Is this a family or an individual policy ?',policy,
+        [family,individual] ) .
+do (?policy).
+
+topic family.
+  Text ('#eThis person is covered.').
+  button(Continue,Next,20,4).
+end. (* family *)
+
+  topic individual.
+  text ('#eA spouse is only covered under a family policy.').
+  button(Continue,Next,20,4).
+  end. (* individual *)
+
+end. (* spouse *)
+
+topic 'natural child'.
+ask ('In what age group is the child ?','age group',['under 19',
+        '19 or over']).
+
+do (?'age group').
+
+  topic 'under 19'.
+    text ('#eThis person is covered.').
+    button(Continue,Next,20,4).
+  end. (* under 19 *)
+
+  topic '19 or over'.
+  ask ('Is there any claim that the child is unable to support him or
+herself because of mental retardation, mental illness or
+developmental disability ? ',unfit,[No,Yes]).
+  if ?unfit is No
+     then do ('not unfit')
+     else do (unfit).
+
+    topic unfit.
+    ask ('Is there a physician''s certificate of medical disability
+for the individual in the file ?',certified,[Yes,No]) .
+    if ?certified is Yes
+       then do (certified)
+       else do ('not certified').
+
+      topic certified.
+         text ('#eThis person is covered.').
+         button(Continue,Next,20,4).
+      end. (* certified *)
+
+      topic 'not certified'.
+         text ('#eThis person is not covered without a doctors statement.').
+         button(Continue,Next,20,4).
+      end. (* not certified *)
+
+    end. (* unfit *)
+
+    topic 'not unfit'.
+       text ('#eChildren over 19 are not covered unless they are disabled.').
+       button(Continue,Next,20,4).
+    end. (* not unfit *)
+
+  end. (* 19 or over *)
+end. (* natural child *)
+
+topic 'other child'.
+ask ('Is the child legally adopted ?',adopted,[No,Yes]).
+if ?adopted is Yes
+   then do (adopted)
+   else do ('not adopted').
+
+  topic adopted.
+  text ('#eThis person is covered.').
+   button(Continue, Next,20,4).
+  end. (* adopted *)
+
+  topic 'not adopted'.
+  text ('#eOnly natural children and adopted children are covered.').
+  button(Continue,Next,20,4).
+  end. (* not adopted *)
+
+end. (* other child *)
+
+ topic Next ().
+   ask ('#eDo you want to check another claim ?',want,[Yes,No]).
+   if ?want is Yes then 
+      do (!main)
+   else close_window (?w1).
+ end.

@@ -1,0 +1,1475 @@
+;==============  Statistic Magazine In Main Library ============
+;==== Present By  Mr. Saksid Namsaoad  No. 39014513==========
+;======================================================
+           MEM_START  EQU  030H
+           HEADER         EQU  038H 
+           NODE1           EQU   039H
+           NODE2           EQU   03AH
+           BOOK1           EQU   03BH
+           BOOK2           EQU   03CH
+           PC_COM         EQU   03DH
+           ORG     0000H
+           JMP    START
+           ORG     0023H
+           LJMP    SERAIL
+           ORG     0040H
+START:    
+           MOV     R2,#00H	;Get Initital program
+           MOV     R3,#00H
+           MOV     P2,#0FFH
+           MOV     P0,#0FFH
+           MOV     P1,#0FFH
+           MOV     020H,#0FFH
+           MOV     021H,#0FFH
+           MOV     022H,#0FFH
+           MOV     023H,#0FFH
+           MOV     024H,#0FFH
+           MOV     025H,#0FFH
+           MOV     026H,#0FFH
+           MOV     027H,#0FFH
+           MOV     028H,#0FFH
+           MOV     029H,#0FFH	
+          CALL    SET_NODE
+           
+SET_READ:		;Get Function In Read  8051
+           	   mov     scon,#50h	; Allow Interupt
+	   mov     pcon,#00h
+	   setb    ren
+	   mov    tmod,#20h
+           	   mov    th1,#0fdh
+                   MOV    IE,#10010000B
+	   setb    tr1
+	   clr     ri
+	   clr     ti
+           CLR  P1.1		;Get Led 1 No Light
+           CLR  P1.2		;Get Led 2 No Light
+END_SET_READ:    
+;=================================================
+SET_START:		;Get  Header and Pc command
+        MOV   R1,#HEADER
+        MOV   @R1,#58        ;HEADRE = ":" = 58
+        MOV   R1,#PC_COM
+        MOV   @R1,#21H        ;PC_COM = "!" =33
+ ;==================================================           
+;   ;GET ASSUME "01"
+;                MOV    R1,#NODE1
+;                MOV    @R1,#30H   ;"0" 
+;                MOV    R1,#NODE2
+;                MOV    @R1,#31H   ;"1" 
+     ;--------------------------------------
+;===== Scan key =====================
+;=====30 SWITCH=== 5 ROW X 6 COL===
+;=====P0 IS INPUTLINE
+;=====P2 IS OUTPUTLINE
+;====================================
+SCANKEY:
+Run:            
+          CLR  P1.0              ;75176  is reciver
+       SCAN_ROW0:
+           MOV    P0,#0FFH
+           MOV    P2,#01111111B
+           MOV    A,P0
+           MOV    R0,A
+;-------------AGAIN---------------
+          CALL   DELAY2
+          MOV     P0,#0FFH
+           MOV    P2,#01111111B
+           MOV    R4,P0
+           MOV    A,R0
+           XRL     A,R4
+           JZ     MEM_00
+           LJMP   SCAN_ROW1
+;-------------------------------------------
+MEM_00:
+           MOV    A,R0
+           ANL     A,#00000001B
+           JNZ     NO_PUSH_00
+           MOV    C,00H
+           JNC        EXIT_00
+           CLR     00H
+           JMP     EXIT_00	 
+NO_PUSH_00:
+           MOV      C,00H
+           JC          EXIT_00
+SEND_00:
+           CLR      28H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    00H  ;  0 IS BOOK PUT IT
+                               ;   1 IS BOOK NOT PUT IT
+             CALL  TEST_LED1
+ EXIT_00:
+;-------------------------------------------
+MEM_01:
+           MOV    A,R0
+           ANL     A,#00000010B
+           JNZ     NO_PUSH_01
+           MOV    C,01H
+           JNC        EXIT_01
+           CLR     01H
+           JMP     EXIT_01	 
+NO_PUSH_01:
+           MOV      C,01H
+           JC          EXIT_01
+SEND_01:
+           CLR      29H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    01H
+ CALL  TEST_LED1
+ EXIT_01:
+;------------------------------------------
+  MEM_02:
+           MOV    A,R0
+           ANL     A,#00000100B
+           JNZ     NO_PUSH_02
+           MOV    C,02H
+           JNC        EXIT_02
+           CLR     02H
+           JMP     EXIT_02       
+NO_PUSH_02:
+           MOV      C,02H
+           JC          EXIT_02
+SEND_02:
+           CLR      2AH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    02H
+ CALL  TEST_LED1
+ EXIT_02:
+;---------------------------------
+ MEM_03:
+           MOV    A,R0
+           ANL     A,#00001000B
+           JNZ     NO_PUSH_03
+           MOV    C,03H
+           JNC        EXIT_03
+           CLR     03H
+           JMP     EXIT_03       
+NO_PUSH_03:
+           MOV      C,03H
+           JC          EXIT_03
+SEND_03:
+           CLR      2BH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    03H
+ CALL  TEST_LED1
+ EXIT_03:
+;-----------------------------
+  MEM_04:
+           MOV    A,R0
+           ANL     A,#00010000B
+           JNZ     NO_PUSH_04
+           MOV    C,04H
+           JNC        EXIT_04
+           CLR     04H
+           JMP     EXIT_04       
+NO_PUSH_04:
+           MOV      C,04H
+           JC          EXIT_04
+SEND_04:
+           CLR      2CH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    04H
+ CALL  TEST_LED1
+ EXIT_04:
+;--------------------------
+  MEM_05:
+           MOV    A,R0
+           ANL     A,#00100000B
+           JNZ     NO_PUSH_05
+           MOV    C,05H
+           JNC        EXIT_05
+           CLR     05H
+           JMP     EXIT_05       
+NO_PUSH_05:
+           MOV      C,05H
+           JC          EXIT_05
+SEND_05:
+           CLR      2DH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    05H
+ CALL  TEST_LED1
+
+ EXIT_05:
+;=====================================
+SCAN_ROW1:
+           CLR  P1.0
+           MOV    P0,#0FFH
+           MOV    P2,#10111111B
+           MOV    A,P0
+           MOV    R0,A
+;-------------AGAIN---------------
+            CALL DELAY2
+           MOV    P0,#0FFH
+           MOV    P2,#10111111B
+           MOV    R4,P0
+           MOV    A,R0
+           XRL    A,R4
+           JZ     MEM_08
+           LJMP   SCAN_ROW2
+
+;------------------------------------
+MEM_08:
+           MOV    A,R0
+           ANL    A,#00000001B
+           JNZ    NO_PUSH_08
+           MOV    C,08H
+           JNC    EXIT_08
+           CLR    08H
+           JMP    EXIT_08       
+NO_PUSH_08:
+           MOV    C,08H
+           JC     EXIT_08
+SEND_08:
+           CLR      30H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    08H
+           CALL   TEST_LED1
+ EXIT_08:
+;----------------------------------
+MEM_09:
+           MOV    A,R0
+           ANL     A,#00000010B
+           JNZ     NO_PUSH_09
+           MOV    C,09H
+           JNC        EXIT_09
+           CLR     09H
+           JMP     EXIT_09       
+NO_PUSH_09:
+           MOV      C,09H
+           JC          EXIT_09
+SEND_09:
+           CLR      31H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    09H
+           CALL   TEST_LED1
+ EXIT_09:
+;------------------------------------
+MEM_0A:
+           MOV    A,R0
+           ANL     A,#00000100B
+           JNZ     NO_PUSH_0A
+           MOV    C,0AH
+           JNC        EXIT_0A
+           CLR     0AH
+           JMP     EXIT_0A      
+NO_PUSH_0A:
+           MOV      C,0AH
+           JC          EXIT_0A
+SEND_0A:
+           CLR      32H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    0AH
+           CALL   TEST_LED1
+ EXIT_0A:
+;-----------------------------
+ MEM_0B:
+           MOV    A,R0
+           ANL     A,#00001000B
+           JNZ     NO_PUSH_0B
+           MOV    C,0BH
+           JNC        EXIT_0B
+           CLR     0BH
+           JMP     EXIT_0B       
+NO_PUSH_0B:
+           MOV      C,0BH
+           JC          EXIT_0B
+SEND_0B:
+           CLR      33H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    0BH
+           CALL   TEST_LED1
+ EXIT_0B:
+;----------------------------------
+ MEM_0C:
+           MOV    A,R0
+           ANL     A,#00010000B
+           JNZ     NO_PUSH_0C
+           MOV    C,0CH
+           JNC        EXIT_0C
+           CLR     0CH
+           JMP     EXIT_0C       
+NO_PUSH_0C:
+           MOV      C,0CH
+           JC          EXIT_0C
+SEND_0C:
+           CLR      34H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    0CH
+           CALL   TEST_LED1
+ EXIT_0C:
+;----------------------------
+ MEM_0D:
+           MOV    A,R0
+           ANL     A,#00100000B
+           JNZ     NO_PUSH_0D
+           MOV    C,0DH
+           JNC        EXIT_0D
+           CLR     0DH
+           JMP     EXIT_0D       
+NO_PUSH_0D:
+           MOV      C,0DH
+           JC          EXIT_0D
+SEND_0D:
+           CLR      35H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    0DH
+           CALL   TEST_LED1
+EXIT_0D:
+;=============================
+SCAN_ROW2:
+           CLR  P1.0
+           MOV    P0,#0FFH
+           MOV    P2,#11011111B
+           MOV    A,P0
+           MOV    R0,A
+;-------------AGAIN---------------
+         CALL DELAY2
+           MOV    P0,#0FFH
+           MOV    P2,#11011111B
+           MOV    R4,P0
+           MOV    A,R0
+           XRL    A,R4
+           JZ     MEM_10
+           LJMP   SCAN_ROW3
+;--------------
+MEM_10:
+           MOV    A,R0
+           ANL    A,#00000001B
+           JNZ    NO_PUSH_10
+           MOV    C,10H
+           JNC    EXIT_10
+           CLR    10H
+           JMP    EXIT_10       
+NO_PUSH_10:
+           MOV    C,10H
+           JC     EXIT_10
+SEND_10:
+           CLR      38H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    10H
+           CALL   TEST_LED1
+ EXIT_10:
+;---------------------------------
+MEM_11:
+           MOV    A,R0
+           ANL     A,#00000010B
+           JNZ     NO_PUSH_11
+           MOV    C,11H
+           JNC        EXIT_11
+           CLR     11H
+           JMP     EXIT_11       
+NO_PUSH_11:
+           MOV      C,11H
+           JC       EXIT_11
+SEND_11:
+           CLR      39H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    11H
+           CALL   TEST_LED1
+ EXIT_11:
+;---------------------------------
+MEM_12:
+           MOV    A,R0
+           ANL     A,#00000100B
+           JNZ     NO_PUSH_12
+           MOV    C,12H
+           JNC        EXIT_12
+           CLR     12H
+           JMP     EXIT_12      
+NO_PUSH_12:
+           MOV      C,12H
+           JC          EXIT_12
+SEND_12:
+           CLR      3AH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    12H
+           CALL   TEST_LED1
+ EXIT_12:
+;----------------------------
+ MEM_13:
+           MOV    A,R0
+           ANL     A,#00001000B
+           JNZ     NO_PUSH_13
+           MOV    C,13H
+           JNC        EXIT_13
+           CLR     13H
+           JMP     EXIT_13       
+NO_PUSH_13:
+           MOV      C,13H
+           JC          EXIT_13
+SEND_13:
+           CLR      3BH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    13H
+           CALL   TEST_LED1
+ EXIT_13:
+;----------------------------
+ MEM_14:
+           MOV    A,R0
+           ANL     A,#00010000B
+           JNZ     NO_PUSH_14
+           MOV    C,14H
+           JNC        EXIT_14
+           CLR     14H
+           JMP     EXIT_14       
+NO_PUSH_14:
+           MOV      C,14H
+           JC          EXIT_14
+SEND_14:
+           CLR      3CH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    14H
+           CALL   TEST_LED1
+ EXIT_14:
+;------------------------------------
+ MEM_15:
+           MOV    A,R0
+           ANL     A,#00100000B
+           JNZ     NO_PUSH_15
+           MOV    C,15H
+           JNC        EXIT_15
+           CLR     15H
+           JMP     EXIT_15       
+NO_PUSH_15:
+           MOV      C,15H
+           JC          EXIT_15
+SEND_15:
+           CLR      3DH   ; 0 IS DOING SEND 
+                                  ; 1 IS SEND COMPLETE  
+           SETB    15H
+          CALL   TEST_LED1
+ EXIT_15:
+;===================================          
+SCAN_ROW3:      
+           CLR  P1.0
+           MOV    P0,#0FFH
+           MOV    P2,#11101111B
+           MOV    A,P0
+           MOV    R0,A
+;-------------AGAIN---------------
+         CALL DELAY2
+           MOV    P0,#0FFH
+           MOV    P2,#11101111B
+           MOV    R4,P0
+           MOV    A,R0
+           XRL    A,R4
+           JZ     MEM_18
+           LJMP   SCAN_ROW4
+;--------------
+MEM_18:
+           MOV    A,R0
+           ANL    A,#00000001B
+           JNZ    NO_PUSH_18
+           MOV    C,18H
+           JNC    EXIT_18
+           CLR    18H
+           JMP    EXIT_18       
+NO_PUSH_18:
+           MOV    C,18H
+           JC     EXIT_18
+SEND_18:
+           CLR      40H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    18H
+           CALL   TEST_LED1
+ EXIT_18:
+;---------------------------------
+MEM_19:
+           MOV    A,R0
+           ANL     A,#00000010B
+           JNZ     NO_PUSH_19
+           MOV    C,19H
+           JNC        EXIT_19
+           CLR     19H
+           JMP     EXIT_19
+NO_PUSH_19:
+           MOV      C,19H
+           JC       EXIT_19
+SEND_19:
+           CLR      41H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    19H
+           CALL   TEST_LED1
+ EXIT_19:
+;---------------------------------
+MEM_1A:
+           MOV    A,R0
+           ANL     A,#00000100B
+           JNZ     NO_PUSH_1A
+           MOV    C,1AH
+           JNC        EXIT_1A
+           CLR     1AH
+           JMP     EXIT_1A      
+NO_PUSH_1A:
+           MOV      C,1AH
+           JC          EXIT_1A
+SEND_1A:
+           CLR      42H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    1AH
+           CALL   TEST_LED1
+ EXIT_1A:
+;----------------------------
+ MEM_1B:
+           MOV    A,R0
+           ANL     A,#00001000B
+           JNZ     NO_PUSH_1B
+           MOV    C,1BH
+           JNC        EXIT_1B
+           CLR     1BH
+           JMP     EXIT_1B
+NO_PUSH_1B:
+           MOV      C,1BH
+           JC          EXIT_1B
+SEND_1B:
+           CLR      43H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    1BH
+           CALL   TEST_LED1
+ EXIT_1B:
+;----------------------------
+ MEM_1C:
+           MOV    A,R0
+           ANL     A,#00010000B
+           JNZ     NO_PUSH_1C
+           MOV    C,1CH
+           JNC        EXIT_1C
+           CLR     1CH
+           JMP     EXIT_1C       
+NO_PUSH_1C:
+           MOV      C,1CH
+           JC          EXIT_1C
+SEND_1C:
+           CLR      44H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    1CH
+           CALL   TEST_LED1
+ EXIT_1C:
+;------------------------------------
+ MEM_1D:
+           MOV    A,R0
+           ANL     A,#00100000B
+           JNZ     NO_PUSH_1D
+           MOV    C,1DH
+           JNC        EXIT_1D
+           CLR     1DH
+           JMP     EXIT_1D       
+NO_PUSH_1D:
+           MOV      C,1DH
+           JC          EXIT_1D
+SEND_1D:
+           CLR      45H   ; 0 IS DOING SEND 
+                                  ; 1 IS SEND COMPLETE  
+           SETB    1DH
+          CALL   TEST_LED1
+ EXIT_1D:
+;===========================================
+SCAN_ROW4:      
+           CLR  P1.0
+           MOV    P0,#0FFH
+           MOV    P2,#11110111B
+           MOV    A,P0
+           MOV    R0,A
+;-------------AGAIN---------------
+         CALL DELAY2
+           MOV    P0,#0FFH
+           MOV    P2,#11110111B
+           MOV    R4,P0
+           MOV    A,R0
+           XRL    A,R4
+           JZ     MEM_20
+           LJMP   END_SCAN_ROW
+;--------------
+MEM_20:
+           MOV    A,R0
+           ANL    A,#00000001B
+           JNZ    NO_PUSH_20
+           MOV    C,20H
+           JNC    EXIT_20
+           CLR    20H
+           JMP    EXIT_20       
+NO_PUSH_20:
+           MOV    C,20H
+           JC     EXIT_20
+SEND_20:
+           CLR      48H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    20H
+           CALL   TEST_LED1
+ EXIT_20:
+;---------------------------------
+MEM_21:
+           MOV    A,R0
+           ANL     A,#00000010B
+           JNZ     NO_PUSH_21
+           MOV    C,21H
+           JNC        EXIT_21
+           CLR     21H
+           JMP     EXIT_21
+NO_PUSH_21:
+           MOV      C,21H
+           JC       EXIT_21
+SEND_21:
+           CLR      49H   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    21H
+           CALL   TEST_LED1
+ EXIT_21:
+;---------------------------------
+MEM_22:
+           MOV    A,R0
+           ANL     A,#00000100B
+           JNZ     NO_PUSH_22
+           MOV    C,22H
+           JNC        EXIT_22
+           CLR     22H
+           JMP     EXIT_22      
+NO_PUSH_22:
+           MOV      C,22H
+           JC          EXIT_22
+SEND_22:
+           CLR      4AH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    22H
+           CALL   TEST_LED1
+ EXIT_22:
+;----------------------------
+ MEM_23:
+           MOV    A,R0
+           ANL     A,#00001000B
+           JNZ     NO_PUSH_23
+           MOV    C,23H
+           JNC        EXIT_23
+           CLR     23H
+           JMP     EXIT_23
+NO_PUSH_23:
+           MOV      C,23H
+           JC          EXIT_23
+SEND_23:
+           CLR      4BH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    23H
+           CALL   TEST_LED1
+ EXIT_23:
+;----------------------------
+ MEM_24:
+           MOV    A,R0
+           ANL     A,#00010000B
+           JNZ     NO_PUSH_24
+           MOV    C,24H
+           JNC        EXIT_24
+           CLR     24H
+           JMP     EXIT_24       
+NO_PUSH_24:
+           MOV      C,24H
+           JC          EXIT_24
+SEND_24:
+           CLR      4CH   ; 0 IS DOING SEND 
+                                 ; 1 IS SEND COMPLETE  
+           SETB    24H
+           CALL   TEST_LED1
+ EXIT_24:
+;------------------------------------
+ MEM_25:
+           MOV    A,R0
+           ANL     A,#00100000B
+           JNZ     NO_PUSH_25
+           MOV    C,25H
+           JNC        EXIT_25
+           CLR     25H
+           JMP     EXIT_25       
+NO_PUSH_25:
+           MOV      C,25H
+           JC          EXIT_25
+SEND_25:
+           CLR      4DH   ; 0 IS DOING SEND 
+                                  ; 1 IS SEND COMPLETE  
+           SETB    25H
+          CALL   TEST_LED1
+ EXIT_25:
+END_SCAN_ROW:
+          JMP  RUN      
+;======================================
+;======== Interupt Routine ===============
+; WAIT PC IS SEND DATA 
+;RECIVE DATA IS HAVE	1. HEADER(#3AH)
+;			2. PC_COMMAND = "!"	
+;			3. PC_COMMAND = "!"	
+;			4. PC_COMMAND = "!"	
+;			5. NUMBER NODE1(#)  ;NODE = "01"
+;			6. NUMBER NODE2(#)
+;			7. CHECK SUM(#)
+;====================================
+SERAIL:    
+                 JB  RI,KEEP_READ
+                 JMP  OUT_SERAIL
+                ; JB  TI,OUT_SERAIL
+KEEP_READ:                                          ; Keep Data Read From Pc in 8051 Mem
+                 CJNE R3,#00,KEEP_AGAIN
+                 MOV  R3,#01H
+                 MOV  R1,#MEM_START
+KEEP_AGAIN: 
+          JNB   RI,$
+          CLR   RI
+          MOV  A,SBUF
+          MOV @R1,A
+          INC    R1
+          CJNE R1,#037H,OUT_SERAIL
+          MOV  R3,#00H
+                   
+;--------------------TEST-------------------
+TEST_READ:		;Test Data read 
+             SETB  P1.0
+TEST_HEADER:
+            MOV    R1,#MEM_START
+            MOV    A,@R1
+            MOV    R1,#HEADER
+            XRL     A,@R1
+            JNZ     FAILED 
+;----------------------------------------
+ TEST_PC_COM1:
+            MOV    R1,#PC_COM
+            MOV    A,@R1
+            MOV    R1,#MEM_START
+            INC      R1
+            XRL     A,@R1
+            JNZ     FAILED 
+            
+;----------------------------------------
+ TEST_PC_COM2:
+            MOV    R1,#PC_COM
+            MOV    A,@R1
+            MOV    R1,#MEM_START
+            INC      R1
+            INC      R1
+            XRL     A,@R1
+           JNZ     FAILED 
+            
+;----------------------------------------
+ TEST_PC_COM3:
+            MOV    R1,#PC_COM
+            MOV    A,@R1
+            MOV    R1,#MEM_START
+            INC      R1
+            INC      R1
+            INC      R1
+            XRL     A,@R1
+            JNZ     FAILED 
+           
+;-----------------------------------
+ TEST_NODE1:
+            MOV    R1,#NODE1
+            MOV    A,@R1
+            MOV    R1,#MEM_START
+            INC      R1
+            INC      R1
+            INC      R1
+            INC      R1
+            XRL    A,@R1
+            JNZ    FAILED
+;---------------------------
+ TEST_NODE2:
+            MOV    R1,#NODE2
+            MOV    A,@R1
+            MOV    R1,#MEM_START
+            INC      R1
+            INC      R1
+            INC      R1
+            INC      R1
+            INC      R1
+            XRL    A,@R1
+            JNZ    FAILED
+;---------------------------
+ TEST_SUM:
+              MOV   R1,#MEM_START 
+              INC     R1
+              MOV   A,@R1
+              INC     R1
+              XRL    A,@R1
+              INC     R1
+              XRL    A,@R1
+              INC     R1
+              XRL    A,@R1
+             INC     R1
+             XRL    A,@R1
+             MOV   R1,#MEM_START
+             INC     R1
+             INC     R1
+             INC     R1
+             INC     R1
+             INC     R1   
+             INC     R1
+             XRL   A,@R1
+            JNZ   FAILED
+;-----------------------------  
+;======= Display========             
+               SETB  P1.0	
+               CALL  TEST_LED;***********
+               CALL  DELAY1
+              CALL  TEST_MEM
+               CALL  DELAY1
+              CALL  SEND_FRAME_END
+              JMP    OUT_SERAIL
+;--------------------
+ FAILED:
+               SETB P1.0
+;              CALL  TEST_LED
+         ;-----------------------------
+OUT_SERAIL:
+               clr  ti
+                RETI 
+;====== TEST MEMBIT SEND==========
+TEST_MEM:         
+         TEST_00:
+          MOV     C,28H
+          JC          TEST_01
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#31H
+          CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   28H
+TEST_01:
+          MOV     C,29H
+          JC          TEST_02
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#32H
+         CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   29H
+TEST_02:
+          MOV     C,2AH
+          JC          TEST_03
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#33H
+          CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   2AH
+TEST_03:
+          MOV     C,2BH
+          JC          TEST_04
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#34H
+         CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   2BH
+TEST_04:
+          MOV     C,2CH
+          JC          TEST_05
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#35H
+          CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   2CH
+TEST_05:
+          MOV     C,2DH
+          JC          TEST_08
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#36H
+          CALL   DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   2DH
+;---------------------------------------------
+TEST_08:
+          MOV     C,30H
+          JC          TEST_09
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#37H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   30H
+TEST_09:
+          MOV     C,31H
+          JC          TEST_0A
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#38H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   31H
+TEST_0A:
+          MOV     C,32H
+          JC          TEST_0B
+          MOV     R1,#BOOK1
+          MOV     @R1,#30H
+          MOV     R1,#BOOK2
+          MOV     @R1,#39H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   32H
+TEST_0B:
+          MOV     C,33H
+          JC          TEST_0C
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#30H
+         CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   33H
+TEST_0C:
+          MOV     C,34H
+          JC          TEST_0D
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#31H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   34H
+TEST_0D:
+          MOV     C,35H
+          JC          TEST_10
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#32H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   35H
+;================================
+TEST_10:
+          MOV     C,38H
+          JC          TEST_11
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#33H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   38H
+TEST_11:
+          MOV     C,39H
+          JC          TEST_12
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#34H
+         CALL    DELAY2
+         CALL    SEND_FRAME_DATA
+          SETB   39H
+TEST_12:
+          MOV     C,3AH
+          JC          TEST_13
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#35H
+         CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   3AH
+TEST_13:
+          MOV     C,3BH
+          JC          TEST_14
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#36H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   3BH
+TEST_14:
+          MOV     C,3CH
+          JC          TEST_15
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#37H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   3CH
+TEST_15:
+          MOV     C,3DH
+          JC          TEST_18
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#38H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   3DH
+;================================
+TEST_18:
+          MOV     C,40H
+          JC          TEST_19
+          MOV     R1,#BOOK1
+          MOV     @R1,#31H
+          MOV     R1,#BOOK2
+          MOV     @R1,#39H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   40H
+TEST_19:
+          MOV     C,41H
+          JC          TEST_1A
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#30H
+         CALL    DELAY2
+         CALL    SEND_FRAME_DATA
+          SETB   41H
+TEST_1A:
+          MOV     C,42H
+          JC          TEST_1B
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#31H
+         CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   42H
+TEST_1B:
+          MOV     C,43H
+          JC          TEST_1C
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#32H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   43H
+TEST_1C:
+          MOV     C,44H
+          JC          TEST_1D
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#33H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   44H
+TEST_1D:
+          MOV     C,45H
+          JC          TEST_20
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#34H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   45H
+;================================
+TEST_20:
+          MOV     C,48H
+          JC          TEST_21
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#35H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   48H
+TEST_21:
+          MOV     C,49H
+          JC          TEST_22
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#36H
+         CALL    DELAY2
+         CALL    SEND_FRAME_DATA
+          SETB   49H
+TEST_22:
+          MOV     C,4AH
+          JC          TEST_23
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#37H
+         CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   4AH
+TEST_23:
+          MOV     C,4BH
+          JC          TEST_24
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#38H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   4BH
+TEST_24:
+          MOV     C,4CH
+          JC          TEST_25
+          MOV     R1,#BOOK1
+          MOV     @R1,#32H
+          MOV     R1,#BOOK2
+          MOV     @R1,#39H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   4CH
+TEST_25:
+          MOV     C,4DH
+          JC          END_TEST_MEM
+          MOV     R1,#BOOK1
+          MOV     @R1,#33H
+          MOV     R1,#BOOK2
+          MOV     @R1,#30H
+          CALL    DELAY2
+          CALL    SEND_FRAME_DATA
+          SETB   4DH
+END_TEST_MEM:
+
+	RET
+;==============================
+;========================
+TEST_LED:     
+                             SETB  P1.2
+                             CALL  DELAY1
+                             CLR   P1.2
+                              RET 
+;-------------------------------------------------------------
+;================================================
+TEST_LED1:     
+                             SETB  P1.1
+                             CALL  DELAY1
+                             CLR   P1.1
+                              RET 
+;-------------------------------------------------------------
+delay2:
+   mov  r6,#9Fh
+loop2_2:
+   mov r5,#00h
+loop1_2:
+djnz r5,loop1_2
+djnz r6,loop2_2
+     ret
+
+	
+;--------------
+delay1:
+   mov  r6,#00h
+loop2_1:
+   mov r5,#00h
+loop1_1:
+djnz r5,loop1_1
+djnz r6,loop2_1
+     ret
+;-------------------------------------------------------------
+delay:
+    mov r7,#04h
+loop3:
+   mov  r6,#00h
+loop2:
+ mov r5,#00h
+loop1:
+djnz r5,loop1
+djnz r6,loop2
+djnz r7,loop3
+
+        ret
+ ;----------------------------------------------------------------------------------------------- 
+;SEND_DATA:
+;---------------------------------Send ascii to Screen
+SEND_DATA:
+                    setb      P1.0
+                    mov     sbuf,a
+                    jnb     ti,$
+                    clr     ti
+                    RET
+;------------------------------------------------------------------
+SEND_FRAME_DATA:
+        MOV  R1,#HEADER
+        MOV  A,@R1
+        CALL SEND_DATA
+     ;-----------------
+        MOV  A,#24H            ;24H=$ = DATA
+        CALL SEND_DATA
+    ;------------------	
+        MOV  R1,#NODE1  ; 
+        MOV  A,@R1 
+        CALL  SEND_DATA
+        MOV  R1,#NODE2  ; 
+        MOV  A,@R1     
+       CALL SEND_DATA
+      ;----------------------------
+        MOV   R1,#BOOK1
+        MOV   A,@R1
+        CALL  SEND_DATA
+        MOV   R1,#BOOK2
+        MOV   A,@R1
+        CALL SEND_DATA
+   ;---------------------------------
+        MOV    A,#24H
+        MOV    R1,#NODE1
+        XRL    A,@R1
+        MOV    R1,#NODE2
+        XRL    A,@R1
+        MOV    R1,#BOOK1
+        XRL    A,@R1
+        MOV    R1,#BOOK2
+        XRL    A,@R1
+        CALL   SEND_DATA    
+        RET
+;------------------
+SEND_FRAME_END:
+        MOV  R1,#HEADER
+        MOV  A,@R1
+        CALL SEND_DATA
+     ;-----------------
+        MOV  A,#26H            ;26H=& =END
+        CALL SEND_DATA
+        MOV  A,#26H            ;26H=& =END
+        CALL SEND_DATA
+        MOV  A,#26H            ;26H=& =END
+        CALL SEND_DATA
+    ;------------------	
+        MOV  R1,#NODE1  ; 
+        MOV  A,@R1 
+        CALL  SEND_DATA
+        MOV  R1,#NODE2  ; 
+        MOV  A,@R1     
+       CALL SEND_DATA
+      ;----------------------------
+        MOV    A,#26H
+        XRL     A,#26H
+        XRL     A,#26H
+        MOV    R1,#NODE1
+        XRL    A,@R1
+        MOV    R1,#NODE2
+        XRL    A,@R1
+        CALL   SEND_DATA    
+        RET
+;-----------------------------------------------------------------------------------------------
+;\\\\\  SET NODE  \\\\\\
+SET_NODE:
+           call      delay
+           MOV     A,P1
+           ANL      A,#11111000B                   
+           MOV     R2,A
+SET_NODE1:
+           CJNE    A,#00001000B,SET_NODE2
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#31H
+           JMP      END_SET_NODE
+SET_NODE2:
+           CJNE    A,#00010000B,SET_NODE3
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#32H
+           JMP      END_SET_NODE
+SET_NODE3:
+           CJNE    A,#00011000B,SET_NODE4
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#33H
+           JMP      END_SET_NODE
+SET_NODE4:
+           CJNE    A,#00100000B,SET_NODE5
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#34H
+           JMP      END_SET_NODE
+SET_NODE5:
+           CJNE    A,#00101000B,SET_NODE6
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#35H
+           JMP      END_SET_NODE
+SET_NODE6:
+           CJNE    A,#00110000B,SET_NODE7
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#36H
+           JMP      END_SET_NODE
+SET_NODE7:
+           CJNE    A,#00111000B,SET_NODE8
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#37H
+           JMP      END_SET_NODE
+SET_NODE8:
+           CJNE    A,#01000000B,SET_NODE9
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#38H
+           JMP      END_SET_NODE
+SET_NODE9:
+           CJNE    A,#01001000B,SET_NODE10
+           MOV     R1,#NODE1	
+           MOV     @R1,#30H
+           MOV     R1,#NODE2
+           MOV     @R1,#39H
+           JMP      END_SET_NODE
+SET_NODE10:
+           CJNE    A,#01010000B,SET_NODE11
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#30H
+           JMP      END_SET_NODE
+SET_NODE11:
+           CJNE    A,#01011000B,SET_NODE12
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#31H
+           JMP      END_SET_NODE
+SET_NODE12:
+           CJNE    A,#01100000B,SET_NODE13
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#32H
+           JMP      END_SET_NODE
+SET_NODE13:
+           CJNE    A,#01101000B,SET_NODE14
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#33H
+           JMP      END_SET_NODE
+SET_NODE14:
+           CJNE    A,#01110000B,SET_NODE15
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#34H
+           JMP      END_SET_NODE
+SET_NODE15:
+           CJNE    A,#01111000B,SET_NODE16
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#35H
+           JMP      END_SET_NODE
+SET_NODE16:
+           CJNE    A,#10000000B,SET_NODE17
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#36H
+           JMP      END_SET_NODE
+SET_NODE17:
+           CJNE    A,#10001000B,SET_NODE18
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#37H
+           JMP      END_SET_NODE
+SET_NODE18:
+           CJNE    A,#10010000B,SET_NODE19
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#38H
+           JMP      END_SET_NODE
+SET_NODE19:
+           CJNE    A,#10011000B,SET_NODE20
+           MOV     R1,#NODE1	
+           MOV     @R1,#31H
+           MOV     R1,#NODE2
+           MOV     @R1,#39H
+           JMP      END_SET_NODE
+SET_NODE20:
+           CJNE    A,#10100000B,SET_NODE21
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#30H
+           JMP      END_SET_NODE
+SET_NODE21:
+           CJNE    A,#10101000B,SET_NODE22
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#31H
+           JMP      END_SET_NODE
+SET_NODE22:
+           CJNE    A,#10110000B,SET_NODE23
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#32H
+           JMP      END_SET_NODE
+SET_NODE23:
+           CJNE    A,#10111000B,SET_NODE24
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#33H
+           JMP      END_SET_NODE
+SET_NODE24:
+           CJNE    A,#11000000B,SET_NODE25
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#34H
+           JMP      END_SET_NODE
+SET_NODE25:
+           CJNE    A,#11001000B,SET_NODE26
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#35H
+           JMP      END_SET_NODE
+SET_NODE26:
+           CJNE    A,#11010000B,SET_NODE27
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#36H
+           JMP      END_SET_NODE
+SET_NODE27:
+           CJNE    A,#11011000B,SET_NODE28
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#37H
+           JMP      END_SET_NODE
+SET_NODE28:
+           CJNE    A,#11100000B,SET_NODE29
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#38H
+           JMP      END_SET_NODE
+SET_NODE29:
+           CJNE    A,#11101000B,SET_NODE30
+           MOV     R1,#NODE1	
+           MOV     @R1,#32H
+           MOV     R1,#NODE2
+           MOV     @R1,#39H
+           JMP      END_SET_NODE
+SET_NODE30:
+           CJNE    A,#11110000B,SET_NODE31
+           MOV     R1,#NODE1	
+           MOV     @R1,#33H
+           MOV     R1,#NODE2
+           MOV     @R1,#30H
+           JMP      END_SET_NODE
+SET_NODE31:
+           CJNE    A,#11111000B,END_SET_NODE
+           MOV     R1,#NODE1	
+           MOV     @R1,#33H
+           MOV     R1,#NODE2
+           MOV     @R1,#31H
+           JMP      END_SET_NODE
+END_SET_NODE:
+          RET 
+;===========================
+END

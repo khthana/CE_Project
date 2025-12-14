@@ -1,0 +1,43 @@
+[{E46878BE-AD69-11D3-B613-00E02944B1CD} - I1]
+Roles=0
+InterfaceID={E46878BD-AD69-11D3-B613-00E02944B1CD}
+Description=
+AuthLevel=4
+ProxyStubDLL=
+[{5D34479D-AD6B-11D3-B613-00E02944B1CD} - C1]
+Roles=0
+Clsid={E46878BE-AD69-11D3-B613-00E02944B1CD}
+Description=
+ProgID=FrontEcomm.ESecure
+Transaction=Not supported
+RunInASP=Y
+InProc=N
+Local=Y
+Remote=N
+Internet=N
+Security=Y
+AuthLevel=4
+System=N
+Origin=Install
+Wrapped=Y
+CompDLL=FrontEcomm.dll
+TypeLib=FrontEcomm.dll
+Interfaces=1
+[{5D34479D-AD6B-11D3-B613-00E02944B1CD}]
+Name=FrontEComm
+Description= 
+System=N
+Latency=3
+Shutdown=N
+Security=N
+AuthLevel=4
+Components=1
+Roles=0
+Activation=Local
+Changeable=Y
+Deleteable=Y
+[Packages]
+Package1={5D34479D-AD6B-11D3-B613-00E02944B1CD}
+Packages=1
+Version=2.01
+ExtendedVersion=2.01

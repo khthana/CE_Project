@@ -1,0 +1,207 @@
+(* ============================= BROWSE.KB ===================================
+    A Topic Library Browser for KnowledgePro.
+
+    This tool loads a topic library from disk and displays the topics in a hypertext
+    list. When you select a topic from this list, a description of the topic appears.
+    You can copy the syntax or the entire topic to the clipboard for use in your 
+    applications as well as view the topic interactively. 
+
+    For more details run this program and view the help system.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+==========================================================================*)
+
+setup ().
+
+(* =============== Create Main Window =============== *)
+
+wmain is window (quit, 2,1,84,26,'Library Browser',[overlapped,thickframe,controlmenu,minimizebox,maximizebox,showchildren,titlebar], , , green2, close_event).
+icon is load_icon (kptool_icon).
+attach_icon ( ?wMain, ?icon ).
+w4 is window (,3,2,78.4,20.7, ,[childwindow,horzscroll,thinframe,vertscroll],?wmain).
+w1 is window (, 3,17,78.4,7.5 ,,[childwindow,thinframe,visible],?wmain).
+use_font (?bigFont).
+text (' #fred Current topic:').
+use_font (?mainFont).
+button (Quit,quit,66,6.5,13).
+button (Help,help,53,6.5,13).
+button ('Load Library',PromptLoadLib,40,6.5,13).
+bView is button ('View Topic',CopyTopic,27,6.5,13).
+bTopics is button (Topics,toTopics,27,6.5,13).
+hide_window (?bTopics).
+bCopyTopic is button ('Copy Topic',CopyTopic,14,6.5,13).
+bCopySyntax is button ('Copy Syntax',CopySyntax,1,6.5,13).
+curWin is window ( , 15.5,1.15,65,1.25, ,[child,visible],?w1).
+desWin is window (, 1,2.5,78,4, , [childwindow,visible,vertscroll],?w1).
+disable_window ([?bView, ?bTopics, ?bCopyTopic, ?bCopySyntax]).
+
+(* =============== Create Topic Display Window =============== *)
+
+w3 is window (, 3,2,78.4,14, ,[childwindow,thinframe,visible],?wmain).
+use_font (?bigFont).
+text (' #fred Current library:').
+use_font (?mainFont).
+libWin is window ( , 15.5,1.15,65,1.25, ,[child,visible],?w3).
+topWin is window (,1,2.5,78,12.5, ,[childwindow,thinframe,vertscroll,visible],?w3).
+
+(* =============== Show the main window and prompt the user =============== *)
+
+show_window (?wmain).
+PromptLoadLib ().
+
+(* =============== Here are the topics for this program. =============== *)
+
+topic PromptLoadLib.
+  (* This topic prompts the user with a list of topic libraries. If a selection is made
+      then the library is read. *)
+  file is file_menu ( '*.tpx', ,'Enter the library you want to browse:').
+  if ?file <> [] then
+     readLibrary (?file).
+end.
+
+topic readLibrary (file).
+  (* This topic reads the topic library file and builds a list of the topics
+      included in the file. *)
+
+  msgWin is window ((* eventTopic*),20,10,44,6,,[popup,showChildren,siblings,DialogFrame]).
+  text ('
+
+      One moment ... Loading Topic Library').
+  show_window (?msgWin).
+  update_window (?msgWin).
+  make_modal (?msgWin).
+
+  set_text (?libWin,['   Library: #s',?file,#n]).
+  load (?file, temp).
+  topicList is children (temp).
+  remove_topic (temp).
+  set_display_window (?topWin).
+  fullTopicList is [].
+  set_file_pos (?file,0).
+  apply (ReadLibraryParms, ?topicList).
+  set_text (?topWin, concat (?indent, '#m',?fullTopicList,'#m' )).
+  mark ( first (?fullTopicList) ).
+  enable_window ([?bView, ?bTopics, ?bCopyTopic, ?bCopySyntax]).
+  if ?inTopicView then
+     toTopics ().
+  close_window (?msgWin).
+
+  topic ReadLibraryParms (item).
+     (* This topic formats each of the topic definitions by reading the parameters
+        from topic library. *)
+     if string_where (?item, ' ') <> 0 then
+        item is concat ('''', ?item, '''').
+     fullTopic is read (?file, concat (?topicHeader, ?item), '.').
+     if ?fullTopic is ?EOF then
+         fullTopic is [].
+     fullTopicList gets concat (?item, ?fullTopic).
+  end.
+end.
+
+topic CopySyntax.
+  (* This topic copies the selected topic's syntax to the clipboard, so that
+      it can be copied into your application. *)
+  copyItem is ?current.
+  if string_where (?copyItem, '(') is 0 then
+     copyItem is concat (?copyItem, ' ()').
+  copyItem is concat (?copyItem, '.').
+  text_to_clipboard (?copyItem).
+end.
+
+topic CopyTopic (item).
+  (* This topic copies the selected topic to the clipboard, so that
+      it can be copied into your application. *)
+  set_file_pos (?file, 0).
+  viewTopic is read (?file, concat (?topicHeader, ?current), element (?FullTopicList, where (?FullTopicList, ?current) + 1)).
+  viewTopic is combine ( concat (?topicHeader,?current, '.'), rest (?viewTopic)).
+  viewTopic is remove (?viewTopic, ?topicHeader).
+  if ?item is 'Copy Topic' then
+     text_to_clipboard (?viewTopic)
+  else
+     inTopicView is t and
+     set_text (?w4, ?viewTopic) and
+     show_window ([?w4,?bTopics]) and
+     hide_window (?bView). 
+end.
+
+topic toTopics.
+  inTopicView is f.
+  show_window (?bView).
+  hide_window ([?w4,?bTopics]).
+end.
+
+topic Help.
+  (* This topic calls the help system for this application. This help system is based on
+      the generic help system provided with KnowledgePro. For reference see the file
+      APPHELP.SRC. *)
+  load ('browshlp.hkb', temp).
+  temp:file is 'browshlp.hlp'.
+  temp ().
+  wait ().
+  remove_topic (temp).
+end.
+
+topic Quit.
+  (* This topic terminates the application. *)
+  hide_window (?wmain).
+  exit_kp ().
+end.
+
+topic mark (item).
+  (* This is the default hypertext topic. All of the topics selected from the window are
+      processed through this topic. For each selected topic, a description is read from
+      the file and placed in the description window. *)
+  current is ?item.
+  set_file_pos (?file, 0).
+  check is read (?file, concat (?topicHeader, ?item), '(*').
+  topicEnded is f.
+  apply (checkEnd, ?check).
+  if ?topicEnded then
+     describe is ?EOF
+  else
+     describe is string_replace (read (?file, ,'*)'), '(*', ).
+  if ?describe is ?EOF then
+     describe is '#fred   No Description Available for this topic#d'.
+  set_text (?curWin, ?item).
+  set_text (?desWin, ?describe).
+
+  topic checkEnd (item).
+     if string_where (?item, 'end.') <> 0 then
+        topicEnded is t.
+  end.
+end.
+
+topic setup.
+  (* This topic sets up the fonts, colors and general purpose topics for use
+      throughout the application. *)
+  topicHeader is 'topic '.
+  indent is '  '.
+  EOF is number_to_char (26).
+  inTopicView is f.
+  bigFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  hyperFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  boldFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  mainFont is create_char_font ( [0.82,0.71428,700,'F','F','F',0,1,34,'helv']).
+  use_font (?mainFont).
+  if last (system_info ()) > 2 then
+     color is green2
+  else
+     color is black.
+  hyper_display (?color,,?mainFont).
+end.

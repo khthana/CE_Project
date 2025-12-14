@@ -1,0 +1,32 @@
+defineProcedure String projectCF::Student::instance:Year()
+language  : "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $Bag <Integer> BInt;
+ $Set <RegsSubj> SRS;
+ $SRS = self.Registered;
+ $BInt = SRS.RegsYear from SRS;
+ $Integer MinYear;
+ $Integer MaxYear;
+ $Integer YrsStudy;
+ $MinYear = BInt.min();
+ $MaxYear = BInt.max();
+ $Bag <Integer> BSem;
+ $BSem = SRS.Semester from SRS where SRS.RegsYear == MaxYear;
+ $Integer Sem;
+ $Sem = BSem.max();
+ $YrsStudy = MaxYear - MinYear + Sem;
+ $if (YrsStudy == 4) {
+	$return ("Senior");
+ };
+ $if (YrsStudy == 3) {
+	$return ("Junior");
+ };
+ $if (YrsStudy == 2) {
+	$return ("Sophomore");
+ };
+  $return("Freshy");
+
+};

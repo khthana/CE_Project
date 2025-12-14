@@ -1,0 +1,565 @@
+VERSION 5.00
+Begin VB.Form frmAddBilling 
+   Caption         =   "Add Billing"
+   ClientHeight    =   5580
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   8865
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   5580
+   ScaleWidth      =   8865
+   StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox txtPagerNumber 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   57
+      Top             =   2520
+      Width           =   1575
+   End
+   Begin VB.TextBox txtPagerType 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   55
+      Top             =   2040
+      Width           =   1575
+   End
+   Begin VB.TextBox txtPaid 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   53
+      Top             =   3000
+      Width           =   735
+   End
+   Begin VB.TextBox txtBillingFax 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   51
+      Top             =   2520
+      Width           =   1575
+   End
+   Begin VB.CommandButton cmdAddBilling 
+      Caption         =   "Add New Billing"
+      Height          =   495
+      Left            =   6600
+      TabIndex        =   18
+      Top             =   3720
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingCountry 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   15
+      Top             =   1080
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipPostcode 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   7
+      Top             =   1080
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingEmail 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   17
+      Top             =   2040
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingTel 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   16
+      Top             =   1560
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingPostCode 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   14
+      Top             =   600
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingState 
+      Height          =   375
+      Left            =   7080
+      TabIndex        =   13
+      Top             =   120
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingCity 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   12
+      Top             =   4920
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingSurname 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   11
+      Top             =   4440
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingName 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   10
+      Top             =   3960
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingAddress 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   9
+      Top             =   3480
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtTotalPrice 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   4080
+      Locked          =   -1  'True
+      TabIndex        =   39
+      Top             =   3000
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtTotalTax 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   4080
+      Locked          =   -1  'True
+      TabIndex        =   37
+      Top             =   2520
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtStatus 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   4080
+      Locked          =   -1  'True
+      TabIndex        =   35
+      Top             =   2040
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipCountry 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   8
+      Top             =   1560
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipRegion 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   6
+      Top             =   600
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipCity 
+      Height          =   375
+      Left            =   4080
+      TabIndex        =   5
+      Top             =   120
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtFrieght 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   1200
+      Locked          =   -1  'True
+      TabIndex        =   30
+      Top             =   4920
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipVia 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   4
+      Top             =   4440
+      Width           =   1575
+   End
+   Begin VB.TextBox Txtshipaddress 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   3
+      Top             =   3960
+      Width           =   1575
+   End
+   Begin VB.TextBox Txtshipdate 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   1200
+      Locked          =   -1  'True
+      TabIndex        =   26
+      Top             =   3480
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtShipName 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   2
+      Top             =   3000
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtPayType 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   1
+      Top             =   1560
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtReqDate 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   1200
+      Locked          =   -1  'True
+      TabIndex        =   23
+      Top             =   1080
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtBillingDate 
+      BackColor       =   &H8000000B&
+      Height          =   375
+      Left            =   1200
+      Locked          =   -1  'True
+      TabIndex        =   21
+      Top             =   600
+      Width           =   1575
+   End
+   Begin VB.TextBox TxtAccountID 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   0
+      Top             =   120
+      Width           =   1575
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Pager number"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   58
+      Top             =   2640
+      Width           =   1095
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Pager type"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   56
+      Top             =   2160
+      Width           =   975
+   End
+   Begin VB.Label Label28 
+      Caption         =   "Paid"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   54
+      Top             =   3120
+      Width           =   975
+   End
+   Begin VB.Label Label25 
+      Caption         =   "BillingFax"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   52
+      Top             =   2640
+      Width           =   975
+   End
+   Begin VB.Label Label27 
+      Caption         =   "BillingCountry"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   50
+      Top             =   1200
+      Width           =   1095
+   End
+   Begin VB.Label Label26 
+      Caption         =   "ShipPostcode"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   49
+      Top             =   1200
+      Width           =   975
+   End
+   Begin VB.Label Label24 
+      Caption         =   "BillingEmail"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   48
+      Top             =   2160
+      Width           =   975
+   End
+   Begin VB.Label Label23 
+      Caption         =   "BillingTel"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   47
+      Top             =   1680
+      Width           =   975
+   End
+   Begin VB.Label Label22 
+      Caption         =   "BillingPostCode"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   46
+      Top             =   720
+      Width           =   1095
+   End
+   Begin VB.Label Label21 
+      Caption         =   "BillingState"
+      Height          =   255
+      Left            =   6000
+      TabIndex        =   45
+      Top             =   240
+      Width           =   975
+   End
+   Begin VB.Label Label20 
+      Caption         =   "BillingCity"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   44
+      Top             =   5040
+      Width           =   975
+   End
+   Begin VB.Label Label19 
+      Caption         =   "BillingSurname"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   43
+      Top             =   4560
+      Width           =   1095
+   End
+   Begin VB.Label Label18 
+      Caption         =   "BillingName"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   42
+      Top             =   4080
+      Width           =   975
+   End
+   Begin VB.Label Label17 
+      Caption         =   "BillingAddress"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   41
+      Top             =   3600
+      Width           =   975
+   End
+   Begin VB.Label Label16 
+      Caption         =   "TotalPrice"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   40
+      Top             =   3120
+      Width           =   975
+   End
+   Begin VB.Label Label15 
+      Caption         =   "TotalTax"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   38
+      Top             =   2640
+      Width           =   975
+   End
+   Begin VB.Label Label14 
+      Caption         =   "Status"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   36
+      Top             =   2160
+      Width           =   975
+   End
+   Begin VB.Label Label13 
+      Caption         =   "ShipCountry"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   34
+      Top             =   1680
+      Width           =   975
+   End
+   Begin VB.Label Label12 
+      Caption         =   "ShipRegion"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   33
+      Top             =   720
+      Width           =   975
+   End
+   Begin VB.Label Label11 
+      Caption         =   "ShipCity"
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   32
+      Top             =   240
+      Width           =   975
+   End
+   Begin VB.Label Label10 
+      Caption         =   "Frieght"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   31
+      Top             =   5040
+      Width           =   975
+   End
+   Begin VB.Label Label9 
+      Caption         =   "ShipVia"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   29
+      Top             =   4560
+      Width           =   975
+   End
+   Begin VB.Label ShipAddress 
+      Caption         =   "ShipAddress"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   28
+      Top             =   4080
+      Width           =   975
+   End
+   Begin VB.Label Label8 
+      Caption         =   "ShipDate"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   27
+      Top             =   3600
+      Width           =   975
+   End
+   Begin VB.Label Label7 
+      Caption         =   "Ship name"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   25
+      Top             =   3120
+      Width           =   975
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Pay type"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   24
+      Top             =   1680
+      Width           =   975
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Require date"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   22
+      Top             =   1200
+      Width           =   975
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Billing date"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   20
+      Top             =   720
+      Width           =   975
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Account ID"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   19
+      Top             =   240
+      Width           =   975
+   End
+End
+Attribute VB_Name = "frmAddBilling"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+Private Sub cmdAddBilling_Click()
+Dim objBilling As Object
+Dim IntBillingID As Integer
+
+cmdAddBilling.Enabled = False
+
+On Error GoTo AddBillingError
+Set objBilling = CreateObject("Ecomm.billing")
+
+With objBilling
+    .Accountid = CInt(TxtAccountID.Text)
+    .billingdate = TxtBillingDate.Text   ' * ReadOnly
+    .reqdate = TxtReqDate.Text           ' * ReadOnly
+    .PayType = TxtPayType.Text
+    .ShipName = TxtShipName.Text
+    .shipdate = Txtshipdate.Text         ' * ReadOnly
+    .ShipAddress = Txtshipaddress.Text
+    .ShipVia = TxtShipVia.Text
+    .frieght = TxtFrieght.Text           ' * ReadOnly
+    .ShipCity = TxtShipCity.Text
+    .ShipRegion = TxtShipRegion.Text
+    .ShipPostcode = TxtShipPostcode.Text
+    .ShipCountry = TxtShipCountry.Text
+    .Status = txtStatus.Text
+'    .TotalTax = TxtTotalTax.Text       ' * ReadOnly
+'    .TotalPrice = TxtTotalPrice.Text   ' * ReadOnly
+    .BillingAddress = TxtBillingAddress.Text
+    .BillingName = TxtBillingName.Text
+    .BillingSurname = TxtBillingSurname.Text
+    .BillingCity = TxtBillingCity.Text
+    .BillingState = TxtBillingState.Text
+    .BillingPostcode = TxtBillingPostCode.Text
+    .BillingCountry = TxtBillingCountry.Text
+    .BillingTel = TxtBillingTel.Text
+    .BillingEmail = TxtBillingEmail.Text
+    .billingfax = txtBillingFax.Text
+    .paid = txtPaid.Text
+    .pagertype = txtPagerType.Text
+    .pagernumber = txtPagerNumber.Text
+    
+    IntBillingID = .AddBilling
+End With
+
+    MsgBox "Add Billing : " & IntBillingID & " Complete"
+    Set objBilling = Nothing
+    cmdAddBilling.Enabled = True
+Exit Sub
+AddBillingError:
+    cmdAddBilling.Enabled = True
+    Me.Caption = Err.Number & " : " & Err.Description
+
+End Sub
+
+Private Sub Form_Load()
+ TxtAccountID.Text = 1
+ TxtBillingDate.Text = CDate(Date)
+ TxtReqDate.Text = CDate(Date + PayinDate + ShipPeriod)
+ TxtPayType.Text = "Money Transfer"
+ TxtShipName.Text = "Niran"
+ Txtshipdate.Text = CDate(Date + ShipPeriod)
+ Txtshipaddress.Text = "Wal St"
+ TxtShipVia.Text = "boat"
+ TxtFrieght.Text = "8.5"
+ TxtShipCity.Text = "Boy Town"
+ TxtShipRegion.Text = "London"
+ TxtShipPostcode.Text = "65745"
+ TxtShipCountry.Text = "England"
+ txtStatus.Text = "Wait money"
+' TxtTotalTax.Text = ""
+' TxtTotalPrice.Text = "45554.00"
+ TxtBillingAddress.Text = "Ladphrao 64"
+ TxtBillingName.Text = "Boy"
+ TxtBillingSurname.Text = "Luck"
+ TxtBillingCity.Text = "Bangkok"
+ TxtBillingState.Text = "Bangkapi"
+ TxtBillingPostCode.Text = "10310"
+ TxtBillingCountry.Text = "Thailand"
+ TxtBillingTel.Text = "712-7000"
+ TxtBillingEmail.Text = "Liverpool@kop.com"
+ txtBillingFax.Text = "96658996"
+ txtPaid.Text = "no"
+ txtPagerType.Text = "152"
+ txtPagerNumber.Text = "573579"
+ End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+  frmMain.Show
+End Sub
+

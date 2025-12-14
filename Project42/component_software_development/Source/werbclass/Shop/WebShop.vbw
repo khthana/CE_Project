@@ -1,0 +1,4 @@
+clsOneShop = 39, -5, 662, 434, , 23, 32, 523, 457, C
+ModWebShop = 56, 130, 602, 540, 
+clsItemList = 3, 50, 753, 584, C, 88, 46, 638, 496, C
+ClsShowSearchResult = 127, 93, 896, 655, , 66, 66, 535, 412, C

@@ -1,0 +1,158 @@
+(* ========================= DESCOLOR.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Color Module
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This code shows the colors associated with different RBG values. Standard color
+   names can be used to name colors for text and window backgrounds. These are
+   shown in PALETTE.KB.  If you want to use window background colors other than the
+   ones defined you can use the RBG values shown in this code. 
+
+  ====================================================================== *)
+
+topic color ( passColor ).
+  use_font ( element ( ?ref:fontHandleList, 1) , [control, window ] ).
+  hide_window ( ?ref:wWork ).
+  collect_not_ok ().
+  :startColor is ?passColor.
+  :userScroll is yes.  (* Colors can be changed by the user with one of three scroll bars.
+   When a color is changed with the scroll, the edit line showing the value and the RGB
+   value is updated.  If the scroll event topic is called as a result of a change to the 
+   scroll object from one of the edit lines, then we don't want scroll to write back to the
+   edit line so we test userScroll to make prevent this from occurring. *)
+  
+  [:rgb, :red, :green, :blue] is 0.  
+  :wColor is window ( ,20.71,4.562,57.28,15.12,'Custom Colors',[ overlappedWindow] ).
+
+  text ('
+                                                                        RGB Value:
+
+
+
+
+
+
+
+  RED:
+
+  GREEN:
+
+  BLUE: ').
+
+  :rgbEd is edit_line (0,changeRGB,42,3.55,12,char_event).
+
+  :redEd is edit_line (0,changeEdit,11,7.8,12,char_event ).
+  :gEd is edit_line (0,changeEdit,11,9.8,12,char_event).
+  :bEd is edit_line (0,changeEdit,11,11.8,12,char_event).
+
+  :b1 = button2 ('  &Ok  ', Done, 45, 9.75, 9, 1.5).
+  :b2 = button2 ('&Cancel',Done, 45, 11.5, 9, 1.5).
+
+  :rScroll is horz_scroll_bar (changeScroll,23.25,7.75,15,1.6,0,85).
+  :gScroll is horz_scroll_bar (changeScroll,23.25,9.75,15,1.6,0,85).
+  :bScroll is horz_scroll_bar (changeScroll,23.25,11.75,15,1.6,0,85).
+  
+  
+  :w2 is window (,11,2,26.5,4.5, , [childwindow,visible] ,?wColor, ,black). 
+  :edList is [?redEd,?gEd,?bEd].
+  :scrollList is [?rScroll, ?gScroll, ?bScroll].
+  :colorList is [red, green, blue].
+  set_text (?rgbEd, ?passColor).
+  changeRGB (13).
+
+  show_window (?wColor).
+  set_focus (?redEd).
+  
+
+
+  wait ( ).
+  
+     (* These lists are to keep track of which object is changed and which color that
+         object represents.  For example, if the green edit line is changed, the topic changeEdit
+         is called and is passed the value of the handle of gEd.  Since gEd is the second element
+         of edList, we can retrieve the second element of colorList to find that the color changed
+         was green.  *)
+  
+  topic changeEdit ( i, event, handle,    
+                     listLoc, color, scrollHandle, newValue, nextFocus).
+    if not ( one_of ( [13,9], ?i) ) then exit (). (* only Tab and Enter are processed *)
+    listLoc is where (?edList, ?handle).  (* find which edit object was changed *)
+    color is element ( ?colorList, ?listLoc ).   (* get the name of the color changed *)
+    newValue is get_text (?handle).
+    if ?newValue > 255 then newValue is 255 and set_text (?handle, 255).
+    if ?newValue < 0 then newValue is 0 and set_text (?handle, 0).
+    ?color is ?newValue.  (* assign the new value to the correct color *)
+    scrollHandle is element (?scrollList, ?listLoc). (* locate the matching scroll object *)
+    userScroll is no.
+    set_scroll_bar ( ?scrollHandle, ??color/3 ).
+    userScroll is yes.
+    setRGB ().  (* update the rgb value and the color window *)
+    nextFocus is element (?edList, ?listLoc+1).
+    if ?nextFocus is [] then nextFocus is ?b1.
+    set_focus (?nextFocus).
+  end.
+  
+  topic changeScroll (value, event, handle,
+                     listLoc, color, editHandle).
+    if ?userScroll is no then exit ().
+    listLoc is where (?scrollList, ?handle). (* find which scroll object was changed *)
+    color is element ( ?colorList, ?listLoc ). (* get the name of the color changed *)
+    ?color is ?value * 3.    
+    editHandle is element (?edList, ?listLoc).  (* locate the matching edit object *)
+    set_text (?editHandle, ??color).
+    setRGB ().   (* update the rgb value and the color window *)
+  end.
+  
+  topic changeRGB (i, remain).
+    if not ( one_of ( [13,9], ?i) ) then exit ().
+    rgb is get_text (?rgbEd).  
+    if ?rgb > 16777215 then rgb is 16777215 and set_text (?rgbEd,16777215).
+    if ?rgb < 0 then rgb is 0 and set_text (?rgbEd,0).
+    blue is ?rgb DIV 65536.
+    remain is ?rgb - (?blue * 65536).
+    green is ?remain DIV 256.
+    red is ?remain - (?green * 256).
+  
+  (* change the color window and reset the edit and scroll objects for the new rgb value *)
+  
+    set_window_colors ( ?w2, , ?rgb ).
+    userScroll is no.
+    set_scroll_bar (?bScroll,?blue/3).
+    set_scroll_bar (?gScroll,?green/3).
+    set_scroll_bar (?rScroll,?red/3).
+    userScroll is yes.
+    set_text (?gEd, ?green).
+    set_text (?redEd, ?red).
+    set_text (?bEd, ?blue).
+    changeRGB is t.  (* the event topic is set to true so the focus will not automatically
+                                    go to the next object which was created.  Instead we want to
+                                    send the focus to the Copy  button *)
+    set_focus (?b1).
+  end.
+  
+  topic setRGB.
+    rgb is (65536 * ?blue) + (256 * ?green) + ?red.  
+    set_text (?rgbEd, ?rgb).
+    set_window_colors ( ?w2, , ?rgb ).
+  end.
+  
+  topic Done ( item ).
+    if ?item is '  &Ok  ' then Color is ?rgb else Color is ?startColor.
+    close_window ( ?wColor ).
+    collect_ok ( ).
+    continue ( ).
+  end.  
+    
+end. (* Color *)

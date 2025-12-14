@@ -1,0 +1,141 @@
+(* BROWSHLP.SRC                                        Help system for the Browse program. 
+
+   All topics are created locally so they will be removed when the topic the KB is 
+   loaded into is deleted. This program is based on the APPHELP.SRC program
+   supplied with KnowledgePro. *)
+ 
+setup ().
+
+(* Find the first screen of the help file. *)
+:message is read (?file,'//','//').
+close (?file).
+:top is string_replace (first (?message), '//').
+mark (?top).
+
+topic Index.
+  set_focus (?setup:w1).
+  if last (?setup:list) <> ?top then 
+     mark (?top).
+end.
+
+topic Back.
+   set_focus (?setup:w1).
+   if list_length (?setup:list) = 1 then
+      mark (?top)
+   else 
+      setup:list is sublist (?setup:list, 1, list_length (?setup:list) - 1) and
+      item is last (?setup:list) and
+      setup:list is sublist (?setup:list, 1, list_length (?setup:list) - 1) and
+      (if ?item is help then
+          help ()
+       else
+          mark (?item)).
+end. (* Back *)
+
+topic PrintIt.
+  set_focus (?setup:w1).
+  print (get_text ( ?setup:w1 )).
+end.
+
+topic Quit.
+  close_window (?setup:wMain).
+end.
+
+topic Help.
+   set_focus (?setup:w1).
+   if last (?setup:list) is 'Help'
+      then exit ().
+   setup:list gets Help.
+   set_text (?setup:w1,'#rb Reading Hypertext#rd
+
+ The line below shows the font used for hypertext on your monitor.
+
+ #mThis is the font for hypertext on the current monitor.#m
+
+ To select hypertext, point and click with the mouse or, use TAB 
+ and SHIFT TAB to move the cursor among hypertext items and press 
+ ENTER to select the item.
+
+ To go back to the previous screen, select BACK.
+ To return to the first screen, select INDEX.
+ To print the current item, select PRINT.').
+
+  topic 'This is the font for hypertext on the current monitor.'.
+    (* this is a dummy topic to catch the hypertext in the help screen.*)
+  end.
+
+end. (*Help*)
+
+topic Finish (info,event) .
+  do (?event).
+
+  topic close_event.
+    close (?file).
+    hyper_cursor (arrow).
+    use_font (system_font).
+    continue ().
+  end.
+
+  topic resize_event (width,bSize).
+     hide_window ( [?setup:w1,?setup:wb]).
+     width is first (?info).
+     if ?width >= 65 then bSize is [2, 14,1,27,1,40,1,53,1] else
+        if ?width >= 52 then bSize is [4,14,1,27,1,40,1,1,3] else
+           if ?width >= 39 then bSize is [4, 14,1,27,1,1,3,14,3] else
+               if ?width >= 26 then bSize is [6,14,1,1,3,14,3,1,5] else
+                      bSize is [ 10,1,3,1,5,1,7,1,9,1,11].
+     resize_window (?setup:wb, 100, first (?bSize)).
+     move_window (?setup:b2, element ( ?bsize,2), element (?bsize,3) ).
+     move_window (?setup:b3, element ( ?bsize,4), element (?bsize,5) ).
+     move_window (?setup:b4, element ( ?bsize,6), element (?bsize,7) ).
+     move_window (?setup:b5, element ( ?bsize,8), element (?bsize,9) ).
+     move_window (?setup:w1, 1, first (?bSize)+1 ). 
+     resize_window (?setup:w1, element ( window_info (?setup:wMain),10), element ( window_info ( ?setup:wMain), 11) - first (?bSize) ).
+     show_window ([?setup:w1,?setup:wb]).
+  end.
+
+end.
+
+(* ================================= MARK ============================= *)
+
+topic  mark (item).
+    setup:list gets?item.
+    displayText is read (?file, concat ('//',?item) ,'//') . 
+    set_text (?setup:w1,[#rb,?item,#rd, ?displayText] ).
+    set_file_pos (?file,0,beginning).
+end. (*mark*)
+
+(* ========================== SELECT FONTS =========================== *)
+
+topic b.
+  use_font (?setup:boldFont).
+end.
+
+topic d.
+  use_font (?setup:mainFont).
+end.
+
+(* ============================== SETUP =============================== *)
+
+topic setup.
+  :wMain is window (Finish,15,2,66,25,,[popupwindow,thickFrame,TitleBar, ControlMenu, MaximizeBox], , , , [close_event, resize_event] ).
+  make_modal (?wmain).
+  :wB is window ( , 1,1,100,2, ,[child, visible, siblings, showChildren], ?wmain, , gray).
+  :b1 is button (Index,index,1,1,13).
+  :b2 is button (Back,back,14,1,13).
+  :b3 is button (Print,printIt,27,1,13).
+  :b4 is button (Quit,quit,40,1,13).
+  :b5 is button (Help,help,53,1,13).
+  :w1 is window ( , 1,3, element ( window_info (?wMain), 10), element ( window_info (?wMain), 11)-2, , [child, siblings, horzScroll, vertScroll,showChildren, visible] ,?wmain).
+  :mainFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  :hyperFont is create_char_font ( [1,1,400,'F','T','F',0,1,34,'Helv']).
+  :boldFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  :bigFont is create_char_font ( [1.5,1.2857,400,'F','F','F',0,1,34,'Helv']).
+  use_font (?mainFont).
+  if last (system_info ()) > 2
+     then :color is green2
+     else :color is black.
+  hyper_display (?color,,?hyperFont).
+  show_window (?wmain).
+  :list is []. (* keeps track of what you've looked at so far *)
+end.

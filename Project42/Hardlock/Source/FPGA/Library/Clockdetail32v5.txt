@@ -1,0 +1,22 @@
+MAIN CLOCK
+1-5	Reset
+6-7	Key & Data in 1
+8-9	Key & Data in 2
+10-11	Key & Data in 3
+12-13	Key & Data in 4
+14-15	Key & Data in 5
+16-17	Key & Data in 6
+18-19	Key & Data in 7
+20-21	Key & Data in 8
+
+14-86	Encode & Decode
+
+
+87-88	Key & Data out 1
+89-90	Key & Data out 2
+91-92	Key & Data out 3
+93-94	Key & Data out 4
+95-96	Key & Data out 5
+97-98	Key & Data out 6
+99-100	Key & Data out 7
+101-102	Key & Data out 8

@@ -1,0 +1,68 @@
+(* ================================= KPWINPP.KB ===========================
+   This program runs the C++ generator (KPWin++) from within KnowledgePro.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+==========================================================================*)
+#define	MB_YESNO		4
+#define	MB_ICONQUESTION		32
+#define	IDCANCEL		2
+#define	IDYES			6
+#define	IDNO			7
+#define	MB_OK 			0
+#define	MB_ICONEXCLAMATION	48
+
+EOF is number_to_char (26).
+FileToCompile is file_menu ( '*.kb', , 'Compile to .EXE', ['Applications (*.kb)', '*.kb']).
+if ?FileToCompile is [] then
+   exit_kp (). 
+
+FileToCompile is last (string_to_list (?FileToCompile, '\')).
+FileToCompile is first (string_to_list (?FileToCompile, '.')).
+run (concat ('KPWINPP.PIF ', ?FileToCompile), 1).
+
+ErrorMessage is read ('stdout.out', ' error ').
+close ('stdout.out').
+if ?ErrorMessage is ?EOF then
+   ExitMessage is 'Do you want to run the program now?' and
+   MessageButtons is MB_YESNO + MB_ICONQUESTION
+else
+   ExitMessage is 'An error occurred in the compile. View results?' and
+   MessageButtons is MB_YESNO + MB_ICONEXCLAMATION.
+
+w1 is window (,,,,,,[overlappedwindow]).
+MessageBox ( ?w1, ?ExitMessage, 'KPWin++', ?MessageButtons).
+if ?MessageBox is IDYES then
+   (if ?ErrorMessage is ?EOF then
+       load_program (concat (?FileToCompile, '.exe')) and
+       exit_kp ()
+    else
+       wResults is window (exit_kp, 1.85, 3.75, 89.5, 21.375, 'Compile Results', [titlebar, thickFrame, siblings, minimizebox, controlmenu, vertscroll, visible, horzscroll], , , , close_event) and
+       attach_icon (?wResults, load_icon (KPWIN_ICON)) and
+       set_text (?wResults, [#h, read ('stdout.out')]))
+else
+    exit_kp ().
+
+topic UserLib. 
+  UserLib is load_library ('USER.EXE').
+end.
+
+topic MessageBox (PARENTHANDLE, MESSAGE, TITLE, TYPE).
+  MessageBox is call (?UserLib, MessageBox, [ word (?PARENTHANDLE),  
+                                    lpstr (MESSAGE), lpstr (TITLE), word (?TYPE) ], int).
+end.

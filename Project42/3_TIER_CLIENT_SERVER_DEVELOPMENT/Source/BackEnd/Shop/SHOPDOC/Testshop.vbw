@@ -1,0 +1,13 @@
+ModShop = 22, 22, 540, 451, C
+docAddShop = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docDeleteShop = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docRetrieveShop = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docUpdateShop = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docAddItem = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docAddCategory = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docDeleteCategory = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docUpdateCategory = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docRetrieveCategory = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docUpdateItem = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docRetrieveItem = 97, 103, 559, 511, , 74, 80, 536, 488, C
+docDeleteItem = 97, 103, 559, 511, , 74, 80, 536, 488, C

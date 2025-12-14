@@ -1,0 +1,109 @@
+Bill of Material for D:\USER\MEELARP\RECS_DOC\SCH\OUTLET.Sch
+
+Used Part Type Designator           
+==== ========= ==================== 
+1    0.1uF     C1_3                 
+8    0.1uF/50V CA1_1 CA2_1 CA3_1    
+               CA4_1 CA5_1 CA6_1    
+               CA7_1 CA8_1          
+8    1000/16   C5_3 C5_6 C6_3 C6_6  
+               C7_3 C7_6 C8_3 C8_6  
+8    100k      VR5_1 VR5_2 VR6_1    
+               VR6_2 VR7_1 VR7_2    
+               VR8_1 VR8_2          
+8    100n      C5_1 C5_4 C6_1 C6_4  
+               C7_1 C7_4 C8_1 C8_4  
+22   10K       R5_14 R5_18 R5_5     
+               R5_9 R6_14 R6_18     
+               R6_5 R6_9 R7_14      
+               R7_18 R7_5 R7_9      
+               R8_14 R8_18 R8_5     
+               R8_9 RIC4 ROR1_1     
+               ROR1_2 ROR2_1 ROR2_2 
+               RPACK                
+2    10uF/6.3V C1_1 C1_2            
+1    11.059MHz XTAL2_1              
+8    12_200N   T1 T2 T3 T4 T5 T6 T7 
+               T8                   
+16   180       R5_17 R5_8 R6_17     
+               R6_8 R7_17 R7_8      
+               R8_17 R8_8 RA1_3     
+               RA2_3 RA3_3 RA4_3    
+               RA5_3 RA6_3 RA7_3    
+               RA8_3                
+8    180K      R5_12 R5_2 R6_12     
+               R6_2 R7_12 R7_2      
+               R8_12 R8_2           
+20   1K        R5_1 R5_10 R5_13     
+               R5_4 R6_1 R6_10      
+               R6_13 R6_4 R7_1      
+               R7_10 R7_13 R7_4     
+               R8_1 R8_10 R8_13     
+               R8_4 RDC2 RQ1_1      
+               RR1_2 RR2_2          
+22   1N4001    D1_1 D3_1 D5_1 D5_2  
+               D5_3 D5_4 D6_1 D6_2  
+               D6_3 D6_4 D7_1 D7_2  
+               D7_3 D7_4 D8_1 D8_2  
+               D8_3 D8_4 DOR1_1     
+               DOR2_1 DR1 DR2_1     
+1    1N4148    D2_1                 
+8    270K      R5_15 R5_6 R6_15     
+               R6_6 R7_15 R7_6      
+               R8_15 R8_6           
+8    2M2       R5_16 R5_7 R6_16     
+               R6_7 R7_16 R7_7      
+               R8_16 R8_7           
+1    3.3uF     C2_3                 
+3    30PF      A2 C2_1 C2_2         
+17   330       RA1_2 RA1_6 RA2_2    
+               RA2_6 RA3_2 RA3_6    
+               RA4_2 RA4_6 RA5_2    
+               RA5_6 RA6_2 RA6_6    
+               RA7_2 RA7_6 RA8_2    
+               RA8_6 RQ1_3          
+1    33K       R2_1                 
+8    38K       R5_11 R5_3 R6_11     
+               R6_3 R7_11 R7_3      
+               R8_11 R8_3           
+8    390       RA1_5 RA2_5 RA3_5    
+               RA4_5 RA5_5 RA6_5    
+               RA7_5 RA8_5          
+3    4.7K      RQ1-2 RR1_1 RR2_1    
+3    48DC      VIN1 VIN2 VOUT2      
+1    48VDC     VOUT1                
+2    4N36      OPTR1 OPTR2          
+8    4n7       C5_2 C5_5 C6_2 C6_5  
+               C7_2 C7_5 C8_2 C8_5  
+2    5VDC      REY1 REY2            
+1    7805      IC1                  
+1    89C51     IC2                  
+1    BC547     Q1                   
+1    BC557     QR1                  
+1    BC57      QR2                  
+8    BT136     QA1 QA2 QA3 QA4 QA5  
+               QA6 QA7 QA8          
+8    C547      Q5_1 Q5_2 Q6_1 Q6_2  
+               Q7_1 Q7_2 Q8_1 Q8_2  
+16   CON1      AC1IN AC1OUT AC2IN   
+               AC2OUT AC3IN AC3OUT  
+               AC4IN AC4OUT AC5IN   
+               AC5OUT AC6IN AC6OUT  
+               AC7IN AC7OUT AC8IN   
+               AC8OUT               
+1    F485      IC4                  
+2    GROUND    GOUT1 GOUT2          
+2    LED       DC1 DC2              
+4    LM3900N   IC5 IC6 IC7 IC8      
+8    MOC3082   ACOT1 ACOT2 ACOT3    
+               ACOT4 ACOT5 ACOT6    
+               ACOT7 ACOT8          
+8    RED       LA1_1 LA2_1 LA3_1    
+               LA4_1 LA5_1 LA6_1    
+               LA7_1 LA8_1          
+2    -REF      GND1 GND2            
+1    RES1      RDC1                 
+1    RESET     S2_1                 
+2    RS485     J1 J2                
+1    VIN       SUPIN                
+1    VOLTREG   IC3                  

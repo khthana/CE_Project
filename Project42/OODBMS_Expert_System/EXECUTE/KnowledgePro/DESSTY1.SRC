@@ -1,0 +1,301 @@
+(* ========================= DESSTY1.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Object styles module
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+  ====================================================================== *)
+
+#define GWL_STYLE	-16
+#define GWL_EXSTYLE	-20
+
+topic GetMainStyle (handle, style, title, menuItem, isChild).
+  if one_of ( ?style, visible ) then 
+     :visible is T 
+  else 
+     :visible is F.
+  if ?menuItem <> [ ] then
+     [ :hasMenu, :startMenu ] is T
+  else 
+     [ :hasMenu, :startMenu ] is F and
+     menuItem is [ [ Menu ] ].
+
+  use_font ( element (?ref:fontHandleList, 1 ), [control, window] ).
+  :wStyle is window ( , 1, 1, 66, 26.2, , [ child, showChildren, siblings ], ?ref:wMain).
+
+  (* Remove all types and use popup so that the test window 
+     always can have menus. *)
+  :tempStyle is remove ( ?style, [ overlapped, overlappedWindow, popup, popupwindow, 
+              child, childwindow, visible ] ).
+  tempStyle gets popup.
+
+  CreateStyleWindow ().
+
+  set_title ( ?ref:wMain, 'Window Properties' ).
+  resize_window ( ?ref:wMain, 66.5, 22).
+  move_window ( ?ref:wMain, 14.85, 1.75, ).
+  disable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+  show_window ( [?ref:wMain, ?wStyle, ?w4 ] ).
+  set_focus ( ?w4 ).
+  wait ( ).
+  enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+  
+  topic CreateStyleWindow.
+    GetMainStyle:StyleBMP is load_bitmap ( concat (?ref:startDir, 'desstyl1.bmp')).
+    :Col is 3.
+    :Row is 1.5.
+    [GetMainStyle:StyleBMP:wd, GetMainStyle:StyleBMP:ht] is_c bitmap_info (?GetMainStyle:StyleBMP).
+    :ButtonWidth is ?GetMainStyle:StyleBMP:wd * 2.57 / 30.
+    :ButtonHeight is ?GetMainStyle:StyleBMP:ht * 3.5 / 10 / 3.
+    bitmap (?GetMainStyle:StyleBMP, ?Col, ?Row).
+    reg is hyper_region (control, ?Col, ?Row, ?ButtonWidth, ?ButtonHeight).
+    reg gets hyper_region (max, ?GetMainStyle:StyleBMP:wd + ?Col - ?ButtonWidth, ?Row, ?ButtonWidth, ?ButtonHeight).
+    reg gets hyper_region (min, ?GetMainStyle:StyleBMP:wd + ?Col - (2 * ?ButtonWidth), ?Row, ?ButtonWidth, ?ButtonHeight).
+    reg gets hyper_region (atitlebar, ?Col + ?ButtonWidth, ?Row, ?GetMainStyle:StyleBMP:wd - (3 * ?ButtonWidth), ?ButtonHeight).
+    reg gets hyper_region (toggleMenu, ?Col, ?ButtonHeight + ?Row, ?GetMainStyle:StyleBMP:wd, ?ButtonHeight).
+    reg gets hyper_region (vert, ?GetMainStyle:StyleBMP:wd + ?Col - ?ButtonWidth - 1, (?ButtonHeight * 2) + ?Row, ?ButtonWidth, ?GetMainStyle:StyleBMP:ht - (3 * ?ButtonHeight)).
+    reg gets hyper_region (horz, ?Col, ?GetMainStyle:StyleBMP:ht - ?ButtonHeight + ?Row, ?GetMainStyle:StyleBMP:wd - ?ButtonWidth, ?ButtonHeight).
+
+    GetMainStyle:FrameBMP is load_bitmap ( concat (?ref:startDir, 'desstyl2.bmp')).
+    :Col is 6.
+    :Row is 12.5.
+    [GetMainStyle:FrameBMP:wd, GetMainStyle:FrameBMP:ht] is_c bitmap_info (?GetMainStyle:FrameBMP).
+    bitmap (?GetMainStyle:FrameBMP, ?Col, ?Row).
+    :ButtonHeight is ?GetMainStyle:FrameBMP:ht / 3.
+    reg gets hyper_region (thick, ?Col, ?Row, ?GetMainStyle:FrameBMP:wd, ?ButtonHeight).
+    reg gets hyper_region (thin, ?Col, ?Row + ?ButtonHeight, ?GetMainStyle:FrameBMP:wd, ?ButtonHeight).
+    reg gets hyper_region (dialog, ?Col, ?Row + (2 * ?ButtonHeight), ?GetMainStyle:FrameBMP:wd, ?ButtonHeight).
+
+    GetMainStyle:ed1 is edit_box (?title, , 48, 13, 16, 1.5, [visible,thinframe, autohscroll]).
+
+    GetMainStyle:rb1 is radio_button ([ [ Popup, 35, 15.5, F] , [ Overlapped, 44.5, 15.5, T] , [ Child, 58, 15.5, F] ], type).
+    if one_of ( ?style, popup ) then 
+       apply ( set_radio_button, ?rb1, [ T,F,F ] ) and
+       type is popup
+    else 
+       (if one_of ( ?style, overlapped ) then 
+          apply ( set_radio_button, ?rb1, [ F,T,F ] ) and
+          type is overlapped
+        else 
+          apply ( set_radio_button,  ?rb1, [ F,F,T] )) and
+          type is child.
+    if ?isChild then
+       disable_window ( sublist (?rb1, 1, 2) ).
+
+    button2 ( '  &Ok  ', Save, 37, 18, 10.5, 1.5).
+    button2 (&Cancel, Cancel, 53, 18, 10.5, 1.5).
+    text ('#x34.5#y13.25Window Title:').
+    GetMainStyle:w4 is window (, 51, 3.625, 28, 10, , ?tempStyle, ?wStyle).
+    if ?hasMenu then 
+       menu ( ?menuItem ).
+  end.
+
+(**********  Frame style topics. *********************)
+  topic thick.
+    if not (one_of (?tempStyle, thickframe) ) then 
+       tempStyle is remove (?tempStyle, [modalframe,thinframe,dialogframe]) and
+       tempStyle gets thickframe and
+       Redraw ( ) 
+    else 
+       set_focus (?w4).
+  end.
+  
+  topic thin.
+    if not (one_of (?tempStyle, thinframe) ) then 
+       tempStyle is remove (?tempStyle, [modalframe,dialogframe,thickframe] ) and
+       tempStyle gets thinframe and
+       Redraw ( )
+    else 
+       set_focus (?w4).
+  end.
+  
+  topic dialog.
+    if intersect (?tempStyle, [dialogframe, modalframe]) is [] then 
+       tempStyle is remove (?tempStyle, 
+                    [modalframe,thinframe,thickframe,vertscroll,horzscroll,
+                     minimizebox,maximizebox,dialogframe] ) and
+       (if intersect (?tempStyle, [titlebar, controlmenu]) <> [] then 
+           tempStyle gets modalframe
+        else
+           tempStyle gets dialogframe and
+           tempStyle is remove (?tempStyle, [titlebar, controlmenu])) and
+       (if ?type is overlapped then 
+            type is popup and 
+            apply ( set_radio_button, ?rb1, [ T,F,F] ) ) and
+       hasMenu is F and
+       Redraw ( )
+    else 
+       set_focus (?w4).
+  end.
+  
+(**********  Window component topics. *********************)
+  topic control.
+    if one_of (?tempStyle, controlmenu) then 
+       tempStyle is remove (?tempStyle, controlMenu)
+    else
+       tempStyle is union (?tempStyle, [controlmenu, titlebar]) and
+       (if one_of (?tempStyle, dialogframe) then 
+           tempStyle gets modalframe and
+           tempStyle is remove (?tempStyle, dialogframe) ).
+    Redraw ( ).
+  end.
+   
+  topic min.
+    if one_of (?tempStyle, minimizebox) then 
+       tempStyle is remove (?tempStyle, minimizebox)
+    else 
+       tempStyle is union (?tempStyle, [minimizebox, titlebar]) and
+       (if one_of (?tempStyle, dialogframe) then 
+           tempStyle gets modalframe and
+           tempStyle is remove (?tempStyle, dialogframe) ).
+    Redraw ( ).
+  end.
+  
+  topic max.
+    if one_of (?tempStyle, maximizebox) then 
+       tempStyle is remove (?tempStyle, maximizebox)
+    else 
+       tempStyle is union (?tempStyle, [maximizebox, titlebar]) and
+       (if one_of (?tempStyle, dialogframe) then 
+           tempStyle gets modalframe and
+           tempStyle is remove (?tempStyle, dialogframe) ).
+    Redraw ( ).
+  end.
+  
+  topic horz.
+    if intersect (?tempStyle, [dialogframe, modalframe]) is [] then 
+       (if one_of (?tempStyle, horzscroll) then 
+           tempStyle is remove (?tempStyle, horzscroll)
+        else 
+           tempStyle gets horzscroll) and
+        Redraw ( )
+    else
+        set_focus ( ?w4 ).
+  end.
+  
+  topic vert.
+    if intersect (?tempStyle, [dialogframe, modalframe]) is [] then 
+       (if one_of (?tempStyle, vertscroll) then 
+           tempStyle is remove (?tempStyle, vertscroll)
+        else 
+           tempStyle gets vertscroll) and
+        Redraw ( )
+    else
+        set_focus ( ?w4 ).
+  end.
+  
+  topic atitlebar.
+    if one_of (?tempStyle, titlebar) then 
+       tempStyle is remove (?tempStyle, [titlebar, controlmenu, maximizebox, minimizebox] ) and
+       (if one_of (?tempStyle, modalframe) then 
+           tempStyle gets dialogframe and
+           tempStyle is remove (?tempStyle, modalframe) )
+    else 
+       tempStyle gets titlebar and
+       (if one_of (?tempStyle, dialogframe) then 
+           tempStyle gets modalframe and
+           tempStyle is remove (?tempStyle, dialogframe) ).
+    Redraw ( ).
+  end.
+  
+  topic toggleMenu.
+    if not (?isChild) then
+       (if intersect (?tempStyle, [dialogframe, modalframe]) is [] then 
+          (* Display the menu last, since the window may be recreated. *)
+          hasMenu is not ( ?hasMenu ) and
+          set_display_window ( ?w4 ) and
+          (if ?hasMenu then 
+              ( if ?type is child then 
+                   apply ( set_radio_button, ?rb1, [T,F,F] ) and 
+                   type is popup ) and
+              ( if not ( one_of ( ?tempStyle, titlebar ) ) then 
+                   atitlebar ( ) ) and
+              menu ( ?menuItem )
+           else
+              menu ( ))).
+    set_focus ( ?w4 ).
+  end.
+  
+  topic type (item).
+    type is ?item.
+    if ?item is Child and ?hasMenu then 
+       toggleMenu ( ).
+    set_focus ( ?w4 ).
+  end.
+  
+  topic Redraw.
+    (* Redraw the temporary window with the appropriate style. *)
+    SetWinStyle ( ?w4, combine ( ?tempStyle, visible ) ).
+    if ?hasMenu then 
+       menu ( ?menuItem ).
+    set_focus ( ?w4).
+  end.
+
+  topic Save.
+    (* Set the generated window style to everything but visible. 
+           The generated window must have the selected type.
+       Set the working window style to everything AND visible. 
+           The working window must have the POPUP style. *)
+    title is get_text (?ed1).
+    if ?visible then 
+       tempStyle gets visible.
+
+    if ?isChild then
+       tempStyle is replace (?tempStyle, popup, child) and
+       GetMainStyle is [?tempStyle, ?title] and
+       SetWinStyle ( ?handle, ?tempStyle )
+    else
+       SetWinStyle ( ?handle, ?tempStyle ) and
+       tempStyle is replace (?tempStyle, popup, ?type) and
+       GetMainStyle is [?tempStyle, ?title].
+
+    set_display_window (?handle).
+    if not (?isChild) then
+      (if ?hasMenu and not ( ?startMenu ) then
+          MenuObject ( [ menu, [ [ Menu ] ] , [ ] ] )
+       else  
+          ( if not ( ?hasMenu ) and ?startMenu then
+               set_display_window ( ?handle ) and 
+               menu ( [ ] ) and 
+               MenuObject:objectText is [ ] )) .
+    set_title ( ?handle, ?title ).
+    Cancel ().
+  end.
+
+  topic Cancel.
+    delete_hyper_region ( ?reg ).
+    close_window ( [ ?wStyle ] ).
+    delete_bitmap ( [ ?StyleBMP, ?FrameBMP ] ).
+    hide_window ( ?ref:wMain ).
+    continue ( ).
+  end. (* Cancel *)
+
+  topic SetWinStyle ( wHandle, setStyle, 	tCol, tRow, tWidth, tHeight, wTemp ). 
+    wTemp is window ( , 500, 500, 20, 20, , ?setStyle, ?ref:wMain ).
+    :lib = load_library ('user.exe'). 
+    SetWinStyle = call (?lib, GetWindowLong, [word (?wTemp), int ( GWL_STYLE )], long). 
+    SetWinStyle gets call (?lib, GetWindowLong, [word (?wTemp), int ( GWL_EXSTYLE )], long). 
+    close_window ( ?wTemp ).
+    hide_window (?wHandle).
+    call (?lib, SetWindowLong, [word (?wHandle), int (GWL_STYLE), long (first (?SetWinStyle))], long ). 
+    call (?lib, SetWindowLong, [word (?wHandle), int (GWL_EXSTYLE), long (last (?SetWinStyle))], long ). 
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?wHandle ).
+    resize_window ( ?wHandle, ?tWidth - 0.2, ?tHeight - 0.2 ).
+    resize_window ( ?wHandle, ?tWidth, ?tHeight ).
+    show_window (?wHandle).
+    free_library (?lib). 
+    set_focus ( ?wHandle ).
+  end.  (* SetWinStyle *)
+
+end. (* GetStyles *)

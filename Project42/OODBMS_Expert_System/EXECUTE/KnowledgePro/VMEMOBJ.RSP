@@ -1,0 +1,8 @@
+obj\pvmemex.obj+
+obj\powrdevc.obj+
+obj\powrstor.obj+
+obj\vmkrnl.obj+
+obj\vmheap.obj+
+obj\vmarry1d.obj+
+obj\vmarry3d.obj
+

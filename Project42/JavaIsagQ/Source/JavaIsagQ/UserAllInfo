@@ -1,0 +1,7 @@
+package IsecQ;
+
+class UserAllInfo extends UserInfo implements userOnlineInfo 
+{
+	
+
+}

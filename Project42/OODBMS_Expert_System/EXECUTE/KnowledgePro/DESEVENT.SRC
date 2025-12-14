@@ -1,0 +1,313 @@
+(* ========================= DESEVENT.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Event Handling Module
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+  ====================================================================== *)
+
+
+
+topic MainWindowObject ( describeList, fontParam,   temp ).
+  (* Working Window Object
+
+     Member notes:
+          style is the actual style for the target window.
+          displayStyle is a modification of the actual style
+                       created in order to display during
+                       Designer. Always POPUP!
+  *)
+     
+  [ :type, :eventTopic, :c, :r, :w, :h, :title, :style, :parent, :textColor, :backColor, :eventList ] is_c ?describeList.
+  :font is ?fontParam.
+  :displayStyle is remove (?style, [ Popup, Popupwindow, overlappedWindow, overlapped, child, childWindow, showChildren, visible ] ) .
+  displayStyle gets popup.
+  [c, r, w, h] is_c apply (WorkEventTopic:mouse_up_event:gridPos, [?c, ?r, ?w, ?h]).
+  :handle is window ( WorkEventTopic, ?c, ?r, ?w, ?h, ?title, ?displayStyle, ?ref:wDummyParent, ?textColor, ?backColor, [ mouse_down_event, mouse_drag_event, mouse_up_event] ).
+  ref:wWork is ?handle.
+  remove_topic ( [ c,r,w,h,description ] ).
+  
+  topic CreateCode (tInfo, tObjCode).
+    tInfo is sublist ( window_info ( ?handle ), 1, 4 ).
+    tObjCode is list_to_string ( combine ( window, [ ?eventTopic ], ?tInfo, [ ?title ], [ ?style ], [ ?parent ] , 
+                    ?textColor, ?backColor, [ ?eventList ] ),  ', ', '[', ']' , '''' ).
+    CreateCode is concat ( '      !wHandle is screen_object ( ', ?tObjCode, ',' , ?font, ' ).' ).
+  end. (* CreateCode *)
+  
+end. (* WindowObject *)
+
+(* =========================== Event Topic for Main Design Window =============== *)
+
+topic WorkEventTopic (i, e, wnd).
+  do (?e).
+ 
+  topic Mouse_down_event.
+    [WorkEventTopic:cRect, WorkEventTopic:rRect] is_c ?i.
+    [WorkEventTopic:wRect, WorkEventTopic:hRect] is_c [1, 1]. 
+    if ?selectObject = selectObject then 
+       [WorkEventTopic:move, WorkEventTopic:drag, WorkEventTopic:startDrag] is_c [f, f, f]
+    else
+       [WorkEventTopic:move, WorkEventTopic:drag, WorkEventTopic:startDrag] is_c [f, f, t] and
+       start_drag (?ref:wWork, [?cRect, ?rRect, ?cRect + ?wRect, ?rRect + ?hRect]).
+  end.
+    
+  topic Mouse_drag_event.
+     if ?startDrag then
+        adjust_drag_rect ([?cRect, ?rRect, first (?i), element (?i, 2)]) and
+        wRect = first (?i) - ?cRect and
+        hRect = element (?i, 2) - ?rRect
+     else if ?move then
+        drag_rect (first (?i) + ?cOffset,  element (?i,2) + ?rOffset) and
+        mouse_drag_event = T
+     else if ?drag then
+        adjustRectSize ( ).
+          
+     topic AdjustRectSize ( ).
+       do ( element ( [ left, right, up, down ], ?ref:location) ).
+
+       topic Left.
+          adjust_drag_rect ( [first (?i), ?rRect, ?cRect  + ?wRect, ?rRect + ?hRect]).            
+       end.
+
+       topic Right.
+         adjust_drag_rect ([?cRect, ?rRect, first (?i), ?rRect + ?hRect]).
+       end.
+
+       topic Up.
+          adjust_drag_rect ([?cRect, element (?i,2), ?cRect + ?wRect, ?rRect + ?hRect] ).
+       end.
+
+       topic Down.
+          adjust_drag_rect ([?cRect, ?rRect, ?cRect + ?wRect, element (?i,2)]).
+       end.
+    end. (* adjustRectSize *)
+
+  end. (* drag event *)
+
+  topic Mouse_up_event (tMakeList).
+    stop_drag ( ).
+    if ?startDrag then
+       [cRect, rRect, wRect, hRect] is_c correctRect (?cRect, ?rRect, ?wRect, ?hRect) and
+       [cRect, rRect, wRect, hRect] is_c apply (gridPos, [?cRect, ?rRect, ?wRect, ?hRect]) and
+       (* only create object if it has a height and width *)
+       (if ?wRect > 0 and
+          ?hRect > 0 then
+          ref:objectName is concat ( Object, ?ref:objectNumber ) and
+          tMakeList is do ( concat ( ?selectObject, ':MakeList' ), ?ref:objectName, 
+                    ?cRect, ?rRect, ?wRect, ?hRect ) and
+          new ( concat ( '!main:User:', ?ref:objectName ), ?selectObject, 
+                  [ ?tMakeList, ?ref:defaultFont, ?ref:defaultTextColor, ?ref:defaultBackColor] ) and
+          Current ( first ( ?tMakeList ), ?concat ( '!main:User:', ?ref:objectName, :handle ), ?ref:objectName ))
+    else 
+        if ?move then
+            [set_window_pos (?moveHandle, gridPos (first (?i) + ?cOffset), gridPos (element (?i,2) + ?rOffset)),
+             enable_window (?moveHandle)]
+        else 
+            if ?drag then
+                finishSizeAdjust ( ).
+    WorkEventTopic:moveHandle = [ ].
+    [startDrag, move, drag] = f.
+    ref:modified is t.
+
+    topic correctRect (c, r, w, h).
+      (* If a rectangle was created other than down and to the right,
+          this topic corrects the rectange coordinates with respect 
+          to the upper left corner. *)
+      if ?w < 0 then
+        c is ?c + ?w and
+        w is neg (?w).
+      if ?h < 0 then
+        r is ?r + ?h and
+        h is neg (?h).
+      correctRect is [?c, ?r, ?w, ?h].
+    end.
+
+    topic FinishSizeAdjust.
+       do ( element ( [ left, right, up, down ], ?ref:location) ).
+       enable_window (?moveHandle).	
+
+       topic Left.
+         hide_window (?moveHandle).
+         set_window_pos (?moveHandle, gridPos (first (?i)), gridPos (?rRect)).
+         resize_window (?moveHandle, gridPos (?cRect - first (?i) + ?wRect), gridPos (?hRect)).
+         show_window (?moveHandle).
+       end.
+
+       topic Right.
+         resize_window (?moveHandle, gridPos (first (?i) - ?cRect), gridPos (?hRect)).
+       end.
+
+       topic Up.
+         hide_window (?moveHandle).
+         set_window_pos (?moveHandle, gridPos (?cRect), gridPos (element (?i,2))).
+         resize_window (?moveHandle, gridPos (?wRect), gridPos (?rRect - element (?i,2) + ?hRect)).    
+         show_window (?moveHandle).  
+       end.
+
+      topic Down.
+        resize_window (?moveHandle, gridPos (?wRect), gridPos (element (?i,2) - ?rRect)).
+      end.
+    end. (* finish_size_adjust *)
+
+    topic GridPos (pos).
+       (* Maps the position to the grid position depending on the grid granularity. *)
+       if ?gridOn then
+          gridpos = (((?pos / ?grid) + 0.5) div 1) * ?grid
+       else
+          gridPos = ?pos. 
+    end. (* gridPos *)
+  end. (* mouse_up_event *)
+end. (* WorkEventTopic *)
+
+topic ObjectClass.
+  (* General class for screen objects. *)
+
+  set_display_window (?ref:wWork).
+  use_font ( element ( ?ref:fontHandleList, ?fontParam ), [ window, control ] ).
+  :handle is evaluate ( ?description ).
+  ref:objectNumber is ?ref:objectNumber + 1.
+  :topicName is concat ( User:,?ref:objectName ).
+  if not ( one_of ( [ bitmap_file, icon_file, hyper_region ], ?type ) )
+     then [ :font, :textColor, :backColor ] is_c [ ?fontParam, ?textColorParam, ?backColorParam ] and
+           set_window_colors ( ?handle, ?textColor, ?backColor ).
+  remove_topic ( [ c,r,w,h,description ] ).
+  
+  topic ObjectEventTopic ( info, event, handle).
+     [WorkEventTopic:cRect, WorkEventTopic:rRect, 
+      WorkEventTopic:wRect, WorkEventTopic:hRect] is_c window_info (?handle). 
+     do (?event).
+
+    topic Mouse_down_event.
+      [ObjectEventTopic:cOrgRect, ObjectEventTopic:rOrgRect] is_c window_info (?handle). 
+      (* Changed - BT 12/04/91 *)
+      [WorkEventTopic:cOffset, WorkEventTopic:rOffset] is_c GetOffset (?info).
+      ObjectEventTopic = t.
+      disable_window (?handle).
+      start_drag (?ref:wWork, [?WorkEventTopic:cRect, ?WorkEventTopic:rRect, 
+                           ?WorkEventTopic:cRect + ?WorkEventTopic:wRect, 
+                           ?WorkEventTopic:rRect + ?WorkEventTopic:hRect]).
+      WorkEventTopic:moveHandle = ?handle.
+      Current ( ?type, ?handle, ?topicName ).
+
+      topic GetOffset (mousePos, tCharPos, tScreenPos, tWinPos, tLib).
+       (* The following topic calculates the mouse position relative to the
+          upper left corner of the object. It does this so that when you
+          drop the object with a button, you can place the upper left corner
+          of the object in a new position, but still in the same place relative
+          to the mouse.
+  
+          To do this we:
+     
+          1 Convert from character co-ordinates to pixel co-ordinates.
+          2 Call the SDK function ClientToScreen to convert to screen co-ordinates
+          3 Call the SDK function ScreenToClient to convert to wWork's 
+            client co-ordinates. This is necessary because when we drop the object
+            we are in wWork's client area, but when on a mouse_down_event, we are in
+            the objects. This process automatically takes care of differences
+            due to border widths, title bar heights etc.
+          4 Convert back to character co-ordinates.  *)
+      
+        tCharPos = CharToScreen (?mousePos). 
+        tLib = load_library ('user.exe').
+        tScreenPos = ClientToScreen (?handle, ?tCharPos).
+        tWinPos = ScreenToClient (?ref:wWork, ?tScreenPos).
+        GetOffset = window_info (?handle) - ScreenToChar (?tWinPos).
+        free_library (?tLib).
+
+        topic CharToScreen (pos).
+          CharToScreen = [(element (?pos, 1) - 1) * element (system_info (), 3),
+                          (element (?pos, 2) - 1) * element (system_info (), 4)].
+        end.
+        
+        topic ScreenToChar (pos).
+          ScreenToChar = [element (?pos, 1) / element (system_info (), 3) + 1,
+                          element (?pos, 2) / element (system_info (), 4) + 1].
+        end.
+
+        topic ClientToScreen (handle, point, tPt).
+          tPt = [int, int].
+          call (?tLib, ClientToScreen, [word (?handle), lpstruct (point, ?tPt)], void). 
+          ClientToScreen = ?point.
+        end.
+
+        topic ScreenToClient (handle, point, tPt).
+          tPt = [int, int].
+          call (?tLib, ScreenToClient, [word (?handle), lpstruct (point, ?tPt)], void). 
+          ScreenToClient = ?point.
+        end.
+      end. (* GetOffset *)
+    end. (* Mouse_down_event *)
+
+    topic Mouse_move_event (tCol, tRow ).
+      (* Figure out a new cursor based on how close we are to the edge of the button. *)
+      [tCol, tRow] is_c ?info.
+
+      ref:location is where ( apply ( compare, [ <, >, <,>], 
+                                              [ ?tCol, ?tCol, ?tRow, ?tRow], 
+                                              [ 1.5, element (window_info (?handle), 10) - 0.5, 1.25, element (window_info (?handle), 11) + 0.5] ), T ) .
+      if ?ref:location <> 0
+         then use_mouse_cursor (?handle, element ( [size_we, size_we, size_ns, size_ns] , ?ref:location)) and
+              [WorkEventTopic:move, WorkEventTopic:drag, WorkEventTopic:startDrag] is_c [f, t, f]
+         else use_mouse_cursor (?handle, ?ref:desCur) and
+              [ WorkEventTopic:move, WorkEventTopic:drag, WorkEventTopic:startDrag] is_c [t, f, f].
+    end.
+
+    topic Double_click_event.
+      use_mouse_cursor (?handle, arrow).       
+      stop_drag ().
+      set_window_pos (?handle, ?cOrgRect, ?rOrgRect).
+      [ WorkEventTopic:move, WorkEventTopic:drag, WorkEventTopic:startDrag] is_c [f,f, f].
+      (* Check for ChangeProperties before bringing up MainWindow *)
+      if exists (ChangeProperties) then
+         disable_window ( [ ?ref:wWork, ?ref:wTools ]  ) and
+         ChangeProperties ( ). 
+      ObjectEventTopic = T.
+      WorkEventTopic:moveHandle = ?handle.
+    end.
+
+  end. (* ObjectEventTopic *)
+
+  topic GetEvents.
+      disable_window ( ?ChangeProperties:bEvents ).
+      :wEvents is window ( SaveNew, 4.857142857142857, 14.5, 36.14285714285715, 13.375, 'Events and Event Topic', [titlebar, thickFrame, popup, siblings], ?ref:wMain, , , close_event  ).
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ] ).
+      text ('
+  Events Handled in object:
+
+
+
+
+
+
+
+
+  Event Topic:').   
+      :edEvents is edit_box ( ?eventTopic, , 4, 10.5, 29.42857142857143, 1.5, [visible, thinFrame, autoHscroll, autoVScroll] ).
+      :lbEvents is list_box ( combine ( ?specialEvents, [ char_event, close_event, double_click_event, 
+               get_focus_event, lose_focus_event, message_event, mouse_down_event, mouse_drag_event, 
+               mouse_move_event, mouse_up_event, move_event, resize_event, sys_char_event] ), , 
+               4, 3, 29.28571428571428, 6.625, T ).
+      set_list_box ( ?lbEvents, ?eventList ).
+      makeEvents is T.
+      show_window ( ?wEvents ).
+
+      topic SaveNew.
+         if ?saveValues 
+            then eventList is get_list_box ( ?lbEvents ) and
+                   eventTopic is get_text ( ?edEvents ).         
+      end.
+
+  end. (* GetEvents *)
+
+end. (* Screen Object *)

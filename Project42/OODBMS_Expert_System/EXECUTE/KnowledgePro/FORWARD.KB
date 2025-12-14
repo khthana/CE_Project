@@ -1,0 +1,139 @@
+(* FORWARD.KB
+   A Forward-chaining example in KnowledgePro.
+
+   Objective: To package three different items in the
+              least amount of boxes - using a best fit.
+              Start by packing large items, then medium
+              items and finally small items. Boxes have
+              a weight limit which determine how items
+              get packaged.
+
+   Explanation:
+	      Forward chaining cycles through the rules
+              until a condition is reached where the rules
+              and conclusions reach a steady state.
+
+   Implementation:
+              KnowledgePro has the unique ability to 
+              encapsulate rules and data into a TOPIC. In this
+              manner, TOPICS behave like objects in an O-O
+              design. 
+
+              A controlling process (repeat/until loop) executes 
+              topics (i.e. rules) in the sequence shown (this 
+              sequence is independent of the location of the rules 
+              in the program).
+
+              Finally a topic is used to check the steady state
+              of the system. This can be used to determine if 
+              values have reached a satisfactory condition or
+              if values have not changed from the previous rule
+              execution (not shown).
+*)
+
+BoxesUsed is 0.
+Step is 1.
+
+(* These could be user entered values. *)
+MaximumWeightPerBox is 10.
+NumberLargeItems is 3.
+WeightLargeItems is 5.
+NumberMediumItems is 3. 
+WeightMediumItems is 3.
+NumberSmallItems is 3.
+WeightSmallItems is 1.
+
+(* Controlling loop with final condition. *)
+repeat
+  do ([StartNewBox, StartNewBoxForSmallItem, ChangeToMediumItems,
+       PutLargeIteminBox, ChangeToSmallItems, PutMediumIteminBox,
+       StartNewBoxSmallItemsDone, PutSmallIteminBox])
+until DonePacking () is True.
+DisplayBoxPackingList ().
+DisplayPackingSummary ().
+
+(* Final condition for rule set. *)
+topic DonePacking.
+  if ?NumberSmallItems = 0 and
+     ?NumberMediumItems = 0 and
+     ?NumberLargeItems = 0 then
+     DonePacking is True.
+end.
+
+(************** STEP 1 - Start a new box **************)
+topic StartNewBox.
+  if ?Step is 1 then
+     LargeItemsThisBox is 0 and
+     MediumItemsThisBox is 0 and
+     SmallItemsThisBox is 0 and
+     WeightThisBox is 0 and
+     BoxesUsed is ?BoxesUsed + 1 and
+     Step is 2.
+end.
+
+topic StartNewBoxForSmallItem.
+  if ?WeightThisBox + ?WeightSmallItems > ?MaximumWeightPerBox then
+     StartNewBox () and
+     DisplayBoxPackingList () and
+     Step is 1.
+end.
+
+(*********** STEP 2 - Put large items in boxes *********)
+topic ChangeToMediumItems.
+  if ?Step is 2 and
+     (?NumberLargeItems is 0 or
+     ?WeightThisBox + ?WeightLargeItems > ?MaximumWeightPerBox) then
+     Step is 3.
+end.
+
+topic PutLargeIteminBox.
+  if ?Step is 2 then
+     LargeItemsThisBox is ?LargeItemsThisBox + 1 and
+     WeightThisBox is ?WeightThisBox + ?WeightLargeItems and
+     NumberLargeItems is ?NumberLargeItems - 1.
+end.
+
+(************** STEP 3 - Put medium items in boxes *********)
+topic ChangeToSmallItems.
+  if ?Step is 3 and
+     (?NumberMediumItems is 0 or
+     ?WeightThisBox + ?WeightMediumItems > ?MaximumWeightPerBox) then
+     Step is 4.
+end.
+
+topic PutMediumIteminBox.
+  if ?Step is 3 then
+     MediumItemsThisBox is ?MediumItemsThisBox + 1 and
+     WeightThisBox is ?WeightThisBox + ?WeightMediumItems and
+     NumberMediumItems is ?NumberMediumItems - 1.
+end.
+
+(************ STEP 4 - Put small items in boxes ************)
+topic StartNewBoxSmallItemsDone.
+  if ?Step is 4 and
+     ?NumberSmallItems is 0 then
+     DisplayBoxPackingList () and
+     Step is 1.
+end.
+
+topic PutSmallIteminBox.
+  if ?Step is 4 then
+     SmallItemsThisBox is ?SmallItemsThisBox + 1 and
+     WeightThisBox is ?WeightThisBox + ?WeightSmallItems and
+     NumberSmallItems is ?NumberSmallItems - 1.
+end.
+
+(**************** Display routines ********************)
+topic DisplayBoxPackingList.
+  text ('#sBOX ', ?BoxesUsed, '
+LargeItemsThisBox = ', ?LargeItemsThisBox, '
+MediumItemsThisBox = ', ?MediumItemsThisBox, '
+SmallItemsThisBox = ', ?SmallItemsThisBox, #n).
+  update_window ().
+end.
+
+topic DisplayPackingSummary.
+  text ('#sThe max allowable weight per box was ', ?MaximumWeightPerBox, ' lbs
+The number of boxes required to package all the items was ', ?BoxesUsed, #n).
+  update_window ().
+end.

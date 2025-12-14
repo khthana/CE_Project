@@ -1,0 +1,245 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Buttons, ExtCtrls, Grids, Db, DBTables, BPN, Reader;
+
+type
+  TForm1 = class(TForm)
+    StringGrid1: TStringGrid;
+    Label9: TLabel;
+    ComboBox1: TComboBox;
+    Label13: TLabel;
+    Label10: TLabel;
+    ComboBox2: TComboBox;
+    Label11: TLabel;
+    Label12: TLabel;
+    ComboBox3: TComboBox;
+    Panel1: TPanel;
+    Bevel1: TBevel;
+    Bevel2: TBevel;
+    PredictBtn: TBitBtn;
+    Label1: TLabel;
+    Label2: TLabel;
+    PRIZETABLE: TTable;
+    Label3: TLabel;
+    LastDayLb: TLabel;
+    Label4: TLabel;
+    DateLb: TLabel;
+    AddBtn: TButton;
+    Bevel3: TBevel;
+    procedure FindNextRewardDay(var D: TDateTime);
+    procedure FormCreate(Sender: TObject);
+    procedure PredictBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure AddBtnClick(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  LastDay: string;
+  NextDataNumber: integer;
+  RD : BPN_Reader;
+  BP : Backprop;
+  Input: array of real;
+implementation
+
+uses Unit2;
+
+{$R *.DFM}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  D : TDateTime;
+  AC : AC_Array;
+  Test : boolean;
+  i : Byte;
+  CurDir, DBName : string;
+begin
+{Initialize database}
+  GetDir(i,CurDir);
+  DBName := CurDir;
+  i := Pos('Predictor',CurDir);
+  Delete(DBName,i,9);
+  PRIZETABLE.Active := False;
+  DBName := DBName + 'Lottery_Data';
+  PRIZETABLE.DatabaseName := DBName;
+  PRIZETABLE.TableName := 'PRIZE2.DB';
+  PRIZETABLE.Active := True;
+{Find Last Predict Date}
+  PRIZETABLE.Last;
+  D := PRIZETABLE['PDATE'];
+  FindNextRewardDay(D);
+  LastDay := DateToStr(D);
+  LastDayLb.Caption := LastDay;
+  NextDataNumber := PRIZETABLE['PNUMBER'] + 1;
+{Create Backprop}
+  RD := Reader.BPN_Reader.Create;
+  RD.ReadTopology;{ read topology from TPFileName (see unit 'Reader.pas')}
+  BP := BPN.Backprop.Create;
+  RD.ReadWeights(BP);
+  RD.ReadAccuracy(AC,Test);
+  RD.Free;
+  SetLength(Input,BP.IPLayer.Num_Cell + 1);
+{Show BP's Accuracy}
+  if Test = True then
+    with StringGrid1 do
+    begin
+      Cells[0,0] :=  '    ACCURACY';
+      Cells[1,0] :=  '     ERRORS';
+      Cells[0,1] :=  '           90 %';
+      Cells[0,2] :=  '           80 %';
+      Cells[0,3] :=  '           70 %';
+      Cells[0,4] :=  '           60 %';
+      Cells[0,5] :=  '           50 %';
+      Cells[1,1]  :=  '           ' + IntToStr(AC[1]);
+      Cells[1,2]  :=  '           ' + IntToStr(AC[2]);
+      Cells[1,3]  :=  '           ' + IntToStr(AC[3]);
+      Cells[1,4]  :=  '           ' + IntToStr(AC[4]);
+      Cells[1,5]  :=  '           ' + IntToStr(AC[5]);
+    end
+  else { not Tested}
+    with StringGrid1 do
+    begin
+      Cells[0,0] :=  '    ACCURACY';
+      Cells[1,0] :=  '     ERRORS';
+      Cells[0,1] :=  '           90 %';
+      Cells[0,2] :=  '           80 %';
+      Cells[0,3] :=  '           70 %';
+      Cells[0,4] :=  '           60 %';
+      Cells[0,5] :=  '           50 %';
+      Cells[1,1]  :=  '     no data';
+      Cells[1,2]  :=  '     no data';
+      Cells[1,3]  :=  '     no data';
+      Cells[1,4]  :=  '     no data';
+      Cells[1,5]  :=  '     no data';
+    end;
+
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  BP.Free;
+  Application.Terminate;
+end;
+
+procedure TForm1.FormPaint(Sender: TObject);
+begin
+  LastDayLb.Caption := LastDay;
+end;
+
+procedure TForm1.FindNextRewardDay(var D: TDateTime);
+var
+  Y, M, Day : word;
+begin
+{ D will be modified to be next reward day}
+  DecodeDate(D,Y,M,Day);
+  if Day = 1 then Day := 16
+  else if Day = 2 then Day := 16
+  else if (Day = 16) and (M <> 4) and (M <> 12) then
+  begin
+    Day := 1;
+    M := M+1;
+  end
+  else if (Day = 16) and (M = 4) then
+  begin
+    Day := 2;
+    M := M+1;
+  end
+  else if (Day = 16) and (M = 12) then Day := 30
+  else //day = 30 m = 12
+  begin
+    Day := 16;
+    M := 1;
+    Y := Y+1;
+  end;
+  D := EncodeDate(Y,M,Day);
+end;
+
+procedure TForm1.PredictBtnClick(Sender: TObject);
+var
+  PredictDate, s : string;
+  Day, Month,i : integer;
+  valid : boolean;
+  r : real;
+begin
+{Input complete?}
+  if (ComboBox1.Text = '') or
+     (ComboBox2.Text = '') or
+     (ComboBox3.Text = '')
+  then begin
+     MessageDlg('Missing Input !  ' +
+         'Please specify value for every input field.', mtError,[mbOK],0);
+      Exit;
+  end;
+{Find PredictDate}
+  PredictDate := ComboBox1.Text + '/' +
+                 IntToStr(ComboBox2.ItemIndex + 1) + '/' +
+                 ComboBox3.Text;
+{Validate input}
+  Day := StrToInt(ComboBox1.Text);
+  Month := ComboBox2.ItemIndex + 1;
+  Valid := True;
+  case Day of
+    1  :  if (Month = 1) or (Month = 5) then valid := False;
+    2  :  if Month <> 5 then valid := False;
+    16 :  valid := True;
+    30 :  if Month <> 12 then valid := False;
+  end;
+  if Valid = False then
+  begin
+    MessageDlg('The specified date is not a valid date. ' +
+               'Please select predict date again.', mtError,[mbOK],0);
+    Exit;
+  end
+  else begin { valid Date !!!}
+    with PRIZETABLE do
+    begin
+      Setkey;
+      FieldByName('PDATE').AsString := PredictDate;
+      if GotoKey then  PRIZETABLE.Prior
+      else
+        if PredictDate <> LastDay then
+        begin
+          MessageDlg('Data for prediction is not enough.' + chr(10) +
+                     'Please update ''LOTTERY'' database.',
+                     mtWarning,[mbOK],0);
+          Exit;
+        end
+        else PRIZETABLE.Last;
+      {Prediction}
+      Label2.Left := 475;
+      DateLb.Caption := PredictDate;
+      DateLb.Visible := True;
+      {Read input from 'PRIZETABLE' to Input array}
+      for i := 1 to BP.IPLayer.Num_Cell do
+      begin
+        Input[i] := PRIZETABLE['PRIZE']/99;
+                             //divide by 99 to massage input
+        PRIZETABLE.Prior;
+      end;
+      {Feed BP with Input array}
+      BP.Feedforward(Input);
+      r := Round(BP.OPLayer.OutputBuffer[1]*99.0);
+                            //multiply by 99 to unmassage
+      s := FloatToStr(r);
+      if r <10 then s := '0' + s;
+      {Show Result}
+      Panel1.Caption := s;
+    end;{with..}
+  end;{else begin {valid..}
+end;
+
+procedure TForm1.AddBtnClick(Sender: TObject);
+begin
+  Form2.ShowModal;
+end;
+
+end.

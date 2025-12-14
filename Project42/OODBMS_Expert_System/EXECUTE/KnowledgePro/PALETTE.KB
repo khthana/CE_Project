@@ -1,0 +1,178 @@
+(*================================== PALETTE.KB ============================
+  This program lets the user set the standard KnowledgePro foreground
+  and background color names.  Custom colors can be made using COLOR.KB.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+==========================================================================*)
+
+Setup ().
+WaitWindow ().
+MainWindow ().
+
+topic Setup.
+  hyper_display (black, white, oem_fixed_font).
+  tc is '#bwhite #x4#y2'.               
+  showColor is no.
+  columns is [1,9,17,25,33,41,49,57,65,
+              1,9,17,25,33,41,49,57,65,
+              1,9,17,25,33,41,49,57,65].
+  rows is [11,11,11,11,11,11,11,11,11,
+           14,14,14,14,14,14,14,14,14,
+           17,17,17,17,17,17,17,17,17].
+  colors is [black, darkblue, blue, brown, darkpurple, purple, red, pink, magenta,
+             green2, darkblue2, mossgreen, lightgray, gray, purple2, orange, pink2, magenta2,
+             green, bluegreen, cyan, brightgreen, lightgreen, lightblue, yellow, lightyellow, white].
+  counter is 1.
+  plain is '
+ Click on the desired window or text color. 
+
+ 1] #mblack#m          10] #mgreen2#m           19] #mgreen#m
+ 2] #mdarkBlue#m       11] #mdarkBlue#m         20] #mblueGreen#m
+ 3] #mblue#m           12] #mmossgreen#m        21] #mcyan#m
+ 4] #mbrown#m          13] #mlightgray#m        22] #mbrightGreen#m
+ 5] #mdarkPurple#m     14] #mgray#m             23] #mlightGreen#m
+ 6] #mpurple#m         15] #mpurple2#m          24] #mlightBlue#m
+ 7] #mred#m            16] #morange#m           25] #myellow#m
+ 8] #mpink#m           17] #mpink2#m            26] #mlightYellow#m
+ 9] #mmagenta#m        18] #mmagenta2#m         27] #mwhite#m'.
+
+  colored is '
+ Click on the desired window or text color. 
+
+ 1] #mblack#m          #fgreen2 10] #m#fgreen2 green2#m           #fgreen 19] #m#fgreen green#m
+ #fdarkblue 2] #m#fdarkblue darkBlue#m       #fdarkblue2 11] #m#fdarkblue2 darkBlue2#m        #fbluegreen 20] #m#fdarkblue2 blueGreen#m
+ #fblue 3] #m#fblue blue#m           #fmossgreen 12] #m#fmossgreen mossgreen#m        #fcyan 21] #m#fcyan cyan#m
+ #fbrown 4] #m#fbrown brown#m          #flightgray 13] #m#flightgray lightgray#m        #fbrightgreen 22] #m#fbrightgreen brightGreen#m
+ #fdarkpurple 5] #m#fdarkpurple darkPurple#m     #fgray 14] #m#fgray gray#m             #flightgreen 23] #m#flightgreen lightGreen#m
+ #fpurple 6] #m#fpurple purple#m         #fpurple2 15] #m#fpurple2 purple2#m          #flightblue 24] #m#flightblue lightBlue#m
+ #fred 7] #m#fred red#m            #forange 16] #m#forange orange#m           #fyellow 25] #m#fyellow yellow#m
+ #fpink 8] #m#fpink pink#m           #fpink2 17] #m#fpink2 pink2#m            #flightyellow 26] #m#flightyellow lightYellow#m
+ #fmagenta 9] #m#fmagenta magenta#m        #fmagenta2 18] #m#fmagenta2 magenta2#m         #fwhite #bblack 27] #m#fwhite #bblack white#m'.
+end.
+
+topic WaitWindow.
+  temp is window (,25,6,33.57,9.375,,[popup,showChildren,Siblings,visible,DialogFrame]).
+  set_text (, '
+
+#x5One moment while the 
+
+#x5color palette loads...
+ ').
+end.
+
+topic MainWindow.
+  use_font (oem_fixed_font).
+  wmain is window (select:&quit!,5,3,73,23,'Window and Text Colors',[ PopUp,ThickFrame,ShowChildren,Siblings,ControlMenu,MinimizeBox], , , , close_event).
+  icon is load_icon (kptool_icon).
+  attach_icon ( ?wMain, ?icon ).
+  m1 is menu ([ [&Text, '&Show Colors'], &Copy!, &Quit!, &Help!], select).
+  text (?plain).
+  apply (CreateRow, ?columns, ?rows, ?colors).
+
+  wDisplay is window (,52,1.25,20,1.75,,[child,disabled,thinframe,ShowChildren,visible],?wmain).
+  mark (None).
+
+  set_display_window (?wmain).
+  show_window ( ?wmain ).
+  close_window (?temp).
+end.
+
+topic select (item).
+  do (?item).
+
+  topic '&Show Colors'.
+    if ?showColor is no then
+       set_text (?wmain,?colored) and
+       check_menu_item (?m1,'&Show Colors') and
+       showColor is yes
+    else 
+       set_text (?wmain,?plain) and
+       uncheck_menu_item (?m1,'&Show Colors') and
+       showColor is no.
+  end.
+
+  topic &help!.
+    if element (system_info (),12) > 2 then 
+       hyper_display (green2,,system_font).
+    wh is window (,7,5,68,19,,[Dialogwindow,visible]).
+    use_font (system_font).
+    make_modal (?wh).
+    text ( ' 
+ WINDOW BACKGROUNDS: The colored windows show the window 
+  background colors. These are defined in the WINDOW command.
+       WINDOW (ET,C,R,W,H,T,S,P,TEXTCOLOR,BACKCOLOR,E).
+  #mCustom colors#m are defined using RBG values of the color.
+
+ TEXT: To view the text colors select Text/Show Colors.
+  These are the colors that will be displayed in the foreground
+  or background for text. Text color is set in WINDOW or,
+  using ##f for foreground or ##b for background in the command
+  that defines the text to be displayed.
+
+  Depending on your monitor, duplicate colors may be displayed.
+  Colors displayed as white will not appear on the display.').
+    b2 is button (Continue,continue,30,16).
+    set_focus (?b2).
+    wait ().
+    use_font (oem_fixed_font).
+    hyper_display (black, white, oem_fixed_font).
+    close_window ().
+
+    topic 'Custom colors'.
+      wh2 is window (,9,7,64,16,,[Dialogwindow,visible]).
+      make_modal (?wh2).
+      text ('
+
+  Custom colors are defined by entering the number of
+  the RBG value in the WINDOW command. The RBG value is:
+
+     COLOR = (?BLUE * 65536) + (?GREEN * 256) + ?RED
+
+  The knowledge base COLOR.KB helps you define new colors.
+  The code shows how RBG values are used.').
+      b1 is button (Continue,continue,28,13).
+      set_focus (?b1).
+      wait ().
+      close_window ().
+    end.    
+  end.
+
+  topic &quit!.
+     text_to_clipboard (?CurrentColor).
+     hide_window (?wmain).
+     exit_kp ( ).
+  end.
+
+  topic &Copy!.
+     text_to_clipboard (?CurrentColor).
+  end.
+
+end. (* select *)
+  
+topic mark (item).
+  CurrentColor is ?item.
+  set_text  (?wDisplay, ['  Current Color', #n#s, ' ', ?item]).
+end.
+
+topic CreateRow (column, row, color).
+  window (,?column,?row,8,3,,[childwindow,visible],?wmain,,?color).
+  text (?tc, ?counter).
+  hyper_region (?color, 1, 1, 8, 3).
+  counter is ?counter + 1.
+end.

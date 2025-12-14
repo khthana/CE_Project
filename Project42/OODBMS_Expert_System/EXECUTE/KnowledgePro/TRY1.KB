@@ -1,0 +1,8 @@
+window().
+text('
+			Hello !!
+			I am the KING ! 
+	').
+button (OK, continue) .
+wait (waiting,).
+close_window().

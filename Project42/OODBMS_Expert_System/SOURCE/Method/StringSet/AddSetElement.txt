@@ -1,0 +1,13 @@
+defineProcedure Void projectCF::StringSet::instance:
+AddSetElement(Set <String> DataSet)
+language: "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $List <String> StrSet;
+ $StrSet = self.Elements;
+ $self.Elements = StrSet.append(DataSet);
+ $return;
+
+};

@@ -1,0 +1,92 @@
+VERSION 5.00
+Begin VB.UserDocument docCalTax 
+   ClientHeight    =   1740
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   4680
+   HScrollSmallChange=   225
+   ScaleHeight     =   1740
+   ScaleWidth      =   4680
+   VScrollSmallChange=   225
+   Begin VB.TextBox txtBillingID 
+      Height          =   405
+      Left            =   1080
+      TabIndex        =   2
+      Top             =   720
+      Width           =   1575
+   End
+   Begin VB.TextBox txtItemID 
+      Height          =   405
+      Left            =   1080
+      TabIndex        =   1
+      Top             =   1200
+      Width           =   1575
+   End
+   Begin VB.CommandButton cmdCalTax 
+      Caption         =   "Calculate Tax"
+      Height          =   495
+      Left            =   3120
+      TabIndex        =   0
+      Top             =   840
+      Width           =   1455
+   End
+   Begin VB.Label lblErr 
+      Height          =   375
+      Left            =   120
+      TabIndex        =   5
+      Top             =   120
+      Width           =   3255
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Billing ID"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   4
+      Top             =   840
+      Width           =   855
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Item ID"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   3
+      Top             =   1320
+      Width           =   855
+   End
+End
+Attribute VB_Name = "docCalTax"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub cmdCalTax_Click()
+Dim ObjBillingdetail As Object
+Dim Tax As Single
+
+cmdCalTax.Enabled = False
+
+On Error GoTo CalTaxError
+Set ObjBillingdetail = CreateObject("Ecomm.billingdetail")
+
+With ObjBillingdetail
+ .billingid = CInt(txtBillingID.Text)
+ .itemid = CInt(txtItemID.Text)
+ 
+ Tax = .CalTax
+End With
+
+    MsgBox "Tax : " & Tax & vbCrLf & _
+        "And update to tblBillingDetail.TaxValue complete"
+    
+    cmdCalTax.Enabled = True
+    
+    Set ObjBillingdetail = Nothing
+
+Exit Sub
+CalTaxError:
+'[AXDW] The following line was commented out by the ActiveX Document Migration Wizard.
+  lblErr.Caption = Err.Number & " : " & Err.Description
+  cmdCalTax.Enabled = True
+End Sub

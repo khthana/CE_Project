@@ -1,0 +1,57 @@
+
+<HTML>
+
+<HEAD>
+
+
+
+<TITLE>Personal Computer : 161.246.6.157 </TITLE>
+
+</HEAD>
+
+<br>
+<center>
+	<img src="pc.bmp"><br><br>
+	<font color=blue>IP : 161.246.6.157</font>
+</center>
+<br>
+
+
+
+<SERVLET CODE=pcview>
+	<PARAM NAME=ip VALUE=161.246.6.157>
+</SERVLET>
+
+<br><br>
+<center>
+|&nbsp <a href=http://161.246.6.160:8000/servlet/inout?ip=161.246.6.157>In-Out Statistics</a> &nbsp
+|&nbsp <a href=http://161.246.6.160:8000/servlet/datainout?ip=161.246.6.157>Octet Statistics</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/inoutpday?ip=161.246.6.157>Use per Day Statistics</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/data1pday?ip=161.246.6.157>InOctet in Interface1 Statistics (per Day)</a> &nbsp|
+
+&nbsp <a href=http://161.246.6.160:8000/servlet/datao1pday?ip=161.246.6.157>OutOctet in Interface1 Statistics (per Day)</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/com1pday?ip=161.246.6.157>Comparing Octet in Interface1 (per Day)</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/data2pday?ip=161.246.6.157>InOctet in Interface2 Statistics (per Day)</a> &nbsp|
+
+&nbsp <a href=http://161.246.6.160:8000/servlet/datao2pday?ip=161.246.6.157>OutOctet in Interface2 Statistics (per Day)</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/com2pday?ip=161.246.6.157>Comparing Octet in Interface2 (per Day)</a> &nbsp|<br>
+
+
+<form action="http://161.246.6.160/pc6157.shtml">
+<input type ="image" src="reload.gif"> 
+</form>
+
+
+
+</center>
+<br><br>
+
+
+
+
+</html>

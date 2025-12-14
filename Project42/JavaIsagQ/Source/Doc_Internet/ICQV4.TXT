@@ -1,0 +1,766 @@
+This is version 1.1 of this specification.  
+
+This is a list of commands used in MICQ with V4 packets.  V2 is similar
+but the packet header is different.  All commands should be availalbe
+in both V2 and V4.
+
+Note that I'm not guaranteeing the accuracy of any of this information; 
+most of it was culled from the MICQ sources and a couple of things were 
+added as a result of chats on the developers list.  You should check 
+this against other resources.
+
+legal disclaimer: I have not reverse engineered or disassembled any
+mirabilis code; my primary sources of information are the MICQ sources
+and the ICQ Developers list.  This specification is NOT an official
+specification published by mirabilis but rather the result of the work
+of several people who have been looking at UDP packet dumps late into
+the night.
+
+This document is public domain; do what you want with it.  I will
+be trying to maintain it on my web page, look at the page below for
+this and hopefully some other information later.
+
+http://www.ladsoft.com/icq
+
+A description of V2 packets may be found on Magnus Ihse's home page:
+
+http://www.student.nada.kth.se/~d95-mih/icq/
+
+-----------------------------------------------------
+
+In this document we will have the following type conventions:
+
+	BYTE = 1 byte
+	WORD = 2 bytes, usually little endian ordering
+	DWORD = 4 bytes, usually little endian ordering
+	STRING = a counted, null terminated variable-length string.  
+		There is a word-sized count (in little endian order) 
+		followed by a null terminated string.  The count field 
+		does include the null terminator.
+	254STRING = a variable-length string terminated by the BYTE 0xfe
+		These are used in the received message command (220)
+		and MICQ sources seem to indicate that after a group
+		of such strings there may come a null terminator...
+	var	other variable length data		
+
+numbers in this document are assumed to be decimal unless prefixed with
+an 0x prefix, in which case they are hex.
+
+things which are NOT little endian in order include IP values, and TCP
+port numbers.  These are given in network order, e.g. big endian order.
+
+-----------------------------------------------------
+PAckets in this specification are sent via UDP; there is a little
+documentation about peer-to-peer connections out there but I am not
+incorporating it at this time.  Each packet has two parts, the header
+which among other things gives the command, and the command-specific
+data.  Some commands do not have command-specific data.
+
+Packet header:
+
+	WORD version
+		this is the ICQ network version protocol, e.g. 4
+	WORD =random value
+		this is a random number
+	WORD =zero
+		a value of zero
+	WORD cmd          	
+		this is the command associated with this packet,
+		e.g. 1000 = login
+	WORD seq
+		this is the sequence number associated with this packet
+	WORD seq2
+		I'm not sure what this is
+	DWORD our UIN
+		the UIN we are sending from/receiving to
+	DWORD V4 check code
+		packet check/encryption code
+
+-----------------------------------------------------
+V4 packets are partially encrypted.  First we need some encryption
+data.  This is a C language definition of the data; we are able to
+use this data via the 'fair use' clause of copyright law, as it would
+be impossible to do anything without it.  On the other hand we couldn't
+use the ICQ flower because our program gets along fine without that :).
+
+This seems to be a text string, just at a glance I saw the word
+'ICQ' in there :).  If anyone wants to translate it I will include the
+translation here...
+unsigned char icq_check_data[257] = {
+	0x0a, 0x5b, 0x31, 0x5d, 0x20, 0x59, 0x6f, 0x75, 
+	0x20, 0x63, 0x61, 0x6e, 0x20, 0x6d, 0x6f, 0x64, 
+	0x69, 0x66, 0x79, 0x20, 0x74, 0x68, 0x65, 0x20, 
+	0x73, 0x6f, 0x75, 0x6e, 0x64, 0x73, 0x20, 0x49,
+	0x43, 0x51, 0x20, 0x6d, 0x61, 0x6b, 0x65, 0x73, 
+	0x2e, 0x20, 0x4a, 0x75, 0x73, 0x74, 0x20, 0x73, 
+	0x65, 0x6c, 0x65, 0x63, 0x74, 0x20, 0x22, 0x53, 
+	0x6f, 0x75, 0x6e, 0x64, 0x73, 0x22, 0x20, 0x66, 
+	0x72, 0x6f, 0x6d, 0x20, 0x74, 0x68, 0x65, 0x20,
+	0x22, 0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65,
+	0x6e, 0x63, 0x65, 0x73, 0x2f, 0x6d, 0x69, 0x73,
+	0x63, 0x22, 0x20, 0x69, 0x6e, 0x20, 0x49, 0x43,
+	0x51, 0x20, 0x6f, 0x72, 0x20, 0x66, 0x72, 0x6f,
+	0x6d, 0x20, 0x74, 0x68, 0x65, 0x20, 0x22, 0x53,
+	0x6f, 0x75, 0x6e, 0x64, 0x73, 0x22, 0x20, 0x69,
+	0x6e, 0x20, 0x74, 0x68, 0x65, 0x20, 0x63, 0x6f,
+	0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x20, 0x70, 0x61,
+	0x6e, 0x65, 0x6c, 0x2e, 0x20, 0x43, 0x72, 0x65,
+	0x64, 0x69, 0x74, 0x3a, 0x20, 0x45, 0x72, 0x61,
+	0x6e, 0x0a, 0x5b, 0x32, 0x5d, 0x20, 0x43, 0x61,
+	0x6e, 0x27, 0x74, 0x20, 0x72, 0x65, 0x6d, 0x65,
+	0x6d, 0x62, 0x65, 0x72, 0x20, 0x77, 0x68, 0x61,
+	0x74, 0x20, 0x77, 0x61, 0x73, 0x20, 0x73, 0x61,
+	0x69, 0x64, 0x3f, 0x20, 0x20, 0x44, 0x6f, 0x75,
+	0x62, 0x6c, 0x65, 0x2d, 0x63, 0x6c, 0x69, 0x63,
+	0x6b, 0x20, 0x6f, 0x6e, 0x20, 0x61, 0x20, 0x75,
+	0x73, 0x65, 0x72, 0x20, 0x74, 0x6f, 0x20, 0x67,
+	0x65, 0x74, 0x20, 0x61, 0x20, 0x64, 0x69, 0x61,
+	0x6c, 0x6f, 0x67, 0x20, 0x6f, 0x66, 0x20, 0x61,
+	0x6c, 0x6c, 0x20, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x73, 0x20, 0x73, 0x65, 0x6e, 0x74,
+	0x20, 0x69, 0x6e, 0x63, 0x6f, 0x6d, 0x69, 0x6e, 0
+};
+
+Before we actually partially encrypt the data, we need to
+fill in some header fields.  First we fill in the RAND field with
+a word-sized random number.  Then we fill in the ZERO field with zeros.
+Then we have to calculate a check code.  Now it may be that you can just
+use a random value for the check code as the server can't possibly duplicate
+it... but I am going to give the proper calculation.  First though, we
+have to represent the packet as a sequence of bytes instead of as a
+structured entity.  That means the version is bytes 0 and 1, the random
+value it bytes 2 and 3, the zeros are bytes 4 and 5, the check code is
+bytes 16 through 19, and the packet data starts at byte 20.  Remember
+that all these numbers are in little-endian order.
+
+For encryption we need to know the length of the packet, which is the size
+of the header (20) plus the size of any data that goes into the packet,
+for example the password and related data for a login.
+
+if BUF is the name of the byte array representing the packet,
+the check code field is calculated as follows:
+
+chk1 = (((buf[8] *256) + buf[4])*256 + buf[2]) *256 + buf[6]
+r1 = random number from 0 to packet len - 5 inclusive
+r2 = random byte value
+chk2 = (((r1 * 256) + buf[r1])*256 + r2) * 256 + icq_check_data[r2];
+
+check code = chk1 ^ chk2
+
+and the latter value goes into the header.
+
+Now that we have the check code we must calculate a base key:
+
+key = packet len * 0x66756b65 + checksum
+
+then we go through the first quarter of the packet encrypting things
+(we skip the check code field).  Here is sample code in C for the
+encryption (note: this assumes you are working on a little-endian
+processor).
+
+for (i=0; i < (packetlen + 3)/4; i += 4)
+{
+	if (i != 0x10) /* skip check code field */
+		*((DWORD *)(buf+i)) ^= key + icq_check_data[i & 0xff];
+}
+
+While you have to encrypt outgoing packets this way, the server
+doesn't seem to encrypt them when sending them to you...
+-----------------------------------------------------
+
+Following is a list of commands that can go back and forth between the
+client and the server.  Note that all the header fields must be valid,
+however, normally only the CMD field is of interest to us.  The SEQ
+field is important especially on associating ACK packets (command 10) 
+with what was sent... and the UIN field becomes important to us as a client
+in the new UIN packet (command 70)
+
+In the commands list, command 10 is bidirectional, and commands less
+than 1000 generally originate from the server.  Commands 1000 and above
+generally originate from the client.  The direction of a command can
+be determined by looking at the characters before the command:
+
+<-> = bidirectional (acknowledge)
+->  = commands originating from the server
+<-  = commands originating from the client
+
+In the comment section for each command, I will often put a number in
+parenthesis (sometimes two).  These numbers indicate which command was
+sent to result in this message.  Messages that can come in asynchronously
+will be marked as such.
+
+<->acknowledge: 
+	CMD 10
+	SEQ seq of acked command
+
+	sent in acknowledgement to every command.
+	The SEQ field of every command is incremented with each new command.
+	The SEQ field of an ACK packet is a way of associating the command
+	that is being acknowledged with the ACK packet.  In other words
+	keep a list of send commands if you want to know what is being
+	acknowledged.  Since UDP does not guarantee packet delivery you
+	may want to use the lack of an ACK packet to mean try resending
+	the data.
+
+->forced logout
+	CMD 40
+
+	the server doesn't want you around, go away.
+	I think the comments in MICQ indicate that if there is too much
+	network lag the server will log you out.
+
+->new uin:
+	CMD 70
+	UIN = new UIN
+
+	This is a response to you sending a CMD 1020 packet, requesting a
+	new UIN for a new user.  The UIN field of the header holds your new
+	UIN.
+
+->login response:
+	CMD 90
+	data: 
+		DWORD our IP
+
+	server has noted your login request (1000)
+	and is ready for contact info
+
+->login failed: bad password
+	CMD 100
+
+	you've forgotten your password?
+
+->User went online
+	CMD 110
+	data:
+		DWORD UIN
+		DWORD ip address
+		WORD port address
+		WORD 0
+		DWORD ip2
+		BYTE peer-flag 4 =peer-to-peer(TCP) 6 = server only 
+			2 = firewall??
+		DWORD status
+		WORD TCP version
+		more stuff follows, we don't know what it is.
+
+	This is sent asynchronously, and means someone on your contact 
+	list went online, and this is info about him.
+
+->User went offline
+	CMD 120
+	data:
+		DWORD UIN	
+
+	This is sent asynchronously, and means someone on your contact 
+	list went offline.  Rumor has it this will be sent even when 
+	you are on their invisible list...
+
+->user found
+	CMD 140
+	data:
+		see CMD 280 for details
+
+	a search for a user (1040,1050) resulted in a match.  
+	This gives detailed info about the user.
+
+->end of search
+	CMD 160
+	DATA
+		BYTE 	0 = all users found, 
+			1 = too many users, search truncated
+
+	a search for a user (1040,1050) has been finished and no more
+	records will be sent in relation to that search.
+
+->extended update failed
+	CMD 210
+
+	Your request to update extended information (1200) has failed.
+	Server cannot update extended information.  A hot item on the list
+	lately is if one of the strings is too long you will get this message
+
+->recv msg:
+	CMD 220
+	data:
+		DWORD sender's uin
+		WORD year
+   		BYTE  month
+   		BYTE  day
+   		BYTE  hour
+   		BYTE  minute
+			note: the date and time is in GMT.
+   		WORD type
+			types:
+				(add 32768 for mass messages)
+				user added you to contact list: 12
+				author request mess		6
+				url message			4
+				contact mess			19
+				urgent message???		2
+				text message			1
+   		WORD len
+		What follows depends on message type:
+			add to contact list
+				254STRING nickname???
+				254STRING first name
+				254STRING last name
+				254STRING email string
+			authorization requst
+				254STRING nickname???
+				254STRING first name
+				254STRING last name
+				254STRING email string
+				254STRING ???
+				254STRING reason
+			url/mrurl
+				254STRING description
+				254STRING URL
+				
+			contac/mrcontact
+				254STRING ASCII # contacts
+				for each contact:
+					254STRING contact nickname
+					254STRING message
+			text/mrtext
+				254STRING message string.  May have CR/LF
+
+	During login, a sequence of these messages may be sent while
+	the server empties messages that have been stored while you are
+	offline.  After it is done, the server will send SRV_X2 (230)
+	after which you send message ack (1090)
+
+->SRV_X2:
+	CMD 230
+
+	Server stored messages have been sent (sent during login)
+
+->you are not connected
+	CMD 240
+
+	can't send commands because you didn't log in.  Sent in response to
+	any command other than LOGIN (1000) and new UIN (1020) if you aren't
+	logged in.
+
+->already on line, try again later
+	CMD 250
+
+	you will get this in response to a login packet (1000) if you
+	did not log out.  The server thinks you are logged in already and
+	won't let you log in multiple times.  Just wait a few minutes while
+	the server times you out and then you can log in again.
+
+->instant message
+	CMD 260
+	data:
+		DWORD UIN
+		WORD TYPE (see packet 220 description)
+		WORD LEN
+		see description of packet 220 for following data
+
+		Also MICQ sends a response being your appropriate
+		autoresponse string in response to this message
+
+	instant messages are delivered asynchronously.  They have essentially
+	the same data as the offline messages (220) but are sent directly
+	from one user to another when both are online (via the server, of
+	course)
+<-send message
+	CMD 270
+	data:
+		DWORD UIN
+		WORD TYPE see packet 220 description)
+		WORD LEN
+		see description of packet220 for following data
+		
+	The Client uses this to send a message to someone else.
+->Info Reply:
+	CMD 280
+	data:
+		DWORD UIN
+		STRING nickname
+		STRING first name
+		STRING last name
+		STRING email
+		BYTE flag = 1 if no authorization needed or ??? otherwise
+
+	This is a response to Info request (1120) and gives basic info
+	about the UIN.  Note that the authorization flag can NOT be
+	changed by an info update (1290) but must be changed by an
+	authorize update (1300).
+
+->extended info reply
+	CMD 290
+	data:
+		DWORD UIN
+		STRING  city
+		WORD country code (see MICQ for example for codes)
+			these are usually phone codes
+		BYTE time zone (in half hour increments from GMT)
+		STRING state ( 5 chars max)
+		WORD age, ffff = not entered
+		BYTE  1 = male, 2 = female other = not specified
+		STRING phone #
+		STRING home page
+		STRING about
+
+	This is a response to an extended Info Request (1130) and gives
+	extended info about the UIN
+
+->update status for UIN
+	CMD 420
+	data
+		DWORD UIN
+		DWORD NEW STATUS
+			possible statuse bits:
+				0: online, nothing special
+				1: away
+				2: dnd (usually has occupied & away set)
+				4: not available (usually has away set)
+				16: occupied (usually has away set)
+				32: free for chat
+				256: invisible
+
+	This message is sent asynchronously.
+	a user on your contact list has changed status.  Note that there
+	is another possible status, offline, which is sent through
+	packets 110 and 120.  MICQ uses a status value of -1 to represent
+	this.  Note that these bits can be or'd together for multiple
+	statuses and I have marked which ones usually occur in combination
+	under the PC version of ICQ.  Things are a little different on
+	the MAC versions, according to the comments in MICQ.
+
+->update success:
+	CMD 480
+	
+	your request to update basic info (1290) succeeded
+
+->update failed:
+	CMD 490
+
+	your request to update basic info (1290) failed; the info has not
+	been updated
+
+->multipacket:
+	CMD 530
+	data:
+		BYTE # packets ganged up
+		followed by list of packets.  Each packet has the following
+		format:
+			WORD length
+			var  packet header & data
+
+	multiple packets can be ganged together here.  The only thing you
+	ack is the main network packet seq number.
+
+->SRV_X1:
+	contact list is done.
+	CMD 540
+
+	sent as a response to sending contact list (1030).  Kind of an
+	acknowledge, I guess??
+
+->random user found
+	CMD 600
+	data:
+		DWORD  UIN = 0 for none found
+		DWORD  IP
+		WORD   port
+		WORD   =0
+		DWORD  IP2
+		BYTE   4 = peer-to-peer 6 = through server
+		DWORD  status (see CMD 240 for status bits)
+		WORD   TCP version
+		12 BYTE  unknown, appear to correspond to unknown flags at
+			end of login packet.
+
+
+	Sent in response to random search (1390).  The UIN will be zero
+	if no user was found.
+
+<-login
+	first command sent
+	CMD 1000
+	data:
+		DWORD time: (C standard seconds since Jan 1,1971)
+		DWORD port + 0x10000
+		WORD password length
+		null string password
+		DWORD = 0x00000098
+		DWORD: IP
+		BYTE = 6
+		DWORD initial status
+		DWORD TCP version
+		DWORD = 0
+		DWORD = 0x00980000
+
+	you send this to logon.  Send register new UIN (1020) first if you
+	don't have a UIN yet.
+
+<-Register new user:
+	CMD 1020
+	data:
+		WORD	=2
+		STRING password
+		DWORD = 0xa0
+		DWORD = 0x2461
+		DWORD = 0xa00000
+		DWORD = 0
+
+	Send this to get the server to give you a new UIN.  These are easy
+	to lose, so use the update command to at least update the email
+	address so you can find it again...
+		
+<-Send contact list
+	CMD 1030
+	data:
+		BYTE: number of contacts
+		LIST OF DWORDS: contact UINs
+
+	at startup tell the server your contact list.  There are a maximum
+	of 125 contacts per packet, if you have more than that send multiple
+	packets.  The server will send contact list done (540) after it
+	recieves this.
+
+<-Search by UIN
+	CMD 1040
+	data: unknown (probably DWORD UIN)
+
+	I don't know what the use of this is, since we have a uin info
+	command  (1120)
+
+<-Search by ascii data
+	CMD 1050
+	data:
+		STRING nickname
+		STRING first name
+		STRING last name
+		STRING email
+	
+	general search for user function.  Server responds with:
+	user found (140) for each match... and end of list (160) when it
+	has no more data to send.
+
+<-keep alive
+	CMD 1060
+
+	send this and keep_alive2 (1310) every two minutes 
+	regardless of activity
+
+<-Send text code
+	CMD 1080
+	data:
+		STRING  text of command
+		WORD	data for command
+
+	Known COMMANDS:
+		Disconnect:
+			text:   "B_USER_DISCONNECTED\0"
+			data:	BYTE =5
+				BYTE =0
+
+		Please respond immediately!!!
+			text:   "B_USER_ACK\0"
+			data:	BYTE =5
+				BYTE =0
+
+	This appears to define a set of extended commands you can use.
+
+<-Ack messages
+
+	CMD 1090
+
+	you send this in response to SRV_X2 (230).
+	tells the server you have received its stored (offline) messages
+	and that it may delete them.
+
+<-Login for sure
+	CMD 1100
+	no data
+
+	crazy login seems to acknowledge back and forth a couple of times
+
+<-Info request
+	request info on user
+	CMD 1120
+	data:
+		DWORD UIN
+
+	In response to this, the server will send you info reply (280)
+	with basic info about the user
+
+<-extended info request
+	request extended info on user
+	CMD 1130
+	data:
+		DWORD UIN
+
+	in response to this, the server will send you extended info reply
+	(290) with info about the user.
+
+<-change password
+	CMD 1180
+	data:
+		WORD	password change SEQ
+		STRING password (max len = 8 chars);
+
+	MICQ doesn't use this but I included it anyway.
+	This has apparently been used for spoofing, so, the server doesn't
+	honor it in V4 of the spec.  I suppose you would have to send a V5
+	packet...
+
+<-update extended info
+	CMD 1200
+	data:
+		WORD    Ext. info change sequence, 1 up for each packet sent.
+		STRING  city
+		WORD    Country.  If Country is 'unspecified' send 0xffff
+		BYTE    Country status.  If Country is 'unspecified' send 0xfe, otherwise
+			send 0x10
+		STRING  state (5 chars max)
+		WORD    Age.  If Age is 'unspecified' send 0xffff
+		BYTE    Sex.  Unspecified = 0x00, Female = 0x01, Male = 0x02
+		STRING  phone
+		STRING  homepage
+		STRING  about
+
+	This allows you to update your extended info.  In response a
+	success (???) or fail (210) will be sent
+
+<-Change status
+	CMD 1240
+	data:
+		DWORD new status (see packet 240 description)
+
+	The client has changed its online status.  To go offline you log
+	out (1090)
+
+<-Update info
+	CMD 1290
+	data:
+		see CMD 280 for details on packet format
+
+	This allows you to update your basic info (discluding authorization
+	status).  The server will respond success(480) or fail (490).
+
+<-update authorization status
+	MICQ doesn't use this, I got it off the list
+	CMD 1300
+	data:
+		WORD: new status ( 1 = no auth req, 0 = auth req)
+
+	This is how you update your authorization status.
+
+<-keep alive 2
+	CMD 1310
+
+	send this and keep-alive (1060) every two minutes regardless of
+	activity
+
+<-set random group
+	what group to be in
+	CMD 1380
+	data:
+		DWORD group
+			none = -1
+			general = 1
+			romance = 2
+			games = 3
+			students = 4
+			20 something = 6
+			30 something = 7
+			40 something = 8
+			50+ = 9
+			men seeking women = 10
+			women seeking men = 11
+			micq = 49 (maybe it works, maybe it doesn't )
+			
+	This allows you to set a random group in which other people can find
+	you by doing a random search(1390).
+
+<-random search
+	CMD 1390
+	data:
+		DWORD group
+		see packet 1380 for group defs
+
+	Use this to randomly search for another user in a variety of groups.
+	A Random User Found (600) will be sent as a response.
+		
+<-Meta user commands
+	CMD 1610
+	data:
+		WORD command:
+			SET     =  1000
+			REQUEST =  1200
+			GEN =   200
+			MORE =  220
+			WORK =  210
+		what follows depends on command:
+			REQUEST:
+				DWORD UIN
+
+	I'm not documenting these yet, I have to dig out the archives and
+	look up the notes on them.  Look for them in the next version of the
+	spec.
+<-send invisible list
+	CMD 1700
+	data:
+		BYTE: number of contacts
+		LIST OF DWORDS: contact UINs
+	during login you send a list of people you want to never see your
+	presence.
+<-send visible list
+	during login
+	CMD 1710
+	data:
+		BYTE: number of contacts
+		LIST OF DWORDS: contact UINs
+
+	during login you send a list of people you want to see you present
+	even when you are invisible.
+
+--------------------------------------------------------------------
+
+Here is some indication of some of the more prominent transactions like
+logging in.
+
+
+The client sends a a login command (1000).
+The server responds with an ACK (10).
+The server then responds with a login response (90)
+	or a bad password (100)
+
+If the login response is received the client sends:
+	login final acknowledge (1100)
+	contact list (1030)
+	visible list (1700)
+	invisible list (1710)
+
+
+And the server sends back:
+	acknowledges for the visible and invisible lists (10)
+	X1 (acknowledge contact list) (540)
+	any number of offline messages (220)
+	X2 (happy to have you around) (230)
+
+after the X2 (230) you send:
+	message ack (1090)
+
+at this point you are logged in and may send commands back and forth.
+
+To log out you send the 'text code' command (1080) with a code
+	of "B_USER_DISCONNECTED" and the other data.
+
+If you don't have a UIN client sends:
+	register new user (1020)
+
+And server responds:
+	new UIN (70)
+	after which you log on as normal.  It takes a couple of weeks
+	to be searchable.
+	
+At intervals you send keep alive (1060) and keep alive 2 (1310)
+
+Of the other commands, some of the server messages will be sent
+asynchronously and others will only be sent in response to your requests.

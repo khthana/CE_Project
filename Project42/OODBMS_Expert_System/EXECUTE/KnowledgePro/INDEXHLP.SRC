@@ -1,0 +1,106 @@
+(* INDEXHLP.SRC                                   Help System for Index *)
+
+  :mainFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  :hyperFont is create_char_font ( [1,1,400,'F','T','F',0,1,34,'Helv']).
+  :boldFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  use_font (?mainFont).
+  if last (system_info ()) > 2
+     then :color is green2
+     else :color is black.
+  hyper_display (?color,,?hyperFont).
+  helpWin is window (,10,3,70,23,'Using INDEX.KB',[PopupWindow,titleBar,visible]).
+  make_modal (?helpWin).
+  :mainHelp is '
+  INDEX.KB  indexes text files to be accessed using 
+  hypertext. This decreases search time. 
+  
+  To use INDEX first enter the name of the text file to be 
+  indexed and then the name of the index file to be created.  
+
+  Other Help Topics:
+
+     #mFormat of the text file#m
+     #mFormat of the Index#m
+     #mUsing the Index#m'.
+  set_text (,?mainHelp).
+  button ('Quit Help',continue,50,19).
+  wait ().
+  close_window (?helpWin).
+
+  topic 'Format of the text file'.
+    set_text (,' #rb Format of the text file#rd
+  The text file to be indexed should be formatted as in this example:
+
+       //hypertext item
+       This is the text which appears when the item
+       is selected.
+       //another item
+       This is a new hypertext item.
+       //the last item in the example
+       This is the text 
+       of the last item.
+
+  Each item preceded with a // is linked to hypertext of the same 
+  name.   Be sure that the first item is on the first line of the 
+  text file. The text  associated with each hypertext item is on the
+  line after the header. Be sure there is no extra text or spaces after
+  the header name.  Blanks and spaces can be used for formatting text.
+
+
+  #mReturn to the top of help#m').
+  end.
+
+  topic 'Format of the INDEX'.
+   set_text (,'#rb  Format of the INDEX#rd
+
+  INDEX.KB creates an index from the text file. 
+  The index contains each  hypertext item, where the item
+  begins in the text file and the number of bytes it contains. 
+  The index file for the sample text file shown would contain:
+
+       //hypertext item
+       18
+       114
+       //another item
+       150
+       28
+       //the last item in the example
+       212
+       16
+
+  #mReturn to the top of help#m').
+  end.
+
+  topic 'Using the index'.
+    set_text (,'#rb  Using the index#rd 
+  To use the index you must create a topic MARK.
+  MARK is called when hypertext is selected and is passed the 
+  name of the hypertext.  Here is an example of a topic MARK
+  which reads the index file and uses the information found to
+  retrieve the text from the text file:
+  
+topic mark (item).
+  set_file_pos (?IndexFile,0).
+  :IndexInfo is read (?IndexFile,concat (''//'',?item),''//'').
+  set_file_pos (?textFile, first (?IndexInfo)).
+  :t is read_char (?textFile, element (?IndexInfo, 2)).
+  text (##e,?t). 
+end. (* mark *)
+
+  To see an example of using an index file look at KPHELP.SRC.
+
+  #mReturn to the top of help#m').
+
+  end.
+
+  topic 'Return to the top of help'.
+    set_text (,?mainHelp).
+  end.
+
+topic b.
+  use_font (?boldFont).
+end.
+
+topic d.
+  use_font (?mainFont).
+end.

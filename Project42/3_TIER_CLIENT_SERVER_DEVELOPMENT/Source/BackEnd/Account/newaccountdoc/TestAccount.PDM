@@ -1,0 +1,99 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=D:\Project\EComm\Account\newaccountdoc\Package
+RA Server Support=Yes
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+E:\Program Files\Common Files\System\ado\MSADO20.TLB=
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+E:\WINNT\System32\AutPrx32.dll=This file is needed for RA server support.
+E:\WINNT\System32\AutMgr32.exe=This file is needed for RA server support.
+E:\WINNT\System32\RACMgr32.exe=This file is needed for RA server support.
+
+[Package|Internet Package 1|Files Removed]
+
+[Package|Internet Package 1|Files In Project]
+D:\Project\EComm\Account\newaccountdoc\TestAccount.exe=Yes
+E:\WINNT\system32\MSVBVM60.DLL=Yes
+E:\WINNT\system32\OLEAUT32.DLL=Yes
+E:\WINNT\system32\OLEPRO32.DLL=Yes
+E:\WINNT\system32\ASYCFILT.DLL=Yes
+E:\WINNT\system32\STDOLE2.TLB=Yes
+E:\WINNT\system32\COMCAT.DLL=Yes
+E:\WINNT\system32\MSADODC.OCX=Yes
+E:\WINNT\system32\MSSTDFMT.DLL=Yes
+E:\WINNT\system32\MSDATGRD.OCX=Yes
+E:\Program Files\Common Files\System\ado\MSADO20.TLB=Yes
+E:\WINNT\system32\AUTPRX32.DLL=Yes
+E:\WINNT\system32\AUTMGR32.EXE=Yes
+E:\WINNT\system32\RACMGR32.EXE=Yes
+E:\WINNT\system32\MSCOMCTL.OCX=Yes
+E:\WINNT\system32\RACREG32.DLL=Yes
+E:\WINNT\system32\ODKOB32.DLL=Yes
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+TestAccount.exe=thiscab
+MSVBVM60.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+OLEAUT32.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+OLEPRO32.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+ASYCFILT.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+STDOLE2.TLB=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+COMCAT.DLL=http://activex.microsoft.com/controls/vb6/VBRun60.cab
+MSADODC.OCX=http://activex.microsoft.com/controls/vb6/MSADODC.cab
+MSSTDFMT.DLL=http://activex.microsoft.com/controls/vb6/MSStdFmt.cab
+MSDATGRD.OCX=http://activex.microsoft.com/controls/vb6/MSDatGrd.cab
+MSADO20.TLB=thiscab
+AUTPRX32.DLL=http://activex.microsoft.com/controls/vb6/MSRACli.cab
+AUTMGR32.EXE=http://activex.microsoft.com/controls/vb6/MSRACli.cab
+RACMGR32.EXE=thiscab
+MSCOMCTL.OCX=http://activex.microsoft.com/controls/vb6/MSComCtl.cab
+RACREG32.DLL=thiscab
+ODKOB32.DLL=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+docAddAccount=false;false
+docUpdateAccount=false;false
+docDeleteAccount=false;false
+docRetrieveAccount=false;false
+
+[Package|Internet Package 1|Package]
+PackageFolder=D:\Project\EComm\Account\newaccountdoc\Package
+ProjectFolder=D:\Project\EComm\Account\newaccountdoc
+ServerSideCab=D:\Project\EComm\Account\newaccountdoc\Package\TestAccount.CAB
+File1=D:\Project\EComm\Account\newaccountdoc\Package\TestAccount.CAB
+File2=D:\Project\EComm\Account\newaccountdoc\Package\docAddAccount.VBD
+File3=D:\Project\EComm\Account\newaccountdoc\Package\docUpdateAccount.VBD
+File4=D:\Project\EComm\Account\newaccountdoc\Package\docDeleteAccount.VBD
+File5=D:\Project\EComm\Account\newaccountdoc\Package\docRetrieveAccount.VBD
+File6=D:\Project\EComm\Account\newaccountdoc\Package\TestAccount.HTM
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

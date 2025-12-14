@@ -1,0 +1,161 @@
+<html>
+<head>
+<title><wc@>strShopName</wc@> 's Shop</title>
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="92%">
+  <tr valign="top"> 
+    <td height="742"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td width="62%">
+            <div align="center">
+	      <h2>
+		<a name="top"></a><font face="MS Sans Serif" color="#000099">
+		 <b>Welcome to <wc@>strShopName</WC@> 's Shop</b></font> 
+ 
+	      </h2>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#201058">
+        <tr> 
+          <td>
+            <div align="right"><IMG height=20 src="/ecom/Pic/HeaderBar.GIF" width=600></div>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0" align="center">
+        <tr> 
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr> 
+          <td bgcolor="#ffffff" width="17%" valign="top" align="middle"> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+		  <img src="/ecom/pic/search.gif" width="128" height="23">
+                </td>
+              </tr>
+              <tr> 
+                <td> 
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <form method="post" action="OneShop.ASP?WCI=OneShop&amp;WCE=FormSearch&amp;WCU" 
+                    name="FormSearch">
+                                <TBODY>
+                    <tr> 
+                        <td width="74%"> 
+                          <input name="strSearch" size="15" >
+                      </td>
+                        <td width="26%"> 
+                          <input type=image src="/ecom/Pic/Go.GIF" width="30" height="30"></td>
+                    </tr>
+                  </form>
+                <form method="post" action="OneShop.ASP?WCI=OneShop&amp;WCE=formSearchCategory&amp;WCU" 
+                  name="formSearchCategory">
+                    <tr>
+                        <td> 
+                          <select name="lstCategory">
+                            <option value="0" selected>Select Category <wc@>strSelectCategory</wc@></option>
+                          </select>
+ 
+                      </td>
+		       <td><input type=image src="/ecom/Pic/Go.GIF" width="30" height="30"> 
+ 
+		       </td>
+		    </tr>
+		</form></table></td></tr>
+              <tr> 
+                <td>&nbsp; 
+                        </td>
+              </tr></table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+		 <img src="/ecom/pic/categories.gif" width="128" height="23">
+                </td>
+              </tr>
+              <tr>
+                <td>
+		 <wc@>strCategoryList</WC@>
+<!--
+                  <p><a href="/ecom/Pic/Go.GIF">Category1</a></p>
+                  <p><a href="/ecom/Pic/Go.GIF">Category2</a></p>
+                  <p><a href="/ecom/Pic/Go.GIF">Category3</a></p>
+-->
+                </td>
+              </tr>
+            </table></td>
+          <td width="63%" bgcolor="#ffffff" valign="top"> 
+            <table width="100%" border="0" cellspacing="2" cellpadding="0" align="center">
+              <tr> 
+                <td height="126" width="100%"> 
+                  <blockquote> 
+                    <h3><font face="MS Sans Serif" color="#ff00cc">Top Item</font></h3>
+		     <wc@>strTopItem</WC@>
+<!--
+                    <p><a href="Pic/Go.GIF">Item1</a></p>
+                    <p><a href="Pic/Go.GIF">Item2</a></p>
+                    <p><a href="Pic/Go.GIF">Item3</a></p>
+                    <p><a href="Pic/Go.GIF">Item4</a></p>
+-->
+                  </blockquote>
+                </td>
+              </tr>
+	  <tr>
+	    <td>
+                  &nbsp;
+                </td>
+	      </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="2" cellpadding="0" align="center" height="30%">
+              <tr> 
+                <td>&nbsp; </td>
+              </tr>
+	 <tr>
+	   <td>
+                  <blockquote> 
+                    <h3><font face="MS Sans Serif" color="#3366ff">New Item </font></h3>
+		    <wc@>strNewItem</WC@>
+<!--
+                    <p><a href="Pic/Go.GIF">Item1</a></p>
+                    <p><a href="Pic/Go.GIF">Item2</a></p>
+                    <p><a href="Pic/Go.GIF">Item3</a></p>
+                    <p><a href="Pic/Go.GIF">Item4</a></p>
+-->
+                  </blockquote>
+
+	   </td>
+	 </tr>
+	  <tr>
+	    <td>
+                  <div align="right"><font face="MS Sans Serif" size="-1"><A href="ItemList.asp?shopid=<wc@>strShopID</wc@>"><img src="/ecom/Pic/more_wh.gif" width="47" height="23" border="0"></A></font></div>
+                </td>
+	      </tr>
+            </table>
+            <p>&nbsp;</p>
+          </td>
+          <td width="20%" bgcolor="#ffffff" valign="top"> 
+            <p>&nbsp;</p>
+          </td></tr></table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0" align="center">
+        <tr> 
+          <td height="19"> 
+            <p>&nbsp;</p>
+          </td>
+        </tr>
+        <tr> 
+          <td height="39"> 
+            <div align="right"><A href="#top"><img src="/ecom/Pic/goup.gif" width="36" height="36" border="0"></A></div>
+          </td>
+        </tr>
+      </table>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p></TD></TR></TBODY></TABLE>
+</body>
+</html>

@@ -1,0 +1,203 @@
+(* ========================= DESFONT.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Font Module
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+  ====================================================================== *)
+
+
+topic FontDlg (hWnd, defaultFontList, deviceType, bEffects,
+                        cfInitFlags, cfFontType, hDC, hBuff, lpcf, hLogFont, lplf, lib, lib2, lib3).
+  (*
+    FontDlg
+
+    Action:
+	This topic calls the Windows Font Dialog Box to allow a user to choose a font
+	from among the installed fonts.
+
+    Parameters:
+	hWnd is the handle of the dialog box's parent. It may be [ ], if the dialog has no parent.
+
+	defaultFontList is a list of font paramters. The dialog box will be initialized to these
+		values. See the documentation on create_char_font for details on font parameters.
+
+	deviceType is either display or printer. The default is display. This parameter indicates
+		whether screen or printer fonts will be selected.
+
+	bEffects is a boolean. If it is true, strikeout, underline and color are eneabled in the
+		dialog box.
+
+    Temporary Parameters:
+	cInitFlags is a number specifying the value of the initial flags for the dialog box.
+
+	cFontType is a number specifying whether printer or screen fonts should be chosen.
+
+	hDC is a handle to a device context.
+
+	hBuff, hLogFont are handles to blocks of memory in Window's global heap.
+
+	lpcf is a far pointer to a CHOOSEFONT structure. See the SDK docs for details.
+
+	lplf is a far pointer to a LOGFONT structure. See the SDK docs for details.
+
+	lib, lib2, lib3 are library handles.
+
+    Returns:
+	If the user selects OK, a three element list is returned:
+
+		Element	Value
+		1		A font description list. This list can be passed to create_char_font
+				to produce the desired font.
+		2		The point size of the selected font.
+		3		The rgb value of the selected font color. If bEffects is F, this value
+				will be 0 (black).
+	If the user selects cancel, [ ] is returned.
+
+    Notes:
+	Windows tends to freak if you do not release the DC. If you get an error message
+	from this topic, chose OK, not cancel. Cancel will cause a crash due to an unreleased
+	DC when you run yout app the next time. *)
+
+#define  MOVEABLE  	2  
+#define  ZEROINIT	64
+
+#define CF_SIZE					46
+#define CF_SCREENFONTS			1
+#define CF_PRINTERFONTS			2
+#define CF_BOTH					3
+#define CF_INITTOLOGFONTSTRUCT       	64
+#define CF_EFFECTS				256
+
+#define SIMULATED_FONTTYPE	32768
+#define PRINTER_FONTTYPE		16384
+#define SCREEN_FONTTYPE  		8192
+#define BOLD_FONTTYPE           	256
+#define ITALIC_FONTTYPE         	512
+#define REGULAR_FONTTYPE           1024
+
+  [ lib, lib2, lib3 ] is_c apply ( load_library, [ 'commdlg.dll', 'kernel.exe', 'user.exe' ] ).   
+  cfInitFlags = CF_INITTOLOGFONTSTRUCT.
+  if ?deviceType = printer then
+     cfInitFlags = ?cfInitFlags + CF_PRINTERFONTS and
+     cfFontType = PRINTER_FONTTYPE
+  else 
+     cfInitFlags = ?cfInitFlags + CF_SCREENFONTS and
+     cfFontType = SCREEN_FONTTYPE.
+
+  if ?bEffects then
+     cfInitFlags = ?cfInitFlags + CF_EFFECTS.   
+
+  hDC = GetDC (?hWnd).
+
+  hBuff = AllocBuffer (64).
+  lpcf = LockBuffer (?hBuff).
+
+  hLogFont = AllocBuffer (128).
+  lplf = LockBuffer (?hLogFont).
+
+  put_dword (?lpcf, CF_SIZE).
+  put_word (?lpcf + 4, ?hWnd).
+  put_word (?lpcf + 6, ?hDC).  
+  put_pointer (?lpcf + 8, ?lplf).
+  put_dword (?lpcf + 14, ?cfInitFlags ).
+  put_word (?lpcf + 40, ?cfFontType).
+
+  InitLogFont (?lplf, ?defaultFontList). 
+
+  if ChooseFont (?lpcf) = 1 then
+      FontDlg = [GetFontList (?lplf), GetPointSize (?lpcf), GetFontColor (?lpcf)]
+  else
+      FontDlg = [ ].
+
+  FreeBuffer (?hBuff).
+  FreeBuffer (?hLogFont).
+  ReleaseDC (?hWnd, ?hDC).
+
+  free_library ([?lib, ?lib2, ?lib3]).
+
+  topic ChooseFont (lpcf).
+    ChooseFont = call (?lib, ChooseFont, [ pointer (?lpcf) ], int).
+  end. (* ChooseFont *)
+
+  topic GetFontList (lplf).
+    GetFontList = 
+         [get_int (?lplf) / element (system_info ( ), 4), 
+          get_int (?lplf + 2),
+	get_int (?lplf + 8),
+	NumToBool (get_byte (?lplf + 10)),
+	NumToBool (get_byte (?lplf + 11)),
+	NumToBool (get_byte (?lplf + 12)),
+	get_byte (?lplf + 13),
+	get_byte (?lplf + 16),
+	get_byte (?lplf + 17),
+	get_string (?lplf + 18, 30)].
+
+    topic NumToBool (n).
+       if ?n = 0 then
+          NumToBool = f
+       else
+          NumToBool = t.
+    end. (* NumToBool *)
+  end. (* GetFontList *)
+
+  topic GetFontColor (lpcf).
+     GetFontColor = get_dword (?lpcf + 18).
+  end. (* GetFontColor *)
+
+  topic GetPointSize (lpcf).
+     GetPointSize = get_int (?lpcf + 12) / 10.
+  end. (* GetPointSize *)
+
+  topic InitLogFont (lplf, font).
+     put_int (?lplf, element (?font, 1) * element (system_info ( ), 4)).
+     put_int (?lplf + 8, element (?font, 3)).
+     put_byte (?lplf + 10, BoolToNum (element (?font, 4))).
+     put_byte (?lplf + 11, BoolToNum (element (?font, 5))).
+     put_byte (?lplf + 12, BoolToNum (element (?font, 6))).
+     put_byte (?lplf + 13, element (?font, 7)).
+     put_byte (?lplf + 16, element (?font, 8)).
+     put_byte (?lplf + 17, element (?font, 9)).
+     put_string (?lplf + 18, element (?font, 10), 30).
+
+     topic BoolToNum (b).
+        if ?b then
+            BoolToNum = 1
+        else
+            BoolToNum = 0.
+     end. (* BoolToNum *)
+  end. (* InitLogFont *)
+
+  topic AllocBuffer (size). 
+    AllocBuffer = call (?lib2, GlobalAlloc, [ word (ZEROINIT + MOVEABLE), dword (?size) ], 
+			word).  
+  end. (* Allocbuffer *) 
+ 
+  topic LockBuffer (handle). 
+     LockBuffer = call (?lib2, GlobalLock, [ word (?handle) ], lpstr).  
+  end. (* Lock_buffer *) 
+ 
+  topic FreeBuffer (handle). 
+    call (?lib2, GlobalUnlock, [ word (?handle) ], int).  
+    call (?lib2, GlobalFree, [ word (?handle) ], word).  
+  end. (* Free_buffer *) 
+ 
+  topic GetDC (hWnd, lib2).
+    GetDC = call (?lib3, GetDC, [ word (?hWnd) ], word).
+  end. (* GetDC *) 
+
+  topic ReleaseDC (hWnd, hDC).
+    ReleaseDC = call (?lib3, ReleaseDC, [ word (?hWnd), word (?hDC) ], int).
+  end. (* ReleaseDC *) 
+end. (* FontDlg *)

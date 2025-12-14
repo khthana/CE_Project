@@ -1,0 +1,28 @@
+<HTML>
+<img src="/screens/liblogo.gif"><alt img="ALICE, Ohio
+ University Libraries' Online Catalog">
+<HEAD><TITLE>INNOPAC Web Title Search</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF
+onLoad="document.forms[0].SEARCH.focus(); document.forms[0].SEARCH.select();" >
+
+Click in the box, type the Title, then press ENTER: <hr>
+<FORM METHOD=GET>
+<INPUT TYPE=TEXT NAME=SEARCH MAXLENGTH=64 SIZE=48 ALIGN=CENTER>
+<INPUT TYPE=SUBMIT VALUE=Search>
+</FORM>
+<P>
+
+<B>Title Search</B><P>
+
+Type as much or as little of the <B>TITLE</B> as you want<P>
+
+<I>for example</I><P>
+<UL>
+<LI>The taming of the shrew<P>
+<LI>taming
+<LI>Sonata for clarinet
+<LI>Gone with the wind
+</UL>
+</BODY>
+</HTML>

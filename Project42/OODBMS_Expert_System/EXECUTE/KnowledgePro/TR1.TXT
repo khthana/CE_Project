@@ -1,0 +1,696 @@
+Entering (   1) rule [NOT (exists (w1)),delay (make (w1,window ()))]
+Entering (   2) NOT [exists (w1)]
+Entering (   3) exists [w1]
+Exit     (   3) exists [w1]
+Result: F
+Exit     (   2) NOT [F]
+Result: T
+Entering (   2) delay [make (w1,window ())]
+Exit     (   2) delay [make (w1,window ())]
+Result: [make (w1,window ())]
+Entering (   2) make [w1,window ()]
+Entering (   3) window 
+Exit     (   3) window 
+Result: 628
+Exit     (   2) make [w1,628]
+Result: 628
+Exit     (   1) rule [T,[make (w1,window ())]]
+Result: [628]
+Entering (   1) text ['#eEnter your student ID']
+Exit     (   1) text ['#eEnter your student ID']
+Result: 
+Entering (   1) make [TextBox,edit_line ('Your ID here',,10,3,13)]
+Entering (   2) edit_line ['Your ID here',,10,3,13]
+Exit     (   2) edit_line ['Your ID here',,10,3,13]
+Result: 774
+Exit     (   1) make [TextBox,774]
+Result: 774
+Entering (   1) set_focus [? (TextBox)]
+Entering (   2) ? [TextBox]
+Exit     (   2) ? [TextBox]
+Result: 774
+Exit     (   1) set_focus [774]
+Result: 774
+Entering (   1) button [Begin,ChkUser,18,6]
+Exit     (   1) button [Begin,ChkUser,18,6]
+Result: 842
+Entering (   1) !main:ChkUser [Begin,select_event,842]
+Entering (   2) make [StdID,get_text (? (TextBox))]
+Entering (   3) get_text [? (TextBox)]
+Entering (   4) ? [TextBox]
+Exit     (   4) ? [TextBox]
+Result: 774
+Exit     (   3) get_text [774]
+Result: [39014611]
+Exit     (   2) make [StdID,[39014611]]
+Result: [39014611]
+Entering (   2) rule [eq (? (Valid_User),yes),delay (? (FindAdvisor)),delay (? (EndProcess))]
+Entering (   3) eq [? (Valid_User),yes]
+Entering (   4) ? [Valid_User]
+Entering (   5) set_number_of_values [Answer,1]
+Exit     (   5) set_number_of_values [Answer,1]
+Result: 
+Entering (   5) rule [and (eq (? (StdCE),yes),delay (eq (? (StdSenior),yes))),delay (make (Valid_User,yes)),delay (make (Valid_User,no))]
+Entering (   6) and [eq (? (StdCE),yes),delay (eq (? (StdSenior),yes))]
+Entering (   7) eq [? (StdCE),yes]
+Entering (   8) ? [StdCE]
+Entering (   9) make [CheckCE,dde_open (CETopic,DBCall,EXIST)]
+Entering (  10) dde_open [CETopic,DBCall,EXIST]
+Exit     (  10) dde_open [CETopic,DBCall,EXIST]
+Result: [912,932]
+Exit     (   9) make [CheckCE,[912,932]]
+Result: [912,932]
+Entering (   9) make [RMsg,concat ('Student DeptOf("',? (StdID),'") == CE')]
+Entering (  10) concat ['Student DeptOf("',? (StdID),'") == CE']
+Entering (  11) ? [StdID]
+Exit     (  11) ? [StdID]
+Result: 39014611
+Exit     (  10) concat ['Student DeptOf("',39014611,'") == CE']
+Result: 'Student DeptOf("39014611") == CE'
+Exit     (   9) make [RMsg,'Student DeptOf("39014611") == CE']
+Result: 'Student DeptOf("39014611") == CE'
+Entering (   9) dde_request [? (CheckCE),? (RMsg)]
+Entering (  10) ? [CheckCE]
+Exit     (  10) ? [CheckCE]
+Result: [912,932]
+Entering (  10) ? [RMsg]
+Exit     (  10) ? [RMsg]
+Result: 'Student DeptOf("39014611") == CE'
+Exit     (   9) dde_request [[912,932],'Student DeptOf("39014611") == CE']
+Result: 
+Entering (   9) wait 
+Entering (  10) !main:ChkUser:Valid_User:StdCE:CETopic [[[yes],'Student DeptOf("39014611") == CE',1],dde_data_event,[912,932]]
+Entering (  11) make [StdCE,first (? (CEinfo))]
+Entering (  12) first [? (CEinfo)]
+Entering (  13) ? [CEinfo]
+Exit     (  13) ? [CEinfo]
+Result: [[yes],'Student DeptOf("39014611") == CE',1]
+Exit     (  12) first [[[yes],'Student DeptOf("39014611") == CE',1]]
+Result: [yes]
+Exit     (  11) make [StdCE,[yes]]
+Result: [yes]
+Entering (  11) dde_close [CheckCE]
+Exit     (  11) dde_close [CheckCE]
+Result: 
+Entering (  11) continue 
+Exit     (  11) continue 
+Result: 
+Exit     (  10) !main:ChkUser:Valid_User:StdCE:CETopic [[[yes],'Student DeptOf("39014611") == CE',1],dde_data_event,[912,932]]
+Result: 
+Exit     (   9) wait 
+Result: 0
+Exit     (   8) ? [StdCE]
+Result: yes
+Exit     (   7) eq [yes,yes]
+Result: T
+Entering (   7) delay [eq (? (StdSenior),yes)]
+Exit     (   7) delay [eq (? (StdSenior),yes)]
+Result: [eq (? (StdSenior),yes)]
+Entering (   7) eq [? (StdSenior),yes]
+Entering (   8) ? [StdSenior]
+Entering (   9) make [CheckSenior,dde_open (SeniorTopic,DBCall,EXIST)]
+Entering (  10) dde_open [SeniorTopic,DBCall,EXIST]
+Exit     (  10) dde_open [SeniorTopic,DBCall,EXIST]
+Result: [912,974]
+Exit     (   9) make [CheckSenior,[912,974]]
+Result: [912,974]
+Entering (   9) make [RMsg,concat ('Student YearOf("',? (StdID),'") == Senior')]
+Entering (  10) concat ['Student YearOf("',? (StdID),'") == Senior']
+Entering (  11) ? [StdID]
+Exit     (  11) ? [StdID]
+Result: 39014611
+Exit     (  10) concat ['Student YearOf("',39014611,'") == Senior']
+Result: 'Student YearOf("39014611") == Senior'
+Exit     (   9) make [RMsg,'Student YearOf("39014611") == Senior']
+Result: 'Student YearOf("39014611") == Senior'
+Entering (   9) dde_request [? (CheckSenior),? (RMsg)]
+Entering (  10) ? [CheckSenior]
+Exit     (  10) ? [CheckSenior]
+Result: [912,974]
+Entering (  10) ? [RMsg]
+Exit     (  10) ? [RMsg]
+Result: 'Student YearOf("39014611") == Senior'
+Exit     (   9) dde_request [[912,974],'Student YearOf("39014611") == Senior']
+Result: 
+Entering (   9) wait 
+Entering (  10) !main:ChkUser:Valid_User:StdSenior:SeniorTopic [[[yes],'Student YearOf("39014611") == Senior',1],dde_data_event,[912,974]]
+Entering (  11) make [StdSenior,first (? (SeniorInfo))]
+Entering (  12) first [? (SeniorInfo)]
+Entering (  13) ? [SeniorInfo]
+Exit     (  13) ? [SeniorInfo]
+Result: [[yes],'Student YearOf("39014611") == Senior',1]
+Exit     (  12) first [[[yes],'Student YearOf("39014611") == Senior',1]]
+Result: [yes]
+Exit     (  11) make [StdSenior,[yes]]
+Result: [yes]
+Entering (  11) dde_close [CheckSenior]
+Exit     (  11) dde_close [CheckSenior]
+Result: 
+Entering (  11) continue 
+Exit     (  11) continue 
+Result: 
+Exit     (  10) !main:ChkUser:Valid_User:StdSenior:SeniorTopic [[[yes],'Student YearOf("39014611") == Senior',1],dde_data_event,[912,974]]
+Result: 
+Exit     (   9) wait 
+Result: 0
+Exit     (   8) ? [StdSenior]
+Result: yes
+Exit     (   7) eq [yes,yes]
+Result: T
+Exit     (   6) and [T,[eq (? (StdSenior),yes)]]
+Result: [T]
+Entering (   6) delay [make (Valid_User,yes)]
+Exit     (   6) delay [make (Valid_User,yes)]
+Result: [make (Valid_User,yes)]
+Entering (   6) delay [make (Valid_User,no)]
+Exit     (   6) delay [make (Valid_User,no)]
+Result: [make (Valid_User,no)]
+Entering (   6) make [Valid_User,yes]
+Exit     (   6) make [Valid_User,yes]
+Result: yes
+Exit     (   5) rule [[T],[make (Valid_User,yes)],[make (Valid_User,no)]]
+Result: [yes]
+Exit     (   4) ? [Valid_User]
+Result: yes
+Exit     (   3) eq [yes,yes]
+Result: T
+Entering (   3) delay [? (FindAdvisor)]
+Exit     (   3) delay [? (FindAdvisor)]
+Result: [? (FindAdvisor)]
+Entering (   3) delay [? (EndProcess)]
+Exit     (   3) delay [? (EndProcess)]
+Result: [? (EndProcess)]
+Entering (   3) ? [FindAdvisor]
+Entering (   4) set_number_of_values [Answer,1]
+Exit     (   4) set_number_of_values [Answer,1]
+Result: 
+Entering (   4) make [Result,concat ('#eYour senior project''s advisor should be Ajarn ',? (Advisor))]
+Entering (   5) concat ['#eYour senior project''s advisor should be Ajarn ',? (Advisor)]
+Entering (   6) ? [Advisor]
+Entering (   7) set_number_of_values [Answer,1]
+Exit     (   7) set_number_of_values [Answer,1]
+Result: 
+Entering (   7) rule [and (eq (? (SelectedArticle),Databases),delay (eq (? (GoodStatus),yes))),delay (make (Advisor,Suphamit)),delay (make (Advisor,Bundit))]
+Entering (   8) and [eq (? (SelectedArticle),Databases),delay (eq (? (GoodStatus),yes))]
+Entering (   9) eq [? (SelectedArticle),Databases]
+Entering (  10) ? [SelectedArticle]
+Entering (  11) set_number_of_values [Answer,1]
+Exit     (  11) set_number_of_values [Answer,1]
+Result: 
+Entering (  11) make [AllArticle,[Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']]
+Exit     (  11) make [AllArticle,[Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']]
+Result: [Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Entering (  11) ask ['#eSelect your most interested topics',MostInterest,? (AllArticle)]
+Entering (  12) ? [AllArticle]
+Exit     (  12) ? [AllArticle]
+Result: [Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Entering (  12) !main:FindAdvisor:Advisor:SelectedArticle:!!Ask [[Hardware],double_click_event,878]
+Entering (  13) rule [eq (? (e),double_click_event),delay (make (!local (r),? (p)),continue ())]
+Entering (  14) eq [? (e),double_click_event]
+Entering (  15) ? [e]
+Exit     (  15) ? [e]
+Result: double_click_event
+Exit     (  14) eq [double_click_event,double_click_event]
+Result: T
+Entering (  14) delay [make (!local (r),? (p)),continue ()]
+Exit     (  14) delay [make (!local (r),? (p)),continue ()]
+Result: [make (!local (r),? (p)),continue ()]
+Entering (  14) make [!local (r),? (p)]
+Entering (  15) !local [r]
+Exit     (  15) !local [r]
+Result: :r
+Entering (  15) ? [p]
+Exit     (  15) ? [p]
+Result: Hardware
+Exit     (  14) make [:r,Hardware]
+Result: Hardware
+Entering (  14) continue 
+Exit     (  14) continue 
+Result: 
+Exit     (  13) rule [T,[make (!local (r),? (p)),continue ()]]
+Result: [Hardware,]
+Exit     (  12) !main:FindAdvisor:Advisor:SelectedArticle:!!Ask [[Hardware],double_click_event,878]
+Result: 
+Exit     (  11) ask ['#eSelect your most interested topics',MostInterest,[Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']]
+Result: Hardware
+Entering (  11) make [RemainingArticles,different (? (AllArticle),? (MostInterest))]
+Entering (  12) different [? (AllArticle),? (MostInterest)]
+Entering (  13) ? [AllArticle]
+Exit     (  13) ? [AllArticle]
+Result: [Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Entering (  13) ? [MostInterest]
+Exit     (  13) ? [MostInterest]
+Result: Hardware
+Exit     (  12) different [[Hardware,'Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures'],Hardware]
+Result: ['Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Exit     (  11) make [RemainingArticles,['Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']]
+Result: ['Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Entering (  11) ask ['#eSelect your alternative interested topics',AltInterest,? (RemainingArticles)]
+Entering (  12) ? [RemainingArticles]
+Exit     (  12) ? [RemainingArticles]
+Result: ['Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']
+Entering (  12) !main:FindAdvisor:Advisor:SelectedArticle:!!Ask [[Databases],double_click_event,842]
+Entering (  13) rule [eq (? (e),double_click_event),delay (make (!local (r),? (p)),continue ())]
+Entering (  14) eq [? (e),double_click_event]
+Entering (  15) ? [e]
+Exit     (  15) ? [e]
+Result: double_click_event
+Exit     (  14) eq [double_click_event,double_click_event]
+Result: T
+Entering (  14) delay [make (!local (r),? (p)),continue ()]
+Exit     (  14) delay [make (!local (r),? (p)),continue ()]
+Result: [make (!local (r),? (p)),continue ()]
+Entering (  14) make [!local (r),? (p)]
+Entering (  15) !local [r]
+Exit     (  15) !local [r]
+Result: :r
+Entering (  15) ? [p]
+Exit     (  15) ? [p]
+Result: Databases
+Exit     (  14) make [:r,Databases]
+Result: Databases
+Entering (  14) continue 
+Exit     (  14) continue 
+Result: 
+Exit     (  13) rule [T,[make (!local (r),? (p)),continue ()]]
+Result: [Databases,]
+Exit     (  12) !main:FindAdvisor:Advisor:SelectedArticle:!!Ask [[Databases],double_click_event,842]
+Result: 
+Exit     (  11) ask ['#eSelect your alternative interested topics',AltInterest,['Network system programming','Web Applications','Network security','Programming development',Databases,'Logic programming','Image processing','Speech recognition','IS development','System architectures']]
+Result: Databases
+Entering (  11) make [SelectedArticle,Databases]
+Exit     (  11) make [SelectedArticle,Databases]
+Result: Databases
+Exit     (  10) ? [SelectedArticle]
+Result: Databases
+Exit     (   9) eq [Databases,Databases]
+Result: T
+Entering (   9) delay [eq (? (GoodStatus),yes)]
+Exit     (   9) delay [eq (? (GoodStatus),yes)]
+Result: [eq (? (GoodStatus),yes)]
+Entering (   9) eq [? (GoodStatus),yes]
+Entering (  10) ? [GoodStatus]
+Entering (  11) set_number_of_values [Answer,1]
+Exit     (  11) set_number_of_values [Answer,1]
+Result: 
+Entering (  11) rule [eq (? (FirstHonorGPA),yes),delay (make (GoodStatus,yes))]
+Entering (  12) eq [? (FirstHonorGPA),yes]
+Entering (  13) ? [FirstHonorGPA]
+Entering (  14) make [CheckFirstHonor,dde_open (FirstHonorTopic,DBCall,EXIST)]
+Entering (  15) dde_open [FirstHonorTopic,DBCall,EXIST]
+Exit     (  15) dde_open [FirstHonorTopic,DBCall,EXIST]
+Result: [912,878]
+Exit     (  14) make [CheckFirstHonor,[912,878]]
+Result: [912,878]
+Entering (  14) make [RMsg,concat ('Student StatusOf("',? (StdID),'") == FirstHonor')]
+Entering (  15) concat ['Student StatusOf("',? (StdID),'") == FirstHonor']
+Entering (  16) ? [StdID]
+Exit     (  16) ? [StdID]
+Result: 39014611
+Exit     (  15) concat ['Student StatusOf("',39014611,'") == FirstHonor']
+Result: 'Student StatusOf("39014611") == FirstHonor'
+Exit     (  14) make [RMsg,'Student StatusOf("39014611") == FirstHonor']
+Result: 'Student StatusOf("39014611") == FirstHonor'
+Entering (  14) dde_request [? (CheckFirstHonor),? (RMsg)]
+Entering (  15) ? [CheckFirstHonor]
+Exit     (  15) ? [CheckFirstHonor]
+Result: [912,878]
+Entering (  15) ? [RMsg]
+Exit     (  15) ? [RMsg]
+Result: 'Student StatusOf("39014611") == FirstHonor'
+Exit     (  14) dde_request [[912,878],'Student StatusOf("39014611") == FirstHonor']
+Result: 
+Entering (  14) wait 
+Entering (  15) !main:FindAdvisor:Advisor:GoodStatus:FirstHonorGPA:FirstHonorTopic [[[no],'Student StatusOf("39014611") == FirstHonor',1],dde_data_event,[912,878]]
+Entering (  16) make [FirstHonorGPA,first (? (FirstHonorInfo))]
+Entering (  17) first [? (FirstHonorInfo)]
+Entering (  18) ? [FirstHonorInfo]
+Exit     (  18) ? [FirstHonorInfo]
+Result: [[no],'Student StatusOf("39014611") == FirstHonor',1]
+Exit     (  17) first [[[no],'Student StatusOf("39014611") == FirstHonor',1]]
+Result: [no]
+Exit     (  16) make [FirstHonorGPA,[no]]
+Result: [no]
+Entering (  16) dde_close [CheckFirstHonor]
+Exit     (  16) dde_close [CheckFirstHonor]
+Result: 
+Entering (  16) continue 
+Exit     (  16) continue 
+Result: 
+Exit     (  15) !main:FindAdvisor:Advisor:GoodStatus:FirstHonorGPA:FirstHonorTopic [[[no],'Student StatusOf("39014611") == FirstHonor',1],dde_data_event,[912,878]]
+Result: 
+Exit     (  14) wait 
+Result: 0
+Exit     (  13) ? [FirstHonorGPA]
+Result: no
+Exit     (  12) eq [no,yes]
+Result: F
+Entering (  12) delay [make (GoodStatus,yes)]
+Exit     (  12) delay [make (GoodStatus,yes)]
+Result: [make (GoodStatus,yes)]
+Exit     (  11) rule [F,[make (GoodStatus,yes)]]
+Result: 
+Entering (  11) rule [eq (? (HonorGPA),yes),delay (make (GoodStatus,yes))]
+Entering (  12) eq [? (HonorGPA),yes]
+Entering (  13) ? [HonorGPA]
+Entering (  14) make [CheckHonor,dde_open (HonorTopic,DBCall,EXIST)]
+Entering (  15) dde_open [HonorTopic,DBCall,EXIST]
+Exit     (  15) dde_open [HonorTopic,DBCall,EXIST]
+Result: [912,842]
+Exit     (  14) make [CheckHonor,[912,842]]
+Result: [912,842]
+Entering (  14) make [RMsg,concat ('Student StatusOf("',? (StdID),'") == Honor')]
+Entering (  15) concat ['Student StatusOf("',? (StdID),'") == Honor']
+Entering (  16) ? [StdID]
+Exit     (  16) ? [StdID]
+Result: 39014611
+Exit     (  15) concat ['Student StatusOf("',39014611,'") == Honor']
+Result: 'Student StatusOf("39014611") == Honor'
+Exit     (  14) make [RMsg,'Student StatusOf("39014611") == Honor']
+Result: 'Student StatusOf("39014611") == Honor'
+Entering (  14) dde_request [? (CheckHonor),? (RMsg)]
+Entering (  15) ? [CheckHonor]
+Exit     (  15) ? [CheckHonor]
+Result: [912,842]
+Entering (  15) ? [RMsg]
+Exit     (  15) ? [RMsg]
+Result: 'Student StatusOf("39014611") == Honor'
+Exit     (  14) dde_request [[912,842],'Student StatusOf("39014611") == Honor']
+Result: 
+Entering (  14) wait 
+Entering (  15) !main:FindAdvisor:Advisor:GoodStatus:HonorGPA:HonorTopic [[[no],'Student StatusOf("39014611") == Honor',1],dde_data_event,[912,842]]
+Entering (  16) make [HonorGPA,first (? (HonorInfo))]
+Entering (  17) first [? (HonorInfo)]
+Entering (  18) ? [HonorInfo]
+Exit     (  18) ? [HonorInfo]
+Result: [[no],'Student StatusOf("39014611") == Honor',1]
+Exit     (  17) first [[[no],'Student StatusOf("39014611") == Honor',1]]
+Result: [no]
+Exit     (  16) make [HonorGPA,[no]]
+Result: [no]
+Entering (  16) dde_close [CheckHonor]
+Exit     (  16) dde_close [CheckHonor]
+Result: 
+Entering (  16) continue 
+Exit     (  16) continue 
+Result: 
+Exit     (  15) !main:FindAdvisor:Advisor:GoodStatus:HonorGPA:HonorTopic [[[no],'Student StatusOf("39014611") == Honor',1],dde_data_event,[912,842]]
+Result: 
+Exit     (  14) wait 
+Result: 0
+Exit     (  13) ? [HonorGPA]
+Result: no
+Exit     (  12) eq [no,yes]
+Result: F
+Entering (  12) delay [make (GoodStatus,yes)]
+Exit     (  12) delay [make (GoodStatus,yes)]
+Result: [make (GoodStatus,yes)]
+Exit     (  11) rule [F,[make (GoodStatus,yes)]]
+Result: 
+Entering (  11) rule [eq (? (GoodGPA),yes),delay (make (GoodStatus,no))]
+Entering (  12) eq [? (GoodGPA),yes]
+Entering (  13) ? [GoodGPA]
+Entering (  14) make [CheckGood,dde_open (GoodTopic,DBCall,EXIST)]
+Entering (  15) dde_open [GoodTopic,DBCall,EXIST]
+Exit     (  15) dde_open [GoodTopic,DBCall,EXIST]
+Result: [912,898]
+Exit     (  14) make [CheckGood,[912,898]]
+Result: [912,898]
+Entering (  14) make [RMsg,concat ('Student StatusOf("',? (StdID),'") == Good')]
+Entering (  15) concat ['Student StatusOf("',? (StdID),'") == Good']
+Entering (  16) ? [StdID]
+Exit     (  16) ? [StdID]
+Result: 39014611
+Exit     (  15) concat ['Student StatusOf("',39014611,'") == Good']
+Result: 'Student StatusOf("39014611") == Good'
+Exit     (  14) make [RMsg,'Student StatusOf("39014611") == Good']
+Result: 'Student StatusOf("39014611") == Good'
+Entering (  14) dde_request [? (CheckGood),? (RMsg)]
+Entering (  15) ? [CheckGood]
+Exit     (  15) ? [CheckGood]
+Result: [912,898]
+Entering (  15) ? [RMsg]
+Exit     (  15) ? [RMsg]
+Result: 'Student StatusOf("39014611") == Good'
+Exit     (  14) dde_request [[912,898],'Student StatusOf("39014611") == Good']
+Result: 
+Entering (  14) wait 
+Entering (  15) !main:FindAdvisor:Advisor:GoodStatus:GoodGPA:GoodTopic [[[yes],'Student StatusOf("39014611") == Good',1],dde_data_event,[912,898]]
+Entering (  16) make [GoodGPA,first (? (GoodInfo))]
+Entering (  17) first [? (GoodInfo)]
+Entering (  18) ? [GoodInfo]
+Exit     (  18) ? [GoodInfo]
+Result: [[yes],'Student StatusOf("39014611") == Good',1]
+Exit     (  17) first [[[yes],'Student StatusOf("39014611") == Good',1]]
+Result: [yes]
+Exit     (  16) make [GoodGPA,[yes]]
+Result: [yes]
+Entering (  16) dde_close [CheckGood]
+Exit     (  16) dde_close [CheckGood]
+Result: 
+Entering (  16) continue 
+Exit     (  16) continue 
+Result: 
+Exit     (  15) !main:FindAdvisor:Advisor:GoodStatus:GoodGPA:GoodTopic [[[yes],'Student StatusOf("39014611") == Good',1],dde_data_event,[912,898]]
+Result: 
+Exit     (  14) wait 
+Result: 0
+Exit     (  13) ? [GoodGPA]
+Result: yes
+Exit     (  12) eq [yes,yes]
+Result: T
+Entering (  12) delay [make (GoodStatus,no)]
+Exit     (  12) delay [make (GoodStatus,no)]
+Result: [make (GoodStatus,no)]
+Entering (  12) make [GoodStatus,no]
+Exit     (  12) make [GoodStatus,no]
+Result: no
+Exit     (  11) rule [T,[make (GoodStatus,no)]]
+Result: [no]
+Entering (  11) rule [eq (? (PoorGPA),yes),delay (make (GoodStatus,no))]
+Entering (  12) eq [? (PoorGPA),yes]
+Entering (  13) ? [PoorGPA]
+Entering (  14) make [CheckPoor,dde_open (PoorTopic,DBCall,EXIST)]
+Entering (  15) dde_open [PoorTopic,DBCall,EXIST]
+Exit     (  15) dde_open [PoorTopic,DBCall,EXIST]
+Result: [912,962]
+Exit     (  14) make [CheckPoor,[912,962]]
+Result: [912,962]
+Entering (  14) make [RMsg,concat ('Student StatusOf("',? (StdID),'") == Poor')]
+Entering (  15) concat ['Student StatusOf("',? (StdID),'") == Poor']
+Entering (  16) ? [StdID]
+Exit     (  16) ? [StdID]
+Result: 39014611
+Exit     (  15) concat ['Student StatusOf("',39014611,'") == Poor']
+Result: 'Student StatusOf("39014611") == Poor'
+Exit     (  14) make [RMsg,'Student StatusOf("39014611") == Poor']
+Result: 'Student StatusOf("39014611") == Poor'
+Entering (  14) dde_request [? (CheckPoor),? (RMsg)]
+Entering (  15) ? [CheckPoor]
+Exit     (  15) ? [CheckPoor]
+Result: [912,962]
+Entering (  15) ? [RMsg]
+Exit     (  15) ? [RMsg]
+Result: 'Student StatusOf("39014611") == Poor'
+Exit     (  14) dde_request [[912,962],'Student StatusOf("39014611") == Poor']
+Result: 
+Entering (  14) wait 
+Entering (  15) !main:FindAdvisor:Advisor:GoodStatus:PoorGPA:PoorTopic [[[no],'Student StatusOf("39014611") == Poor',1],dde_data_event,[912,962]]
+Entering (  16) make [PoorGPA,first (? (PoorInfo))]
+Entering (  17) first [? (PoorInfo)]
+Entering (  18) ? [PoorInfo]
+Exit     (  18) ? [PoorInfo]
+Result: [[no],'Student StatusOf("39014611") == Poor',1]
+Exit     (  17) first [[[no],'Student StatusOf("39014611") == Poor',1]]
+Result: [no]
+Exit     (  16) make [PoorGPA,[no]]
+Result: [no]
+Entering (  16) dde_close [CheckPoor]
+Exit     (  16) dde_close [CheckPoor]
+Result: 
+Entering (  16) continue 
+Exit     (  16) continue 
+Result: 
+Exit     (  15) !main:FindAdvisor:Advisor:GoodStatus:PoorGPA:PoorTopic [[[no],'Student StatusOf("39014611") == Poor',1],dde_data_event,[912,962]]
+Result: 
+Exit     (  14) wait 
+Result: 0
+Exit     (  13) ? [PoorGPA]
+Result: no
+Exit     (  12) eq [no,yes]
+Result: F
+Entering (  12) delay [make (GoodStatus,no)]
+Exit     (  12) delay [make (GoodStatus,no)]
+Result: [make (GoodStatus,no)]
+Exit     (  11) rule [F,[make (GoodStatus,no)]]
+Result: 
+Entering (  11) rule [eq (? (ProGPA),yes),delay (make (GoodStatus,no))]
+Entering (  12) eq [? (ProGPA),yes]
+Entering (  13) ? [ProGPA]
+Entering (  14) make [CheckPro,dde_open (ProTopic,DBCall,EXIST)]
+Entering (  15) dde_open [ProTopic,DBCall,EXIST]
+Exit     (  15) dde_open [ProTopic,DBCall,EXIST]
+Result: [912,954]
+Exit     (  14) make [CheckPro,[912,954]]
+Result: [912,954]
+Entering (  14) make [RMsg,concat ('Student StatusOf("',? (StdID),'") == Probation')]
+Entering (  15) concat ['Student StatusOf("',? (StdID),'") == Probation']
+Entering (  16) ? [StdID]
+Exit     (  16) ? [StdID]
+Result: 39014611
+Exit     (  15) concat ['Student StatusOf("',39014611,'") == Probation']
+Result: 'Student StatusOf("39014611") == Probation'
+Exit     (  14) make [RMsg,'Student StatusOf("39014611") == Probation']
+Result: 'Student StatusOf("39014611") == Probation'
+Entering (  14) dde_request [? (CheckPro),? (RMsg)]
+Entering (  15) ? [CheckPro]
+Exit     (  15) ? [CheckPro]
+Result: [912,954]
+Entering (  15) ? [RMsg]
+Exit     (  15) ? [RMsg]
+Result: 'Student StatusOf("39014611") == Probation'
+Exit     (  14) dde_request [[912,954],'Student StatusOf("39014611") == Probation']
+Result: 
+Entering (  14) wait 
+Entering (  15) !main:FindAdvisor:Advisor:GoodStatus:ProGPA:ProTopic [[[no],'Student StatusOf("39014611") == Probation',1],dde_data_event,[912,954]]
+Entering (  16) make [ProGPA,first (? (ProInfo))]
+Entering (  17) first [? (ProInfo)]
+Entering (  18) ? [ProInfo]
+Exit     (  18) ? [ProInfo]
+Result: [[no],'Student StatusOf("39014611") == Probation',1]
+Exit     (  17) first [[[no],'Student StatusOf("39014611") == Probation',1]]
+Result: [no]
+Exit     (  16) make [ProGPA,[no]]
+Result: [no]
+Entering (  16) dde_close [CheckPro]
+Exit     (  16) dde_close [CheckPro]
+Result: 
+Entering (  16) continue 
+Exit     (  16) continue 
+Result: 
+Exit     (  15) !main:FindAdvisor:Advisor:GoodStatus:ProGPA:ProTopic [[[no],'Student StatusOf("39014611") == Probation',1],dde_data_event,[912,954]]
+Result: 
+Exit     (  14) wait 
+Result: 0
+Exit     (  13) ? [ProGPA]
+Result: no
+Exit     (  12) eq [no,yes]
+Result: F
+Entering (  12) delay [make (GoodStatus,no)]
+Exit     (  12) delay [make (GoodStatus,no)]
+Result: [make (GoodStatus,no)]
+Exit     (  11) rule [F,[make (GoodStatus,no)]]
+Result: 
+Exit     (  10) ? [GoodStatus]
+Result: no
+Exit     (   9) eq [no,yes]
+Result: F
+Exit     (   8) and [T,[eq (? (GoodStatus),yes)]]
+Result: [F]
+Entering (   8) delay [make (Advisor,Suphamit)]
+Exit     (   8) delay [make (Advisor,Suphamit)]
+Result: [make (Advisor,Suphamit)]
+Entering (   8) delay [make (Advisor,Bundit)]
+Exit     (   8) delay [make (Advisor,Bundit)]
+Result: [make (Advisor,Bundit)]
+Entering (   8) make [Advisor,Bundit]
+Exit     (   8) make [Advisor,Bundit]
+Result: Bundit
+Exit     (   7) rule [[F],[make (Advisor,Suphamit)],[make (Advisor,Bundit)]]
+Result: [Bundit]
+Exit     (   6) ? [Advisor]
+Result: Bundit
+Exit     (   5) concat ['#eYour senior project''s advisor should be Ajarn ',Bundit]
+Result: '#eYour senior project''s advisor should be Ajarn Bundit'
+Exit     (   4) make [Result,'#eYour senior project''s advisor should be Ajarn Bundit']
+Result: '#eYour senior project''s advisor should be Ajarn Bundit'
+Entering (   4) text [? (Result)]
+Entering (   5) ? [Result]
+Exit     (   5) ? [Result]
+Result: '#eYour senior project''s advisor should be Ajarn Bundit'
+Exit     (   4) text ['#eYour senior project''s advisor should be Ajarn Bundit']
+Result: 
+Entering (   4) ? [EndProcess]
+Entering (   5) button [Continue,!local (Next),20,4]
+Entering (   6) !local [Next]
+Exit     (   6) !local [Next]
+Result: :Next
+Exit     (   5) button [Continue,:Next,20,4]
+Result: 706
+Exit     (   4) ? [EndProcess]
+Result: 
+Exit     (   3) ? [FindAdvisor]
+Result: 
+Exit     (   2) rule [T,[? (FindAdvisor)],[? (EndProcess)]]
+Result: []
+Exit     (   1) !main:ChkUser [Begin,select_event,842]
+Result: 
+Entering (   1) !main:EndProcess:Next [Continue,select_event,706]
+Entering (   2) ask ['#eAnother advise ?',want,[Yes,No]]
+Entering (   3) !main:EndProcess:Next:!!Ask [[No],double_click_event,864]
+Entering (   4) rule [eq (? (e),double_click_event),delay (make (!local (r),? (p)),continue ())]
+Entering (   5) eq [? (e),double_click_event]
+Entering (   6) ? [e]
+Exit     (   6) ? [e]
+Result: double_click_event
+Exit     (   5) eq [double_click_event,double_click_event]
+Result: T
+Entering (   5) delay [make (!local (r),? (p)),continue ()]
+Exit     (   5) delay [make (!local (r),? (p)),continue ()]
+Result: [make (!local (r),? (p)),continue ()]
+Entering (   5) make [!local (r),? (p)]
+Entering (   6) !local [r]
+Exit     (   6) !local [r]
+Result: :r
+Entering (   6) ? [p]
+Exit     (   6) ? [p]
+Result: No
+Exit     (   5) make [:r,No]
+Result: No
+Entering (   5) continue 
+Exit     (   5) continue 
+Result: 
+Exit     (   4) rule [T,[make (!local (r),? (p)),continue ()]]
+Result: [No,]
+Exit     (   3) !main:EndProcess:Next:!!Ask [[No],double_click_event,864]
+Result: 
+Exit     (   2) ask ['#eAnother advise ?',want,[Yes,No]]
+Result: No
+Entering (   2) rule [eq (? (want),Yes),delay (reset ([ChkUser,FindAdvisor,EndProcess]),do (!main)),delay (close_window (? (w1)))]
+Entering (   3) eq [? (want),Yes]
+Entering (   4) ? [want]
+Exit     (   4) ? [want]
+Result: No
+Exit     (   3) eq [No,Yes]
+Result: F
+Entering (   3) delay [reset ([ChkUser,FindAdvisor,EndProcess]),do (!main)]
+Exit     (   3) delay [reset ([ChkUser,FindAdvisor,EndProcess]),do (!main)]
+Result: [reset ([ChkUser,FindAdvisor,EndProcess]),do (!main)]
+Entering (   3) delay [close_window (? (w1))]
+Exit     (   3) delay [close_window (? (w1))]
+Result: [close_window (? (w1))]
+Entering (   3) close_window [? (w1)]
+Entering (   4) ? [w1]
+Exit     (   4) ? [w1]
+Result: 628
+Exit     (   3) close_window [628]
+Result: 
+Exit     (   2) rule [F,[reset ([ChkUser,FindAdvisor,EndProcess]),do (!main)],[close_window (? (w1))]]
+Result: []
+Exit     (   1) !main:EndProcess:Next [Continue,select_event,706]
+Result: 
+Entering (   1) !main:!!HelpDDETopic [32768,dde_ok_event,[866,498]]
+Entering (   2) rule [? (F2),delay (continue (neg (1)))]
+Entering (   3) ? [F2]
+Exit     (   3) ? [F2]
+Result: F
+Entering (   3) delay [continue (neg (1))]
+Exit     (   3) delay [continue (neg (1))]
+Result: [continue (neg (1))]
+Exit     (   2) rule [F,[continue (neg (1))]]
+Result: 
+Entering (   2) make [F2,F]
+Exit     (   2) make [F2,F]
+Result: F
+Exit     (   1) !main:!!HelpDDETopic [32768,dde_ok_event,[866,498]]
+Result: 

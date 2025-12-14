@@ -1,0 +1,87 @@
+VERSION 5.00
+Begin VB.Form frmDeleteCategory 
+   Caption         =   "Form1"
+   ClientHeight    =   2280
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   3780
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   2280
+   ScaleWidth      =   3780
+   StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox txtShopID 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   1
+      Top             =   240
+      Width           =   2175
+   End
+   Begin VB.CommandButton cmdDelete 
+      Caption         =   "Delete Category By Criteria"
+      Height          =   495
+      Left            =   360
+      TabIndex        =   2
+      Top             =   1320
+      Width           =   3135
+   End
+   Begin VB.TextBox txtCriteria 
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   0
+      Top             =   720
+      Width           =   2175
+   End
+   Begin VB.Label Ldeletecategory 
+      Height          =   255
+      Left            =   120
+      TabIndex        =   5
+      Top             =   1920
+      Width           =   3615
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Shop ID"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   4
+      Top             =   240
+      Width           =   975
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Criteria"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   3
+      Top             =   840
+      Width           =   975
+   End
+End
+Attribute VB_Name = "frmDeleteCategory"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+Private Sub cmdDelete_Click()
+Dim ObjShop As Object
+  cmdDelete.Enabled = False
+  
+On Error GoTo DeleteError
+  Set ObjShop = CreateObject("Ecomm.shop")
+  ObjShop.category.Delete CCInt(txtShopID.Text), txtCriteria.Text
+
+  Set ObjShop = Nothing
+  MsgBox "Delete vShop where " & txtCriteria.Text & " Complete"
+  cmdDelete.Enabled = True
+
+Exit Sub
+DeleteError:
+Ldeletecategory.Caption = Err.Number & " : " & Err.Description
+  cmdDelete.Enabled = True
+
+
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+  frmMain.Show
+End Sub

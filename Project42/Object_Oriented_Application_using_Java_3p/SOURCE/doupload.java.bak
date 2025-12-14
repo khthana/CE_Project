@@ -1,0 +1,68 @@
+// Class dologin
+import java.io.*;
+import java.lang.*;
+import java.sql.*;
+import doaddmail;
+import java.applet.*;
+import java.awt.*;
+
+public class doupload implements HttpClassProcessor  {
+
+    protected String message,account;
+	//-------------------------------------------------
+
+    public void initRequest (HttpInputStream in)  throws  IOException
+    {
+      if (in.getMethod () != HTTP.METHOD_GET)
+ throw new HttpException (HTTP.STATUS_NOT_ALLOWED,"Request method<TT>" + in.getMethod() + " </TT> not allowed.");
+  message = HTTP.decodeString (in.getQueryString() );
+ account  = getCode(message);  message = cutString(message);
+    }   
+    //--------------------------------------------------
+
+    public void processRequest(HttpOutputStream out) throws IOException
+    {
+     out.setHeader("Content-type","text/html");
+      	if (out.sendHeaders() )
+         {   
+		out.write("<HTML> <head>");
+		String text  =  doaddmail.convertText("Õ—ª‚À≈¥‰ø≈Ï");
+		out.write("<title>"+text+" </title> </head> <BODY>");
+      out.write ("<BODY BGCOLOR= #CCFFCC > " );
+
+out.write (" <font color = #ff0000 > "); 
+text  =  doaddmail.convertText("‡«Á∫‡´‘√Ïø‡«Õ√Ï·≈–‡¡≈Ï‡´‘√Ïø‡«Õ√Ï");
+out.write(" <CENTER> <h1> "+text+" </h1> </CENTER> </font> ");
+
+text  =  doaddmail.convertText("§≈‘Í°  (Browse)  ‡æ◊ËÕÕ—ª‚À≈¥‰ø≈Ï");
+out.write(" <CENTER> <h4> "+text+" </h4> </CENTER> </font> ");
+
+out.write(" <body text  =  #ff0000 > <hr>");
+		out.write("<applet  code  =  upload.class width = 760 height = 50 > <param name = account value =  "+account+" >  </applet>");
+        out.write("</BODY>");
+		out.write("</HTML>");
+		 }
+	 }
+
+ static String getCode(String str)
+     {
+        int index_equal = str.indexOf('=');
+        int index_and   = str.indexOf('&');
+            try
+            {
+              return (str.substring(index_equal+1,index_and));
+            }
+        catch (Exception e)
+            {
+              return (str.substring(index_equal+1));
+            }
+     }
+
+     static String cutString(String str)
+     {
+        int index_equal = str.indexOf('=');
+        int index_and   = str.indexOf('&');
+            return (HTTP.decodeString(str.substring(index_and+1)));
+     }
+
+  }  // end class dologin.java

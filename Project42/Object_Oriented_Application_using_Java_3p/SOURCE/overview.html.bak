@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>  เว็บเซิร์ฟเวอร์และเมล์เซิร์ฟเวอร์ </TITLE>
+
+
+<script language="JavaScript">
+
+  <!--
+
+  var OldColor;
+
+  function popNewWin (strDest,strWidth,strHeight) {
+      newWin = window.open(strDest,"popup","toolbar=no,scrollbars=yes,resizable=yes,width=" + strWidth + ",height=" + strHeight);
+   }
+
+  function mOvr(src,clrOver) {
+    if (!src.contains(event.fromElement)) {
+      src.style.cursor = 'hand';
+      OldColor = src.bgColor;
+      src.bgColor = clrOver;
+    }
+  }
+  
+  function mOut(src) {
+    if (!src.contains(event.toElement)) {
+      src.style.cursor = 'default';
+      src.bgColor = OldColor;
+    }
+  }
+  
+  function mClk(src) {
+    if(event.srcElement.tagName=='TD') {
+      src.children.tags('A')[0].click();
+    }
+  }
+
+  function feedback() {
+    window.open("/feedback.html", "feedback", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=400,height=430");
+  }
+  
+  //-->
+  
+
+</script>
+
+
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- hide
+//define the text of the scroller
+
+var scrtxt="เว็บเซิร์ฟเวอร์และเมล์เซิร์ฟเวอร์";
+var length=scrtxt.length;
+var width= 100;
+var pos= -(width + 2);
+
+function scroll() {
+
+pos++;
+
+//calculate the text which shall be displayed
+var scroller="";
+
+if (pos == length) 
+{
+  pos=-(width+2);
+}
+
+//if the text hasn't reached the left side yet we have to
+//add some spaces - otherwise we have to cut of the first
+// part of the text (which moved already across the left border)
+if (pos<0) 
+{
+   for (var i = 1; i<=Math.abs(pos);i++) 
+   {
+     scroller=scroller+ " "; 
+   }
+   scroller= scroller + scrtxt.substring(0,width -i +1);
+}
+
+else 
+{
+   scroller = scroller + scrtxt.substring(pos,width+pos);
+}
+
+//assign the text to the statusbar
+
+window.status = scroller;
+
+//call this function again after 100 milliseconds
+setTimeout("scroll()",100);
+}
+
+
+
+function CheckName(ckName)  {
+
+  if (ckName.name.value == "") {
+      alert("Please enter a string!")
+}
+  else  {
+      alert("Hi! "+ ckName.name.value +" How are you?");
+    }
+}
+
+function checkEmail(ckEmail)  {
+   if (ckEmail.email.value == "" || ckEmail.email.value.indexOf('@',0) == -1)
+       alert("Invalid E-mail address");
+   else   alert("Correct E-mail");
+}
+
+// -->
+</SCRIPT>
+
+
+
+</HEAD>
+<!  <BODY BGCOLOR="#FFFF12" onLoad="scroll()">
+<BODY  onLoad="scroll()">
+<body background="Gravel.gif">
+<font color="#ff0000"> <CENTER><h1> เว็บเซิร์ฟเวอร์และเมล์เซิร์ฟเวอร์</h1> </CENTER> </font>
+<body text = "#ff0000">
+ <hr> 

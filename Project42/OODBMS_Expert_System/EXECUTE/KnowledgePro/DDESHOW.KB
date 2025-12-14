@@ -1,0 +1,188 @@
+(* ============================= DDESHOW.KB ===================================
+                          A Sample DDE Application.
+
+   This program loads Microsoft Excel, and graphs some sales figures from
+   a spreadsheet. KnowledgePro prompts you for an new sales figure that, 
+   when entered, will update the graph automatically. This program is 
+   designed to work with Excel 3.x.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+==========================================================================*)
+
+setup ().
+w1 is window (,15,2,50,23,,[popup,showChildren,Siblings,DialogFrame]).
+text ( '
+      This example shows how DDE can be used
+      with Microsoft Excel.  In the example, 
+      KnowledgePro loads Excel then asks the
+      user to enter a value. The value is written
+      to an Excel spreadsheet and an Excel 
+      graph is displayed.
+     
+      The example assumes that Excel and 
+      ddeshow.xls can be reached from the current 
+      path.  If not, you should change the example
+      to use the correct path before running.
+     
+      Be sure Excel is enabled to receive DDE 
+      requests. This is done from the Options
+      menu of Excel.').
+
+b1 is button ('Continue', LoadExcel, 9, 19).
+button ('Cancel', clear, 30, 19, 11).
+show_window (?w1).
+set_focus (?b1).
+
+topic LoadExcel.
+  (*  Load Excel and save its task handle. Use TASK_WINDOWS to find the
+       main window of Excel. Next, open two DDE channels to Excel.
+       The first channel lets you read and write from a spreadsheet.
+       The second channel lets you execute commands in Excel. *)
+  resize_window (?w1, 50, 10).
+  move_window (?w1, 3, 2).
+  set_text (,'#e
+
+
+     One moment ..... Loading Microsoft Excel
+                and current sales figures').
+
+
+  ExcelTask is load_program ('e:\progra~1\micros~1\office\EXCEL.EXE DDESHOW.XLS', 4).
+  if ?excelTask < ?LoadError
+     then error ().
+
+  ExcelWindow is first (task_windows (?ExcelTask)).  
+  Macro1 is dde_open (ExcelTopic, Excel, System).
+
+  (* Here we ask the user of the knowledge base for a figure for this
+       month's unit sales. The value is written into the spreadsheet DDESHOW,
+       the sales from the last period is read from the spreadsheet and,
+       if the monthly figure has dropped, KnowledgePro tells Excel to
+       display a graph of the figures. *)
+
+  Sales is dde_open (ExcelTopic, Excel, 'DDESHOW.XLS').
+  dde_execute (?Macro1,['[APP.MOVE(120,130)]','[APP.SIZE(400,240)]']).
+  wait ().
+  (* Graph the selected cells. *)
+  dde_execute (?Macro1,['[SELECT("R1C1:R2C7")]','[NEW(2)]']).
+  wait ().
+  (* For Excel 3, Choose a 3D chart. *)
+  dde_execute (?Macro1,['[GALLERY.3D.COLUMN(6)]','[FULL(TRUE)]']).
+  wait ().
+  (* get the last month's sales figure - see ExcelTopic *)
+  dde_request (?Sales, r2c6).
+  wait ().
+
+  disable_window (?ExcelWindow).
+  show_window (?ExcelWindow, 1).
+  set_display_window (?w1).
+  set_active_window (?w1).
+  text ('#e
+
+     What are the unit sales for July?
+
+               
+
+     KnowledgePro will tell Excel to graph the
+     new sales figures.').
+  ed1 is edit_line (,FirstRequest, 5, 4, , char_event).
+  set_focus (?ed1).
+
+  topic FirstRequest (info).
+    if ?info is 13 then
+       newSales is get_text (?ed1) and
+       close_window (?ed1) and
+       UpdateSales () and
+       newRequest ().
+    if ?info < 48 or
+       ?info > 57 then
+       FirstSales is t.
+  end.
+end.
+
+topic UpdateSales.
+   dde_write (?Sales,r2c7,?newSales).
+   wait ().
+   if ?newSales < ?lastMonth then
+       set_text (?w1,?down)
+   else 
+       set_text (?w1,?up).
+end.
+
+topic newRequest.
+   set_display_window (?w1).
+   ed2 is edit_line (?newSales, ok, 23, 3, , char_event).
+   button (Ok,ok,15,6,6).
+   button (Quit,quit,25,6).
+   set_focus (?ed2).
+
+   topic ok (info, event).
+      if ?event is char_event and 
+         ?info <> 13 then 
+         exit ().
+      newSales is get_text (?ed2).
+      UpdateSales ().
+      set_focus (?ed2).
+   end.
+
+   topic Quit.
+      set_text (?w1,'#e
+
+
+     One moment ..... Unloading Microsoft Excel').
+      hide_window (?ExcelWindow).
+      dde_close (?Sales).
+      dde_execute (?Macro1,['[CLOSE(FALSE)]','[CLOSE(FALSE)]','[QUIT()]']).
+      wait (,1).
+      clear ().
+   end.        
+  
+end. (* newRequest *)  
+ 
+topic ExcelTopic (info, event, handle).
+  (* This is the DDE Topic which is defined when the DDE channel is
+        opened using dde_open.  Whenever a DDE event occurs, this topic
+        is called and is passed information about the event. *)
+  if element (?info,2) is r2c6 then
+     lastMonth is first (?info).
+  continue ().
+end.
+
+topic error.
+  window (,27.42,5.187,37,10.93,,[popup,showChildren,siblings,DialogFrame]).
+  warn is load_icon (exclamation_icon).
+  text ('
+    Excel cannot be found. Please
+    put its directory in your path
+    before running this example.
+ ').
+  icon (?warn,8,7).
+  b1 is button ('Continue',continue,21,7,).
+  show_window ().
+  set_focus (?b1).
+  wait ().
+  clear ().
+end.
+
+topic setup.
+   (* establish some constant topic values. *)
+   down is ' This month''s unit sales have #fred DECREASED#d.
+
+  Re-Enter unit sales:  '.
+   up is ' This month''s unit sales have #fblue INCREASED#d.
+
+  Re-Enter unit sales:  '.
+   LoadError is 32.
+end.

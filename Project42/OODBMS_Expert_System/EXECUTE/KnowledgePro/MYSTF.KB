@@ -1,0 +1,105 @@
+
+  topic DrawScreen.
+
+  (* ---------- Include your comments here ---------- 
+                Make sure the file DESSCROB.HKB is available in the 
+                current directory. Otherwise, specify a full path name.
+     -------------------------------------------------------------------------------------------------  *)
+    if not ( exists ( screen_object ) ) then load ( 'desscrob.hkb' ).
+
+    CreateFonts ( ).
+    CreateObjects ( ).
+    remove_topic ( screen_object ).
+       (* Add your code here *)
+    show_window ( ?!wHandle ).
+
+    (* ----------  Include your event topics in this section ---------- *)
+
+    topic WindowEventTopic ( info, event, handle ).
+    end.
+
+    (* ---------- End of event topics ------------ *)
+
+    
+    
+    topic CreateObjects.
+    (* Do not add code to this topic *)
+      !wHandle is screen_object ( [window, WindowEventTopic, 15, 2.5, 60, 18, 'Working Window', [titlebar, thickFrame, popup, siblings], , black, white, close_event],1 ).
+
+      DrawScreen:hObject6 is screen_object ( [bitmap_file, 'D:\KPWIN2\USA.BMP', 1, 1, 39, 11, 6, 6, 39, 11] ).
+      DrawScreen:hObject5 is screen_object ( [button2, Button, , 28.5, 12, 3.5, 0, , ],1 ).
+      DrawScreen:hObject4 is screen_object ( [button2, Button, , 55, 12, 3.5, 1, , ],1 ).
+      DrawScreen:hObject3 is screen_object ( [button2, OK, mystuff, 24.5, 13.5, 7, 1, , select_event],1 ).
+      DrawScreen:hObject2 is screen_object ( [button2, Button, , 53, 13.5, 4.5, 1.5, , ],1 ).
+      DrawScreen:hObject1 is screen_object ( [ list_box, [ 'List Box', Item1, Item2, Item3, Item4] , , 46, 3.5, 11.5, 4, F, F, ] , 1, black, white ).
+    end. (* CreateObjects *)
+
+     topic CreateFonts.
+    (* Do not change the code in this topic *)
+
+      fontList is [[0.82, 0.71428, 700, F, F, F, 0, 1, 34, helv], [1, 1, 400, F, F, F, 0, 1, 34, Helv], [1.25, 1.1428, 700, F, F, F, 0, 1, 34, Helv]].
+      fontHandleList is apply ( create_char_font, ?fontList ).
+    end. (* CreateFonts *)
+
+ 
+  end. 
+
+
+
+  topic DrawScreen.
+
+  (* ---------- Include your comments here ---------- 
+                Make sure the file DESSCROB.HKB is available in the 
+                current directory. Otherwise, specify a full path name.
+     -------------------------------------------------------------------------------------------------  *)
+    if not ( exists ( screen_object ) ) then load ( 'desscrob.hkb' ).
+
+    CreateFonts ( ).
+    CreateObjects ( ).
+    remove_topic ( screen_object ).
+       (* Add your code here *)
+    show_window ( ?!wHandle ).
+
+    (* ----------  Include your event topics in this section ---------- *)
+
+    topic WindowEventTopic ( info, event, handle ).
+    end.
+
+    (* ---------- End of event topics ------------ *)
+
+    
+    topic CreateObjects.
+    (* Do not add code to this topic *)
+      !wHandle is screen_object ( [window, WindowEventTopic, 15, 2.5, 60, 18, 'Working Window', [titlebar, thickFrame, popup, siblings], , black, white, close_event],1 ).
+
+      DrawScreen:hObject5 is screen_object ( [ list_box, [ 'List Box', Item1, Item2, Item3, Item4] , , 9.5, 5.5, 11, 4, F, F, ] , 1, black, white ).
+      DrawScreen:hObject4 is screen_object ( [button2, Button, , 29.5, 9.5, 4.5, 1.5, , ],1 ).
+      DrawScreen:hObject3 is screen_object ( [button2, OK, mystuff, 24.5, 13.5, 7, 1, , select_event],1 ).
+      DrawScreen:hObject2 is screen_object ( [button2, Button, , 35.5, 11.5, 3.5, 1, , ],1 ).
+      DrawScreen:hObject1 is screen_object ( [button2, Button, , 28.5, 11.5, 3.5, 0.5, , ],1 ).
+    end. (* CreateObjects *)
+
+     topic CreateFonts.
+    (* Do not change the code in this topic *)
+
+      fontList is [[0.82, 0.71428, 700, F, F, F, 0, 1, 34, helv], [1, 1, 400, F, F, F, 0, 1, 34, Helv], [1.25, 1.1428, 700, F, F, F, 0, 1, 34, Helv]].
+      fontHandleList is apply ( create_char_font, ?fontList ).
+    end. (* CreateFonts *)
+
+ 
+  end. 
+
+(* ============================================================== *)
+topic myst.
+window().
+text('
+			Hello !!
+			I am the KING ! 
+	').
+button (OK, continue) .
+wait (waiting,).
+close_window().
+
+end.
+
+(* ============================================================== *)

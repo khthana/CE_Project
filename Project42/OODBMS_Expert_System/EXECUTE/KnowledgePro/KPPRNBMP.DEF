@@ -1,0 +1,20 @@
+LIBRARY         KPPRNBMP
+
+DESCRIPTION 'KnowledgePro Bitmap Printing DLL (c) Knowledge Garden Inc. 1992'
+
+EXETYPE WINDOWS
+
+STUB 'WINSTUB.EXE'
+
+DATA MOVEABLE SINGLE
+CODE MOVEABLE
+
+HEAPSIZE  1024
+
+EXPORTS
+   Dispatch     @1
+   print_bitmap @2
+   print_window @3
+   PrintAbortProc @4
+   PrintAbortDlg  @5
+   WEP		@6 RESIDENTNAME

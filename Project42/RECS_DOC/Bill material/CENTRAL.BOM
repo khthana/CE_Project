@@ -1,0 +1,44 @@
+Bill of Material for D:\USER\MEELARP\RECS_DOC\SCH\CENTRAL.Sch
+
+Used Part Type Designator           
+==== ========= ==================== 
+1    0.1uF     C14_3                
+1    100k      VRADJ                
+5    10K       R1_1 R11_1 R15_1     
+               R8_1 RIC16           
+12   10uF/6.3V C10_1 C10_2 C10_3    
+               C10_4 C10_5 C14_1    
+               C14_2 C9_1 C9_2 C9_3 
+               C9_4 C9_5            
+1    12MHz     X1_1                 
+3    16550     IC11 IC15 IC8        
+3    18.432MHz X11_1 X15_1 X8_1     
+3    1M        R11_2 R15_2 R8_2     
+1    1N4001    D14_1                
+1    1N4148    D1_1                 
+1    3.3uF     C1_3                 
+17   30pf      A1 A11 A12 A15 A16   
+               A2 A3 A4 A5 A6 A7 A8 
+               C1_1 C1_2 C11_1      
+               C15_1 C8_1           
+2    33pf      A10 A9               
+2    485       IC13 J5              
+3    60pF      C11_2 C15_2 C8_2     
+2    62256     IC6 IC7              
+1    7404      IC10                 
+1    74LS245   IC3                  
+2    74LS373   IC12 IC2             
+1    80188     IC1                  
+2    Am28F256  IC4 IC5              
+1    DS275     IC16                 
+2    EXTN      J1 JEXT              
+1    GND       J2_2                 
+1    LCD       J4LCD                
+2    MAX232    IC10 IC9             
+1    MC7805T   IC14                 
+1    MODEM     J4                   
+1    MON       J7                   
+1    PORT      J6                   
+1    RESET     SW1_1                
+1    SUPIN     J3                   
+1    VCC       J2_1                 

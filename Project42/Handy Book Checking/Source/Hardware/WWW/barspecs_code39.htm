@@ -1,0 +1,440 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://imageaccess.com/html/barspecs_code39.html -->
+<HTML><HEAD><TITLE>barspecs_code39</TITLE>
+<META content="text/html; charset=windows-874" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY aLink=#000088 bgColor=#ffffff leftMargin=0 link=#000088 text=#000000 
+vLink=#1500cf>
+<TABLE border=0 cellPadding=4 cellSpacing=4 height=1 width=673>
+  <TBODY>
+  <TR>
+    <TD height=1 rowSpan=5 vAlign=top width=101>&nbsp;
+      <P><IMG align=top height=55 src="barspecs_code39_files/ialogo_sm.gif" 
+      width=100></P>
+      <P><IMG height=17 src="barspecs_code39_files/sites.gif" width=92><BR><A 
+      href="http://imageaccess.com/html/corp_backgrnd.html"><IMG border=0 
+      height=17 src="barspecs_code39_files/comp.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/mission.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/mission.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/products.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/produ.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/press.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/pressc.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/sales.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/salesbar.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/faq.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/faqbar.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/sales.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/contact.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/whatsnew.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/whatsnew.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/qualify.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/regbar.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/employ.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/employ.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/index.htm"><IMG border=0 height=17 
+      src="barspecs_code39_files/iahome.jpeg" width=85></A><BR><A 
+      href="http://imageaccess.com/html/technical.html"><IMG border=0 height=17 
+      src="barspecs_code39_files/techs.jpeg" width=85></A><BR><IMG height=79 
+      src="barspecs_code39_files/blur.jpeg" width=85> </P>
+      <P align=center><A href="http://imageaccess.com/bra/html/index.htm" 
+      target=main><IMG alt="Image Access Brazil" border=0 height=29 
+      src="barspecs_code39_files/brazil.gif" width=47><BR><FONT 
+      face=helvetica,arial size=1>Image Access<BR>Brazil</A> </FONT></P></TD>
+    <TD colSpan=2 height=23 vAlign=top width=421>&nbsp; <FONT color=#0000ff 
+      face=helvetica,arial size=4 FONT><B><I>CODE 39 Barcode Check Digit 
+      Calculation<B><I> </I></B></I></B></FONT>
+      <HR>
+    </TD></TR>
+  <TR>
+    <TD height=767 vAlign=top width=404><FONT face=helvetica,arial size=3 
+      FONT>Please note that most barcode printing software is capable of 
+      automatically calculating a check digit and inserting it at the end of 
+      each barcode value. The CODE39 Mod 43 calculation described below can also 
+      be performed manually or by using your own program in rare cases where the 
+      barcode printing software being used does not have the option to calculate 
+      a CODE39 check digit automatically. &nbsp; </FONT>&nbsp; 
+      <P><FONT color=#0000ff face=helvetica,arial size=3 FONT><B>Check Modulus 
+      43</B> &nbsp; </FONT>&nbsp; </P>
+      <P><FONT face=helvetica,arial size=3 FONT>Some barcode printing software 
+      packages are not capable of including a check digit automatically. The 
+      rules for calculating a check digit are as follows: &nbsp; </FONT>&nbsp; 
+      <BR>&nbsp; </P>
+      <TABLE border=1 cols=2 width="70%">
+        <TBODY>
+        <TR>
+          <TD width="30%"><FONT color=#0000ff face=helvetica,arial 
+            size=2><B>Message:</B>&nbsp;</FONT></TD>
+          <TD><FONT face=helvetica,arial size=2>12345/ABCDE</FONT></TD></TR>
+        <TR>
+          <TD width="30%"><FONT color=#0000ff face=helvetica,arial 
+            size=2><B>Sum of Values:</B></FONT></TD>
+          <TD><FONT color=#0000ff face=helvetica,arial 
+            size=2>&nbsp;</FONT><FONT face=helvetica,arial 
+            size=2>1+2+3+4+5+40+10+11+12+13+14 = 115</FONT></TD></TR>
+        <TR>
+          <TD width="30%"><FONT color=#0000ff face=helvetica,arial 
+            size=2><B>Check Character:</B></FONT></TD>
+          <TD><FONT color=#0000ff face=helvetica,arial 
+            size=2>&nbsp;</FONT><FONT face=helvetica,arial size=2>115/43 = 
+            2.6744186</FONT></TD></TR>
+        <TR>
+          <TD width="30%"><FONT color=#0000ff face=helvetica,arial 
+            size=2><B>Calculate Check Value:</B></FONT></TD>
+          <TD><FONT face=helvetica,arial size=2>Subtract integer value: 
+            (2.6744186 - 2= .6744186) and multiply remainder .6744186 * 43 = 
+            28.999999 round up = 29 or check digit T (see table 1 for 
+            corresponding check digit)&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD width="30%"><FONT color=#0000ff face=helvetica,arial 
+            size=2><B>Insert Check Digit:</B></FONT></TD>
+          <TD><FONT color=#0000ff face=helvetica,arial 
+            size=2>&nbsp;</FONT><FONT face=helvetica,arial 
+            size=2>12345/ABCDET</FONT></TD></TR></TBODY></TABLE>
+      <P> <BR><FONT color=#0000ff face=helvetica,arial size=3><B>Enabling 
+      BSCAN's CRC</B>&nbsp;</FONT>&nbsp; </P>
+      <P><FONT face=helvetica,arial size=3>To turn enable BSCAN's check digit 
+      reading function, append the line in the [CONFIG1] section of the BSCAN 
+      INI file that says BarTypes=CODE39 with ",CRC" so that it 
+      reads&nbsp;</FONT>&nbsp; </P>
+      <P><FONT face=helvetica,arial 
+      size=3><B>BarTypes=CODE39,CRC</B></FONT>&nbsp; <BR>&nbsp; </P>
+      <P><FONT color=#ff0000 face=helvetica,arial size=3 FONT><B>Please 
+      note:</B> </FONT><FONT face=helvetica,arial size=3 FONT>Be sure that check 
+      digits are present before using the CRC parameter with the BarTypes 
+      function command. BSCAN will not read barcodes without check digits if the 
+      CRC parameter has been added to the BarTypes function command. </FONT></P>
+      <P>&nbsp;</P>
+      <P align=center><FONT face=HELVETICA,ARIAL size=1><A 
+      href="http://imageaccess.com/index.htm" target=main>|IA HOME|</A> <A 
+      href="http://imageaccess.com/html/corp_backgrnd.html" target=main>|COMPANY 
+      INFO|</A> <A href="http://imageaccess.com/html/sales.html" 
+      target=main>|CONTACT US|</A><A 
+      href="http://imageaccess.com/html/press.html"> |PRESS CENTER|</A><BR><A 
+      href="http://imageaccess.com/html/faq.html" target=main>|FAQ'S|</A> <A 
+      href="http://imageaccess.com/html/sales.html" target=main>|SALES|</A> <A 
+      href="http://imageaccess.com/html/technical.html" target=main>|TECH 
+      SUPPORT|</A> <A href="http://imageaccess.com/html/products.html" 
+      target=main>|PRODUCTS|</A> <A 
+      href="http://imageaccess.com/html/qualify.html" target=main>|ON-LINE 
+      REGISTRATION|</A> </FONT></P>
+      <P align=center><FONT face=HELVETICA,ARIAL size=1><A 
+      href="mailto:webmaster@imagesaccess.com">mailto:webmaster@imagesaccess.com</A><BR>All 
+      Content <A href="http://imageaccess.com/html/copyright.html">©1998 Image 
+      Access, Inc.</A> </FONT></P></TD>
+    <TD height=1 rowSpan=2 vAlign=top width=92>
+      <DIV align=left>
+      <TABLE border=1 width="100%">
+        <TBODY>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000 vAlign=top><FONT 
+            face=helvetica,arial size=-2>CHECK DIGIT&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>CHECK VALUE&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>0&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>0&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>1&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>1&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>2&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>2&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>3&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>3&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>4&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>4&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>5&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>5&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>6&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>6&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>7&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>7&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>8&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>8&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>9&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>9&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>A&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>10&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>B&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>11&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>C&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>12&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>D&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>13&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>E&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>14&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>F&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>15&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>G&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>16&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>H&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>17&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>I&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>18&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>J&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>19&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>K&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>20&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>L&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>21&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>M&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>22&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>N&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>23&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>O&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>24&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>P&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>25&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>Q&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>26&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>R&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>27&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>S&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>28&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>T&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>29&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>U&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>30&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>V&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>31&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>W&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>32&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>X&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>33&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>Y&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>34&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>Z&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>35&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>-&nbsp;</FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2>36&nbsp;</FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>. </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>37 </FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>Space </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>38 </FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>$ </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>39 </FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>/ </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>40 </FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>+ </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>41 </FONT></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>% </FONT></TD>
+          <TD align=middle bgColor=#ffff00 borderColor=#000000 
+          borderColorDark=#000000 borderColorLight=#000000><FONT 
+            face=helvetica,arial size=-2 FONT>42 </FONT></TD></TR>
+        <TR>
+          <TD bgColor=#ffff00 borderColor=#000000 borderColorDark=#000000 
+          borderColorLight=#000000 
+      width="100%">&nbsp;</TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

@@ -1,0 +1,178 @@
+(* ============================== LIBRARY TOPICS =========================== *)
+
+
+topic FileTopic ( file, topicName, params, stay).
+    (* this topic requires version 1.1 , topic executes a topic from a file and then, depending on the
+        "stay" parameter, removes the topic. 
+
+     file - name of the file which contains the topic
+     topicName - name of the topic to execute
+     params - parameter list to be passed to the topic*)
+
+  load_topic (?file, ?topicName, ?params, stay).
+  do ( ?topic, ?params).
+  if ?stay is f then remove_topic (?topicName).
+end.
+
+topic GetTaskNames ( ).
+
+ (* Get the titles from the main windows of all running tasks *)
+  x is task_list ( ).
+
+  while ?x <> []
+     then item is first (?x) and
+             getTaskNames gets get_title ( first (task_windows ( ?item)) ) and
+             x is rest (?x).
+end.
+          
+topic GetTaskHandle (name,x,item).
+
+ (* Find the task handle of a specified application. This assumes that the application 
+    name appears on the title bar of the main window *)
+
+  getTaskHandle is [].                       
+  x is task_list ( ).                            
+  while ?x <> []
+     then item is first (?x) and
+             ( if get_title ( first (task_windows ( ?item)) ) = ?name
+                   then getTaskHandle is ?item and
+                           exit ( )) and
+             x is rest (?x).
+end.
+
+topic GetTaskWindows (name).
+
+(* Get the window handles of a named task. This assumes that the application 
+    name appears on the title bar of the main window *)
+
+  getTaskHandle (?name).       
+  getTaskWindows is task_windows (?getTaskHandle).
+
+  topic getTaskHandle (name,x,item).
+    getTaskHandle is [].
+     x is task_list ( ).
+      while ?x <> []
+         then item is first (?x) and
+                 ( if get_title ( first (task_windows ( ?item)) ) = ?name
+                       then getTaskHandle is ?item and
+                               exit ( )) and
+                 x is rest (?x).
+  end.
+end. (* getTaskWindows *)
+
+topic GetWindowHandle (name, handleList,nameList).
+   (* get the handle of a window with a specified title *)
+   nameList is get_title (?handleList).
+   getWindowHandle is element (?handleList, where (?nameList, ?name) ).
+end.
+
+topic BasicFonts.
+   [ smallFont, mediumFont, largeFont ] is_c apply ( create_char_font, 
+          [ [0.82,0.71428,700,F,F,F,0,1,34,helv],
+          [1,1,400,F,F,F,0,1,34,Helv], 
+          [1.25,1.1428,700,F,F,F,0,1,34,Helv] ] ).
+end. (* niceFont *)
+
+topic systemColor (name).
+
+(* this topic will retrieve the system colors from WIN.INI.  It assumes that WIN.INI can
+    be reached in a directory on the path. The following parameters can be passed to
+    systemColor:
+
+      Background,      AppWorkspace,      Window,             WindowText,      Menu
+      MenuText,         ActiveTitle,              InactiveTitle,      TitleText,            ActiveBorder
+      InactiveBorder,     WindowFrame,    Scrollbar
+
+    The value returned will be an RGB value which can be used directly in KnowledgePro.
+    To see the window elements defined by these names, run Control Panel/Color.*)
+
+  read ('win.ini', ?name, '=').
+  coord is string_copy ( read_line ('win.ini'), 2, 12).
+  close ('win.ini').
+  colorList is string_to_list (?coord, ' ').
+  systemColor is 65536 * first (?colorList) + (256 * element (?colorList, 2)) + last (?colorList).  
+end.
+
+
+topic ToPixelWidth (x).
+(* returns the number of pixels wide in a specified number of system characters. *)
+  toPixelWidth is ~element ( ~system_info ( ),3) *?x.
+end.
+
+topic ToPixelHeight (x).
+(* returns the number of pixels high in a specified number of system characters. *)
+  toPixelHeight is ~element ( ~system_info ( ), 4)*?x.
+end.
+
+topic CaptureBitmap ( wHandle ).
+
+(* action - captures the contents of the specified window into a bitmap
+    parameters - wHandle is the handle of the window
+    returns the handle of the bitmap captured
+    date last modified - 8/6/91 
+*)
+
+  set_display_window ( ?wHandle ).
+  tempRegion is hyper_region ( ,1, 1, element ( window_info ( ?wHandle ), 10 ),
+                                                            element ( window_info ( ?wHandle ), 11 ), 28,14 ).
+  update_window ( ?wHandle ).
+  captureBitmap is capture_hyper_region ( ?tempRegion ).
+end.  (* windowToClipboard *)
+
+topic Send_message (wnd, msg, parm1, parm2).
+(* send a message to a window.
+    To pass x as low order word and y as high order word,
+        ?x+ (?y*65536) *)
+
+  :lib = load_library ('user.exe').
+  send_message = call (?lib, SendMessage, [word (?wnd), word (?msg), word (?parm1), long (?parm2)], long).
+  free_library (?lib).
+end.
+
+topic BorderedWindow ( handle, colBorder, rowBorder, tParentClientWidth, tParentClientHeight ).
+(* create a child window which is sized to fit inside a parent with a specified border size.
+   colBorder is the border on the right and left and rowBorder is the border on the top and bottom.
+
+  handle - handle of the parent window
+  colBorder - Columns in the border
+  rowBorder - Rows in the border *)
+
+  tParentClientWidth is element ( window_info (?handle),10 ).
+  tParentClientHeight is element ( window_info ( ),11 ) .
+  BorderedWindow is window ( , ?colBorder, ?rowBorder, ?tParentClientWidth - (2* (?colBorder-1) ) , 
+        ?tParentClientHeight- (2* ( ?rowBorder - 1 )) , , [child, visible, thinframe], ?handle).
+end.
+
+topic CenteredWindow ( handle, width, height ).
+(* creates a child window of a specified size and centers it in the parent.
+   HANDLE - handle of the parent
+   WIDTH - width of the child being created
+   HEIGHT - height of the child being created *)
+
+  tParentClientWidth is element ( window_info (?handle),10 ).
+  tParentClientHeight is element ( window_info ( ),11 ) .
+  CenteredWindow is window ( , ( (?tParentClientWidth - ?width ) /2) +1, 
+         ( ( ?tParentClientHeight - ?height ) /2 + 1 ), ?width, ?height, , [child, visible, thinframe], ?handle ).
+end.
+
+(* ============================= MULTIMEDIA TOPICS ============================= *)
+
+topic PlayCommand ( command ).
+(* play a multimedia MCI command. The command is passed as a list of strings *)
+  lib is load_library ('mmsystem.dll').
+  while ?command <> [ ] then 
+        call (?lib, mciExecute, [ pointer (address (first (?command))) ], int) and 
+        command = rest (?command). 
+  free_library ( ?lib ).
+end.
+
+topic SayFile (file).
+(* This shows how playCommand is used to send a multimedia command.
+    Open, play and then close the file. Adds the suffix .WAV. To use this
+    topic the topic PlayCommand must also be loaded. *)
+
+  if not ( exists ( PlayCommand ) ) then load_topic ( 'library.tpx', PlayCommand ).
+  playCommand ( concat ( 'open ',?file,'.wav type waveaudio') ).
+  playCommand ( concat ( 'play ',?file,'.wav from 0 wait' ) ).
+  playCommand ( concat ( 'close ',?file,'.wav') ).
+end.

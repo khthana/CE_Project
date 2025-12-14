@@ -1,0 +1,184 @@
+unit Unit3;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, BPN, Db, DBTables;
+
+type
+  TForm3 = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Bevel1: TBevel;
+    Button1: TButton;
+    Button2: TButton;
+    Label14: TLabel;
+    Label15: TLabel;
+    GroupBox1: TGroupBox;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
+    Label13: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    procedure LastDateError;
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+  LastTRDate : string;
+  DataSize, TotalData : integer;
+
+implementation
+
+uses Main, Unit1, Unit2, Unit4;
+
+{$R *.DFM}
+
+procedure TForm3.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Form3.Close;
+  Form2.Close;
+  Form1.Close;
+end;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+  Form3.Close;
+  Form2.Close;
+  Form1.Close;
+end;
+
+procedure TForm3.LastDateError;
+var
+  First_Valid : TDate;
+begin
+  with MainForm.PRIZETABLE do
+  begin
+   { Find size of data }
+    IndexName := 'PRIZE_NO.';
+    Setkey;
+    FieldByName('PNUMBER').AsInteger := BPN.Cells[0]+1;
+    { Training set's size must be at least equal to input layer size }
+    GotoKey;
+    First_Valid := MainForm.PRIZETABLE['PDATE'];
+    IndexName := '';
+  end;
+
+  MessageDlg('There''s not enough data to create training set file. ' +
+             'Please select last training date again.' + chr(10) +
+             'First valid Date is   ' + '''' + DateToStr(First_Valid) + '''.',
+                         mtError,[mbOK],0);
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+var
+  i, j, b, c : integer;
+  DataBuffer : array of integer;
+  Train_Set, Target : TextFile;
+begin
+{Validate Input}
+  if (ComboBox1.Text = '') or
+     (ComboBox2.Text = '') or
+     (ComboBox3.Text = '')
+  then begin
+     MessageDlg('Missing Input !  ' +
+         'Please specify value for every input field.', mtError,[mbOK],0);
+      Exit;
+  end;
+{Find LastTRDate}
+  LastTRDate :=  ComboBox1.Text + '/' +
+                 IntToStr(ComboBox2.ItemIndex + 1) + '/' +
+                 ComboBox3.Text;
+
+  with MainForm.PRIZETABLE do
+  begin
+   { Find size of data }
+    Setkey;
+    FieldByName('PDATE').AsString := LastTRDate;
+    if GotoKey then
+      DataSize := MainForm.PRIZETABLE['PNUMBER']
+      { DataSize = number of Training data }
+    else begin
+      MessageDlg('The specified date is not a valid date. ' +
+             'Please select last training date again.', mtError,[mbOK],0);
+      Exit;
+    end;
+
+{ Find number of test loops. This value is used in Testing the model }
+
+    TestLoops := TotalData - DataSize;
+
+{ ******************************************************************* }
+
+    SetLength(DataBuffer,DataSize + 1);
+    {Read data from database to DataBuffer}
+    First;
+    for i:=1 to DataSize do
+    begin
+        DataBuffer[i] := MainForm.PRIZETABLE['PRIZE'];
+        Next;
+    end;
+  end;{with PRIZETABLE}
+
+{ c = number of input patterns}
+  c := DataSize - BPN.Cells[0];
+  if c>0 then
+  begin
+  {Create Input pattern File}
+    AssignFile(Train_Set,Main.InputFileName);
+    ReWrite(Train_Set);
+  {  b = index of first data to be read into Train_Set file }
+    for i:=1 to c do
+    begin
+      b := i + BPN.Cells[0] - 1;
+      for j:=b downto i do
+          if j > i then Write(Train_Set,DataBuffer[j],' ')
+             else Write(Train_Set,DataBuffer[j]);
+      if i < c then Writeln(Train_Set,'');
+    end;
+    CloseFile(Train_Set);
+  {Create Target pattern File}
+    AssignFile(Target,Main.TargetFileName);
+    ReWrite(Target);
+    for i:=BPN.Cells[0]+1 to DataSize do
+      if i < DataSize then Writeln(Target,DataBuffer[i])
+         else Write(Target,DataBuffer[i]);
+    CloseFile(Target);
+    Form3.Visible := false;
+    Form4.ShowModal;
+  end{if c>0...}
+  else
+    LastDateError;
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+  MainForm.PRIZETABLE.First;
+  Label15.Caption := DateToStr(MainForm.PRIZETABLE['PDATE']);
+  MainForm.PRIZETABLE.Last;
+  Label17.Caption := DateToStr(MainForm.PRIZETABLE['PDATE']);
+  TotalData := MainForm.PRIZETABLE['PNUMBER'];
+end;
+
+end.

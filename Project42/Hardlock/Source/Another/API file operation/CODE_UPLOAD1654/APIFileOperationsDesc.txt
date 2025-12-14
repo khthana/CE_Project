@@ -1,0 +1,39 @@
+Name:		API File Operations
+Author:		Scott Luchetti
+Created: 	9/9/1999
+Description:	Simplifies the API file functions in the SHFileOperation API call into methods of the classes.
+
+Version 2.0
+Members:
+ APIFile
+ Methods:
+  CopyFile - executes copy procedure.
+  MoveFile - executes move procedure.
+  RenameFile - executes rename procedure.
+  DeleteFile - executed delete procedure.
+ Properties:
+  NoConfirm - sets whether confirm messages are auto answered or displayed to user.
+  NoConfirmMakeDir - sets whether target dir is auto-created or asks for confirmation first.
+  RenameOnCollision - sets whether the target file is auto-renamed if file with same name exists.
+  Silent - sets whether a progress dialog is shown to the user.
+  SimpleProgress - sets whether the filenames are shown on a progress dialog.
+
+
+Known bugs:
+none
+
+Version 1.0
+
+Members:
+	APIFileCopy
+	Methods:
+		CopyFile - executes the copy procedure.
+		 Parms: 
+			FromFile - Source File
+			ToFile - Destination File
+
+Future:
+	Will add other file operations and parameters to set options such as whether or not the progress dialog shows, or how it reacts to no target directory, or overwriting files.
+
+Known Bugs:
+none

@@ -1,0 +1,460 @@
+if NOT(exists(w1)) then w1 is window().
+
+text ('#eEnter your student ID').
+TextBox is edit_line('Your ID here',,10,3,13).
+set_focus(?TextBox).
+button('Begin',ChkUser,18,6).
+
+topic ChkUser.
+  StdID is get_text(?TextBox).
+
+  if ?Valid_User is yes
+    then ?FindAdvisor
+    else ?Show_Error.
+  
+  topic Show_Error.
+    text('#eYou are not valid user.').
+    ?EndProcess.
+  end. (*Show Error*)
+
+  topic Valid_User.
+    set_number_of_values(Answer,1).
+
+    if ?StdCESenior is yes
+      then Valid_User is yes
+      else Valid_User is no.
+
+    topic StdCESenior.
+      CheckCESenior is dde_open(CESeniorTopic,DBCall,GETS).
+      RMsg is concat('Student-isDeptYear("',?StdID,'","CE","Senior")').
+      dde_request(?CheckCESenior, ?RMsg).
+      wait().
+
+      topic CESeniorTopic (CESeniorInfo, CESeniorEvent, CESeniorHandle).
+        StdCESenior is first(?CESeniorinfo).
+        dde_close(CheckCESenior).
+        continue().
+      end. (*CESeniorTopic*)
+
+    end. (*StdCESenior*)
+
+  end. (*Valid_User*)
+
+end. (*ChkUser*)
+
+topic FindAdvisor.
+  set_number_of_values(Answer,1).
+  Result is  concat('#eYour senior project''s advisor should be Ajarn ',?Advisor).
+  text(?Result).
+  ?EndProcess.
+
+  topic Advisor.
+    set_number_of_values(Answer,1).
+
+    if ?SelectedArticle is 'Hardware'
+    and ?HardWorking is yes
+      then Advisor is Apinetr.
+
+    if ?SelectedArticle is 'Hardware'
+    and ?HardWorking is no
+      then Advisor is Somsak.
+
+    if ?SelectedArticle is 'Network system programming'
+    and ?HardWorking is yes
+      then Advisor is Apinetr.
+
+    if ?SelectedArticle is 'Network system programming'
+    and ?HardWorking is no
+      then Advisor is Chutimet.
+
+    if ?SelectedArticle is 'Web Applications'
+      then Advisor is Navaporn.
+
+    if ?SelectedArticle is 'Network security'
+      then Advisor is Akaradet.
+
+    if ?SelectedArticle is 'Programming'
+    and ?GoodStatus is yes
+      then Advisor is Worawat.
+
+    if ?SelectedArticle is 'Programming'
+    and ?GoodStatus is no
+      then Advisor is Krittawan.
+
+    if ?SelectedArticle is 'Databases'
+    and ?GoodStatus is yes
+      then Advisor is Suphamit.
+
+    if ?SelectedArticle is 'Databases'
+    and ?GoodStatus is no
+      then Advisor is Bundit.
+
+    if ?SelectedArticle is 'Logic programming'
+      then Advisor is Visit.
+
+    if ?SelectedArticle is 'Image processing'
+    and ?SelfMotivated is yes
+      then Advisor is Chom.
+
+    if ?SelectedArticle is 'Image processing'
+    and ?SelfMotivated is no
+      then Advisor is Boonthee.
+
+    if ?SelectedArticle is 'Speech recognition'
+      then Advisor is Somkiat.
+
+    if ?SelectedArticle is 'IS development'
+    and ?GoodStatus is yes
+      then Advisor is Worawat.
+
+    if ?SelectedArticle is 'IS development'
+    and ?GoodStatus is no
+      then Advisor is Bunjong.
+
+    if ?SelectedArticle is 'System architecture'
+      then Advisor is Bunjong.
+
+    topic SelectedArticle.
+      set_number_of_values(Answer,1).
+
+      AllArticle is ['Hardware','Network system programming','Web Applications',
+              'Network security','Programming','Databases',
+              'Logic programming','Image processing','Speech recognition',
+              'IS development','System architectures'].
+
+      ask ('#eSelect your most interested topics',MostInterest,?AllArticle).
+      RemainingArticles is different(?AllArticle,?MostInterest).
+      ask ('#eSelect your alternative interested topics',AltInterest,?RemainingArticles).
+
+      if ?GoodAtMostIntr is yes
+        then SelectedArticle is ?MostInterest.
+
+      if ?GoodAtMostIntr is no
+      and ?GoodAtAltIntr is yes
+        then SelectedArticle is ?AltInterest.
+
+      if ?GoodAtMostIntr is no
+      and ?GoodAtAltIntr is no
+        then SelectedArticle is ?MostInterest.
+
+      topic GoodAtMostIntr.
+        set_number_of_values(Answer,1).
+
+        GoodAtMostIntr is no.
+
+        if ?MostInterest is 'Hardware'
+        and ?GoodAtMicroIntf is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Network system programming'
+        and ?GoodAtNet is yes
+        and ?GoodAtDA is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Web Application'
+        and ?GoodAtNet is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Network security'
+        and ?GoodAtNet is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Programming'
+        and ?GoodAtDA is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Databases'
+        and ?GoodAtDB is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Logic programming'
+        and ?GoodAtAI is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Image processing'
+        and ?GoodAtAI is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'Speech recognition'
+        and ?GoodAtAI is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'IS development'
+        and ?GoodAtIS is yes
+        and ?GoodAtDA is yes
+          then GoodAtMostIntr is yes.
+
+        if ?MostInterest is 'System architecture'
+        and ?GoodAtCompOr is yes
+          then GoodAtMostIntr is yes.
+
+      end. (*GoodAtMostIntr*)
+
+      topic GoodAtAltIntr.
+        set_number_of_values(Answer,1).
+
+        GoodAtAltIntr is no.
+
+        if ?AltInterest is 'Hardware'
+        and ?GoodAtMicroIntf is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Network system programming'
+        and ?GoodAtNet is yes
+        and ?GoodAtDA is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Web Application'
+        and ?GoodAtNet is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Network security'
+        and ?GoodAtNet is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Programming'
+        and ?GoodAtDA is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Databases'
+        and ?GoodAtDB is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Logic programming'
+        and ?GoodAtAI is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Image processing'
+        and ?GoodAtAI is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'Speech recognition'
+        and ?GoodAtAI is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'IS development'
+        and ?GoodAtIS is yes
+        and ?GoodAtDA is yes
+          then GoodAtAltIntr is yes.
+
+        if ?AltInterest is 'System architecture'
+        and ?GoodAtCompOr is yes
+          then GoodAtAltIntr is yes.
+
+      end. (*GoodAtAltIntr*)
+
+      topic GoodAtMicroIntf.
+        CheckGoodAtMicroIntf is dde_open(GoodAtMicroIntfTopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Microprocessor Interfacing")').
+        dde_request(?CheckGoodAtMicroIntf, ?RMsg).
+        wait().
+    
+        topic GoodAtMicroIntfTopic (GoodAtMicroIntfInfo, GoodAtMicroIntfEvent, GoodAtMicroIntfHandle).
+          GoodAtMicroIntf is first(?GoodAtMicroIntfInfo).
+          dde_close(CheckGoodAtMicroIntf).
+          continue().
+        end. (*GoodAtMicroIntfTopic*)
+
+      end. (*GoodAtMicroIntf*)
+
+      topic GoodAtNet.
+        CheckGoodAtNet is dde_open(GoodAtNetTopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Computer Networks")').
+        dde_request(?CheckGoodAtNet, ?RMsg).
+        wait().
+    
+        topic GoodAtNetTopic (GoodAtNetInfo, GoodAtNetEvent, GoodAtNetHandle).
+          GoodAtNet is first(?GoodAtNetInfo).
+          dde_close(CheckGoodAtNet).
+          continue().
+        end. (*GoodAtNetTopic*)
+
+      end. (*GoodAtNet*)
+
+      topic GoodAtDA.
+        CheckGoodAtDA is dde_open(GoodAtDATopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Data structure & Algorithm")').
+        dde_request(?CheckGoodAtDA, ?RMsg).
+        wait().
+    
+        topic GoodAtDATopic (GoodAtDAInfo, GoodAtDAEvent, GoodAtDAHandle).
+          GoodAtDA is first(?GoodAtDAInfo).
+          dde_close(CheckGoodAtDA).
+          continue().
+        end. (*GoodAtDATopic*)
+
+      end. (*GoodAtDA*)
+
+      topic GoodAtDB.
+        CheckGoodAtDB is dde_open(GoodAtDBTopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Database Systems")').
+        dde_request(?CheckGoodAtDB, ?RMsg).
+        wait().
+    
+        topic GoodAtDBTopic (GoodAtDBInfo, GoodAtDBEvent, GoodAtDBHandle).
+          GoodAtDA is first(?GoodAtDBInfo).
+          dde_close(CheckGoodAtDB).
+          continue().
+        end. (*GoodAtDBTopic*)
+
+      end. (*GoodAtDB*)
+
+      topic GoodAtAI.
+        CheckGoodAtAI is dde_open(GoodAtAITopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Artificial Intelligent")').
+        dde_request(?CheckGoodAtAI, ?RMsg).
+        wait().
+    
+        topic GoodAtAITopic (GoodAtAIInfo, GoodAtAIEvent, GoodAtAIHandle).
+          GoodAtAI is first(?GoodAtAIInfo).
+          dde_close(CheckGoodAtAI).
+          continue().
+        end. (*GoodAtAITopic*)
+
+      end. (*GoodAtAI*)
+
+      topic GoodAtIS.
+        CheckGoodAtIS is dde_open(GoodAtISTopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Information systems Analysis & Design")').
+        dde_request(?CheckGoodAtIS, ?RMsg).
+        wait().
+    
+        topic GoodAtISTopic (GoodAtISInfo, GoodAtISEvent, GoodAtISHandle).
+          GoodAtIS is first(?GoodAtISInfo).
+          dde_close(CheckGoodAtIS).
+          continue().
+        end. (*GoodAtISTopic*)
+
+      end. (*GoodAtIS*)
+
+      topic GoodAtCompOr.
+        CheckGoodAtCompOr is dde_open(GoodAtCompOrTopic,DBCall,GETS).
+        RMsg is concat('Student-HasSpecial("',?StdID,'","Computer organization & Architecture")').
+        dde_request(?CheckGoodAtCompOr, ?RMsg).
+        wait().
+    
+        topic GoodAtCompOrTopic (GoodAtCompOrInfo, GoodAtCompOrEvent, GoodAtCompOrHandle).
+          GoodAtCompOr is first(?GoodAtCompOrInfo).
+          dde_close(CheckGoodAtCompOr).
+          continue().
+        end. (*GoodAtCompOrTopic*)
+
+      end. (*GoodAtCompOr*)
+
+    end. (*SeletedArticle*)
+
+    topic GoodStatus.
+      set_number_of_values(Answer,1).
+
+      if ?FirstHonorGPA is yes
+        then GoodStatus is yes.
+
+      if ?HonorGPA is yes
+        then GoodStatus is yes.
+
+      if ?GoodGPA is yes
+        then GoodStatus is no.
+
+      if ?PoorGPA is yes
+        then GoodStatus is no.
+
+      if ?ProGPA is yes
+        then GoodStatus is no.
+
+      topic FirstHonorGPA.
+        CheckFirstHonor is dde_open(FirstHonorTopic,DBCall,GETS).
+        RMsg is concat('Student-inStatus("',?StdID,'","FirstHonor")').
+        dde_request(?CheckFirstHonor, ?RMsg).
+        wait().
+    
+        topic FirstHonorTopic (FirstHonorInfo, FirstHonorEvent, FirstHonorHandle).
+          FirstHonorGPA is first(?FirstHonorInfo).
+          dde_close(CheckFirstHonor).
+          continue().
+        end. (*FirstHonorTopic*)
+
+      end. (*FirstHonorGPA*)
+
+      topic HonorGPA.
+        CheckHonor is dde_open(HonorTopic,DBCall,GETS).
+        RMsg is concat('Student-inStatus("',?StdID,'","Honor")').
+        dde_request(?CheckHonor, ?RMsg).
+        wait().
+    
+        topic HonorTopic (HonorInfo, HonorEvent, HonorHandle).
+          HonorGPA is first(?HonorInfo).
+          dde_close(CheckHonor).
+          continue().
+        end. (*HonorTopic*)
+
+      end. (*HonorGPA*)
+
+      topic GoodGPA.
+        CheckGood is dde_open(GoodTopic,DBCall,GETS).
+        RMsg is concat('Student-inStatus("',?StdID,'","Good")').
+        dde_request(?CheckGood, ?RMsg).
+        wait().
+    
+        topic GoodTopic (GoodInfo, GoodEvent, GoodHandle).
+          GoodGPA is first(?GoodInfo).
+          dde_close(CheckGood).
+          continue().
+        end. (*GoodTopic*)
+
+      end. (*GoodGPA*)
+
+      topic PoorGPA.
+        CheckPoor is dde_open(PoorTopic,DBCall,GETS).
+        RMsg is concat('Student-inStatus("',?StdID,'","Poor")').
+        dde_request(?CheckPoor, ?RMsg).
+        wait().
+    
+        topic PoorTopic (PoorInfo, PoorEvent, PoorHandle).
+          PoorGPA is first(?PoorInfo).
+          dde_close(CheckPoor).
+          continue().
+        end. (*PoorTopic*)
+
+      end. (*PoorGPA*)
+
+      topic ProGPA.
+        CheckPro is dde_open(ProTopic,DBCall,GETS).
+        RMsg is concat('Student-inStatus("',?StdID,'","Probation")').
+        dde_request(?CheckPro, ?RMsg).
+        wait().
+    
+        topic ProTopic (ProInfo, ProEvent, ProHandle).
+          ProGPA is first(?ProInfo).
+          dde_close(CheckPro).
+          continue().
+        end. (*ProTopic*)
+
+      end. (*ProGPA*)
+
+    end. (*GoodStatus*)
+
+    topic HardWorking.
+      ask ('Would you think you are hard-working person?',choice,[yes,no]).
+      HardWorking is ?choice.
+    end. (*HardWorking*)
+
+    topic SelfMotivated.
+      ask ('Would you think you are self-motivated person?',choice,[yes,no]).
+      SelfMotivated is ?choice.
+    end. (*SelfMotivated*)
+
+  end. (*Advisor*)
+
+end. (*FindAdvisor*)
+
+topic EndProcess.
+  button (Continue,:Next,20,4).
+  
+  topic Next.
+    ask ('#eAnother advise ?',want,[Yes,No]).
+    if ?want is Yes
+      then reset ([ChkUser,FindAdvisor,EndProcess]) and
+        do (!main)
+      else close_window (?w1).
+  end. (*Next*)
+end. (*EndProcess*)

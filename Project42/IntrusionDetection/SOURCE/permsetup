@@ -1,0 +1,85 @@
+# permsetup (script) : Creates the permissions, owner, group, size,
+# and checksum information of the file-list in keyfiles and suidfiles 
+# (find / -perm -4000 -print > suidfiles) and keep in "watchinfo" and "suidinfo".
+
+PATH=/bin:/usr/bin
+export PATH
+DIR=/ids
+cd $DIR
+
+LIST1=keyfiles
+LIST2=suidfiles
+LIST3=logfiles
+INFO1=KeyfileInfo
+INFO2=SuidInfo
+INFO3=LogInfo
+
+echo "Files' information initializing..."
+
+# Creates information for keyfiles.
+echo -e "#Permissions\tOwner\tGroup\tSize\tCheck\tDate\t\tFile" | tee $INFO1 
+for file in `cat $LIST1`
+do
+# If cannot read the file,write the comment-line and skip it.
+  if [ ! -r $file ]
+  then
+    echo "# Cannot read $file."
+    continue
+  fi
+# Divide each record into shell variables.
+  set - `ls -lc $file`
+  perms=$1
+  owner=$3
+  group=$4
+  size=$5
+  date="$6 $7 $8"
+  set `sum $file`
+  sum=$1
+  echo -e "$perms\t$owner\t$group\t$size\t$sum\t$date\t$file"
+done | tee -a $INFO1
+
+# Creates information for suidfiles.
+echo -e "#Permissions\tOwner\tGroup\tSize\tCheck\tDate\t\tFile" | tee $INFO2
+for file in `cat $LIST2`
+do
+# If cannot read the file,write the comment-line and skip it.
+  if [ ! -r $file ]
+  then
+    echo "# Cannot read $file."
+    continue
+  fi
+# Divide each record into shell variables.
+  set - `ls -lc $file`
+  perms=$1
+  owner=$3
+  group=$4
+  size=$5
+  date="$6 $7 $8"
+  set `sum $file`
+  sum=$1
+  echo -e "$perms\t$owner\t$group\t$size\t$sum\t$date\t$file"
+done | tee -a $INFO2
+
+# Creates information for logfiles.
+echo -e "#Permissions\tOwner\tGroup\tSize\tCheck\tDate\t\tFile" | tee $INFO3
+for file in `cat $LIST3`
+do
+# If cannot read the file,write the comment-line and skip it.
+  if [ ! -r $file ]
+  then
+    echo "# Cannot read $file."
+    continue
+  fi
+# Divide each record into shell variables.
+  set - `ls -lc $file`
+  perms=$1
+  owner=$3
+  group=$4
+  size=$5
+  date="$6 $7 $8"
+  set `sum $file`
+  sum=$1
+  echo -e "$perms\t$owner\t$group\t$size\t$sum\t$date\t$file"
+done | tee -a $INFO3
+
+echo "Initiation completed."

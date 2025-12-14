@@ -1,0 +1,165 @@
+VERSION 5.00
+Begin VB.Form mainmenu 
+   Caption         =   "Mainmenu"
+   ClientHeight    =   3195
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   4680
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   3195
+   ScaleWidth      =   4680
+   StartUpPosition =   3  'Windows Default
+   WindowState     =   2  'Maximized
+   Begin VB.CommandButton Command1 
+      Caption         =   "New"
+      Height          =   615
+      Index           =   0
+      Left            =   5400
+      TabIndex        =   4
+      Top             =   1800
+      Width           =   1815
+   End
+   Begin VB.CommandButton Command2 
+      Caption         =   "Edit"
+      Height          =   615
+      Left            =   5400
+      TabIndex        =   3
+      Top             =   2640
+      Width           =   1815
+   End
+   Begin VB.CommandButton Command3 
+      Caption         =   "Delete"
+      Height          =   615
+      Left            =   5400
+      TabIndex        =   2
+      Top             =   3480
+      Width           =   1815
+   End
+   Begin VB.CommandButton Command4 
+      Caption         =   "Search"
+      Height          =   615
+      Left            =   5400
+      TabIndex        =   1
+      Top             =   4320
+      Width           =   1815
+   End
+   Begin VB.CommandButton Command5 
+      Caption         =   "Exit"
+      Height          =   615
+      Index           =   1
+      Left            =   5400
+      TabIndex        =   0
+      Top             =   5160
+      Width           =   1815
+   End
+   Begin VB.Label Label1 
+      Caption         =   "โปรแกรมจัดการ  MARC SHEET"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   18
+         Charset         =   222
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   615
+      Left            =   3960
+      TabIndex        =   5
+      Top             =   840
+      Width           =   4815
+   End
+End
+Attribute VB_Name = "mainmenu"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Public marcws As Workspace
+Public marcdb As Database
+Public sqlcommand As String
+Private Sub Command1_Click(Index As Integer)
+tagselect.Show
+tag008.Show
+End Sub
+
+Private Sub Command5_Click(Index As Integer)
+Unload Me
+End Sub
+
+
+Public Sub quitting()
+If MsgBox("ออกจากโปรแกรม ?", vbOKCancel) = vbOK Then
+Unload tag008
+Unload tag020
+Unload tag090
+Unload tag100
+Unload tag210
+Unload tag250
+Unload tag500
+Unload tag600
+Unload tag700
+Unload tag800
+Unload tagselect
+Else
+End If
+End Sub
+
+Private Sub Form_Load()
+On Error GoTo HandleError
+Set marcws = DBEngine.Workspaces(0)
+Set marcdb = marcws.OpenDatabase("marcsheetdb.mdb", False, False)
+Exit Sub
+HandleError:
+MsgBox Error(Err.Number)
+End Sub
+Public Sub saving()
+sqlcommand = "INSERT INTO TagData1 (008_1,008_2,008_3,008_4,008_5,008_6,008_7,008_8,008_9,008_10,008_11,008_12,008_13,008_14,008_15,008_16,008_17,008_18,008_19,008_20,008_21,008_22,008_23,008_24,008_25)"
+sqlcommand = sqlcommand & "VALUES ("
+sqlcommand = sqlcommand & "'" & tag008.tag008_1.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_2.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_3.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_4.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_5.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_6.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_7.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_8.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_9.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_10.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_11.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_12.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_13.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_14.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_15.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_16.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_17.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_18.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_19.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_20.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_21.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_22.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_23.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_24.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag008.tag008_25.Text & " '"
+sqlcommand = sqlcommand & ")"
+marcdb.Execute sqlcommand
+'**********************savetag020*********************************
+sqlcommand = "INSERT INTO TagData1 (020_1,020_2,020_3)"
+sqlcommand = sqlcommand & "VALUES ("
+sqlcommand = sqlcommand & "'" & tag020.tag020_1.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag020_2.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag020_3.Text & " '"
+sqlcommand = sqlcommand & ")"
+marcdb.Execute sqlcommand
+'**********************savetag022*********************************
+sqlcommand = "INSERT INTO TagData1 (022_1_1,022_1_2,022_2_1,022_2_2,022_3_1,022_3_2)"
+sqlcommand = sqlcommand & "VALUES ("
+sqlcommand = sqlcommand & "'" & tag020.tag022_1_1.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag022_1_2.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag022_2_1.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag022_2_2.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag022_3_1.Text & " '" & ","
+sqlcommand = sqlcommand & "'" & tag020.tag022_3_2.Text & " '"
+sqlcommand = sqlcommand & ")"
+marcdb.Execute sqlcommand
+End Sub

@@ -1,0 +1,5 @@
+EditForm = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+AboutForm = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+Wizard = 129, 102, 605, 511, CZ, 0, 0, 0, 0, C
+LoginForm = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+frmSplash = 0, 0, 0, 0, C, 0, 0, 0, 0, C

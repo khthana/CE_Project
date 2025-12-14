@@ -1,0 +1,9 @@
+vti_encoding:SR|utf8-nl
+vti_author:SR|Golf
+vti_timecreated:TR|20 Feb 2000 15:34:42 -0000
+vti_modifiedby:SR|Golf
+vti_backlinkinfo:VX|new_user/index.htm administrate/index.htm search/index.htm new_post/index.htm edit_profile/index.htm login/index.htm
+vti_nexttolasttimemodified:TR|23 Feb 2000 16:28:42 -0000
+vti_extenderversion:SR|3.0.2.1706
+vti_nosourcecontrol:SR|True
+vti_timelastmodified:TR|23 Feb 2000 16:29:08 -0000

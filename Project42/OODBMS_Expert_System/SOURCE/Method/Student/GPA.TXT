@@ -1,0 +1,22 @@
+defineProcedure Real ProjectCF::Student::instance:GPA()
+language :  "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $Real GPAC;
+ $Integer TotalCredit;
+ $GPAC = 0;
+ $TotalCredit = 0;
+ $Bag <RegsSubj> BR;
+ $RegsSubj R;
+ $BR = self.Registered;
+ $scan (BR,R) {
+	$GPAC = GPAC + (R.Result * R.Subj.Credit);
+ 	$TotalCredit = TotalCredit + R.Subj.Credit;
+ };
+ $Real ReturnVal;
+ $ReturnVal = GPAC / TotalCredit;
+  $return (ReturnVal);
+
+};

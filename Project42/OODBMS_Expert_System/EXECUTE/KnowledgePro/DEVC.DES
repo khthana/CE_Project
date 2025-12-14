@@ -1,0 +1,32 @@
+# POWRDEVC ¤Î pdevcex.c ªººûÅ@ÀÉ (make file)  (for Microsoft C)
+#
+# c:\VM ¢s¢w *.c
+#       ¢x   *.h
+#       ¢u¢wTC ¢s¢wEXE ¢w¢w *.exe
+#       ¢x     ¢u¢wOBJ ¢w¢w *.obj
+#       ¢x     ¢|¢wmake file
+#       ¢|¢wMC ¢s¢wEXE ¢w¢w *.exe
+#              ¢u¢wOBJ ¢w¢w *.obj
+#              ¢|¢wmake file
+#
+# USE:     <path>make     devc.des   <return>
+#-----------------------------------------------------------------
+# MACRO DEFINITIONS
+Ipath=..
+Spath=..
+Opath=.\obj
+Epath=.\exe
+DEVCopt=/DMSC /AL /Ot /G2 /Zl /c
+
+
+$(Opath)\powrdevc.obj :  $(Spath)\powrdevc.c  $(Spath)\powrdevc.h
+     cl  $(DEVCopt) /Fo$(Opath)\powrdevc.obj  $(Spath)\powrdevc.c
+
+$(Opath)\pdevcex.obj :   $(Spath)\pdevcex.c   $(Spath)\powrdevc.h
+     cl  $(DEVCopt) /Fo$(Opath)\pdevcex.obj $(Spath)\pdevcex.c
+
+
+$(Epath)\pdevcex.exe :    $(Opath)\pdevcex.obj   \
+                          $(Opath)\powrdevc.obj
+   link  @devcobj.rsp, $(Epath)\pdevcex, nul, llibc7
+

@@ -1,0 +1,226 @@
+ %% PLEASE DO NOT MODIFY OR DELETE THIS FILE! %% 
+ %% This file contains information about the installation of an application. %% 
+ %% It will be used to automatically remove all application components from your computer if you choose to do so. %% 
+
+
+NOTE: Beginning of the bootstrapper section
+
+CONFIG: Title: "Digital_Library"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "SharedDLLs"
+
+ACTION: SystemFile: "C:\WINNT\system32\VB6STKIT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\COMCAT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\MSVCRT40.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\STDOLE2.TLB"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\ASYCFILT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\OLEPRO32.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\OLEAUT32.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINNT\system32\MSVBVM60.DLL"
+(File currently on disk was already up to date)
+
+NOTE: End of the bootstrapper section
+
+NOTE: Now spawning the main Setup program 'Setup1.exe'....
+
+ACTION: CreateDir: "C:\Program Files\Digital_Library"
+
+ACTION: CreateDir: "C:\WINNT\Profiles\t0013249\Start Menu\Programs\Digital_Library"
+
+ACTION: ShellFolder: "Digital_Library"
+
+ACTION: PrivateFile: "C:\Program Files\Digital_Library\Title.jpg"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "C:\Program Files\Digital_Library\kmit4.jpg"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "C:\Program Files\Digital_Library\Digital Library.mdb"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "C:\Program Files\Digital_Library\BackGruond.jpg"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\msxbse35.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\mstext35.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\mspdox35.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINNT\System32\RDOCURS.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINNT\System32\MSRDO20.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\msltus35.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\msexcl35.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINNT\System32\DBGRID32.OCX"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINNT\System32\VB5DB.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\MSREPL35.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINNT\System32\msrd2x35.dll"
+(File was not found or was an older version -- new file copied)
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\VBAJET32.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: If you ignore a copy error, the file will not be copied.  The application may not function properly as a result.  Do you want to ignore the error?
+*** ERROR: (User Responded with 'Yes')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\VBAJET32.DLL"
+
+*** ERROR: C:\WINNT\System32\msjint35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjint35.dll"
+
+*** ERROR: C:\WINNT\System32\msjint35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjint35.dll"
+
+*** ERROR: C:\WINNT\System32\msjint35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjint35.dll"
+
+*** ERROR: C:\WINNT\System32\msjint35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjint35.dll"
+
+*** ERROR: C:\WINNT\System32\msjter35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjter35.dll"
+
+*** ERROR: C:\WINNT\System32\msjter35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjter35.dll"
+
+*** ERROR: C:\WINNT\System32\msjter35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjter35.dll"
+
+*** ERROR: C:\WINNT\System32\msjter35.dll
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\msjter35.dll"
+
+*** ERROR: C:\WINNT\System32\MSJET35.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\MSJET35.DLL"
+
+*** ERROR: C:\WINNT\System32\MSJET35.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\MSJET35.DLL"
+
+*** ERROR: C:\WINNT\System32\MSJET35.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: SystemFile: "C:\WINNT\System32\MSJET35.DLL"
+
+ACTION: SharedFile: "C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll"
+(File was not found or was an older version -- new file copied)
+
+*** ERROR: C:\WINNT\System32\MSVCRT.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: PrivateFile: "C:\WINNT\System32\MSVCRT.DLL"
+
+*** ERROR: C:\WINNT\System32\MSVCRT.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: PrivateFile: "C:\WINNT\System32\MSVCRT.DLL"
+
+*** ERROR: C:\WINNT\System32\MSVCRT.DLL
+*** ERROR: The destination file in in-use.  Please ensure that all other applications are closed.
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: PrivateFile: "C:\WINNT\System32\MSVCRT.DLL"
+
+ACTION: SharedFile: "C:\WINNT\System32\SCRRUN.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "C:\Program Files\Digital_Library\Digital_Library.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\msxbse35.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\mstext35.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\mspdox35.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\MSRDO20.DLL"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\msltus35.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\msexcl35.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\DBGRID32.OCX"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\msrd2x35.dll"
+
+ACTION: DllSelfRegister: "C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll"
+
+ACTION: DllSelfRegister: "C:\WINNT\System32\SCRRUN.DLL"
+
+ACTION: ShellLink: "Digital_Library", "Digital_Library"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "App Paths\Digital_Library.exe"
+
+ACTION: RegValue: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Digital_Library.exe", ""
+

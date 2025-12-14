@@ -1,0 +1,448 @@
+VERSION 5.00
+Begin VB.Form frmAddShop 
+   Caption         =   "Test Add Shop"
+   ClientHeight    =   4695
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   6780
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   4695
+   ScaleWidth      =   6780
+   StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox txtFields 
+      BackColor       =   &H80000013&
+      DataField       =   "SHOPNAME"
+      Height          =   375
+      Index           =   17
+      Left            =   5040
+      Locked          =   -1  'True
+      TabIndex        =   37
+      Top             =   2760
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      BackColor       =   &H80000013&
+      DataField       =   "SHOPNAME"
+      Height          =   375
+      Index           =   0
+      Left            =   1800
+      Locked          =   -1  'True
+      TabIndex        =   35
+      Top             =   240
+      Width           =   1600
+   End
+   Begin VB.TextBox txtWebTemplate 
+      Height          =   375
+      Left            =   5040
+      TabIndex        =   16
+      Top             =   3120
+      Width           =   1600
+   End
+   Begin VB.CommandButton cmdAddShop 
+      Caption         =   "Add New Shop"
+      Height          =   495
+      Left            =   4560
+      TabIndex        =   17
+      Top             =   3840
+      Width           =   1335
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "FAX"
+      Height          =   375
+      Index           =   16
+      Left            =   5040
+      TabIndex        =   15
+      Top             =   2400
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "TEL"
+      Height          =   375
+      Index           =   15
+      Left            =   5040
+      TabIndex        =   14
+      Top             =   2040
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "COUNTRY"
+      Height          =   375
+      Index           =   14
+      Left            =   5040
+      TabIndex        =   13
+      Top             =   1680
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "POSTCODE"
+      Height          =   375
+      Index           =   13
+      Left            =   5040
+      TabIndex        =   12
+      Top             =   1320
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "SUBPROVINCE"
+      Height          =   375
+      Index           =   12
+      Left            =   5040
+      TabIndex        =   11
+      Top             =   960
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "PROVINCE"
+      Height          =   375
+      Index           =   11
+      Left            =   5040
+      TabIndex        =   10
+      Top             =   600
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "ADDRESS"
+      Height          =   375
+      Index           =   10
+      Left            =   5040
+      TabIndex        =   9
+      Top             =   240
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "OCCUPATION"
+      Height          =   375
+      Index           =   9
+      Left            =   1800
+      TabIndex        =   8
+      Top             =   3480
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "AGE"
+      Height          =   375
+      Index           =   8
+      Left            =   1800
+      TabIndex        =   7
+      Top             =   3120
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "SEX"
+      Height          =   375
+      Index           =   7
+      Left            =   1800
+      TabIndex        =   6
+      Top             =   2760
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "USERNAME"
+      Height          =   375
+      Index           =   6
+      Left            =   1800
+      TabIndex        =   5
+      Top             =   2400
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "PASSWORD"
+      Height          =   375
+      Index           =   5
+      Left            =   1800
+      TabIndex        =   4
+      Top             =   2040
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "EMAIL"
+      Height          =   375
+      Index           =   4
+      Left            =   1800
+      TabIndex        =   3
+      Top             =   1680
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "OWNERSURNAME"
+      Height          =   375
+      Index           =   3
+      Left            =   1800
+      TabIndex        =   2
+      Top             =   1320
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "OWNERNAME"
+      Height          =   375
+      Index           =   2
+      Left            =   1800
+      TabIndex        =   1
+      Top             =   960
+      Width           =   1600
+   End
+   Begin VB.TextBox txtFields 
+      DataField       =   "SHOPNAME"
+      Height          =   375
+      Index           =   1
+      Left            =   1800
+      TabIndex        =   0
+      Top             =   600
+      Width           =   1600
+   End
+   Begin VB.Label Laddshop 
+      Height          =   255
+      Left            =   240
+      TabIndex        =   39
+      Top             =   4080
+      Width           =   3975
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "CreateOn"
+      Height          =   255
+      Index           =   17
+      Left            =   3720
+      TabIndex        =   38
+      Top             =   2880
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "ShopID"
+      Height          =   255
+      Index           =   0
+      Left            =   120
+      TabIndex        =   36
+      Top             =   360
+      Width           =   1600
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Web Template"
+      Height          =   255
+      Left            =   3720
+      TabIndex        =   34
+      Top             =   3240
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "FAX:"
+      Height          =   255
+      Index           =   16
+      Left            =   3720
+      TabIndex        =   33
+      Top             =   2520
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "TEL:"
+      Height          =   255
+      Index           =   15
+      Left            =   3720
+      TabIndex        =   32
+      Top             =   2160
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "COUNTRY:"
+      Height          =   255
+      Index           =   14
+      Left            =   3720
+      TabIndex        =   31
+      Top             =   1800
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "POSTCODE:"
+      Height          =   255
+      Index           =   13
+      Left            =   3720
+      TabIndex        =   30
+      Top             =   1440
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "SUBPROVINCE:"
+      Height          =   255
+      Index           =   12
+      Left            =   3720
+      TabIndex        =   29
+      Top             =   1080
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "PROVINCE:"
+      Height          =   255
+      Index           =   11
+      Left            =   3720
+      TabIndex        =   28
+      Top             =   720
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "ADDRESS:"
+      Height          =   255
+      Index           =   10
+      Left            =   3720
+      TabIndex        =   27
+      Top             =   360
+      Width           =   1395
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "OCCUPATION:"
+      Height          =   255
+      Index           =   9
+      Left            =   120
+      TabIndex        =   26
+      Top             =   3600
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "AGE:"
+      Height          =   255
+      Index           =   8
+      Left            =   120
+      TabIndex        =   25
+      Top             =   3240
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "SEX:"
+      Height          =   255
+      Index           =   7
+      Left            =   120
+      TabIndex        =   24
+      Top             =   2880
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "USERNAME:"
+      Height          =   255
+      Index           =   6
+      Left            =   120
+      TabIndex        =   23
+      Top             =   2520
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "PASSWORD:"
+      Height          =   255
+      Index           =   5
+      Left            =   120
+      TabIndex        =   22
+      Top             =   2160
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "EMAIL:"
+      Height          =   255
+      Index           =   4
+      Left            =   120
+      TabIndex        =   21
+      Top             =   1800
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "OWNERSURNAME:"
+      Height          =   255
+      Index           =   3
+      Left            =   120
+      TabIndex        =   20
+      Top             =   1440
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "OWNERNAME:"
+      Height          =   255
+      Index           =   2
+      Left            =   120
+      TabIndex        =   19
+      Top             =   1080
+      Width           =   1600
+   End
+   Begin VB.Label lblLabels 
+      Caption         =   "SHOPNAME:"
+      Height          =   255
+      Index           =   1
+      Left            =   120
+      TabIndex        =   18
+      Top             =   720
+      Width           =   1600
+   End
+End
+Attribute VB_Name = "frmAddShop"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+
+Private Sub cmdAddShop_Click()
+Dim ObjShop As Object
+
+cmdAddShop.Enabled = False
+
+On Error GoTo TestAddShopError
+Set ObjShop = CreateObject("Ecomm.shop")
+
+With ObjShop
+  .ShopName = txtFields(1).Text
+  .OwnerName = txtFields(2).Text
+  .OwnerSurname = txtFields(3).Text
+  .Email = txtFields(4).Text
+  .Password = txtFields(5).Text
+  .UserName = txtFields(6).Text
+  .Sex = txtFields(7).Text
+  .Age = CCInt(txtFields(8).Text)
+  .Occupation = txtFields(9).Text
+  .Address = txtFields(10).Text
+  .Province = txtFields(11).Text
+  .SubProvince = txtFields(12).Text
+  .Postcode = txtFields(13).Text
+  .Country = txtFields(14).Text
+  .Tel = txtFields(15).Text
+  .Fax = txtFields(16).Text
+'  .CreateOn = Date
+  .WebTemplate = txtWebTemplate.Text
+  
+  tmpShopID = .AddNew
+End With
+    MsgBox "Add Shop : " & txtFields(1).Text & " Complete" & vbCrLf & _
+           "Your ShopID : " & tmpShopID
+    
+
+Set ObjShop = Nothing
+cmdAddShop.Enabled = True
+
+Exit Sub
+TestAddShopError:
+    cmdAddShop.Enabled = True
+    Laddshop.Caption = Err.Number & " : " & Err.Description
+    Set ObjShop = Nothing
+
+End Sub
+
+
+Private Sub Form_Load()
+   txtFields(1).Text = "BoyShop"
+   txtFields(2).Text = "Niran"
+   txtFields(3).Text = "Luckcanakul"
+   txtFields(4).Text = "boy@yahoo.com"
+   txtFields(5).Text = "yahoo"
+   txtFields(6).Text = "niran"
+   txtFields(7).Text = "male"
+   txtFields(8).Text = 20
+   txtFields(9).Text = "Engineer"
+   txtFields(10).Text = "42 ladphrao"
+   txtFields(11).Text = "bangkok"
+   txtFields(12).Text = "bangkapi"
+   txtFields(13).Text = "10310"
+   txtFields(14).Text = "thailand"
+   txtFields(15).Text = "933-7606"
+   txtFields(16).Text = "933-7606"
+   txtWebTemplate.Text = "Template1"
+   
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    frmMain.Show
+End Sub

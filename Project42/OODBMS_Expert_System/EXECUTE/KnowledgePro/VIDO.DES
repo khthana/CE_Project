@@ -1,0 +1,32 @@
+# POWRVIDO ¤Î pvidoex.c ªººûÅ@ÀÉ (make file)   (for Microsoft C)
+#
+# c:\VM ¢s¢w *.c
+#       ¢x   *.h
+#       ¢u¢wTC ¢s¢wEXE ¢w¢w *.exe
+#       ¢x     ¢u¢wOBJ ¢w¢w *.obj
+#       ¢x     ¢|¢wmake file
+#       ¢|¢wMC ¢s¢wEXE ¢w¢w *.exe
+#              ¢u¢wOBJ ¢w¢w *.obj
+#              ¢|¢wmake file
+#
+# USE:     <path>make     vido.des  <return>
+#---------------------------------------------------------------
+# MACRO DEFINITIONS
+Ipath=..
+Spath=..
+Opath=.\obj
+Epath=.\exe
+VIDOopt=/DMSC /DEGAVGA /DEGACARD /AL /Ot /G2 /Zl /c
+
+$(Opath)\powrvido.obj: $(Spath)\powrvido.c  $(Spath)\powrvido.h
+   cl   $(VIDOopt) /Fo$(Opath)\powrvido.obj  $(Spath)\powrvido.c
+
+$(Opath)\pvidoex.obj : $(Spath)\pvidoex.c  $(Spath)\powrvido.h
+   cl   $(VIDOopt) /Fo$(Opath)\pvidoex.obj  $(Spath)\pvidoex.c
+
+$(Epath)\pvidoex.exe : $(Opath)\pvidoex.obj  \
+                       $(Opath)\powrdevc.obj \
+                       $(Opath)\powrvido.obj
+    link @vidoobj.rsp, $(Epath)\pvidoex, nul, llibc7
+#---------------------------------------------------------------
+

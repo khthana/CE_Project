@@ -1,0 +1,170 @@
+<html>
+<head>
+<title>Shop2000.com_( ShoppingBag )</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="52" bgcolor="#ccffcc">
+  <tr bgcolor="#ccffcc"> 
+    <td> 
+      <div align="center">
+        <p><font color="#3333ff"><b><font size="5" face="MS Sans Serif" color="#6666ff">Shopping Bag</font></b></font></p>
+        <p><wc@>accid</WC@></p>
+        </div>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="23">
+  <tr>
+    <td>
+      <div align="center"><font size="1" face="MS Sans Serif">This page show item that you ' ve 
+            selected. Please check the list below !!</font></div>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#ffffff"> 
+    <td>
+      <hr>
+ 
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffd0">
+  <tr> 
+    <td width="9%" bgcolor="#ffffd0">&nbsp;</td>
+    <td width="76%" valign="top">&nbsp;</td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="9%" height="35" bgcolor="#ffffd0">&nbsp;</td>
+    <td width="76%" valign="top" height="35"> 
+      <p><font face="MS Sans Serif" color="#ff9933"><b>Items in your shopping bag 
+            </b></font></p>
+      </td>
+    <td width="15%" height="35">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="9%" bgcolor="#ffffd0">&nbsp;</td>
+    <td width="76%" valign="top"> 
+
+<form method="post" action="SB.ASP?WCI=Template1&amp;WCE=formRefresh&amp;WCU" 
+            name="formRefresh">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr bgcolor="#ccffcc"> 
+	  <td width="9%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">ItemID</font></div>
+          </td>
+          <td width="31%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">ItemName</font></div>
+          </td>
+          <td width="10%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">Price</font></div>
+          </td>
+          <td width="12%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">Amount</font></div>
+          </td>
+          <td width="16%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">Discount</font></div>
+          </td>
+          <td width="17%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">Total</font></div>
+          </td>
+	  <td width="5%"> 
+            <div align="center"><font size="1" face="MS Sans Serif">Del</font></div>
+          </td>
+        </tr>
+	<wc@>details</WC@>
+      </table>
+
+<table width="100%" border="0" cellspacing="2" cellpadding="0" >
+<tr><td width="100%" align="right"><input type="submit" name="BtnRefresh" value="Refresh List"></td></tr>
+</table>
+</form>
+
+      <p>&nbsp;</p>
+      </td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="9%" height="22" bgcolor="#ffffd0">&nbsp;</td>
+    <td width="76%" height="22" valign="top" bgcolor="#ffccff"> 
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="74%" bgcolor="#66ccff">
+              <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><b><font face="MS Sans Serif">Total Price 
+                        </font></b></font><font face="MS Sans Serif"><b>:</b> 
+                        </font></div>
+            </td>
+            <td width="26%" bgcolor="#66ccff">
+              <div align="center"><font size="2" face="MS Sans Serif"><wc@>sumTotal</WC@></font></div>
+            </td>
+          </tr>
+	<tr>
+            <td width="74%" bgcolor="#66ccff">
+              <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><b><font face="MS Sans Serif">Tax</font></b></font><font face="MS Sans Serif"><b>:</b> 
+                        </font></div>
+            </td>
+            <td width="26%" bgcolor="#66ccff">
+              <div align="center"><font size="2" face="MS Sans Serif"><wc@>taxprice</WC@></font></div>
+            </td>
+          </tr>
+	<tr>
+            <td width="74%" >
+              <div align="right"><font face="Arial, Helvetica, sans-serif" size="2"><b><font face="MS Sans Serif">PayPrice</font></b></font><font face="MS Sans Serif"><b>:</b> 
+                        </font></div>
+            </td>
+            <td width="26%" >
+              <div align="center"><font size="2" face="MS Sans Serif"><wc@>payprice</WC@></font></div>
+            </td>
+          </tr>
+        </table>
+        
+      </div>
+    </td>
+    <td width="15%" height="22">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="9%" bgcolor="#ffffd0">&nbsp;</td>
+    <td width="76%" valign="top">
+      <div align="center">
+        <p><font face="MS Sans Serif" size="1">This total price do not include special frieght !!</font></p>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	
+          <tr>
+	    <td width="60" valign="top" ><font face="MS Sans Serif" size="2" ><b>Click_to_save_your_shoppingbag</b></font>
+            </td> 
+            <td width="40%" valign="top"> 
+              <form method="post" action="SB.ASP?WCI=Template1&amp;WCE=formSave&amp;WCU" 
+                        name="formSave">
+                <div align="left"> 
+                  <input type="submit" name="btnSave" value="Save ShoppingBag"> 
+ 
+                </div>
+              </form>
+            </td>
+         </tr>
+	<tr>
+		<td width="60" valign="top"><font face="MS Sans Serif" size="2"><b>Click_to_continue_shopping</b></font></td>
+		<td wdith = 40><form method="post" action="SB.ASP?WCI=Template1&amp;WCE=formContinue&amp;WCU" 
+                        name="formContinue">
+                <div align="left"> <input type="submit" name="btnContinue" value="Continue Shopping "></div></form></td>
+	</tr>
+	<tr>
+		<td width="60" valign="top"><font face="MS Sans Serif" size="2"><b>Click_to_Check_Out!!</b></font></td>
+		<td wdith = 40><form method="post" action="SB.ASP?WCI=Template1&amp;WCE=formCheckout&amp;WCU" 
+                        name="formCheckout">
+                <div align="left"> <input type="submit" name="btnCheckOut" value="Check Out!"></div></form></td>
+	</tr>
+
+        </table>
+        <p>&nbsp;</p>
+      </div>
+    </td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

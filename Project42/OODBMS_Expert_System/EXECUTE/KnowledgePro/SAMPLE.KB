@@ -1,0 +1,3 @@
+#include kpdir.tpx
+
+create_directory ('c:\test').

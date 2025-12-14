@@ -1,0 +1,281 @@
+Entering (   1) ~rule [~NOT (~exists (w1)),delay (~make (w1,~window ()))]
+Entering (   2) ~NOT [~exists (w1)]
+Entering (   3) ~exists [w1]
+Exit     (   3) ~exists [w1]
+Result: F
+Exit     (   2) ~NOT [F]
+Result: T
+Entering (   2) delay [~make (w1,~window ())]
+Exit     (   2) delay [~make (w1,~window ())]
+Result: [~make (w1,~window ())]
+Entering (   2) ~make [w1,~window ()]
+Entering (   3) ~window 
+Exit     (   3) ~window 
+Result: 11064
+Exit     (   2) ~make [w1,11064]
+Result: 11064
+Exit     (   1) ~rule [T,[~make (w1,~window ())]]
+Result: [11064]
+Entering (   1) ~say [['#fred  Statistic Tetsting Hypothesis assistance.',,'   Developer:	Mr. Ho Thanh Phong ','   Instructor:	Dr. Vatcharaporn','		SAT - AIT	']]
+Entering (   2) Continue [Continue,select_event,11740]
+Exit     (   2) Continue [Continue,select_event,11740]
+Result: 
+Exit     (   1) ~say [['#fred  Statistic Tetsting Hypothesis assistance.',,'   Developer:	Mr. Ho Thanh Phong ','   Instructor:	Dr. Vatcharaporn','		SAT - AIT	']]
+Result: 
+Entering (   1) ~text ['#eInsurance will cover#s',~? (payment),'of this claim.']
+Entering (   2) ~? [payment]
+Entering (   3) ~set_number_of_values [payment,1]
+Exit     (   3) ~set_number_of_values [payment,1]
+Result: 
+Entering (   3) ~rule [~and (~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes))))),delay (~make (payment,all))]
+Entering (   4) ~and [~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes))))]
+Entering (   5) ~eq [~? ('patient covered'),yes]
+Entering (   6) ~? ['patient covered']
+Entering (   7) ~set_number_of_values ['patient covered',1]
+Exit     (   7) ~set_number_of_values ['patient covered',1]
+Result: 
+Entering (   7) ~rule [~eq (~? (relation),self),delay (~make ('patient covered',yes))]
+Entering (   8) ~eq [~? (relation),self]
+Entering (   9) ~? [relation]
+Entering (  10) ~ask ['#eHow is the patient related to the policyholder ?',relation,[self,spouse,'natural child','other child']]
+Entering (  11) '!main:payment:patient covered:relation:!!Ask' [,double_click_event,11132]
+Entering (  12) ~rule [~eq (~? (e),double_click_event),delay (~make (~!local (r),~? (p)),~continue ())]
+Entering (  13) ~eq [~? (e),double_click_event]
+Entering (  14) ~? [e]
+Exit     (  14) ~? [e]
+Result: double_click_event
+Exit     (  13) ~eq [double_click_event,double_click_event]
+Result: T
+Entering (  13) delay [~make (~!local (r),~? (p)),~continue ()]
+Exit     (  13) delay [~make (~!local (r),~? (p)),~continue ()]
+Result: [~make (~!local (r),~? (p)),~continue ()]
+Entering (  13) ~make [~!local (r),~? (p)]
+Entering (  14) ~!local [r]
+Exit     (  14) ~!local [r]
+Result: :r
+Entering (  14) ~? [p]
+Exit     (  14) ~? [p]
+Result: 
+Exit     (  13) ~make [:r,]
+Result: 
+Entering (  13) ~continue 
+Exit     (  13) ~continue 
+Result: 
+Exit     (  12) ~rule [T,[~make (~!local (r),~? (p)),~continue ()]]
+Result: [,]
+Exit     (  11) '!main:payment:patient covered:relation:!!Ask' [,double_click_event,11132]
+Result: 
+Entering (  11) '!main:payment:patient covered:relation:!!Ask' [[spouse],double_click_event,11668]
+Entering (  12) ~rule [~eq (~? (e),double_click_event),delay (~make (~!local (r),~? (p)),~continue ())]
+Entering (  13) ~eq [~? (e),double_click_event]
+Entering (  14) ~? [e]
+Exit     (  14) ~? [e]
+Result: double_click_event
+Exit     (  13) ~eq [double_click_event,double_click_event]
+Result: T
+Entering (  13) delay [~make (~!local (r),~? (p)),~continue ()]
+Exit     (  13) delay [~make (~!local (r),~? (p)),~continue ()]
+Result: [~make (~!local (r),~? (p)),~continue ()]
+Entering (  13) ~make [~!local (r),~? (p)]
+Entering (  14) ~!local [r]
+Exit     (  14) ~!local [r]
+Result: :r
+Entering (  14) ~? [p]
+Exit     (  14) ~? [p]
+Result: spouse
+Exit     (  13) ~make [:r,spouse]
+Result: spouse
+Entering (  13) ~continue 
+Exit     (  13) ~continue 
+Result: 
+Exit     (  12) ~rule [T,[~make (~!local (r),~? (p)),~continue ()]]
+Result: [spouse,]
+Exit     (  11) '!main:payment:patient covered:relation:!!Ask' [[spouse],double_click_event,11668]
+Result: 
+Exit     (  10) ~ask ['#eHow is the patient related to the policyholder ?',relation,[self,spouse,'natural child','other child']]
+Result: spouse
+Exit     (   9) ~? [relation]
+Result: spouse
+Exit     (   8) ~eq [spouse,self]
+Result: F
+Entering (   8) delay [~make ('patient covered',yes)]
+Exit     (   8) delay [~make ('patient covered',yes)]
+Result: [~make ('patient covered',yes)]
+Exit     (   7) ~rule [F,[~make ('patient covered',yes)]]
+Result: 
+Entering (   7) ~rule [~and (~eq (~? (relation),spouse),delay (~eq (~? (policy),family))),delay (~make ('patient covered',yes))]
+Entering (   8) ~and [~eq (~? (relation),spouse),delay (~eq (~? (policy),family))]
+Entering (   9) ~eq [~? (relation),spouse]
+Entering (  10) ~? [relation]
+Exit     (  10) ~? [relation]
+Result: spouse
+Exit     (   9) ~eq [spouse,spouse]
+Result: T
+Entering (   9) delay [~eq (~? (policy),family)]
+Exit     (   9) delay [~eq (~? (policy),family)]
+Result: [~eq (~? (policy),family)]
+Entering (   9) ~eq [~? (policy),family]
+Entering (  10) ~? [policy]
+Entering (  11) ~ask ['Is this a family or an individual policy ?',policy,[family,individual]]
+Entering (  12) '!main:payment:patient covered:policy:!!Ask' [[individual],double_click_event,11132]
+Entering (  13) ~rule [~eq (~? (e),double_click_event),delay (~make (~!local (r),~? (p)),~continue ())]
+Entering (  14) ~eq [~? (e),double_click_event]
+Entering (  15) ~? [e]
+Exit     (  15) ~? [e]
+Result: double_click_event
+Exit     (  14) ~eq [double_click_event,double_click_event]
+Result: T
+Entering (  14) delay [~make (~!local (r),~? (p)),~continue ()]
+Exit     (  14) delay [~make (~!local (r),~? (p)),~continue ()]
+Result: [~make (~!local (r),~? (p)),~continue ()]
+Entering (  14) ~make [~!local (r),~? (p)]
+Entering (  15) ~!local [r]
+Exit     (  15) ~!local [r]
+Result: :r
+Entering (  15) ~? [p]
+Exit     (  15) ~? [p]
+Result: individual
+Exit     (  14) ~make [:r,individual]
+Result: individual
+Entering (  14) ~continue 
+Exit     (  14) ~continue 
+Result: 
+Exit     (  13) ~rule [T,[~make (~!local (r),~? (p)),~continue ()]]
+Result: [individual,]
+Exit     (  12) '!main:payment:patient covered:policy:!!Ask' [[individual],double_click_event,11132]
+Result: 
+Exit     (  11) ~ask ['Is this a family or an individual policy ?',policy,[family,individual]]
+Result: individual
+Exit     (  10) ~? [policy]
+Result: individual
+Exit     (   9) ~eq [individual,family]
+Result: F
+Exit     (   8) ~and [T,[~eq (~? (policy),family)]]
+Result: [F]
+Entering (   8) delay [~make ('patient covered',yes)]
+Exit     (   8) delay [~make ('patient covered',yes)]
+Result: [~make ('patient covered',yes)]
+Exit     (   7) ~rule [[F],[~make ('patient covered',yes)]]
+Result: 
+Entering (   7) ~rule [~and (~eq (~? (relation),spouse),delay (~eq (~? (policy),individual))),delay (~make ('patient covered',no))]
+Entering (   8) ~and [~eq (~? (relation),spouse),delay (~eq (~? (policy),individual))]
+Entering (   9) ~eq [~? (relation),spouse]
+Entering (  10) ~? [relation]
+Exit     (  10) ~? [relation]
+Result: spouse
+Exit     (   9) ~eq [spouse,spouse]
+Result: T
+Entering (   9) delay [~eq (~? (policy),individual)]
+Exit     (   9) delay [~eq (~? (policy),individual)]
+Result: [~eq (~? (policy),individual)]
+Entering (   9) ~eq [~? (policy),individual]
+Entering (  10) ~? [policy]
+Exit     (  10) ~? [policy]
+Result: individual
+Exit     (   9) ~eq [individual,individual]
+Result: T
+Exit     (   8) ~and [T,[~eq (~? (policy),individual)]]
+Result: [T]
+Entering (   8) delay [~make ('patient covered',no)]
+Exit     (   8) delay [~make ('patient covered',no)]
+Result: [~make ('patient covered',no)]
+Entering (   8) ~make ['patient covered',no]
+Exit     (   8) ~make ['patient covered',no]
+Result: no
+Exit     (   7) ~rule [[T],[~make ('patient covered',no)]]
+Result: [no]
+Exit     (   6) ~? ['patient covered']
+Result: no
+Exit     (   5) ~eq [no,yes]
+Result: F
+Entering (   5) delay [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes)))]
+Exit     (   5) delay [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes)))]
+Result: [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes)))]
+Exit     (   4) ~and [F,[~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),yes)))]]
+Result: F
+Entering (   4) delay [~make (payment,all)]
+Exit     (   4) delay [~make (payment,all)]
+Result: [~make (payment,all)]
+Exit     (   3) ~rule [F,[~make (payment,all)]]
+Result: 
+Entering (   3) ~rule [~and (~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no))))),delay (~make (payment,none))]
+Entering (   4) ~and [~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no))))]
+Entering (   5) ~eq [~? ('patient covered'),yes]
+Entering (   6) ~? ['patient covered']
+Exit     (   6) ~? ['patient covered']
+Result: no
+Exit     (   5) ~eq [no,yes]
+Result: F
+Entering (   5) delay [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no)))]
+Exit     (   5) delay [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no)))]
+Result: [~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no)))]
+Exit     (   4) ~and [F,[~and (~eq (~? ('type of service'),hospital),delay (~eq (~? ('hospital coverage'),no)))]]
+Result: F
+Entering (   4) delay [~make (payment,none)]
+Exit     (   4) delay [~make (payment,none)]
+Result: [~make (payment,none)]
+Exit     (   3) ~rule [F,[~make (payment,none)]]
+Result: 
+Entering (   3) ~rule [~and (~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes))))),delay (~make (payment,80%))]
+Entering (   4) ~and [~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes))))]
+Entering (   5) ~eq [~? ('patient covered'),yes]
+Entering (   6) ~? ['patient covered']
+Exit     (   6) ~? ['patient covered']
+Result: no
+Exit     (   5) ~eq [no,yes]
+Result: F
+Entering (   5) delay [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes)))]
+Exit     (   5) delay [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes)))]
+Result: [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes)))]
+Exit     (   4) ~and [F,[~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),yes)))]]
+Result: F
+Entering (   4) delay [~make (payment,80%)]
+Exit     (   4) delay [~make (payment,80%)]
+Result: [~make (payment,80%)]
+Exit     (   3) ~rule [F,[~make (payment,80%)]]
+Result: 
+Entering (   3) ~rule [~and (~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no))))),delay (~make (payment,none))]
+Entering (   4) ~and [~eq (~? ('patient covered'),yes),delay (~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no))))]
+Entering (   5) ~eq [~? ('patient covered'),yes]
+Entering (   6) ~? ['patient covered']
+Exit     (   6) ~? ['patient covered']
+Result: no
+Exit     (   5) ~eq [no,yes]
+Result: F
+Entering (   5) delay [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no)))]
+Exit     (   5) delay [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no)))]
+Result: [~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no)))]
+Exit     (   4) ~and [F,[~and (~eq (~? ('type of service'),'major medical'),delay (~eq (~? ('major medical coverage'),no)))]]
+Result: F
+Entering (   4) delay [~make (payment,none)]
+Exit     (   4) delay [~make (payment,none)]
+Result: [~make (payment,none)]
+Exit     (   3) ~rule [F,[~make (payment,none)]]
+Result: 
+Entering (   3) ~rule [~eq (~? ('patient covered'),no),delay (~make (payment,none))]
+Entering (   4) ~eq [~? ('patient covered'),no]
+Entering (   5) ~? ['patient covered']
+Exit     (   5) ~? ['patient covered']
+Result: no
+Exit     (   4) ~eq [no,no]
+Result: T
+Entering (   4) delay [~make (payment,none)]
+Exit     (   4) delay [~make (payment,none)]
+Result: [~make (payment,none)]
+Entering (   4) ~make [payment,none]
+Exit     (   4) ~make [payment,none]
+Result: none
+Exit     (   3) ~rule [T,[~make (payment,none)]]
+Result: [none]
+Exit     (   2) ~? [payment]
+Result: none
+Exit     (   1) ~text ['#eInsurance will cover#s',none,'of this claim.']
+Result: 
+Entering (   1) ~button [Continue,~!local (Next),10,4]
+Entering (   2) ~!local [Next]
+Exit     (   2) ~!local [Next]
+Result: :Next
+Exit     (   1) ~button [Continue,:Next,10,4]
+Result: 11132
+
+

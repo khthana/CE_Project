@@ -1,0 +1,103 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=D:\cen\IIS\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+
+[Package|Internet Package 1|Files In Project]
+C:\WINNT\system32\MSVBVM60.DLL=Yes
+C:\WINNT\system32\OLEAUT32.DLL=Yes
+C:\WINNT\system32\OLEPRO32.DLL=Yes
+C:\WINNT\system32\ASYCFILT.DLL=Yes
+C:\WINNT\system32\STDOLE2.TLB=Yes
+C:\WINNT\system32\COMCAT.DLL=Yes
+C:\Program Files\Common Files\designer\MSWCRUN.DLL=Yes
+C:\Program Files\Common Files\System\ado\MSADOR15.DLL=Yes
+D:\cen\IIS\Shop2000.dll=Yes
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+Shop2000.dll=thiscab
+MSVBVM60.DLL=thiscab
+OLEAUT32.DLL=thiscab
+OLEPRO32.DLL=thiscab
+ASYCFILT.DLL=thiscab
+STDOLE2.TLB=thiscab
+COMCAT.DLL=thiscab
+MSWCRUN.DLL=thiscab
+MSADOR15.DLL=thiscab
+Shop20003.dll=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+WebClass1=false;false
+WebClass2=false;false
+WebClass3=false;false
+clsAdminCategory=false;false
+Main=false;false
+ClsShowMainSearchResult=false;false
+
+[Package|Internet Package 1|Package]
+PackageFolder=D:\cen\IIS\Package
+ProjectFolder=D:\cen\IIS
+ServerSideCab=D:\cen\IIS\Package\Shop2000.CAB
+File1=D:\cen\IIS\Package\Shop2000.CAB
+File2=D:\cen\IIS\regComplete.htm
+File3=D:\cen\IIS\regErr.htm
+File4=D:\cen\IIS\regError.htm
+File5=D:\cen\IIS\register.htm
+File6=D:\cen\IIS\registerC.htm
+File7=D:\cen\IIS\registerO.htm
+File8=D:\cen\IIS\WebClass1.ASP
+File9=D:\cen\IIS\login.htm
+File10=D:\cen\IIS\loginComplete.htm
+File11=D:\cen\IIS\loginErr.htm
+File12=D:\cen\IIS\WebClass2.ASP
+File13=D:\cen\IIS\adminShop.htm
+File14=D:\cen\IIS\adminShopResult.htm
+File15=D:\cen\IIS\RetriveOrder.htm
+File16=D:\cen\IIS\WebClass3.ASP
+File17=D:\cen\IIS\AddCategory.htm
+File18=D:\cen\IIS\DeleteCategory.htm
+File19=D:\cen\IIS\ShowResultCategory.htm
+File20=D:\cen\IIS\updateCategory.htm
+File21=D:\cen\IIS\AdminCategory.ASP
+File22=D:\cen\IIS\loginUpdateAccount.htm
+File23=D:\cen\IIS\main.htm
+File24=D:\cen\IIS\UpdateC.htm
+File25=D:\cen\IIS\Main.ASP
+File26=D:\cen\IIS\SearchResultItem.htm
+File27=D:\cen\IIS\SearchResultShop.htm
+File28=D:\cen\IIS\MainSearchResult.ASP
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

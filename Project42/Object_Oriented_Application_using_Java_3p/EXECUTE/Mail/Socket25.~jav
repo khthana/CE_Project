@@ -1,0 +1,241 @@
+import java.io.*;
+import java.net.*;
+import java.awt.*;
+import java.util.*;
+
+public class Socket25 extends Thread
+{
+    public static Server25 server;
+    public Socket connection;
+    String mail="";
+    protected DataInputStream inStream;
+    protected DataOutputStream outStream;
+
+    public Socket25(Server25 s){
+        server = s;
+    }
+
+    public void run(){
+        runSocket();
+    }
+
+     protected String getInput()
+     throws IOException
+     {
+        String input = "";
+//        String line = inStream.readLine();
+        byte line[] = inStream.readByte(); // readLine();
+        input += line + "\n";
+
+        server.display.appendText(input);
+
+        //byte ch[] = input.getBytes();
+        //server.display.appendText(ch[0]+" "+ch[9]+ " " + ch[10] + " " + ch[11] +" " + ch[12]);
+
+        //byte ch[] = input.getBytes();
+        server.display.appendText(line[0]+" "+line[9]+ " " + line[10] + " " + line[11] +" " + line[12]);
+
+
+        return input;
+     }
+
+     protected String detectCommand(String command)
+     {
+          String input="_Null_";
+          if (command.charAt(0) == 'H') {
+              if (command.charAt(1) == 'E') {
+                  if (command.charAt(2) == 'L') {
+                      if (command.charAt(3) == 'O') {input="HELO";}
+                  }
+              }
+          }
+          if (command.charAt(0) == 'M') {
+              if (command.charAt(1) == 'A') {
+                  if (command.charAt(2) == 'I') {
+                      if (command.charAt(3) == 'L') {input="MAIL FROM:";}
+                  }
+              }
+          }
+          if (command.charAt(0) == 'R') {
+              if (command.charAt(1) == 'C') {
+                  if (command.charAt(2) == 'P') {
+                      if (command.charAt(3) == 'T') {input="RCPT TO:";}
+                  }
+              }
+          }
+          if (command.charAt(0) == 'D') {
+              if (command.charAt(1) == 'A') {
+                  if (command.charAt(2) == 'T') {
+                      if (command.charAt(3) == 'A') {input="DATA";}
+                  }
+              }
+          }
+          if (command.charAt(0) == '.') {
+              input=".";
+          }
+          if (command.charAt(0) == 'E') {
+              if (command.charAt(1) == 'H') {
+                  if (command.charAt(2) == 'L') {
+                      if (command.charAt(3) == 'O') {input="HELO";}
+                  }
+              }
+          }
+          if (command.charAt(0) == 'Q') {
+              if (command.charAt(1) == 'U') {
+                  if (command.charAt(2) == 'I') {
+                      if (command.charAt(3) == 'T') {input="QUIT";}
+                  }
+              }
+          }
+          if (command.charAt(0) == '_')
+          {
+              input=command;
+              mail=mail+input;
+          }
+
+          server.display.appendText("input_detectCommand: "+input+"\n");
+
+          return input;
+     }
+
+     protected String selectReply(String inputCommand)
+     {
+          String reply = "";
+          if(inputCommand == "HELO")
+              reply ="250";
+          else if(inputCommand == "MAIL FROM:")
+              reply ="250";
+          else if(inputCommand == "RCPT TO:")
+              reply ="250";
+          else if(inputCommand == "DATA")
+              reply ="354";
+          else if(inputCommand == ".")
+              reply ="250";
+          else if(inputCommand == "QUIT"){
+              try{
+                connection.close();
+                }
+                catch(IOException e)
+                {
+                  e.printStackTrace();
+                }
+              }
+          else reply = inputCommand;
+
+          server.display.appendText("reply_selectReply: "+reply+"\n");
+
+          return reply;
+     }
+
+
+     protected void reply(String case_reply)
+     throws IOException
+     {
+          server.display.appendText("reply_reply: "+case_reply);
+
+          if(case_reply.charAt(0) == '2'||case_reply.charAt(0) == '3')
+          {
+            case_reply=case_reply+"\n";
+              for(int i=0;i<case_reply.length();i++)
+                  outStream.write((int)case_reply.charAt(i));
+          }
+
+     }
+
+    public void runSocket()
+    {
+        try
+        {
+            server.display.appendText("Socket25.runSocket...\n");
+
+            connection = server.waitConnect(connection);
+
+            Socket25 sk = new Socket25(server);
+            sk.start();
+
+            inStream = new DataInputStream(
+            connection.getInputStream());
+            outStream = new DataOutputStream(
+            connection.getOutputStream());
+
+            server.display.setText("Connection received...\n");
+
+            reply("220");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===1===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===2===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===3===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===4===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===5===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===6===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===7===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===8===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===9===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===10===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===11===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===12===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===13===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===14===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===15===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===16===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===17===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===18===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===19===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===20===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===21===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===22===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===23===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===24===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===25===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===26===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===27===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===28===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===29===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===30===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===31===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===32===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===33===\n");
+            reply(selectReply(detectCommand(getInput())));
+            server.display.appendText("===34===\n");
+
+            connection.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+}

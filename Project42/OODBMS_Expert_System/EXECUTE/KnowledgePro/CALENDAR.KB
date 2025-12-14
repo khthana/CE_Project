@@ -1,0 +1,25 @@
+(*================================= CLOCK.KB ===========================
+   This program runs the Windows Calendar from within KnowledgePro.
+   This tool can be modified to run any Windows or DOS program and
+    then added to the Tools menu in the development environment.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+==========================================================================*)
+run ('calendar.exe', 1).
+exit_kp ().

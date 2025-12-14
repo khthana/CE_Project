@@ -1,0 +1,99 @@
+(* ============================ INDEX.KB ===================================
+   Indexes a text file for faster access.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+========================================================================== *)
+
+FileName is '*.hyp'.
+EOF is number_to_char (26).
+main is window (quit,20,6,47,12,Index,[overlapped,showChildren,Siblings,TitleBar,thickFrame,controlmenu,minimizebox],,,,close_event).
+toolicon is load_icon (kptool_icon).
+attach_icon (?main, ?toolicon).
+startWin is window (,1,1,100,100,,[child,showChildren,siblings,visible],?main).
+text ( '
+         
+          KnowledgePro Index Program
+
+        © Knowledge Garden Inc. 1990-92 ').
+button ('Help',Help,6,8,8).
+b1 is button ('Index',Index,20,8,8).
+button ('Quit',Quit,34,8,8).
+show_window (?main).
+set_top_window (?startWin).
+set_focus (?b1).
+
+topic Index.
+  FileName is file_menu (,,'Text File to Index', 
+           ['Hypertext Files (*.hyp)', '*.hyp',
+            'Help Files (*.hlp)', '*.hlp',
+            'Text Files (*.txt)', '*.txt',
+            'All Files (*.*)', '*.*']).
+  if ?FileName is [] 
+     then FileName is '*.hyp' and
+          set_focus (?b1) and
+          exit ().
+  SaveTo is save_as (ConvertToNdx (?FileName),'Name of Index File:').
+  if ?SaveTo is []
+     then FileName is '*.hyp' and
+          set_focus (?b1) and
+          exit ().
+  new_file (?SaveTo).  
+  set_title (?main,concat ('Index: ',?fileName)).
+  indxWin is window (,1,1,100,100,,[child,showChildren,siblings,visible],?main).
+  set_text ( ,'
+
+ Total:
+
+ Current:').
+  invWin is window (,10,3,100,100,,[child,visible,siblings],?main).
+  header is read_line (?fileName).
+  items = 1.
+  REPEAT 
+    set_text (,[?items,#x1,#y3,?header]) and
+    pos is get_file_pos (?fileName) and
+    body is read (?fileName,,'//') and
+    length is string_length ( list_to_string (?body,' ') ) + list_length (?body) -1 and
+    write (?saveTo,?header,?pos,?length,#n) and
+    header is read_line (?fileName)  and
+    items = ?items+1
+  UNTIL one_of ( [?EOF,'//',[]],?header).
+  close ([?FileName,?SaveTo]).
+  close_window ([?indxWin,?invWin]).
+  set_title (?main,Index).
+  set_focus (?b1).
+  fileName is '*.hyp'.  
+end.   (* Index *)
+
+topic Quit.
+  exit_kp ().
+end.
+
+topic ConvertToNdx (FileName).
+    :WhereDot is string_where (?FileName, '.', 1).
+    if ?WhereDot is 0 
+       then ConvertToNdx is concat (?FileName, '.NDX')
+       else ConvertToNdx is concat (string_copy (?FileName, 1, ?WhereDot - 1),'.NDX').
+end. (* ConvertToNdx *)
+
+topic Help.
+  load ('indexhlp.hkb' (* compiled file is indexhlp.src *),temp).
+  temp ().
+  remove_topic (temp). 
+  set_active_window (?main).
+end. (* help *)

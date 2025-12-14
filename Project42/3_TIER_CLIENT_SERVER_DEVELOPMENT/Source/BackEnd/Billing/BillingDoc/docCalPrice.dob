@@ -1,0 +1,93 @@
+VERSION 5.00
+Begin VB.UserDocument docCalPrice 
+   ClientHeight    =   1725
+   ClientLeft      =   60
+   ClientTop       =   345
+   ClientWidth     =   5130
+   HScrollSmallChange=   225
+   ScaleHeight     =   1725
+   ScaleWidth      =   5130
+   VScrollSmallChange=   225
+   Begin VB.CommandButton cmdCalPrice 
+      Caption         =   "Calculate Price"
+      Height          =   495
+      Left            =   3240
+      TabIndex        =   4
+      Top             =   720
+      Width           =   1455
+   End
+   Begin VB.TextBox txtItemID 
+      Height          =   405
+      Left            =   1200
+      TabIndex        =   3
+      Top             =   1080
+      Width           =   1575
+   End
+   Begin VB.TextBox txtBillingID 
+      Height          =   405
+      Left            =   1200
+      TabIndex        =   1
+      Top             =   600
+      Width           =   1575
+   End
+   Begin VB.Label lblErr 
+      Height          =   375
+      Left            =   360
+      TabIndex        =   5
+      Top             =   120
+      Width           =   3255
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Item ID"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   2
+      Top             =   1200
+      Width           =   855
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Billing ID"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   0
+      Top             =   720
+      Width           =   855
+   End
+End
+Attribute VB_Name = "docCalPrice"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub cmdCalPrice_Click()
+Dim ObjBillingdetail As Object
+Dim Price As Single
+
+  cmdCalPrice.Enabled = False
+On Error GoTo CalPriceError
+Set ObjBillingdetail = CreateObject("Ecomm.billingdetail")
+
+With ObjBillingdetail
+  .billingid = CInt(txtBillingID.Text)
+  .itemid = CInt(txtItemID.Text)
+  
+  Price = .calprice
+End With
+
+ MsgBox "Price : " & Price & vbCrLf & _
+        "And update to tblBillingDetail.price complete"
+ 
+ Set ObjBillingdetail = Nothing
+
+ cmdCalPrice.Enabled = True
+Exit Sub
+CalPriceError:
+'[AXDW] The following line was commented out by the ActiveX Document Migration Wizard.
+    lblErr.Caption = Err.Number & " : " & Err.Description
+    cmdCalPrice.Enabled = True
+End Sub
+
+
+

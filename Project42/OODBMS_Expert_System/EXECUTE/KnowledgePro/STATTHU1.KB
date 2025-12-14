@@ -1,0 +1,64 @@
+(* ============================= STAT-EX.KB ===============================
+   This application is a rule-based approach to a problem regarding
+   Statistic Tetsting Hypothesis assistance.
+
+   Developer:	Mr. Ho Thanh Phong
+   Instructor:	Dr. Vatcharaporn
+		SAT - AIT	
+=========================================================================*)
+
+(* menu ( [ [&File, &New, &Save,[], &Exit], &Consultant,&Testing ,&Help,&Quit ],GetOption). *)
+
+		if NOT(exists(w1)) 
+		 then w1 is window (,5,4,50,13,'Working Window',[overlapped,visible,thickFrame] ).
+
+		text ('#e The type of Testing Hypothesis should be:   #s', ?TypeOfTesting).
+
+		topic TypeOfTesting.
+			set_number_of_values (TypeOfTesting,1).
+
+			(* Rule 1*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?variance_known is Known
+			then TypeOfTesting  is  'Z - test'.
+
+			(* Rule 2*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test'.
+
+			(* Rule 3*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test'.
+			
+			topic NumberPopulation.
+				ask ('What is the number of Population ? ',NumberPopulation , ['One Population','Two Populations', 'More than two Populations']).			
+			end. (* NumberPopulation*)
+
+			topic KindOfTest1.
+			ask ('Which kind of Parameters  do you want to test : ', KindOfTest1, [Population, Distribution, 'Relationship between Variables']).
+			end. (* KindOfTest1*)
+
+			topic KindOfTest2.
+			        (*	KindOfTest2 is Mean.*)
+			        ask ('Which kind of Parameters  do you want to test : ', KindOfTest2, [Mean, Proportion, Variance]). 
+			          (*	radio_button([ [Mean,10,6,t], [ proportion,10,8], [Variance, 10,10] ], KindOfTest2). *)
+			end. (* KindOfTest2*)
+
+			topic variance_known.
+				ask ('The Variance of Population are : ', variance_known, [Known, UnKnown]).
+			end. (* variance_known*)
+
+			topic samplesize.
+			ask ('What is the Size of sample taken ? ', samplesize, ['n <= 30', 'n > 30']).
+			end. (*  samplesize*)
+		end. (* TypeOfTesting*)

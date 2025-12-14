@@ -1,0 +1,7 @@
+Entering (   1) ~rule [~NOT (~exists (w1)),delay (~make (w1,~window ()))]
+Entering (   2) ~NOT [~exists (w1)]
+Entering (   3) ~exists [w1]
+Exit     (   3) ~exists [w1]
+Result: F
+
+

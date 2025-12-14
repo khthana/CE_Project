@@ -1,0 +1,18 @@
+LIBRARY         KPDIR
+
+DESCRIPTION 'KnowledgePro DLL sample (c) Knowledge Garden Inc. 1990'
+
+EXETYPE WINDOWS
+
+STUB 'WINSTUB.EXE'
+
+DATA MOVEABLE SINGLE
+CODE MOVEABLE
+
+HEAPSIZE  1024
+
+EXPORTS
+   Dispatch     @1
+   create_directory     @2
+   delete_directory     @3
+   WEP          @4 RESIDENTNAME

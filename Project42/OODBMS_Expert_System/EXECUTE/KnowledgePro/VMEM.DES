@@ -1,0 +1,39 @@
+# POWRVMEM ¤Î pvmemex.c ªººûÅ@ÀÉ(make file)(for Microsoft C)
+#
+# c:\VM ¢s¢w *.c
+#       ¢x   *.h
+#       ¢u¢wTC ¢s¢wEXE ¢w¢w *.exe
+#       ¢x     ¢u¢wOBJ ¢w¢w *.obj
+#       ¢x     ¢|¢wmake file
+#       ¢|¢wMC ¢s¢wEXE ¢w¢w *.exe
+#              ¢u¢wOBJ ¢w¢w *.obj
+#              ¢|¢wmake file
+#
+# USE:     <path>make     vmem.des  <return>
+#----------------------------------------------------------
+# MACRO DEFINITIONS
+Ipath=..
+Spath=..
+Opath=.\obj
+Epath=.\exe
+VMEMopt=/DMSC /AL /Ot /G2 /Zl /c
+$(Opath)\vmkrnl.obj: $(Spath)\vmkrnl.c
+  cl $(VMEMopt) /Fo$(Opath)\vmkrnl.obj  $(Spath)\vmkrnl.c
+$(Opath)\vmheap.obj: $(Spath)\vmheap.c
+  cl $(VMEMopt) /Fo$(Opath)\vmheap.obj  $(Spath)\vmheap.c
+$(Opath)\vmarry1d.obj: $(Spath)\vmarry1d.c
+  cl $(VMEMopt) /Fo$(Opath)\vmarry1d.obj $(Spath)\vmarry1d.c
+$(Opath)\vmarry3d.obj: $(Spath)\vmarry3d.c
+  cl $(VMEMopt) /Fo$(Opath)\vmarry3d.obj $(Spath)\vmarry3d.c
+$(Opath)\pvmemex.obj: $(Spath)\pvmemex.c
+  cl $(VMEMopt) /Fo$(Opath)\pvmemex.obj  $(Spath)\pvmemex.c
+$(Epath)\pvmemex.exe :    $(Opath)\pvmemex.obj   \
+                          $(Opath)\vmkrnl.obj    \
+                          $(Opath)\vmheap.obj    \
+                          $(Opath)\vmarry1d.obj  \
+                          $(Opath)\vmarry3d.obj  \
+                          $(Opath)\powrdevc.obj  \
+                          $(Opath)\powrstor.obj
+link /stack:45000 @vmemobj.rsp, $(Epath)\pvmemex, nul, llibc7
+#-----------------------------------------------------------
+

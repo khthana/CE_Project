@@ -1,0 +1,187 @@
+(* ========================= DESSTY2.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Object Style Module
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+  ====================================================================== *)
+
+  topic GetStyle ( hChange, style, title ).
+    GetStyle is [ ].
+    :tempStyle is ?style.
+    set_title ( ?ref:wMain, 'Select Window Styles' ).
+
+    use_font ( element (?ref:fontHandleList, 1 ), [control, window] ).
+    :wStyle is window ( , 2,2,40,25, ,[ child, thinframe, showChildren, siblings ],?ref:wMain, , ).
+    if element ( system_info ( ), 4 ) is 16 then VGA ( ) else EGA ( ).
+
+    set_display_window ( ?wStyle ).
+    :ed1 is edit_box (?title,   , 19, 20, 20, 1.35, [visible,thinframe, autohscroll ]  ).
+    if one_of ( ?style, visible ) then invisible is F else invisible is T.
+    button2 ( '  &Ok  ', Save, 23,22,11,1.5).
+    button2 (&Cancel, Cancel ,23,24,11,1.5).
+    text ( '#y20.25#x6Window Title:').
+    :w4 is window ( , 19, 2.5, 20, 17,  , ?tempStyle, ?wStyle).
+
+    set_display_window (?w4).
+    resize_window ( ?ref:wMain, 44, 28 ).
+    move_window ( ?ref:wMain, 24, 1.5 ).
+    show_window ( [?ref:wMain, ?wStyle ] ).
+    set_focus ( ?w4 ).
+    wait ( ).
+ 
+    topic VGA.   
+       GetStyle:choose is load_bitmap ( concat (?ref:startDir, 'desstyle.bmp')).
+       bitmap (?choose,1,1).
+       set_window_colors (?GetStyle:wStyle,,lightgray).
+       GetStyle:regHandles is apply ( hyper_region,  [ thick, thin, dialog, min, max, control, vert, horz, atitlebar ], 
+         [ 3, 		2.714, 	2.857, 	3.714, 	7.285, 	10.71, 	14.71,	6.142, 	2.714 ],
+         [ 2.5, 	4.937, 	7.5, 	10.37, 	10.37, 	10.37, 	10.31, 	12.12, 	14.12 ],
+         [ 14.28,	14.856,	14.563,	2.428,	2.57,	2.86,	1.57,	 5.858,	14.856 ],
+         [ 1.687,	1.938,	1.812,	1.19,	1.25,	1.19,	 2.87,	0.94,	1.94 ] ).
+       (* This window covers up the menu hyper region since menus are not allowed on children *)
+       window ( , 2.8,16.5,15.25,3, , [child,visible], ?wStyle, , lightgray ).
+    end.
+
+    topic EGA.   
+       GetStyle:choose is load_bitmap ( concat (?ref:startDir, 'desstyl2.bmp')).
+       bitmap (?choose,1,1).
+       set_window_colors (?GetStyle:wStyle,,darkgray).
+       GetStyle:regHandles is apply ( hyper_region , [ thick, thin, dialog, min, max, control, vert, horz, atitlebar ],
+	[2.29,	9.86,	2.29,	2.86,	6.57,	10.57,	14.43,	5.86,	2.29],
+	[1.08,	1.08,	3.95,	7.42,	7.42,	7.42,	7.25,	9.50,	11.75],
+	[7.14,	7.28,	14.85,	2.71,	2.86,	2.72,	1.71,	5.85,	14.85],
+	[2.5,	2.59,	2.75,	1.58,	1.58,	1.58,	3.92,	1.25,	2.67]).
+       (* This window covers up the menu hyper region since menus are not allowed on children *)
+       window ( , 2.29,21.67,15,4, , [child,visible], ?wStyle, , darkgray ).
+    end.
+
+    topic Save.
+       GetStyle is [ ?tempStyle, get_text ( ?ed1 ) ] .
+       set_title ( ?hChange, get_text ( ?ed1) ).
+       Cancel ( ).
+    end.
+
+    topic Cancel.
+      delete_hyper_region ( ?regHandles ).
+      close_window ( ?wStyle ).
+      hide_window ( ?ref:wMain ).
+      delete_bitmap ( ?choose ).
+      continue ( ).
+    end. (* Cancel *)
+
+    topic thick.
+      if not (one_of (?tempStyle, thickframe) )
+         then tempStyle is remove (?tempStyle, [thinframe,dialogframe]) and
+                 tempStyle gets thickframe and
+                 Redraw ( ) 
+         else set_focus (?w4).
+    end.
+    
+    topic thin.
+      if not (one_of (?tempStyle, thinframe) )
+         then tempStyle is remove (?tempStyle, [dialogframe,thickframe] ) and
+                 tempStyle gets thinframe and
+                 Redraw ( )
+         else set_focus (?w4).
+    end.
+    
+    topic dialog.
+      if not (one_of (?tempStyle, dialogframe) )
+         then tempStyle is remove (?tempStyle, [thinframe,thickframe,titlebar,controlmenu,
+                                                            minimizebox,maximizebox] ) and
+                 tempStyle gets dialogframe and
+                 Redraw ( )
+         else set_focus (?w4).
+    end.
+    
+    topic control.
+      title is [].
+      if not (one_of (?tempStyle, controlmenu) )
+         then tempStyle gets controlmenu and
+                 (if not ( one_of (?tempStyle, titlebar) )
+                     then tempStyle gets titlebar ) and
+                 ( if one_of (?tempStyle, dialogframe)
+                      then tempStyle gets thinframe and
+                              tempStyle is remove (?tempStyle, dialogframe) ) 
+         else tempStyle is remove (?tempStyle, controlMenu).
+      Redraw ( ).
+    end.
+     
+    topic min.
+      if not (one_of (?tempStyle, minimizebox) )
+         then tempStyle gets minimizebox and
+                 (if not ( one_of (?tempStyle, titlebar) )
+                           then tempStyle gets titlebar) and
+                 ( if one_of (?tempStyle, dialogframe)
+                      then tempStyle gets thinframe and
+                              tempStyle is remove (?tempStyle, dialogframe) ) 
+        else tempStyle is remove (?tempStyle, minimizebox).
+      Redraw ( ).
+    end.
+    
+    topic max.
+      if not (one_of (?tempStyle, maximizebox) )
+         then tempStyle gets maximizebox and
+                 (if not ( one_of (?tempStyle, titlebar) )
+                     then tempStyle gets titlebar) and
+                 ( if one_of (?tempStyle, dialogframe)
+                      then tempStyle gets thinframe and
+                              tempStyle is remove (?tempStyle, dialogframe) ) 
+         else tempStyle is remove (?tempStyle, maximizebox).
+       Redraw ( ).
+    end.
+    
+    topic horz.
+      if not (one_of (?tempStyle, horzscroll) )
+         then tempStyle gets horzscroll
+         else tempStyle is remove (?tempStyle, horzscroll).
+      Redraw ( ).
+    end.
+    
+    topic vert.
+      if not (one_of (?tempStyle, vertscroll) )
+         then tempStyle gets vertscroll
+         else tempStyle is remove (?tempStyle, vertscroll).
+      Redraw ( ).
+    end.
+      
+    topic atitlebar.
+      if not (one_of (?tempStyle, titlebar) )
+         then tempStyle gets titlebar and
+                 ( if one_of (?tempStyle, dialogframe)
+                      then tempStyle gets thinframe and
+                              tempStyle is remove (?tempStyle, dialogframe) )
+         else tempStyle is remove (?tempStyle, [titlebar, controlmenu, maximizebox, minimizebox] ).
+      Redraw ( ).
+    end.
+    
+    topic Redraw.
+       SetWinStyle ( ?w4, ?tempStyle ).
+       if one_of ( ?tempStyle, titlebar )
+          then set_display_window ( ?w4).
+       set_focus ( ?w4).
+    end.
+
+    topic SetWinStyle ( wHandle, setStyle, 	tCol, tRow, wTemp ). 
+      wTemp is window ( , 500, 500, 20, 17, , ?setStyle, ?wStyle ).
+      [ tCol, tRow ] is_c window_info ( ?wHandle ).
+      move_window ( ?wTemp, ?tCol + 0.2, ?tRow + 0.2 ).
+      move_window ( ?wTemp, ?tCol, ?tRow ).
+      close_window ( ?wHandle ).
+      [w4, wHandle] is ?wTemp.
+      set_focus ( ?wHandle ).
+    end.  (* SetWinStyle *)
+
+  end. (* GetStyle *)

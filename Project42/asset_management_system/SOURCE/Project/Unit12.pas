@@ -1,0 +1,121 @@
+unit Unit12;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ComCtrls;
+
+type
+  TForm12 = class(TForm)
+    PageControl1: TPageControl;
+    Button2: TButton;
+    TabSheet1: TTabSheet;
+    GroupBox1: TGroupBox;
+    Label3: TLabel;
+    Label2: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    edit1: TEdit;
+    edit2: TEdit;
+    Edit3: TEdit;
+    Edit_name: TEdit;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form12: TForm12;
+
+implementation
+
+uses Unit2, Unit3;
+
+{$R *.DFM}
+
+procedure TForm12.Button1Click(Sender: TObject);
+var
+olditem :integer;
+begin
+try
+                         form3.query2.close;
+                         form3.query2.sql.Clear;
+                         form3.query2.Params.Clear;
+                         form3.query2.sql.Add(' Use data_stores select item from stores ');
+                         form3.query2.sql.add(' where (store_name = :store_name  )  ') ;
+                         form3.query2.ParamByName('store_name').asstring := edit1.text ;
+                         form3.Query2.open;
+                         olditem:= form3.query2['item'];
+
+  if edit3.Text <>'' then
+       begin
+          if strToInt(edit3.text)-strToInt(edit2.text) >= 0 then
+             begin
+                  //  Full = delete borrow_stroes
+                         form3.query1.close;
+                         form3.query1.sql.Clear;
+                         form3.query1.Params.Clear;
+  //                       form3.query1.sql.Add(' DECLARE @TranName VARCHAR(20) ,@datevar1 datetime SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+                         form3.query1.sql.Add(' DECLARE @datevar1 datetime ');
+                         form3.query1.sql.Add(' set @datevar1 = :date ');
+                         form3.query1.sql.Add(' delete borrow_stores  ');
+                         form3.query1.sql.add(' where (store_name = :store_name  ) and ') ;
+                         form3.query1.sql.add('  (id_user = :id_user  ) and ') ;
+                         form3.query1.sql.add('  (date = @datevar1  ) ') ;
+                         form3.Query1.sql.add(' update stores set item =:newitem where store_name= :store_name ');
+                         form3.query1.ParamByName('store_name').asstring := edit1.text ;
+                         form3.query1.ParamByName('id_user').asstring := edit_name.text ;
+                         form3.query1.ParamByName('date').value := form2.query2['date'] ;
+                         form3.query1.ParamByName('newitem').value := strToInt(edit2.text)+olditem;
+
+   //                    form3.query2.sql.Add(' COMMIT TRANSACTION @TranName ');
+                         form3.query1.ExecSQL;
+                         showmessage('เรียบร้อย');
+             end
+             else
+             begin
+
+                         form3.query1.close;
+                         form3.query1.sql.Clear;
+                         form3.query1.Params.Clear;
+//                         form3.query1.sql.Add(' DECLARE @TranName VARCHAR(20) ,@datevar1 datetime SELECT @TranName = ''MyTransaction'' BEGIN TRANSACTION @TranName ');
+                         form3.query1.sql.Add(' DECLARE @datevar1 datetime ');
+                         form3.query1.sql.Add(' set @datevar1 = :date ');
+                         form3.query1.sql.Add(' Use data_stores update borrow_stores  ');
+                         form3.query1.sql.add(' set item = :item1 ') ;
+                         form3.query1.sql.add(' where (store_name = :store_name  ) and ') ;
+                         form3.query1.sql.add('  (id_user = :id_user  ) and ') ;
+                         form3.query1.sql.add('  (date = @datevar1  ) ') ;
+                         form3.Query1.sql.add(' update stores set item =:newitem where store_name= :store_name ');
+//                       form3.query2.sql.Add(' COMMIT TRANSACTION @TranName ');
+                         form3.query1.ParamByName('item1').value := strToInt(edit2.text)-strToInt(edit3.text);
+                         form3.query1.ParamByName('store_name').asstring := edit1.text ;
+                         form3.query1.ParamByName('id_user').asstring := edit_name.text ;
+                         form3.query1.ParamByName('date').value := form2.query2['date'] ;
+                         form3.query1.ParamByName('newitem').value := strToInt(edit3.text)+olditem;
+                         form3.query1.ExecSQL;
+                         showmessage('เรียบร้อย');
+             end;
+       end;
+     form12.Close;
+     form2.enabled := true;
+     form2.visible := true;
+except
+      showmessage('have error');
+end;
+end;
+
+procedure TForm12.Button2Click(Sender: TObject);
+begin
+     form12.Close;
+     form2.enabled := true;
+     form2.visible := true;
+
+end;
+
+end.

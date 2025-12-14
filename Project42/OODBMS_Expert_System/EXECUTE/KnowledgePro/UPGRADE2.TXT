@@ -1,0 +1,432 @@
+KnowledgePro Windows Version 2.0
+
+Summary of Changes and New Features for users
+of previous versions of KnowledgePro.
+
+This file accompanies the information found in
+README.TXT.
+
+New Features
+----------------------
+Several new features and enhancements can be found in 
+version 2.0 of KnowledgePro Windows. These new features, 
+described below, expand KnowledgePro's capability in 
+handling screen objects, graphics, Dynamic Link Libraries, 
+and various events recognized by Windows.
+
+New features and overall optimization increase performance 
+and generally enhance KnowledgePro's viability as a  
+development tool for building intelligent Windows 
+applications.
+
+New Functions
+----------------------
+Functions added to KnowledgePro are categorized as 
+follows: 
+
+Screen Objects
+----------------------
+The combo box has been added. The various combo box 
+functions are:
+
+combo_box
+Creates a Standard Windows 3.x combo box - a 
+combined edit line and list box. Options available 
+for changing the style of combo box.
+
+get_combo_box
+Retrieves the combo box selection.
+
+set_combo_box
+Sets the combo box selection.
+
+set_list_box
+Sets the list box selection. This feature became 
+available in version 1.1 and is now fully 
+documented.
+
+set_window_colors
+Sets the text color and background colors for an 
+existing window.
+
+Graphics
+----------------------
+Further support for manipulating hyper-regions, bitmaps 
+and cursors has been added. Functions for dragging 
+objects have also been added.
+
+adjust_drag_rect
+Resizes the dragging rectangle.
+
+bitmap_info
+Retrieves dimensions of a bitmap. Can be used to 
+create windows that "fit" around a bitmap.
+
+capture_hyper_region
+Captures the contents of a hyper-region and 
+creates a bitmap of the contents. Can be used to 
+capture and print screens.
+
+create_char_font
+Creates fonts with respect to system characters 
+for greater portability. This feature became 
+available in version 1.1 and is now fully 
+documented.
+
+delete_hyper_region
+Removes a hyper-region.
+
+delete_mouse_cursor
+Removes a loaded mouse cursor. This feature became 
+available in version 1.1 and is now fully 
+documented.
+
+disable_draw
+Turns off redrawing for a window. This can make 
+screen updates smoother.
+
+drag_rect
+Moves the dragging rectangle.
+
+enable_draw
+Turns on redrawing for a window.
+
+erase_bitmap
+Erases the contents of a bitmap from the screen.
+
+hyper_cursor
+Specifies a different cursor for use with 
+hypertext and hyper-regions. This feature became 
+available in version 1.1 and is now fully 
+documented.
+
+invalidate_rect
+Marks a rectangular region of a window for 
+repainting. Invalid regions are painted when a 
+wait state is reached, update_window is called or 
+an other action occurs which forces a window to 
+paint.
+
+invert_hyper_region
+Inverts the colors for a hyper-region. Can be used 
+to create special effects for hyper-regions and 
+custom buttons.
+
+load_mouse_cursor
+Loads a mouse cursor into memory and returns a 
+handle for use in your application. This feature 
+became available in version 1.1 and is now fully 
+documented.
+
+offset_hyper_region
+Used for moving a hyper-region from the current 
+location.
+
+save_bitmap
+Saves a bitmap to a file.
+
+start_drag
+Initializes a rectangle and captures the mouse so 
+that the rectangle can be dragged.
+
+stop_drag
+Erases the dragging rectangle, releases the mouse 
+and frees the memory used while dragging.
+
+string_info
+Returns attribute information about a text string 
+with respect to a particular font.
+
+use_mouse_cursor
+Activates a loaded mouse cursor or selects from a 
+set of pre-defined cursors.
+
+validate_rect
+Prevents a rectangular region from be painted.
+
+Generic DLLs
+----------------------
+Generic DLL functions allow a KnowledgePro application 
+to call into any standard Windows Dynamic Link Library. 
+Calls can also be made to the Windows functions or any 
+third party functions located in a DLL.
+
+address
+Retrieves the physical address of a value.
+
+call
+Performs function calls to third party Dynamic 
+Link Libraries.
+
+get_byte
+get_double
+get_dword
+get_float
+get_int
+get_long
+get_pointer
+get_word
+get_string
+Retrieves a value from a pointer or address to the 
+'C' variable type.
+
+lpbyte
+lpdouble
+lpdword
+lpfloat
+lpint
+lplong
+lpword
+lpstr
+lpstruct
+Returns a long pointer to a 'C' variable type 
+(byte, double, dword, float, int, long, pointer, 
+word, string, struct)
+
+put_byte
+put_double
+put_dword
+put_float
+put_int
+put_long
+put_pointer
+put_word
+put_string
+Places a 'C' type variable value at the pointer or 
+address specified.
+
+type_cast
+Casts a topic value to a specified 'C' variable 
+type.
+
+
+
+Editor
+----------------------
+KnowledgePro Windows adds support for various editor 
+features increasing the capability to manipulate text.
+
+delete_selected_text
+Removes the highlighted text from the window.
+
+get_selected_text
+Returns highlighted text from a screen object.
+
+get_text_modified
+Retrieves the modified status of the text in an 
+edit object.
+
+insert_text
+Inserts text at a particular location.
+
+search_text
+Locates text in a screen object.
+
+select_text
+Highlights text in a screen object.
+
+set_text_modified
+Sets the modified status of the text in an edit 
+object.
+
+Compiler Directives
+----------------------
+Miscellaneous compiler features have been added to 
+simplify development, add security and speed up the 
+finished application.
+
+#define
+Defines a value in the program. Each occurrence of 
+the defined name in the program is replaced by the 
+defined value. Can be used to replace hard to 
+remember color values or other numbers.
+
+#include
+An alternate to the symbol @, this directive 
+copies the source code of the specified file into 
+the current program.
+
+#no_optimize_primitives
+Tells the compiler not to optimize calls to 
+KnowledgePro. This is the default action of the 
+compiler.
+
+#optimize_primitives
+Tells the compiler to optimize calls to 
+KnowledgePro. This directive can increase the 
+performance of your application.
+
+#protect
+Protects topics, so that they cannot be viewed by 
+other functions. Adds data security to your 
+application.
+
+DOS Functions
+Further support of DOS file and directory manipulation.
+
+change_directory
+Changes the DOS directory.
+
+delete_file
+Removes a DOS file from a disk.
+
+Control Codes
+----------------------
+Control codes expand the display capabilities of 
+KnowledgePro Windows by adding support for displaying 
+graphics and executing topics.
+
+#h
+Turns off control code (hash character) 
+processing.
+
+#g
+Used to display or print bitmaps.
+
+#r
+Runs a topic while displaying or printing.
+
+Miscellaneous
+----------------------
+apply
+Executes a common topic for each element in a 
+list. This feature became available in version 1.1 
+and is now fully documented.
+
+debug
+Allows the program to be inspected, primarily for 
+debugging purposes.
+
+format_number
+Places numbers in the specified format. Allows 
+specification for decimal places.
+
+get_parameters
+Retrieves the parameter values for a topic.
+
+has_value
+Checks whether a topic has been evaluated.
+
+is_list
+Determines if the item is a list or a single 
+element.
+
+load_topic
+Loads one or more topics from a knowledge base. 
+This feature became available in version 1.1 and 
+is now fully documented.
+
+no_debug
+Tells KnowledgePro not to allow the program to be 
+inspected for debugging information.
+
+save_topic
+Saves a topic from the current program into a 
+compiled knowledge base.
+
+set_parameters
+Sets the parameters for a topic.
+
+tile_child_windows
+A Multiple Document Interface (MDI) command to 
+tile or arrange all of the child windows.
+
+topic_value
+Retrieves a value of a topic.
+
+Changes to Dynamic Data Exchange
+----------------------
+The runtime system now allows the client task to 
+execute single commands in KnowledgePro.
+
+New Events
+----------------------
+The following events have been added to KnowledgePro in 
+order to provide more professional applications.
+
+message_event
+Intercepts all Microsoft Windows messages during the 
+life of a screen object. Used for detailed handling of 
+an object.
+
+mouse_down_event
+Recognized by all screen objects, this event occurs 
+when the mouse button is pressed.
+
+mouse_drag_event
+Recognized by all screen objects, this event occurs 
+when the mouse button is pressed and the mouse is 
+moved.
+
+mouse_move_event
+Recognized by all screen objects, this event occurs 
+when the mouse is moved.
+
+mouse_up_event
+Recognized by all screen objects, this event occurs 
+when the mouse button is released.
+
+paint_event
+Recognized by all screen objects, this event occurs 
+after the screen object repaints.
+
+Enhancements
+----------------------
+
+Changes to Existing Functions
+----------------------
+The functions listed below have been modified since 
+version 1.1. In most cases, parameters have been added to 
+functions. For these cases, your current code should not 
+need modification. Please read this section to see what 
+changes, if any, may affect your program.
+
+bitmap
+Support for selecting a rectangle within the bitmap.
+Support for using raster operations to combine bitmaps.
+Support for multiple 256-color bitmap handling.
+
+compare
+Support for both case sensitive and non-case sensitive 
+string comparisons.
+Support for international language comparisons.
+
+dir
+Allows you to search for file types.
+
+file_menu
+Improved dialog box.
+
+hyper_region
+Now returns a handle so that it can be manipulated.
+
+save_as
+Improved dialog box.
+
+sort
+Support for both ASCII and language dependent sorting.
+
+string_length
+Support for strings as long as 65000 characters.
+
+string_to_list
+Supports multiple delimiters and turning them into 
+empty list elements.
+
+system_info
+Now returns additional system color information.
+
+use_font
+Can be used to alter the displayable font within edit 
+objects.
+
+window_info
+Now returns information about the client area (inside 
+portion) of a window.
+
+Changes to Existing Events
+----------------------
+Many of the events, such as double_click_event, 
+supported in KnowledgePro can be generated by all screen 
+objects.
+

@@ -1,0 +1,520 @@
+<html>
+<head>
+<title>Owner Registeration</title>
+<!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+-->
+
+<script language="JavaScript">
+<!--
+	template1 = new Image(50, 200);
+	template1.src = ".\\pic\\template1.jpg";
+
+	template2 = new Image(50, 200);
+	template2.src = ".\\pic\\template2.jpg";
+
+	template3 = new Image(50, 200);
+	template3.src = ".\\pic\\template3.jpg";
+
+function ChangeImage(strValue) {
+
+  switch (strValue) {
+    case "Template1" :
+	document.Register.Image1.src = template1.src;
+	break;
+    case "Template2" :
+	document.Register.Image1.src = template2.src;
+	break;
+    case "Template3" :
+	document.Register.Image1.src = template3.src;
+	break;
+
+    default : alert (strValue);
+  }
+}
+
+function GoToTemplate() {
+var strURL
+
+   strURL = "./pic/" + document.Register.lstTemplate.value + ".htm"
+
+//   alert ("Goto URL : " + strURL);
+
+   window.open (strURL, "Template");
+
+
+}
+
+
+//-->
+</script>
+
+</head>
+
+<body bgcolor="#ffffff">
+<center>
+  <table width="100%" border="0" height="1181">
+    <tr bgcolor="#ccffcc"> 
+      <td height="67"> 
+        <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">OWNER REGISTERATION 
+            </font></strong></font></div>
+      </td>
+    </tr>
+    <tr bgcolor="#ffffff"> 
+      <td height="15"> 
+        <hr>
+ 
+      </td>
+    </tr>
+    <tr bgcolor="#ffffcc"> 
+      <td height="1093"> 
+        <div align="center"> 
+          <p>&nbsp;</p>
+          <p><font color="#000000"><b><font size="3" face="MS Sans Serif" color="#ff9900">Please fill in all your 
+            information</font></b></font></p>
+          <form method="post" name="Register" action=WebClass1.ASP?WCI=registerO&amp;WCE=Register&amp;WCU 
+           >
+            <table border="0">
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Shop_name:</b></font> 
+                  </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="ShopName" maxlength="20" >   
+ 
+                  </font></td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center"> 
+                  <div align="right"><font face="MS Sans Serif"><b><font size="2">Name:</font></b></font></div>
+                </td>
+                <td align="left" width="335" height="50" valign="center"> 
+                  <input name="OwnerName" size="15" maxlength="15" >
+                </td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center"> 
+                  <div align="right"><font face="MS Sans Serif" size="2"><b>Surname:</b> 
+                    </font> </div>
+                </td>
+                <td align="left" width="335" height="50" valign="center"> <font face="MS Sans Serif" size="2"> 
+                  <input name="OwnerSurname" maxlength="20" >
+                  </font></td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center"> 
+                  <div align="right"><font face="MS Sans Serif" size="2"><b>Sex:</b> 
+                    </font> </div>
+                </td>
+                <td align="left" width="335" height="50" valign="center"> 
+                  <table width="72%" border="0" cellspacing="0" cellpadding="0">
+                    <tr align="left" valign="center"> 
+                      <td width="31%"> 
+                        <input type="radio" name="rSex" value="male" checked>
+                        <font face="MS Sans Serif" size="-1"><b>Male</b></font> 
+                      </td>
+                      <td width="69%"> 
+                        <input type="radio" name="rSex" value="female">
+                        <b><font face="MS Sans Serif" size="-1"> Female </font></b></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><font face="MS Sans Serif" size="2"><b>Age:</b></font></div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> 
+                  <input name="Age" size="3" maxlength="3" > 
+ 
+                </td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><font face="MS Sans Serif" size="2"><b>Address:</b></font> 
+                  </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="Addr" size="40" maxlength="40" >
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Sub province:</b></font> </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="SubProvince" maxlength="20" >
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Province or Region:</b></font> 
+                        </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="Province" maxlength="20" >   
+ 
+                  </font></td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Postal Code:</b></font> </div>
+                </td>
+                <td align="left" width="335" height="50" valign="center"> <font face="MS Sans Serif" size="2"> 
+                  <input name="Postcode" size="10" maxlength="10" >
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Country:</b></font> 
+                  </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <select name="Country">
+                    <option value="XXX"> Please choose a country </option>
+                    <option value="USA" > United States </option>
+                    <option value="AFG" > Afghanistan </option>
+                    <option value="ALB" > Albania </option>
+                    <option value="DZA" > Algeria </option>
+                    <option value="AND" > Andorra </option>
+                    <option value="AGO" > Angola </option>
+                    <option value="AIA" > Anguilla </option>
+                    <option value="ATG" > Antigua And Barbudas </option>
+                    <option value="ARG" > Argentina </option>
+                    <option value="ARM" > Armenia </option>
+                    <option value="ABW" > Aruba </option>
+                    <option value="AUS" > Australia </option>
+                    <option value="AUT" > Austria </option>
+                    <option value="AZE" > Azerbaijan </option>
+                    <option value="BHS" > Bahamas </option>
+                    <option value="BHR" > Bahrain </option>
+                    <option value="BGD" > Bangladesh </option>
+                    <option value="BRB" > Barbados </option>
+                    <option value="BLR" > Belarus </option>
+                    <option value="BEL" > Belgium </option>
+                    <option value="BLZ" > Belize </option>
+                    <option value="BEN" > Benin </option>
+                    <option value="BMU" > Bermuda </option>
+                    <option value="BTN" > Bhutan </option>
+                    <option value="BOL" > Bolivia </option>
+                    <option value="XBO" > Bonaire </option>
+                    <option value="BIH" > Bosnia-Herzegovina </option>
+                    <option value="BWA" > Botswana </option>
+                    <option value="BRA" > Brazil </option>
+                    <option value="VGB" > British Virgin Is </option>
+                    <option value="BRN" > Brunei </option>
+                    <option value="BGR" > Bulgaria </option>
+                    <option value="BFA" > Burkina Faso </option>
+                    <option value="BDI" > Burundi </option>
+                    <option value="KHM" > Cambodia </option>
+                    <option value="CMR" > Cameroon </option>
+                    <option value="CAN" > Canada </option>
+                    <option value="XCI" > Canary Islands </option>
+                    <option value="CPV" > Cape Verde </option>
+                    <option value="CYM" > Cayman Islands </option>
+                    <option value="CAF" > Central African Repulic </option>
+                    <option value="TCD" > Chad </option>
+                    <option value="XCH" > Channel Islands </option>
+                    <option value="CHL" > Chile </option>
+                    <option value="CHN" > China </option>
+                    <option value="COL" > Colombia </option>
+                    <option value="SUN" > Commonwealth Of Independent States </option>
+                    <option value="COM" > Comoros </option>
+                    <option value="COG" > Congo </option>
+                    <option value="COK" > Cook Islands </option>
+                    <option value="CRI" > Costa Rica </option>
+                    <option value="HRV" > Croatia </option>
+                    <option value="CUB" > Cuba </option>
+                    <option value="XCU" > Curacao </option>
+                    <option value="CYP" > Cyprus </option>
+                    <option value="CSK" > Czech Republic </option>
+                    <option value="DNK" > Denmark </option>
+                    <option value="DJI" > Djibouti </option>
+                    <option value="DMA" > Dominica </option>
+                    <option value="DOM" > Dominican Republic </option>
+                    <option value="ECU" > Ecuador </option>
+                    <option value="EGY" > Egypt </option>
+                    <option value="SLV" > El Salvador </option>
+                    <option value="GNQ" > Equatorial Guinea </option>
+                    <option value="EST" > Estonia </option>
+                    <option value="ETH" > Ethiopia </option>
+                    <option value="FLK" > Falkland Islands </option>
+                    <option value="FRO" > Faroe Islands </option>
+                    <option value="FJI" > Fiji </option>
+                    <option value="FIN" > Finland </option>
+                    <option value="FRA" > France </option>
+                    <option value="GUF" > French Guiana </option>
+                    <option value="GAB" > Gabon </option>
+                    <option value="GMB" > Gambia </option>
+                    <option value="GEO" > Georgia </option>
+                    <option value="DEU" > Germany </option>
+                    <option value="GHA" > Ghana </option>
+                    <option value="GIB" > Gibraltar </option>
+                    <option value="GRC" > Greece </option>
+                    <option value="GRL" > Greenland </option>
+                    <option value="GRD" > Grenada </option>
+                    <option value="GLP" > Guadeloupe </option>
+                    <option value="GTM" > Guatemala </option>
+                    <option value="GIN"> Guinea </option>
+                    <option value="GNB" > Guinea-Bissau </option>
+                    <option value="GUY" > Guyana </option>
+                    <option value="HTI" > Haiti </option>
+                    <option value="HND" > Honduras </option>
+                    <option value="HKG" > Hong Kong </option>
+                    <option value="HUN" > Hungary </option>
+                    <option value="ISL" > Iceland </option>
+                    <option value="IND" > India </option>
+                    <option value="IDN" > Indonesia </option>
+                    <option value="IRN" > Iran </option>
+                    <option value="IRQ" > Iraq </option>
+                    <option value="ISR" > Israel </option>
+                    <option value="ITA" > Italy </option>
+                    <option value="CIV" > Ivory Coast </option>
+                    <option value="JAM" > Jamaica </option>
+                    <option value="JPN" > Japan </option>
+                    <option value="JOR" > Jordan </option>
+                    <option value="KAZ" > Kazakhstan </option>
+                    <option value="KEN" > Kenya </option>
+                    <option value="KIR" > Kiribati </option>
+                    <option value="KWT" > Kuwait </option>
+                    <option value="KGZ" > Kyrgyzstan </option>
+                    <option value="LAO" > Laos </option>
+                    <option value="LVA" > Latvia </option>
+                    <option value="LBN" > Lebanon </option>
+                    <option value="LSO" > Lesotho </option>
+                    <option value="LBR" > Liberia </option>
+                    <option value="LBY" > Libya </option>
+                    <option value="LIE" > Liechtenstein </option>
+                    <option value="LTU" > Lithuania </option>
+                    <option value="LUX" > Luxembourg </option>
+                    <option value="MAC" > Macau </option>
+                    <option value="XMC" > Macedonia </option>
+                    <option value="MDG" > Madagascar </option>
+                    <option value="MWI" > Malawi </option>
+                    <option value="MYS" > Malaysia </option>
+                    <option value="MDV" > Maldives </option>
+                    <option value="MLI" > Mali </option>
+                    <option value="MLT" > Malta </option>
+                    <option value="MTQ" > Martinique </option>
+                    <option value="MRT" > Mauritania </option>
+                    <option value="MUS" > Mauritius </option>
+                    <option value="MEX" > Mexico </option>
+                    <option value="MDA" > Moldova </option>
+                    <option value="MCO" > Monaco </option>
+                    <option value="MNG" > Mongolia </option>
+                    <option value="XMN" > Montenegro </option>
+                    <option value="MSR" > Montserrat </option>
+                    <option value="MAR" > Morocco </option>
+                    <option value="MOZ" > Mozambique </option>
+                    <option value="BUR" > Myanmar </option>
+                    <option value="NAM" > Namibia </option>
+                    <option value="NRU" > Nauru </option>
+                    <option value="NPL" > Nepal </option>
+                    <option value="NLD" > Netherlands </option>
+                    <option value="ANT" > Netherlands Antilles </option>
+                    <option value="NCL" > New Caledonia </option>
+                    <option value="NZL" > New Zealand </option>
+                    <option value="NIC" > Nicaragua </option>
+                    <option value="NER" > Niger </option>
+                    <option value="NGA" > Nigeria </option>
+                    <option value="PRK" > North Korea </option>
+                    <option value="XNI" > Northern Ireland </option>
+                    <option value="NOR" > Norway </option>
+                    <option value="OMN" > Oman </option>
+                    <option value="PAK" > Pakistan </option>
+                    <option value="PAN" > Panama </option>
+                    <option value="PNG" > Papua New Guinea </option>
+                    <option value="PRY" > Paraguay </option>
+                    <option value="PER" > Peru </option>
+                    <option value="PHL" > Philippines </option>
+                    <option value="POL" > Poland </option>
+                    <option value="PYF" > Polynesia </option>
+                    <option value="PRT" > Portugal </option>
+                    <option value="QAT" > Qatar </option>
+                    <option value="IRL" > Republic Of Ireland </option>
+                    <option value="YEM" > Republic Of Yemen </option>
+                    <option value="REU" > Reunion </option>
+                    <option value="ROM" > Romania </option>
+                    <option value="RUS" > Russia </option>
+                    <option value="RWA" > Rwanda </option>
+                    <option value="XSA" > Saba </option>
+                    <option value="SMR" > San Marino </option>
+                    <option value="SAU" > Saudi Arabia </option>
+                    <option value="SEN" > Senegal </option>
+                    <option value="XSR" > Serbia </option>
+                    <option value="SYC" > Seychelles </option>
+                    <option value="SLE" > Sierra Leone </option>
+                    <option value="SGP" > Singapore </option>
+                    <option value="SVK" > Slovakia </option>
+                    <option value="XSL" > Slovenia </option>
+                    <option value="STP" > Soa Tome And Principe </option>
+                    <option value="SLB" > Solomon Islands </option>
+                    <option value="SOM" > Somalia </option>
+                    <option value="ZAF" > South Africa </option>
+                    <option value="KOR" > South Korea </option>
+                    <option value="ESP" > Spain </option>
+                    <option value="LKA" > Sri Lanka </option>
+                    <option value="XSB" > St Barthelemy </option>
+                    <option value="SHN" > St Helena </option>
+                    <option value="KNA" > St Kitts And Nevis </option>
+                    <option value="LCA" > St Lucia </option>
+                    <option value="XSM" > St Maarten/St Martin </option>
+                    <option value="SPM" > St Pierre And Miquelon </option>
+                    <option value="VCT" > St Vincent </option>
+                    <option value="SDN" > Sudan </option>
+                    <option value="SUR" > Suriname </option>
+                    <option value="SWZ" > Swaziland </option>
+                    <option value="SWE" > Sweden </option>
+                    <option value="CHE" > Switzerland </option>
+                    <option value="SYR" > Syria </option>
+                    <option value="TWN" > Taiwan </option>
+                    <option value="TJK" > Tajikstan </option>
+                    <option value="TZA" > Tanzania </option>
+                    <option value="THA"  selected > Thailand </option>
+                    <option value="TGO" > Togo </option>
+                    <option value="TON" > Tonga </option>
+                    <option value="TTO" > Trinidad And Tobago </option>
+                    <option value="TUN" > Tunisia </option>
+                    <option value="TUR" > Turkey </option>
+                    <option value="TKM" > Turkmenistan </option>
+                    <option value="TCA" > Turks And Caicos Isles </option>
+                    <option value="TUV" > Tuvalu </option>
+                    <option value="UGA" > Uganda </option>
+                    <option value="UKR" > Ukraine </option>
+                    <option value="ARE" > United Arab Emirates </option>
+                    <option value="GBR" > United Kingdom </option>
+                    <option value="URY" > Uruguay </option>
+                    <option value="UZB" > Uzbekistan </option>
+                    <option value="VUT" > Vanuatu </option>
+                    <option value="VAT" > Vatican City </option>
+                    <option value="VEN" > Venezuela </option>
+                    <option value="VNM" > Vietnam </option>
+                    <option value="WSM" > Western Somoa </option>
+                    <option value="YUG" > Yugoslavia </option>
+                    <option value="ZAR" > Zaire </option>
+                    <option value="ZMB" > Zambia </option>
+                    <option value="ZWE" > Zimbabwe </option>
+                  </select>
+                  <br>
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><font size="2" face="MS Sans Serif"><b>Occupation:</b></font></div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> 
+                  <select name="Occupation">
+                    <option selected value="not define">[Select One]
+                    <option value="Accounting/Finance">Accounting/Finance
+                    <option value="IS, MIS, DP">Computer related (IS, MIS, DP)
+                    <option value="WWW">Computer related (WWW)
+                    <option value="Consulting">Consulting
+                    <option value="Customer service/support">Customer service/support
+                    <option value="Education/training">Education/training
+                    <option value="Engineering">Engineering
+                    <option value="Executive/senior management">Executive/senior management
+                    <option value="General administrative/supervisory">General administrative/supervisory
+                    <option value="Government/Military">Government/Military
+                    <option value="Manufacturing/production/operations">Manufacturing/production/operations
+                    <option value="medical, legal, etc.">Professional services (medical, legal, etc.)
+                    <option value="Research and development">Research and development
+                    <option value="Retired">Retired
+                    <option value="Sales/marketing/advertising">Sales/marketing/advertising
+                    <option value="Student">Student
+                    <option value="Unemployed/Between Jobs">Unemployed/Between Jobs
+                  </select>
+ 
+                </td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Phone number:</b></font> </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="Phone" size="15" maxlength="15" >
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"> <font face="MS Sans Serif" size="2"><b>Fax number:</b></font> </div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input name="Fax" maxlength="20" >   
+ 
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><font face="MS Sans Serif" size="2"><b>Email Address:</b></font></div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"> 
+                  <input name="Email" size="40" maxlength="40" >
+                </td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center">
+                  <div align="right"><font face="MS Sans Serif"><b><font size="2">Web Template:</font></b></font></div>
+                </td>
+                <td align="left" width="335" height="50" valign="center">
+		      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="20">
+			<tr> 
+			 <td width="27%" valign="middle"> 
+			 <div align="center">
+			   <select name="lstTemplate" onChange="ChangeImage(this.value)">
+			      <option value="Template1" selected>Template1</option>
+			      <option value="Template2">Template2</option>
+			      <option value="Template3">Template3</option>
+			   </select>
+			 </div>
+			</td>
+			<td width="73%">
+			 <div align="center">
+			  <img src=".\pic\template1.jpg" name="Image1"  onClick="GoToTemplate()" alt="Click for see real template">
+			 </div>
+			</td>
+			</tr>
+		     </table>
+                </td>
+              </tr>
+              <tr valign="center"> 
+                <td align="left" width="148" height="50" valign="center"> 
+                  <div align="right"><font size="2" face="MS Sans Serif"><b>User_n</b></font><font size="2"><b><font face="MS Sans Serif">ame:</font></b></font></div>
+                </td>
+                <td align="left" width="335" height="50" valign="center"> 
+                  <input name="UserName" maxlength="10" >  
+                </td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><b><font face="MS Sans Serif" size="2">Password:</font></b></div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"><font size="2"> 
+                  <input type="password" name="Password" size="10" maxlength="10">
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50"> 
+                  <div align="right"><b><font size="2" face="MS Sans Serif">Confirm Password:</font></b></div>
+                </td>
+                <td valign="center" align="left" width="335" height="50"><font size="2"> 
+                  <input type="password" name="Cpassword" size="10" maxlength="10">
+                  </font></td>
+              </tr>
+              <tr> 
+                <td valign="center" align="left" width="148" height="50">&nbsp; </td>
+                <td valign="center" align="left" width="335" height="50"> <font face="MS Sans Serif" size="2"> 
+                  <input type="submit" name="Submit" value="Submit">
+                  <input type="reset" name="Reset" value="Reset"> 
+ 
+                  </font></td>
+              </tr>
+            </table>
+          </form>
+          <p><br></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</center>
+</body>
+</html>

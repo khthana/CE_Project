@@ -1,0 +1,21 @@
+LIBRARY         KPUSER
+
+DESCRIPTION 'KnowledgePro DLL sample (c) Knowledge Garden Inc. 1990'
+
+EXETYPE WINDOWS
+
+STUB 'WINSTUB.EXE'
+
+DATA MOVEABLE SINGLE
+CODE MOVEABLE
+
+HEAPSIZE  1024
+
+EXPORTS
+   Dispatch	@1
+   Average	@2
+   WEP		@3 RESIDENTNAME
+
+
+
+

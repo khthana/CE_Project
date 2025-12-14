@@ -1,0 +1,15 @@
+defineProcedure Bag<String> projectCF::Lecturer::instance:Specialist()
+language :  "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $Set <String> Sp;
+ $Set <Subject> SSubj;
+ $SSubj = self.Teach;
+ $Sp = SSubj.Name 
+	from SSubj 
+	where SSubj.Type == "RestrictedSubj";
+  $return(Sp);
+
+};

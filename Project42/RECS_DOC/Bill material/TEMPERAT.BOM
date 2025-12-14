@@ -1,0 +1,24 @@
+Bill of Material for D:\USER\MEELARP\RECS_DOC\SCH\TEMPERAT.Sch
+
+Used Part Type  Designator           
+==== ========== ==================== 
+1    +12        SUPPLY               
+1    0.1uF      C1_3                 
+1    10K        RIC2                 
+1    10uF/16V   C3_1                 
+2    10uF/6.3V  C1_1 C1_2            
+1    11.059 MHz X3_1                 
+1    1K         RQ1_1                
+1    1N4001     D1_1                 
+2    22pF       C3_2 C3_3            
+1    330        RQ1_3                
+5    4.7K       R3_1 R3_6 R3_7 R3_8  
+                RQ1_2                
+1    485        IC2                  
+1    AT89C2051  IC3                  
+1    BC547      Q1                   
+3    DS1820     THERMO1 THERMO2      
+                THERMO3              
+1    MC7805T    IC1                  
+2    RS485      J1 J2                
+1    SW_PB      S1                   

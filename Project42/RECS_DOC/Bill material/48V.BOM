@@ -1,0 +1,20 @@
+Bill of Material for D:\USER\MEELARP\RECS_DOC\SCH\48V.Sch
+
+Used Part Type Designator           
+==== ========= ==================== 
+7    +12V      BATT CENT. DTMF      
+               EXTEND IR OUTLET VIN 
+2    0         GBAT VREF            
+2    1/60      C1_1 C2_1            
+2    10/60     C1_2 C2_2            
+1    100/10W   R3_1                 
+2    18VAC     P1 P2                
+2    1N54004   D3_1 D3_2            
+2    48VDC     CH1 CH2              
+1    7805      IC3                  
+2    82/0.5W   R1_1 R2_1            
+2    8K        VR1_1 VR2_1          
+1    CHK_P     P_POWER              
+4    IN4007    D1 D2 D3 D4          
+2    LM783C    IC1 IC2              
+1    V RTC     RTC                  

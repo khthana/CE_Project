@@ -1,0 +1,208 @@
+------ Create Database Library
+CREATE DATABASE LIBRARY WITH LOG
+
+
+------ Create Row type for save Author 3 persons
+
+CREATE ROW TYPE author_t
+(
+AUTHOR1 varchar(20),
+AUTHOR2  varchar(20),
+AUTHOR3 varchar(20)
+);
+
+------ Create Row type for save Cordinate X,Y pixel on Screen
+
+CREATE ROW TYPE position_t
+(
+X integer,
+Y integer
+); 
+
+------ Create table book for save detail
+
+CREATE TABLE BOOK
+(
+BOOKID serial primary key,
+BOOKCODE varchar(15) not null unique,
+ISBN varchar(13),
+BOOKNAME varchar(40) not null,
+AUTHOR author_t,
+BOOKCLASS varchar(15),
+PUBLISHING varchar(20),
+YEAR integer,
+IMAGE media_t,
+PREFACE media_t
+);
+
+------ Create table  bookaddress for save address of book
+
+CREATE TABLE ADDRESSBOOK
+(
+BOOKID integer REFERENCES book (bookid) ON DELETE CASCADE,
+SHELFID integer REFERENCES bookshelf (shelfid) ON DELETE CASCADE,
+LAYER integer not null,
+PART char(1) not null,
+primary key (BOOKID,SHELFID)
+);
+
+------ Create table bookshelf for save detail
+
+CREATE TABLE BOOKSHELF
+(
+SHELFID  serial primary key,
+SHELFNAME varchar(10) not null,
+LAYER integer
+);
+
+------ Create table addressbookshelf for save detail
+
+CREATE TABLE ADDRESSBOOKSHELF
+(
+SHELFID integer REFERENCES bookshelf (shelfid) ON DELETE CASCADE,
+ROOMID integer REFERENCES room (roomid) ON DELETE CASCADE,
+POSITION position_t not null,
+PRIMARY KEY (SHELFID,ROOMID)
+);
+
+-------Create table room
+
+CREATE TABLE ROOM
+(
+ROOMID serial primary key,
+ROOMNAME varchar(10) not null 
+);
+
+--------Insert In table
+
+-------Insert book
+
+INSERT INTO BOOK
+VALUES(0,"QC.754.26.B3","974-7025-98-6","WINDOWS NT SERVER 4.0",
+ROW("BUNDIT JARMONPUM"," "," ")::Author_t,
+"COMPUTER","VPS","1999",'"E:\Project\DataUsesInDB\bookpic\10_1.jpg"','"E:\Project\DataUsesInDB\bookpic\10_2.jpg"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.754.87.R6","584-5245-98-6","DEVELOPING TIME-ORIENTED DATABASE APPLICATIONS IN SQL",
+ROW("RICHARD T. SNODGRASS"," "," ")::Author_t,
+"COMPUTER","MCGRAWHILL","1900",'"E:\Project\DataUsesInDB\bookpic\11_1.JPG"','"E:\Project\DataUsesInDB\bookpic\11_2.JPG"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.789.56.J2","857-2541-84-5","OBJECT-ORIENTED MODEL AND DESIGN FOR DATABASE APPLICATION",
+ROW("JAME RUMBAUGH",""," ")::Author_t,
+"COMPUTER","MCGRAWHILL","1998",'"E:\Project\DataUsesInDB\bookpic\2_1.JPG"','"E:\Project\DataUsesInDB\bookpic\2_2.JPG"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.854.25.C6","847-8547-54-2","AN INTRODUCTION TO DATABASE SYSTEMS",
+ROW("C.J DATE","","")::Author_t,
+"COMPUTER","ADDISON WESLEY","1998",'"E:\Project\DataUsesInDB\bookpic\3_1.JPG"','"E:\Project\DataUsesInDB\bookpic\3_1.JPG"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.756.84.C5","514-6351-24-6","HANDBOOK OF RELATIONAL DATABASE DESIGN",
+ROW("CANDANCE C.FLEMING","BARBARAVON  HALLE ","")::Author_t,
+"COMPUTER","ADDISON WESLEY","1997",'"E:\Project\DataUsesInDB\bookpic\4_1.JPG"','"E:\Project\DataUsesInDB\bookpic\4_2.JPG"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.710.84.M4","586-6851-48-9","OBJECT DATABASES THE ESSENTIALS",
+ROW("MARY E.S. LOOMIS","","")::Author_t,
+"COMPUTER","MCGRAWHILL","1997",'"E:\Project\DataUsesInDB\bookpic\5_1.JPG"','"E:\Project\DataUsesInDB\bookpic\5_2.JPG"');
+
+
+INSERT INTO BOOK
+VALUES(0,"QC.854.63.A5","884-8351-54-3","OBJECT-ORIENTED DATABASE MANAGEMENT ",
+ROW("ALFONS KEMPER","GUIDO MOERKOTTE","")::Author_t,
+"COMPUTER","MCGRAWHILL","1997",'"E:\Project\DataUsesInDB\bookpic\8_1.JPG"','"E:\Project\DataUsesInDB\bookpic\8_2.JPG"');
+
+-8
+INSERT INTO BOOK
+VALUES(0,"QC.454.26.T2","974-7025-98-6","MULTIMEDIA MAKING ITWORK",
+ROW("TAR VAUGHAN"," "," ")::Author_t,
+"COMPUTER","OSBARNE","1999",'"E:\Project\DataUsesInDB\bookpic\BOOK1.GIF"',NULL);
+
+-9
+INSERT INTO BOOK
+VALUES(0,"QC.654.87.H5","584-5245-98-6","TO ENGINEER IS HUMAN",
+ROW("HENRY PETROSKI"," "," ")::Author_t,
+"CIVIL","MCGRAWHILL","1900",'"E:\Project\DataUsesInDB\bookpic\BOOK12.GIF"',NULL);
+
+-10
+INSERT INTO BOOK
+VALUES(0,"QC.789.56.R3","857-2541-84-5","E-BUSINESS ROADMAP FOR SUCCESS",
+ROW("DR.RAVI KALAKOTA","MARCIA ROBINSON"," ")::Author_t,
+"COMPUTER","MCGRAWHILL","1998",'"E:\Project\DataUsesInDB\bookpic\BOOK14.GIF"',NULL);
+
+-11
+INSERT INTO BOOK
+VALUES(0,"QC.854.25.S8","847-8547-54-2","DIGITAL ELECTORNICS",
+ROW("STEPHEN KAMICHIK","","")::Author_t,
+"COMPUTER","PROMPT PUBLICATIONS","1998",'"E:\Project\DataUsesInDB\bookpic\BOOK15.GIF"',NULL);
+
+-12
+INSERT INTO BOOK
+VALUES(0,"QC.756.84.S2","514-6351-24-6","JASMINE OBJECT DATABASE",
+ROW("SETRAG KHOSHAFIAN","SURAPOL DASANANDA","NORAYR MINASSIAN")::Author_t,
+"COMPUTER","JASMINE","1999",'"E:\Project\DataUsesInDB\bookpic\BOOK5.GIF"',NULL);
+
+----------Insert addressbook
+ 
+INSERT INTO ADDRESSBOOK
+VALUES(1,1,3,"L");
+
+INSERT INTO ADDRESSBOOK
+VALUES(2,2,3,"M");
+
+INSERT INTO ADDRESSBOOK
+VALUES(3,1,2,"R");
+
+INSERT INTO ADDRESSBOOK
+VALUES(4,1,2,"L");
+
+INSERT INTO ADDRESSBOOK
+VALUES(5,2,2,"L");
+
+INSERT INTO ADDRESSBOOK
+VALUES(6,2,3,"R");
+
+INSERT INTO ADDRESSBOOK
+VALUES(7,2,3,"M");
+
+INSERT INTO ADDRESSBOOK
+VALUES(8,1,2,"R");
+
+INSERT INTO ADDRESSBOOK
+VALUES(9,1,2,"L");
+
+INSERT INTO ADDRESSBOOK
+VALUES(10,2,2,"L");
+
+INSERT INTO ADDRESSBOOK
+VALUES(11,2,3,"R");
+
+INSERT INTO ADDRESSBOOK
+VALUES(12,2,3,"M");
+
+
+---------Insert Addressbookshelf
+INSERT INTO ADDRESSBOOKSHELF
+VALUES(1,1,ROW(2370,5400)::Position_t);
+
+INSERT INTO ADDRESSBOOKSHELF
+VALUES(2,1,ROW(3285,3990)::Position_t);
+
+
+--------Insert Bookshelf
+INSERT INTO BOOKSHELF
+VALUES(0,"B001",3);
+
+INSERT INTO BOOKSHELF
+VALUES(0,"B002",3);
+
+
+------Insert Room
+NSERT INTO ROOM
+VALUES(0,"R101");

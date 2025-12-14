@@ -1,0 +1,22 @@
+nclude desscrob.src
+TRY1SCRE ( ).
+Topic 'TRY1SCRE'.
+    CreateFonts ( ).
+    CreateObjects ( ).
+    hyper_display (green2).
+    show_window (?!wHandle).
+
+    topic WindowEventTopic ( info, event, handle ).
+    end.
+    topic CreateObjects.
+      TRY1SCRE:!wHandle is screen_object ( [window, WindowEventTopic, 1, 1, 128, 37.61, 'Working Window', [siblings, popup, titlebar, minimizebox, thickframe], , black, cyan, ],1 ).
+      Menu ([['mnu 1',['mnu 11','mnu 111','mnu 112','mnu 113'],['mnu 12','mnu 121','mnu 122','mnu 123'],'mnu 13'],['mnu 2',['mnu 21','mnu 211','mnu 212'],'mnu 22','mnu 23'],['mnu 3'],['mnu 4']],menuhandler).
+      TRY1SCRE:hObject1 is screen_object ( [ child_window ,[ ] , 20, 8, 28, 10, [ 'Chon lua Menu'] , [ siblings, child, visible, thickframe, titlebar, vertscroll, horzscroll, controlmenu, maximizebox, minimizebox], ?!wHandle, blue, 16776960] , 1, blue, 16776960 ).
+    end. (* CreateObjects *)
+
+     topic CreateFonts.
+      fontList is [[-0.8125, 0, 400, F, F, F, 0, 1, 34, Arial]].
+      fontHandleList is apply ( create_char_font, ?fontList ).
+    end.
+  end. 
+

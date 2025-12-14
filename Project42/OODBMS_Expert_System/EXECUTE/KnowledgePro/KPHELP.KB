@@ -1,0 +1,732 @@
+(* ========================= KPHELP.KB =================================
+
+   The KnowledgePro Help System.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+
+  Help behaves according to the following:
+
+  Press F1 and !Help is called and is passed the parameter F1 and the name of the text
+      selected in the window.  If no text is selected, Contents is called.  When
+      text is selected, the syntax is inserted in the edit window.  I do this in topic F1.
+  Select Help menu item and the name of the item selected is passed to Help and,
+  if Search is selected the name of any selected text is also passed.
+
+  KPHELP runs in a separate instance of KPWIN. All communication with the  
+  development environment is done with DDE.
+
+  When items on the Help submenu are selected the following calls are executed via
+  DDE:
+
+ 	Contents			!Help (Contents).
+	Search			!Help (Search, Selected Text).
+	Tools			!Help (Tools).
+	Development Environment	!Help ('Development Environment').
+	Keyboard			!Help ('Keyboard Interface').
+	How To			!Help ('How To').
+	Using Help		!Help ('Using Help').
+  
+  !Help must be able to process each of these calls. If the KPHELP is not running when the 
+  menu item is selected, help is lauched as KPWIN KPHELP.CKB. In addition, KPHELP 
+  must perform exit_kp ( ), when the main window is closed. When KPWIN is exited,
+  exit_kp is executed in this instance via DDE.
+
+  When F1 is pressed, if any text is selected the call !Help (Search, Selected Text) is 
+  made. If no text is selected, !Help (Contents) is executed.
+
+  When F2 is pressed, if any text is selected the call !Help (CopyCommand, Selected Text) is 
+  made. If no text is selected, no command is executed. CopyCommand searches the
+  syntax file and copys the syntax of the passed command into clipboard. KPWIN pastes
+  the contents of the clipboard into the edit window. 
+
+ ======================================================================== *)
+
+#define ICONIC 1
+
+topic !Help ( item, searchText, handle ).
+  if not (exists (helpInstalled)) then
+     Setup ( ). 	(* load icon, fonts, name text files, misc. definitions *)
+  do (?item, ?searchText, ?handle).
+end.
+
+(* =========================== Topics called from help menu ========================== *)
+
+topic Contents.
+  MainWindow:Show ().
+  Display ().
+
+  topic Display.
+    if last (?list) is index then
+       exit ().
+    list gets index.
+
+    set_display_window (?wDisplay).
+    use_font (?bigFont).
+    text ('#e KnowledgePro Help Index').
+    use_font (?mainFont).
+    text ('
+
+  The Index lists Help topics available for KnowledgePro. 
+  Use the scroll bar to see entries not currently visible.
+').
+    use_font (?boldFont).
+    text (?ContentsList).
+    use_font (?mainFont).
+    set_focus (?wDisplay).
+    if list_length (?list) is 1 then
+       disable_window (?bBack).
+  end.
+end. (*  contents *)
+
+topic Search ( searchText ).
+  (* Topic Search is passed a parameter if called from within the programming editor
+      with a highlighted string. This highlighted text is looked up in the help system. 
+      If no parameters are passed this topic prompts with a list of functions. *)
+  if ?searchText is [] then
+     PromptSearch ()
+  else
+     MainWindow () and
+     (if ?list is [] then
+          list is index) and
+     mark (?searchText) and
+     if not (?mark:SearchError) then
+        MainWindow:Show ().
+end.
+
+topic Tools.
+  MainWindow:Show ( ).
+  if ?list is [] then
+     list is index.
+  mark ( 'Tools' ).
+end.
+
+topic 'Development Environment'.
+  MainWindow:Show ( ).
+  if ?list is [] then
+     list is index.
+  mark ( 'Development Environment' ).
+end.
+ 
+topic Keyboard.
+  MainWindow:Show ( ).
+  if ?list is [] then
+     list is index.
+  mark ( 'Keyboard Interface' ).
+end.
+
+topic 'How To'.
+  MainWindow:Show ( ).
+  if ?list is [] then
+     list is index.
+  mark ( 'How To' ).
+end.
+
+topic 'Using Help'.
+  MainWindow:Show ( ).
+  if ?list is [] then
+     list is index.
+  mark ('Help').
+end.
+
+(* ============================= Button event topics ======================== *)
+
+topic Back.
+  (* Go backwards one item in the help system. *)
+  if list_length (?list) is 1 then
+     exit ().
+
+  list is sublist (?list, 1, list_length (?list) - 1).
+  item is last (?list).
+  list is sublist (?list, 1, list_length (?list) - 1).
+  if ?item is index then
+      Contents:Display ()
+  else 
+      mark (?item).
+end. (* Back *)
+
+topic PrintIt.
+  print (get_text ( ?wDisplay )).
+  set_focus (?wDisplay).
+end.
+
+topic Copy.
+  text_to_clipboard ( get_text ( ?wDisplay) ).
+  set_focus (?wDisplay).
+end.
+
+(* ============================= Search topics ======================== *)
+
+topic CopyCommand (searchText).
+  if ?searchText is [] then
+     Contents ()
+  else
+     CopySyntax (?searchText).
+end.
+
+topic CopySyntax (searchText, tText).
+   set_file_pos (?syntaxFile, 0).
+   read (?syntaxFile, concat ( '//', ?searchText), ' ').
+   tText is read_line (?syntaxFile).
+   if ?tText <> ?EOF then
+       text_to_clipboard (concat (?tText, '.'))
+   else
+       text_to_clipboard (?searchText).
+end.
+
+topic PromptSearch.
+  if not (exists (wSearch)) then
+     Create ().
+  show_window ( ?wSearch ).
+  set_focus (?cb1).
+ 
+  topic Create.
+    wSearch is window ( ,17.85,1.812,41.14,25.12,Search,[popup,thinFrame,titleBar,showChildren,siblings]).
+    use_font ( ?helvSmall, [con, control] ).
+    text ('
+  Type in a search subject or select a 
+  subject from the list below. ').
+    bGoTo is button ( 'Go To', GoTo, 3,22.5 ).
+    bCopySyntax is button ( 'Copy Syntax', GetSyntax, 15,22.5 ).
+    bCancel is button ( Cancel, Cancel, 27,22.5 ).
+    resize_window ( [?bGoTo, ?bCopySyntax, ?bCancel], 12, 1.5).
+    cb1 is combo_box (?searchList, GoTo, 2.75,4.8,30,17,, [simple,vertscroll], double_click_event).
+  end.
+
+  (* ---------------------------  Search Window button topics --------------------------- *)
+
+  topic GoTo.
+    searchText is get_combo_box (?cb1).
+    if ?searchText is [] then
+       exit ().
+
+    MainWindow ().
+    mark ( ?searchText ).
+    if not (?mark:SearchError) then
+       MainWindow:Show () and
+       hide_window (?wSearch).
+  end.
+
+  topic GetSyntax.
+    CopySyntax (get_text (?cb1)).
+    hide_window (?wSearch).
+  end.
+  
+  topic Cancel.
+    hide_window (?wSearch ).
+    set_focus (?wDisplay).
+  end.
+end. (* PromptSearch *)
+
+(* =============== MARK - the default hypertext search topic. =========== *)
+
+topic mark (item).
+    :SearchError is f.
+(*  multi-file access to speed up searches *)
+   :firstChar is lower (string_copy (?item, 1, 1)).
+   if ?firstChar <= 'd' then
+      :FileNum is 1
+   else
+     (if ?firstChar <= 'p' then
+        :FileNum is 2
+     else
+        :FileNum is 3).
+
+  :indexFile is concat ('kphelp', ?FileNum, '.ndx').
+  :helpFile is concat ('kphelp', ?FileNum, '.hlp').
+  set_file_pos (?indexFile, 0).
+  :IndexInfo is read (?indexFile,concat ('//',?item),'//').
+  if list_length (?indexInfo) > 2 or ?indexInfo is number_to_char (26) then
+     SearchError ()
+  else 
+     set_file_pos (?helpFile, first (?IndexInfo)) and
+     :t is read_char (?helpFile, element (?IndexInfo, 2)) and
+     set_text (?wDisplay, [#rb, string_replace (?item, '#', '##'), #rd, ?t] ) and
+     list gets (?item) and
+     set_focus (?wDisplay) and
+     enable_window (?bBack).
+
+  topic SearchError.
+    SearchError is t.
+    :temp is window (,21,8,40,9,'Search Result',[dialogWindow,titlebar]).
+    make_modal (?temp).    
+    use_font (?boldFont).
+    use_font (, control).
+    text ('
+               There is no further information 
+                         on this item.').
+    icon (?InfoIcon, 3, 2).
+    :b1 is button (Ok, Continue,15,6,11).
+    show_window (?temp).
+    set_focus (?b1).
+    wait ().
+    close_window (?temp).
+  end. (* hypertextError *)
+end. 
+
+topic 'This is the font for hypertext on the current monitor.'.
+  (* Dummy topic in order to disable searching for this in a file. *)
+end.
+
+topic 'README.TXT'.
+  (* Calls the Windows Notepad to view the KPWIN README file. *)
+  load_program ('notepad.exe readme.txt', 1).
+end.
+
+(* ============================== SETUP ============================= *)
+
+topic Setup.
+  (* ... Flag to determine if the help system has already been setup.... *)
+  helpInstalled = T.
+
+  (* ... Misc flags needed ... *)
+  up is -1.
+  down is 1.
+  EOF is number_to_char (26).
+
+  (* .......... load the icon for the main window ..........  *)
+  helpIcon is  load_icon (KPHELP_ICON).
+
+  (* .......... load the icon for info messages ..........  *)
+  InfoIcon is load_icon (INFO_ICON).
+
+  (* .......... define the names of the text files .......... *)
+  syntaxFile is 'kphelp.syn'.
+
+  indexFiles is concat (kphelp, [1,2,3], '.ndx').
+  helpFiles is concat (kphelp, [1,2,3], '.hlp').
+
+  (* set the file pointer to the beginning of the files *)
+  set_file_pos ([?syntaxFile,?indexFiles,?helpFiles],0).
+
+  (* .......... load the fonts .......... *)	
+  mainFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  hyperFont is create_char_font ( [1,1,400,'F','T','F',0,1,34,'Helv']).
+  boldFont is create_char_font ( [1,1,700,'F','F','F',0,1,34,'Helv']).
+  bigFont is create_char_font ( [1.5,1.2857,400,'F','F','F',0,1,34,'Helv']).
+  helvSmall is create_char_font ( [0.82,0.71428,700,F,F,F,0,1,34,helv]).
+
+  (* ..........  change the hypertext display color to green2 ..........  *)
+  hyper_display (green2,,?hyperFont).
+
+  (* .......... define a topic to keep track of what has been looked at so you can go back ..........  *)
+  list is []. 
+
+  (* .......... define the first level screens for faster access .......... *)
+  searchList is ['?','#define','#include','#no_optimize_primitives','#optimize_primitives','#protect'].
+  searchList gets 'address
+adjust_drag_rect
+and
+apply
+arith
+ask
+attach_icon
+auto_hyper_off
+auto_hyper_on
+bitmap
+bitmap_info
+bitmap_to_clipboard
+button
+button2
+call
+calling_topic
+capture_hyper_region
+chain
+change_directory
+char_to_number
+check_box
+check_menu_item
+child_windows
+children
+class
+clear
+close
+close_all
+close_window
+collect
+collect_not_ok
+collect_ok
+combine
+combo_box
+compare
+compile_string
+concat
+continue
+create_bitmap
+create_char_font
+create_font
+create_topic
+current_directory
+date
+dde
+dde_advise
+dde_close
+dde_execute
+dde_off
+dde_open
+dde_request
+dde_unadvise
+dde_write
+debug
+delay
+delete_bitmap
+delete_file
+delete_font
+delete_hyper_region
+delete_icon
+delete_mouse_cursor
+delete_selected_text
+different
+dir
+disable_draw
+disable_menu_item
+disable_window
+do
+do_local
+drag_rect
+edit_box
+edit_file
+edit_line
+edit_window
+element
+enable_all_windows
+enable_draw
+enable_menu_item
+enable_window
+erase_bitmap
+error_message
+evaluate
+exists
+exit
+exit_kp
+exit_windows
+file_menu
+first
+flatten
+font_list
+format_number
+free_library
+full_name
+get_active_window
+get_xxxx
+get_check_box
+get_combo_box
+get_cursor_pos
+get_demon
+get_display_pos
+get_display_window
+get_error_topic
+get_event_topic
+get_file_pos
+get_focus
+get_list_box
+get_number_of_values
+get_parameters
+get_procedures
+get_radio_button
+get_read_only
+get_scroll_bar
+get_selected_text
+get_string
+get_text
+get_title
+get_top_window
+gets
+gets_c
+group_box
+has_value
+hide_window
+horz_scroll_bar
+horz_scroll_text
+hyper_cursor
+hyper_display
+hyper_region
+icon
+im_a
+insert_text
+intersect
+invalidate_rect
+invert_hyper_region
+is
+is_c
+is_list
+is_text_modified
+last
+list_box
+list_length
+list_of_char
+list_to_string
+load
+load_bitmap
+load_icon
+load_library
+load_mouse_cursor
+load_program
+load_topic
+lower
+lpxxx
+lpstr
+lpstruct
+make
+make_c
+make_modal
+make_topic_list
+memory
+menu
+move_window
+neg
+new
+new_file
+new_kb
+no_debug
+not
+number_to_char
+numeric_sort
+offset_hyper_region
+one_of
+or
+parent
+parent_window
+perform
+primitive
+print
+put_xxxx
+radio_button
+read
+read_char
+read_clipboard
+read_line
+read_response
+remove
+remove_topic
+repeat
+replace
+replace_elements
+reset
+resize_window
+rest
+rule
+run
+save_as
+save_bitmap
+save_edit_file
+save_topic
+say
+search_text
+select_text
+set_active_window
+set_check_box
+set_combo_box
+set_cursor_pos
+set_demon
+set_display_pos
+set_display_window
+set_error_topic
+set_event_topic
+set_file_pos
+set_focus
+set_list_box
+set_number_of_values
+set_parameters
+set_procedures
+set_radio_button
+set_read_only
+set_scroll_bar
+set_text
+set_title
+set_top_window
+set_window_colors
+show_topic
+show_window
+single_step
+single_step_off
+sort
+stop
+string_copy
+string_info
+string_length
+string_replace
+string_to_list
+string_where
+start_drag
+stop_drag
+sublist
+system_info
+task_list
+task_windows
+text
+text_to_clipboard
+time
+topic_value
+trace
+trace_off
+typeface_list
+type_cast
+uncheck_menu_item
+union
+update_window
+upper
+use_font
+use_mouse_cursor
+use_window
+user
+validate_rect
+value_of
+vert_scroll_bar
+vert_scroll_text
+wait
+where
+while
+window
+window_info
+window_list
+write'.
+
+  ContentsList is ' 
+  #mNew Features not in the Manual#m
+
+  Screen Interface:              
+    #mCreate Objects#m                
+    #mManipulate Objects#m            
+    #mUsing Text#m                     
+    #mGraphics#m                      
+    #mStyles for Windows#m 
+ 
+  Topics, OOP and Program Control: 
+    #mTopics#m	 
+    #mObject-oriented Features#m 
+    #mProgram Control#m 
+    #mBooleans, Rules and Arithmetic#m 
+
+  Files and External Resources:   
+    #mExternal Files#m                
+    #mExternal Programs#m            
+    #mUsing the Clipboard#m          
+    #mDynamic Data Exchange#m          
+  
+  Miscellaneous: 
+    #mError Handling#m 
+    #mDebugging#m 
+    #mSend Text to Printer#m 
+    #mSystem Information#m 
+
+  List, Strings and Conversion:  
+    #mLists#m 
+    #mStrings#m 
+    #mConversion between Lists and Strings#m 
+ 
+  Help Topics:
+    #mTools#m
+    #mDevelopment Environment#m
+    #mKeyboard Interface#m
+    #mHow To#m
+    #mHelp#m
+
+  #mDescription of Events#m
+  #mPrograms and Tools Checklist#m
+  #mConverting from KnowledgePro (DOS) ver. 1.X#m
+'.
+
+end.
+
+(* ======================== Create Main Window ======================= *)
+
+topic MainWindow.
+  if (exists (wMain)) then
+     exit  ( ).
+ 
+  (* .......... Create fonts and set color of the hypertext display .......... *)
+  helvSmall is create_char_font ( [0.82,0.71428,700,F,F,F,0,1,34,helv]).
+  mainFont is create_char_font ( [1,1,400,'F','F','F',0,1,34,'Helv']).
+  hyperFont is create_char_font ( [1,1,400,'F','T','F',0,1,34,'Helv']).
+  hypcolor is green2.
+  hyper_display (?hypcolor,,?hyperFont).
+
+  (* .......... Create the display windows .......... *)
+  wMain is window ( MainWindow:EventTopic,15,2,64,23,'KPWIN Help', [overlapped, siblings, showChildren,thickFrame,TitleBar, MinimizeBox, ControlMenu, MaximizeBox], , , , [close_event, resize_event] ).
+  attach_icon (?wMain, ?helpIcon).
+  wButtonBack is window ( , 1,1,100,1.5, , [ child, visible, siblings, showChildren ], ?wmain, , gray).
+  use_font ( ?helvSmall ).
+  bContents is button ( Contents, Contents:Display, 1,1,10 ).
+  bSearch is button ( Search, PromptSearch, 11,1,10 ).
+  bBack is button ( Back, Back, 21,1,10 ).
+  bCopy is button ( Copy, Copy, 31,1,10 ).
+  bPrint is button ( Print, PrintIt, 41,1,10 ).
+  bQuit is button ( Quit,  MainWindow:EventTopic:close_event, 51,1,10 ).
+  resize_window ( [ ?bContents, ?bSearch, ?bBack, ?bCopy, ?bPrint, ?bQuit ], 10,1.5 ).
+  wDisplay is window (, 1,2.5, element ( window_info ( ?wMain ), 10 ), element ( window_info (?wMain), 11)-1.5, , [child, siblings, horzScroll, vertScroll,showChildren, visible], ?wmain).
+
+  topic Show.
+    if not (exists (wMain)) then
+       MainWindow ().
+    show_window (?wMain).
+    set_focus (?wDisplay).
+  end.
+
+  topic EventTopic (info, event).
+    do (?event).
+  
+    topic close_event.
+      exit_kp ( ).
+    end.
+
+    topic resize_event.
+       (* Don't resize the buttons if we just go iconic. *)
+       if last (?info) is ICONIC then
+          exit ().
+
+       hide_window ( [?wDisplay,?wButtonBack]).
+       width is element ( window_info (?wMain), 3).
+       if ?width >= 60 then 
+          [:bSize, :bCols, :bRows] is_c [1.5, [11,21,31,41,51], [1,1,1,1,1]] 
+       else
+          if ?width >= 50 then 
+             [:bSize, :bCols, :bRows] is_c [3, [11,21,31,41,1], [1,1,1,1,2.5]] 
+          else
+             if ?width >= 40 then 
+                [:bSize, :bCols, :bRows] is_c [3, [11,21,31,1,11], [1,1,1,2.5,2.5]] 
+             else
+                if ?width >= 30 then 
+                   [:bSize, :bCols, :bRows] is_c [3, [11,21,1,11,21], [1,1,2.5,2.5,2.5]] 
+                else
+                   if ?width >= 20 then 
+                      [:bSize, :bCols, :bRows] is_c [4.5, [11,1,11,1,11], [1,2.5,2.5,4,4]] 
+                   else
+                      [:bSize, :bCols, :bRows] is_c [9, [1,1,1,1,1], [2.5,4,5.5,7,8.5]].
+       resize_window (?wButtonBack, ?width, ?bSize).
+       apply (move_window, [?bSearch, ?bBack, ?bCopy, ?bPrint, ?bQuit], ?bCols, ?bRows).
+       move_window (?wDisplay, 1, ?bSize +1 ).
+       resize_window (?wDisplay, element ( window_info (?wMain),10), element ( window_info (?wMain), 11) - ?bSize ).
+       show_window ([?wDisplay,?wButtonBack]).
+    end. (* resize_event *)
+  end. (* Event Topic *) 
+
+end. (* MainWindow *)
+
+(* ==================== Font Topics ========================== *)
+
+(* These topics let you change fonts from within the text files using the 
+     #r control command *)
+
+topic b.
+  use_font (?boldFont).
+end.
+
+topic d.
+  use_font (?mainFont).
+end.
+
+topic l.
+  use_font (?bigFont).
+end.

@@ -1,0 +1,80 @@
+.TH IsagNID
+
+.SH NAME
+IsagNIDS \ - ISAG's Network Intrusion Detector
+
+.SH SYNOPSIS
+.B isagnid
+[\ -option ...]
+[\ -option ...]  ...
+
+.SH DESCRIPTION
+.PP
+\fIIsagNID\fP is a complete application that useful for detect Denial of
+Services Attack using TCP/IP protocol stack.
+
+.PP
+It was written for system administrator to analyze their network.
+
+.SH OPTIONS
+.PP
+You can choose:
+.PP
+-s	sniff packet into files
+.PP
+-v	print packet information
+.PP
+-R	realtime analyze
+.PP
+-f	<file name>	choose file to analyze
+.PP
+	then choose one of these options :
+.PP
+	-o	count number of packets in the file per host
+.PP
+	-m	count number of packets in the file per miniute
+.PP
+	-c	count number of all IP packets in the file
+.PP
+	-M	check abnormal fragmentation
+.PP
+	-L	check looping
+.PP
+all above options you can also choose :
+.PP
+-l	keep abnormal information in log files
+.PP
+-h	analyze only some hosts in /etc/rmonit.host
+.PP
+-d	<directory name>	change directory to keep log files
+(usually in /var/log/rmonit/)
+
+.SH RESOURCES
+.PP
+IsagNID developed in Linux operating system using C on UNIX. Your memory
+has to larger than 400 KB and your storage has to larger than 63 KB
+(only the programs, not include the storage for keeping any log files).
+
+.SH COPYRIGHT
+IsagNID (ISAG's Network Intrusion Detector)
+
+Copyright (C) 2000, Mr. Thananchai Threepak and Ms. Wajee Teswanich,
+Information Security Advisory Group (ISAG), under authority of Computer
+Engineering of King Mongkut's Institute of Technology (KMITL), Thailand.
+All rights reserved.
+
+.SH BUGS
+When you use the IsagNID, you have to ensure that the total numbers of IP
+in your broadcast domain not larger than 255. And if you use "-s" option,
+you have to prepare your storage to keep the amount of data.
+
+.SH DISCLAIMER
+The software developers and NECTEC absolutely have no responsibility in
+any damage or error due to the use of this software you may obtain from
+anywhere.
+
+.SH AUTHOR
+Mr. Thanunchai Threepak and Ms. Wajee Teswanich
+members of Information Secerity Advisory Group (ISAG)
+in Computer Engineering Department, King Mongkut's Institute of
+Technology Ladkrabang (KMITL), Thailand

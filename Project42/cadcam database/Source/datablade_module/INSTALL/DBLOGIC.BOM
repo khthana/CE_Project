@@ -1,0 +1,62 @@
+
+##
+## BladePack v3.4  Bill Of Materials (BOM) data file 'dblogic.prd' Project
+################################################################################
+
+
+
+## Files to Install:
+
+
+                  install=true, \
+                     file=dblogic.bld, \
+                component=DataBlade, \
+                      dir=../src/solaris-sparc, \
+              install_dir=extend/dblogic.3.0, \
+                   update=shared, \
+                       os=Solaris/sparc, \
+                     icon=false
+
+                  install=true, \
+                     file=prepare.sql, \
+                component=DataBlade, \
+                      dir=../scripts, \
+              install_dir=extend/dblogic.3.0, \
+                       os=all, \
+                     icon=false
+
+                  install=true, \
+                     file=objects.sql, \
+                component=DataBlade, \
+                      dir=../scripts, \
+              install_dir=extend/dblogic.3.0, \
+                       os=all, \
+                     icon=false
+
+                  install=true, \
+                     file=prepare.en_us.1252.sql, \
+                component=DataBlade, \
+                      dir=../scripts, \
+              install_dir=extend/dblogic.3.0, \
+                       os=all, \
+                     icon=false
+
+## Directories to Install:
+
+
+## Files to Delete:
+
+
+## Directories to Delete:
+
+
+## Changes to Ini Files:
+
+
+## Changes to Registry:
+
+
+## Routines:
+
+
+######################################## End Of Data File ########################################

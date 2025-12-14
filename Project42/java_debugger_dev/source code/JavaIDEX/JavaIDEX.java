@@ -1,0 +1,30 @@
+package JavaIDEX;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+class JavaIDEX extends JFrame{  
+  JLabel logo;
+  Timer timer;
+  final int THREE_SEC = 3000;
+  public JavaIDEX() {
+    this.getContentPane().setLayout(new BorderLayout());
+    logo = new JLabel(new ImageIcon("images/logo.gif"));
+    this.getContentPane().add(logo, BorderLayout.NORTH);
+    setSize(405,350);
+    setLocation(200,150);
+    setVisible(true);
+    timer = new Timer(THREE_SEC, new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+       setVisible(false);
+       timer.stop();
+       IdeWin ideWin = new IdeWin();
+			}
+    });
+    timer.start();
+  }
+  public static void main(String[] args) {
+    JavaIDEX javaIDEX = new JavaIDEX();
+  }
+}

@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>Delete Category</title>
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" height="569">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">ADMINISTRATION</font></strong></font></div>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffff"> 
+    <td height="15"> 
+      <hr>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffcc" valign="top"> 
+    <td height="476"> 
+      <div align="center"> 
+        <table width="100%" border="0">
+          <tr> 
+            <td width="25%" valign="top" height="443"> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                <tr> 
+                  <td height="8">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center"><b><font face="MS Sans Serif" size="3">Administrator 
+                      Command</font></b></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td>&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <form method="post" action="AdminCategory.ASP?WCI=AddCategory&amp;WCE=formShopDesc&amp;WCU" 
+                  name="formShopDesc">
+                      <div align="center"> 
+                        <input type="image" name="Submit1" value="Shop Description" alt="Shop description"
+			 src="/ecom/pic/ShopDesc2.GIF" width="100" height="50">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <form name="space"  method="post">
+                      <div align="center"> <img src="/ecom/pic/ShopCat1.GIF" width="100" height="50" alt="Shop categories"> 
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <form method="post" action="AdminCategory.ASP?WCI=AddCategory&amp;WCE=formShopItem&amp;WCU" name="formShopItem">
+                      <div align="center"> 
+                        <input type="image" name="Submit3" value="Shop Item" alt="Shop items"
+			 src="/ecom/pic/ShopItem2.GIF" width="100" height="50">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <form method="post" action="AdminCategory.ASP?WCI=AddCategory&amp;WCE=formLogout&amp;WCU" name="formLogout">
+                      <div align="center"> 
+                        <input type="image" name="cmdLogout" value="Logout" src="/ecom/pic/Logout.GIF" width="100" height="50" alt="Logout">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td width="75%" height="443" valign="top" align="middle"> 
+              <p align="center">&nbsp;</p>
+              <p align="center"><font color="#000000"><b><font size="3" face="MS Sans Serif" color="#ff3300">All 
+                Category in your shop</font></b></font></p>
+              <form method="post" action="AdminCategory.ASP?WCI=DeleteCategory&amp;WCE=formDeleteCategory&amp;WCU" 
+            name="formDeleteCategory">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="8%">&nbsp;</td>
+                    <td width="41%"> 
+                      <div align="center"> 
+                        <select name="CategoryList" size="5"><wc@>strCategoryList</wc@> 
+                        </select>
+                      </div>
+                    </td>
+                    <td width="6%">&nbsp; </td>
+                    <td width="45%"> 
+                      <div align="center"> 
+                        <p align="left"> 
+                          <input type="submit" name="btnDeleteCategory" value="Delete Category">
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp; </p>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><a href="AdminCategory.ASP?WCI=DeleteCategory&WCE=Add&WCU" name=Add >Add 
+                      Category</a></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif" color="#ff3300"><b>Delete 
+                      Category</b></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><a href="AdminCategory.ASP?WCI=DeleteCategory&WCE=Update&WCU" name=Update >Update 
+                      Category</a></font></div>
+                  </td>
+                </tr>
+              </table>
+              <p>&nbsp;</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

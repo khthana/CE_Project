@@ -1,0 +1,12 @@
+
+##
+## BladePack v3.4  Project (PRD) data file 'dblogic.prd' Project
+################################################################################
+
+components               dblogic.cmp
+files                    dblogic.bom
+strings                  dblogic.str
+build                    'WinNT/i386','c:\informix','dblogic.prd'
+
+
+######################################## End Of Data File ########################################

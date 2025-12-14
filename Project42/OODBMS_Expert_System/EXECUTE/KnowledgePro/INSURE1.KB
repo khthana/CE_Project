@@ -1,0 +1,169 @@
+(* ============================= INSURE1.KB ===============================
+   This application is a rule-based approach to a problem regarding
+   medical insurance coverage. An alternate method to the rule-based
+   approach is the procedural method which combines rules shown in 
+   INSURE2.KB.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+==========================================================================*)
+
+if NOT(exists(w1)) then w1 is window ().
+
+text ('#eInsurance will cover#s',?payment,'of this claim.').
+button (Continue,:Next,20,4).
+   topic Next.
+	(* *)
+     ask ('#eDo you want to check another claim ?',want,[Yes,No]).
+     if ?want is Yes
+        then reset ([payment, 'patient covered', relation]) and
+             do (!main)
+        else close_window (?w1).
+   end.
+
+topic payment.
+set_number_of_values (payment,1).
+
+if ?'patient covered' is yes
+and ?'type of service' is hospital
+and ?'hospital coverage' is yes
+then payment is all.
+
+if ?'patient covered' is yes
+and ?'type of service' is hospital
+and ?'hospital coverage' is no
+then payment is none.
+
+if ?'patient covered' is yes
+and ?'type of service' is 'major medical'
+and ?'major medical coverage' is yes
+then payment is '80%'.
+
+if ?'patient covered' is yes
+and ?'type of service' is 'major medical'
+and ?'major medical coverage' is no
+then payment is none.
+
+if ?'patient covered' is no
+then payment is none.
+
+  topic 'patient covered'.
+  set_number_of_values ('patient covered',1).
+
+  if ?relation is self
+  then 'patient covered' is yes.
+
+  if ?relation is spouse
+  and ?policy is family
+  then 'patient covered' is yes.
+
+  if ?relation is spouse
+  and ?policy is individual
+  then 'patient covered' is no .
+
+  if ?relation is 'natural child'
+  and ?'age group' is 'under 19'
+  then 'patient covered' is yes.
+
+  if ?relation is 'natural child'
+  and ?'age group' is '19 or over'
+  and ?unfit is Yes
+  and ?certified is Yes
+  then 'patient covered' is yes.
+
+  if ?relation is 'natural child'
+  and ?'age group' is '19 or over'
+  and ?unfit is Yes
+  and ?certified is No
+  then 'patient covered' is no.
+
+  if ?relation is 'natural child'
+  and ?'age group' is '19 or over'
+  and ?unfit is No
+  then 'patient covered' is no.
+
+  if ?relation is 'other child'
+  and ?adopted is Yes
+  then 'patient covered' is yes.
+
+  if ?relation is 'other child'
+  and ?adopted is No
+  then 'patient covered' is no.
+
+    topic relation.
+    ask ('#eHow is the patient related to the policyholder ?',relation,
+      [self,spouse,'natural child','other child']) .
+    end. (* relation *)
+
+    topic policy.
+    ask ('Is this a family or an individual policy ?',policy,
+        [family,individual] ) .
+    end. (* policy *)
+
+    topic 'age group'.
+    ask ('In what age group is the child ?','age group',['under 19',
+        '19 or over']).
+    end. (* age group *)
+
+    topic unfit.
+    ask ('Is there any claim that the child is unable to support him
+or herself because of mental retardation, mental illness or
+developmental disability ? ',unfit,[No,Yes]).
+    end. (* unfit *)
+
+    topic certified.
+    ask ('Is there a physician''s certificate of medical disability
+for the individual in the file ?',certified,[Yes,No]) .
+    end. (* certified *)
+
+    topic adopted.
+    ask ('Is the child legally adopted ?',adopted,[No,Yes]).
+    end. (* adopted *)
+
+  end. (* patient covered *)
+
+  topic 'type of service'.
+  ask ('What is the type of service ?
+
+
+*** Note : In an actual application a set of rules would help
+determine what type of service was received.', 'type of service',
+        [hospital,'major medical']).
+
+
+  end. (* type of service *)
+
+  topic 'hospital coverage'.
+  ask ('Is this hospital charge covered under the terms of
+the contract ?
+
+
+*** Note : In an actual application a set of rules would help
+determine whether or not the hospital charge was covered.',
+          'hospital coverage',[Yes,No]).
+
+  end. (* hospital coverage *)
+
+  topic 'major medical coverage'.
+  ask ('Is this major medical charge covered under the terms of
+the contract ?
+
+
+*** Note : In an actual application a set of rules would help
+determine whether or not the major medical charge was covered.',
+           'major medical coverage',[Yes,No]).
+
+  end. (* major medical coverage *)
+
+end. (* payment *)

@@ -1,0 +1,55 @@
+<?php
+include('/www/htdocs/auction1/item_class.php3'); 
+$item_list1 = new item;
+
+$item_list = $item_list1->get_item_list($id);
+echo "
+	<body bgcolor='white' link='#22aa22' alink='#22aa22'
+vlink='#22aa22' text='#800040'>
+        <TABLE WIDTH=100% border=0>
+        <TR bgcolor='#ffcccc'>
+        <TD width=10%>
+        <P align=center><STRONG><FONT color=#6600ff>หมายเลขสินค้า
+</FONT></STRONG></P></TD>
+        <TD>
+        <P align=center><STRONG><FONT
+color=#6600ff>ชื่อสินค้า</FONT></STRONG></P></TD>
+        <TD width=15%>
+        <P align=center><STRONG><FONT color=#6600ff>ราคาปัจจุบัน
+ (บาท)</FONT></STRONG></P></TD>
+        <TD width=8%>
+        <P align=center><STRONG><FONT color=#6600ff>จำนวนการประมูล
+</FONT></STRONG></P></TD>    
+        <TD width=20%>
+        <P align=center><FONT color=#6600ff><STRONG>วันปิดประมูล</STRONG>
+</FONT></P></TD></TR> 
+";
+
+for ($j=1;$j<=$item_list[0]['num'];$j++)
+{
+	
+	$item_id 	=	$item_list[$j]['item_id'];
+	$title		=	$item_list[$j]['title'] ;	
+	$now_price	=	$item_list[$j]['now_price'];
+	$bid_num	=	$item_list[$j]['bid_num'];	 
+	$stop_date	=	$item_list[$j]['stop_date'];
+	$picture_url	=	$item_list[$j]['picture_url'];
+	if ($j % 2 ==0) 
+	{echo "<TR bgcolor='#ffffcc'>";}
+  	else {echo "<TR bgcolor='white'>";}
+	
+	echo "	
+	<TD width=10%>
+<a 
+href='http://161.246.5.146/interface/bid_frame.php3?item_id=$item_id'
+        target = '$item_id'>$item_id</a></TD>
+    	<TD>
+<a
+href='http://161.246.5.146/interface/bid_frame.php3?item_id=$item_id'
+        target = '$item_id'>$title</a></TD>
+    	<TD width=15% align=center>$now_price</TD>
+    	<TD width=8% align=center>$bid_num</TD>
+     	<TD width=20% align=center>$stop_date</TD></TR>";
+} 
+echo "</table>";
+?>

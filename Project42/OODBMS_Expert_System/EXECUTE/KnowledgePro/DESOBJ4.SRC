@@ -1,0 +1,243 @@
+(* ========================= DESOBJ4.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Screen Objects
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This module defines the object subclasses for the following:
+
+      hyper region
+      menu
+      bitmap
+      icon
+
+  ====================================================================== *)
+
+
+
+topic Hyper_RegionObject  ( describeList, fontParam, textColorParam, backColorParam,    tClientWidth, tClientHeight, tColOffset, tRowOffset, temp ).
+  (* Hyper_RegionObject Subclass *)
+
+  [ :type, :objectText, :c, :r, :w, :h, :textColor, :backColor ] is_c ?describeList.
+  :description is [ window, ObjectEventTopic, ?c, ?r, ?w, ?h, , [ child, thinframe, siblings ], ?ref:wWork, ?textColor, ?backColor, [mouse_move_event, mouse_down_event, double_click_event, close_event, move_event, resize_event ]  ].
+  im_a ( ObjectClass ).
+  CaptureArea ( ).
+
+  topic Move_event.
+     CaptureArea ( ).
+  end.
+
+  topic Resize_event.
+     CaptureArea ( ).
+  end.
+
+  topic Close_event.
+     erase_bitmap ( ?handle, ?CaptureArea:regBmpHandle ).
+     delete_bitmap ( ?CaptureArea:regBmpHandle ).
+  end.
+
+  topic CaptureArea ( 	tClientWidth, tClientHeight, tColOffset, tRowOffset, tC, tR, tW, tH ).
+    hide_window ( ?handle ).
+    [ tC, tR, tW, tH ] is_c window_info ( ?handle ).    
+    [ tClientWidth, tClientHeight ] is_c [ element ( window_info (?handle ), 10 ), element ( window_info (?handle ), 11 ) ].
+    [ tColOffset, tRowOffset ] is_c [  (?tW-?tClientWidth) / 2, (?tH-?tClientHeight) / 2 ].
+    set_display_window ( ?ref:wWork ).
+    if exists ( regBmpHandle )
+       then erase_bitmap ( ?handle, ?regBmpHandle ) and
+              delete_bitmap ( ?regBmpHandle ) and
+              delete_hyper_region ( ?region ).
+    update_window (?ref:wWork).
+    :region is hyper_region ( , ?tC + ?tColOffset, ?tR+?tRowOffset, ?tClientWidth, ?tClientHeight ).
+    :regBmpHandle is capture_hyper_region ( ?region ).
+    set_display_window ( ?handle ).
+    bitmap ( ?regBmpHandle, 1,1 ).
+    show_window ( ?handle ).
+  end.
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ hyper_region, 'Region Name', ?c, ?r, ?w, ?h, ?ref:defaultTextColor, ?ref:defaultBackColor ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ]  ).
+      :wInfo is window ( , 29, 6, 29.7, 8, 'Region Properties', [popup, titlebar, thickFrame], ?ref:wMain  ).
+      text ( '
+  Region Name:').
+      :ed1 is edit_box ( ?objectText, , 3, 3.25, 24.14285714285714, 1.3125, [visible, thinFrame, autoHscroll ] ).
+      button2 ( '  &Ok  ', Done, 3, 5.25, 11, 1.5 ).
+      button2 ( &Cancel, Done, 16, 5.25, 11, 1.5 ).
+      show_window ( ?wInfo ).
+      set_focus ( ?ed1 ).
+
+      topic Done ( item ).
+         if ?item is '  &Ok  '
+            then objectText is get_text ( ?ed1 ).
+         close_window ( ?wInfo ).
+         enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+      end.
+  end. (* ChangeProperties *)
+
+  topic CreateCode (  tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,4 )).
+      PropertyList is combine ( hyper_region, ?objectText, ?tInfo ).    
+    end.
+
+  end. (* CreateCode *)
+
+  topic mark.
+  end.
+
+end.  (* Hyper_RegionObject *)
+
+topic MenuObject ( describeList ).
+  (* Menu Object Subclass *)
+
+  [ :type, :objectText, :eventTopic ] is_c ?describeList.
+  set_display_window ( ?ref:wWork ).
+  :handle is menu ( ?objectText ).
+
+  topic CreateCode ( tObjCode ).
+    if ?MenuObject:objectText is [ ] then exit ( ).
+    tObjCode is list_to_string ( combine ( menu, [ ?objectText ] ,  [ ?eventTopic ] ) ,  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+  end.
+
+end. (* MenuObject *)
+
+topic Bitmap_fileObject ( describeList, fontParam,	tW, tH ).
+  (* Bitmap subclass.
+
+     Width and height are maintained only for code generation, 
+      since the bitmap object could be resized during design,
+      the full bitmap should always be displayed. *)
+
+  [ :type, :file, :c, :r, :w, :h, :bitmapCol, :bitmapRow, :bitmapWidth, :bitmapHeight] is_c ?describeList.
+  :description is [ window, ObjectEventTopic, ?c, ?r, ?w, ?h, , [ child, thinframe, visible, siblings ], 
+                  ?ref:wWork, , , [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  :bmpHandle is load_bitmap ( ?file ).
+  [ :totalBmpWidth, :totalBmpHeight ] is_c bitmap_info ( ?bmpHandle ).
+  RemoveOld:bmpHandleList gets ?bmpHandle.
+
+  (* Display entire bitmap in case object is resized. *)
+  bitmap ( ?bmpHandle, 1, 1, 
+                   ?totalBmpWidth - ?bitmapCol, 
+                   ?totalBmpHeight - ?bitmapRow, 
+                   ?bitmapCol, ?bitmapRow,
+                   ?totalBmpWidth - ?bitmapCol, 
+                   ?totalBmpHeight - ?bitmapRow).
+  
+  topic ChangeProperties ( tCol, tRow, tWidth, tHeight ).
+     set_title ( ?ref:wMain, 'Modify Bitmap' ).
+     set_display_window ( ?ref:wMain ).
+     [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ) + 1.
+     :wInfo is window ( InfoEvent , 15, 2, ?tWidth , ?tHeight , , 
+               [ child, thinframe, visible, horzscroll, vertscroll ], ?ref:wMain, , , [ horz_scroll_event, vert_scroll_event] ).
+     bitmap ( ?bmpHandle, 1,1 ).
+
+     [ :sCol, :sRow ] is 1.
+     if ?bitmapRow <> [] then
+        vert_scroll_text (?wInfo, ?bitmapRow - 1) and
+        horz_scroll_text (?wInfo, ?bitmapCol - 1).
+     set_display_window ( ?ref:wMain ).
+     :b1 is button2 ( '  &Ok  ', Done, 2, 2, 11, 1.5 ).
+     :b2 is button2 ( &Cancel, Done, 2, 5, 11, 1.5 ).
+     :maxHeight is 4 + ?tHeight.
+     if ?maxHeight < 8 then
+        maxHeight is 8.
+     resize_window ( ?ref:wMain, 17 + ?tWidth, ?maxHeight ).
+     move_window ( ?ref:wMain, 4, 4 ).
+     show_window ( ?ref:wMain ).
+
+      topic InfoEvent ( i, e ).
+       do ( ?e ).
+ 
+       topic Horz_scroll_event.
+          sCol is ?sCol + ?i.        
+       end.
+
+       topic Vert_scroll_event.
+          sRow is ?sRow + ?i.        
+       end.
+     end. (* InfoEvent *) 
+
+     topic Done ( item ).
+       if ?item is '  &Ok  ' then
+          erase_bitmap ( ?handle, ?bmpHandle ) and
+          [ bitmapCol, bitmapRow ] is_c [ ?sCol, ?sRow ] and
+          [ bitmapWidth, bitmapHeight ] is_c element ( window_info ( ?handle ), [3, 4] ) and
+          set_display_window ( ?handle ) and
+          bitmap ( ?bmpHandle, 1, 1, 
+                   ?totalBmpWidth - ?bitmapCol, 
+                   ?totalBmpHeight - ?bitmapRow, 
+                   ?bitmapCol, ?bitmapRow,
+                   ?totalBmpWidth - ?bitmapCol, 
+                   ?totalBmpHeight - ?bitmapRow).
+       close_window ( [ ?wInfo, ?b1, ?b2 ] ).
+       hide_window ( ?ref:wMain ). 
+       show_window ( [ ?ref:wWork, ?ref:wTools ] ).
+       enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+     end.
+
+  end.
+
+  topic CreateCode.
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[', ']', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+
+    topic PropertyList ( tCol, tRow, tWidth, tHeight ).
+      [ tCol, tRow, tWidth, tHeight ] is_c apply (WorkEventTopic:mouse_up_event:gridPos, window_info ( ?handle )).
+      PropertyList is combine ( bitmap_file , [ ?file ], 
+          ?tCol, ?tRow, 
+          ?tWidth, ?tHeight, 
+          ?bitmapCol, ?bitmapRow,
+          ?tWidth, ?tHeight ).    
+    end.
+  end.
+
+end. (* BitmapObject *)
+
+topic Icon_fileObject ( describeList, fontParam ).
+  (* Icon subclass *)
+
+  [ :type, :file, :c, :r ] is_c ?describeList.
+  :description is [ window, ObjectEventTopic, ?c, ?r, 4.6,2, , [ child, visible, siblings ], 
+                  ?ref:wWork, , , [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  :icoHandle is load_icon ( ?file ).
+  RemoveOld:icoHandleList gets ?icoHandle.
+  icon ( ?icoHandle, 1,1 ).
+
+  (* remove this because no properties for an icon *)
+(*
+  topic ChangeProperties.
+  end.
+*)
+
+  topic CreateCode ( tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,2 )).
+      PropertyList is combine ( icon_file , [ ?file ], ?tInfo ).    
+    end.
+
+  end.
+
+end. (* IconObject *)

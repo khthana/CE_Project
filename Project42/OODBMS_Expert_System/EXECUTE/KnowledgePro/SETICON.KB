@@ -1,0 +1,87 @@
+(* ============================= SETICON.KB ===================================
+               Sample utility to install icons on Program Manager
+
+    This program uses Dynamic Data Exchange to talk to Program Manager to
+    create groups and install icons.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+==========================================================================*)
+
+wmain is window (quit,15,2,50,17.56,'Install Icons',[popup,thickFrame,titleBar,showChildren,siblings],,,,close_event).
+text ('
+  Install applications on the Program Manager.
+  To install KnowledgePro select INSTALL.
+
+  Group Name:
+
+  Description:
+
+  Command Line:
+
+  Icon Name:
+ ').
+ed1 is edit_line ('Windows Applications',,19,4.8,25).
+ed2 is edit_line (KnowledgePro,,19,6.8,25).
+ed3 is edit_line ('\kpwin\kpwin',,19,8.8,25).
+ed4 is edit_line ('\kpwin\kpwin.ico',,19,10.8,25).
+button ('Install',install,11,14,).
+button ('Quit',quit,32,14,9).
+show_window (?wmain).
+set_focus (?ed1).
+
+topic install.
+  group is get_text (?ed1).
+  describe is get_text (?ed2).
+  file is get_text (?ed3).
+  iconName is get_text (?ed4).    
+  channel is dde_open (dde_topic, progman, progman). 
+  command1 is concat ('[ShowGroup(',?group,',2)]').
+  dde_execute (?channel, ?command1).
+  wait ().
+
+  command2 is concat ('[ShowGroup(',?group,',1)]' ).
+  dde_execute (?channel, ?command2).
+  wait ().
+
+  command3 is concat (' [AddItem(',?file,',',?describe,',',?iconName,')]').
+  dde_execute (?channel, ?command3).
+  wait ().
+
+  dde_close (?channel).
+  clear ().
+end.
+  
+topic dde_topic (info, event, handle).
+  if ?event is DDE_FAIL_EVENT then
+      temp is window (,28.28,5.75,36.42,11,,[popup,showChildren,siblings,DialogFrame]) and
+      make_modal (?temp) and
+      text ('
+
+     The icon could not be installed
+          on the Program Manager.') and
+      button ('Continue',goOn,14.42,7.375,) and
+      show_window (?temp).
+
+  continue ().
+
+  topic goOn.
+    dde_close (?channel).
+    clear ().
+  end.
+end.
+  
+topic quit.
+  clear ().
+end.

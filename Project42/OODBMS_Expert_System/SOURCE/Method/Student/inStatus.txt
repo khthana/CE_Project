@@ -1,0 +1,31 @@
+defineProcedure List<StringSet> projectCF::Student::class:
+inStatus(String StdID,String Stat)
+language : "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $Set <Student> S1;
+ $Set <Student> S2;
+ $Set <Student> S3;
+ $S1 = Student from Student where Student.ID == StdID;
+ $S2 = Student from Student where Student.Status() == Stat;
+ $S3 = S1.intersect(S2);
+ $List <String> LS1;
+ $List <String> LS2;
+ $List <StringSet> LSS1;
+ $List <StringSet> LSS2;
+ $LS1 = S3.ID from S3;
+ $LS2 = S3.Status() from S3;
+ $StringSet SS1;
+ $StringSet SS2;
+ $SS1 = StringSet.Create();
+ $SS1.AddSetElement(LS1);
+ $SS2 = StringSet.Create();
+ $SS2.AddSetElement(LS2);
+ $LSS1 = List{};
+ $LSS2 = LSS1.add(SS1);
+ $LSS1 = LSS2.add(SS2);
+  $return(LSS1);
+
+};

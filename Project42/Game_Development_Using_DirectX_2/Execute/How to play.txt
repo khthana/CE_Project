@@ -1,0 +1,13 @@
+copy following files to your game directory 
+	- .exe
+	- .x
+	- .bmp
+	- .wav
+	- .map
+	
+install joystick and speaker to your computer
+and then let's play
+
+note: you should play in mode 800*600
+if you set render option to DITHERING and BI-LINEAR FITERING
+game will seem to be more realistic but game speed will drop.

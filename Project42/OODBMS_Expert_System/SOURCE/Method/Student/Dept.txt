@@ -1,0 +1,18 @@
+defineProcedure String projectCF::Student::instance:Dept()
+language:  "c++"
+{
+
+ $defaultCF 'projectCF';
+ $Set <RegsSubj> SetRegs;
+ $SetRegs = self.Registered;
+ $Bag <String> BagStr;
+ $BagStr = SetRegs.Subj.SubjectOf from SetRegs 
+			where SetRegs.Subj.Type == "Lab & Project";
+ $Iterator <String> IStr;
+ $IStr = BagStr.createIterator();
+ $IStr.advance();
+ $String D;
+ $D = IStr.get();
+  $return(D);
+
+};

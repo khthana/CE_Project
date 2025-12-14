@@ -1,0 +1,63 @@
+      <table width="100%" border="1" cellspacing="0" cellpadding="0">
+        <tr bgcolor="#CCCCFF"> 
+          <td colspan="4"> 
+            <div align="center"> 
+              <h3><font face="MS Sans Serif" color="#ff33cc"><b><font color="#993300">Billing 
+                Status</font></b></font></h3>
+            </div>
+          </td>
+        </tr>
+        <tr bgcolor="#CCCCFF"> 
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>BillingID</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>AccountID</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>ShipDate</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>Status</b></font></div>
+          </td>
+        </tr>
+      </table>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+        <tr bgcolor="#CCFFFF"> 
+          <td colspan="6"> 
+            <div align="center"> 
+              <h3><font color="#993300" face="MS Sans Serif">Billing Detail</font></h3>
+            </div>
+          </td>
+        </tr>
+        <tr bgcolor="#CCFFFF"> 
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Item 
+              name</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Amount</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Discount</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Tax 
+              value</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Price</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Status</font></b></font></div>
+          </td>
+        </tr>
+      </table>
+
+
+
+Select Itemname, T1.Status, Amount, T1.discount, TaxValue, T1.price
+From vBillingDetail T1, VItem T2
+Where T1.itemid = T2.itemid;
+

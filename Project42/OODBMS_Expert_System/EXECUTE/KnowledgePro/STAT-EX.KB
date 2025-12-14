@@ -1,0 +1,758 @@
+(* ============================= STAT-EX.KB ===============================
+   This application is a rule-based approach for a problem regarding
+   Statistic Tetsting Hypothesis assistance.
+
+   Developer:	Mr. Ho Thanh Phong
+   Instructor:	Dr. Vatcharaporn
+		SAT - AIT,	1997.
+
+=========================================================================*)
+
+ menu ( [ &Consultant,&Testing,&Separately_Testing,&Help,&Quit ],GetOption).
+text ('#fred  
+
+
+
+
+		Statistic  Tetsting  Hypothesis  Assistance').
+text ('#fblue
+
+
+
+
+		Developer:	Mr. Ho Thanh Phong 
+
+		Instructor:	Dr. Vatcharaporn
+				SAT - AIT, 1997.	
+
+
+
+' ).
+
+ topic GetOption (item).
+	 do (?item).
+	reset([&Consultant, &Testing,&Separately_Testing]).
+
+	topic &Quit.
+		exit_kp().
+	end.
+	topic &Separately_Testing.
+		if NOT(exists(w1)) 
+		 then w1 is window (,5,4,80,15,'Working Window',[overlapped,disabled,thickFrame] ).
+		 window(?w1). 
+		read_response('#n Give the kind of test you want to conduct #n( 0-Ztest, 1-t-test, 2-F test, 3-Chi-square) : ', nhan0,0).
+		vl0 is topic_value(nhan0).
+		read_response('#nGive the value of confidence level alpha : ',nhan1,'0.05').
+		vl1 is topic_value(nhan1).
+
+		if ?vl0 is 2 or ?vl0 is 3
+		then vl2 is 1
+		else 	read_response('#nTesting for 1 or 2 tailed ? ',nhan2,2) and
+			vl2 is topic_value(nhan2).
+
+		(* read_response('#nGive the value of statistic:  ',nhan3, 0.0). *)
+
+		(* Read value of statistics from file        statis.txt          *)
+		(* the value of test-statistic given by dtest.exe program *)
+
+		 run('dtest.exe',1). 
+		vl3 is read_line('statis.txt',1).
+
+		if ?vl0 is 3 
+		then vl0 is 2. (* Chi-square *)
+
+		if ?vl0 is 0 then vl4 is 0
+		else 	read_response('#nGive the value of degree of freedom ( 0 - for Ztest):  ',nhan4, ) and
+			vl4 is topic_value(nhan4).
+
+		new_file('test.txt').
+		write('test.txt',?vl0). (* value of 0 : Z-test *)
+		write('test.txt','#n',?vl1).
+		write('test.txt','#n',?vl2).
+		write('test.txt','#n',?vl4). 
+		write('test.txt','#n',?vl3).
+		close('test.txt').
+		run ('graph.exe test.txt',1).
+		reset([&Consultant, &Testing,&Separately_Testing]).	
+		close_window().
+	end.
+
+	topic &Consultant. 
+		if NOT(exists(w1)) 
+		 then w1 is window (,5,4,80,15,'Working Window',[overlapped,disabled,thickFrame] ).
+		type_explain=?TypeOfTesting.
+		text ('#e The type of Testing Hypothesis should be:   #s#fred', ?type_explain).
+
+		if ?type_explain is 'Z - test for one Population'
+		then do (hoi1).
+
+		if ?type_explain is 't - test for one Population'
+		then do (hoi2).
+
+		if ?type_explain is 'Z - test for one Population- Large Sample size'
+		then do (hoi1).
+
+		if ?type_explain is 'Z - test for two Populations - using Paired comparison.'
+		then do (hoi1).
+
+		if ?type_explain is 'Z - test for two Populations - using Independent sampling.'				
+		then do (hoi1).
+
+		if ?type_explain is 'ANOVA  test '
+		then do (hoi6).
+
+		if ?type_explain is 'Non Parametric ANOVA  test '							
+		then do (hoi7).
+
+		if ?type_explain is 'Z - test for two Normal, known Variance  Populations - using Paired Comparison sampling.'
+		then do (hoi1).
+
+		if ?type_explain is 't - test for two Populations - using Paired comparison.'
+		then do (hoi2).
+
+		if ?type_explain is 't - test for two Populations - using Independent sampling'
+		then do (hoi2).
+
+
+
+		text('#n#n#n Do you want to know WHY  I give you this recommendation ?').
+		bt_ask is button(No,retu,15,9,,t).
+		button (Yes,retu).
+		set_focus(?bt_ask).
+
+		topic retu(item).
+			if  ?item is No
+			     then close_window()
+			 else
+			    do (explain_TypeOfTesting).
+
+			topic explain_TypeOfTesting.
+
+				if ?ruleno is 1 
+				then 	do (exp1).
+				if ?ruleno is 2
+				then do (exp2).
+
+				if ?ruleno is 3
+				then do (exp3).
+
+				if ?ruleno is 4
+				then do (exp4).
+
+				if ?ruleno is 5			
+				then do (exp5).
+
+				if ?ruleno is 6
+				then do (exp6).
+
+				if ?ruleno is 7						
+				then do (exp7).
+
+				if ?ruleno is 10
+				then do (exp10).
+
+				if ?ruleno is 11
+				then do (exp11).
+				
+				if ?ruleno is 20
+				then do (exp20).
+				if ?ruleno is 21
+				then do (exp21).
+				if ?ruleno is 22
+				then do (exp22).
+				if ?ruleno is 23
+				then do (exp23).
+				if ?ruleno is 24
+				then do (exp24).
+				if ?ruleno is 25
+				then do (exp25).
+				if ?ruleno is 26
+				then do (exp26).
+				(*  Explanation *)
+
+				topic exp1.
+					(* Rule 1*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred One #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d sample size is #fred bigger than 30#d. #nSo the Z-test is appropriate. (Applying Central Limit Theorem) ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp1*)
+
+				topic exp2.
+					(* Rule 2*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred One #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the distribution is #fred Normal#d and sample size is #fred less than 30#d. #nSo the t-test is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp2*)
+
+				topic exp3.
+					(* Rule 3*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred One #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the distribution is #fred Normal#d and sample size is #fred less than 30#d.
+	  #nSo the Non-Parametric  test for one Population. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp3*)		
+
+
+				topic exp4.
+					(* Rule 4*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the distribution is #fred Normal#d and sample size is #fred less than 30#d
+	- #fred And #d the variances are #fred Unknown#d.  #nSo the t-test for one Population is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp4*)
+				topic exp5.
+					(* Rule 5*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the  sample size is #fred bigger than 30 -  (Apply Central Limit Theorem #d). 
+	#nSo the Z-test is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,9).
+					wait().			
+					do (continue_ve).
+				end. (*exp5*)
+				topic exp6.
+					(* Rule 6*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of populations is #fred One #d
+	- #fred And #d the parameter you want to test is #fred Proportion of Population#d
+	- #fred And #d the  sample size is #fred bigger than 30 -  (Apply Central Limit Theorem #d). 
+	  #nSo the Z - test for one Population- Large Sample size  is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp6*)
+				topic exp7.
+					(* Rule 7*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of populations is #fred One #d
+	- #fred And #d the parameter you want to test is #fred Proportion of Population#d
+	- #fred And #d the Variance is #fred Unknown#d
+	- #fred And #d the  sample size is #fred less than 30 - #d. 
+	  #nSo the t - test for one Population- Small Sample size  is appropriate. ').
+	
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,9).
+					wait().			
+					do (continue_ve).
+				end. (*exp7*)
+
+		
+				topic exp10.
+					(* Rule 10*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Paired Comparison#d
+	- #fred And #d the variance is #fred UnKnown#d  and Sample size is #fred > than 30#d.
+	 #nSo the Z-test using Paired Comparison Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,9).
+					wait().			
+					do (continue_ve).
+				end. (*exp10*)
+		
+				topic exp11.
+					(* Rule 11*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Independent Sampling#d
+	- #fred And #d Sample size is #fred > than 30#d.
+	 #nSo the Z-test using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,9).
+					wait().			
+					do (continue_ve).
+				end. (*exp10*)
+
+				topic exp20.
+					(* Rule 20*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Proportion of Population#d
+	- #fred And #d the sampling is taken by #fred Independent Sampling#d
+	- #fred And #d the population distribution is  #fred Not Normal#d
+	- #fred And #d the variance is #fred UnKnown#d  and Sample size is #fred less than 30#d.
+	 #nSo the Nonparametric Test using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp20*)
+
+				topic exp21.
+					(* Rule 21*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred Population#d
+	- #fred And #dnumber of population is #fred Two #d
+	- #fred And #d the parameter you want to test is #fred Proportion of Population#d
+	- #fred And #d the sampling is taken by #fred Paired-ComparisonSampling#d
+	- #fred And #d the population distribution is  #fred Not Normal#d
+	- #fred And #d the variance is #fred UnKnown#d  and Sample size is #fred less than 30#d.
+	 #nSo the Nonparametric Test using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp21*)
+
+				topic exp22.
+					(* Rule 22*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred Population#d
+	- #fred And #dnumber of population is #fred More than Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Independent Sampling#d
+	- #fred And #d the population distribution is  #fred Normal#d
+	- #fred And #d the variances are #fred Equal#d.
+	 #nSo the ANOVA  test  using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp22*)
+
+				topic exp23.
+					(* Rule 23*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred Population#d
+	- #fred And #dnumber of population is #fred More than Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Independent Sampling#d
+	- #fred And #d the population distribution is  #fred Not Normal#d.
+
+	 #nSo the Non-Parametric ANOVA  test  using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp23*)
+
+				topic exp24.
+					(* Rule 24*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred Population#d
+	- #fred And #dnumber of population is #fred More than Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Paired-Comparison Sampling#d
+	- #fred And #d the population distribution is  #fred Not Normal#d.
+
+	 #nSo the Non-Parametric ANOVA  test  using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp24*)
+
+				topic exp25.
+					(* Rule 25*)
+					text('#e Because you have answered me that:
+	- You want to test about #fred Population#d
+	- #fred And #dnumber of population is #fred More than Two #d
+	- #fred And #d the parameter you want to test is #fred Mean of Population#d
+	- #fred And #d the sampling is taken by #fred Paired-Comparison Sampling#d
+	- #fred And #d the population distribution is  #fred Normal#d.
+	- #fred And #d the variances are #fred Not Equal#d.
+
+	 #nSo the Non-Parametric ANOVA  test  using Independent Sampling is appropriate. ').
+					reset([type_explain,&Consultant,TypeOfTesting]).
+					button(OK,continue_ve,10,14).
+					wait().			
+					do (continue_ve).
+				end. (*exp25*)
+
+
+
+
+				topic continue_ve.	
+					close_window().
+				end. (*continue_ve*).	
+				reset([&Consultant,TypeOfTesting]).
+			end. (*explain_TypeOfTesting*)
+		end. (*retu*)
+
+		(* For Z-test only *)
+		topic hoi1.
+			read_response('#n#nGive the value of confidence level alpha : ',nhan1,'0.05').
+			vl1 is topic_value(nhan1).
+			read_response('#nTesting for 1 or 2 tailed ? ',nhan2,2).
+			vl2 is topic_value(nhan2).
+	
+			(* read_response('#nGive the value of Z-statistic:  ',nhan3, ). *)
+			 run('dtest.exe',1). 
+			vl3 is read_line('statis.txt',1).
+	
+			new_file('test.txt').
+			write('test.txt',0). (* value of 0 : Z-test *)
+			write('test.txt','#n',?vl1).
+			write('test.txt','#n',?vl2).
+			write('test.txt','#n',2). 
+			write('test.txt','#n',?vl3).
+			close('test.txt').
+		end. (* set values of test*)
+
+		(* For t-test only *)
+		topic hoi2.
+			read_response('#n#nGive the value of confidence level alpha : ',nhan1,'0.05').
+			vl1 is topic_value(nhan1).
+			read_response('#nTesting for 1 or 2 tailed ? ',nhan2,2).
+			vl2 is topic_value(nhan2).
+
+			(* read_response('#nGive the value of t-statistic:  ',nhan3, ). *)
+			 run('dtest.exe',1). 
+			vl3 is read_line('statis.txt',1).
+	
+			read_response('#nGive the value degree of freedom:  ',nhan4, ).
+			vl4 is topic_value(nhan4).
+
+			new_file('test.txt').
+			write('test.txt',1). (* value of 1 : t-test *)
+			write('test.txt','#n',?vl1).
+			write('test.txt','#n',?vl2).
+			write('test.txt','#n',?vl4). 
+			write('test.txt','#n',?vl3).
+			close('test.txt').
+		end. (* set values of test*)
+
+		(* For 'Z - test for one Population- Large Sample size' only *)
+		topic hoi3.
+			read_response('#n#nGive the value of confidence level alpha : ',nhan1,'0.05').
+			vl1 is topic_value(nhan1).
+			read_response('#nTesting for 1 or 2 tailed ? ',nhan2,2).
+			vl2 is topic_value(nhan2).
+
+			(* read_response('#nGive the value of Z-statistic (Computed from the formulation of Proportion):  ',nhan3, ). *)
+			 run('dtest.exe',1). 
+			vl3 is read_line('statis.txt',1).
+			new_file('test.txt').
+			write('test.txt',0). (* value of 0 : Z-test *)
+			write('test.txt','#n',?vl1).
+			write('test.txt','#n',?vl2).
+			write('test.txt','#n',2). 
+			write('test.txt','#n',?vl3).
+			close('test.txt').
+		end. (* set values of test*)
+
+
+		topic TypeOfTesting.
+			 window(?w1). 
+			set_number_of_values (TypeOfTesting,1).
+	
+			(* Rule 0-1: For 1 population, mean, vaiance known*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is 'Not Normal'  or ?distribution is Normal and
+			 ?variance_known is Known or
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for one Population' and ruleno is 1.
+
+			(* Rule 0-2: For 1 population, mean, vaiance known*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is Normal and
+			 ?variance_known is Known or
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for one Population' and ruleno is 2.
+
+
+			(* Rule 3: For 1 population, mean, vaiance known*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is 'Not Normal' and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  'Non-Parametric  test for one Population' and ruleno is 3.
+			
+			(* Rule 4*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is Normal and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for one Population' and ruleno is 4.
+
+			(* Rule 5*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Mean and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for one Population- Large Sample size'  and ruleno is 5.
+
+			(* Rule 6*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Proportion and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for one Population- Large Sample size'  and ruleno is 6.
+
+			(* Rule 7*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'One Population' and
+			 ?KindOfTest2 is Proportion and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for one Population- Small Sample size'  and ruleno is 7.
+
+
+			(* Rule 10*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal or
+			 ?distribution is 'Not Normal' or		
+			 ?variance_known is Known or
+			?variance_known is UnKnown and	 
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for two Populations - using Paired comparison.'  and ruleno is 10.
+
+			(* Rule 11*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is Independent and
+			 ?distribution is Normal or
+			  ?distribution is 'Not Normal' or
+			 ?variance_known is Known or
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for two Populations - using Independent sampling.'  and ruleno is 11.
+
+			(* Rule 12*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal and
+			 ?variance_known is Known
+			then TypeOfTesting  is  'Z - test for two Normal, known Variance  Populations - using Paired Comparison sampling.'  and ruleno is 12.
+
+			(* Rule 13*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for two Populations - using Paired comparison.'  and ruleno is 13.
+
+			(* Rule 14*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is Independent and
+			 ?distribution is Normal and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for two Populations - using Independent sampling'  and ruleno is 14.
+
+			(* Rule 15*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal or
+			 ?distribution is 'Not Normal' or		
+			 ?variance_known is Known or
+			?variance_known is UnKnown and	 
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for two Populations - using Paired comparison.'  and ruleno is 15.
+
+			(* Rule 16*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is Independent and
+			 ?distribution is Normal or
+			  ?distribution is 'Not Normal' or
+			 ?variance_known is Known or
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n > 30'
+			then TypeOfTesting  is  'Z - test for two Populations - using Independent sampling'  and ruleno is 16.
+
+			(* Rule 17*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal and
+			 ?variance_known is Known
+			then TypeOfTesting  is  'Z - test for two Normal, known Variance  Populations - using Paired Comparison sampling.'  and ruleno is 17.
+
+			(* Rule 18*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is Normal and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for two Populations - using Paired comparison sampling.'  and ruleno is 18.
+
+			(* Rule 19*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is Independent and
+			 ?distribution is Normal and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  't - test for two Populations - using Independent sampling'  and ruleno is 19.
+
+			(* Rule 20*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is Independent and
+			 ?distribution is 'Not Normal' and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  'Nonparametric Test'  and ruleno is 20.
+
+			(* Rule 21*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'Two Populations' and
+			 ?KindOfTest2 is Proportion and
+			 ?independence is 'Paired Comparison' and
+			 ?distribution is 'Not Normal' and
+			 ?variance_known is UnKnown and
+			 ?samplesize is 'n <= 30'
+			then TypeOfTesting  is  'Non-Parametric Test'  and ruleno is 21.
+
+			(* Rule 22*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'More than two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is Independent and	
+			 ?distribution is Normal  and
+			 ?equal_variance is Equal
+			 then TypeOfTesting  is  'ANOVA  test '  and ruleno is 22.
+
+			(* Rule 23*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'More than two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is Independent   and	
+			 ?distribution is 'Not Normal' 
+			 then TypeOfTesting  is  'Non-Parametric ANOVA  test'  and ruleno is 23.
+
+			(* Rule 24*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'More than two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?independence is 'Paired Comparison' and	
+			 ?distribution is 'Not Normal'
+			 then TypeOfTesting  is  'Non-Parametric ANOVA  test '  and ruleno is 24.
+
+			(* Rule 25*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'More than two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is Normal and
+			 ?equal_variance is 'Not equal' 	
+			 then TypeOfTesting  is  'Non-Parametric ANOVA  test '  and ruleno is 25.
+			(* Rule 26*)
+			if ?KindOfTest1 is Population and
+			 ?NumberPopulation is 'More than two Populations' and
+			 ?KindOfTest2 is Mean and
+			 ?distribution is Normal and
+			 ?equal_variance is 'Not equal'
+			 then TypeOfTesting  is  'Non-Parametric ANOVA  test '  and ruleno is 26.
+
+
+			topic independence.
+				ask('The Sampling is taken on the way of : ',independence,[Independent, 'Paired Comparison']).
+			end. (* independence*)
+			
+			topic equal_variance.
+				ask('  *** Note ****
+   The following is question concerning assumption about the equality of variances.
+    The Populations Variances are : ' ,equal_variance, [Equal, 'Not equal']).
+			end. (* equal_variance *)
+
+			topic distribution.
+				ask('What are the population distributions ?',distribution,[Normal,'Not Normal',Unknown]).
+			end. (* distribution *)
+
+			topic NumberPopulation.
+				ask ('What is the number of Population ? ',NumberPopulation , ['One Population','Two Populations', 'More than two Populations']).			
+			end. (* NumberPopulation*)
+
+			topic KindOfTest1.
+				ask ('Which kind of Parameters  do you want to test : ', KindOfTest1, [Population, Distribution, 'Relationship between Variables']).
+			end. (* KindOfTest1*)
+
+			topic KindOfTest2.
+			        (*	KindOfTest2 is Mean.*)
+			        ask ('Which kind of Parameters  do you want to test : ', KindOfTest2, [Mean, Proportion, Variance]). 
+			           (*	radio_button([ [Mean,10,6], [ proportion,10,8], [Variance, 10,10] ], KindOfTest2). 
+				button(OK,continue_ve,10,9).
+				wait(). *)
+			end. (* KindOfTest2*)
+
+			topic variance_known.
+				ask ('The Variance of Population are : ', variance_known, [Known, UnKnown]).
+			end. (* variance_known*)
+
+			topic samplesize.
+				ask ('What is the Size of sample taken ? ', samplesize, ['n <= 30', 'n > 30']).
+			end. (*  samplesize*)
+		end. (* TypeOfTesting*)
+
+(*		text ('#n#n#n Press button OK to come back the main Menu').
+		button (OK, :Next,  15,9).
+		topic Next.
+			close_window().
+		end. (*Next*)
+*)
+	end. (* &Consultant*)
+
+	topic &Testing.
+
+		run('graph.exe test.txt',1).
+	end.
+
+	 (*  text ('#e Recommendation: ').
+	text ('#fred  #s',?recommendation). *)
+
+end. (*GetOption*) 

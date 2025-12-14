@@ -1,0 +1,224 @@
+ dblogic
+
+ Timestamp is 387f3b72 (Fri Jan 14 22:06:26 2000)
+
+ Preferred load address is 10000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00007da4H .text                   CODE
+ 0002:00000000 000000b0H .idata$5                DATA
+ 0002:000000b0 00000054H .rdata                  DATA
+ 0002:00000104 0000003cH .idata$2                DATA
+ 0002:00000140 00000014H .idata$3                DATA
+ 0002:00000154 000000b0H .idata$4                DATA
+ 0002:00000204 000002a0H .idata$6                DATA
+ 0002:000004b0 000008cfH .edata                  DATA
+ 0003:00000000 00000004H .CRT$XCA                DATA
+ 0003:00000004 00000004H .CRT$XCZ                DATA
+ 0003:00000008 00000004H .CRT$XIA                DATA
+ 0003:0000000c 00000004H .CRT$XIZ                DATA
+ 0003:00000010 000048a0H .data                   DATA
+ 0003:000048b0 00000014H .bss                    DATA
+
+  Address         Publics by Value              Rva+Base     Lib:Object
+
+ 0001:00000000       _LocInput                  10001000 f   dblogic.obj
+ 0001:00000178       _LocOutput                 10001178 f   dblogic.obj
+ 0001:0000031c       _LocSend                   1000131c f   dblogic.obj
+ 0001:00000452       _LocReceive                10001452 f   dblogic.obj
+ 0001:00000579       _LocImportText             10001579 f   dblogic.obj
+ 0001:000006fa       _LocExportText             100016fa f   dblogic.obj
+ 0001:0000089e       _LocImportBinary           1000189e f   dblogic.obj
+ 0001:000009d2       _LocExportBinary           100019d2 f   dblogic.obj
+ 0001:00000b08       _LocCompare                10001b08 f   dblogic.obj
+ 0001:00000bda       _LocEqual                  10001bda f   dblogic.obj
+ 0001:00000bf8       _LocNotEqual               10001bf8 f   dblogic.obj
+ 0001:00000c17       _ComponentInput            10001c17 f   dblogic.obj
+ 0001:00000e00       _ComponentOutput           10001e00 f   dblogic.obj
+ 0001:0000100e       _ComponentSend             1000200e f   dblogic.obj
+ 0001:00001172       _ComponentReceive          10002172 f   dblogic.obj
+ 0001:000012c7       _ComponentImportText       100022c7 f   dblogic.obj
+ 0001:000014b0       _ComponentExportText       100024b0 f   dblogic.obj
+ 0001:000016be       _ComponentImportBinary     100026be f   dblogic.obj
+ 0001:00001820       _ComponentExportBinary     10002820 f   dblogic.obj
+ 0001:00001984       _ComponentCompare          10002984 f   dblogic.obj
+ 0001:00001a30       _ComponentEqual            10002a30 f   dblogic.obj
+ 0001:00001a4e       _ComponentLessThan         10002a4e f   dblogic.obj
+ 0001:00001a71       _ComponentLessThanOrEqual  10002a71 f   dblogic.obj
+ 0001:00001a94       _ComponentGreaterThanOrEqual 10002a94 f   dblogic.obj
+ 0001:00001ab7       _ComponentGreaterThan      10002ab7 f   dblogic.obj
+ 0001:00001ad8       _ComponentNotEqual         10002ad8 f   dblogic.obj
+ 0001:00001af7       _PinInput                  10002af7 f   dblogic.obj
+ 0001:00001d14       _PinOutput                 10002d14 f   dblogic.obj
+ 0001:00001f57       _PinSend                   10002f57 f   dblogic.obj
+ 0001:000020d2       _PinReceive                100030d2 f   dblogic.obj
+ 0001:0000223e       _PinImportText             1000323e f   dblogic.obj
+ 0001:0000245b       _PinExportText             1000345b f   dblogic.obj
+ 0001:0000269e       _PinImportBinary           1000369e f   dblogic.obj
+ 0001:00002817       _PinExportBinary           10003817 f   dblogic.obj
+ 0001:00002992       _PinCompare                10003992 f   dblogic.obj
+ 0001:00002a64       _PinEqual                  10003a64 f   dblogic.obj
+ 0001:00002a82       _PinLessThan               10003a82 f   dblogic.obj
+ 0001:00002aa5       _PinLessThanOrEqual        10003aa5 f   dblogic.obj
+ 0001:00002ac8       _PinGreaterThanOrEqual     10003ac8 f   dblogic.obj
+ 0001:00002aeb       _PinGreaterThan            10003aeb f   dblogic.obj
+ 0001:00002b0c       _PinNotEqual               10003b0c f   dblogic.obj
+ 0001:00002b2b       _WireInput                 10003b2b f   dblogic.obj
+ 0001:00002d7c       _WireOutput                10003d7c f   dblogic.obj
+ 0001:00002ff4       _WireSend                  10003ff4 f   dblogic.obj
+ 0001:00003186       _WireReceive               10004186 f   dblogic.obj
+ 0001:00003309       _WireImportText            10004309 f   dblogic.obj
+ 0001:0000355a       _WireExportText            1000455a f   dblogic.obj
+ 0001:000037d2       _WireImportBinary          100047d2 f   dblogic.obj
+ 0001:00003962       _WireExportBinary          10004962 f   dblogic.obj
+ 0001:00003af4       _WireCompare               10004af4 f   dblogic.obj
+ 0001:00003ba0       _WireEqual                 10004ba0 f   dblogic.obj
+ 0001:00003bbe       _WireLessThan              10004bbe f   dblogic.obj
+ 0001:00003be1       _WireLessThanOrEqual       10004be1 f   dblogic.obj
+ 0001:00003c04       _WireGreaterThanOrEqual    10004c04 f   dblogic.obj
+ 0001:00003c27       _WireGreaterThan           10004c27 f   dblogic.obj
+ 0001:00003c48       _WireNotEqual              10004c48 f   dblogic.obj
+ 0001:00003c67       _compgetid                 10004c67 f   dblogic.obj
+ 0001:00003d2c       _compgetxpos               10004d2c f   dblogic.obj
+ 0001:00003df2       _compgetypos               10004df2 f   dblogic.obj
+ 0001:00003eb8       _compgettype               10004eb8 f   dblogic.obj
+ 0001:00003f7e       _Gen_sscanf                10004f7e f   dblogic.obj
+ 0001:000060b6       _Gen_Trace                 100070b6 f   dblogic.obj
+ 0001:00006188       _wiregetseccomp            10007188 f   dblogic.obj
+ 0001:0000624e       _locgetypos                1000724e f   dblogic.obj
+ 0001:00006314       _pingetid                  10007314 f   dblogic.obj
+ 0001:000063d9       _pingetvalue               100073d9 f   dblogic.obj
+ 0001:0000649f       _wiregetfirstpin           1000749f f   dblogic.obj
+ 0001:00006565       _wiregetid                 10007565 f   dblogic.obj
+ 0001:0000662a       _pincheckterm              1000762a f   dblogic.obj
+ 0001:000066f0       _pingetcomp                100076f0 f   dblogic.obj
+ 0001:000067b6       _wiregetvalue              100077b6 f   dblogic.obj
+ 0001:0000687c       _wiregetsecpin             1000787c f   dblogic.obj
+ 0001:00006942       _wiregetfirstcomp          10007942 f   dblogic.obj
+ 0001:00006a08       _locgetxpos                10007a08 f   dblogic.obj
+ 0001:00006acd       _PinSetall                 10007acd f   dblogic.obj
+ 0001:00006bb1       _compSettype               10007bb1 f   dblogic.obj
+ 0001:00006c72       _wireSetvalue              10007c72 f   dblogic.obj
+ 0001:00006d33       _compSetypos               10007d33 f   dblogic.obj
+ 0001:00006df4       _wireSetall                10007df4 f   dblogic.obj
+ 0001:00006ee1       _wireSetseccomp            10007ee1 f   dblogic.obj
+ 0001:00006fa2       _pinSetvalue               10007fa2 f   dblogic.obj
+ 0001:00007063       _wireSetfirstcomp          10008063 f   dblogic.obj
+ 0001:00007124       _pinSetid                  10008124 f   dblogic.obj
+ 0001:000071e4       _compSetall                100081e4 f   dblogic.obj
+ 0001:000072bf       _wireSetsecpin             100082bf f   dblogic.obj
+ 0001:00007380       _wireSetid                 10008380 f   dblogic.obj
+ 0001:00007440       _compSetxpos               10008440 f   dblogic.obj
+ 0001:00007501       _pinSetterm                10008501 f   dblogic.obj
+ 0001:000075c2       _compSetid                 100085c2 f   dblogic.obj
+ 0001:00007682       _wireSetfirstpin           10008682 f   dblogic.obj
+ 0001:00007743       _pinSetcomp                10008743 f   dblogic.obj
+ 0001:00007804       _pingetio                  10008804 f   dblogic.obj
+ 0001:000078ca       _pinsetio                  100088ca f   dblogic.obj
+ 0001:0000798b       _locSetxpos                1000898b f   dblogic.obj
+ 0001:00007a4b       _locSetypos                10008a4b f   dblogic.obj
+ 0001:00007b0c       _mi_close                  10008b0c f   sapi:ONINIT.EXE
+ 0001:00007b12       _mi_get_varlen             10008b12 f   sapi:ONINIT.EXE
+ 0001:00007b18       _mi_get_vardata            10008b18 f   sapi:ONINIT.EXE
+ 0001:00007b1e       _mi_alloc                  10008b1e f   sapi:ONINIT.EXE
+ 0001:00007b24       _mi_open                   10008b24 f   sapi:ONINIT.EXE
+ 0001:00007b2a       _mi_set_varlen             10008b2a f   sapi:ONINIT.EXE
+ 0001:00007b30       _mi_new_var                10008b30 f   sapi:ONINIT.EXE
+ 0001:00007b36       _mi_put_integer            10008b36 f   sapi:ONINIT.EXE
+ 0001:00007b3c       _mi_get_integer            10008b3c f   sapi:ONINIT.EXE
+ 0001:00007b42       _mi_db_error_raise         10008b42 f   sapi:ONINIT.EXE
+ 0001:00007b48       _dtcvasc                   10008b48 f   sapi:ONINIT.EXE
+ 0001:00007b4e       _rstrdate                  10008b4e f   sapi:ONINIT.EXE
+ 0001:00007b54       _deccvasc                  10008b54 f   sapi:ONINIT.EXE
+ 0001:00007b5a       _mi_free                   10008b5a f   sapi:ONINIT.EXE
+ 0001:00007b60       _mi_money_to_binary        10008b60 f   sapi:ONINIT.EXE
+ 0001:00007b66       _mi_string_to_lvarchar     10008b66 f   sapi:ONINIT.EXE
+ 0001:00007b6c       _ifx_int8cvasc             10008b6c f   sapi:ONINIT.EXE
+ 0001:00007b72       __ifx_gl_mbscpy@16         10008b72 f   sapi:ONINIT.EXE
+ 0001:00007b78       _dectolong                 10008b78 f   sapi:ONINIT.EXE
+ 0001:00007b7e       _dectodbl                  10008b7e f   sapi:ONINIT.EXE
+ 0001:00007b84       _dectoint                  10008b84 f   sapi:ONINIT.EXE
+ 0001:00007b8a       _ifx_gl_convert_number     10008b8a f   sapi:ONINIT.EXE
+ 0001:00007b90       __ifx_gl_full_mblen@12     10008b90 f   sapi:ONINIT.EXE
+ 0001:00007b96       __ifx_gl_full_mbsnext@12   10008b96 f   sapi:ONINIT.EXE
+ 0001:00007b9c       __ifx_gl_im_ismctype@16    10008b9c f   sapi:ONINIT.EXE
+ 0001:00007ba2       _mi_get_locale             10008ba2 f   sapi:ONINIT.EXE
+ 0001:00007ba8       _mi_gl_tprintf             10008ba8 f   sapi:ONINIT.EXE
+ 0001:00007bae       _be_mapsym                 10008bae f   sapi:ONINIT.EXE
+ 0001:00007bb4       _mi_trace_getvect          10008bb4 f   sapi:ONINIT.EXE
+ 0001:00007bba       _strlen                    10008bba f   msvcrt:MSVCRT.dll
+ 0001:00007bc0       _sprintf                   10008bc0 f   msvcrt:MSVCRT.dll
+ 0001:00007bc6       _sscanf                    10008bc6 f   msvcrt:MSVCRT.dll
+ 0001:00007bcc       _memcpy                    10008bcc f   msvcrt:MSVCRT.dll
+ 0001:00007bd2       _strncmp                   10008bd2 f   msvcrt:MSVCRT.dll
+ 0001:00007be0       __CRT_INIT@12              10008be0 f   msvcrt:crtdll.obj
+ 0001:00007c8b       __DllMainCRTStartup@12     10008c8b f   msvcrt:crtdll.obj
+ 0001:00007d28       _free                      10008d28 f   msvcrt:MSVCRT.dll
+ 0001:00007d2e       __initterm                 10008d2e f   msvcrt:MSVCRT.dll
+ 0001:00007d34       __onexit                   10008d34 f   msvcrt:atonexit.obj
+ 0001:00007d60       _atexit                    10008d60 f   msvcrt:atonexit.obj
+ 0001:00007d72       _malloc                    10008d72 f   msvcrt:MSVCRT.dll
+ 0001:00007d78       _DllMain@12                10008d78 f   msvcrt:dllmain.obj
+ 0001:00007d98       ___dllonexit               10008d98 f   msvcrt:MSVCRT.dll
+ 0001:00007d9e       _DisableThreadLibraryCalls@4 10008d9e f   kernel32:KERNEL32.dll
+ 0002:00000000       __imp__DisableThreadLibraryCalls@4 10009000     kernel32:KERNEL32.dll
+ 0002:00000004       \177KERNEL32_NULL_THUNK_DATA 10009004     kernel32:KERNEL32.dll
+ 0002:00000008       __imp___onexit             10009008     msvcrt:MSVCRT.dll
+ 0002:0000000c       __imp____dllonexit         1000900c     msvcrt:MSVCRT.dll
+ 0002:00000010       __imp___adjust_fdiv        10009010     msvcrt:MSVCRT.dll
+ 0002:00000014       __imp__malloc              10009014     msvcrt:MSVCRT.dll
+ 0002:00000018       __imp___initterm           10009018     msvcrt:MSVCRT.dll
+ 0002:0000001c       __imp__free                1000901c     msvcrt:MSVCRT.dll
+ 0002:00000020       __imp__strncmp             10009020     msvcrt:MSVCRT.dll
+ 0002:00000024       __imp__memcpy              10009024     msvcrt:MSVCRT.dll
+ 0002:00000028       __imp__sscanf              10009028     msvcrt:MSVCRT.dll
+ 0002:0000002c       __imp__sprintf             1000902c     msvcrt:MSVCRT.dll
+ 0002:00000030       __imp__strlen              10009030     msvcrt:MSVCRT.dll
+ 0002:00000034       \177MSVCRT_NULL_THUNK_DATA 10009034     msvcrt:MSVCRT.dll
+ 0002:00000038       __imp__deccvasc            10009038     sapi:ONINIT.EXE
+ 0002:0000003c       __imp__mi_string_to_lvarchar 1000903c     sapi:ONINIT.EXE
+ 0002:00000040       __imp__ifx_int8cvasc       10009040     sapi:ONINIT.EXE
+ 0002:00000044       __imp___ifx_gl_mbscpy@16   10009044     sapi:ONINIT.EXE
+ 0002:00000048       __imp__dectolong           10009048     sapi:ONINIT.EXE
+ 0002:0000004c       __imp__dectodbl            1000904c     sapi:ONINIT.EXE
+ 0002:00000050       __imp__dectoint            10009050     sapi:ONINIT.EXE
+ 0002:00000054       __imp__mi_free             10009054     sapi:ONINIT.EXE
+ 0002:00000058       __imp__mi_money_to_binary  10009058     sapi:ONINIT.EXE
+ 0002:0000005c       __imp___ifx_gl_full_mbsnext@12 1000905c     sapi:ONINIT.EXE
+ 0002:00000060       __imp___ifx_gl_im_ismctype@16 10009060     sapi:ONINIT.EXE
+ 0002:00000064       __imp__mi_get_locale       10009064     sapi:ONINIT.EXE
+ 0002:00000068       __imp__mi_gl_tprintf       10009068     sapi:ONINIT.EXE
+ 0002:0000006c       __imp__be_mapsym           1000906c     sapi:ONINIT.EXE
+ 0002:00000070       __imp__mi_trace_getvect    10009070     sapi:ONINIT.EXE
+ 0002:00000074       __imp__rstrdate            10009074     sapi:ONINIT.EXE
+ 0002:00000078       __imp__dtcvasc             10009078     sapi:ONINIT.EXE
+ 0002:0000007c       __imp__mi_db_error_raise   1000907c     sapi:ONINIT.EXE
+ 0002:00000080       __imp__mi_get_integer      10009080     sapi:ONINIT.EXE
+ 0002:00000084       __imp__mi_put_integer      10009084     sapi:ONINIT.EXE
+ 0002:00000088       __imp__mi_new_var          10009088     sapi:ONINIT.EXE
+ 0002:0000008c       __imp__mi_set_varlen       1000908c     sapi:ONINIT.EXE
+ 0002:00000090       __imp__mi_open             10009090     sapi:ONINIT.EXE
+ 0002:00000094       __imp__mi_alloc            10009094     sapi:ONINIT.EXE
+ 0002:00000098       __imp__mi_get_vardata      10009098     sapi:ONINIT.EXE
+ 0002:0000009c       __imp__mi_get_varlen       1000909c     sapi:ONINIT.EXE
+ 0002:000000a0       __imp__mi_close            100090a0     sapi:ONINIT.EXE
+ 0002:000000a4       __imp__ifx_gl_convert_number 100090a4     sapi:ONINIT.EXE
+ 0002:000000a8       __imp___ifx_gl_full_mblen@12 100090a8     sapi:ONINIT.EXE
+ 0002:000000ac       \177ONINIT_NULL_THUNK_DATA 100090ac     sapi:ONINIT.EXE
+ 0002:00000104       __IMPORT_DESCRIPTOR_ONINIT 10009104     sapi:ONINIT.EXE
+ 0002:00000118       __IMPORT_DESCRIPTOR_MSVCRT 10009118     msvcrt:MSVCRT.dll
+ 0002:0000012c       __IMPORT_DESCRIPTOR_KERNEL32 1000912c     kernel32:KERNEL32.dll
+ 0002:00000140       __NULL_IMPORT_DESCRIPTOR   10009140     sapi:ONINIT.EXE
+ 0003:00000000       ___xc_a                    1000a000     msvcrt:cinitexe.obj
+ 0003:00000004       ___xc_z                    1000a004     msvcrt:cinitexe.obj
+ 0003:00000008       ___xi_a                    1000a008     msvcrt:cinitexe.obj
+ 0003:0000000c       ___xi_z                    1000a00c     msvcrt:cinitexe.obj
+ 0003:000048b4       __adjust_fdiv              1000e8b4     <common>
+ 0003:000048b8       ___onexitend               1000e8b8     <common>
+ 0003:000048bc       ___onexitbegin             1000e8bc     <common>
+ 0003:000048c0       __pRawDllMain              1000e8c0     <common>
+
+ entry point at        0001:00007c8b
+
+ Static symbols
+

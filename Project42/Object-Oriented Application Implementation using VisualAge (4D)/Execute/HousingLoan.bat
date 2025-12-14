@@ -1,0 +1,2 @@
+C:\HousingLoanSystems\bin\javaw.exe -classpath "C:\HousingLoanSystems\lib\swingall.jar;C:\HousingLoanSystems\lib\classes.zip;C:\HousingLoanSystems\lib\classes111.zip;C:\HousingLoanSystems\;" Banking.BankerOption
+exit

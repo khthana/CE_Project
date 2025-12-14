@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: flyfs - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\WIN98\TEMP\RSP8264.TMP" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp".\Debug/flyfs.pch" /YX /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"E:\Proj4D_Back\youie_jie\jie\Joystick.cpp"
+"E:\Proj4D_Back\youie_jie\jie\rmfull.cpp"
+]
+Creating command line "cl.exe @C:\WIN98\TEMP\RSP8264.TMP" 
+Creating temporary file "C:\WIN98\TEMP\RSP8265.TMP" with contents
+[
+dinput.lib ddraw.lib d3drm.lib dsound.lib winmm.lib kernel32.lib user32.lib gdi32.lib advapi32.lib /nologo /subsystem:windows /incremental:yes /pdb:".\Debug/flyfs.pdb" /debug /machine:I386 /out:".\Debug/flyfs.exe" 
+.\Debug\Buffer.obj
+.\Debug\d3dapp.obj
+.\Debug\d3dcalls.obj
+.\Debug\ddcalls.obj
+.\Debug\Device.obj
+.\Debug\DX_Surface.obj
+.\Debug\Input.obj
+.\Debug\Joystick.obj
+.\Debug\KDX_Map.obj
+.\Debug\Keyboard.obj
+.\Debug\misc.obj
+.\Debug\Mouse.obj
+.\Debug\rmfull.obj
+.\Debug\rmstats.obj
+.\Debug\Sound.obj
+.\Debug\texture.obj
+.\Debug\WaveFile.obj
+.\Debug\rmfull.res
+]
+Creating command line "link.exe @C:\WIN98\TEMP\RSP8265.TMP"
+<h3>Output Window</h3>
+Compiling...
+Joystick.cpp
+rmfull.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+flyfs.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

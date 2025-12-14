@@ -1,0 +1,68 @@
+//Browser Help
+
+    This tool loads a #mtopic library#m from disk and displays the 
+    topics in a hypertext list. When you select a topic from this list, 
+    a #mtopic description#m is listed below. Several pushbutton 
+    options are provided.  You can #mcopy the syntax#m or 
+    #mcopy the entire topic#m to the clipboard for use in your 
+    applications as well as #mview#m the topic interactively.
+
+    To copy the syntax of the topic, select the Copy Syntax button.
+    To copy the entire topic, select the Copy Topic button.
+    To view the topic interactively, select the View Topic button.
+    To load a new topic library select the Load Library button. 
+    To bring up this help system hit the Help button.
+    To terminate the Browse program hit the Quit button.
+
+    Click on the above highlighted items to view more information 
+    on the subject.
+
+//Topic Library
+
+    Topic libraries are an excellent way to store and organize frequently 
+    used topics. After a topic has been stored in a library, it can be 
+    retrieved later to be used in an application or used to create other 
+    more complex topics. This concept of topic reusability is similar to 
+    that of object oriented programming, 
+
+    We recommend that the source code for topic libraries have the 
+    extension .TPX (topics), while the compiled form uses the entension 
+    .LKB (library knowledge base).
+
+//Topic Description
+
+    The topic description is a KnowledgePro comment that follows after 
+    the topic definition line. In order for the Browser to retrieve topic 
+    descriptions from the library, you must maintain the topic library 
+    in this format. KnowledgePro comments are enclosed in (* *) pairs. 
+   Comments may span more than one line. For example:
+
+            topic test.
+               (* This topic is a test topic for demonstrating
+                   a topic description which will be displayed
+                   by the Browse program. *)
+               window ().
+               text ('hello world').
+            end.
+
+    Source code for the Browser program is provided in BROWSE.KB.
+
+//Copy the Syntax
+
+    When copying the syntax of a topic into your application, be sure to 
+    load that same topic into your program with the KnowledgePro 
+    function load or load_topic. Load places the entire library into your 
+    application, while load_topic loads the individual topics from a library.
+
+//Copy the Entire Topic
+
+    This option allows you to copy the entire topic into your application. 
+    Once copied you can modify to suit your application's needs. As an 
+    alternative you may wish to simply #mcopy the syntax#m of the 
+    function into your application and load the entire library or the 
+    individual topic.
+
+//View
+
+    This option allows you to view the entire topic interactively. To return 
+    to the list of topics, hit the Topics button.

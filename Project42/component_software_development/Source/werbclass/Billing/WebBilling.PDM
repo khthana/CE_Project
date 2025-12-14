@@ -1,0 +1,74 @@
+[Root]
+Most Recent Package=Internet Package 1
+
+
+[Package|Internet Package 1|Root]
+SubWizProgID=PDWizard.InetCABPkgSubWiz
+BuildFolder=D:\Project\EComm\WebBilling\Package
+
+[Package|Internet Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Internet Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Internet Package 1|Files Found]
+
+[Package|Internet Package 1|Files Released]
+
+[Package|Internet Package 1|Missing Dependency Information]
+
+[Package|Internet Package 1|Out-of-Date Dependency Information]
+
+[Package|Internet Package 1|Files Added]
+
+[Package|Internet Package 1|Files Removed]
+
+[Package|Internet Package 1|Files In Project]
+D:\Project\EComm\WebBilling\WebBilling.dll=Yes
+E:\WINNT\system32\MSVBVM60.DLL=Yes
+E:\WINNT\system32\OLEAUT32.DLL=Yes
+E:\WINNT\system32\OLEPRO32.DLL=Yes
+E:\WINNT\system32\ASYCFILT.DLL=Yes
+E:\WINNT\system32\STDOLE2.TLB=Yes
+E:\WINNT\system32\COMCAT.DLL=Yes
+E:\Program Files\Common Files\designer\MSWCRUN.DLL=Yes
+E:\Program Files\Common Files\System\ado\MSADOR15.DLL=Yes
+
+[Package|Internet Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Internet Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Internet Package 1|Install Locations]
+
+[Package|Internet Package 1|Configure Shared Files]
+Applicable=
+
+[Package|Internet Package 1|ComponentInfo]
+WebBilling.dll=thiscab
+MSVBVM60.DLL=thiscab
+OLEAUT32.DLL=thiscab
+OLEPRO32.DLL=thiscab
+ASYCFILT.DLL=thiscab
+STDOLE2.TLB=thiscab
+COMCAT.DLL=thiscab
+MSWCRUN.DLL=thiscab
+MSADOR15.DLL=thiscab
+
+[Package|Internet Package 1|ObjectInfo]
+Billing=false;false
+
+[Package|Internet Package 1|Package]
+PackageFolder=D:\Project\EComm\WebBilling\Package
+ProjectFolder=D:\Project\EComm\WebBilling
+ServerSideCab=D:\Project\EComm\WebBilling\Package\WebBilling.CAB
+File1=D:\Project\EComm\WebBilling\Package\WebBilling.CAB
+File2=D:\Project\EComm\WebBilling\CheckOutDetail.htm
+File3=D:\Project\EComm\WebBilling\CheckOutProcess.htm
+File4=D:\Project\EComm\WebBilling\ShowResultCheckOut.htm
+File5=D:\Project\EComm\WebBilling\Billing.ASP
+Handler1=PDWizard.WebPostDplySubWiz
+Handler2=PDWizard.FolderDplySubWiz

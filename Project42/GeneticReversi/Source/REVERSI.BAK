@@ -1,0 +1,1156 @@
+Unit Reversi ;
+
+interface
+ {$R+}
+Const  Side          = 8  ;
+       MaxPos        = 20 ;
+
+Type   PlayerType    = (PlayerS1,PlayerS2,Blank) ;
+       BoardType     = array[0..Side+1,0..Side+1] of PlayerType ;
+
+       TBoardBase = object
+                            BoardObj     : BoardType  ;
+                            PlayerPlay   : PlayerType ;
+                            NumBlack	 : integer ;
+                            NumWhite     : integer ;
+
+                            Procedure   Init ;
+                            Procedure   Destroy ;
+                            Procedure   FindNumDisc ;
+                            Procedure   ChangeBoard(Row,Column : integer)  ;
+                            Function    ChkForPass(Player : PlayerType): Boolean ;
+                            Function    IsGameOver : Boolean ;
+                            Function    IsCanPut(Row,Column : integer): Boolean ;
+                            Procedure   ConventionMove(Lev : Integer) ;
+                            Procedure   Reversed ;
+                            Procedure   Transpose ;
+                   end ;
+
+Implementation
+var Max : real ;
+
+Function GetOpposite(Player : PlayerType) : PlayerType ;
+begin
+       if Player = PlayerS1 then GetOpposite := PlayerS2 ;
+       if Player = PlayerS2 then GetOpposite := PlayerS1 ;
+end ;
+
+Function GetPlayer(Player : PlayerType) : PlayerType ;
+begin
+       if Player = PlayerS1 then GetPlayer := PlayerS1 ;
+       if Player = PlayerS2 then GetPlayer := PlayerS2 ;
+end ;
+
+Function GetRow(Operator : integer) : integer ;
+begin
+     if (Operator mod Side) = 0 then GetRow := (Operator div Side)
+     else GetRow := (Operator div Side)+1 ;
+end ;
+
+Function GetColumn(Operator : integer) : integer ;
+begin
+     if (Operator mod Side) = 0 then GetColumn := Side
+     else GetColumn := Operator mod Side ;
+end ;
+
+Function IsInBoard(Row,Col : integer) : Boolean ;
+begin
+     if (Row <= Side) and (Row >= 1) and
+        (Col <= Side) and (Col >= 1) then IsInBoard := true
+     else IsInBoard := false ;
+end ;
+
+Function CheckLeft_Ok(var TempBoard  : BoardType  ;
+                          Row,Column : integer ;
+                          Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckLeft_Ok := false
+       else
+       if ((Column-1) < 1) or ((Column-1) > Side) or
+          (TempBoard[Row,Column-1] <> GetOpposite(Player)) then
+          CheckLeft_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row,Column-i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Column-i) < 1) ;
+                if (TempBoard[Row,Column-i] <> GetPlayer(Player))
+                   or ((Column-i) < 1) then
+                   Check_Ok := false ;
+                CheckLeft_Ok := Check_Ok ;
+           end ;
+end ;
+
+Function CheckRight_Ok(var TempBoard  : BoardType  ;
+                           Row,Column : integer ;
+                           Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckRight_Ok := false
+       else
+       if ((Column+1) > Side) or
+          (TempBoard[Row,Column+1] <> GetOpposite(Player)) then
+          CheckRight_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row,Column+i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Column+i) > Side) ;
+                if (TempBoard[Row,Column+i] <> GetPlayer(Player))
+                   or ((Column+i) > Side)  then
+                   Check_Ok := false ;
+                CheckRight_Ok := Check_Ok ;
+           end ;
+
+end ;
+
+Function CheckUp_Ok(var TempBoard  : BoardType  ;
+                        Row,Column : integer ;
+                        Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckUp_Ok := false
+       else
+
+       if ((Row <= 1)) then CheckUp_Ok := false
+       else
+           if (Row > Side) then CheckUp_Ok := false
+              else
+              if (TempBoard[Row-1,Column] <> GetOpposite(Player)) then
+                 CheckUp_Ok := false
+       else
+           begin
+                repeat
+                      i  := i+1 ;
+                      if TempBoard[Row-i,Column] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row-i) < 1) ;
+                if (TempBoard[Row-i,Column] <> GetPlayer(Player))
+                   or ((Row-i) < 1)  then
+                   Check_Ok := false ;
+           end ;
+       CheckUp_Ok := Check_Ok ;
+end ;
+
+Function CheckDown_Ok(var TempBoard  : BoardType  ;
+                          Row,Column : integer ;
+                          Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+
+       if (not IsInBoard(Row,Column)) then CheckDown_Ok := false
+       else
+
+       if ((Row+1) > Side)or(TempBoard[Row+1,Column] <> GetOpposite(Player))
+          or ((Row+1) < 1)
+           then CheckDown_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row+i,Column] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row+i) > Side) ;
+                if (TempBoard[Row+i,Column] <> GetPlayer(Player))
+                   or ((Row+i) > Side) then Check_Ok := false ;
+                CheckDown_Ok := Check_Ok ;
+           end ;
+
+end ;
+
+Function CheckUpRight_Ok(var TempBoard  : BoardType  ;
+                             Row,Column : integer ;
+                             Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckUpRight_Ok := false
+       else
+
+       if (Row-1 < 1) or (Column+1 > Side) or
+          (TempBoard[Row-1,Column+1] <> GetOpposite(Player))
+          then CheckUpRight_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row-i,Column+i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row-i) < 1) or ((Column+i) > Side);
+                if (TempBoard[Row-i,Column+i] <> GetPlayer(Player))
+                   or ((Row-i) < 1) or ((Column+i) > Side)then
+                   Check_Ok := false ;
+                CheckUpRight_Ok := Check_Ok ;
+           end ;
+
+end ;
+
+Function CheckDownRight_Ok(var TempBoard  : BoardType  ;
+                               Row,Column : integer ;
+                               Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckDownRight_Ok := false
+       else
+
+       if (Row+1 > Side) or (Column+1 > Side) or
+          (TempBoard[Row+1,Column+1] <> GetOpposite(Player))
+          then CheckDownRight_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row+i,Column+i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row+i) > Side) or ((Column+i) > Side) ;
+                if (TempBoard[Row+i,Column+i] <> GetPlayer(Player))
+                   or ((Row+i) > Side) or ((Column+i) > Side) then
+                   Check_Ok := false ;
+                CheckDownRight_Ok := Check_Ok ;
+           end ;
+
+end ;
+
+Function CheckUpLeft_Ok(var TempBoard  : BoardType  ;
+                            Row,Column : integer ;
+                            Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckUpLeft_Ok := false
+       else
+
+       if  (Row-1 < 1) or (Column-1 < 1)or
+           (TempBoard[Row-1,Column-1] <> GetOpposite(Player))
+           then CheckUpLeft_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row-i,Column-i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row-i) < 1) or ((Column-i) < 1) ;
+                if (TempBoard[Row-i,Column-i] <> GetPlayer(Player))
+                   or ((Row-i) < 1) or ((Column-i) < 1) then
+
+                   Check_Ok := false ;
+                CheckUpLeft_Ok := Check_Ok ;
+           end ;
+
+end ;
+
+Function CheckDownLeft_Ok(var TempBoard  : BoardType  ;
+                              Row,Column : integer ;
+                              Player     : PlayerType) : Boolean ;
+var  Check_Ok : Boolean ;
+     i        : integer ;
+begin
+       Check_Ok := false ;
+       i        := 1     ;
+       if (not IsInBoard(Row,Column)) then CheckDownLeft_Ok := false
+       else
+
+       if (Row+1 > Side) or (Column-1 < 1) or
+          (TempBoard[Row+1,Column-1] <> GetOpposite(Player))
+          then CheckDownLeft_Ok := false
+       else
+           begin
+                repeat
+                      i := i+1 ;
+                      if TempBoard[Row+i,Column-i] <> GetOppoSite(Player) then
+                         Check_Ok := true
+                until Check_Ok or ((Row+i) > Side) or ((Column-i) < 1) ;
+                if (TempBoard[Row+i,Column-i] <> GetPlayer(Player))
+                   or ((Row+i) > Side) or ((Column-i) < 1) then
+                   Check_Ok := false ;
+                CheckDownLeft_Ok := Check_Ok ;
+           end ;
+end ;
+
+
+Function  ChkAndChgBoard(var TempBoard1,TempBoard2 : BoardType  ;
+                             Row,Column : integer ;
+                             Player     : PlayerType) : Boolean ;
+
+var   Flag1,Flag2,Flag3,Flag4 : Boolean ;
+      Flag5,Flag6,Flag7,Flag8 : Boolean ;
+      OrFlag                  : Boolean ;
+      i                       : integer ;
+begin
+      if  (Row <= 8) and (Row >=1) and (Column <=8) and (Column >=1) and
+          (TempBoard1[Row,Column] <> Blank) then ChkAndChgBoard := false
+
+      else
+          begin
+               Flag2 := CheckRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag1 := CheckLeft_Ok(TempBoard1,Row,Column,Player) ;
+               Flag3 := CheckUp_Ok(TempBoard1,Row,Column,Player) ;
+               Flag4 := CheckDown_Ok(TempBoard1,Row,Column,Player) ;
+               Flag5 := CheckUpRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag6 := CheckDownRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag7 := CheckUpLeft_Ok(TempBoard1,Row,Column,Player) ;
+               Flag8 := CheckDownLeft_Ok(TempBoard1,Row,Column,Player) ;
+
+               OrFlag := Flag1 or Flag2 or Flag3 or Flag4 or
+                         Flag5 or Flag6 or Flag7 or Flag8 ;
+               if OrFlag then
+                 begin
+                    TempBoard2 := TempBoard1 ;
+                    TempBoard2[Row,Column] := GetPlayer(Player) ;
+
+                    i          := 1 ;
+                    if Flag1 then {can apply to left}
+                    Repeat
+                       TempBoard2[Row,Column-i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row,Column-i] = GetPlayer(Player)) or
+                          ((Column-i) < 1) ;
+
+                    i          := 1 ;
+                    if Flag2 then {can apply to right}
+                    Repeat
+                       TempBoard2[Row,Column+i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row,Column+i] = GetPlayer(Player)) or
+                          ((Column+i) > Side) ;
+
+                    i          := 1 ;
+                    if Flag3 then {can apply to Up}
+                    Repeat
+                       TempBoard2[Row-i,Column] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row-i,Column] = GetPlayer(Player)) or
+                          ((Row-i) < 1) ;
+
+                    i          := 1 ;
+                    if Flag4 then {can apply to Down}
+                    Repeat
+                       TempBoard2[Row+i,Column] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row+i,Column] = GetPlayer(Player)) or
+                          ((Row+i) > Side) ;
+
+                    i          := 1 ;
+                    if Flag5 then {can apply to UpRight}
+                    Repeat
+                       TempBoard2[Row-i,Column+i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row-i,Column+i] = GetPlayer(Player)) or
+                          ((Row-i) < 1) or ((Column+i) > Side) ;
+
+                    i          := 1 ;
+                    if Flag6 then {can apply to DownRight}
+                    Repeat
+                       TempBoard2[Row+i,Column+i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row+i,Column+i] = GetPlayer(Player)) or
+                          ((Row+i) > Side) or ((Column+i) > Side)  ;
+
+                    i          := 1 ;
+                    if Flag7 then {can apply to UpLeft}
+                    Repeat
+                       TempBoard2[Row-i,Column-i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row-i,Column-i] = GetPlayer(Player)) or
+                          ((Row-i) < 1) or ((Column-i) < 1)  ;
+
+                    i          := 1 ;
+                    if Flag8 then {can apply to DownLeft}
+                    Repeat
+                       TempBoard2[Row+i,Column-i] := GetPlayer(Player) ;
+                       i := i+1 ;
+                    until (TempBoard2[Row+i,Column-i] = GetPlayer(Player)) or
+                          ((Row+i) > Side) or ((Column-i) < 1)  ;
+                    ChkAndChgBoard := true ;
+                 end
+               else ChkAndChgBoard := false ;
+          end ;
+end ;
+
+Function Inverse(Player : PlayerType) : PlayerType ;
+begin
+       if Player = PlayerS1 then Inverse := PlayerS2 ;
+       if Player = PlayerS2 then Inverse := PlayerS1 ;
+end ;
+
+Function Inv(X : char) : char;
+begin
+     if X = 'X' then Inv := 'O' ;
+     if X = 'O' then Inv := 'X' ;
+end ;
+
+Function CanPut(var TempBoard1  : BoardType  ;
+                    Row,Column  : integer ;
+                    Player      : PlayerType) : Boolean ;
+
+var   Flag1,Flag2,Flag3,Flag4   : Boolean ;
+      Flag5,Flag6,Flag7,Flag8   : Boolean ;
+      OrFlag                    : Boolean ;
+begin
+      if TempBoard1[Row,Column] <> Blank then CanPut := false
+      else
+          begin
+               Flag2 := CheckRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag1 := CheckLeft_Ok(TempBoard1,Row,Column,Player) ;
+               Flag3 := CheckUp_Ok(TempBoard1,Row,Column,Player) ;
+               Flag4 := CheckDown_Ok(TempBoard1,Row,Column,Player) ;
+               Flag5 := CheckUpRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag6 := CheckDownRight_Ok(TempBoard1,Row,Column,Player) ;
+               Flag7 := CheckUpLeft_Ok(TempBoard1,Row,Column,Player) ;
+               Flag8 := CheckDownLeft_Ok(TempBoard1,Row,Column,Player) ;
+
+               OrFlag := Flag1 or Flag2 or Flag3 or Flag4 or
+                         Flag5 or Flag6 or Flag7 or Flag8 ;
+               CanPut := OrFlag ;
+          end ;
+end ;
+
+
+Function CheckForPass(var TempBoard : BoardType ;
+                          Player : PlayerType) : Boolean ;
+var   Row,Column : integer ;
+      Flag       : Boolean ;
+begin
+      Flag := false ;
+      Row  := 1     ;
+      Repeat
+            Column := 1 ;
+            Repeat
+                  if CanPut(TempBoard,Row,Column,Player) then
+                     Flag := true ;
+                  Column := Column+1 ;
+            until Flag or (Column > Side) ;
+            Row := Row+1 ;
+      until Flag or (Row > Side) ;
+      CheckForPass := not Flag ; {true if Player must pass}
+end ;
+
+Procedure StatisTics(var TempBoard : BoardType   ;
+                     var P1,P2     : integer) ;
+var  i,j : integer ;
+begin
+      P1    := 0 ;
+      P2    := 0 ;
+      for i := 1 to Side do
+      for j := 1 to Side do
+          begin
+               if TempBoard[i,j] = GetPlayer(PlayerS1) then P1 := P1+1 ;
+               if TempBoard[i,j] = GetPlayer(PlayerS2) then P2 := P2+1 ;
+          end ;
+end ;
+
+
+Function Mobility(var TempBoard : BoardType ;
+                      Player    : PlayerType) : real ;
+var  i,j,Count : integer ;
+begin
+     Count := 0 ;
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if CanPut(TempBoard,i,j,Player) then
+                 Count := Count+1 ;
+         end ;
+     Mobility := Count ;
+end ;
+
+Function Perfect(var Brd1 : BoardType ; Plyer : PlayerType) : real ;
+var i,j  : integer ;
+    flag : boolean ;
+begin
+     i := 1 ;
+     j := 1 ;
+     flag := false ;
+     while (i <= 8) and not flag do
+           begin
+                while (j <= 8) and not flag do
+                      begin
+                           if Brd1[i,j] = Inverse(Plyer) then
+                              flag := true ;
+                           j := j+1 ;
+                      end ;
+                i := i+1 ;
+           end ;
+     if flag then Perfect := 0
+     else Perfect := 1 ;
+end ;
+
+Function Corner(var Brd1 : BoardType ; Plyer : PlayerType) : real ;
+var  Sum : integer ;
+begin
+     Sum := 0 ;
+     if Brd1[1,1   ]=Plyer then Sum := Sum+1 ;
+     if Brd1[1,Side]=Plyer then Sum := Sum+1 ;
+     if Brd1[Side,1]=Plyer then Sum := Sum+1 ;
+     if Brd1[Side,Side]=Plyer then Sum := Sum+1 ;
+     Corner := Sum*18 ;
+end ;
+
+Function Edge(var Brd : BoardType ; Plyer : PlayerType) : real ;
+var Sum,j : integer ;
+begin
+     Sum := 0 ;
+     for j := 1 to 8 do
+         begin
+              if Brd[1,j] = Plyer then Sum := Sum+1 ;
+              if Brd[8,j] = Plyer then Sum := Sum+1 ;
+              if Brd[j,1] = Plyer then Sum := Sum+1 ;
+              if Brd[j,8] = Plyer then Sum := Sum+1 ;
+         end ;
+     Edge := Sum ;
+end ;
+
+Function CXSquare(var Brd1 : BoardType ; Plyer : PlayerType) : real ;
+var Sum  : integer ;
+begin
+     Sum := 0 ;
+     if Brd1[1,1]=Plyer then
+        begin
+             if Brd1[2,2]=Plyer then Sum := Sum+1 ;
+             if Brd1[1,2]=Plyer then Sum := Sum+1 ;
+             if Brd1[2,1]=Plyer then Sum := Sum+1 ;
+        end 
+     else
+         begin
+             if Brd1[2,2]=Plyer then Sum := Sum-1 ;
+             if Brd1[1,2]=Plyer then Sum := Sum-1 ;
+             if Brd1[2,1]=Plyer then Sum := Sum-1 ;
+         end ;
+
+     if Brd1[1,Side] = Plyer then
+        begin
+             if Brd1[1,Side-1]=Plyer then Sum := Sum+1 ;
+             if Brd1[2,Side-1]=Plyer then Sum := Sum+1 ;
+             if Brd1[2,Side  ]=Plyer then Sum := Sum+1 ;
+        end
+     else
+         begin
+             if Brd1[1,Side-1]=Plyer then Sum := Sum-1 ;
+             if Brd1[2,Side-1]=Plyer then Sum := Sum-1 ;
+             if Brd1[2,Side  ]=Plyer then Sum := Sum-1 ;
+         end ;
+
+     if Brd1[Side,1] = Plyer then
+        begin
+             if Brd1[Side-1,2]=Plyer then Sum := Sum+1 ;
+             if Brd1[Side-1,1]=Plyer then Sum := Sum+1 ;
+             if Brd1[Side,2  ]=Plyer then Sum := Sum+1 ;
+        end
+     else
+         begin
+             if Brd1[Side-1,2]=Plyer then Sum := Sum-1 ;
+             if Brd1[Side-1,1]=Plyer then Sum := Sum-1 ;
+             if Brd1[Side,2  ]=Plyer then Sum := Sum-1 ;
+         end ;
+
+     if Brd1[Side,Side] = Plyer then
+        begin
+             if Brd1[Side-1,Side-1]=Plyer then Sum := Sum+1 ;
+             if Brd1[Side,Side-1  ]=Plyer then Sum := Sum+1 ;
+             if Brd1[Side-1,Side  ]=Plyer then Sum := Sum+1 ;
+        end
+     else
+         begin
+             if Brd1[Side-1,Side-1]=Plyer then Sum := Sum-1 ;
+             if Brd1[Side,Side-1  ]=Plyer then Sum := Sum-1 ;
+             if Brd1[Side-1,Side  ]=Plyer then Sum := Sum-1 ;
+         end ;
+     CXSquare := Sum*5 ;
+end ;
+
+Function FontierDisc(var Brd1  : BoardType ; i1,j1 : integer ;
+                         Plyer : PlayerType): Boolean ;
+begin
+     FontierDisc := false ;
+     if (Brd1[i1,j1] = Plyer) then
+        begin
+             if (Brd1[i1-1,j1]=Blank) or
+                (Brd1[i1+1,j1]=Blank) or
+                (Brd1[i1,j1-1]=Blank) or
+                (Brd1[i1,j1+1]=Blank) or
+                (Brd1[i1-1,j1-1]=Blank) or
+                (Brd1[i1-1,j1+1]=Blank) or
+                (Brd1[i1+1,j1-1]=Blank) or
+                (Brd1[i1+1,j1+1]=Blank) then
+                    begin
+                         FontierDisc := true
+                    end
+             else   FontierDisc := false ;
+        end ;
+end ;
+
+Function Fontier(var Brd1 : BoardType ; Plyer : PlayerType) : real ;
+var Sum,i,j  : integer ;
+begin
+     Sum := 0 ;
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if FontierDisc(Brd1,i,j,Plyer) then
+                 Sum := Sum+1 ;
+         end ;
+     Fontier := Sum ;
+end ;
+
+Function CalScoreS(var TBoard : BoardType ; PlayerS : PlayerType) : real ;
+var  Oop,Play      : PlayerType ;
+     Temp,i,j  : integer ;
+     Score     : real ;
+
+     P1,P2         : integer ;
+     NumP1,NumP2   : real ;
+     CornP1,CornP2 : real ;
+     SqrP1,SqrP2   : real ;
+     FontP1,FontP2 : real ;
+     MobP1,MobP2   : real ;
+begin
+     Score := 0 ;
+     Oop   := GetOpposite(PlayerS) ;
+
+     CornP1 := Corner(TBoard,PlayerS)   ;
+     CornP2 := Corner(TBoard,Oop)       ;
+     SqrP1  := CXSquare(TBoard,PlayerS) ;
+     SqrP2  := CXSquare(TBoard,Oop)     ;
+     FontP1 := Perfect(TBoard,PlayerS)  ;
+     FontP2 := Perfect(TBoard,Oop)      ;
+     MobP1  := Mobility(TBoard,PlayerS) ;
+     MobP2  := Mobility(TBoard,Oop)     ;
+     StatisticS(TBoard,P1,P2) ;
+
+     Score := (200*CornP1-500*CornP2)+(80*SqrP1-160*SqrP2)+
+              (2000*FontP1-1000*FontP2)+(150*MobP1-200*MobP2)+
+              30*(P1-P2)  ;
+     CalScoreS := Score ;
+end ;
+
+Function FindMin4(var Boards1 : BoardType ; PlayerSee : PlayerType ;
+                      Level   : integer) : Real ;
+begin
+     FindMin4 := CalScoreS(BoardS1,PlayerSee) ;
+end ;
+
+Function FindMin3(var Boards1 : BoardType ; PlayerSee : PlayerType ;
+                      Level   : integer) : Real ;
+var  Temp,Min,MiniMax : real       ;
+     i,j,TRow,TCol    : integer    ;
+     TempBoard,NewBoard : BoardType  ;
+     Opp              : PlayerType ;
+     flag             : boolean ;
+begin
+     Minimax  := -1000000000;
+     flag     := false ;
+     if CheckForPass(Boards1,PlayerSee) then
+        begin
+             Opp := GetOpposite(PlayerSee) ;
+             MiniMax := FindMin4(BoardS1,Opp,Level) ;
+        end
+     else
+         for i := 1 to Side do
+         for j := 1 to Side do
+             begin
+              if ChkAndChgBoard(BoardS1,TempBoard,i,j,PlayerSee) then
+                 begin
+                      TRow := i ;
+                      TCol := j ;
+                      Opp := GetOpposite(PlayerSee) ;
+                      Min := FindMin4(TempBoard,Opp,Level) ;
+                      if Min >= MiniMax then
+                         begin
+                              MiniMax := Min ;
+                              flag    := true ;
+                         end ;
+                 end ;
+             end ;
+         FindMin3 := MiniMax ;
+
+{//     FindMin3 := CalScoreS(BoardS1,PlayerSee) ;}
+end ;
+
+Function FindMin2(var Boards1 : BoardType ; PlayerSee : PlayerType ;
+                      Level   : integer) : Real ;
+var  Temp,Min,MiniMax : real       ;
+     i,j,TRow,TCol    : integer    ;
+     TempBoard,NewBoard : BoardType  ;
+     Opp              : PlayerType ;
+     flag             : boolean ;
+begin
+     Minimax  := -1000000000;
+     flag     := false ;
+     if CheckForPass(Boards1,PlayerSee) then
+        begin
+             Opp := GetOpposite(PlayerSee) ;
+             MiniMax := FindMin4(BoardS1,Opp,Level) ;
+        end
+     else
+         for i := 1 to Side do
+         for j := 1 to Side do
+             begin
+              if ChkAndChgBoard(BoardS1,TempBoard,i,j,PlayerSee) then
+                 begin
+                      TRow := i ;
+                      TCol := j ;
+                      Opp := GetOpposite(PlayerSee) ;
+                      Min := FindMin4(TempBoard,Opp,Level) ;
+                      if Min >= MiniMax then
+                         begin
+                              MiniMax := Min ;
+                              flag    := true ;
+                         end ;
+                 end ;
+             end ;
+         FindMin2 := MiniMax ;
+end ;
+
+
+Function FindMin1(var Boards1 : BoardType ; PlayerSee : PlayerType ;
+                      Level   : integer) : Real ;
+var  Temp,Min,MiniMax : real       ;
+     i,j,TRow,TCol    : integer    ;
+     TempBoard,NewBoard : BoardType  ;
+     Opp              : PlayerType ;
+     flag             : boolean ;
+begin
+     Minimax  := -1000000000;
+     flag     := false ;
+     if CheckForPass(Boards1,PlayerSee) then
+        begin
+             Opp := GetOpposite(PlayerSee) ;
+             MiniMax := FindMin2(BoardS1,Opp,Level) ;
+        end
+     else
+         for i := 1 to Side do
+         for j := 1 to Side do
+             begin
+              if ChkAndChgBoard(BoardS1,TempBoard,i,j,PlayerSee) then
+                 begin
+                      Opp := GetOpposite(PlayerSee) ;
+                      Min := FindMin2(TempBoard,Opp,Level) ;
+                      if Min >= MiniMax then
+                         begin
+                              MiniMax := Min ;
+                              flag    := true ;
+                         end ;
+                 end ;
+             end ;
+         FindMin1 := MiniMax ;
+end ;
+(*  Work version
+Procedure  FindBestPut1(Brd : BoardType ; var Row,Column  : integer    ;
+                        Player      : PlayerType ;
+                        Level       : integer)   ;
+
+var  Temp,Min,MiniMax : real       ;
+     i,j,TRow,TCol    : integer    ;
+     TempBoard        : BoardType  ;
+     Opp              : PlayerType ;
+     flag             : boolean ;
+begin
+     Minimax  := 1000000000;
+     flag     := false ;
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if ChkAndChgBoard(Brd,TempBoard,i,j,Player) then
+                 begin
+                      TRow := i ;
+                      TCol := j ;
+                      Opp := GetOpposite(Player) ;
+                      Min := FindMin1(TempBoard,Opp,Level) ;
+                      if Min <= MiniMax then
+                         begin
+                              MiniMax := Min ;
+                              Row     := i   ;
+                              Column  := j   ;
+                              flag    := true ;
+                         end ;
+                 end ;
+         end ;
+     if not flag then
+        begin
+             Row := TRow ;
+             Column := TCol ;
+        end ;
+end ;
+
+*)
+
+(*
+Procedure  FindBestPut1(var Brd : BoardType ; var RowS,ColumnS  : integer    ;
+                        Player      : PlayerType ;
+                        Level       : integer)   ;
+
+var A : array[1..Side,1..Side] of real ;
+    k,m,Row,Col : integer ;
+    Min         : real ;
+
+Procedure MiniMaxSearch(var Board1 : BoardType ; Plyer : PlayerType ;
+                        Depth1,Depth2 : integer ) ;
+var  i,j : integer ;
+     E   : real ;
+     Board2 : BoardType ;
+begin
+     if Depth2 = 0 then
+        begin
+             E := CalScoreS(Board1,Plyer) ;
+             if (Depth1 mod 2) = 0 then E := E*(1) ;
+             if E > A[Row,Col] then A[Row,Col] := E ;
+        end
+     else
+         if CheckForPass(Board1,Plyer) then
+            MiniMaxSearch(Board1,Inverse(Plyer),Depth1,Depth2-1)
+         else
+             for i := 1 to Side do
+             for j := 1 to Side do
+                 begin
+                      if Depth1=Depth2 then
+                         begin
+                              Row := i ;
+                              Col := j ;
+                              if not CanPut(Board1,Row,Col,Plyer) then
+                                 A[Row,Col] := 1000000000 ;
+                         end ;
+                      if not ChkAndChgBoard(Board1,Board2,i,j,Inverse(Plyer))
+                         then MiniMaxSearch(Board2,Inverse(Plyer),Depth1,Depth2-1) ;
+                 end ;
+end ; // MinimaxSearch
+
+begin //FindBestPut1
+      Min := 1000000000 ;
+      for k := 1 to Side do
+      for m := 1 to Side do
+          A[k,m] := -1000000000 ;
+
+      MiniMaxSearch(Brd,Player,Level,Level) ;
+      for k := 1 to Side do
+      for m := 1 to Side do
+          begin
+               if A[k,m] < Min then
+                  begin
+                       Min := A[k,m] ;
+                       Row := k ;
+                       Col := m ;
+                  end ;
+          end ;
+      RowS := Row ;
+      ColumnS := Col ;
+end ;
+*)
+{
+Procedure FindBestPut1(TBoard : BoardType ; var Row,Col : integer ;
+                       Player : PlayerType ;
+                       Level  : integer)   ;
+var i,j : integer ;
+begin
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if Canput(TBoard,i,j,Player) then
+                 begin
+                      Row := i ;
+                      Col := j ;
+                 end ;
+         end ;
+end ;
+}
+
+(*
+Procedure  FindBestPut1(var Brd : BoardType ; var Row,ColS  : integer    ;
+                        Player      : PlayerType ;
+                        Level       : integer)   ;
+var  Temp,Min,MiniMax : real       ;
+     i,j,TRow,TCol    : integer    ;
+     TempBoard        : BoardType  ;
+     Opp              : PlayerType ;
+     flag             : boolean ;
+     Max              : real ;
+
+Function FindMax(var Boards1 : BoardType ; PlayerSee : PlayerType ;
+                      Depth1,Depth2  : integer) : Real ;
+var E : real ;
+    i,j : integer ;
+    BoardS2 : BoardType ;
+begin
+     if Depth2=0 then
+        begin
+             E := CalScoreS(BoardS1,PlayerSee) ;
+             if (Depth1 mod 2) = 0 then E := E*(-1) ;
+             if E > Max then
+                begin
+                     Max := E ;
+                     FindMax := E ;
+                end
+             else FindMax := Max ;
+        end
+     else
+         if CheckForPass(BoardS1,PlayerSee) then
+            FindMax(BoardS1,Inverse(PlayerSee),Depth1,Depth2-1)
+         else
+             for i := 1 to Side do
+             for j := 1 to Side do
+                 begin
+                      if ChkAndChgBoard(BoardS1,BoardS2,i,j,Inverse(PlayerSee))
+                      then FindMax(BoardS2,Inverse(PlayerSee),Depth1,Depth2-1) ;
+                 end ;
+         FindMax := Max ;
+end ;
+
+begin
+     Minimax  := 1000000000;
+     Max      := -1000000000 ;
+     flag     := false ;
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if ChkAndChgBoard(Brd,TempBoard,i,j,Player) then
+                 begin
+                      TRow := i ;
+                      TCol := j ;
+                      Opp := GetOpposite(Player) ;
+                      Min := FindMax(TempBoard,Opp,Level,Level) ;
+                      if Min <= MiniMax then
+                         begin
+                              MiniMax := Min ;
+                              Row     := i   ;
+                              ColS  := j   ;
+                              flag    := true ;
+                         end ;
+                 end ;
+         end ;
+     if not flag then
+        begin
+             Row := TRow ;
+             ColS := TCol ;
+        end ;
+end ;
+*)
+
+Procedure Minimax(var Board             : BoardType  ;
+                      P1,P2             : PlayerType ;
+                  var i,j               : integer    ;
+                      Depth             : integer    ;
+                  var BoardValue        : real)      ;
+
+var TBoard1,TBoard2   : BoardType ;
+    flag              : boolean   ;
+    TRow,TCol,Row,Col : integer ;
+    TPlayer           : PlayerType ;
+    Score,TMax,TMin   : real ;
+
+begin
+     flag := false ;
+     TBoard1 := Board ;
+
+     if Depth <= 0 then
+        begin
+             Score := CalScoreS(TBoard1,P1) ;
+             BoardValue := Score ;
+        end
+     else
+         if CheckForPass(TBoard1,P2) then
+            begin
+                 TPlayer := Inverse(P2) ;
+                 Minimax(TBoard1,P1,TPlayer,TRow,TCol,Depth-1,Score) ;
+                 BoardValue := Score ;
+            end
+         else
+
+     begin  {CheckForPass}
+          for Row := 1 to Side do
+          for Col := 1 to Side do
+              begin
+                   if ChkAndChgBoard(TBoard1,TBoard2,Row,Col,P2) then
+                      begin
+                           TPlayer := Inverse(P2) ;
+                           Minimax(TBoard2,P1,TPlayer,TRow,TCol,Depth-1,Score) ;
+                           if not flag then
+                              begin
+                                   TMax := Score ;
+                                   TMin := Score ;
+                                   TRow := Row   ;
+                                   TCol := Col   ;
+                                   flag := true  ;
+                              end {if not flag}
+                           else {if not flag}
+                               if P1 = P2 then
+                                  begin
+                                    if Score >= TMax then
+                                       begin
+                                            TMax := Score ;
+                                            TRow := Row   ;
+                                            TCol := Col   ;
+                                       end
+                                  end
+                               else
+                                   if Score <= TMin then
+                                      begin
+                                           TMin := Score ;
+                                           TRow := Row   ;
+                                           TCol := Col   ;
+                                      end ;
+                      end {ChkAndChgBoard}
+              end ; {for}
+              if P1 = P2 then
+                 begin
+                      BoardValue := TMax ;
+                      i := TRow ;
+                      j := TCol ;
+                 end
+              else
+                  begin
+                       BoardValue := TMin ;
+                       i          := TRow ;
+                       j          := TCol ;
+                  end ;
+     end ;
+end ;
+
+Procedure  FindBestPut1(var Brd : BoardType ; var Row,Column  : integer    ;
+                        Player      : PlayerType ;
+                        Level       : integer)   ;
+var  Temp : real ;
+begin
+
+     Minimax(Brd,Player,Player,Row,Column,1,Temp) ;
+end ;
+
+
+Procedure TBoardBase.Init ;
+var i,j : integer ;
+begin
+     Max := -1000000000 ;
+      for i := 1 to Side do
+      for j := 1 to Side do
+          BoardObj[i,j] := Blank ;
+      BoardObj[4,4] := PlayerS1 ;
+      BoardObj[5,5] := PlayerS1 ;
+      BoardObj[4,5] := PlayerS2 ;
+      BoardObj[5,4] := PlayerS2 ;
+
+      NumBlack   := 2 ;
+      NumWhite   := 2 ;
+end ;
+
+Function TBoardBase.IsCanPut(Row,Column : integer): Boolean ;
+begin
+     if Canput(BoardObj,Row,Column,PlayerPlay) then
+        IsCanPut := true
+     else IsCanPut := false ;
+end ;
+
+Procedure TBoardBase.Reversed ;
+var  i,j  : integer ;
+begin
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              if BoardObj[i,j] <> Blank then
+                 BoardObj[i,j] := Inverse(BoardObj[i,j]) ;
+         end ;
+     Statistics(BoardObj,NumBlack,NumWhite) ;
+end ;
+
+Procedure TBoardBase.Transpose ;
+var i,j  : integer ;
+    TempBoard : BoardType ;
+begin
+     for i := 1 to Side do
+     for j := 1 to Side do
+         begin
+              TempBoard[i,j] := BoardObj[j,i];
+         end ;
+     BoardObj := TempBoard ;
+end ;
+
+Procedure TBoardBase.FindNumDisc ;
+begin
+     Statistics(BoardObj,NumBlack,NumWhite) ;
+end ;
+
+Procedure TBoardBase.Destroy ;
+begin
+end ;
+
+Function  TBoardBase.IsGameOver : Boolean ;
+var   Flag1,Flag2 : Boolean ;
+begin
+     Flag1 := CheckForPass(BoardObj,PlayerS1) ;
+     Flag2 := CheckForPass(BoardObj,PlayerS2) ;
+     if Flag1 and Flag2 then IsGameOver := true
+     else IsGameOver := false ;
+end ;
+
+Function   TBoardBase.ChkForPass(Player : PlayerType) : Boolean ;
+var   Row,Column : integer ;
+      Flag       : Boolean ;
+begin
+      Flag := false ;
+      Row  := 1     ;
+      Repeat
+            Column := 1 ;
+            Repeat
+                  if CanPut(BoardObj,Row,Column,Player) then
+                     Flag := true ;
+                  Column := Column+1 ;
+            until Flag or (Column > Side) ;
+            Row := Row+1 ;
+      until Flag or (Row > Side) ;
+      ChkForPass := not Flag ; {true if Player must pass}
+end ;
+
+Procedure TBoardBase.ChangeBoard(Row,Column : integer) ;
+var  Temp : Boolean ;
+begin
+       Temp := ChkAndChgBoard(BoardObj,BoardObj,Row,Column,PlayerPlay) ;
+       if not ChkForPass(Inverse(PlayerPlay)) then
+          PlayerPlay := Inverse(PlayerPlay) ;
+       Statistics(BoardObj,NumBlack,NumWhite) ;
+end ;
+
+Procedure TBoardBase.ConventionMove(Lev : Integer) ;
+var  Row,Col : integer ;
+     Temp    : Boolean ;
+begin
+     Lev := 2 ;
+     FindBestPut1(BoardObj,Row,Col,PlayerPlay,Lev) ;
+     Temp := ChkAndChgBoard(BoardObj,BoardObj,Row,Col,PlayerPlay) ;
+     if not ChkForPass(Inverse(PlayerPlay)) then
+        PlayerPlay := Inverse(PlayerPlay)
+     else
+         begin
+            Repeat
+              FindBestPut1(BoardObj,Row,Col,PlayerPlay,Lev) ;
+              Temp := ChkAndChgBoard(BoardObj,BoardObj,Row,Col,PlayerPlay) ;
+            Until (not ChkForPass(Inverse(PlayerPlay))) or
+                  (IsGameOver);
+            PlayerPlay := Inverse(PlayerPlay) ;
+         end ;
+     Statistics(BoardObj,NumBlack,NumWhite) ;
+end ;
+
+Begin
+
+end.

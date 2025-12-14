@@ -1,0 +1,54 @@
+
+<HTML>
+
+<HEAD>
+
+
+
+<TITLE>Server : 161.246.4.3 </TITLE>
+
+</HEAD>
+
+<br>
+<center>
+	<img src="server.bmp"><br><br>
+	<font color=blue>IP : 161.246.4.3</font>
+</center>
+<br>
+
+
+
+<SERVLET CODE=serview>
+
+</SERVLET>
+
+<br><br>
+<center>
+
+|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a href=http://161.246.6.160:8000/servlet/inout?ip=161.246.4.3>In-Out Statistics</a> &nbsp&nbsp&nbsp&nbsp
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/inoutpday?ip=161.246.4.3>Use per Day Statistics</a> &nbsp|<br>
+
+|&nbsp&nbsp&nbsp <a href=http://161.246.6.160:8000/servlet/data2pday?ip=161.246.4.3>InOctet in Interface2 Statistics (per Day)</a> &nbsp|
+&nbsp <a href=http://161.246.6.160:8000/servlet/datao2pday?ip=161.246.4.3>OutOctet in Interface2 Statistics (per Day)</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/singlecolpdays?ip=161.246.4.3>SingleCollisionFrames Statistics (per Day)</a> &nbsp|
+
+&nbsp <a href=http://161.246.6.160:8000/servlet/multicolpdays?ip=161.246.4.3>MultipleCollisionFrames Statistics(per Day)</a> &nbsp|<br>
+
+|&nbsp <a href=http://161.246.6.160:8000/servlet/defertranpdays?ip=161.246.4.3>Deferred Transmissions Statistics (per Day)</a> &nbsp|
+
+
+<form action="http://161.246.6.160/serv43.shtml">
+<input type ="image" src="reload.gif"> 
+</form>
+
+
+
+</center>
+<br><br>
+
+
+
+
+</html>

@@ -1,0 +1,22 @@
+defineProcedure String projectCF::Student::instance:Status()
+language "c++"
+{
+
+ $defaultCF 'projectCF';
+ $Real R;
+ $R = self.GPA();
+ $if (R >= 3.50) {
+	$return ("FirstHonor");
+ };
+ $if (R >= 3.25) {
+	$return ("Honor");
+ };
+ $if (R >= 2.75) {
+	$return ("Good");
+ };
+ $if (R >= 2.00) {
+	$return ("Poor");
+ };
+  $return("Probation");
+
+};

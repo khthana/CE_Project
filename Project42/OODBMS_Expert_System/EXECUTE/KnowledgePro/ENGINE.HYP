@@ -1,0 +1,97 @@
+//Using ENGINE.KB
+
+  #mDescription of ENGINE.KB#m
+  #mThe format of hypertext files#m
+  #mHow ENGINE.KB works#m
+  #mCustomizing ENGINE.KB#m
+
+//Description of ENGINE.KB
+
+  This program, ENGINE.KB, is a simple knowledge base that
+  creates a hypertext file reader.  It allows you to create
+  text files which contain paragraphs of text linked together
+  by hypertext.  The file you are now reading, ENGINE.HYP,
+  is a sample of a hypertext file.
+
+  Select READ to open a hypertext file to read.  When the
+  file is opened the subject at the top of the file is displayed.
+  This is usually an index or a table of contents which lets the 
+  user access the other subjects in the file.  Each indexed item 
+  is actually a hypertext phrase.  In this program hypertext 
+  appears blue on color monitors and underlined on mono 
+  monitors.  To select hypertext just point and click the mouse 
+  or press TAB or SHIFT TAB to move the cursor and ENTER 
+  to select the hypertext.
+
+  At each screen the user can select hypertext, go back to the
+  previous screen, return to the top level, print the screen
+  or, exit the program.
+
+  Next subject:  #mThe Format of hypertext files#m
+
+//The Format of Hypertext Files
+
+  Each subject in the hypertext file is identified by a subject 
+  title preceeded by a double slash. The title is written
+  onto the title bar of the window but is not displayed on
+  the main screen.  All spaces and line feeds remain as typed
+  into  the file.  Any words surrounded by the characters ##m
+  are identified as hypertext. 
+
+  Look at the file ENGINE.HYP to see an example of a file
+  correctly formatted to be used with ENGINE.KB.
+  
+  Next subject: #mHow ENGINE.KB works#m
+
+//How ENGINE.KB works
+
+  The source code of ENGINE.KB is commented to explain how
+  it is used to read hypertext files.  The use of the topic
+  MARK is basic to the design of the program.  When a 
+  a hypertext phrase is selected, it can be explicitly linked
+  to a topic with the same name as the phrase or, if it 
+  doesn't find a topic with the same name it will call the
+  special topic MARK, passing the text of the phrase as a
+  parameter.  In MARK we read the hypertext file starting
+  at the location where we find the hypertext phrase preceeded
+  by double slashes until the next set of double slashes is
+  encountered.  We keep track of which subjects have been 
+  read in the topic LIST.  This lets us back up over the 
+  subjects we've already viewed.
+
+  This hypertext engine has been purposely kept simple so you 
+  can understand how it works.  In a commercial hypertext
+  engine, all the features are locked in so it must be made
+  very complex to try to suit the needs of many different types
+  of applications.  One of the advantages to having control 
+  over the engine is that you can use the basic framework 
+  of the engine but customize it to suit your particular needs.
+
+  Next subject: #mCustomizing ENGINE.KB#m
+
+//Customizing ENGINE.KB
+
+  The help knowledge base KPHELP.KB included with your system
+  is actually just a slightly customized version of ENGINE.KB.
+  The main change to the knowledge base is that instead of
+  directly reading the hypertext file we read an index of the
+  file created using INDEX.KB.  Since the hypertext file was
+  over 300K, this makes accessing the file much quicker.
+  INDEX reads the hypertext file, extracting all phrases 
+  preceeded by a double slash and records the location of the
+  phrase and the number of characters to the next double
+  slash.  In the topic MARK we read the index to find the 
+  information for the current phrase and then set the file 
+  pointer directly to the correct location and read in the 
+  number of characters specified. 
+
+  Another change made in KPHELP is the addition of a feature
+  that lets you copy part of the information from the 
+  hypertext file directly into the clipboard.  If you look
+  at the code for KPHELP.KB and the KPHELP.DAT file you can
+  see how this has been implemented. It shows how a very
+  simple change can add an important and powerful feature.
+
+  
+
+  

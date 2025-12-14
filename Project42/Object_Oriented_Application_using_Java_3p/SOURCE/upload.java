@@ -1,0 +1,68 @@
+// FakeActionEvent.java
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+
+public class upload extends Applet implements ActionListener {
+	Button b1, b2,b3;
+	String sub="";
+
+	public void init() {
+         sub = getParameter("account");
+		b1 = new Button(" Browse ");
+//		b2 = new Button(f);
+		b1.addActionListener(this);
+//		b2.addActionListener(this);
+		add(b1);
+		  setBackground(Color.green);
+      setForeground(Color.red);
+		//add(b2);
+	}
+
+
+  public void paint(Graphics g) 
+ {
+	 g.drawString(sub+"  Please Select File",310,45);
+ }
+
+	public void actionPerformed(ActionEvent e) {
+		String s = e.getActionCommand();
+//		System.out.println(s);
+		if (s.equals(" Browse ")) 
+		/*{
+			//	add(b3);
+			FileDialog d = new FileDialog(new Frame(),"My Filedialog",FileDialog.LOAD);
+			d.setDirectory(".");
+			d.setVisible(true);
+			System.out.println(d.getFile());
+			//			ActionEvent ae = new ActionEvent(b2, ActionEvent. ACTION_PERFORMED, "Hi");
+			//			b2.dispatchEvent(ae);
+			// Toolkit.getDefaultToolkit().getSystemEventQueue(). postEvent(ae);
+		 }*/
+		 {
+				FileDialog d = new FileDialog(new Frame(), "My FileDialog", FileDialog.LOAD);
+				d.setDirectory(".");
+				d.setVisible(true);
+				
+				System.out.println(d.getDirectory());
+				System.out.println(d.getFile());
+				
+				String s2 = d.getDirectory();
+				String s1 = d.getFile();//File fileUPLoad = File(d.getDirectory(),d.getFile());
+				//this.s = s;
+				//repaint();
+				try
+				{
+					Send send = new Send("venus09.ce.kmitl.ac.th",8080);
+					send.run(sub,s2,s1);
+					setBackground(Color.blue);
+				}
+				catch (Exception ex)
+				{
+					setBackground(Color.red);
+				}
+				
+			}
+	}
+}
+// <applet code="upload" width=100 height=50></applet>

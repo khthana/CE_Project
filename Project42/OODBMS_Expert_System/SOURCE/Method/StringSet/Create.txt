@@ -1,0 +1,11 @@
+defineProcedure Void projectCF::StringSet::class:Create()
+language: "c++"
+
+{
+
+ $defaultCF 'projectCF';
+ $StringSet StrSet;
+ $StrSet = StringSet.new(Elements := Set {});
+  $return(StrSet);
+
+};

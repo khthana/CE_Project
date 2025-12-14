@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Delete Item</title>
+
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">ADMINISTRATION</font></strong></font></div>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffff"> 
+    <td height="15"> 
+      <hr>
+ 
+    </td>
+  </tr>
+  <tr bgcolor="#ffffcc" valign="top"> 
+    <td height="477"> 
+      <div align="center"> 
+        <table width="100%" border="0">
+          <tr> 
+            <td width="25%" valign="top" height="413"> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td height="19">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td height="48"> 
+                    <div align="center"><b><font face="MS Sans Serif" size="3">Administrator 
+                      Command</font></b></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td height="31"> 
+                    <form method="post" action="Item.ASP?WCI=DeleteItem&amp;WCE=formShopDesc&amp;WCU" 
+                                name="formShopDesc">
+                      <div align="center"> 
+                        <input type="Image" name="Submit1" value="Shop Description" src="/ecom/pic/ShopDesc2.GIF" width="100" height="50" alt="Shop description">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center"> 
+                      <form method="post" action="Item.ASP?WCI=DeleteItem&amp;WCE=fromCategory&amp;WCU" 
+                                name="fromCategory">
+                        <input type="Image" name="BtnShopCategory" value="Shop Category" src="/ecom/pic/ShopCat2.GIF" width="100" height="50" alt="Shop category">
+                      </form>
+                      <font color="#ff3300"><b> </b></font></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center"><img src="/ecom/pic/ShopItem1.GIF" width="100" height="50" alt="Shop item"></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td width="75%" height="413" valign="top" align="middle"> 
+              <p>&nbsp;</p>
+              <p align="center">&nbsp;</p>
+              <p align="center"><font color="#000000"><b><font size="3" face="MS Sans Serif" color="#ff0000">Delete 
+                item </font></b></font></p>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <form method="post" action="Item.ASP?WCI=DeleteItem&amp;WCE=formListItem&amp;WCU" 
+                                name="formListItem">
+                      <font color="#006666"><b><font face="MS Sans Serif">Category 
+                                Type</font></b></font><font color="#ff9999"><b><font face="MS Sans Serif"> 
+ 
+                      </font></b></font> 
+                      <select name="select">
+			<wc@>CatList</wc@>
+                      </select>
+                      <input type="submit" name="Submit" value="List Item"> 
+ 
+                    </form>
+                  </td>
+                  <td>
+                    <form method="post" action="Item.ASP?WCI=DeleteItem&amp;WCE=formDeleteItem&amp;WCU" 
+                                name="formDeleteItem">
+                      <b><font color="#006666" face="MS Sans Serif">Item 
+                                Name 
+                      </font> </b> 
+                      <select name="select2">
+			<wc@>ItemList</wc@>
+                      </select>
+                      <input type="submit" name="Submit2" value="Delete"> 
+ 
+                    </form>
+                  </td>
+                </tr>
+              </table>
+              <p>&nbsp;</p>
+              <p><font face="MS Sans Serif"><wc@>currentitem</WC@></font></p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p><p>&nbsp;</p><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><A href="Item.ASP?WCI=DeleteItem&WCE=AddItem&WCU" name="AddItem">Add 
+                                Item</A></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif" color="#ff3300"><b>Delete 
+                                Item</b></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><A href="Item.ASP?WCI=DeleteItem&WCE=Hyperlink1&WCU">Update 
+                                Item</A></font></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

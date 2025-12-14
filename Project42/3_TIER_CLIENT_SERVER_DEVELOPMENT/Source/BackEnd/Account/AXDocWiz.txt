@@ -1,0 +1,25 @@
+The ActiveX Document Migration Wizard has finished converting your forms.
+
+What To Do Next
+===============
+ActiveX Document based applications provide a seamless way for Visual Basic developers to create applications that run in-place in ActiveX Document container applications, such as Microsoft Internet Explorer and Microsoft Office Binder. 
+While a UserDocument is very similar to a standard Visual Basic form, there are subtle differences. For example, with a standard form, there are methods to show, hide, load, and unload forms. But because the UserDocument object's display and lifetime are handled by the container, these methods don't apply. Additionally, navigating between ActiveX documents typically requires using the Hyperlink object.
+
+To test your new ActiveX document in Internet Explorer:
+1 Press F5 to run your project.
+2 Switch to Internet Explorer.
+3 On the File menu, click Open, and type in the name of the temporary .vbd file created for your ActiveX document, then click OK.
+4 You can then test and debug your project in the same manner as any other ActiveX DLL or EXE project.
+
+To test your new ActiveX document in Office Binder:
+1 Press F5 to run your project.
+2 Switch to Office Binder
+3 On the Section menu click Add to display the Add Section dialog box. From the list of ProgID's, double-click the ProgID of your ActiveX document.
+4 You can then test and debug your project in the same manner as any other ActiveX DLL or EXE project.
+ 
+For a step-by-step lesson that teaches the basic principles of creating an ActiveX document from scratch, see Chapter 5, "Creating an ActiveX Document," in "Creating ActiveX Components," in the Component Tools Guide, available in the Professional and Enterprise editions.
+
+For more details about ActiveX document creation, see Chapter 11, "Building an ActiveX Document," in "Creating ActiveX Components," in the Component Tools Guide, available in the Professional and Enterprise editions.
+
+
+

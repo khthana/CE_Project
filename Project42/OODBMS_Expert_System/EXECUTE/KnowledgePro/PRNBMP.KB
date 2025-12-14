@@ -1,0 +1,8 @@
+(* PRNBMP.KB
+
+   Sample program that uses the new bitmap printing feature. *)
+
+#include kpprnbmp.tpx
+
+x is load_bitmap ('winlogo.bmp').
+result is print_bitmap (?x, STRETCHTOPAGE).

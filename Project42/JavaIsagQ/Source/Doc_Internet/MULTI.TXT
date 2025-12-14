@@ -1,0 +1,19 @@
+
+ MULTIPLE_PACKET (12 02)
+ -----------------------
+
+ Length   Content (if fixed)  Name		Description
+ ------   ------------------  ----		-----------
+
+ 1 byte   xx		      NUM_PACKETS	Number of packets
+ 2 bytes  xx xx		      LENGTH		Length of first packet
+ variable 		      PKT_1		First packet
+ 2 bytes  xx xx		      LENGTH		Length of second packet
+ variable		      PKT_2		Second packet
+ ...
+ 2 bytes  xx xx		      LENGTH		Length of n:th packet
+ variable		      PKT_N		N:th packet
+
+ The server seems to use this method whenever it has more than one packet
+ to deliver.
+ The CHECK fields of the included packets are all set to NULL.

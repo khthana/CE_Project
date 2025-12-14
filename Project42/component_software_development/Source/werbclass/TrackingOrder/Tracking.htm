@@ -1,0 +1,158 @@
+<html>
+<head>
+<title>Tracking Order</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<!-- First_table -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="52" bgcolor="#ccffcc" >
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center">
+        <p><font color="#3333ff"><b><font size="5" face="MS Sans Serif" color="#6666ff">TRACKING ORDER 
+    </font></b></font></p>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- First_table -->
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td height="15">
+      <hr>
+ 
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="514" bgcolor="#ffffcc">
+  <tr> 
+    <td width="16%" height="169"> 
+      <div align="center"></div>
+    </td>
+    <td width="36%" height="169"> 
+      <form method="post" action="WebClass1.ASP?WCI=Template1&amp;WCE=Form1&amp;WCU" 
+           >
+        <div align="center"></div>
+        <table border="0" cellspacing="0" cellpadding="0" width="279">
+          <tr> 
+            <td width="121"> 
+              <div align="center"><font face="MS Sans Serif"><b><font size="2">Username</font></b></font></div>
+            </td>
+            <td width="103"><font face="MS Sans Serif"> 
+              <input name="textusername" >
+              </font></td>
+          </tr>
+          <tr> 
+            <td width="121"> 
+              <div align="center"><font face="MS Sans Serif"><b><font size="2">Password</font></b></font></div>
+            </td>
+            <td width="103"><font face="MS Sans Serif"> 
+              <input name="textpassword" type="password">
+              </font></td>
+          </tr>
+          <tr> 
+            <td width="121" height="11">&nbsp;</td>
+            <td width="103" height="11">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td width="121">&nbsp;</td>
+            <td width="103"><font face="MS Sans Serif"> 
+              <input type="submit" name="login" value="Login">
+              <input type="reset" name="reset" value="Reset">
+              </font></td>
+          </tr>
+        </table>
+        <div align="center"></div>
+        <div align="center"></div>
+        <div align="center"></div>
+        <p align="center">&nbsp;</p>
+        </form>
+    <td width="27%" height="169" valign="center" align="middle"> 
+      <form method="post" action="WebClass1.ASP?WCI=Template1&amp;WCE=Form2&amp;WCU">
+        <p align="center"><font face="MS Sans Serif"><b><font size="2">Billing 
+          List </font></b></font></p>
+        <p align="center"> 
+          <select name="lstBilling" size="3"><wc@>billinglist</wc@>
+            
+          </select>
+          <input type="submit" name="Submit" value="View Status">
+        </p>
+      </form>
+    </td>
+    <td width="21%" height="169"> 
+      <div align="center"></div>
+    </td>
+  </tr>
+  <tr valign="top"> 
+    <td colspan="4" align="center" height="124"> 
+      <table width="80%" border="1" cellspacing="0" cellpadding="0"  bgcolor="#ffffcc">
+        <tr bgcolor="#CCCCFF"> 
+          <td colspan="4"> 
+            <div align="center"> 
+              <h3><font face="MS Sans Serif" color="#ff33cc"><b><font color="#993300">Billing 
+                Status</font></b></font></h3>
+            </div>
+          </td>
+        </tr>
+        <tr bgcolor="#CCCCFF"> 
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>BillingID</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>AccountID</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>ShipDate</b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font face="MS Sans Serif" color="#CC6600"><b>Status</b></font></div>
+          </td>
+        </tr><wc@>
+        strBilling</wc@>
+      </table>
+    </td>
+  </tr>
+  <tr valign="top"> 
+    <td colspan="4" align="center" height="127"> 
+      <table width="80%" border="1" cellspacing="0" cellpadding="0"  bgcolor="#ffffcc">
+        <tr bgcolor="#CCFFFF"> 
+          <td colspan="6"> 
+            <div align="center"> 
+              <h3><font color="#993300" face="MS Sans Serif">Billing Detail</font></h3>
+            </div>
+          </td>
+        </tr>
+        <tr bgcolor="#CCFFFF"> 
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Item 
+              name</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Amount</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Discount</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Tax 
+              value</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Price</font></b></font></div>
+          </td>
+          <td> 
+            <div align="center"><font color="#CC6600"><b><font face="MS Sans Serif">Status</font></b></font></div>
+          </td>
+        </tr><wc@>
+        strBillingDetail</wc@>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</HTML>

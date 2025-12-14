@@ -1,0 +1,13 @@
+ModBillingDetail = 168, 47, 579, 393, C
+docAddBilling = 97, 103, 559, 511, , 49, 92, 691, 568, C
+docCalTotalTax = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docCalTotalPrice = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docDeleteBilling = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docRetrieveBilling = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docUpdateBilling = 97, 103, 559, 511, , 76, 83, 656, 534, C
+docAddBillingDetail = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docDeleteBillingDetail = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docUpdateBillingDetail = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docRetrieveBillingDetail = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docCalPrice = 97, 103, 559, 511, , 106, 80, 568, 488, C
+docCalTax = 97, 103, 559, 511, , 106, 80, 568, 488, C

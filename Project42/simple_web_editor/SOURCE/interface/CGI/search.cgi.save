@@ -1,0 +1,148 @@
+#!/usr/bin/perl
+push(INC,"/cgi-bin");
+require('cgi_lib2.cgi');
+ReadParse(*mydata);
+
+$|=1;
+
+use DBI;
+$database='webboard';
+$user='web';
+$password='project';
+
+print "Content-type:text/html\n\n";
+print <<EOF;
+<html>
+<head><title>Result of Search</title></head>
+<body>
+<center>Result of Search</center>
+<table>
+EOF
+
+ 
+$dbh=DBI->connect("DBI:mysql:$database",$user,$password);
+
+$ip1=$mydata{input1};
+$ip2=$mydata{input2};
+$ip3=$mydata{input3};
+$ip4=$mydata{input4};
+#$sel_room=$mydata{room};
+$sel_room='1';
+$word='duk';
+#$word=$mydata{word};
+$match=false;
+$no=1;
+
+#if ($ip1 eq 'name') {
+	$sth = $dbh->prepare("select * from head_post where Name_post LIKE '%$word%' and Room='$sel_room'");
+	$sth->execute;
+	&write_match();
+
+	$sth = $dbh->prepare("select * from head_reply where Name_reply LIKE '%$word%' and Room='$sel_room'");
+	$sth->execute;
+	&write_match2();
+#	}
+
+
+if ($ip2 eq 'title') {
+	$sth = $dbh->prepare("select * from head_post where Title_post LIKE '%$word%' and Room='$sel_room'");
+	$sth->execute;
+	&write_match();
+
+	$sth = $dbh->prepare("select * from head_reply where Title_reply LIKE '%$word%' and Room='$sel_room'");
+	$sth->execute;
+	&write_match2();
+	}
+
+if ($ip3 eq 'detail') {
+	$sth = $dbh->prepare("select Id_post from Detail_post where Detail_post LIKE '%$word%' and Room='$sel_room'");
+	$sth->execute;
+	while (@field = $sth->fetchrow_array) {
+		$id = $field[0];
+		}
+	$sth = $dbh->prepare("select * from head_post where Id_post='$id'");
+	$sth->execute;
+	&write_match();
+	
+	$sth = $dbh->prepare("select Id_post from detail_reply where Detail_reply LIKE '%$word%' and Room_reply='$sel_room'");
+	$sth->execute;
+	while (@field = $sth->fetchrow_array) {
+		$id = $field[0];
+	 	}
+	$sth = $dbh->prepare("select * from head_reply where Id_post='$id'");
+	$sth->execute;
+	&write_match2();
+	}	
+$no--;
+print "The word <b><i>$word</i></b> found $no matches\n";
+
+print <<EOF;
+</table>
+</body>
+</html>
+EOF
+
+sub write_match {
+        while ($hash_ref = $sth->fetchrow_hashref) {
+		$array[$no] = '0';
+		$i = 0;
+		while ($i != $no) {
+		if ($array[$i] ne $hash_ref->{Id_post}) {
+		$i++;
+		$flag = 'true';
+		}
+		else {
+		$i++;
+		$flag = 'false';
+		}
+		if (flag eq 'tru 
+                print "<tr>\n";
+                print "<th align=left><a href=\"title.cgi?title=$hash_ref->{Id_post}\">$no.$hash_ref->{Title_post}</a></th>\n";
+                print "<td align=left>$hash_ref->{Name_post}</td>\n";
+                print "<td align=left>$hash_ref->{No_reply}</td>\n"; 
+                print "<td align=left>$hash_ref->{Time_post}</td>\n";
+		print "</tr>\n";
+		$array[$no] = $hash_ref->{Id_post};
+                $match=true;
+                $no++;
+		}}
+                }
+}
+
+sub write_match2 {
+	while ($hash_ref = $sth->fetchrow_hashref) {
+		$array[$no]='0';
+		$i = 0;
+		while ($i != $no) {
+		if ($array[$i] ne $hash_ref->{Id_reply}) {
+		$i++;
+		$flag = 'true';
+		}
+		else {
+		$i++;
+		$flag = 'false';
+		}}
+		if ($flag eq 'true') {
+		print "<tr>\n";
+		print "<th align=left><a
+href=\"title.cgi?title=$hash_ref->{Id_post}#$hash_ref->{Id_reply}\">$no.$hash_ref->{Title_reply}</a></th>\n";
+                print "<td align=left>$hash_ref->{Name_reply}</td>\n";
+                print "<td align=left>$hash_ref->{Time_reply}</td>\n";
+		print "<td></td>\n";
+         	print "</tr>\n";
+		$array[$no] = $hash_ref->{Id_reply};
+                $match=true;
+                $no++;
+                }
+		}
+}
+
+
+
+
+
+
+
+
+
+

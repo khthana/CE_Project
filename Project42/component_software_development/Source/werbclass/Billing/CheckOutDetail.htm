@@ -1,0 +1,339 @@
+<html>
+<head>
+<title>Check out details</title>
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">CHECK 
+        OUT PROCESS </font></strong></font></div>
+    </td>
+  </tr>
+  <tr> 
+    <td height="15" bgcolor="#ffffff"> 
+      <hr>
+    </td>
+  </tr>
+  <tr valign="top"> 
+    <td> 
+       <form method="post" action="Billing.ASP?WCI=CheckOutDetail&amp;WCE=formInvoiceDetail&amp;WCU" 
+      name="formInvoiceDetail">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" background="http://161.246.6.152/ecom/pic/bkg.gif">
+          <tr> 
+            <td width="7%" height="28">&nbsp;</td>
+            <td width="93%" height="28" valign="top"> 
+              <h3>&nbsp;</h3>
+              <h3><font face="MS Sans Serif" color="#cc9900"><b><font size="4">Invoice 
+                Total - Review</font></b></font></h3>
+              </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <h3><b><font face="MS Sans Serif" color="#0099cc">Billed To</font></b></h3>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <table width="65%">
+                <tr> 
+                  <td width="47%"> 
+                    <p><font face="MS Sans Serif" size="2"><b>BillingName :</b></font><font face="MS Sans Serif" size="-1"><wc@>strBillingName</wc@></font></p>
+                    <p><font face="MS Sans Serif" size="2"><b>BillingAddress :</b></font><font face="MS Sans Serif" size="-1"><wc@>strBillingAddress</wc@></font></p>
+                    <p><font face="MS Sans Serif" size="2"><b>Phone :</b></font><font face="MS Sans Serif" size="-1">&nbsp;<wc@>strTel</wc@></font></p>
+                    <p><font face="MS Sans Serif" size="2"><b>Fax :</b></font><font face="MS Sans Serif" size="-1">&nbsp;<wc@>strFax</wc@></font></p>
+                    <p><font face="MS Sans Serif" size="-1"><b><font size="2">Email 
+                      :</font></b>&nbsp;<wc@>strEmail</wc@></font></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <h3><font face="MS Sans Serif" color="#0099cc"><b>Ship To</b></font></h3>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"><wc@>strShipTo</wc@></td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <h3><font face="MS Sans Serif"><b><font color="#0099cc">Selected 
+                Item</font></b></font></h3>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                <tr bgcolor="#99CCFF"> 
+                  <td width="5%"> 
+                    <div align="center"><b><font face="MS Sans Serif">No</font></b></div>
+                  </td>
+                  <td width="37%"> 
+                    <div align="center"><b><font face="MS Sans Serif">Item name</font></b></div>
+                  </td>
+                  <td width="6%"> 
+                    <div align="center"><b><font face="MS Sans Serif">Qty</font></b></div>
+                  </td>
+                  <td width="14%"> 
+                    <div align="center"><b><font face="MS Sans Serif">Price</font></b></div>
+                  </td>
+                  <td width="38%"> 
+                    <div align="center"><b><font face="MS Sans Serif">Status</font></b></div>
+                  </td>
+                </tr><wc@>
+                strItemList</wc@>
+                <!--
+                <tr> 
+                  <td width="5%"> 
+                    <div align="center">1</div>
+                  </td>
+                  <td width="37%">Quick PC1</td>
+                  <td width="6%"> 
+                    <div align="center">1</div>
+                  </td>
+                  <td width="14%"> 
+                    <div align="center">50.25</div>
+                  </td>
+                  <td width="38%">Available</td>
+                </tr>
+--> 
+                <tr> 
+                  <td width="5%">&nbsp;</td>
+                  <td width="37%"> 
+                    <div align="right"><font face="MS Sans Serif">Total</font></div>
+                  </td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="14%"> 
+                    <div align="center"><wc@>strTotal</wc@></div>
+                  </td>
+                  <td width="38%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="5%">&nbsp;</td>
+                  <td width="37%"> 
+                    <div align="right"><font face="MS Sans Serif">Tax</font></div>
+                  </td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="14%"> 
+                    <div align="center"><wc@>strTax</wc@></div>
+                  </td>
+                  <td width="38%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="5%">&nbsp;</td>
+                  <td width="37%"> 
+                    <div align="right"><font face="MS Sans Serif">Frieght</font></div>
+                  </td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="14%"> 
+                    <div align="center"><wc@>strFrieght</wc@></div>
+                  </td>
+                  <td width="38%">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td width="5%">&nbsp;</td>
+                  <td width="37%"> 
+                    <div align="right"><font face="MS Sans Serif"><b>Grand Total</b></font></div>
+                  </td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="14%"> 
+                    <div align="center"><b><wc@>strGrandTotal</wc@></b></div>
+                  </td>
+                  <td width="38%">&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td><font face="MS Sans Serif"><b><font color="#cc9900" size="4">Step 
+                    4 :</font><font color="#0099cc" size="4"> Payment Information</font><font color="#000099" size="4"><b><font face="MS Sans Serif"> 
+                    </font></b></font></b></font></td>
+                  <td> 
+                    <div align="right"><font face="MS Sans Serif"><b><font color="#000099"><b><font face="MS Sans Serif"> 
+                      <input type="image" name="btnCheckOutDetail" src="http://161.246.6.152/ecom/pic/proceed-to-checkout.gif" width="184" height="33" align="middle">
+                      </font></b></font></b></font></div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <table width="100%" border="0">
+                <tr> 
+                  <td width="28%"> 
+                    <div align="right"><font face="MS Sans Serif" color="#000099"><b>Payment 
+                      type</b></font></div>
+                  </td>
+                  <td width="3%">&nbsp;</td>
+                  <td width="69%"> 
+                    <select name="PayType">
+                      <option selected>Select payment type</option>
+                      <option value="CreditCard">Credit card</option>
+                      <option value="Cheque">Cheque order</option>
+                      <option value="Moneyorder">Moneyorder</option>
+                      <option value="Fundtransfer">Fund Transfer</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="28%"> 
+                    <div align="right"><font face="MS Sans Serif"><b><font color="#000099">Use 
+                      credit card</font></b></font></div>
+                  </td>
+                  <td width="3%">&nbsp;</td>
+                  <td width="69%"> 
+                    <table border=0 >
+                      <tr> 
+                        <td nowrap rowspan="2"> <font face="MS Sans Serif" size="1"> 
+                          <input name="RdoCreditCard" type="radio" value="discover" >
+                          Discover&nbsp;</font> <font face="MS Sans Serif" size="1"><br clear=left>
+                          <input name="RdoCreditCard" type="radio" value="americanExpress" >
+                          American Express&nbsp;</font> <font face="MS Sans Serif" size="1"><br clear=left>
+                          <input name="RdoCreditCard" type="radio" value="masterCard" >
+                          Master Card&nbsp;</font> <font face="MS Sans Serif" size="1"><br clear=left>
+                          <input name="RdoCreditCard" type="radio" value="visa" >
+                          Visa&nbsp;</font> </td>
+                        <td nowrap width="13"><font face="MS Sans Serif" size="1"></font> 
+                        </td>
+                        <td valign="bottom" nowrap> <font size="1" face="MS Sans Serif">Card 
+                          Number:&nbsp;</font> </td>
+                        <td valign="bottom" nowrap> <font size="1" face="MS Sans Serif">Exp. 
+                          Date:&nbsp;</font> </td>
+                      </tr>
+                      <tr> 
+                        <td width="13"><font face="MS Sans Serif" size="1"></font> 
+                        </td>
+                        <td > <font face="MS Sans Serif" size="1"> 
+                          <input name="txtCardNum" maxlength="20">
+                          </font></td>
+                        <td nowrap> <font face="MS Sans Serif" size="1"> 
+                          <select name="CMON">
+                            <option value="1" 
+                          selected>January </option>
+                            <option value="2" >February </option>
+                            <option value="3" >March </option>
+                            <option value="4" >April </option>
+                            <option value="5" >May </option>
+                            <option value="6" >June </option>
+                            <option value="7" >July </option>
+                            <option value="8" >August </option>
+                            <option value="9" >September </option>
+                            <option value="10" >October </option>
+                            <option value="11" >November </option>
+                            <option value="12" >December </option>
+                          </select>
+                          <select name="CYEAR">
+                            <option value="2000" selected>2000 </option>
+                            <option value="2001" >2001 </option>
+                            <option value="2002" >2002 </option>
+                            <option value="2003" >2003 </option>
+                            <option value="2004" >2004 </option>
+                            <option value="2005" >2005 </option>
+                            <option value="2006" >2006 </option>
+                            <option value="2007" >2007 </option>
+                            <option value="2008" >2008 </option>
+                            <option value="2009" >2009 </option>
+                            <option value="2010" >2010 </option>
+                            <option value="2011" >2011 </option>
+                            <option value="2012" >2012 </option>
+                            <option value="2013" >2013 </option>
+                            <option value="2014" >2014 </option>
+                            <option value="2015" >2015 </option>
+                            <option value="2016" >2016 </option>
+                            <option value="2017" >2017 </option>
+                            <option value="2018" >2018 </option>
+                            <option value="2019" >2019 </option>
+                            <option value="2020" >2020 </option>
+                          </select>
+                          </font></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr> 
+                  <td width="28%" valign="center"> 
+                    <p align="right"><font color="#000099"><b><font face="MS Sans Serif">Or 
+                      </font></b></font><font color="#000099"><b><font face="MS Sans Serif">Use 
+                      cheque</font></b></font></p>
+                  </td>
+                  <td width="3%">&nbsp;</td>
+                  <td width="69%"><font color="#000099"><b><font face="MS Sans Serif">Send 
+                    your cheque to account Shop2000</font></b></font></td>
+                </tr>
+                <tr> 
+                  <td width="28%" valign="center"> 
+                    <p align="right"><font color="#000099"><b><font face="MS Sans Serif">Or 
+                      </font></b></font><font color="#000099"><b><font face="MS Sans Serif">Fundtransfer</font></b></font></p>
+                  </td>
+                  <td width="3%">&nbsp;</td>
+                  <td width="69%"><font color="#000099"><b><font face="MS Sans Serif">Transfer 
+                    to account Shop2000</font></b></font></td>
+                </tr>
+                <tr> 
+                  <td width="28%" valign="center"> 
+                    <p align="right"><font color="#000099"><b><font face="MS Sans Serif">Or 
+                      </font></b></font><font color="#000099"><b><font face="MS Sans Serif">Money 
+                      order</font></b></font></p>
+                  </td>
+                  <td width="3%">&nbsp;</td>
+                  <td width="69%"> <font color="#000099"><b><font face="MS Sans Serif">Pay 
+                    order at Shop2000 </font></b></font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <blockquote> 
+                <div align="center"><font color="#000099"><b><font face="MS Sans Serif"> 
+                  </font></b></font></div>
+              </blockquote>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%"> 
+              <blockquote> 
+                <div align="center"> </div>
+              </blockquote>
+            </td>
+          </tr>
+          <tr> 
+            <td width="7%">&nbsp;</td>
+            <td width="93%">&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

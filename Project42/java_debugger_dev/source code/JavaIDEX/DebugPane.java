@@ -1,0 +1,345 @@
+package JavaIDEX;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sun.jdi.*;
+import java.util.StringTokenizer;
+import javax.swing.text.BadLocationException;
+
+public class DebugPane extends JPanel implements Runnable {
+  String currJavName = null,
+         currPath = null,
+         connectSpec = null;
+  TTY tty;
+  Thread debugger = null;
+  //Box bh = Box.createHorizontalBox();
+  Box contentPane = Box.createVerticalBox();
+  JToolBar jToolBar;
+  JButton BreakPoint_bt, Step_bt, addWatch_bt, run_bt, next_bt, exit_bt, unbreak_bt;
+  JTextArea ThreadWin, AWatchWin, addWatchWin;
+  JScrollPane ThreadWinPane, AWatchWinPane, addWatchWinPane;
+  EditWin eWin;
+  Rectangle caretCoords;
+  int dot;
+  int lineAct;
+  int oldj=60000;
+  final int line2Pixel = 16;
+  JViewport threadViewport, AWatchViewport, addWatchViewport;
+  Point viewportPos;
+
+  int bp_hist[];
+  int i=1;
+  // contructor
+	public DebugPane(final EditWin eWin) {
+    this.currJavName = eWin.currJavName;
+    this.currPath = eWin.currPath;
+    this.eWin = eWin;
+    bp_hist = new int[50];
+    jToolBar = new JToolBar();
+    jToolBar.setName("Debug Command");
+    BreakPoint_bt = new JButton("break");
+    Step_bt = new JButton("step");
+    addWatch_bt = new JButton("watch");
+    run_bt = new JButton("run");
+    next_bt = new JButton("next");
+    exit_bt = new JButton("exit");
+    unbreak_bt = new JButton("unbreak");
+    jToolBar.add(run_bt);
+    jToolBar.add(BreakPoint_bt);
+    jToolBar.add(unbreak_bt);
+    jToolBar.add(Step_bt);
+    jToolBar.add(next_bt);
+    jToolBar.add(addWatch_bt);
+    jToolBar.add(exit_bt);
+    BreakPoint_bt.setEnabled(false);
+    Step_bt.setEnabled(false);
+    addWatch_bt.setEnabled(false);
+    run_bt.setEnabled(false);
+    next_bt.setEnabled(false);
+    exit_bt.setEnabled(false);
+    unbreak_bt.setEnabled(false);
+    this.setLayout(new BorderLayout());
+    add(jToolBar, BorderLayout.NORTH);
+
+
+    JLabel label1 = new JLabel("Threads    ");
+    ThreadWin = new JTextArea(6,2);
+    contentPane.add(label1);
+
+
+    ThreadWin.setEditable(false);
+    ThreadWinPane = new JScrollPane(ThreadWin);
+    ThreadWinPane.setAutoscrolls(true);
+    threadViewport = new JViewport();
+    ThreadWinPane.setViewportView(ThreadWin);
+    threadViewport = ThreadWinPane.getViewport();
+    viewportPos = new Point(0,0);
+    viewportPos.setLocation(0,0);
+    //viewportSize = new Dimension(6,8);
+    //threadViewport.setViewSize(viewportSize);
+    threadViewport.setViewPosition(viewportPos);
+    contentPane.add(ThreadWinPane);
+
+    JLabel label2 = new JLabel("Local Variables    ");
+    contentPane.add(label2);
+    AWatchWin = new JTextArea(6,2);
+    AWatchWin.setEditable(false);
+    AWatchWinPane = new JScrollPane(AWatchWin);
+    AWatchViewport = new JViewport();
+    AWatchWinPane.setViewportView(AWatchWin);
+    AWatchViewport = AWatchWinPane.getViewport();
+    AWatchViewport.setViewPosition(viewportPos);
+    contentPane.add(AWatchWinPane);
+
+
+    JLabel label3 = new JLabel("Add Watches    ");
+    contentPane.add(label3);
+    addWatchWin = new JTextArea(6,8);
+    addWatchWin.setEditable(false);
+    addWatchWinPane = new JScrollPane(addWatchWin);
+    addWatchViewport = new JViewport();
+    addWatchWinPane.setViewportView(addWatchWin);
+    addWatchViewport = addWatchWinPane.getViewport();
+    addWatchViewport.setViewPosition(viewportPos);
+    contentPane.add(addWatchWinPane);
+
+    this.add(contentPane);
+    // action listeners
+    exit_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+          StringTokenizer t =null;
+          t = new StringTokenizer("quit");
+          tty.executeCommand(t);
+          stopIt();
+
+      }
+    });
+
+    unbreak_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+          if (caretCoords != null) {
+            lineAct = caretCoords.y + 13 ;
+            lineAct = lineAct / 16;
+            int temp = dot;
+            eWin.dsd.setParagraphAttributes(dot, 1, eWin.attrs[0], true);
+            StringTokenizer t =null;
+            t = new StringTokenizer("clear "+currJavName+":"+lineAct);
+            tty.executeCommand(t);
+        }
+      }
+    });
+
+    next_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+          StringTokenizer t =null;
+          t = new StringTokenizer("next");
+          tty.executeCommand(t);
+          t = new StringTokenizer("where all");
+          tty.executeCommand(t);
+          t = new StringTokenizer("locals");
+          tty.executeCommand(t);
+          t = new StringTokenizer("list");
+          tty.executeCommand(t);
+          setHighLight();
+          threadViewport.setViewPosition(viewportPos);
+          AWatchViewport.setViewPosition(viewportPos);
+          addWatchViewport.setViewPosition(viewportPos);
+          ThreadWinPane.repaint();
+          AWatchWinPane.repaint();
+          addWatchWinPane.repaint();
+
+      }
+    });
+
+    BreakPoint_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+        if (caretCoords != null) {
+          lineAct = caretCoords.y + 13 ;
+          lineAct = lineAct / 16;
+          int temp = dot;
+          eWin.dsd.setParagraphAttributes(dot, 1, eWin.attrs[1], true);
+          bp_hist[i++] = dot;
+          StringTokenizer t =null;
+          t = new StringTokenizer("stop at"+" " +currJavName+":"+lineAct );
+          //JOptionPane.showMessageDialog(eWin.textPane,"set breakpoint in line:" + lineAct);
+          tty.executeCommand(t);
+
+        }
+      }
+    });
+
+    addWatch_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+        int xx=0;
+        String input = JOptionPane.showInputDialog("add varible you want to monitor");
+        StringTokenizer t =null;
+        t = new StringTokenizer("print"+" "+input);
+        tty.executeCommand(t);
+      }
+    });
+
+    Step_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+      /*
+      for (int i=1; i<500; i++) {
+        try {
+          Rectangle r = eWin.textPane.modelToView(i);
+          JOptionPane.showMessageDialog(eWin.contentPane,"i = " + i+ " r.x =" + r.x + " r.y= " + r.y);
+        }
+        catch (BadLocationException ble) {}
+      }
+       */
+          StringTokenizer t =null;
+          t = new StringTokenizer("step");
+          tty.executeCommand(t);
+          t = new StringTokenizer("where all");
+          tty.executeCommand(t);
+          t = new StringTokenizer("locals");
+          tty.executeCommand(t);
+          t = new StringTokenizer("list");
+          tty.executeCommand(t);
+          setHighLight();
+          viewportPos.setLocation(0,0);
+          AWatchViewport.setViewPosition(viewportPos);
+          addWatchViewport.setViewPosition(viewportPos);
+          threadViewport.setViewPosition(viewportPos);
+          ThreadWinPane.repaint();
+          AWatchWinPane.repaint();
+          addWatchWinPane.repaint();
+
+      }
+    });
+
+    run_bt.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e) {
+        StringTokenizer t =null;
+        t = new StringTokenizer("cont");
+        tty.executeCommand(t);
+        setHighLight();
+        threadViewport.setViewPosition(viewportPos);
+        AWatchViewport.setViewPosition(viewportPos);
+        addWatchViewport.setViewPosition(viewportPos);
+        ThreadWinPane.repaint();
+        AWatchWinPane.repaint();
+        addWatchWinPane.repaint();
+      }
+    });
+    }
+
+  void setHighLight() {
+
+    ThreadInfo tinfo = ThreadInfo.current;
+    StackFrame frame;
+    try {
+      frame = tinfo.getCurrentFrame();
+    } catch (IncompatibleThreadStateException exc) {
+      //JOptionPane.showMessageDialog(eWin.contentPane,"Current thread isn't suspended anymore?!?");
+      return;
+    }
+    if (frame == null) {
+      JOptionPane.showMessageDialog(eWin.contentPane,"No frames on the current call stack");
+    } else {
+      Location loc = frame.location();
+      int lineno = loc.lineNumber();
+      //JOptionPane.showMessageDialog(eWin.debugPane.bv,"Stepping in line" + lineno   );
+      int j=1;
+      int x;
+      Rectangle r = null;
+      boolean nFound = true;
+      /*
+      while (nFound) {
+        try {
+          r = eWin.textPane.modelToView(j);
+          x = r.y + 14;
+          x = x / 17;
+          //JOptionPane.showMessageDialog(eWin.debugPane.bv,"in line" + lineno + "=" + r.x + "," + r.y );
+          if (x == lineno) {
+            nFound = false;
+          }
+          j++;
+        }
+        catch (BadLocationException ble) {}
+        }
+        j--;
+       */
+       j = eWin.char2Line[lineno];
+        //JOptionPane.showMessageDialog(eWin.contentPane,"step in line:" +lineno +" = " + j );
+        eWin.dsd.setParagraphAttributes(eWin.debugPane.oldj, 1, eWin.attrs[3], true);
+        eWin.dsd.setParagraphAttributes(j, 1, eWin.attrs[2], true);
+        eWin.debugPane.oldj = j;
+        if (lineno * line2Pixel > eWin.threshold) {
+          int lineSlide = lineno*line2Pixel - eWin.threshold;
+          eWin.dbv_point.setLocation(0,lineSlide+2);
+          eWin.dbp_viewport.setViewPosition(eWin.dbv_point);
+          eWin.scrollPane2.repaint();
+        }
+      }
+
+  }
+  public void startIt() {
+    eWin.textPane.setEditable(false);
+    debugger = new Thread(this);
+    debugger.start();
+    BreakPoint_bt.setEnabled(true);
+    Step_bt.setEnabled(true);
+    addWatch_bt.setEnabled(true);
+    run_bt.setEnabled(true);
+    next_bt.setEnabled(true);
+    exit_bt.setEnabled(true);
+    unbreak_bt.setEnabled(true);
+  }
+
+  public void stopIt() {
+    debugger.stop();
+    eWin.textPane.setEditable(true);
+    BreakPoint_bt.setEnabled(false);
+    Step_bt.setEnabled(false);
+    addWatch_bt.setEnabled(false);
+    run_bt.setEnabled(false);
+    next_bt.setEnabled(false);
+    exit_bt.setEnabled(false);
+    unbreak_bt.setEnabled(false);
+    ThreadWin.setText("");
+    AWatchWin.setText("");
+    addWatchWin.setText("");
+    // clear the last step
+    eWin.dsd.setParagraphAttributes(oldj, 1, eWin.attrs[0], true);
+    // clear all breakpoints
+    for (int j = 1; j <= i; j++) {
+      eWin.dsd.setParagraphAttributes(bp_hist[j], 1, eWin.attrs[0], true);
+    }
+    eWin.splitPane.setDividerLocation(0);
+  }
+
+  public void run() {
+
+    try {
+      connectSpec = "com.sun.jdi.CommandLineLaunch:" + "main=" + currJavName + ","+"options=-classpath"+" "+ currPath+"," ;
+      Env.out= System.out;
+      Env.init(connectSpec,true,VirtualMachine.TRACE_NONE);
+      Env.setSourcePath(currPath);
+      tty = new TTY(Env.out, eWin);
+      jToolBar.setEnabled(true);
+    BreakPoint_bt.setEnabled(true);
+    Step_bt.setEnabled(true);
+    addWatch_bt.setEnabled(true);
+    run_bt.setEnabled(true);
+    next_bt.setEnabled(true);
+    exit_bt.setEnabled(true);
+    unbreak_bt.setEnabled(true);;
+    ThreadWin.setText("");
+    AWatchWin.setText("");
+    addWatchWin.setText("");
+
+      } catch(Exception e2) {
+        System.out.print("Internal exception:  ");
+        System.out.flush();
+
+        e2.printStackTrace();
+      }
+
+  }
+
+}
+

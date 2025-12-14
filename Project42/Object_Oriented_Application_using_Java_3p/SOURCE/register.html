@@ -1,0 +1,338 @@
+<html>
+<head>
+   <meta name="GENERATOR" content="NotePad">
+   <meta http-equiv="Content-Type" content="text/html; charset=windows-874">
+   <title>ลงทะเบียนสมาชิกใหม่</title>
+
+   <script language="JavaScript">
+
+   <!--
+
+   function interval(val,lower,upper) {
+      return ( (val>=lower) && (val<=upper) ) ? true : false;
+   }
+
+   function equal(val,num) {
+      return (val.length == num) ? true : false;
+   }
+
+   function sym(s) {
+      if (s == "_" || s == "-" || s == ".") {
+         return true;
+      } else {
+         return false;
+      }
+   }
+   //45(-)
+   //95(_)
+
+   function alphaNum(ch) {
+      return (((ch>="0") && (ch<="9")) || ((ch>="A") && (ch<="Z")) ||
+              ((ch>="a") && (ch<="z"))) ? true : false;
+   }
+   //48(0)-57(9)
+   //65(A)-90(Z)
+   //97(a)-122(z)
+
+   function unameComplete(uname) {
+      var last=uname.length-1;
+      if (!interval(uname.length,3,30)) {
+         return false;
+      } else if (sym(uname.charAt(0))) {
+         return false;
+      } else if (sym(uname.charAt(last))) {
+         return false;
+      } else {
+         for (var i=0; i<=last; i++)
+         if (!((alphaNum(uname.charAt(i))) || (sym(uname.charAt(i))))) {
+            return false;
+            uname = "";
+         }
+         return true;
+      }
+   }
+
+   function formComplete() {
+      var have_org = true;
+
+      if (!unameComplete(document.register.userid.value)) 
+	  {
+         alert("ชื่อติดต่อบริการ ไม่ถูกรูปแบบ!\n กรุณาป้อนข้อมูล ชื่อติดต่อบริการ อีกครั้ง");
+         document.register.userid.value = "";
+         document.register.userid.focus();
+         return false;
+      }
+      
+      if (!interval(document.register.password.value.length,4,30)) 
+	  {
+         alert('รหัสผ่าน  ไม่ถูกรูปแบบ!\n กรุณาป้อนอีกครั้ง');
+         document.register.password.value = "";
+         document.register.password2.value = "";
+         document.register.password.focus();
+         return false;
+      }
+      
+      if (document.register.password.value != document.register.password2.value) 
+	  {
+         alert('รหัสผ่าน 2 ครั้งของคุณไม่ตรงกัน\n กรุณาป้อนข้อมูลรหัสผ่านอีกครั้ง');
+         document.register.password.value = "";
+         document.register.password2.value = "";
+         document.register.password.focus();
+         return false;
+      }
+      
+      if (document.register.fullname.value == "") 
+	  {
+         alert('กรุณาป้อนข้อมูล  ชื่อ - นามสกุล');
+         document.register.fullname.focus();
+         return false;
+      }
+
+	  if (document.register.address.value == "") 
+	  {
+         alert('กรุณาป้อนที่อยู่ของท่าน');
+         document.register.address.focus();
+         return false;
+      }
+
+	   if (document.register.phone.value == "") 
+	  {
+         alert('กรุณาป้อนหมายเลขโทรศัพท์ของท่าน');
+         document.register.phone.focus();
+         return false;
+      }
+
+      if (document.register.icq_number.value == "") 
+	  {
+         alert('กรุณาป้อนหมายเลข icq');
+         document.register.icq_number.focus();
+         return false;
+      }
+
+
+ if (document.register.age[0].selected) 
+	{
+	alert('กรุณาเลือกอายุของท่าน  ');
+   document.register.age.focus();
+	return false;
+	 }
+
+if (document.register.job_position[0].selected) 
+ {
+alert('กรุณาเลือก  ข้อมูลตำแหน่งหน้าที่การงาน');
+document.register.job_position.focus();
+return false;
+}
+
+  if (document.register.organization.value == "") 
+	  {
+         alert('กรุณาป้อนชื่อองค์กรของท่าน');
+         document.register.organization.focus();
+         return false;
+      }
+      
+      return true;   // The form was completed with, at lease, all needed informations.
+   }
+
+   function chkFormOK() {
+      if (formComplete()) {
+         if (confirm('ข้อมูลทั้งหมดของคุณถูกต้อง?'))
+            return true;
+         else
+            return false;
+      } else {
+         return false;
+      }
+   }
+
+   // -->
+   
+
+</script>
+
+</head>
+<body bgcolor=#ffffff><font face="MS Sans Serif" size=2>
+
+<table cellspacing=0 cellpadding=10 border=0 width="80%" align="center">
+<tr>
+   <td align=left>
+<!-     <img src="/images/register.gif" border=0>
+   </td>
+</tr>
+</table>
+
+<form name="register" method="post" action="/class-bin/doaddinfo" onSubmit="return chkFormOK()">
+<center>
+<table bgcolor=#008040 cellspacing=0 cellpadding=5 border=2 width=550>
+<th>
+   <font face="MS Sans Serif" size=2 color=red>ลงทะเบียนเป็นสมาชิก</font>
+</th>
+<tr>
+<td>
+   <table bgcolor=#ccffcc cellspacing=0 cellpadding=5 border=1 width=100%>
+   <tr>
+      <td colspan=3 nowrap bgcolor=#ccffcc><font face="MS Sans Serif" size=2>
+      <font color=red>เงื่อนไขการกำหนดชื่อติดต่อบริการ</font><br>
+      1. ชื่อติดต่อบริการ จะต้องมีความยาว 3-30 ตัวอักษร<br>
+      2. อักขระที่ใช้ต้องเป็นอักขระภาษาอังกฤษตัวเล็ก (a-z) หรือ ตัวเลข (0-9) เท่านั้น (อ่านข้อ 3 เพิ่มเติม)<br>
+      3. ยอมให้ใช้อักขระพิเศษ แค่ 2 ตัวเท่านั้นคือ ขีดล่าง(&quot;_&quot;) หรือ จุด(&quot;.&quot;)<br>
+      4. อักขระที่เริ่มต้น และลงท้าย ต้องเป็นอักขระภาษาอังกฤษตัวเล็ก (a-z) 
+      </font></td>
+   </tr>
+
+   <tr>
+      <td width=150 bgcolor=whitesmoke><font face="MS Sans Serif"
+size=2>ชื่อติดต่อบริการ</font></td>
+      <td width=200 align=left>
+      <!-- zzzzzUSERNAMEzzzzz -->
+      <input size=25 maxlength=30 name=userid>
+      <!-- zzzzzENDzzzzz -->
+      </td>
+      <td width=200><font face="MS Sans Serif" size=2>ไม่ต้องใส่@venus09.ce.kmitl.ac.th</font></td>
+   </tr>
+   <tr>
+      <td bgcolor=whitesmoke><font face="MS Sans Serif" size=2>กำหนดรหัสผ่าน</font></td>
+      <td align=left><input type=password name=password size=25 maxlength=30></td>
+      <td><font face="MS Sans Serif" size=2>ตัวอักษรภาษาอังกฤษ และตัวเลข ความยาว 4 - 30 ตัวอักษร</font></td>
+   </tr>
+   <tr>
+      <td valign="top" bgcolor=whitesmoke><font face="MS Sans Serif"
+size=2>พิมพ์รหัสผ่านอีกครั้ง</font></td>
+      <td valign="top" align=left><input type=password name=password2
+size=25 maxlength=30></td>
+      <td><font face="MS Sans Serif" size=2>พิมพ์รหัสผ่านของคุณอีกครั้ง เพื่อยืนยันความถูกต้อง</font></td>
+   </tr>
+   </table>
+</td>
+</tr>
+</table>
+</center>
+<br>
+<br>
+
+<center>
+<table bgcolor=#008040 cellspacing=0 cellpadding=5 border=2 width=550>
+<tr>
+   <th><font face="MS Sans Serif" size=2 color=red>ข้อมูลส่วนตัว</font></th>
+</tr>
+<tr>
+   <td>
+      <table bgcolor=#ccffcc cellspacing=0 cellpadding=5 border=1 width=100%>
+      <tr>
+         <td width="150" bgcolor=whitesmoke><font face="MS Sans Serif" size=2>ชื่อ-นามสกุล</font></td>
+         <td width="200" align=left><font face="MS Sans Serif"
+size=2><input size=25 name=fullname maxlength="60"></font></td>
+         <td width="200"><font face="MS Sans Serif" size=2>ชื่อและนามสกุลจริง</font></td>
+      </tr>
+      <tr>
+         <td bgcolor=whitesmoke><font face="MS Sans Serif" size=2>ที่อยู่</font></td>
+         <td>
+         <font face="MS Sans Serif" size=2>
+         <input type="text" name="address" style="font-family:MS Sans Serif; font-size:10pt;" size="25" maxlength="200"></font></td>
+         <td><font face="MS Sans Serif" size=2>บ้านเลขที่, ซอย, ถนน,อำเภอ,จังหวัด ฯลฯ</font></td>
+      </tr>
+
+      <tr>
+		 <td bgcolor="whitesmoke" valign="top"><font face="MS Sans Serif" size="2">โทรศัพท์</font></td>
+         <td align="left"><font face="MS Sans Serif" size="2"><input size="15" maxlength="30" name="phone"></font></td>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td bgcolor="whitesmoke"><font face="MS Sans Serif" size="2">หมายเลข ICQ</font></td>
+         <td align="left"><font face="MS Sans Serif" size="2"><input size="10" name="icq_number" maxlength="15"></font></td>
+         <td nowrap>&nbsp;</td>
+      </tr>
+      <tr>
+         <td bgcolor=whitesmoke><font face="MS Sans Serif" size=2>เพศ</font></td>
+         <td align=left><font face="MS Sans Serif" size=2>
+         <input type="radio" name="sex" value=M checked>ชาย &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="sex" value=F>หญิง
+         </font></td>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td bgcolor=whitesmoke><font face="MS Sans Serif" size=2>อายุ</font></td>
+         <td align=left>
+           <font face="MS Sans Serif" size=2>
+           <select name="age" size=1>
+             <option value=0>- โปรดเลือก -
+             <option value=1>ต่ำกว่า 18 ปี
+             <option value=2>18 - 22 ปี
+             <option value=3>23 - 28 ปี
+             <option value=4>29 - 34 ปี
+             <option value=5>35 - 40 ปี
+             <option value=6>40 ปีขึ้นไป
+           </select>
+                   </font>
+                 </td>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td colspan="3">  
+           <table bgcolor=#008040 cellspacing=0 cellpadding=5 border=2 width=100%>
+           <tr>
+             <td>
+               <table bgcolor=#008040 cellspacing=0 cellpadding=5 border=1 width=100%>
+               <tr>
+                 <td bgcolor=WhiteSmoke><font face="MS Sans Serif" size=2>ท่านศึกษาอยู่หรือว่าทำงาน</font></td>
+                 <td>
+                   <font face="MS Sans Serif" size=2>
+                   <select name="job_position" size=1>
+                     <option value=0>- โปรดเลือก -
+                     <option value=1>ศึกษาอยู่
+                     <option value=2>ทำงาน
+                   </select>
+                   </font>
+                 </td>
+               </tr>
+               <tr>
+                 <td bgcolor=WhiteSmoke><font face="MS Sans Serif" size=2>ชื่อสถานศึกษาหรือบริษัท</font></td>
+                 <td>
+                   <font face="MS Sans Serif" size=2>
+                   <input type="text" name="organization" size="25" maxlength="100">
+                   </font>
+                 </td>
+               </tr>
+               </table>
+             </td>
+           </tr>
+           </table>
+         </td>
+      </tr>
+         <td>&nbsp;</td>
+      </tr>
+      </table>
+   </td>
+</tr>
+</table>
+</center>
+
+</table>
+</center>
+
+<br>
+<center>
+<table bgcolor=#c0c0c0 cellspacing=0 cellpadding=5 border=2 width=550>
+<tr>
+   <td>
+      <table bgcolor=#008040 cellspacing=0 cellpadding=5 border=1 width=100%>
+      <tr>
+         <td align=center><font face="MS Sans Serif" size=2>
+    
+         <input type=submit value=ส่งแบบฟอร์ม>
+         <input type=reset value=ยกเลิก>
+         </font></td>
+      </tr>
+      </table>
+   </td>
+</tr>
+</table>
+</center>
+</form>
+
+<center><hr width="80%"></center><br>
+<!-  <center><a href="/index.html">
+<!- <img src="/images/logo.gif" alt="กลับสู่หน้าแรกของ PMail" border=0></a></center><br>
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+(* ======================= CONVERT.SRC ============================= 
+ 
+   This knowledge base is used to convert knowledge bases developed
+   under KnowledgePro (DOS) version 1.X to KnowledgePro (Windows).
+
+   To include this code in your knowledge base put the following
+   line at the beginning of your knowledge base text file:
+
+                @ convert.src
+                        -- or --
+                #include convert.src
+
+   Save your knowledge base and select Program/Compile from the menu
+   of the KnowledgePro Windows development environment. This
+   recompiles your knowledge base with the changes contained in
+   CONVERT.SRC.
+
+   ** Special Note: This code re-defines many of the KnowledgePro
+   **                        functions. Be sure to turn OFF optimization in your
+   **                        development environment Options menu.
+
+   Although CONVERT will  help you get your applications running
+   quickly, you will probably want to redesign your interface to
+   take advantage of the many new features offered in the Windows
+   environment.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+================================================================== *)
+
+(* This window provides the initial open window that is always part 
+   of a KnowledgePro DOS application. *)
+
+~window (,1,1,80,25).
+
+(* ================================================================
+
+   These functions do not exist in KnowledgePro (Windows). 
+   The function which change the KnowledgePro (DOS) environment
+   are no longer needed. 
+
+   DOS, DOS_WAIT and RUN_WAIT must be handled by using the new
+   RUN function with a batch file or prefereably a Windows PIF. Refer to
+   the KnowledgePro Windows manual for information on PIFs.
+
+   The final set of unusable functions are the ones which were used
+   to set the types of values which could legally be assigned to a
+   topic.  (SET_NUMERIC, SET_ALPHA, etc.) This functionality can now 
+   be handled by assigning a demon to a topic. 
+
+   A demon is a topic that is called whenever the value
+   of a topic is about to change.  The demon is passed the old and
+   the new value.  If the value to be assigned is invalid you can
+   retain the old value or assign any other value of your choice.
+   If a new value is being entered by a user in an edit object, this
+   same functionality can be achieved by attaching an event topic to
+   the edit object. This means that a special topic is called whenever
+   the user enters a new value in the edit object. If the value is
+   incorrect, you can prevent it from being accepted or generate an
+   error message. 
+
+   The command below disables all of these functions. The ones
+   necessary to the function of your knowledge base should be
+   redone. 
+
+=========================================================================*)
+
+create_topic (  
+   [close_message_window, open_message_window, edit_key, no_edit_key,
+   dos, dos_wait, run_wait, 
+   set_alpha, set_numeric, set_legal_values,set_lower_bound,set_upper_bound,
+   alpha, numeric, legal_values, lower_bound, upper_bound]).
+
+(* Monitor type is not supported in KnowledgePro Windows.
+For backward compatibility we provide the topic monitor_type
+with the default below. If you have a monochrome graphics
+system you may have to change this value to mono. If you plan
+to distribute this application to a variety of display hardware
+other than the default below, you will have to prompt the user
+to enter a monitor type. *)
+
+monitor_type is ega.
+
+(**************************************************************)
+(* Provide translations for older functions.                  *)
+
+(* The tilde (~) denotes the primitive form of the new topics
+   in KnowledgePro Windows. It also serves here to distinguish
+   between new and old commands.                              *)
+
+topic cursor_pos ().
+   cursor_pos is ~get_display_pos ().
+end.
+
+topic move_cursor (x, y).
+   ~set_display_pos (?x, ?y).
+end.
+
+topic use_window (w).
+   ~set_display_window (?w).
+end.
+
+topic set_multi_valued (t).
+   ~set_number_of_values (?t, 32000).
+end.
+
+topic set_single_valued (t).
+   ~set_number_of_values (?t, 1).
+end.
+
+topic number_of_values (t).
+   number_of_values is ~get_number_of_values (?t).
+end.
+
+topic procedures (t).
+   procedures is ~get_procedures (?t).
+end.
+
+topic menu (TOPIC_NAME, ITEMS).
+   (* KPDOS menus are the equivalent of KPWin list boxes *)
+   :called_menu is ~calling_topic (1).
+   l is ~list_box (?ITEMS, [done, continue], , , , , t, , double_click_event).
+   ~wait ().
+   topic done (selection).
+      if ?TOPIC_NAME is [] then
+         ?called_menu is ?selection
+      else
+         ?TOPIC_NAME is ?selection.
+   close_window (?l).
+   end.
+end.
+
+topic edit (TEXT, TITLE, TEXTCOLOR, BACKGDCOLOR, FRAMECOLOR, COLUMN, ROW, WIDTH, HEIGHT).
+   :handle is ~edit_window (?TEXT, [done, continue], ?COLUMN, ?ROW, ?WIDTH, ?HEIGHT, ?TITLE, , , close_event).
+   ~wait ().
+   topic done.
+      edit is ~get_text (?handle).
+   end.
+end.
+
+(* Added to provide extra error checking for conversions. *)
+
+topic close (FILE).
+   set_error_topic (close_err).
+   ~close (?FILE).
+
+   topic close_err (number, command, parms).
+      if ?number <> I_FILE_NOT_OPEN
+         then ~error_message (?number, ?command, ?parms).
+   end.
+end.
+
+topic read_char (FILE).
+   set_error_topic (read_char_err).
+   read_char is ~read_char (?FILE, 1).
+
+   topic read_char_err (number, command, parms).
+      if ?number <> I_CANT_OPEN
+         then ~error_message (?number, ?command, ?parms).
+   end.
+end.
+
+topic read_line (FILE).
+   set_error_topic (read_line_err).
+   read_line is ~read_line (?FILE, 1).
+
+   topic read_line_err (number, command, parms).
+      if ?number <> I_CANT_OPEN
+         then ~error_message (?number, ?command, ?parms).
+   end.
+end.
+
+(**************************************************************)
+(* Provide translations for newer formats of the same functions. *)
+
+(* The tilde (~) denotes the primitive form of the new topics
+   in KnowledgePro Windows. It also serves here to distinguish
+   between new and old commands.                              *)
+
+topic read (FILE_NAME, START_TEXT, END_TEXT).
+   (* The KPDOS READ function reads from the beginning of the file every time.  *)
+   ~set_file_pos (?FILE_NAME, 0).
+   set_error_topic (read_err).
+   read is ~read (?FILE_NAME, ?START_TEXT, ?END_TEXT).
+
+   topic read_err (number, command, parms).
+      if ?number <> I_CANT_OPEN
+         then ~error_message (?number, ?command, ?parms).
+   end.
+end.
+
+topic find (FILE_NAME, SEARCH, REPLACE, START_TEXT, END_TEXT).
+   (* FIND can now be handled by read. *)
+   find is ~read (?FILE_NAME, ?START_TEXT, ?END_TEXT, first (?SEARCH), first (?REPLACE)).
+end.
+
+topic window (TITLE, TEXTCOLOR, BACKGDCOLOR, FRAMECOLOR, COLUMN, ROW, WIDTH, HEIGHT).
+   (* Window default sizes are different. Window title and scroll bars 
+       make it necessary to add 4 to both height and width.  *)
+   if ?WIDTH is [] then
+        WIDTH is 65.
+   if ?HEIGHT is [] then
+        HEIGHT is 11.
+   WIDTH is minimum (80, ?WIDTH + 4).
+   HEIGHT is minimum (25, ?HEIGHT + 4).
+   window is ~window (, ?COLUMN, ?ROW, ?WIDTH, ?HEIGHT, ?TITLE, , , ?TEXTCOLOR, ?BACKGDCOLOR, ).
+   topic minimum (a, b).
+      if ?a < ?b then
+         minimum is ?a
+      else
+         minimum is ?b.
+   end.
+end.
+
+topic edit_file (SINGLE_FILE_NAME, TEXTCOLOR, BACKGDCOLOR, FRAMECOLOR, COLUMN, ROW, WIDTH, HEIGHT).
+   (* The KPDOS EDIT_FILE function can only edit one file at a time. *)
+   ~edit_file (first (?SINGLE_FILE_NAME), , ?COLUMN, ?ROW, ?WIDTH, ?HEIGHT, ).
+end.
+
+topic list_to_string (LIST).
+   (* The KPDOS LIST_TO_STRING function defaulted to placing brackets around 
+       lists, elements by commas. *)
+   ~list_to_string (?LIST, ',','[',']').
+end.
+
+(**************************************************************)
+(* Notes on manual changes that could be made to 
+   enhance or correct your knowledge base.                       *)
+
+(* Any device name such as:
+
+        con:    lst:    aux:    kbd:
+
+    should NOW be enclosed in quotes.
+    You can use the #define compiler command in KPWin
+    to faciliate the conversion. The #define will change 
+    EVERY occurrence of the target string regardless of
+    its location, so please use with care.
+
+       #define    con:       con
+       #define    lst:         prn
+       #define    aux:       com1
+*)
+
+(* When using topics that have the same name as one of the topics 
+        listed in this conversion, the topic that is defined first 
+        in the knowledge base will be accessed first. 
+        Similarly, if using  topic mark ()  to access a topic
+        that may be defined here, the topic here will be accessed
+        first. *)
+
+(* The following colors may not operate as you expect:
+
+       lightgray, darkgray, lightcyan, lightred, lightmagenta
+
+        lightblue, lightgreen, brown 
+
+   The first list above maps to their normal shade counterparts.
+   The second list of colors are available but as background
+   solid colors only. *)
+
+(* For monochrome graphics all colors appear to be either
+   black or white. The following groupings show the two groups and
+   each color that fall under that category.
+
+        black:  black, blue, green, red.
+        white:  cyan, magenta, yellow, white.  *)
+
+(**************************************************************)
+(* Special Notes for users of the Graphics and Database 
+    toolkits:
+   
+   KPWin provides the built-in functionality of the Graphics 
+   Toolkit for KPDOS. You can use the Windows PaintBrush
+   Accessory to convert .PCX files to the native Windows
+   file format .BMP.  Refer to the following functions:
+
+          load_bitmap, bitmap, delete_bitmap
+          hyper_region, delete_hyper_region
+
+   The KPWin Database Toolkit is available as an add-on
+   product, just like KPDOS. Contact Knowledge Garden
+   for details.
+
+           --------------------------------------------------------
+
+   If you are going to use your existing KPDOS Toolkits
+   with KPWin, you must create a Windows PIF file in 
+   order to run either of the kits.
+
+   Modifications for graphics toolkit:
+
+        In the picture.src included with your distribution make the
+        following changes:
+
+        Add as the first line:
+                @ convert.src
+        Add just before the end statement:
+                close ('retprm.dat').
+
+        Compile picture.src to ensure proper operation
+        when you load picture.hkb in your knowledge bases.
+
+   Modifications for database toolkit:
+
+        In the dbtools.src included with your distribution make the
+        following changes:
+
+        Add as the first line in topic RUN_DBKIT:
+                @ convert.src
+        Add just before the end statement:
+                close ('status.$$$').
+
+        Compile dbtools.src to ensure proper operation
+        when you load dbtools.hkb in your knowledge bases.  *)

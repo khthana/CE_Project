@@ -1,0 +1,15 @@
+(* kpdir.tpx 
+
+   Topic Library for directory functions. *)
+
+topic create_directory (NAME).
+  create_directory is user (?KPDirLib, create_directory, [?NAME]).
+end.
+
+topic delete_directory (NAME).
+  delete_directory is user (?KPDirLib, delete_directory, [?NAME]).
+end.
+
+topic KPDirLib.
+  KPDirLib is load_library ('kpdir.dll').
+end.

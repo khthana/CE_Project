@@ -1,0 +1,10 @@
+frmMain = 0, 0, 389, 346, C, 27, 40, 416, 386, C
+frmAddAccount = 32, 45, 497, 430, C, 21, 4, 493, 455, C
+frmUpdateAccount = 31, 25, 543, 401, C, 26, 38, 543, 463, C
+frmDeleteAccount = 46, 61, 435, 407, C, 42, 41, 431, 387, C
+frmRetrieveAccount = 41, 64, 543, 429, C, 52, 45, 441, 391, C
+ModTestAccount = 66, 66, 455, 412, C
+docAddAccount = 22, 22, 546, 328, , 44, 44, 453, 390, C
+docUpdateAccount = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+docDeleteAccount = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+docRetrieveAccount = 0, 0, 0, 0, C, 0, 0, 0, 0, C

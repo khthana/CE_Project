@@ -1,0 +1,33 @@
+# POWRSTOR ¤Î pstorex.c  ªººûÅ@ÀÉ (make file)  (for Microsoft C)
+#
+# c:\VM ¢s¢w *.c
+#       ¢x   *.h
+#       ¢u¢wTC ¢s¢wEXE ¢w¢w *.exe
+#       ¢x     ¢u¢wOBJ ¢w¢w *.obj
+#       ¢x     ¢|¢wmake file
+#       ¢|¢wMC ¢s¢wEXE ¢w¢w *.exe
+#              ¢u¢wOBJ ¢w¢w *.obj
+#              ¢|¢wmake file
+#
+# USE:     <path>make     stor.des  <return>
+#-----------------------------------------------------------------
+# MACRO DEFINITIONS
+Ipath=..
+Spath=..
+Opath=.\obj
+Epath=.\exe
+STORopt=/DMSC /AL /Ot /G2 /Zl /c
+
+
+$(Opath)\powrstor.obj :  $(Spath)\powrstor.c  $(Spath)\powrdevc.h
+           cl   $(STORopt) /Fo$(Opath)\powrstor.obj $(Spath)\powrstor.c
+
+$(Opath)\pstorex.obj :  $(Spath)\pstorex.c  $(Spath)\powrstor.h
+           cl   $(STORopt) /Fo$(Opath)\pstorex.obj $(Spath)\pstorex.c
+
+$(Epath)\pstorex.exe :    $(Opath)\pstorex.obj  \
+                          $(Opath)\powrdevc.obj  \
+                          $(Opath)\powrstor.obj
+    link /stack:45000 @storobj.rsp, $(Epath)\pstorex, nul, llibc7
+#-----------------------------------------------------------------
+

@@ -1,0 +1,314 @@
+(* ========================= DESOBJ1.SRC =================================
+
+   The KnowledgePro Interactive Screen Design Tool - Screen Objects
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This module defines the object subclasses for the following:
+
+      check box
+      button
+      radio button
+
+  ====================================================================== *)
+
+topic Check_BoxObject ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Check Box Subclass *)
+
+  [ :type, :objectText, :eventTopic, :c, :r, :selected, :eventList ] is_c ?describeList.
+  :description is [ check_box, ?objectText, ObjectEventTopic, ?c, ?r, ?selected, [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ check_box, 'Check Box', [ ], ?c, ?r, F, [ ] ].
+  end.
+
+  topic ChangeProperties. (* --- Allows you to change the properties of the object *)
+     [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ] ).
+      :wInfo is window ( , 30, 3.6, 38.57, 10, 'Check Box Properties', [popup, titlebar, thickFrame], ?ref:wMain ).
+      text ('
+  Check Box Name:').
+      :ed1 is edit_box ( ?objectText, , 3, 3.25, 24, 1.35, [visible, thinFrame, autoHScroll ] ).
+      :cb1 is check_box ( '&Initially Checked' , , 3, 5, ?selected ).
+      GetEvents:specialEvents is select_event.
+      :bEvents is button2 ( &Events, GetEvents, 3, 7, 10.42857142857143, 1.5 ).
+      button2 ( '  &Ok  ', Done, 14.42857142857143, 7, 10.42857142857143, 1.5 ).
+      button2 ( &Cancel, Done, 26, 7, 10.42857142857143, 1.5).
+      show_window ( ?wInfo ).
+      set_focus ( ?ed1 ).
+
+      topic Done ( item ).
+         if ?item is '  &Ok  '
+            then GetEvents:saveValues is T and
+                   selected is get_check_box ( ?cb1 ) and
+                   set_check_box ( ?handle, ?selected ) and
+                   objectText is get_text ( ?ed1 ) and
+                   set_text ( ?handle, ?objectText ).
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+      end.
+
+  end. (* ChangeProperties *)
+
+  topic NewFont ( 	tCol, tRow ) .
+    [ tCol, tRow ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    close_window ( ?handle ).
+    [ Current:handle, handle] is check_box ( ?objectText, ObjectEventTopic, ?tCol, ?tRow, ?selected,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?handle, ?textColor, ?backColor ).
+  end.
+
+
+  topic Copy.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), Check_boxObject, [ [ check_box, ?objectText, ?eventTopic, 1, 1, ?selected, ?eventList ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode ( tObjectCode ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ',' , ?font, ',' , ?textColor, ',' , ?backColor, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1,2 )).
+      PropertyList is combine ( check_box, ?objectText,  [ ?eventTopic ], ?tInfo, ?selected, [ ?eventList ] ).    
+    end.
+
+  end. (* CreateCode *)
+
+end. (* Check_boxObject *)
+
+
+topic Button2Object ( describeList, fontParam, textColorParam, backColorParam,    temp ).
+  (* Button2 Subclass *)
+
+  [ :type, :objectText, :eventTopic, :c, :r, :w, :h, :select, :eventList ] is_c ?describeList.
+  :description is [ button2, ?objectText, ObjectEventTopic, ?c, ?r, ?w, ?h, , [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+
+  topic MakeList ( n,c,r,w,h ). (* --- This controls the initial creation of an instance of the object *)
+    MakeList is [ button2, Button, [ ] , ?c, ?r, ?w, ?h, [ ], [ ] ].
+  end.
+
+  topic ChangeProperties.
+      [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+      use_font ( element ( ?ref:fontHandleList, 1 ), [ window, control ] ).
+      :wInfo is window ( , 30, 3.6, 38.57, 10, 'Button Properties', [popup, titlebar, thickFrame], ?ref:wMain ).
+      text ( '
+  Button Name:').
+      :ed1 is edit_box ( ?objectText, , 3, 3.25, 24, 1.35, [visible, thinFrame, autoHscroll ] ).
+      GetEvents:specialEvents is select_event.
+      :bEvents is button2 ( &Events, GetEvents, 3, 7, 10.42857142857143, 1.5 ).
+      button2 ( '  &Ok  ', Done, 14.42857142857143, 7, 10.42857142857143, 1.5 ).
+      button2 ( &Cancel, Done, 26, 7, 10.42857142857143, 1.5).
+      show_window ( ?wInfo ).
+      set_focus ( ?ed1 ).
+
+      topic Done ( item ).
+         if ?item is '  &Ok  '
+            then GetEvents:saveValues is T and
+                   objectText is get_text ( ?ed1 ) and
+                   set_text ( ?handle, ?objectText ).
+         if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+      end.
+
+  end.
+
+  topic NewFont ( 	tCol, tRow, tWidth, tHeight ) .
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    close_window ( ?handle ).
+    [ Current:handle, handle ] is button2 ( ?objectText, ObjectEventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?select,
+                        [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?handle, ?textColor, ?backColor ).
+  end.
+
+  topic Copy ( 	tCol, tRow, tWidth, tHeight ).
+    [ tCol, tRow, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    new ( concat ( !Main:User:, ?ref:objectName ), Button2Object, [ [ button2, ?objectText, ?eventTopic, ?tCol, ?tRow, ?tWidth, ?tHeight, ?select, ?eventList ], ?font ] ).
+  end.
+
+  topic CreateCode ( tObjectCode).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[', ']', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', ?tObjCode, ',' , ?font, ' ).' ).
+
+    topic PropertyList ( tInfo ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info (?handle), 1, 4 )).
+      PropertyList is combine ( button2, ?objectText,  [ ?eventTopic ], ?tInfo, [ ?select ], [ ?eventList ] ).    
+    end.
+
+  end. (* CreateCode *)
+
+end. (* Button2Object *)
+
+
+
+
+topic Radio_ButtonObject ( describeList, fontParam, textColorParam, backColorParam, loadSetup,   temp ).
+  (* Radio Button Subclass *)
+
+  if ?ref:newRb 
+     then  [ :type, :objectText, :c, :r, :w, :h, :eventTopic, :eventList, :spacing, :vertical ] is_c ?describeList and
+             ref:newRb is F
+     else  [ :type, temp, :eventTopic, :eventList ] is_c ?describeList and
+             [ :objectText, :c, :r, :w, :h, :spacing, :vertical ] is_c ?loadSetup.
+  :description is [ window, ObjectEventTopic , ?c, ?r, ?w, ?h, , [ child, thinframe, siblings ] , 
+                    ?ref:wWork, , , [mouse_move_event, mouse_down_event, double_click_event]  ].
+  im_a ( ObjectClass ).
+  :rbHandle is radio_button ( ?ObjectText ).
+  set_window_colors ( ?rbHandle, ?textColor, ?backColor ).
+  disable_window ( ?rbHandle ).
+  show_window ( ?handle ).
+
+  topic MakeList ( n,c,r,w,h,	AddIn ). (* --- This controls the initial creation of an instance of the object *)
+    tHeight is last ( string_info ( element ( ?ref:fontHandleList, ?ref:defaultFont ) ) ) + 1.35.
+    if ?h > 3 
+       then :tAddIn is last ( string_info ( item1, element ( ?ref:fontHandleList, ?ref:defaultFont ) ) )+ 0.25 and
+              MakeList is [ radio_button, [ [item1, 2, 1, T ], [ item2, 2, 1 + ?tAddIn , F], 
+                [ item3, 2, 1+(2*?tAddIn)  , F] ] , ?c, ?r, ?w, ?h, [ ], [ ], 0, T ] 
+       else tAddIn is first ( string_info ( item1, element ( ?ref:fontHandleList, ?ref:defaultFont ) ) ) + 5 and
+              MakeList is [ radio_button, [ [item1, 2, 1, T ], [ item2, ?tAddIn + 1, 1 , F], 
+                [ item3, 2 *?tAddIn, 1, F] ] , ?ref:defaultFont, ?ref:defaultTextColor, ?ref:defaultBackColor, ?c, ?r, ?w, ?h, [ ], [ ], 0, F ] .
+    ref:newRB is T.
+  end.
+
+
+  topic ChangeProperties ( 	tItems, tSelect ). (* --- Allows you to change the properties of the object *)
+     [ GetEvents:makeEvents, GetEvents:saveValues ] is F.     
+    :wInfo is window ( , 42.71428571428572, 2.3125, 38.57, 21.6875, 'Radio Button Properties', [ popup, titlebar, thickFrame (* titlebar, thickFrame, overlapped, siblings *) ], ?ref:wWork ).
+    use_font ( create_char_font ( [-0.6875,0,700,f,f,f,0,1,34,'MS Sans Serif'] ), [ window, control ] ).
+    text ( '
+  Radio Button Names:
+
+
+
+
+
+
+
+
+
+  Selected Radio Button:
+
+
+
+  Orientation:
+
+
+
+  Add to Spacing:').
+    tItems is apply ( first , ?objectText ).
+    tSelect is first ( element ( ?objectText, where ( apply ( last, ?ObjectText ), T ) ) ).
+    :ed1 is edit_box ( ?tItems , newItems , 3.428571428571428, 3, 28.42857142857143, 6, [visible, thinFrame, autoHscroll, autoVScroll, multiline], lose_focus_event ).
+    :cb1 is combo_box ( ?tItems, , 3, 11.25, 30, , ?tSelect, [dropdownlist, vscroll] ).
+    OrientVert is ?vertical.
+    :rb1 is radio_button ( [ [ &Vertical, 3.3, 14.5, ?vertical ], [ &Horizontal, 15, 14.5, not ( ?vertical ) ] ] , OrientVert ).
+    :ed2 is edit_box ( ?spacing, , 17, 16.25, 11.42857142857143, 1.5, [visible, thinFrame, autoHscroll, autoVScroll] ).
+    GetEvents:specialEvents is select_event.
+    :bEvents is button2 ( &Events, GetEvents, 3, 18.5, 10.42857142857143, 1.5 ).
+    button2 ( '  &Ok  ', Done, 14.428, 18.5, 10.42857142857143, 1.5 ).
+    button2 ( &Cancel, Done, 26, 18.5, 10.42857142857143, 1.5 ).
+    show_window ( ?wInfo ).
+
+    topic NewItems.
+       set_text ( ?cb1, get_text ( ?ed1 ) ).
+    end.
+
+    topic OrientVert ( item ).
+       if ?item is &Vertical then OrientVert is T else OrientVert is F.
+    end.
+
+    topic Done ( item, 	tSelect ).
+       if ?item is '  &Ok  '
+          then GetEvents:saveValues is T and
+                 [ tCol, tRow ] is_c [ 2, 1 ] and
+                 tSelect is get_combo_box ( ?cb1 ) and
+                 spacing is get_text ( ?ed2 ) and
+                 vertical is ?OrientVert and
+                 objectText is apply ( concat ( Make, ?vertical ), remove ( get_text ( ?ed1 ), '', 100 ) ) and
+                 close_window ( ?rbHandle ) and
+                 set_display_window ( ?handle ) and
+                 use_font ( element ( ?ref:fontHandleList, ?font ), [window, control ] ) and
+                 rbHandle is radio_button ( ?objectText ) and
+                 disable_window ( ?rbHandle ).            
+        if ?GetEvents:makeEvents
+           then close_window ( [ ?wInfo, ?GetEvents:wEvents ] )
+           else close_window ( ?wInfo ).
+        enable_window ( [ ?ref:wWork, ?ref:wTools ] ).
+
+       topic MakeF ( item ). (* Horizonal rb *)
+          if ?tSelect is ?item then selected is T else selected is F.
+          MakeF is [ ?item, ?tCol, ?tRow, ?selected ].
+          tCol is ?tCol + first ( string_info ( ?item, element ( ?ref:fontHandleList, ?font ) ) ) + 5 + ?spacing.
+       end.
+
+       topic MakeT ( item ).  (* Vertical RB *)
+          if ?tSelect is ?item then selected is T else selected is F.
+          MakeT is [ ?item, ?tCol, ?tRow, ?selected ].
+          tRow is ?tRow + last ( string_info ( ?item, element ( ?ref:fontHandleList, ?font ) ) ) + 0.25 + ?spacing.
+       end.
+
+    end. (* Done *)
+
+  end. (* ChangeProperties *)
+
+  topic NewFont .
+    use_font ( element ( ?ref:fontHandleList, ?font ),  control ).
+    set_display_window ( ?handle ).
+    close_window ( ?rbHandle ).
+    rbHandle is radio_button ( ?objectText, ObjectEventTopic, [mouse_move_event, mouse_down_event, double_click_event]   ).
+    set_window_colors ( ?rbhandle, ?textColor, ?backColor ).
+    disable_window ( ?rbHandle ).
+    set_display_window ( ?ref:wWork ).
+  end.
+
+  topic Copy ( 	temp, tList, tWidth, tHeight ).
+    [ temp, temp, tWidth, tHeight ] is_c window_info ( ?handle ).
+    [ tCol, tRow ] is 1.
+    ref:objectName is concat ( Object, ?ref:objectNumber ).
+    ref:newRb is T.
+    new ( concat ( !Main:User:, ?ref:objectName ), Radio_buttonObject, [ [ radio_button, ?objectText, ?tCol, ?tRow, ?tWidth, ?tHeight , ?eventTopic, ?eventList , ?spacing, ?vertical ], ?font, ?textColor, ?backColor ] ).
+  end.
+
+  topic CreateCode (	tInfo, tObjectCode, tNewObjectText ).
+    tObjCode is list_to_string ( PropertyList ( ),  ', ', '[ ', '] ', '''' ).
+    tLoadCode is list_to_string ( ?loadProperties, ', ', '[ ', '] ', '''' ).
+    CreateCode is concat ( '      ', concat ( ?ref:userTopicName, ':h', parent ( ) ), ' is screen_object ( ', 
+             ?tObjCode, ', ' , ?font, ', ' , ?textColor, ', ' , ?backColor, ', ' , ?tLoadCode, ' ).' ).
+
+    topic PropertyList ( 	tInfo, tCol, tRow ).
+      tInfo is apply (WorkEventTopic:mouse_up_event:gridPos, sublist ( window_info ( ?handle ), 1, 4 )).
+      [ tCol, tRow ] is_c ?tInfo.
+      tNewObjectText is apply ( WinToMainCoords, ?objectText ).
+      remove_topic ( [ FixLocs:tName, FixLocs:tRBCol, FixLocs:tRBRow, FixLocs:tSelect ] ).
+      PropertyList is combine ( radio_button, [ ?tNewObjectText ],  [ ?eventTopic ], [ ?eventList ] ).    
+      CreateCode:loadProperties is combine ( [ ?objectText ] , ?tInfo, ?spacing, ?vertical ).    
+
+      topic WinToMainCoords ( item ).
+        [ :tName, :tRBCol, :tRBRow, :tSelect ] is_c ?item.
+        [ :tRBCol, :tRBRow ] is_c apply (WorkEventTopic:mouse_up_event:gridPos, [ ?tRBCol, ?tRBRow ] ).
+        WinToMainCoords is [ ?tName, ?tRBCol + ?tCol - 2, ?tRBRow + ?tRow - 1.25, ?tSelect ].
+      end. 
+
+    end. (* PropertyList *)
+  end. (* CreateCode *)
+end.  (* Radio_ButtonObject *)

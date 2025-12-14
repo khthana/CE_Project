@@ -1,0 +1,16 @@
+.OPTION EXPLICIT
+.Set Cabinet=on
+.Set Compress=on
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=6144
+.Set DiskDirectoryTemplate=".."
+.Set CompressionType=MSZIP
+.Set CompressionLevel=7
+.Set CompressionMemory=21
+.Set CabinetNameTemplate="TestAccount.CAB"
+"TestAccount.INF"
+"TestAccount.exe"
+"MSADO20.TLB"
+"RACMGR32.EXE"
+"RACREG32.DLL"
+"ODKOB32.DLL"

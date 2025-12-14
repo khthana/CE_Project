@@ -1,0 +1,140 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=G:\Toon_nd\project 4d\vb6\registeration\PackageWizard1
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Text=No
+Jet 2.x=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=Yes
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+E:\WINNT\system32\TDBGS32.OCX=
+E:\Program Files\Informix\Data Director\navctl32.ocx=
+E:\Program Files\Informix\Data Director\blobdd.dll=
+E:\Program Files\Informix\Data Director\choreo32.dll=
+E:\Program Files\Informix\Data Director\cvddo.dll=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 1|Files Added]
+
+[Package|Standard Setup Package 1|Files Removed]
+e:\program files\informix\data director\blobdd.dll=
+e:\program files\informix\data director\choreo32.dll=
+e:\program files\informix\data director\cvddo.dll=
+e:\program files\informix\data director\navctl32.ocx=
+
+[Package|Standard Setup Package 1|Files In Project]
+E:\WINNT\Profiles\Administrator\Desktop\Wizard.exe=Yes
+E:\WINNT\system32\MSVBVM60.DLL=Yes
+E:\WINNT\system32\OLEAUT32.DLL=Yes
+E:\WINNT\system32\OLEPRO32.DLL=Yes
+E:\WINNT\system32\ASYCFILT.DLL=Yes
+E:\WINNT\system32\STDOLE2.TLB=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+E:\Program Files\Informix\Data Director\cvddo.dll=No
+E:\Program Files\Informix\Data Director\choreo32.dll=No
+E:\Program Files\Informix\Data Director\blobdd.dll=No
+E:\Program Files\Common Files\Microsoft Shared\DAO\DAO350.DLL=Yes
+E:\WINNT\system32\MSJET35.DLL=Yes
+E:\WINNT\system32\MSJTER35.DLL=Yes
+E:\WINNT\system32\MSJINT35.DLL=Yes
+E:\WINNT\system32\VBAJET32.DLL=Yes
+E:\WINNT\system32\EXPSRV.DLL=Yes
+E:\WINNT\system32\MSRD2X35.DLL=Yes
+E:\WINNT\system32\MSREPL35.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+E:\WINNT\system32\VB5DB.DLL=Yes
+E:\Program Files\Informix\Data Director\navctl32.ocx=No
+E:\WINNT\system32\TDBGS32.OCX=Yes
+E:\WINNT\system32\RICHTX32.OCX=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+E:\WINNT\system32\MSCOMCTL.OCX=Yes
+E:\WINNT\system32\MSRDO20.DLL=Yes
+E:\WINNT\system32\RDOCURS.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+E:\WINNT\system32\VB6STKIT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+E:\WINNT\Profiles\Administrator\Desktop\Wizard.exe=$(AppPath)
+E:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\OLEAUT32.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\OLEPRO32.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\ASYCFILT.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\STDOLE2.TLB=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Common Files\Microsoft Shared\DAO\DAO350.DLL=$(MSDAOPath)
+E:\WINNT\system32\MSJET35.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\MSJTER35.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\MSJINT35.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\VBAJET32.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\EXPSRV.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\MSRD2X35.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\MSREPL35.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\VB5DB.DLL=$(WinSysPath)
+E:\WINNT\system32\TDBGS32.OCX=$(WinSysPath)
+E:\WINNT\system32\RICHTX32.OCX=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+E:\WINNT\system32\MSCOMCTL.OCX=$(WinSysPath)
+E:\WINNT\system32\MSRDO20.DLL=$(WinSysPath)
+E:\WINNT\system32\RDOCURS.DLL=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+E:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+E:\WINNT\Profiles\Administrator\Desktop\Wizard.exe=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=Wizard SQL
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=Wizard SQL
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 1|Wizard SQL]
+Icon1=Wizard.exe
+Title1=Wizard SQL
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=G:\Toon_nd\project 4d\vb6\registeration\PackageWizard1
+ProjectFolder=G:\Toon_nd\project 4d\vb6\registeration
+ServerSideCab=
+File1=G:\Toon_nd\project 4d\vb6\registeration\PackageWizard1\setup.exe
+File2=G:\Toon_nd\project 4d\vb6\registeration\PackageWizard1\Setup.Lst
+File3=G:\Toon_nd\project 4d\vb6\registeration\PackageWizard1\Wizard.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

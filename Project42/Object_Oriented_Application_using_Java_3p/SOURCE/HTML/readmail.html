@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE> Test WebServer & MailServer </TITLE>
+
+
+<script language="JavaScript">
+
+  <!--
+
+  var OldColor;
+
+  function popNewWin (strDest,strWidth,strHeight) {
+      newWin = window.open(strDest,"popup","toolbar=no,scrollbars=yes,resizable=yes,width=" + strWidth + ",height=" + strHeight);
+   }
+
+  function mOvr(src,clrOver) {
+    if (!src.contains(event.fromElement)) {
+      src.style.cursor = 'hand';
+      OldColor = src.bgColor;
+      src.bgColor = clrOver;
+    }
+  }
+  
+  function mOut(src) {
+    if (!src.contains(event.toElement)) {
+      src.style.cursor = 'default';
+      src.bgColor = OldColor;
+    }
+  }
+  
+  function mClk(src) {
+    if(event.srcElement.tagName=='TD') {
+      src.children.tags('A')[0].click();
+    }
+  }
+
+  function feedback() {
+    window.open("/feedback.html", "feedback", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=400,height=430");
+  }
+
+  function pager() {
+    window.open("http://203.148.255.117/pager/pager.html", "pager", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=438,height=380");
+  }
+  
+  //-->
+  
+
+</script>
+
+
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- hide
+//define the text of the scroller
+
+var scrtxt="Java WebServer and Java MailServer";
+var length=scrtxt.length;
+var width= 100;
+var pos= -(width + 2);
+
+function scroll() {
+
+pos++;
+
+//calculate the text which shall be displayed
+var scroller="";
+
+if (pos == length) 
+{
+  pos=-(width+2);
+}
+
+//if the text hasn't reached the left side yet we have to
+//add some spaces - otherwise we have to cut of the first
+// part of the text (which moved already across the left border)
+if (pos<0) 
+{
+   for (var i = 1; i<=Math.abs(pos);i++) 
+   {
+     scroller=scroller+ " "; 
+   }
+   scroller= scroller + scrtxt.substring(0,width -i +1);
+}
+
+else 
+{
+   scroller = scroller + scrtxt.substring(pos,width+pos);
+}
+
+//assign the text to the statusbar
+
+window.status = scroller;
+
+//call this function again after 100 milliseconds
+setTimeout("scroll()",100);
+}
+
+
+
+function CheckName(ckName)  {
+
+  if (ckName.name.value == "") {
+      alert("Please enter a string!")
+}
+  else  {
+      alert("Hi! "+ ckName.name.value +" How are you?");
+    }
+}
+
+function checkEmail(ckEmail)  {
+   if (ckEmail.email.value == "" || ckEmail.email.value.indexOf('@',0) == -1)
+       alert("Invalid E-mail address");
+   else   alert("Correct E-mail");
+}
+
+// -->
+</SCRIPT>
+
+
+
+</HEAD>
+<BODY BGCOLOR="#FFFF12" onLoad="scroll()">
+
+<body background="Gravel.gif">
+
+<font color="#ff0000"> <CENTER><h1> WebServer & MailServer </h1> </CENTER> </font>
+<body text = "#ff0000">
+ <hr>
+
+
+
+  <TABLE width="50%" border="0" cellspacing="0" cellpadding="0" bgcolor="#000000">
+        <TR>
+          <TD>
+            <TABLE width="100%" border="0" cellspacing="1" cellpadding="0">
+              <TR bgcolor="#00779E">
+                <TD align="center" width="120" onmouseover="mOvr(this,'#3FBBEF');" onmouseout="mOut(this);" onclick="mClk(this);">
+                  <A class="toolLnk" href='register.html' title='คลิ้กที่นี่เพื่อตอบกลับจดหมาย'>
+                  <FONT size="2" face="MS Sans Serif" color="#FFFFFF">ตอบกลับ</FONT>
+                  </A>
+                </TD>
+                <TD align="center" width="120" onmouseover="mOvr(this,'#3FBBEF');" onmouseout="mOut(this);" onclick="mClk(this);">
+                  <A class="toolLnk" href='register.html' title='ลบจดหมาย คลิ้กมาที่นี่เลยพี่'>
+                  <FONT size="2" face="MS Sans Serif" color="#FFFFFF">ลบจดหมาย</FONT>
+                  </A>
+                </TD>
+                <TD align="center" width="120" onmouseover="mOvr(this,'#3FBBEF');" onmouseout="mOut(this);" onclick="mClk(this);">
+                  <A class="toolLnk" href='http://www.thaimail.com/faqs.html' title='ขี้หลงขี้ลืม ย้อนกลับที่นี่'>
+                  <FONT size="2" face="MS Sans Serif" color="#FFFFFF">ย้อนกลับ</FONT>
+                  </A>
+                </TD>
+                <TD align="center" width="120" onmouseover="mOvr(this,'#3FBBEF');" onmouseout="mOut(this);" onclick="mClk(this);">
+                  <A class="toolLnk" href='javascript:feedback();' title='มีคำแนะนำ หรือคำติชม คลิ้กที่นี่เพื่อส่งมาให้เรา'>
+                  <FONT size="2" face="MS Sans Serif" color="#FFFFFF">คำแนะนำ</FONT>
+                  </A>
+                </TD>
+              </TR>
+            </TABLE>
+          </TD>
+        </TR>
+      </TABLE>
+   วันที่  <br>
+   จาก     <br>
+   ถึง     <br>
+   หัวข้อ  <br><br>  <hr>
+   จดหมาย
+
+
+</BODY>
+</HTML>

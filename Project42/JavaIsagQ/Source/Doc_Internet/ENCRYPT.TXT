@@ -1,0 +1,358 @@
+==========================================================
+= ENCRYPTION and CHECKCODE of the ICQ Protocol V3 and V4 =
+==========================================================
+
+Last update:  June 19 1998
+Created by :  Sebastien Dault (daus01@gel.usherb.ca)
+Version    :  0.02
+
+Copyright (C) 1998
+
+
+About this document
+-------------------
+
+This document will explain how the ENCRYPTION work and how the CHECKCODE
+is calculated in the version 3 and 4 of the ICQ Protocol.
+
+This document will not explain each command of the protocol.
+
+Note that I am in no way affiliate with Mirabilis. I have found all these
+information by tracing UDP packets (this complies with Mirabilis License
+agreement). These information are unofficial and may be incorrect.
+
+
+LICENSE AGREEMENT
+=================
+
+This document and the information present herein is provided by
+Sebastien Dault ("the Author") for your personal use only. You agree to
+the full responsibility for the results of your use of this document or
+the information present herein.
+
+By using this document or the information present herein, you accept
+the terms of this license agreement.
+
+THIS INFORMATION IS PROVIDED ON AN "AS IS" BASIS. THE AUTHOR MAKES NO
+WARRANTIES, EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THOSE OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, WITH RESPECT TO THIS
+DOCUMENT AND THE INFORMATION PRESENT HEREIN. THE AUTHOR DOES NOT WARRANT,
+GUARANTEE OR MAKE ANY REPRESENTATIONS REGARDING THE USE OR THE RESULTS OF
+THE USE OF THIS DOCUMENT OR THE INFORMATION PRESENT HEREIN, IN TERMS OF THE
+ACCURACY, RELIABILITY, QUALITY, VALIDITY, STABILITY, COMPLETENESS,
+CURRENTNESS, OR OTHERWISE. THE ENTIRE RISK OF USING THE INFORMATION PRESENT
+IN THIS DOCUMENT IS ASSUMED BY THE USER.
+
+IN NO EVENT WILL THE AUTHOR BE LIABLE TO ANY PARTY (i) FOR ANY DIRECT,
+INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS
+INTERRUPTION, LOSS OF PROGRAMS OR INFORMATION, AND THE LIKE), OR ANY OTHER
+DAMAGES ARISING IN ANY WAY OUT OF THE AVAILABILITY, USE, RELIANCE ON, OR
+INABILITY TO USE THIS DOCUMENT OR THE INFORMATION PRESENT HEREIN, EVEN IF
+THE AUTHOR HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND
+REGARDLESS OF THE FORM OF ACTION, WHETHER IN CONTRACT, TORT, OR OTHERWISE;
+OR (ii) FOR ANY CLAIM ATTRIBUTABLE TO ERRORS, OMISSIONS, OR OTHER
+INACCURACIES IN, OR DESTRUCTIVE PROPERTIES OF ANY INFORMATION.
+
+
+
+Number convention
+=================
+
+0x12345678  : Real value in hexadecimal (use in calculations).
+
+78 56 34 12 : Hex dump value.
+
+NOTE: All the number in this document are in HEXA.
+
+
+
+Packet Format
+=============
+
+The UDP packet sent from the client to the server has the following general
+layout:
+
+VERSION 4 (in decrypted format):
+---------
+
+ Length   Content (if fixed)    Name
+ ------   ------------------    ----
+ 2 bytes  04 00                 VERSION
+ 4 bytes  xx xx 00 00           RANDOM NUMBER
+ 2 bytes  xx xx                 COMMAND
+ 2 bytes  xx xx                 SEQ_NUM1
+ 2 bytes  xx xx                 SEQ_NUM2
+ 4 bytes  xx xx xx xx           UIN
+ 4 bytes  xx xx xx xx           CHECKCODE
+ variable                       PARAMETERS
+
+
+Some field in the version 4 are encrypted (see ENCRYPTION below).
+
+
+VERSION 3:
+---------
+
+ Length   Content (if fixed)    Name
+ ------   ------------------    ----
+ 2 bytes  03 00                 VERSION
+ 2 bytes  xx xx                 COMMAND
+ 2 bytes  xx xx                 SEQ_NUM1
+ 2 bytes  xx xx                 SEQ_NUM2
+ 4 bytes  xx xx xx xx           UIN
+ 4 bytes  xx xx xx xx           CHECKCODE
+ variable                       PARAMETERS
+
+
+
+ENCRYPTION
+==========
+
+If you want to encrypt or decrypt a packet, use the following algorithm:
+(the algorithm is the same for the ecryption AND decryption)
+
+1. Calculate the following:
+
+      Calculate the CHECKCODE  (see next section)
+      (or take it from the packet if you are decrypting (position 10-13)
+       and don't forget to reverse it in a DWORD format (reverse bytes
+order))
+
+      PL = Packet length
+
+      CODE1 = (DWORD) (PL * 0x66756B65)       (flush the overflow)
+
+      CODE2 = (DWORD) (CODE1 + CHECKCODE)   (flush the overflow)
+
+      N = (PL + 3) DIV 4
+
+      POS = 0
+
+2. Do the following loop:
+
+      while POS < N do
+      begin
+
+         T = POS MOD 0x0100
+
+         CODE3 = CODE2 + TABLE[T]      (see TABLE section)
+
+         DATA = DWORD at position POS in the packet
+                (don't forget to reverse the byte order)
+
+         DATA = DATA XOR CODE3
+
+         DWORD at position POS in the packet = DATA
+         (don't forget to reverse the byte order)
+
+         POS = POS + 4
+
+      end
+
+3. Replace the 2 first byte with 04 00 and you have your encrypted or
+   decrypted packet
+
+
+EXEMPLE
+=======
+
+Suppose that you want to decrypt the following login packet:
+
+  04 00 E6 9E EA D5 50 DF EB D5 B9 DC 35 62 CD DC
+  54 D3 48 0C 15 54 74 35 39 09 00 00 07 00 36 64
+  39 37 32 31 00 9D 00 00 00 ef 23 43 23 04 00 00
+  01 00 04 00 00 00 00 00 00 00 00 00 9D 00
+
+  (note: this is not my UIN and not my password)
+
+  CHECKCODE = 54 D3 48 0C = 0x0C48D354
+
+  PL = 0x3E  (packet length)
+
+  CODE1 = PL b 0x66756B65 = 0x3E n 0x66756B65 = 0xD0700276
+          (flush the overflow)
+
+  CODE2 = CODE1 + CHECKCODE = 0x0C48D354 + 0xD0700276 = 0xDCB8D5CA
+          (flush the overflow)
+
+  N = (PL + 4) DIV 4 = (0x3E + 4) DIV 4 = 0x10
+
+  POS = 0
+
+  Loop 1:
+    T = POS MOD 0x0100 = 0 MOD 0x0100 = 0
+    CODE3 = CODE2 + TABLE[T] = 0xDCB8D5CA + TABLE[0]
+          = 0xDCB8D5CA + 0x0A =0xDCB8D5D4
+    DATA = 04 00 E6 9E = 0x9EE60004
+    DATA = DATA XOR CODE3 = 0x9EE60004 XOR 0xDCB8D5D4 = 0x425ED5D0
+    PACKET[0..3] = D0 D5 5E 42
+    POS = POS + 4 = 0 + 4 = 4
+    POS < 0x10 ? , yes, we continue
+
+  Loop2:
+    T = POS MOD 0x0100 = 4 MOD 0x0100 = 4
+    CODE3 = CODE2 + TABLE[T] = 0xDCB8D5CA + TABLE[4]
+          = 0xDCB8D5CA + 0x20 = 0xDCB8D5EA
+    DATA = EA D5 50 DF = 0xDF50D5EA
+    DATA = DATA XOR CODE3 = 0xDF50D5EA XOR 0xDCB8D5EA = 0x03E80000
+    PACKET[4..7] = 00 00 E8 03
+    POS = POS + 4 = 4 + 4 = 8
+    POS < 0x10 ? , yes, we continue
+
+  Loop3:
+    T = POS MOD 0x0100 = 8 MOD 0x0100 = 8
+    CODE3 = CODE2 + TABLE[T] = 0xDCB8D5CA + TABLE[8]
+          = 0xDCB8D5CA + 0x20 = 0xDCB8D5EA
+    DATA = EB D5 B9 DC = 0xDCB9D5EB
+    DATA = DATA XOR CODE3 = 0xDCB9D5EB XOR 0xDCB8D5EA = 0x00010001
+    PACKET[8..0x0B] = 01 00 01 00
+    POS = POS + 4 = 8 + 4 = 0x0C
+    POS < 0x10 ? , yes, we continue
+
+  Loop4:
+    T = POS MOD 0x0100 = 0x0C MOD 0x100 = 0x0C
+    CODE3 = CODE2 + TABLE[T] = 0xDCB8D5CA + TABLE[0x0C]
+          = 0xDCB8D5CA + 0x20 = 0xDCB8D5EA
+    DATA = 35 62 CD DC = 0xDCCD6235
+    DATA = DATA XOR CODE3 = 0xDCCD6235 XOR 0xDCB8D5EA = 0x0075B7DF
+    PACKET[0x0C..0x0F] = DF B7 75 00
+    POS = POS + 4 = 0x0C + 4 = 0x10
+    POS < 0x10 ? , no, we stop
+
+  After changing the 2 first byte with 04 00 we have the decrypted packed:
+
+  04 00 5E 42 00 00 E8 03 01 00 01 00 DF B7 75 00
+  54 D3 48 0C 15 54 74 35 39 09 00 00 07 00 36 64
+  39 37 32 31 00 9D 00 00 00 ef 23 43 23 04 00 00
+  01 00 04 00 00 00 00 00 00 00 00 00 9D 00
+
+You can use the same algorithm to encrypt a packet. The only difference
+is that you have to calculate the CHECKCODE before.
+
+
+
+CHECKCODE
+=========
+
+The checkcode is calculated base on the DECRYPTED data of the packet.
+The version 3 and version 4 of the protocol use the same algorithm
+to create the checkcode but the position of the checkcode in the packet
+will differ. (position 10-13 in V4 and position 0C-0E in V3)
+
+If you want to calculate a checkcode do the following:
+
+1. Found NUMBER1 formed by:
+     B8 = Byte at position 8 of the packet. (starting at position 0)
+     B4 = Byte at position 4 of the packet.
+     B2 = Byte at position 2 of the packet.
+     B6 = Byte at position 6 of the packet.
+
+   NUMBER1 = 0x B8 B4 B2 B6       (B8 = UPPER BYTE, B6 = LOWER BYTE)
+
+2. Calculate the following:
+     PL = Packet length
+     R1 = a random number beetween 0 and (PL - 04)  (offen 00 in V3)
+     R2 = another random number beetween 0x00 and 0xFF
+
+
+3. Found NUMBER2:
+
+     X4 = R1
+
+     If X4 equal the position of a byte of the CHECKCODE in the packet
+     (0x10-0x13 in V4, 0x0C-0x0E in V3), choose another random number R1
+     and restart step 3.
+
+     X3 = NOT (BYTE at pos X4 in the packet)
+
+     X2 = R2
+
+     X1 = NOT (BYTE at pos X2 in the TABLE)  (see TABLE section)
+
+     NUMBER2 = 0x X4 X3 X2 X1     (X4 = UPPER BYTE, X1 = LOWER BYTE)
+
+
+4. You can now calculate the checkcode:
+     CHECKCODE = NUMBER1 XOR NUMBER2
+
+     The byte order of the checkcode must be reverse (because it is a DWORD)
+     in the packet.
+
+
+EXAMPLE
+=======
+
+We want to calculate the checkcode on the following packet :
+
+  03 00 0A 00 01 00 01 00 12 34 56 78 00 00 00 00
+        B2    B4    B6    B8
+
+  1. NUMBER1 = 0x B8 B4 B2 B6 = 0x 12 01 0A 01 = 0x12010A01
+
+  2. PL = 0x10
+     R1 = 0x00 (random between 00 and 0C (10-04))
+     R2 = 0x7F (random between 00 and FF)
+
+  3. X4 = R1 = 00
+
+     X3 = NOT (PACKET[X4]) = NOT (PACKET[00]) = NOT (03) = 0xFC
+
+     X2 = R2 = 0x7F
+
+     X1 = NOT (TABLE[X2]) = NOT (TABLE[0x7F]) = NOT (0x6F) = 0x90
+
+     NUMBER2 = 0x X4 X3 X2 X1 = 0x 00 FC 7F 90 = 0x00FC7F90
+
+  4. CHECKCODE = NUMBER1 XOR NUMBER2 = 0x12010A01 XOR 0x00FC7F90 =
+0x12FD7591
+
+So the final packet will be:
+
+  03 00 0A 00 01 00 01 00 12 34 56 78 91 75 FD 12
+
+
+
+TABLE
+=====
+
+The algorithmes use a table of constant to found some numbers.
+
+TABLE[X] mean data at position X in the table (starting at position 0).
+
+POS   DATA                                               ASCII
+---   -----------------------------------------------    ----------------
+ 00 - 0A 5B 31 5D 20 59 6F 75 20 63 61 6E 20 6D 6F 64    .[1] You can mod
+ 10 - 69 66 79 20 74 68 65 20 73 6F 75 6E 64 73 20 49    ify the sounds I
+ 20 - 43 51 20 6D 61 6B 65 73 2E 20 4A 75 73 74 20 73    CQ makes. Just s
+ 30 - 65 6C 65 63 74 20 22 53 6F 75 6E 64 73 22 20 66    elect "Sounds" f
+ 40 - 72 6F 6D 20 74 68 65 20 22 70 72 65 66 65 72 65    rom the "prefere
+ 50 - 6E 63 65 73 2F 6D 69 73 63 22 20 69 6E 20 49 43    nces/misc" in IC
+ 60 - 51 20 6F 72 20 66 72 6F 6D 20 74 68 65 20 22 53    Q or from the "S
+ 70 - 6F 75 6E 64 73 22 20 69 6E 20 74 68 65 20 63 6F    ounds" in the co
+ 80 - 6E 74 72 6F 6C 20 70 61 6E 65 6C 2E 20 43 72 65    ntrol panel. Cre
+ 90 - 64 69 74 3A 20 45 72 61 6E 0A 5B 32 5D 20 43 61    dit: Eran.[2] Ca
+ A0 - 6E 27 74 20 72 65 6D 65 6D 62 65 72 20 77 68 61    n't remember wha
+ B0 - 74 20 77 61 73 20 73 61 69 64 3F 20 20 44 6F 75    t was said?  Dou
+ C0 - 62 6C 65 2D 63 6C 69 63 6B 20 6F 6E 20 61 20 75    ble-click on a u
+ D0 - 73 65 72 20 74 6F 20 67 65 74 20 61 20 64 69 61    ser to get a dia
+ E0 - 6C 6F 67 20 6F 66 20 61 6C 6C 20 6D 65 73 73 61    log of all messa
+ F0 - 67 65 73 20 73 65 6E 74 20 69 6E 63 6F 6D 69 6E    ges sent incomin
+---   -----------------------------------------------    ----------------
+
+Example : TABLE[0]    = 0x0A
+          TABLE[0xF2] = 0x73
+
+Note: A lot of UDP packet was check to recreate this table, but some
+      data may be incorrect.
+
+
+--------------------
+Sebastien Dault
+daus01@gel.usherb.ca
+
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+

@@ -1,0 +1,327 @@
+<html>
+<head>
+<title>Update Item</title>
+<!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+-->
+
+<script language="JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+//-->
+</script>
+
+<Script Language="VBScript">
+sub InitValue
+	<wc@>InitValue</wc@>
+
+end sub
+</Script>
+
+</head>
+
+<body bgcolor="#ffffff" onload="InitValue()">
+<table width="100%" border="0" height="956">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">ADMINISTRATION</font></strong></font></div>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffff"> 
+    <td height="15"> 
+      <hr>
+ 
+    </td>
+  </tr>
+  <tr bgcolor="#ffffcc" valign="top"> 
+    <td height="872"> 
+      <div align="center"> 
+        <table width="100%" border="0" height="819">
+          <tr> 
+            <td width="25%" valign="top" height="850"> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td height="48"> <br>
+                    <div align="center"><b><font face="MS Sans Serif" size="3">Administrator 
+                      Command</font></b></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td height="19">&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td height="31"> 
+                    <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formShopDesc&amp;WCU" 
+                                name="formShopDesc">
+                      <div align="center"> 
+                        <input type="Image" name="Submit1" value="Shop Description" src="/ecom/pic/ShopDesc2.GIF" width="100" height="50" alt="Shop description">
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center"> 
+                      <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=fromCategory&amp;WCU" 
+                                name="fromCategory">
+                        <input type="Image" name="BtnShopCategory" value="Shop Category" src="/ecom/pic/ShopCat2.GIF" width="100" height="50" alt="Shop category">
+                      </form>
+                      <font color="#ff3300"><b> </b></font></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td> 
+                    <div align="center"><img src="/ecom/pic/ShopItem1.GIF" width="100" height="50" alt="Shop item"></div>
+                  </td>
+                </tr>
+                <tr> 
+                  <td>&nbsp;</td>
+                </tr>
+                <tr> 
+                  <td>&nbsp;</td>
+                </tr>
+              </table>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" bordercolor="#0099CC">
+                <tr bgcolor="#99ccff"> 
+                  <td height="51"> <br>
+                    <div align="center">
+                      <h3><font face="MS Sans Serif"><b><font color="#006600">Multimedia</font></b></font></h3>
+                    </div>
+                  </td>
+                </tr>
+                <tr bgcolor="#99ccff"> 
+                  <td> 
+                   <p>&nbsp;</p><form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formUpdatePicture&amp;WCU" 
+                                name="formUpdatePicture">
+		   <font face="MS Sans Serif"><!--Show picture--> </font> 
+                    <div align="center">
+                        <p><font face="MS Sans Serif"><img src="<wc@>strPicture</WC@>"
+                                width="154" height="143" 
+                                name="ImgPicture"> </font></p>
+                      <p> 
+                          <input type="submit" name="btnShowPicture" value="Update Picture"> 
+ 
+                      </p>
+                    </div>
+                      </form>
+                  </td>
+                </tr>
+                <tr bgcolor="#99ccff"> 
+                  <td> 
+                    <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formUpdateSound&amp;WCU" 
+                                name="formUpdateSound">    
+		              <table border=1 width="100%" bordercolor="#99CCFF">
+                        <tr>
+			   <td colspan=2 align="middle">
+                             
+                            <p align="center"><font face="MS Sans Serif"><b><font color="#9900ff">Sound</font></b></font></p>
+			   </td>
+			 </tr>
+			 <tr>
+			              <td height="15"> 
+                            <p align="center"><font face="MS Sans Serif"> 
+                              <input type="button" name="btnShowSound" value="Show Sound" onClick="MM_openBrWindow('<wc@>strURLSound</wc@>','','status=yes,scrollbars=yes,resizable=no,width=500,height=500')">
+                              </font></p>
+			   </td>
+			              <td height="15"> 
+                            <div align="center">
+                              <input type="submit" name="btnUpdateSound" value="Update Sound">
+                            </div>
+                          </td>
+			  </tr>
+			</table>
+                    </form>
+                  </td>
+                </tr>
+                <tr bgcolor="#99ccff"> 
+                  <td> 
+                    <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formUpdateVideo&amp;WCU" 
+                                name="formUpdateVideo">
+		              <table border=1 width="100%" bordercolor="#99CCFF">
+                        <tr> 
+                          <td colspan=2 height="23"> 
+                            <div align="center"><font face="MS Sans Serif"><b><font color="#9900ff">Video</font></b><br>
+                              </font></div>
+			   </td>
+			 </tr>
+			 <tr>
+			              <td valign="top" height="15"> 
+                            <div align="center">
+                              <input type="button" name="btnShowVideo" value="Show Video" onClick="MM_openBrWindow('<wc@>strURLVideo</wc@>','','status=yes,scrollbars=yes,resizable=no,width=500,height=500')">
+                            </div>
+                          </td>
+			              <td height="15"> 
+                            <div align="center">
+                              <input type="submit" name="btnUpdateVideo" value="Update Video">
+                            </div>
+                            <DIV></DIV></td></tr></table></form></td></tr></table></td>
+            <td width="75%" height="850" valign="top" align="middle"> 
+              <p>&nbsp;</p>
+              <p align="center"><font color="#000000"><b><font size="3" face="MS Sans Serif" color="#ff3300">Select 
+                item for update</font></b></font></p>
+              <p>&nbsp;</p>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formListItem&amp;WCU" 
+                                name="formListItem">
+                      <div align="center"><font color="#006666"><b><font face="MS Sans Serif">Category 
+                        Type</font></b></font><font color="#ff9999"><b><font face="MS Sans Serif"> 
+                        </font></b></font> 
+                        <select name="lstCategory">
+				<wc@>strcategorylist</wc@> 
+                        </select>
+                        <input type="submit" name="Submit" value="OK">
+                      </div>
+                    </form>
+                  </td>
+                  <td>
+                    <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=formListItemDetail&amp;WCU" 
+                                name="formListItemDetail">
+                      <b><font color="#006666" face="MS Sans Serif">Item Name 
+                      </font> </b> 
+                      <select name="lstItem">
+		          <wc@>stritemlist</wc@>
+                      </select>
+                      <input type="submit" name="Submit2" value="OK"> 
+ 
+                    </form>
+                  </td>
+                </tr>
+              </table>
+                <form method="post" action="Item.ASP?WCI=UpdateItem&amp;WCE=fromUpdateItem&amp;WCU" 
+                        name="fromUpdateItem">
+              <table width="100%" border="0">
+<!--		<tr>
+		   <td colspan="4" align="center">Category name : </td>
+		</tr>
+-->
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">ItemName</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <input name="txtItemName" value="<wc@>strItemName</WC@>"> 
+ 
+                    </font></b></td>
+                </tr>                                
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">Discount</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <input name="txtDiscount" value="<wc@>strDiscount</WC@>">  
+                                </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">Barcode</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <input name="txtBarCode" value="<wc@>strBarCode</WC@>">
+ 
+                    </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">Status</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <select name="lstStatus">
+                      <option value="Available" selected>Available
+ 
+                      <option value="Waiting">Waiting
+ 
+                      <option value="Not Available">Not Available
+                    </select>
+ 
+                    </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">Price</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <input name="txtPrice" value="<wc@>strPrice</WC@>"> Bath 
+ </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">CreateON</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"><b><font face="MS Sans Serif"><wc@>strCreateOn</WC@></font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">Description</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"><TEXTAREA name=textfield11><wc@>strDescription</wc@></TEXTAREA> 
+ 
+                    </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">UnitInstock</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"> <b><font face="MS Sans Serif"> 
+                    <input name="txtUnitInstock" value="<wc@>strUnitInStock</WC@>" > 
+                                Items </font></b></td>
+                </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b><font face="MS Sans Serif">UnitOnOrder</font></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%"><b><font face="MS Sans Serif"><wc@>strUnitOnOrder</WC@></font></b></td>
+                </tr>
+                <tr> 
+                 <wc@>field</WC@>
+               </tr>
+                <tr> 
+                  <td width="6%">&nbsp;</td>
+                  <td width="25%"><b></b></td>
+                  <td width="3%"><b></b></td>
+                  <td width="66%">
+
+                      <input type="submit" name="Submit32" value="Submit">
+                      <input type="reset" name="Submit62" value="Reset">
+                    <b></b></td>
+                </tr>
+              </table>
+	</form>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><a href="Item.ASP?WCI=UpdateItem&WCE=AddItem&WCU" name=AddItem >Add 
+                      Item</a></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><a href="Item.ASP?WCI=UpdateItem&WCE=DeleteItem&WCU" name=DeleteItem >Delete 
+                      Item</a></font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif">|</font></div>
+                  </td>
+                  <td> 
+                    <div align="center"><font face="MS Sans Serif"><b><font color="#ff3300">Update 
+                      Item </font></b></font></div>
+                  </td>
+                </tr>
+              </table>
+              <p>&nbsp;</p>
+              </td>
+          </tr></table>
+      </div>
+  			   </td>
+			 </tr>
+ 			</table>
+</body>
+</html>

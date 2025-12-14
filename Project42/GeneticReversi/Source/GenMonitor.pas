@@ -1,0 +1,117 @@
+unit GenMonitor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+
+type
+  TForm3 = class(TForm)
+    Edit1: TEdit;
+    Label1: TLabel;
+    Edit2: TEdit;
+    Label2: TLabel;
+    Edit3: TEdit;
+    Label3: TLabel;
+    Edit4: TEdit;
+    Label4: TLabel;
+    Edit5: TEdit;
+    Label5: TLabel;
+    Edit6: TEdit;
+    Label6: TLabel;
+    Edit7: TEdit;
+    Label7: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Edit8: TEdit;
+    Label8: TLabel;
+    Edit9: TEdit;
+    Label9: TLabel;
+    Edit10: TEdit;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Edit13: TEdit;
+    Label13: TLabel;
+    procedure Button2Click(Sender: TObject);
+    Procedure DisPlay ;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+uses Board2,GA1 ;
+
+{$R *.DFM}
+Type GAParaMeter = Object
+                         GenNumber   : integer ;
+                         ChromNumber : integer ;
+                   end ;
+
+var GAPara1 : TPopulation ;
+    Para1   : GAParaMeter ;
+
+Procedure TForm3.DisPlay ;
+begin
+     Form1.Enabled := false ;
+     Visible := true ;
+end ;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+     Form1.Enabled := true ;
+     Close ;
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+var  i,Err1,Err2 : integer ;
+     T1,T2 : String[20] ;
+     fp : file of TPopulation ;
+begin
+     T1 := Edit4.Text ;
+     T2 := Edit13.Text ;
+     val(T1,Para1.ChromNumber,Err1) ;
+     val(T2,Para1.GenNumber,Err2) ;
+     if (Err1 = 0) and (Err2 = 0) then
+        begin
+             T2 := 'Gen'+T2+'.GEN' ;
+             AssignFile(fp,T2) ;
+             reset(fp) ;
+             read(fp,GAPara1) ;
+             closefile(fp) ;
+
+             i := Para1.ChromNumber ;
+             Str(GAPara1.PCross:5:2,T2) ;
+             Edit1.Text := T2 ;
+
+             Str(GAPara1.PMute:5:5,T2) ;
+             Edit2.Text := T2  ;
+
+             Edit3.Text := IntToStr(GAPara1.PopSize)  ;
+
+             Str(GAPara1.Average:5:5,T2) ;
+             Edit5.Text := T2 ;
+
+             Edit8.Text := IntToStr(GAPara1.Generation) ;
+
+             Str(GAPara1.MaxChrom.Fitness:5:5,T2) ;
+             Edit10.Text := T2 ;
+
+             Str(GAPara1.MinChrom.Fitness:5:5,T2) ;
+             Edit11.Text := T2 ;
+
+             Str(GAPara1.Population.ChromList[i].Fitness:5:5,T2) ;
+             Edit12.Text := T2 ;
+        end ;
+end;
+
+end.

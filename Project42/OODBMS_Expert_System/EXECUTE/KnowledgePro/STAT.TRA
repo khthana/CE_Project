@@ -1,0 +1,43 @@
+Entering (   1) ~menu [[[&File,&New,&Save,,&Exit],&Consultant,&Testing,&Help,&Quit],GetOption]
+Exit     (   1) ~menu [[[&File,&New,&Save,,&Exit],&Consultant,&Testing,&Help,&Quit],GetOption]
+Result: 13352
+Entering (   1) ~say [['#fred  ',,,,,,,'			Statistic Tetsting Hypothesis assistance',,,,'			Developer:	Mr. Ho Thanh Phong ','			Instructor:	Dr. Vatcharaporn','					SAT - AIT	']]
+Entering (   2) Continue [Continue,select_event,14420]
+Exit     (   2) Continue [Continue,select_event,14420]
+Result: 
+Exit     (   1) ~say [['#fred  ',,,,,,,'			Statistic Tetsting Hypothesis assistance',,,,'			Developer:	Mr. Ho Thanh Phong ','			Instructor:	Dr. Vatcharaporn','					SAT - AIT	']]
+Result: 
+Entering (   1) ~do [~? (item)]
+Entering (   2) ~? [item]
+Exit     (   2) ~? [item]
+Result: &Consultant
+Entering (   2) ~rule [~NOT (~exists (w1)),delay (~make (w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame])))]
+Entering (   3) ~NOT [~exists (w1)]
+Entering (   4) ~exists [w1]
+Exit     (   4) ~exists [w1]
+Result: F
+Exit     (   3) ~NOT [F]
+Result: T
+Entering (   3) delay [~make (w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]))]
+Exit     (   3) delay [~make (w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]))]
+Result: [~make (w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]))]
+Entering (   3) ~make [w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame])]
+Entering (   4) ~window [,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]]
+Exit     (   4) ~window [,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]]
+Result: 13664
+Exit     (   3) ~make [w1,13664]
+Result: 13664
+Exit     (   2) ~rule [T,[~make (w1,~window (,5,4,70,13,'Working Window',[overlapped,visible,thickFrame]))]]
+Result: [13664]
+Entering (   2) ~text ['#e The type of Testing Hypothesis should be:   #s',~? (TypeOfTesting)]
+Entering (   3) ~? [TypeOfTesting]
+Entering (   4) ~set_number_of_values [TypeOfTesting,1]
+Exit     (   4) ~set_number_of_values [TypeOfTesting,1]
+Result: 
+Entering (   4) ~rule [~and (~eq (~? (KindOfTest1),Population),delay (~and (~eq (~? (NumberPopulation),'One Population'),delay (~and (~eq (~? (KindOfTest2),Mean),delay (~eq (~? (variance_known),Known))))))),delay (~make (TypeOfTesting,'Z - test for one Population'))]
+Entering (   5) ~and [~eq (~? (KindOfTest1),Population),delay (~and (~eq (~? (NumberPopulation),'One Population'),delay (~and (~eq (~? (KindOfTest2),Mean),delay (~eq (~? (variance_known),Known))))))]
+Entering (   6) ~eq [~? (KindOfTest1),Population]
+Entering (   7) ~? [KindOfTest1]
+Entering (   8) ~ask ['Which kind of Parameters  do you want to test : ',KindOfTest1,[Population,Distribution,'Relationship between Variables']]
+
+

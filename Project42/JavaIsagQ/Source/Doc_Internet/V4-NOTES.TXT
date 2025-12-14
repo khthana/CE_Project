@@ -1,0 +1,1085 @@
+
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:34:36 1998
+Date: Mon, 04 May 1998 15:26:51 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: Re: [ICQdev] Re: ICQ v3 (fwd)
+
+Magnus Ihse wrote:
+> 
+> And now I got this explification. So, everyone, go out looking for
+> 16-bytes fields of appearantly random data. :-)
+> 
+> /Magnus
+> 
+> > packets. There are however some fields with 'random magic' that quite
+> > possibly could be MD5 data. If you're interested, I'll let you know
+> > if anyone on the list can confirm or deny that MD5 is used in the
+> > packets.
+> 
+> It should be a 16byte block if its MD5, or 8 if they made the normal MD5
+> mistake and did it wrongly
+> 
+> The basic idea is to take each packet + a shared secret (eg the password)
+> MD5 sign it and since both ends know the shared secret which isnt sent
+> they can both verify the data
+
+Any info on how MD5 works specifically.  My question would be why they
+use this which appears to be decent encryption at least and the UIN SEQ
+and cmd codes are all encrypted so weakly?  Maybe they thought there
+algorithm was similar to MD5  I can't find 8 let alone 16 bytes of
+random data.  Four maybe 6 but that's it the rest I've worked out. 
+Unless it was intentionally left weak as some companies are do because
+of government pressure.
+
+Ok more info on the V4 login packet:
+04 00         Version
+xx ii         Unknown ii maybe isn't used or is only used sometimes
+xx xx xx xx   Key1
+xx xx xx xx   Key2
+xx xx xx xx   UIN encrypted
+xx xx xx xx   Unknow part of the MD5?
+xx xx xx xx   The time in secs since Jan 1 1970.  This is probably used
+for a
+              random number generator seed.  My guess.  The server
+doesn't seem
+              to check how accurate this is since I've logged in with
+week old
+              packets I got from socketspy.
+xx xx 00 00   Port which is only 16-bit but Mirabilis doesn't care it
+seems.
+xx xx         Length of password
+variable      Password NULL terminated.
+98 00 00 00   Version of client ???
+xx xx xx xx   IP address
+04            Always comes at the end of IP info
+xx xx xx xx   Status
+03 00 00 00   Unknown
+00 00 00 00   Unknown
+00 00 98 00   Unknown
+
+As for the signature I think that the password length is used but not
+the password itself.  If I change the password it will still log in but
+if I change the length of the password it won't.  The high byte of of
+the MD5 field and the high byte of key1 seem to be related.  If the
+password's length is seven then the high byte of key1 = high byte of MD5
++ 0xD0.  For passwords of length 8 the relationship is different but
+there still appears to be one OR the two of them together and get 7B. 
+Maybe this is just a weird coinicedence.
+
+-- Matt
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:34:55 1998
+Date: Mon, 04 May 1998 20:03:31 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: "icq-devel@tjsgroup.com" <icq-devel@tjsgroup.com>
+Subject: [ICQdev] [Fwd: 04 after ip]
+
+Someone sent me this very interesting.  Micq now takes advantage of this
+flag.
+
+Blah Blah wrote:
+> 
+> I believe the 04 after the ip means you can handled direct ims (using
+> TCP) if you use 06 it means you can only handled server ims.  At least
+> this is what it means in message type 1000 (Login Message) with
+> version 2.  I assume it is the same with messages you get from other
+> people and the new version 4 stuff.
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From sjbain@akamail.com Sat Jun 13 10:35:06 1998
+Date: Tue, 5 May 1998 23:14:16 +1200
+From: Stephen Bain <sjbain@akamail.com>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: RE: [ICQdev] V4 login
+
+I've been looking at the V4 login packets for a few days, here's the
+information I've been
+able to _extract_ :)
+
+1. UIN encryption
+
+The uin encryption seems to be eUIN = realUIN XOR key2 XOR 0x00010001
+
+>From Matt's example packet below...
+(0x5A74A25F xor 0x00010001) = 0x5A75A25E
+
+(0x5A75A25E xor 0x5AD9E442) = 0x00AC461C <--- the real uin
+
+2. Changing fields
+
+These are the fields of the login packet that seem to regularly change from
+login to login. (i.e. not because of a user changing a setting)
+
+the hash (or whatever bytes 2-4 are),
+key1
+key2
+uin
+x1
+x2 (time stamp)
+port
+
+if the hash is a simple one, it may be possible to work out the formula from
+watching the change in those field, and the change in the hash from login to
+login.
+
+3. Version/Settings fields
+I'm using ICQ 98a, Beta DLL 1.22
+In the first version field I get 9D 00 00 00.  Perhaps a different version
+to Matt's?
+could some one else check their ICQ version, and the contents of this field?
+
+In the second version field I get xx 00 9D 00.  The xx changes with various
+settings, so I'm guessing that that byte, (or word) may be a bitmapped
+config field.
+So far:
+
+	0x10 -- Include me anonymously in the survey
+	0x08 -- Connection via modem
+
+4. Time stamp
+X2 -- Appears to be a timestamp. Packets transmitted soon after one another,
+seem to have numbers close together.  From the magnitude of it, and the
+change from packet to packet, it looks like a seconds-since-1970-timestamp.
+
+5. Other fields
+X3 -- Every packet I've seen is 04 00 00 00.
+
+X4 -- Every packet I've seen is 00 00 00 00.
+
+
+> Well I've had some success logging in as V4 but I haven't been able
+> crack the numbers so I thought I'd post the and see if anyone can figure
+> 'em out.
+>
+> The packet I'm sending is:
+>
+> 04 00         Version
+> xx xx         see below
+> 5E A2 9D 59   key1  xor them together get 0x03E90001 which is
+> 5F A2 74 5A   key2 high command low SEQ
+> 42 E4 D9 5A   UIN  real UIN = 0x00AC461C
+> 63 34 90 23   X1
+> D4 7A 39 35   X2
+> 06 F4 00 00   port
+> 08 00         len of passwd
+> 76 6f 72 6c 6f 6e 73 00 passwd ( please don't use :) )
+> 98 00 00 00   version of client ?
+> 81 15 73 9E   IP
+> 04            placeholder
+> 00 00 00 00   Status
+> 03 00 00 00   X3
+> 00 00 00 00   X4
+> 00 00 98 00   X5 version again?
+>
+> As you can see I only varied 2 bytes becuase I'm not sure how all this
+> stuff holds together.  I know if you get a working version and change
+> anything the whole thing falls apart.  Passwords of the same length
+> appear to be interchangable but of different lengths the numbers must be
+> changed.
+> Anyway I just ran it thru a loop and watched which were excepted.  Below
+> are the values I've tried that worked the values in between have been
+> tested and failed anyone have any ideas?
+> 00 04
+> 00 2B
+> 00 3B
+> 00 55
+> 00 6C
+> 00 75
+> 00 95
+> 00 98
+> 00 B6
+> 00 C0
+>
+> We can get on the server now we just have to figure out what we're
+> doing. :)
+>
+> -- Matt
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:35:16 1998
+Date: Sun, 10 May 1998 18:21:51 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: "icq-devel@tjsgroup.com" <icq-devel@tjsgroup.com>
+Subject: [ICQdev] V4 more info
+
+ok some more info on the V4 packet structure.
+First here's the login packet again.
+
+04 00       Version
+xx          X1
+xx          X2
+xx xx xx xx Key1
+xx xx xx xx Key2
+xx xx xx xx UIN encrypted
+xx xx xx xx Key3
+xx xx xx xx Timestamp ( seconds since Jan 1 1970 )
+xx xx 00 00 port for tcp connections
+xx xx       length of password
+variable    password + null terminator
+98 00 00 00 version?
+xx xx xx xx IP in network byte order.
+xx          Flag for direct connects ( = 04 ) or all server comm. ( =06
+)
+00 00 01 00 Status
+03 00 00 00 Version2?
+00 00 00 00 X3
+00 00 98 00 Version3?
+
+I think everything starts from key3 which I think is completely random. 
+The exact methods of doing the encryption appears to key off the length
+of the password. I've only seen dumps from 7 or 8 length passwords so
+I'm not sure how many different methods there are.
+Ok passwords of length 8 first:
+take key3 and add 0x36e56dfc and then XOR the answer with 0x10000 this
+will give you key2.
+Key1 is created by XORing key2 with 0x03e90001  This is the command (
+3E9 login ) and the SEQ number ( 0001 ).
+To encrypt the password XOR Key2 with 0x00010001 and the XOR the result
+with the UIN and you'll get the encrypted password. This leaves the two
+byte field at the begining that I don't know how to generate.
+Ok it the password has a length of 7 then the magic number that is added
+to key3 is 0xD0710295 and you don't appear to xor it with anything.  All
+the other steps are the same.  For passwords of length 7 I think I may
+have figured out a way to generate X1 and X2.  To get X1 take the second
+highest byte in Key2 and subtract 20.  To get X2 take the highest byte
+in Key2 and add 0x45 and then XOR with 0x10.  This appear to only be
+true sometimes so I don't know if it's a coinicedence or if there are
+several ways of generating the X1 and X2 fields.
+
+Well anyone else find out anything?
+
+-- Matt
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From sjbain@akamail.com Sat Jun 13 10:35:25 1998
+Date: Mon, 11 May 1998 09:10:08 +1200
+From: Stephen Bain <sjbain@akamail.com>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: RE: [ICQdev] V4 more info
+
+If fields with 98 in them are almost certainly related to version... I was
+using V1.22, and those fields were always 9D, Then I copied the executables
+for 1.07 over my installation (but kept the config), and the fields changed
+to 98.  The last field, version3, appears to be two, two byte fields.  The
+upper is version, the lower appears to be a bitmapped field, specifing
+various options.
+
+	0x10 -- Include me anonymously in the survey
+	0x08 -- Connection via modem
+
+Stephen Bain
+
+> -----Original Message-----
+> From: owner-icq-devel@mail.tjsgroup.com
+> [mailto:owner-icq-devel@mail.tjsgroup.com]On Behalf Of Matt Smith
+> Sent: Monday, 11 May 1998 6:22
+> To: icq-devel@tjsgroup.com
+> Subject: [ICQdev] V4 more info
+>
+>
+> ok some more info on the V4 packet structure.
+> First here's the login packet again.
+>
+> 04 00       Version
+> xx          X1
+> xx          X2
+> xx xx xx xx Key1
+> xx xx xx xx Key2
+> xx xx xx xx UIN encrypted
+> xx xx xx xx Key3
+> xx xx xx xx Timestamp ( seconds since Jan 1 1970 )
+> xx xx 00 00 port for tcp connections
+> xx xx       length of password
+> variable    password + null terminator
+> 98 00 00 00 version?
+> xx xx xx xx IP in network byte order.
+> xx          Flag for direct connects ( = 04 ) or all server comm. ( =06
+> )
+> 00 00 01 00 Status
+> 03 00 00 00 Version2?
+> 00 00 00 00 X3
+> 00 00 98 00 Version3?
+>
+> I think everything starts from key3 which I think is completely random.
+> The exact methods of doing the encryption appears to key off the length
+> of the password. I've only seen dumps from 7 or 8 length passwords so
+> I'm not sure how many different methods there are.
+> Ok passwords of length 8 first:
+> take key3 and add 0x36e56dfc and then XOR the answer with 0x10000 this
+> will give you key2.
+> Key1 is created by XORing key2 with 0x03e90001  This is the command (
+> 3E9 login ) and the SEQ number ( 0001 ).
+> To encrypt the password XOR Key2 with 0x00010001 and the XOR the result
+> with the UIN and you'll get the encrypted password. This leaves the two
+> byte field at the begining that I don't know how to generate.
+> Ok it the password has a length of 7 then the magic number that is added
+> to key3 is 0xD0710295 and you don't appear to xor it with anything.  All
+> the other steps are the same.  For passwords of length 7 I think I may
+> have figured out a way to generate X1 and X2.  To get X1 take the second
+> highest byte in Key2 and subtract 20.  To get X2 take the highest byte
+> in Key2 and add 0x45 and then XOR with 0x10.  This appear to only be
+> true sometimes so I don't know if it's a coinicedence or if there are
+> several ways of generating the X1 and X2 fields.
+>
+> Well anyone else find out anything?
+>
+> -- Matt
+>           =====================================================
+>           The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+>           ICQ Clone Development List
+>
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:35:53 1998
+Date: Mon, 11 May 1998 05:07:13 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: Re: [ICQdev] V4 more info
+
+Stephen Bain wrote:
+> 
+> If fields with 98 in them are almost certainly related to version... I was
+> using V1.22, and those fields were always 9D, Then I copied the executables
+> for 1.07 over my installation (but kept the config), and the fields changed
+
+Ok like I said I think these identify the client at any rate they're not
+included in the encryption scheme which is my main worry still at this
+point.
+
+> to 98.  The last field, version3, appears to be two, two byte fields.  The
+> upper is version, the lower appears to be a bitmapped field, specifing
+> various options.
+> 
+>         0x10 -- Include me anonymously in the survey
+>         0x08 -- Connection via modem
+
+would 0x18 be both if these?
+
+Also I've found that only certain magic numbers work for key3.  I tried
+using a random number and it didn't work so there's still something
+going on that I don't understand.  How does this compare to the numbers
+in the TCP connection?
+
+-- Matt
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:36:18 1998
+Date: Sat, 16 May 1998 03:15:06 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: "icq-devel@tjsgroup.com" <icq-devel@tjsgroup.com>
+Subject: [ICQdev] [Fwd: ICQ version 3 and 4 UDP portion details]
+
+This was sent to me by wumpus@innocent.com
+This looks like it will be a big hel with V4!
+
+-- Matt
+  [ Part 2: "Included Message" ]
+
+Date: Fri, 15 May 1998 17:01:41 -0700
+From: wumpus@innocent.com
+To: mds1281@ritvax.isc.rit.edu
+Subject: ICQ version 3 and 4 UDP portion details
+
+You posted on the ICQ-Devel list (which I saw archived on the web page at
+d95-mih's page, in reference to version 4  of the ICQ protocol.  This 
+information should be enough for you to continue your adventuring with
+the ICQ protocol in more interesting ways then trying to reverse engineer
+their pitiful encryption.  
+
+This comes from some source code to an exploit which will 'hijaak' an ICQ 
+account(and which I am not releasing at the present time. Mirabilis has been
+made aware of these issues and hopefully will fix them in a future protocol
+revision ).   Please repost this information in any and all venues which it
+is appropriate -- I'd hate to see people wasting their time on this stuff...
+On the other hand, I'd appreciate being informed of how you are using
+this, and other things which you find out about the protocol...
+
+Please write back if you find this useful  and tell me if you have any more
+questions about the protocol.
+
+For the record - 
+  I am NOT affiliated with Mirabilis in any way shape or form.
+
+  This code is my own creation, and I am releasing it for informational purposes.
+   
+  If it doesn't work, or if you do something illegal with it and get screwed
+   it is YOUR fault - not mine.
+
+Here goes...  some rather poorly coded C...
+
+/*------------------------------------------------------------------------------
+
+  ICQ "Secret" check data.
+
+  This data is LIKELY to be copyrighted by ICQ.  This data is used with this
+  program under the Fair Use clause of the U.S. Copyright Code.  
+
+  The reason the use of this data falls under the Fair Use clause is that it
+  is _NECESSARY_ for a program to use this data to interact with the ICQ 
+  protocol.  Without this data, a program would not be able to successfully
+  determine if a packet's "checksum" was valid, nor be able to communicate
+  with the ICQ server.
+
+  The reader might choose to draw their own conclusions about a company that
+  needs to not only obscure a their protocol, but make it awkward for 3rd 
+  parties to implement it.
+
+ *----------------------------------------------------------------------------*/
+unsigned char icq_check_data[256] = {
+	0x0a, 0x5b, 0x31, 0x5d, 0x20, 0x59, 0x6f, 0x75, 
+	0x20, 0x63, 0x61, 0x6e, 0x20, 0x6d, 0x6f, 0x64, 
+	0x69, 0x66, 0x79, 0x20, 0x74, 0x68, 0x65, 0x20, 
+	0x73, 0x6f, 0x75, 0x6e, 0x64, 0x73, 0x20, 0x49,
+	0x43, 0x51, 0x20, 0x6d, 0x61, 0x6b, 0x65, 0x73, 
+	0x2e, 0x20, 0x4a, 0x75, 0x73, 0x74, 0x20, 0x73, 
+	0x65, 0x6c, 0x65, 0x63, 0x74, 0x20, 0x22, 0x53, 
+	0x6f, 0x75, 0x6e, 0x64, 0x73, 0x22, 0x20, 0x66, 
+	0x72, 0x6f, 0x6d, 0x20, 0x74, 0x68, 0x65, 0x20,
+	0x22, 0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65,
+	0x6e, 0x63, 0x65, 0x73, 0x2f, 0x6d, 0x69, 0x73,
+	0x63, 0x22, 0x20, 0x69, 0x6e, 0x20, 0x49, 0x43,
+	0x51, 0x20, 0x6f, 0x72, 0x20, 0x66, 0x72, 0x6f,
+	0x6d, 0x20, 0x74, 0x68, 0x65, 0x20, 0x22, 0x53,
+	0x6f, 0x75, 0x6e, 0x64, 0x73, 0x22, 0x20, 0x69,
+	0x6e, 0x20, 0x74, 0x68, 0x65, 0x20, 0x63, 0x6f,
+	0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x20, 0x70, 0x61,
+	0x6e, 0x65, 0x6c, 0x2e, 0x20, 0x43, 0x72, 0x65,
+	0x64, 0x69, 0x74, 0x3a, 0x20, 0x45, 0x72, 0x61,
+	0x6e, 0x0a, 0x5b, 0x32, 0x5d, 0x20, 0x43, 0x61,
+	0x6e, 0x27, 0x74, 0x20, 0x72, 0x65, 0x6d, 0x65,
+	0x6d, 0x62, 0x65, 0x72, 0x20, 0x77, 0x68, 0x61,
+	0x74, 0x20, 0x77, 0x61, 0x73, 0x20, 0x73, 0x61,
+	0x69, 0x64, 0x3f, 0x20, 0x20, 0x44, 0x6f, 0x75,
+	0x62, 0x6c, 0x65, 0x2d, 0x63, 0x6c, 0x69, 0x63,
+	0x6b, 0x20, 0x6f, 0x6e, 0x20, 0x61, 0x20, 0x75,
+	0x73, 0x65, 0x72, 0x20, 0x74, 0x6f, 0x20, 0x67,
+	0x65, 0x74, 0x20, 0x61, 0x20, 0x64, 0x69, 0x61,
+	0x6c, 0x6f, 0x67, 0x20, 0x6f, 0x66, 0x20, 0x61,
+	0x6c, 0x6c, 0x20, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x73, 0x20, 0x73, 0x65, 0x6e, 0x74,
+	0x20, 0x69, 0x6e, 0x63, 0x6f, 0x6d, 0x69, 0x6e };
+
+
+/*
+
+
+                        1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |       4       |      0        |           RANDOM              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |           ZEROS               |           COMMAND             |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |          SEQUENCE             |         SECOND SEQUENCE       |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                              UIN                              |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                             CHECK                             |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+*/
+
+typedef struct icq4_hdr
+{
+        unsigned char version[2] __attribute((packed)); /* 04 00 */
+        unsigned short random __attribute((packed));    /* _why_?? */
+        unsigned short zeros  __attribute((packed));    /* why not...? */
+        unsigned short command __attribute((packed));
+        unsigned short sequence __attribute((packed));
+        unsigned short sequence2 __attribute((packed)); /* 1 isn't enuf! */
+        unsigned long uid __attribute((packed));
+        unsigned long checksum __attribute((packed)); /* pure paranoia! */
+        unsigned char data[0];
+} icq4_hdr;
+                      
+
+#define ICQ4_VER        0
+#define ICQ4_RANDOM     2
+#define ICQ4_ZERO       4
+#define ICQ4_COMMAND    6
+#define ICQ4_SEQ        8
+#define ICQ4_SEQ2       10
+#define ICQ4_UID        12
+#define ICQ4_CHECK      16
+#define ICQ4_END        20
+
+void create_icq4_hdr(
+                u8      * data_ptr,
+                u16     any_number,
+                u16     command,
+                int     data_size
+                 )
+{
+u32     check;
+u32     check2;
+u32     keyvalue;
+int     count;
+int     length;
+int     i;
+u8      ofs;
+u8      val;
+
+length = data_size + ICQ4_END;
+
+memset( data_ptr, 0, ICQ4_END );
+
+word(*data_ptr, ICQ4_VER ) = 0x4;
+word(*data_ptr, ICQ4_RANDOM) = any_number;
+word(*data_ptr, ICQ4_COMMAND ) = command;
+word(*data_ptr, ICQ4_SEQ ) = icq_seq;
+word(*data_ptr, ICQ4_SEQ2 ) = icq_seq2;
+dword(*data_ptr,ICQ4_UID ) = icq_uin;
+dword(*data_ptr,ICQ4_CHECK) = 0x0;
+
+check = ( *(data_ptr + 8) << 24) |
+        ( *(data_ptr + 4) << 16 ) |
+        ( *(data_ptr + 2) << 8 ) |
+        ( *(data_ptr + 6) );
+/*
+printf("First check is %08lx\n", check );
+*/                                          
+
+#if 1
+ofs = random() % length;
+val = *(data_ptr + ofs );
+check2 = ( ofs << 24 ) | ( val << 16 );
+ofs = random() % 256;
+val = icq_check_data[ ofs ];
+check2 |= ( ofs << 8 ) | ( val );
+check2 ^= 0x00FF00FF;
+
+#endif
+#if 0
+check2 = (( 0x04 ) << 24 ) |    /* TODO: make random */
+         ( *(data_ptr + 4) << 16 ) |
+         (( 231 ) << 8 ) |      /* ???? */
+         (( 0x61 ) );
+printf("Second check is %08lx\n", check );
+check2 ^= 0x00FF00FF;
+
+#endif
+check ^= check2;
+
+dword(*data_ptr,ICQ4_CHECK ) = check;
+
+keyvalue = length * 0x66756B65;
+keyvalue += check;
+/*
+printf("Length %d Key is %08lx \n", length, keyvalue );
+*/
+
+count = ( length + 3 ) / 4;
+count += 3;
+count /= 4;
+
+for ( i = 0; i < count ; i++ ) {
+        u32 * r;
+
+        if ( i == 4 )
+                continue;
+
+        r = (u32 *)(data_ptr + (i*4) );
+#if 0
+        printf("Xoring %d %08lx with %08lx to get %08lx (check:%02x)\n",
+                i, *r, keyvalue + icq_check_data[i*4],
+                *r ^ (keyvalue+icq_check_data[i*4] ), icq_check_data[i*4] );
+#endif
+        *r ^= (keyvalue + icq_check_data[i*4] );
+        }
+word(*data_ptr, ICQ4_VER ) = 0x4; /* NECESSARY! */
+}
+                                                     
+
+void    create_icq3_header(     u8 * data_ptr,
+                                int * size,
+                                u16  command,
+                                u16  seq1,
+                                u16  seq2,
+                                u32  UIN )
+{
+        int     len;
+        int     len2;
+        int     err;
+        u32     check;
+        u32     check2;
+        int     ofs;
+        int     val;
+
+        err = WritePacket( data_ptr,&len, "WWWWL",
+                0x03,   /* Version, Constant */
+                command,
+                seq1,
+                seq2,
+                UIN );
+        if ( err == FAILURE ) {
+                printf("Programmer Error in create_icq3_header\n");
+                exit(-1);
+        }
+
+        check = ( *(data_ptr + 8) << 24) |
+                ( *(data_ptr + 4) << 16 ) |
+                ( *(data_ptr + 2) << 8 ) |
+                ( *(data_ptr + 6) );
+        ofs = random() % len;
+        val = *(data_ptr + ofs );
+        check2 = ( ofs << 24 ) |
+                 ( val << 16 );
+        ofs = random() % 256;
+        val = icq_check_data[ ofs ];
+        check2 |= ( ofs << 8 ) |
+                  ( val );
+        check2 ^= 0x00FF00FF;
+        check ^= check2;
+
+        err = WritePacket( (data_ptr + len),&len2,"L",
+                check );
+        *size = len + len2;
+}
+
+                                  
+
+#define ICQ_VER         0
+#define ICQ_CMD         2
+#define ICQ_SEQ         4
+#define ICQ_SEQ2        6
+#define ICQ_UID         8
+#define ICQ_UNKNOWN     12
+#define ICQ_END         16
+
+int decode_icq3_header( u8 * data_ptr,
+                        u16 * command,
+                        u16 * sequence,
+                        u16 * sequence2,
+                        u8 ** icqdata )
+{
+        u16     version;
+        u32     check;
+        u8      ofs;
+        u8      val;
+
+        version = word( *data_ptr, 0 );
+        if ( version != 3 ) {
+                fprintf(stderr,"Unknown version %04lx\n", version );
+                return FAILURE;
+        }
+        check = ( *(data_ptr + 8) << 24) |
+                ( *(data_ptr + 4) << 16 ) |
+                ( *(data_ptr + 2) << 8 ) |
+                ( *(data_ptr + 6) );
+        check ^= dword( *data_ptr, ICQ_UNKNOWN );
+        check ^= 0x00FF00FF;
+        ofs = check >> 24;
+        val = ( check >> 16) & 0xFF;
+        if ( data_ptr[ ofs ] != val ) {
+                printf("**** ICQ3 CHECK MISMATCH %d is %02X not %02X\n",
+                        ofs, data_ptr[ofs], val );
+        }
+        ofs = (check >> 8) & 0xFF;
+        val = check & 0xFF;
+        if ( icq_check_data[ ofs ] != val ) {
+                printf("**** ICQ3 CHECK MISMATCH %d is %02X not %02X\n",
+                        ofs, icq_check_data[ofs], val );
+        }
+        *command = word( *data_ptr, ICQ_CMD );
+        *sequence = word( *data_ptr, ICQ_SEQ );
+        *sequence2 = word( *data_ptr, ICQ_SEQ2 );
+        if ( dword(*data_ptr,ICQ_UID) != icq_uin ) {
+                fprintf(stderr,"Error!  Packet uid %08lx isn't %08lx \n",
+                        dword(*data_ptr, ICQ_UID), icq_uin );
+                return FAILURE;
+        }
+        *icqdata = data_ptr + ICQ_END;
+        return SUCCESS;
+}
+                                           
+
+From hki@hem1.passagen.se Sat Jun 13 10:41:49 1998
+Date: Sun, 07 Jun 1998 13:14:24 +0100
+From: Henrik Isaksson <hki@hem1.passagen.se>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: [ICQdev] 0x20000
+
+Hi again...
+
+ICQ 98a users seem to have an extra bit set in the status, when they are
+online: 0x00020000.
+
+Regards, Henrik
+-- 
+__,,,^..^,,,_____________________________________________________________
+               hki@hem1.passagen.se      http://www.algonet.se/~henisak  
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mule@hcis.net Sat Jun 13 10:42:06 1998
+Date: Sun, 7 Jun 1998 09:30:07 -0000
+From: Todd Neal <mule@hcis.net>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: Re: [ICQdev] Strange packet II
+
+
+-----Original Message-----
+From: Anber Rybar <vile@usmo.com>
+To: icq-devel@tjsgroup.com <icq-devel@tjsgroup.com>
+Date: Sunday, June 07, 1998 5:17 AM
+Subject: Re: [ICQdev] Strange packet II
+
+
+>Thus spake Matt Smith (mds1281@ritvax.isc.rit.edu):
+>> Anber Rybar wrote:
+>> >
+>> > Thus spake Eric Hanson (hanser@wwc.edu):
+>> > > The ICQ 98a for Windows packets have hex value 0x03 in the version
+>> > > section.  Is there a version 3?  I guess they could have started at
+0x00
+>> > > being version 1...
+>> >
+>> > When communicating with a v2 client they shift down to v3 compatiblity.
+>>
+>> Huh?  The V3 was the short lived protocol of early ICQ 98a's most use V4
+>> now and the server still uses V3 for some reason.  V4 seems to be mostly
+>> an encrypted V3 but I haven't looked at V3 very much or even V4 maybe
+>> I'm wrong.
+>
+>Maybe :)  I sniffed packets coming on a TCP link with a guy I was sending
+>messages to who uses ICQ 98a, and they were all v3, but he sent me some
+sniff
+>reports of his server communcations that all spewed out v4.
+
+I use ICQ 98a and got this from the server when I tried to send a msg,
+ICQ98a sent a version 0x04 packet but then I received a 0x03 packet from the
+server
+
+Sent "test"
+0000:   04 00 00 02 03 20 1D 3F   05 20 15 3E A5 C7 0F 00
+0010:   DE 47 F0 08
+
+received
+0000:   03 00 0A 00 06 00 06 00   A5 C7 0F 00 9C 41 FA A5
+
+
+>
+>--
+>[ vile@usmo.com  |  http://www.usmo.com/~vile  |  Ryan T. Barber ]
+>[ "You have reached the edge of within, and it goes on forever." ]
+>          =====================================================
+>          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+>          ICQ Clone Development List
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From wumpus@innocent.com Sat Jun 13 10:43:12 1998
+Date: Sun, 7 Jun 1998 07:30:53 -0700
+From: wumpus@innocent.com
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: Re: [ICQdev] Strange packet II
+
+Quoting Todd Neal:
+> 
+> -----Original Message-----
+> From: Anber Rybar <vile@usmo.com>
+> To: icq-devel@tjsgroup.com <icq-devel@tjsgroup.com>
+> Date: Sunday, June 07, 1998 5:17 AM
+> Subject: Re: [ICQdev] Strange packet II
+> 
+> 
+> >Thus spake Matt Smith (mds1281@ritvax.isc.rit.edu):
+> >> Anber Rybar wrote:
+> >> >
+> >> > Thus spake Eric Hanson (hanser@wwc.edu):
+> >> > > The ICQ 98a for Windows packets have hex value 0x03 in the version
+> >> > > section.  Is there a version 3?  I guess they could have started at
+> 0x00
+> >> > > being version 1...
+> >> >
+> >> > When communicating with a v2 client they shift down to v3 compatiblity.
+> >>
+> >> Huh?  The V3 was the short lived protocol of early ICQ 98a's most use V4
+> >> now and the server still uses V3 for some reason.  V4 seems to be mostly
+> >> an encrypted V3 but I haven't looked at V3 very much or even V4 maybe
+> >> I'm wrong.
+> >
+> >Maybe :)  I sniffed packets coming on a TCP link with a guy I was sending
+> >messages to who uses ICQ 98a, and they were all v3, but he sent me some
+> sniff
+> >reports of his server communcations that all spewed out v4.
+> 
+> I use ICQ 98a and got this from the server when I tried to send a msg,
+> ICQ98a sent a version 0x04 packet but then I received a 0x03 packet from the
+> server
+> 
+> Sent "test"
+> 0000:   04 00 00 02 03 20 1D 3F   05 20 15 3E A5 C7 0F 00
+> 0010:   DE 47 F0 08
+> 
+> received
+> 0000:   03 00 0A 00 06 00 06 00   A5 C7 0F 00 9C 41 FA A5
+
+With the later version of ICQ 98a (DLL 1.22 at least, and the current 
+1.26), you will see this exact behavior.  The client will send packets of
+v4 (which I posted code previously on this list to encode version 4 packets)
+and receive packets of version 3.  While I don't feel like trying to decode
+what your packet does.. the version 3 packet looks like an acknowledgement
+for sequence 6 / 6.  
+
+Basically, the version 3 has the following format:
+
+	<version>  - you knew this
+	<command>  - and this too
+	<sequence 1> 
+	<sequence 2> -- This is only incremented for _some_ packets 
+	<UIN>	
+	<Check>
+
+The <check> is sort of stupid, because it doesn't cover the whole packet. 
+For V4, it's how the server figures how the client 'obfuscated' the packet --
+it's not real encryption by ANY stretch of the imagination.  
+
+The check consists off..
+(all these are msb->lsb) 
+
+First, in a 32 bit integer pack the following 4 bytes :
+
+  +------------+------------+------------+------------+
+  |            |            |            |            | 
+  | byte #8    | byte #4    | byte #2    | byte #6    | 
+  |            |            |            |            | 
+  +------------+------------+------------+------------+
+
+
+Now, in another 32 bit integer, you will pack:
+  +------------+------------+------------+------------+
+  | 8 bit ofset|the byte at |8 bit offset|the byte at | 
+  | into packet|that offset |into "magic"|that offset | 
+  |            |(inverted)  |data        |(inverted)  | 
+  +------------+------------+------------+------------+
+
+XOR these two values together, and you have your check word, store it in Intel
+byte order.
+
+
+This is very obvious when watching a number of acknowledge packets...  or with
+the older version that sent out version 3 packets. 
+
+   
+
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:44:57 1998
+Date: Thu, 11 Jun 1998 00:09:24 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: "icq-devel@tjsgroup.com" <icq-devel@tjsgroup.com>
+Subject: [ICQdev] V4 [Long]
+
+Alright this is pretty much straight from the code that was posted
+earlier but either alot of people weren't on the list then or no one
+reads C code for fun :)
+I hope to add V4 to Micq but am kinda busy right now so if some one
+sends me a patch that'd be cool. :)
+
+The V4 header looks like: ( before encryption )
+04 00       version
+xx xx       random
+00 00       zeros
+xx xx       command
+xx xx       SEQ 1
+xx xx       SEQ 2
+xx xx xx xx UIN
+xx xx xx xx checksum
+
+I use the login packet as an example below I assume all the other
+packets work 90% the same.
+
+The V4 login packet looks like
+
+04 00        Packet version
+xx xx        random
+00 00        zeros :)
+xx xx        command E8 03
+xx xx        SEQ 1 = 00 00
+xx xx        SEQ 2 = 00 00
+xx xx xx xx  UIN
+xx xx xx xx  Checksum
+xx xx xx xx  Seconds since 1-1-1970 ( also know as time( NULL ); )
+xx xx        Port for TCP connections
+00 00        Mirabilis thinks ports are 32-bit :)
+xx xx        length of password including the NULL
+var.         Password with null terminator.
+98 00 00 00  Version?  changes from client to client I think.
+xx xx xx xx  IP address in network byte order
+xx           Flag that allows peer-to-peer mode (04=peer-to-peer
+06=serveronly)
+xx xx xx xx  Status
+03 00 00 00  Version?
+00 00 00 00  ??
+00 00 98 00  Version?
+
+And of course there's the encryption.
+To generate the checksum do this:
+ highest byte is the low byte of seq1
+ next highest byte is low byte of zeros ( always zero I guess )
+ next highedt byte is low byte of random
+ lowest byte is low order byte od the command
+call this value check A
+then pick a random number less than the total packet length this is the
+high byte of the second check value.  Index into the packet that many
+bytes and that byte value is the second highest byte in check B.
+Then pick another random number less then 256 ( 8-bits) and look it up
+in the table that's in the code.  The lowest two bytes are the offset
+into the table and the value retreived from it.
+XOR check B with 0x00FF00FF and then
+XOR check A and B together.
+this is the checksum finally.
+
+Now the encryption only takes place on the first 1/4 of the packet
+rounded up so take the length and add 3 and then divide by 4 this is the
+number of bytes to encrypt.  The key for encryption is calculated by
+multipling the length of the packet by 0x66756b65 and adding it to the
+checksum.
+This key is then xored with the DWORDS in the packet but before it is
+further obscured by adding the value from the table for whatever byte
+you're starting the encryption at.
+
+I assume you're confused so I'll give an example:
+the pakcet I posted awhile ago.
+unencrypted : 
+04 00  
+20 00
+00 00 E8 03
+01 00 01 00
+1C 46 AC 00
+xx xx xx xx
+d4 7a 39 35
+06 f4 00 00
+08 00
+76 6f 72 6c 6f 6e 73 00
+98 00 00 00
+81 15 73 9e
+04
+00 00 00 00
+03 00 00 00
+00 00 00 00
+00 00 98 00
+The length is 63d=0x3f
+Check A is 0x010020E8
+the 0x22 byte is 0x6f
+then 0x14 entry in the table is 0x74
+Check B is 0x226f1474
+check B is then XORed with 0x00ff00ff
+then xor A and B
+Checksum = 0x23903463
+then length * 0x66756B65 = 0x36E56DDB
+So the key is 5A75A23E
+We xor the first dword 0x00200004 with 0x5a75a248 (added 0x0a) we get
+0x5A55004 since we need to keep the 04 00 verion intact.
+Then we xor 0x03E80000 with 0x5a75a25e ( added 0x20 4th entry) and we
+get
+0x599DA25E
+etc.
+we encode 0x3f + 3 / 4 bytes rounded up to the a whole DWORD this is 4
+DWORDS.
+if we needed to encode more we'd have to skip the checksum since without
+it the server couldn't decode the packet.  
+
+and we get a final packet of:
+04 00  
+55 5A
+5e A2 9d 59
+5f a2 74 5a
+42 e4 d9 5a
+63 34 90 23
+d4 7a 39 35
+06 f4 00 00
+08 00
+76 6f 72 6c 6f 6e 73 00
+98 00 00 00
+81 15 73 9e
+04
+00 00 00 00
+03 00 00 00
+00 00 00 00
+00 00 98 00
+
+-- Matt
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List
+From mds1281@ritvax.isc.rit.edu Sat Jun 13 10:47:46 1998
+Date: Sat, 13 Jun 1998 03:18:39 +0000
+From: Matt Smith <mds1281@ritvax.isc.rit.edu>
+Reply-To: icq-devel@tjsgroup.com
+To: icq-devel@tjsgroup.com
+Subject: Re: [ICQdev] V4 Login Packet
+
+Todd Neal wrote:
+> 
+> here is a login packet I got, if the zeros are actually zeros as the v4
+> specification so far says then that should be the first 2 bytes of the check
+> sum 14 F3, the sequence number should be 01 00 xor's with 14 F3 you get 15
+> F3 witch is what it is, but it says the checksum is 7E F0 FF 39
+> 
+> 14  f3  63  0a is what I think the actual checksum is, I may be wrong
+
+I get 6F instead of 63 but you forgot to multiply the packet length by
+0x66756B65 and add the checksum.  The key is not stored in the packet as
+such.
+The packet length ( based on the key and checksum) is 0x3E.
+0x3e * 0x66756B65 = 0xD0700276  ( with clipping the high part off )
+0xD0700276 + 0x39FFF07E(checksum) = 0x0A6FF2F4 ( again with clipping )
+then we add 0x20 ( offset 0x04 in the table ) and get 0x0A6FF314 for the
+key on the second DWORD.
+I'll decrypt the packet below to help you understand.
+> 
+> 04 00 Version
+> 0E 0E Random
+61 04
+> 14 F3 Zero's
+00 00
+> 87 09 Command
+E8 03
+> 15 F3 Seq1
+01 00
+> 6E 0A Seq2
+01 00
+> C0 36 BC 0A UIN
+D4 C5 B3 00 = 11781588
+
+> 7E F0 FF 39 Checksum
+
+And to get this checksum we took 0x010061E8 and 0x38009169.
+the 0x39 byte in the packet is 00.
+the 0x91 byte in the table is 0x69.
+0x38009169 XOR 0x00FF00FF = 0x38FF9196
+0x38FF9196 XOR 0x010061E8 = 0x39FFF07E = checksum
+
+And the rest is unwrinkled.
+
+Hope this helps.
+
+-- Matt
+          =====================================================
+          The "unoffical, not-sponsored-by-Mirabilis-one-bit"
+          ICQ Clone Development List

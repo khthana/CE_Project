@@ -1,0 +1,360 @@
+//#define
+12
+1297
+//#include
+1324
+938
+//#no_optimize_primitives
+2292
+443
+//#optimize_primitives
+2762
+3477
+//#protect
+6254
+1392
+//?
+7653
+2027
+//Access multi-media extensions
+9715
+950
+//address
+10678
+2829
+//adjust_drag_rect
+13529
+5120
+//Alphabetic Listing of Functions
+18686
+4983
+//and
+23678
+1493
+//Append values to a list
+25200
+432
+//apply
+25643
+1483
+//arith
+27137
+2265
+//ask
+29411
+3460
+//attach_icon
+32888
+1191
+//auto_hyper_off
+34099
+663
+//auto_hyper_on
+34781
+761
+//Background Color
+35564
+341
+//bitmap
+35917
+3710
+//bitmap_info
+39644
+813
+//bitmap_to_clipboard
+40482
+693
+//Booleans, Rules and Arithmetic
+41211
+739
+//Browse
+41962
+402
+//Build an expert system
+42392
+1844
+//button
+44248
+2523
+//button2
+46784
+2548
+//call
+49342
+4213
+//Call a Dynamic Link Library DLL
+53592
+1145
+//Call topics by name
+54762
+562
+//Call Windows API functions
+55356
+1172
+//calling_topic
+56547
+1360
+//Cancel events
+57926
+588
+//capture_hyper_region
+58540
+920
+//Center a window
+59481
+480
+//Center text in a window
+59990
+867
+//chain
+60868
+1862
+//Change fonts within a text string
+62769
+780
+//Change the hypertext cursor
+63582
+278
+//Change the mouse cursor
+63889
+969
+//change_directory
+64880
+1404
+//Changing the Default Setup
+66316
+808
+//Changing the Properties of an Object
+67166
+164
+//char_to_number
+67350
+550
+//Check for other KPWIN applications
+67940
+1693
+//check_box
+69648
+2070
+//check_menu_item
+71739
+958
+//child_windows
+72716
+894
+//children
+73624
+858
+//Choose a screen object
+74510
+877
+//Choose an appropriate window style
+75427
+1280
+//Choose one or more listed items
+76744
+2103
+//class
+78858
+1319
+//clear
+80188
+423
+//close
+80622
+1067
+//close_all
+81704
+830
+//close_window
+82552
+712
+//collect
+83277
+226
+//collect_not_ok
+83523
+337
+//collect_ok
+83876
+211
+//Color
+84098
+418
+//combine
+84529
+892
+//Combine bitmap images
+85448
+1232
+//combo_box
+86695
+3394
+//Commands for Controlling Text Display
+90132
+926
+//compare
+91071
+3526
+//compile_string
+94617
+1221
+//Compiler Directives
+95863
+252
+//concat
+96127
+1032
+//continue
+97173
+969
+//Conversion between Lists and Strings
+98184
+328
+//Converting from KnowledgePro (DOS) ver. 1.X
+98561
+2585
+//Copy highlighted text to the clipboard
+101190
+162
+//Create graphic buttons
+101380
+1734
+//Create Objects
+103134
+654
+//create_bitmap
+103807
+2866
+//create_char_font
+106695
+3826
+//create_font
+110538
+2936
+//create_topic
+113492
+521
+//current_directory
+114036
+421
+//Customize the KnowledgePro environment
+114501
+2667
+//date
+117178
+453
+//dde
+117640
+2953
+//dde_advise
+120609
+2710
+//dde_close
+123334
+468
+//dde_execute
+123819
+1027
+//dde_off
+124859
+328
+//dde_open
+125201
+1886
+//dde_request
+127104
+1409
+//dde_unadvise
+128531
+1274
+//dde_write
+129820
+1678
+//debug
+131509
+296
+//Debug a program
+131826
+2902
+//Debugging
+134743
+304
+//Define an event topic
+135074
+886
+//Define object classes and sub-classes
+136003
+2185
+//Define object instances
+138217
+539
+//delay
+138767
+959
+//delete_bitmap
+139745
+1175
+//delete_file
+140937
+312
+//delete_font
+141266
+538
+//delete_hyper_region
+141829
+1055
+//delete_icon
+142901
+1102
+//delete_mouse_cursor
+144028
+628
+//delete_selected_text
+144682
+699
+//Description of Events
+145408
+821
+//Creating an Object
+146253
+683
+//Design
+146948
+1090
+//Defining Event Topics
+148065
+1096
+//Delete and Copy Objects
+149190
+305
+//Development Environment
+149524
+3658
+//different
+153197
+651
+//dir
+153857
+1338
+//disable_draw
+155213
+717
+//disable_menu_item
+155953
+849
+//disable_window
+156822
+912
+//do
+157742
+2052
+//do_local
+159808
+1450
+//drag_rect
+161273
+2601
+//Dynamic Data Exchange
+163901
+2180

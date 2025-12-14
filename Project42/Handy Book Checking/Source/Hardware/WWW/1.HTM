@@ -1,0 +1,164 @@
+
+<HTML>
+<HEAD>
+<TITLE>PC Keyboards...</TITLE>
+<LINK rel="owner" href="mailto:">
+
+</HEAD>
+<BODY>
+<NOBR>
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=next-in-thread" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/in.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next-in-Thread"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=nextResponse" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/next.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next Message"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=prevResponse" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/prev.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Previous Message"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=nextThread" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/out.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next Thread"></A>
+
+</NOBR><BR><H2><IMG src="http://www.gernsback.com/hn/Icons/feedback.gif" ALT="Feedback:"
+  ALIGN="bottom">
+PC Keyboards...</H2>
+
+<DL> <DD>
+<NOBR>
+<font size=+1><I>Base:</I> <A HREF="http://www.gernsback.com/HyperNews/get/forums/ElectronicBench.html" >
+ Electronic Bench</A> </font><BR> 
+<I>Re</I>: 
+  <IMG SRC="http://www.gernsback.com/hn/Icons/question.gif" 
+   ALT="Question" ALIGN="absmiddle">
+  <A HREF="http://www.gernsback.com/HyperNews/get/forums/ElectronicBench/882.html" >
+   PC keyboard interface - signals timing</A>  (Zdenku)<BR>
+<I>Keywords:</I> PC keybord interface, timming, coding <BR>
+<I>Date:</I> Wed, 20 Jan 1999 03:37:31 GMT <BR>
+<I>From:</I> <I>unknown</I>  <BR>
+
+</NOBR>
+</DD> </DL>
+<table border cellpadding=5 cellspacing=0 width="100%"><tr>
+<td>
+<P>...are interesting animals.
+</P>
+
+<P>Using only 4 pins of the 5-pin connector, plus a built-in microcontroller, you have an intelligent keyboard capable of many things.
+</P>
+
+<P>The keyboard connector signal definition can be found in any PC reference book.  However, here's the pinout for the "standard" keyboard connector, looking INTO THE PLUG:
+</P>
+
+<P>
+<PRE>     1       3
+      4     5
+         2
+</PRE>
+</P>
+
+<P>
+<PRE> 1 - Keyboard clock
+ 2 - Data (bi-directional line)
+ 3 - Reset (active low)
+ 4 - GND
+ 5 - +5V
+</PRE>
+</P>
+
+<P>I don't know what the PS/2 connector pinout is, offhand.
+</P>
+
+<P>As for the keycodes: the keyboard generates "scan codes" which the keyboard microcontroller sends to the computer's motherboard decoder microcontroller.  These "scan codes" DO NOT DIRECTLY "translate" into ASCII character codes - the decoder translates those codes into the appropriate ASCII character code, representing the key pressed.
+</P>
+
+<P>The FUNCTION keys are a special case: they generate TWO scan codes which the decoder translates into the appropriate key.  Similar for the SHIFT, CTRL, ALT, editing (i.e Page Up, Insert) and "cursor" (keypad) keys.
+</P>
+
+<P>I remember the magazine Circuit Cellar INK had an EXCELLENT series of articles on the keyboard a number of years ago.  Visit "www.circuitcellar.com" and see if they have that information online.
+</P>
+
+<P>As for "coding", you can DIRECTLY access the keyboard via PC BIOS routines (INT 16h services).  Assuming you're using a PC architecture machine, you can get lots of "programming guides" for dealing with BIOS and DOS services for accessing the keyboard.  If you're trying to write a "custom driver" for another application, you need to get the Circuit Cellar INK back issues (I don't have that info handy...sorry).
+</P>
+
+<P>That's all I can personally "enlighten" you with, other than to check out Peter Norton's "INside the IBM-PC and PS/2" (or similar volume).
+</P>
+
+<P>Ken
+</P>
+
+</td>
+</tr></table>
+<P><NOBR>
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=next-in-thread" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/in.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next-in-Thread"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=nextResponse" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/next.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next Message"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=prevResponse" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/prev.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Previous Message"></A>
+
+<A HREF="http://www.gernsback.com/HyperNews/thread.pl/forums/ElectronicBench/882/1.html?dir=nextThread" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/out.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Next Thread"></A>
+
+</NOBR><BR><P><B><A NAME="Responses">No Messages</A></B> <P>
+
+<FORM ACTION="http://www.gernsback.com/HyperNews/edit-response.pl/forums/ElectronicBench/882/1.html"
+  METHOD="POST" >
+<INPUT TYPE="hidden" NAME="bug" VALUE="workaround">
+
+<INPUT TYPE="image" NAME="add" SRC="http://www.gernsback.com/hn/Icons/add.gif" 
+ BORDER=0 ALT="Add Message">
+ to: 
+<NOBR>"<STRONG>PC Keyboards...</STRONG>"</NOBR> 
+
+
+
+</FORM>
+
+
+
+  
+
+<A HREF="http://www.gernsback.com/HyperNews/edit-subscribe.pl/forums/ElectronicBench/882/1.html" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/subscrib.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Subscribe"></A>
+<A HREF="http://www.gernsback.com/HyperNews/SECURED/edit-member.pl" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/members.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Membership"></A>
+<A HREF="http://www.gernsback.com/HyperNews/SECURED/admin-responses.pl/forums/ElectronicBench/882/1.html" > 
+<IMG SRC="http://www.gernsback.com/hn/Icons/move.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Copy/Move/Remove"></A>
+<A HREF="http://www.gernsback.com/HyperNews/get/forums/ElectronicBench/882/1.html?admin" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/admin.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Admin Mode"></A>
+<A HREF="http://www.gernsback.com/hn/instructions.html#Reading" >
+<IMG SRC="http://www.gernsback.com/hn/Icons/help.gif" WIDTH=60 HEIGHT=17 BORDER=0 
+ ALT="Help for HyperNews 1.9"></A><BR> 
+HTTP/1.1 200 OK
+Date: Wed, 16 Jun 1999 14:48:40 GMT
+Server: Apache/1.2.6 FrontPage/3.0.4
+Connection: close
+Content-Type: text/html
+
+<TABLE CELLSPACING=0 CELLPADDING=0 WIDTH=600>
+  <TR VALIGN=Top COLSPAN=4>
+    <TD WIDTH=22>
+      <IMG SRC="http://www.gernsback.com/hn/graphics/blank.GIF" WIDTH="22" HEIGHT="1" BORDER="0">
+    </TD>
+    <TD ALIGN="Center" WIDTH=578>
+<BR><BR>
+      <A HREF="http://www.poptronix.com"><IMAGE SRC="http://www.gernsback.com/hn/graphics/PopBanner.GIF" WIDTH="234" HEIGHT="60" BORDER="0" ALT="Poptronix Online - Just Plug It In!"></A>
+<BR><BR>
+</TABLE>
+ 
+</BODY>
+</HTML>

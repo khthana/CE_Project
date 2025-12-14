@@ -1,0 +1,104 @@
+Copy and Paste version of code
+'**************************************
+' Name: Misc File Stuff
+' Description:This will show you how to 
+'     delete and create directories. It also w
+'     ill show you how to delete, copy, move, 
+'     and execute files for all of you who wan
+'     t to replace the file manager :P
+' By: InfraRed
+'
+'
+' Inputs:None
+'
+' Returns:None
+'
+'Assumes:None
+'
+'Side Effects:None
+'
+'Warranty:
+'Code provided by Planet Source Code(tm)
+'     (http://www.Planet-Source-Code.com) 'as 
+'     is', without warranties as to performanc
+'     e, fitness, merchantability,and any othe
+'     r warranty (whether expressed or implied
+'     ).
+'Terms of Agreement:
+'By using this source code, you agree to
+'     the following terms...
+' 1) You may use this source code in per
+'     sonal projects and may compile it into a
+'     n .exe/.dll/.ocx and distribute it in bi
+'     nary format freely and with no charge.
+' 2) You MAY NOT redistribute this sourc
+'     e code (for example to a web site) witho
+'     ut written permission from the original 
+'     author.Failure to do so is a violation o
+'     f copyright laws.
+' 3) You may link to this code from anot
+'     her website, provided it is not wrapped 
+'     in a frame.
+' 4) The author of this code may have re
+'     tained certain additional copyright righ
+'     ts.If so, this is indicated in the autho
+'     r's description.
+'**************************************
+
+
+
+Public Sub MakeDir(DirPath As String)
+    'Make a directory
+    On Error Resume Next
+    MkDir DirPath$
+End Sub
+
+
+Public Sub DeleteDir(DirPath As String)
+    'Delete a directory
+    On Error Resume Next
+    RmDir DirPath$
+End Sub
+
+
+Public Sub DelFilesInDir(DirPath As String, DelDir As Boolean)
+    'Delete all files in a directory and (op
+    '     tional) delete the directory too
+    On Error Resume Next
+    Kill DirPath$ & "*.*"
+
+
+    If DelDir = True Then
+        RmDir DirPath$
+    End If
+End Sub
+
+
+Public Sub MoveFile(StartPath As String, EndPath As String)
+    'Move a file
+    On Error Resume Next
+    FileCopy StartPath$, EndPath$
+    Kill StartPath$
+End Sub
+
+
+Public Sub CopyFile(StartPath As String, EndPath As String)
+    'Copy a file
+    On Error Resume Next
+    FileCopy StartPath$, EndPath$
+End Sub
+
+
+Public Sub DeleteFile(FilePath As String)
+    'Delete a file
+    On Error Resume Next
+    Kill FilePath$
+End Sub
+
+
+Public Sub ExecuteFile(FilePath As String)
+    'Execute a file
+    On Error Resume Next
+    ret = Shell("rundll32.exe url.dll,FileProtocolHandler " & (FilePath))
+End Sub
+

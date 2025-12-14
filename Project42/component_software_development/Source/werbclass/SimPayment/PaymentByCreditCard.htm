@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>Payment process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" height="467">
+  <tr bgcolor="#ccffcc"> 
+    <td height="67"> 
+      <div align="center"><font face="MS Sans Serif" size="-1"><strong><font color="#6666ff" size="5">Payment by credit 
+            card</font></strong></font></div>
+    </td>
+  </tr>
+  <tr bgcolor="#ffffff"> 
+    <td height="15"> 
+      <hr>
+ 
+    </td>
+  </tr>
+  <tr bgcolor="#ffffcc" valign="top"> 
+    <td height="305"> 
+      <div align="center"> 
+        <table width="100%" border="0" height="182">
+          <tr> 
+            <td width="75%" height="258" valign="top" align="middle"> 
+              <form method="post" action="Payment.ASP?WCI=CreditCard&amp;WCE=formAddCreditCard&amp;WCU" 
+                        name="formAddCreditCard">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="100%" colspan="3">
+                      <div align="center">
+                        <h3><font face="MS Sans Serif" color="#cc6600">Add 
+                                new credit card</font></h3>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%">&nbsp;</td>
+                    <td width="45%">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="22%"><font face="MS Sans Serif"></font></td>
+                    <td width="33%"><b><font face="MS Sans Serif" color="#003399">Credit 
+                                card of</font></b></td>
+                    <td width="45%"> <b><font face="MS Sans Serif" color="#003399"> 
+                      <select name="lstCardname">
+                        <option value="mastercard" selected>Master card
+                        <option value="visacard">Visa card
+                        <option value="americanexpress">American 
+                                Express
+                      </select>
+ 
+                      </font></b></td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"><b><font face="MS Sans Serif" color="#003399">Credit 
+                                card number </font></b></td>
+                    <td width="45%"> <b><font face="MS Sans Serif" color="#003399"> 
+                      <input name="txtCreditCardNumber" >
+                      </font></b></td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"><font face="MS Sans Serif"><b><font color="#003399">Expire 
+                                Date</font></b></font></td>
+                    <td width="45%"> 
+                      <select name="CMON">
+                        <option value="1" 
+                          selected>January
+                        <option value="2" >February
+                        <option value="3" >March
+                        <option value="4" >April
+                        <option value="5" >May
+                        <option value="6" >June
+                        <option value="7" >July
+                        <option value="8" >August
+                        <option value="9" >September
+                        <option value="10" >October
+                        <option value="11" >November
+                        <option value="12" >December
+                      </select>
+                      <select name="CYEAR">
+                        <option value="2000" selected>2000
+                        <option value="2001" >2001
+                        <option value="2002" >2002
+                        <option value="2003" >2003
+                        <option value="2004" >2004
+                        <option value="2005" >2005
+                        <option value="2006" >2006
+                        <option value="2007" >2007
+                        <option value="2008" >2008
+                        <option value="2009" >2009
+                        <option value="2010" >2010
+                        <option value="2011" >2011
+                        <option value="2012" >2012
+                        <option value="2013" >2013
+                        <option value="2014" >2014
+                        <option value="2015" >2015
+                        <option value="2016" >2016
+                        <option value="2017" >2017
+                        <option value="2018" >2018
+                        <option value="2019" >2019
+                        <option value="2020" >2020
+                      </select>
+ 
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"> 
+                      <div align="right"> </div>
+                    </td>
+                    <td width="45%">&nbsp; </td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"> 
+                      <div align="right"> 
+                        <input type="submit" name="btnAddCreditCard" value="Add credit card"> 
+ 
+                      </div>
+                    </td>
+                    <td width="45%"> 
+                      <input type="reset" name="btnClear" value="Clear all field"> 
+ 
+                    </td>
+                  </tr>
+                </table>
+                </form>
+              <form method="post" action="Payment.ASP?WCI=CreditCard&amp;WCE=formPayment&amp;WCU" 
+                        name="formPayment">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%">&nbsp;</td>
+                    <td width="45%">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="100%" colspan="3"> 
+                      <div align="center">
+                        <h3><font face="MS Sans Serif" color="#cc6600">Payment process</font></h3>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%">&nbsp;</td>
+                    <td width="45%">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"><b><font face="MS Sans Serif" color="#003399">Billing ID </font></b></td>
+                    <td width="45%"> <b><font face="MS Sans Serif" color="#003399"> 
+                      <input name="txtBillingID" > 
+ 
+                      </font></b></td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%">&nbsp;</td>
+                    <td width="45%">&nbsp;</td>
+                  </tr>
+                  <tr> 
+                    <td width="22%">&nbsp;</td>
+                    <td width="33%"> 
+                      <div align="right"> 
+                        <input type="submit" name="btnPaymentProcess" value="Payment process"> 
+ 
+                      </div>
+                    </td>
+                    <td width="45%"> 
+                      <input type="submit" name="Submit2" value="Clear all field"> 
+ 
+                    </td>
+                  </tr>
+                </table>              
+              </form>
+              <p>&nbsp;</p>
+              
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

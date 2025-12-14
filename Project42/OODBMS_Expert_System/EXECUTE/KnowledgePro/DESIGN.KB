@@ -1,0 +1,30 @@
+(* ========================= DESIGN.KB =================================
+
+   The KnowledgePro Interactive Screen Design Tool
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   This main design module loads all of the support knowledge bases.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+  ====================================================================== *)
+load ( [ 'desevent.hkb', 'destools.hkb', 'desfont.hkb', 'desobj1.hkb', 
+           'desobj2.hkb', 'desobj3.hkb', 'desobj4.hkb' ] ).
+setup ( ).
+InitialScreen ( 'desdef.tpx' ).
+CreateToolsWin ( ).
+set_focus ( ?ref:wTools ).

@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>SimpleMail 2.0 - User Manual</title>
+</head>
+
+<body stylesrc="../_private/stdcolors.htm">
+
+<div align="center"><center>
+
+<table border="0" width="450">
+  <tr>
+    <td><p align="center"><font face="Arial"><b>SimpleMail<br>
+    User Manual</b></font></p>
+      <p align="center"><font face="Arial">Version 2.01<br>
+      <font size="2">Documentation Version 2.01</font></font></p>
+    <h2><font face="Arial">Welcome</font></h2>
+    <p><font face="Arial">Welcome to SimpleMail 2.01 from Adiscon GmbH.</font></p>
+    <p><font face="Arial">This ActiveX control empowers your applications as well as your ASP
+    pages to send simple Internet mail messages. Simple mail strictly conforms to the original
+    SMTP standard (RFC821/822). It does not support enhanced features like attachments, MIME or multiple
+    character sets. However, it offers high performance, ease of use and a very competitive
+    low price. SimpleMail was created for our own internal use and is used intensive inside
+    our own ASP applications. It was developed based on real world need and we hope, you'll
+    find it useful as well.</font></p>
+    <p><font face="Arial">This documentation covers the version 2.01. Any comments are
+    appreciated at <a href="mailto:Info@Adiscon.com">&quot;Info@Adiscon.com&quot;</a>.</font></p>
+    <p><font face="Arial">Product updates as well as important announcements can be found at
+    &quot;<a href="http://www.Adiscon.com">http://www.Adiscon.com/SimpleMail</a>&quot; (if
+    that URL ever changes, please try <a href="http://www.Adiscon.com">http://www.Adiscon.com</a>).</font></p>
+    <h3><font face="Arial">Year 2000 Compatibility</font></h3>
+      <p><font face="Arial">SimpleMail 2.0 is fully year 2000 compliant.
+      SimpleMail only uses dates to generate the &quot;send&quot; header, which
+      records when the message has been send. The original SMTP RFC requests
+      this header to be written with 2 digit years. Newer implementation allow 4
+      digit years. As such, SimpleMail writes 4 digit years since version 1.5.
+      Users of SimpleMail 1.1, 1.2, 1.3 and 1.4 need to upgrade to 1.6 in order to be
+      fully compliant. Otherwise, 2 digit years will be written. These should be
+      correctly interpreted by most systems, but we recommend the upgrade to the
+      most recent version (which is free of charge for registered users).
+      SimpleMail 1.0&nbsp; are also fully compliant as they don't write an
+      &quot;send&quot; header and as such have no date-related coding.</font></p>
+    <h2><font face="Arial">Installation</font></h2>
+    <p><font face="Arial">SimpleMail is high performing tool using only minimal system
+    resources. It also doesn&#146;t require an extended installation process.</font></p>
+    <h4><font face="Arial">System Requirements</font></h4>
+    <p><font face="Arial">SimpleMail is developed under Windows NT 4.0 and
+    Windows 2000. Although not
+    extensively tested under NT 3.5 or Windows 95, we do not see any reason why it
+    shouldn&#146;t perform well in this environment.</font></p>
+    <p><font face="Arial">There is one needed prerequisite in your system software: you need
+    to have an Windows Sockets 1.1 (and above) compatible IP stack installed. This will be the
+    IP stack included with NT in most cases. However, feel free to use any other stack as long
+    as it corresponds to the socket specification.</font></p>
+      <p><font face="Arial">The freely downloadble version is available for Intel X86 platforms
+    only. Versions for the DEC Alpha platfrom are available to registered users free of
+      charge. Please allow up to 4 days for delivery of the ALPHA version. Due
+      to low demand, we have stopped compiling the ALPHA builds without request.
+      So we will create a version as soon as the first customer asks for it.
+      This is why we need a sligth delay. Version 1.6 is instantly available for
+      ALPHA and will be sent prior to the current version.</font></p>
+    <h4><font face="Arial">The Installation Process</font></h4>
+    <p><font face="Arial">Actual installation is very straightforward</font><ol>
+      <li><font face="Arial">unzip the install set (ISimpMail.zip) to any directory you like. Make
+        sure this directory is on a drive local to the system the controls shall be running on.</font></li>
+      <li><font face="Arial">run &quot;install.bat&quot;; this registers the SimpleMail ActiveX
+        control into your system registry</font></li>
+    </ol>
+    <p><font face="Arial">After finishing this simple steps, SimpleMail is set up and ready to
+    run.</font></p>
+    <p><font face="Arial">Please be sure to unzip the install set using a Win32 version of
+    PKUNZIP or WinZip (available at <a href="http://www.pkware.com">http://www.pkware.com</a> or <a href="http://www.winzip.com">http://www.winzip.com</a>). The install set contains files
+    with long names. If you use a non-Win32 version, this names will be lost and install.bat
+    will fail. Also be sure not to move the .dll to any other directory. This will cause the
+    ActiveX control to fail. If you need to change directories, uninstall SimpleMail first and
+    re-install it from the new directory.</font></p>
+    <h3><font face="Arial">Uninstallation</font></h3>
+    <p><font face="Arial">This is also very straightforward. Just 2 steps:</font><ul>
+      <li><font face="Arial">run &quot;uninstall.bat&quot; from the directory where SimpleMail.exe
+        is installed</font></li>
+      <li><font face="Arial">delete the files</font></li>
+    </ul>
+    <p><font face="Arial">SimpleMail does not write to the registry. So there is no need to
+    clean up things there.</font></p>
+    <h3><font face="Arial">Usage </font></h3>
+    <p><font face="Arial">SimpleMail needs no further customization - it can be used right
+    after installation. SimpleMail is a standard ActiveX control. It can be called from any
+    ActiveX compatible container application, most notable the IIS' ASP processor as well as
+    Visual Basic (VB).</font></p>
+    <p><font face="Arial">Use it as follows:</font><ol>
+      <li><font face="Arial">Instanciate the control (e. g. with CreateObject)</font></li>
+      <li><font face="Arial">fill in the correct property values</font></li>
+      <li><font face="Arial">call the SendEx method&nbsp;</font></li>
+      <li><font face="Arial">you can re-specify properties and call the sent method as often as
+        you want without re-instanciating the control.</font></li>
+      <li><font face="Arial">be sure to destry the control as soon as you are done (not required
+        by SimpleMail but generally good programming practice).</font></li>
+    </ol>
+    <h4><font face="Arial">Properties</font></h4>
+    <div align="center"><center><table border="1" width="90%">
+      <tr>
+        <td valign="top"><strong>Property</strong></td>
+        <td><strong>Used for</strong></td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">MailServer</font></td>
+        <td>The Address of a SMTP-Server the mail is send to. This server must forward the mail to
+        its final destination. With IIS 4.0, this might be the Server IIS is running on. If in
+        doubt, ask your system administrator.<p>You can use either an IP-Address (e. g. 127.0.0.1)
+        or a systemname (e. g. mail.somedomain.com). For performance reasons, we recommend using
+        IP-Addresses. This property defaults to 127.0.0.1.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">Sender</font></td>
+        <td>The sender's email address.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">SenderName</font></td>
+        <td>Available since 1.6.<br>
+          This is the display name of the sender. This property is optional. If
+          it is not set, the sender's email address is used as display name, too.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">Recipient</font></td>
+        <td>The recipient's email address.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">RecipientName</font></td>
+        <td>Available since 1.6.<br>
+          This is the display name of the recipient. This property is optional.
+          If it is not set, the recipients's email address is used as display
+          name, too.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">CCRecipient</font></td>
+        <td>Available since 2.0<br>
+          This is the email address of an CC recipient. This is optional. If not
+          specified, no CC will be generated. Please note that 2.0 does support
+          a <b>single</b> CC recipient only.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">CCRecipientName</font></td>
+        <td>Available since 2.0.<br>
+          This is the display name of the CC recipient. This property is optional.
+          If it is not set, the CC recipients's email address is used as display
+          name, too.<br>
+          For more info please see CCRecipient.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">Subject</font></td>
+        <td>The email's subject line. We recommend limiting it to about 50 characters.</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">MessageText</font></td>
+        <td>The actual mail message. Line breaks can be embeded with CR/LF pairs inside the
+        message text. Please note that SimpleMail does in no way modify the message text. Be sure
+        to use 7 bit charachters only (as this is the original SMTP standard).<p>There is no limit
+        on the message size. For practical reasons, however, we recommend limiting the size to 5
+        to 10 KB. Nevertheless, you can send any size message if you like.</p>
+        <p>Although SimpleMail does not directly support attachments, it is OK to include
+        UUEncoded (or even MIME) files inside the MessageText, as long as the encoding is done by
+        the user application itself. Again, there is no support for this advanced features in
+        SimpleMail (hence its name).</td>
+      </tr>
+      <tr>
+        <td valign="top"><font face="Courier New">LastStatus</font></td>
+        <td>Available only with version 1.4 and above. Contains the last SMTP status code of a
+        SendEx() operation. It might also report -1, in which case the SMTP server could not be
+        contacted (all SMTP codes are posivite).</td>
+      </tr>
+      <tr>
+        <td valign="top">LastStatusMessage</td>
+        <td>Available only with version 2.01 and above. Contains the last status
+          <b>message</b> of a SendEx() operation. This read-only property is
+          taken from the STMP server's response and can be expected to point to
+          the exact cause if a problem occurs.</td>
+      </tr>
+      <tr>
+        <td valign="top">Port</td>
+        <td>Available since 1.6.
+          <p>This parameter allows to specify the IP port to be used to contact
+          the SMTP server. It is optional. If it is not given, standard port 25
+          is used. This property has been added for installations which require
+          the use of non-standard ports, e.g. for firewall setup.</td>
+      </tr>
+    </table>
+    </center></div><h4><font face="Arial">Methods</font></h4>
+    <h5><font face="Arial">Send</font></h5>
+    <p><font face="Arial">This is the only method for all versions up to 1.3. All properties
+    must be set<strong> before</strong> calling the send-method. Once the method is invoked,
+    it sends the mail message according to the given parameters. There is no feedback about
+    the outcome of the operation.</font></p>
+    <h5><font face="Arial">Send</font>Ex()</h5>
+    <p><font face="Arial">Same as Send(), except that it returns either 0 (OK) or -1 (error
+    occured). If an error occured, the read-only property LastStatus contains the SMTP error
+    code. </font></p>
+    <p><font face="Arial">The SendEx() method is only available with version 1.4 and above.</font></p>
+    <h4><font face="Arial">ASP Sample</font></h4>
+    <p><font face="Arial">This is a simple basic page with hardcoded parameters.</font></p>
+    <pre><code><font face="Courier New"><font color="#FF0000">&lt;%@ LANGUAGE=&quot;VBSCRIPT&quot; %&gt;</font>
+&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML//EN&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; 
+charset=iso-8859-1&quot;&gt;
+&lt;title&gt;ASP Sample Mailer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;We are sending mail according to your hardcoded parameters.
+&lt;p&gt;
+<font color="#FF0000">&lt;%
+set o = Server.CreateObject(&quot;ADISCON.SimpleMail.1&quot;) ' create mailer!
+
+o.MailServer = &quot;127.0.0.1&quot;
+o.Sender = &quot;Test@Test.com&quot;
+o.Recipient = &quot;SomeOne@SomeCompany.Com&quot;
+o.Subject = &quot;My first SimpleMail mail&quot;
+o.MessageText = &quot;Line 1&quot; + Chr(13) + Chr(10) + &quot;Line 2&quot;
+' of course, this could also be somethig like this:</font></font>
+<font color="#FF0000" face="Courier New">' o.MessageText = Request(&quot;strMessage&quot;)
+
+call o.Send
+
+set o = Nothing</font>
+<font face="Courier New"><font color="#FF0000">%&gt;</font>
+&lt;/body&gt;
+&lt;/html&gt;
+</font></code></pre>
+    <h4><font face="Arial">VB Sample</font></h4>
+    <p><font face="Arial">The following sample is a snippet of VB code. It does all its work
+    with constants. Of course. you can substitute variables for any of this constants.</font></p>
+    <pre><font face="Courier New"><code>Private Sub Command1_Click()
+Dim o As Object
+
+MousePointer = 11
+
+Set o = CreateObject(&quot;ADISCON.SimpleMail.1&quot;)
+o.MailServer = &quot;127.0.0.1&quot;  ' Address of SMTP-Server
+o.Sender = &quot;Test@Test.com&quot;
+o.Recipient = &quot;SomeOne@SomeCompany.Com&quot;
+o.Subject = &quot;My first SimpleMail mail&quot;
+o.MessageText = &quot;Line 1&quot; + vbCrLf + &quot;Line 2&quot;
+Call o.send
+
+Set o = Nothing    ' de-instanciate control
+
+MousePointer = 0
+End Sub
+</code></font></pre>
+      <h3><font face="Arial">Common SMTP Status Codes</font></h3>
+      <p><font face="Arial">This chapter lists common SMTP status codes as seen in the &quot;LastStatus&quot;
+      property. These are derivied from RFC821.</font></p>
+      <p><font face="Arial">The exact status codes themselfs depend on the mail server talking to.
+      As a general rule, a status beginning with 2 means the operation succeeded,
+      while a status beginning with 5 means it failed. More complete information
+      can be found in RFC821.</font></p>
+      <p><font face="Arial">We encourage users to act on the &quot;LastStatus&quot;
+      property only if the actual codes are well know. For error reporting,
+      please use the &quot;LastStatusMessage&quot; property. This read-only
+      property holds the status code as well as a descriptive message. That
+      message was generated by the SMTP server and as such can be assumed to
+      point to the exact cause of the problem.</font></p>
+    <h3><font face="Arial">Support</font></h3>
+      <p><font face="Arial">Product support is available via our private internet newsserver at <a href="news://news.adiscon.com/adiscon.products.simplemail">news://news.adiscon.com/adiscon.products.simplemail</a>.
+      Email support is available via&nbsp; <a href="mailto:support@adiscon.com">support@adiscon.com</a>.
+      There is also a FAQ and some helpful information at <a href="http://www.adiscon.com/SimpleMail">http://www.adiscon.com/SimpleMail</a>.</font></p>
+      <p>We strongly encourage our users to use the newsserver.&nbsp;</p>
+    <h2><font face="Arial">Version History</font></h2>
+      <p><font face="Arial">This short history shall provide you with some background
+    information about the versions available. The file &quot;whatsnew.txt&quot;
+      from the install set does also include version information (a bit more
+      verbose for some versions).</font></p>
+    <h4><font face="Arial">1.0</font></h4>
+    <p><font face="Arial">This is the initial release.</font></p>
+    <p><strong><font face="Arial">1.1 to 1.3</font></strong></p>
+    <p><font face="Arial">This were private builds not available to the public.</font></p>
+    <p><strong><font face="Arial">1.4</font></strong></p>
+    <p><font face="Arial">Released November, 14th 1998.</font><ul>
+      <li><font face="Arial">new method SendEx()</font></li>
+      <li><font face="Arial">new property LastStatus</font></li>
+      <li><font face="Arial">now writes a date header</font></li>
+      <li><font face="Arial">fixed some bugs:</font></li>
+      <li><font face="Arial">fixed a bug causing disconnect to fail</font></li>
+      <li><font face="Arial">HELO string now reports correct server</font></li>
+      <li><font face="Arial">some minor optimizations</font></li>
+    </ul>
+      <p><strong><font face="Arial">1.5</font></strong></p>
+    <p><font face="Arial">Released May, 2nd 1999.</font><ul>
+      <li><font face="Arial">fixed some minor problems</font></li>
+      <li><font face="Arial">changed date reporting to use 4 digit dates</font></li>
+    </ul>
+      <p><strong><font face="Arial">1.6</font></strong></p>
+    <p><font face="Arial">Publically Released November, 14th 1999.</font><p><font face="Arial">This
+      product has been delivered to some customers since September, 16th 1999.</font><ul>
+      <li><font face="Arial">fixed a bug which caused IP sockets to remain open
+        after sending mail. This caused a ressource leak in high volume
+        environments.</font></li>
+      <li><font face="Arial">SimpleMail now allows easy integration into VB
+        setup wizard</font></li>
+      <li><font face="Arial">added 3 new properties: Port, RecipientName,
+        SenderName</font></li>
+    </ul>
+      <p><strong><font face="Arial">2.0</font></strong></p>
+    <p><font face="Arial">Publically Released December, 16th 1999.</font><ul>
+      <li><font face="Arial">fixed a bug that could cause page faults when using the "senderName" property (rare
+        case)</font></li>
+      <li><font face="Arial">added functionality: single CC recipient / name possible<br>
+        </font></li>
+    </ul>
+      <p><strong><font face="Arial">2.01</font></strong></p>
+    <p><font face="Arial">Publically Released December, 18th 1999.</font><ul>
+      <li><font face="Arial">fixed a bug that caused invalid SMTP error codes to be reported</font></li>
+      <li><font face="Arial">added read-only property "LastStatusMessage" --> holds complete error message in case SMTP error occurs<br>
+        </font></li>
+    </ul>
+    <h4><font face="Arial">How to obtain Updates</font></h4>
+    <p><font face="Arial">Please visit our web site <a href="http://www.Adiscon.com/">http://www.Adiscon.com/SimpleMail</a>
+    for information about new and updated products. Registered users will receive notification
+    of new versions via email. The registration is valid for the current major release as well
+    as the next one.</font></p>
+    <h2><font face="Arial">License</font></h2>
+    <p><font face="Arial">SimpleMail is distributed as <b>Shareware</b>. You are free to use
+    the product for evaluation. However, if you feel comfortable with it and plan to use it
+    for an extended period of time, you must <b>register</b> with Adiscon and pay the license
+    fee.</font></p>
+    <p><font face="Arial">Please support further development by registering the product. There
+    is a license fee per Windows system (CPU) SimpleMail is running on. For orders outside
+    of Germany, the fee is $US 15 (plus tax if applicable). German orders are DEM
+    39,95 incl.
+    16% VAT. European Community residents with VAT identification number should state this
+    number in order to get an tax exemption. If not stated, full VAT will be charged.</font></p>
+    <p><font face="Arial">You need a seperate license for each system (CPU) SimpleMail is
+    running on. If you intend to use SimpleMail on 5 systems, you need to aquire 5 licenses.
+    If you plan to use SimpleMail on a large number of systems, you might want to aquire a
+    site license. This license grants you the right to use SimpleMail on an unlimited number
+    of systems as long as these systems are wholy owned by the registering organization
+    at a single geographical&nbsp; location(which
+    mostly means are used inside the same company). The site license is available for US$
+    249
+    (plus tax if applicable) or DEM 499,95 (incl. 16% VAT). ISPs with a site license are free
+    to use SimpleMail onfor their customers <strong>as long as all licensed machines are on
+    the ISPs premises.</strong></font></p>
+    <p><font face="Arial">BBS sysops feel free to include the distribution set of this product
+    in your library. Please be sure to include the full set (program &amp; this
+    documentation). Any questions can be directed to <a href="mailto:Info@Adiscon.com">Info@Adiscon.com</a>.</font></p>
+    <p align="center"><strong><font face="Arial">SimpleMail is not licensed for sending mass
+    unsolicited email (know as spam). Using SimpleMail for this purpose constitutes a license
+    violation. In this case, we reserve the right to charge US$ 1,000,000 (one million) in
+    damages.</font></strong></p>
+    <h4><font face="Arial">Are there any restrictions in the unregistered version?</font></h4>
+    <p><font face="Arial">There are no functional restrictions. The product does indicate its
+    unregistered status inside the X-Mailer mail header field. This is invisible to normal
+    users (you need to explicitely look up the mail headers inside your mail program).</font></p>
+    <h2><font face="Arial">How to register</font></h2>
+    <p><font face="Arial">Registration is as simple as 1-2-3:</font><ol>
+      <li><font face="Arial">Print out the following registration form</font></li>
+      <li><font face="Arial">Please fill it in. Remember to include number of licenses requested
+        and payment information <b>as well as your email id</b>.</font></li>
+      <li><font face="Arial">Mail or fax the registration form to Adiscon.</font></li>
+    </ol>
+    <p align="center"><b><font face="Arial">or - even easier:</font></b></p>
+      <ol>
+        <li><font face="Arial">visit our secure online order facility at <a href="http://secure.adiscon.com/adiscon/shop/orderfrmsimplemail.asp">https://secure.adiscon.com/adiscon/shop/orderfrmsimplemail.asp</a>&nbsp;</font></li>
+      </ol>
+    <p><font face="Arial">We accept cash (bills please &#150; and: no faxed ones, please ;-) )
+    and major credit cards. We also accept payment by check if - and only if - the following criteria
+    is met:</font></p>
+    <p><font face="Arial">If you are paying in US$, your check must be drawn on an US American
+    bank and made payable to &quot;Rainer Gerhards&quot; (very important, do not make payable
+    to Adiscon GmbH!).</font></p>
+    <p><font face="Arial">If you are paying in DM, your check must be drawn on a German bank
+    and made payable to &quot;Adiscon GmbH&quot;. Please note that the check <strong>must</strong>
+    <strong>be drawn on a German bank</strong>. Even if you reside inside a member state of
+    the European Community, you can <strong>not</strong> use &quot;Euro Cheque&quot; (EC) made
+    payable in DM.</font></p>
+    <p><font face="Arial">We apologize for the restrictions in our check acceptance policy. We
+    were forced to introduce these by banking regulations and fees (one quick example: our
+    banks charge DEM 20,-- for any EC check payable in DEM - this is quite a good share for a
+    DEM 39,95 product!).</font></p>
+    <p><font face="Arial">If you need an additional payment options, please contact us at <a href="mailto:Info@Adiscon.com">Info@Adiscon.com</a> or the below given addresses. Please
+    note that &#150; for your security &#150; we generally do not accept email registrations.
+    We strongly encourage you <b>never</b> to transmit your credit card information in clear
+    text over the Internet.</font></p>
+    <p><font face="Arial">Direct your registrations to:</font></p>
+    <p align="center"><font face="Arial">Adiscon GmbH<br>
+    Paul-Klee-Strasse 7<br>
+    50374 Erftstadt<br>
+    Germany</font></p>
+    <p align="center"><font face="Arial">Fax: +49-2235-985032<br>
+    email: <a href="mailto:Info@Adiscon.com">order@Adiscon.com</a><br>
+    Web: <a href="http://www.adiscon.com/">http://www.Adiscon.com</a></font></p>
+    <p align="left"><font face="Arial">Please note: due to German laws, credit card orders
+    will be processed in German Mark (DEM). We convert US$ orders based on the current
+    exchange rate. However, there might be a small difference to the actual price when you get
+    your credit card bill. We are sorry for this inconvenience,</font></p>
+    <p><font face="Arial"><b>Registration/Order Form</b></font></p>
+    <h2 align="center"><font face="Arial">SimpleMail Registration</font></h2>
+    <table border="1" cellpadding="4" cellspacing="1" width="575">
+      <tr>
+        <td valign="top" width="22%"><font face="Arial">Company</font></td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><h4><font face="Arial">Name</font></h4>
+        </td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><font face="Arial">Address</font></td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%">ZIP City</td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><font face="Arial">Country</font></td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><font face="Arial">Phone</font></td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><font face="Arial">Fax</font></td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><h4><font face="Arial">email</font></h4>
+        </td>
+        <td valign="top" width="78%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><h4><font face="Arial">Nbr. of Licenses</font></h4>
+        </td>
+        <td valign="top" width="78%"><br>
+        _________________<p>[ ] <font face="Arial">Please include executable for the DEC Alpha
+        platform*</font></td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><h4><font face="Arial">Payment</font></h4>
+        </td>
+        <td valign="top" width="78%"><font face="Arial">[ ] Cash&nbsp; [ ] Check
+          [ ] MasterCard&nbsp; [ ]
+        American Express Card&nbsp;<br>
+          </font><font face="Arial">[ ] VISA&nbsp; [ ] JCB [ ] MasterCard&nbsp; [ ]
+        American Express Card&nbsp;</font></td>
+      </tr>
+      <tr>
+        <td><font face="Arial"><strong>Price<br>
+          (total amount)</strong></font></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top" width="22%"><h4><font face="Arial">Credit Card Info</font></h4>
+        </td>
+        <td valign="top" width="78%"><font face="Arial">Card Number:
+        _________________________________</font><p><font face="Arial">Cardholder Name
+        _________________________________</font></p>
+        <p><font face="Arial">Expiration Date _________________________________</font></td>
+      </tr>
+    </table>
+    <p><font face="Arial">*<small><small> Please note: for single licenses ordered, <strong>either</strong>
+    Intel or Alpha versions are shipped. If you tick the &quot;Alpha platform request&quot;
+    for a single license, <strong>no</strong> Intel executable will be mailed.</small></small></font></p>
+    <p><font face="Arial">Please be sure to specify your email address, number of licenses
+    requested and payment information (fields in bold typeface).</font></p>
+    <p><font face="Arial">Please sign below:</font></p>
+    <p><font face="Arial">______________ ___________________________________________<br>
+    Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Signature</font></p>
+    <p><font face="Arial">and forward this form to</font></p>
+    <p align="center"><font face="Arial">Adiscon GmbH<br>
+    Franz-Marc Strasse 144<br>
+    50374 Erftstadt<br>
+    Germany</font></p>
+    <p align="center"><font face="Arial">Fax: +49-2235-985032<br>
+    Fax option for credit card&nbsp; orders, only.</font></p>
+    <p><font face="Arial"><b>Liability</b></font></p>
+    <p><font face="Arial">Please use the evaluation period to check if SimpleMail is suitable
+    for you and your system environment. We encourage you to try SimpleMail in a test
+    environment. We accept no liability for any damage during the evaluation period.</font></p>
+    <p><font face="Arial">Liability for registered users is limited to twice the amount of the
+    registration fee.</font></p>
+    <p><font face="Arial"><b>Copyrights</b></font></p>
+    <p><font face="Arial">This documentation as well as the actual SimpleMail product is
+    copyrighted by Adiscon GmbH, Germany.</font></p>
+    <p><font face="Arial">Microsoft, Windows and Windows NT are registered trademarks of
+    Microsoft Corp., Redmond, WA, USA.</font></td>
+  </tr>
+</table>
+</center></div><!--webbot bot="Include" u-include="../_private/umanftr.htm" tag="BODY" startspan --><p><em>[../_private/umanftr.htm]</em></p><!--webbot bot="Include" i-CheckSum="58465" endspan -->
+<script language="JavaScript">
+<!--
+//	parent.SetCurrentSoftware();
+// -->
+</script>
+
+</body>
+</html>

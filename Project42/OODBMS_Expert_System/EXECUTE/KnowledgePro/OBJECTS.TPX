@@ -1,0 +1,98 @@
+(* ==================== Sample Graphic Object Topics ================ *)
+topic GraphicButton ( bmpFile, event, col, row, tSize, tWidth, tHeight, tParent ).
+    (* Creates a graphic button with the bitmap you specify.
+       You can also specify the event topic, and placement.
+       The button is sized according to the size of the bitmap.
+       Use the function new () to create an instance of this object. *)
+  :gbEvent is ?event.
+  :bmpObject is load_bitmap ( ?bmpFile).
+  tSize is bitmap_info (?bmpObject ).
+  tWidth is first (?tSize).
+  tHeight is element (?tSize,2).
+  tParent is get_display_window ( ).
+  :w1 is window ( ,?col,?row,?tWidth+0.75,?tHeight+0.35, , [childwindow ,visible], ?tParent, , 12632256  ).
+  :w2 is window (, 1.3,1.15,?tWidth+0.75,?tHeight+0.35,, [child,siblings,showchildren,visible], ?w1, , gray).
+  :w3 is window ( dip,1.3,1.15,?tWidth, ?tHeight, ,[child,siblings,showChildren,visible],?w1, , , mouse_down_event ).
+  bitmap (?bmpObject ).
+  set_display_window ( ?tParent ).
+
+  topic dip.
+    move_window (?w3,1.5,1.2).
+    move_window (?w3,1.3,1.15).
+    do (?gbEvent).
+  end.
+
+  topic closeGB.
+    close_window ( ?w1 ).
+    delete_bitmap ( ?bmpObject ).
+  end.
+
+end.
+
+topic StickyButton ( bmpFile, event, col, row, tSize, tWidth, tHeight, tParent ).
+    (* Creates a "sticky" graphic button with the bitmap you specify.
+       A sticky button retains its current state: in or out.
+       This topic inherits the characteristics of the topic:
+
+               GraphicButton
+
+       which must be included in your application.
+       Use the function new () to create an instance of this object. *)
+  im_a ( GraphicButton, [?bmpFile, ?event, ?col, ?row] ).
+  :gbEvent is ?event.
+  ?gbEvent is F.
+
+  topic dip.
+     if ??gbEvent 
+         then ?gbEvent is F and
+                 move_window ( ?w3, 1.3, 1.15 )
+         else ?gbEvent is T and
+                  move_window ( ?w3, 1.5, 1.2 ).
+  end.
+  
+end.
+
+topic GraphicObject  ( bmpFile, event, col, row, tSize, tWidth, tHeight, tParent ).
+  (* This is an alternate version of the graphic button topic. In this
+     case, the implentation details are hidden or embedded within the
+     topic. Instances of the object can be created automatically by
+     calling GraphicObject just like you would any other function or
+     topic. *)
+  if exists ( gbHandle ) 
+     then gbHandle is ?gbHandle + 1
+     else gbHandle is 1.
+  GraphicObject is concat ( gb, ?gbHandle).
+  new ( ?GraphicObject, GraphicButton).
+
+  topic GraphicButton.
+    :gbEvent is ?event.
+    :bmpObject is load_bitmap ( ?bmpFile).
+    tSize is bitmap_info (?bmpObject ).
+    tWidth is first (?tSize).
+    tHeight is element (?tSize,2).
+    tParent is get_display_window ( ).
+    :w1 is window ( ,?col,?row,?tWidth+0.75,?tHeight+0.35, , [childwindow ,visible], ?tParent, , 12632256  ).
+    :w2 is window (, 1.3,1.15,?tWidth+0.75,?tHeight+0.35,, [child,siblings,showchildren,visible], ?w1, , gray).
+    :w3 is window ( dip,1.3,1.15,?tWidth, ?tHeight, ,[child,siblings,showChildren,visible],?w1, , , mouse_down_event ).
+    bitmap (?bmpObject ).
+    set_display_window ( ?tParent ).
+  
+    topic dip.
+      move_window (?w3,1.5,1.2).
+      move_window (?w3,1.3,1.15).
+      do (?gbEvent).
+    end.
+  
+    topic closeGB.
+      close_window ( ?w1 ).
+      delete_bitmap ( ?bmpObject ).
+    end.
+  
+  end.
+  
+end.
+
+topic closeGraphicObject (gbHandle).
+  (* Closes the graphic object created with topic GraphicObject. *)
+  do ( concat ( 'GraphicObject:', ?gbHandle, ':closeGB') ).
+end.

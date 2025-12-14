@@ -1,0 +1,88 @@
+unit Reader;
+
+interface
+
+uses BPN;
+
+const
+  TPFilename = 'pattern.txt';
+
+type
+  AC_Array = array[1..5] of integer;
+  
+ { Important Note !!!!}
+ { Class BPN_Reader must be used to read topology file in this order only :
+          - Read Topology
+          - Read Weight
+          - Read Accuracy
+   Read topology file will be close at the last step, i.e. Read Accuracy }
+  BPN_Reader = class
+  public
+    procedure ReadTopology;
+    procedure ReadWeights(BP: BPN.Backprop);
+    procedure ReadAccuracy(var ACCURACY: AC_Array);
+  end;
+
+var
+  TPFile : TextFile;
+implementation
+
+procedure BPN_Reader.ReadTopology;
+{Read topology of ANN from file TPFilename to unit BPN's global variable}
+var
+  i, t : integer;
+begin
+  AssignFile(TPFile,TPFilename);
+  Reset(TPFile);
+  Readln(TPFile,BPN.Num_HD);
+  SetLength(BPN.Cells,BPN.Num_HD+2);
+  Readln(TPFile,BPN.Cells[0]);
+  Read(TPFile,BPN.Cells[1]);
+  Readln(TPFile,t);
+  case t of
+    0 : BPN.HDCell_Type := 'Sigmoid function'; //do not modify this name!!!
+    1 : BPN.HDCell_Type := 'Hyperbolic tangent function';//do not modify this name
+  end;
+  for i:=2 to BPN.Num_HD do
+    Readln(TPFile,BPN.Cells[i]);
+  Read(TPFile,BPN.Cells[BPN.Num_HD+1]);
+  Readln(TPFile,t);
+  case t of
+    0 : BPN.OPCell_Type := 'Sigmoid function';
+    1 : BPN.OPCell_Type := 'Hyperbolic tangent function';
+  end;
+  Readln(TPFile,BPN.LR);
+  Readln(TPFile,BPN.Mo);
+end;
+
+procedure BPN_Reader.ReadWeights(BP: BPN.Backprop);
+var
+  i, j, k : integer;
+begin
+  for k:=1 to BP.Num_HDLayer do
+    if k=1 then
+      for i:=1 to BP.HDLayer[k].Num_Cell do
+        for j:=0 to BP.IPLayer.Num_Cell do
+          Read(TPFile,BP.HDLayer[k].HDCells[i].Weights[j])
+    else
+      for i:=1 to BP.HDLayer[k].Num_Cell do
+        for j:=0 to BP.HDLayer[k-1].Num_Cell do
+          Read(TPFile,BP.HDLayer[k].HDCells[i].Weights[j]);
+  for i:=1 to BP.OPLayer.Num_Cell do
+    for j:=0 to BP.HDLayer[BP.Num_HDLayer].Num_Cell do
+      Read(TPFile,BP.OPLayer.OPCells[i].Weights[j]);
+
+end;
+
+procedure BPN_Reader.ReadAccuracy(var ACCURACY: AC_Array);
+var
+  last_loop, i : integer;
+  last_error : real;
+begin
+  Readln(TPFile,last_loop);
+  Readln(TPFile,last_error);
+  for i:=1 to 5 do Read(TPFile,ACCURACY[i]);
+  CloseFile(TPFile);
+end;
+
+end.

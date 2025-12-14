@@ -1,0 +1,109 @@
+# permck (script) : Compare the permissions, owner, group, size, and checksum
+# of current file with the database from "checklist" file.
+
+SYSLOG=/var/adm/syslog/syslog
+PATH=/bin:/usr/bin
+export PATH
+DIR=/ids
+cd $DIR
+INFO1=KeyfileInfo		# The "KeyfileInfo" is database file(keyfiles).
+INFO2=SuidInfo			# The "SuidInfo" is database file(suidfiles).
+INFO3=LogInfo			# The "LogInfo" is database file(logfiles).
+
+# Check for "KeyfileInfo".
+cat $INFO1 |
+while read nextline
+do
+# Check for comment-lines in "KeyfileInfo" file.
+  if expr "$nextline" : '#' > /dev/null
+  then
+    continue			# Skip if it's comment-line.
+  fi
+# Save information from this entry in the "KeyfileInfo" file.
+  set - $nextline
+  perms=$1
+  owner=$2
+  group=$3
+  size=$4
+  sum=$5 
+  file=$9
+# Get the current information of file.
+  set - `ls -lc $file`
+  permck=$1
+  ownerck=$3
+  groupck=$4
+  sizeck=$5
+  dateck="$6 $7 $8"
+  set `sum $file`
+  sumck=$1
+# Compare the permissions, owner, group, size, and checksum.
+  if [ $perms$owner$group$size$sum != $permck$ownerck$groupck$sizeck$sumck ]
+  then
+    echo -e "$dateck\t$file was editted."
+    echo $dateck:XX isag16 permck: Keyfile have been changed. - $file>> $SYSLOG
+  fi
+done
+
+# Check for "SuidInfo".
+cat $INFO2 |
+while read nextline
+do
+# Check for comment-lines in "SuidInfo" file.
+  if expr "$nextline" : '#' > /dev/null
+  then
+    continue			# Skip if it's comment-line.
+  fi
+# Save information from this entry in the "SuidInfo" file.
+  set - $nextline
+  perms=$1
+  owner=$2
+  group=$3
+  size=$4
+  sum=$5 
+  file=$9
+# Get the current information of file.
+  set - `ls -lc $file`
+  permck=$1
+  ownerck=$3
+  groupck=$4
+  sizeck=$5
+  dateck="$6 $7 $8"
+  set `sum $file`
+  sumck=$1
+# Compare the permissions, owner, group, size, and checksum.
+  if [ $perms$owner$group$size$sum != $permck$ownerck$groupck$sizeck$sumck ]
+  then
+    echo -e "$dateck\t$file was editted."
+    echo $dateck:XX isag16 permck: SUID file have been changed. - $file>> $SYSLOG
+  fi
+done
+
+# Check for "LogInfo".
+cat $INFO3 |
+while read nextline
+do
+# Check for comment-lines in "LogInfo" file.
+  if expr "$nextline" : '#' > /dev/null
+  then
+    continue			# Skip if it's comment-line.
+  fi
+# Save information from this entry in the "LogInfo" file.
+  set - $nextline
+  perms=$1
+  owner=$2
+  group=$3
+  date="$6 $7 $8"
+  file=$9
+# Get the current information of file.
+  set - `ls -lc $file`
+  permck=$1
+  ownerck=$3
+  groupck=$4
+  dateck="$6 $7 $8"
+# Compare the permissions, owner, group, size, and checksum.
+  if [ $perms$owner$group != $permck$ownerck$groupck ]
+  then
+    echo -e "$dateck\t$file was editted."
+    echo $dateck:XX isag16 permck: Log file have been changed. - $file>> $SYSLOG
+  fi
+done

@@ -1,0 +1,406 @@
+===================================================
+= ENCRYPTION and CHECKCODE of the ICQ Protocol V5 =
+===================================================
+
+Last update:  July 21 1998
+Created by :  Sebastien Dault (daus01@gel.usherb.ca)
+Version    :  0.01
+
+Copyright (C) 1998
+
+
+About this document
+-------------------
+
+This document will explain how the ENCRYPTION work and how the CHECKCODE
+is calculated in the version 5 of the ICQ Protocol.
+
+This document will not explain each command of the protocol.
+
+Note that I am in no way affiliate with Mirabilis. I have found all these
+information by tracing UDP packets (this complies with Mirabilis License
+agreement). These information are unofficial and may be incorrect.
+
+
+LICENSE AGREEMENT
+=================
+
+This document and the information present herein is provided by
+Sebastien Dault ("the Author") for your personal use only. You agree to
+the full responsibility for the results of your use of this document or
+the information present herein.
+
+By using this document or the information present herein, you accept
+the terms of this license agreement.
+
+THIS INFORMATION IS PROVIDED ON AN "AS IS" BASIS. THE AUTHOR MAKES NO
+WARRANTIES, EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THOSE OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, WITH RESPECT TO THIS
+DOCUMENT AND THE INFORMATION PRESENT HEREIN. THE AUTHOR DOES NOT WARRANT,
+GUARANTEE OR MAKE ANY REPRESENTATIONS REGARDING THE USE OR THE RESULTS OF
+THE USE OF THIS DOCUMENT OR THE INFORMATION PRESENT HEREIN, IN TERMS OF THE
+ACCURACY, RELIABILITY, QUALITY, VALIDITY, STABILITY, COMPLETENESS,
+CURRENTNESS, OR OTHERWISE. THE ENTIRE RISK OF USING THE INFORMATION PRESENT
+IN THIS DOCUMENT IS ASSUMED BY THE USER.
+
+IN NO EVENT WILL THE AUTHOR BE LIABLE TO ANY PARTY (i) FOR ANY DIRECT,
+INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS
+INTERRUPTION, LOSS OF PROGRAMS OR INFORMATION, AND THE LIKE), OR ANY OTHER
+DAMAGES ARISING IN ANY WAY OUT OF THE AVAILABILITY, USE, RELIANCE ON, OR
+INABILITY TO USE THIS DOCUMENT OR THE INFORMATION PRESENT HEREIN, EVEN IF
+THE AUTHOR HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND
+REGARDLESS OF THE FORM OF ACTION, WHETHER IN CONTRACT, TORT, OR OTHERWISE;
+OR (ii) FOR ANY CLAIM ATTRIBUTABLE TO ERRORS, OMISSIONS, OR OTHER
+INACCURACIES IN, OR DESTRUCTIVE PROPERTIES OF ANY INFORMATION.
+
+
+
+Number convention
+=================
+
+0x12345678  : Real value in hexadecimal (use in calculations).
+
+78 56 34 12 : Hex dump value.
+
+NOTE: All the number in this document are in HEXA.
+
+
+
+Packet Format
+=============
+
+The UDP packet sent from the client to the server has the following general
+layout:
+
+VERSION 5 (in decrypted format):
+---------
+
+ Length   Content (if fixed)    Name
+ ------   ------------------    ----
+ 2 bytes  05 00                 VERSION
+ 4 bytes  00 00 00 00           ZERO
+ 4 bytes  xx xx xx xx           UIN
+ 4 bytes  xx xx xx xx           RANDOM
+ 2 bytes  xx xx                 COMMAND
+ 2 bytes  xx xx                 SEQ_NUM1 ??
+ 2 bytes  xx xx                 SEQ_NUM2
+ 4 bytes  xx xx xx xx           CHECKCODE
+ variable                       PARAMETERS
+
+
+
+
+ENCRYPTION
+==========
+
+If you want to encrypt or decrypt a packet, use the following algorithm:
+(the algorithm is the same for the ecryption AND decryption)
+
+1. Calculate the following:
+
+      Calculate the CHECKCODE  (see CHECKCODE section)
+      (or extract it from the packet if you are decrypting
+       (see EXTRACT CHECKCODE section))
+
+      PL = Packet length
+
+      CODE1 = (DWORD) (PL * 0x68656C6C)     (flush the overflow)
+
+      CODE2 = (DWORD) (CODE1 + CHECKCODE)   (flush the overflow)
+
+      N = (PL + 0x03)
+
+      POS = 0x0A
+
+2. Do the following loop:
+
+      while POS < N do
+      begin
+
+         T = POS MOD 0x0100
+
+         CODE3 = CODE2 + TABLE[T]      (see TABLE section)
+
+         DATA = DWORD at position POS in the packet
+                (don't forget to reverse the byte order)
+
+         DATA = DATA XOR CODE3
+
+         DWORD at position POS in the packet = DATA
+         (don't forget to reverse the byte order)
+
+         POS = POS + 4
+
+      end
+
+3. If you are encrypting, you must insert the checkcode (modified) into the
+   packet at pos 0x14. Check the INSERT CHECKCODE section for more
+   information.
+
+
+ENCRYPTION EXEMPLE
+==================
+
+Not yet available. See document on V4.
+
+
+
+
+
+CHECKCODE
+=========
+
+The checkcode is calculated base on the DECRYPTED data of the packet.
+
+If you want to calculate a checkcode do the following:
+
+1. Found NUMBER1 formed by:
+     B8 = Byte at position 8 of the packet. (starting at position 0)
+     B4 = Byte at position 4 of the packet.
+     B2 = Byte at position 2 of the packet.
+     B6 = Byte at position 6 of the packet.
+
+   NUMBER1 = 0x B8 B4 B2 B6       (B8 = UPPER BYTE, B6 = LOWER BYTE)
+
+2. Calculate the following:
+     PL = Packet length
+     R1 = a random number beetween 0 and (PL - 18) - 1  (or MOD (PL - 18))
+     R2 = another random number beetween 0 and 0xFF     (or MOD 0x0100)
+
+
+3. Found NUMBER2:
+
+     X4 = R1
+
+     X3 = NOT (BYTE at pos X4 in the packet)
+
+     X2 = R2
+
+     X1 = NOT (BYTE at pos X2 in the TABLE)  (see TABLE section)
+
+     NUMBER2 = 0x X4 X3 X2 X1     (X4 = UPPER BYTE, X1 = LOWER BYTE)
+
+
+4. You can now calculate the checkcode:
+     CHECKCODE = NUMBER1 XOR NUMBER2
+
+     The byte order of the checkcode must be reverse (because it is a DWORD)
+     in the packet dump.
+
+
+EXAMPLE
+=======
+
+Not yet available. See document on V4.
+
+
+
+TABLE
+=====
+
+The algorithmes use a table of constant to found some numbers.
+
+TABLE[X] mean data at position X in the table (starting at position 0).
+
+POS   DATA                                               ASCII
+---   -----------------------------------------------    ----------------
+ 00 - 59 60 37 6B 65 62 46 48 53 61 4C 59 60 57 5B 3D    Y`7kebFHSaLY`W[=
+ 10 - 5E 34 6D 36 50 3F 6F 67 53 61 4C 59 40 47 63 39    ^4m6P?ogSaLY@Gc9
+ 20 - 50 5F 5F 3F 6F 47 43 69 48 33 31 64 35 5A 4A 42    P__?oGCiH31d5ZJB
+ 30 - 56 40 67 53 41 07 6C 49 58 3B 4D 46 68 43 69 48    V@gSA.lIX;MFhCiH
+ 40 - 33 31 44 65 62 46 48 53 41 07 6C 69 48 33 51 54    31DebFHSA.liH3QT
+ 50 - 5D 4E 6C 49 38 4B 55 4A 62 46 48 33 51 34 6D 36    ]NlI8KUJbFH3Q4m6
+ 60 - 50 5F 5F 5F 3F 6F 47 63 59 40 67 33 31 64 35 5A    P___?oGcY@g31d5Z
+ 70 - 6A 52 6E 3C 51 34 6D 36 50 5F 5F 3F 4F 37 4B 35    jRn<Q4m6P__?O7K5
+ 80 - 5A 4A 62 66 58 3B 4D 66 58 5B 5D 4E 6C 49 58 3B    ZJbfX;MfX[]NlIX;
+ 90 - 4D 66 58 3B 4D 46 48 53 61 4C 59 40 67 33 31 64    MfX;MFHSaLY@g31d
+ A0 - 55 6A 32 3E 44 45 52 6E 3C 31 64 55 6A 52 4E 6C    Uj2>DERn<1dUjRNl
+ B0 - 69 48 53 61 4C 39 30 6F 47 63 59 60 57 5B 3D 3E    iHSaL90oGcY`W[=>
+ C0 - 64 35 3A 3A 5A 6A 52 4E 6C 69 48 53 61 6C 49 58    d5::ZjRNliHSalIX
+ D0 - 3B 4D 46 68 63 39 50 5F 5F 3F 6F 67 53 41 25 41    ;MFhc9P__?ogSA%A
+ E0 - 3C 51 54 3D 5E 54 5D 4E 4C 39 50 5F 5F 5F 3F 6F    <QT=^T]NL9P___?o
+ F0 - 47 43 69 48 33 51 54 5D 6E 3C 31 64 35 5A 00 00    GCiH3QT]n<1d5Z..
+---   -----------------------------------------------    ----------------
+
+Example : TABLE[0]    = 0x59
+          TABLE[0xF2] = 0x69
+
+Note: A lot of UDP packet was check to recreate this table, but some
+      data may be incorrect.
+
+
+
+
+EXTRACT CHECKCODE FROM A V5 PACKET
+==================================
+
+The CHECKCODE for decrypting a packet is located at position 0x14 to 0x17 of
+the packet (starting from pos 0x00). But bits translation must first be made
+to obtain the real CHECKCODE. Here are the translation :
+
+(bit 31 is the most significative bit)
+
+   Position in           Position in
+CHECKCODEFROMPACKET     REALCHECKCODE
+      bit 31        ->     bit 15
+      bit 30        ->     bit 14
+      bit 29        ->     bit 13
+      bit 28        ->     bit 12
+      bit 27        ->     bit 11
+      bit 26        ->     bit 25
+      bit 25        ->     bit 24
+      bit 24        ->     bit 23
+      bit 23        ->     bit 22
+      bit 22        ->     bit 21
+      bit 21        ->     bit 31
+      bit 20        ->     bit 30
+      bit 19        ->     bit 29
+      bit 18        ->     bit 28
+      bit 17        ->     bit 27
+      bit 16        ->     bit 04
+      bit 15        ->     bit 03
+      bit 14        ->     bit 02
+      bit 13        ->     bit 01
+      bit 12        ->     bit 00
+      bit 11        ->     bit 26
+      bit 10        ->     bit 09
+      bit 09        ->     bit 08
+      bit 08        ->     bit 07
+      bit 07        ->     bit 06
+      bit 06        ->     bit 05
+      bit 05        ->     bit 20
+      bit 04        ->     bit 19
+      bit 03        ->     bit 18
+      bit 02        ->     bit 17
+      bit 01        ->     bit 16
+      bit 00        ->     bit 10
+
+Here is a simple algorithme that make this translation:
+
+   A1 = CHECKCODEFROMPACKET AND 0x0001F000
+   A2 = CHECKCODEFROMPACKET AND 0x07C007C0
+   A3 = CHECKCODEFROMPACKET AND 0x003E0001
+   A4 = CHECKCODEFROMPACKET AND 0xF8000000
+   A5 = CHECKCODEFROMPACKET AND 0x0000083E
+
+   A1 = A1 SHR 0x0C
+   A2 = A2 SHR 0x01
+   A3 = A3 SHL 0x0A
+   A4 = A4 SHR 0x10
+   A5 = A5 SHL 0x0F
+
+   REALCHECKCODE = A1 + A2 + A3 + A4 + A5
+
+
+EXAMPLE
+=======
+
+  Suppose that we have : FE 34 EC 89 at pos 0x14 to 0x17
+  So, CHECKCODEFROMPACKET = 0x89EC34FE
+
+    A1 = 0x89EC34FE AND 0x0001F000 = 0x00003000
+    A2 = 0x89EC34FE AND 0x07C007C0 = 0x01C004C0
+    A3 = 0x89EC34FE AND 0x003E0001 = 0x002C0000
+    A4 = 0x89EC34FE AND 0xF8000000 = 0x88000000
+    A5 = 0x89EC34FE AND 0x0000083E = 0x0000003E
+
+    A1 = A1 SHR 0x0C = 0x00000003
+    A2 = A2 SHR 0x01 = 0x00E00260
+    A3 = A3 SHL 0x0A = 0xB0000000
+    A4 = A4 SHR 0x10 = 0x00008800
+    A5 = A5 SHL 0x0F = 0x001F0000
+
+    REALCHECKCODE = A1 + A2 + A3 + A4 + A5 = 0xB0FF8A63
+
+
+
+
+INSERT CHECKCODE INTO A V5 PACKET
+=================================
+
+The checkcode must be transform before insertion at pos 0x14 of a packet.
+The transformed checkcode must be insert after the encryption.
+The transformation is only bits translation. Here are the translation :
+
+(bit 31 is the most significative bit)
+
+Position in     Position in
+ CHECKCODE    CHECKCODETOINSERT
+  bit 31   ->     bit 21
+  bit 30   ->     bit 20
+  bit 29   ->     bit 19
+  bit 28   ->     bit 18
+  bit 27   ->     bit 17
+  bit 26   ->     bit 11
+  bit 25   ->     bit 26
+  bit 24   ->     bit 25
+  bit 23   ->     bit 24
+  bit 22   ->     bit 23
+  bit 21   ->     bit 22
+  bit 20   ->     bit 05
+  bit 19   ->     bit 04
+  bit 18   ->     bit 03
+  bit 17   ->     bit 02
+  bit 16   ->     bit 01
+  bit 15   ->     bit 31
+  bit 14   ->     bit 30
+  bit 13   ->     bit 29
+  bit 12   ->     bit 28
+  bit 11   ->     bit 27
+  bit 10   ->     bit 00
+  bit 09   ->     bit 10
+  bit 08   ->     bit 09
+  bit 07   ->     bit 08
+  bit 06   ->     bit 07
+  bit 05   ->     bit 06
+  bit 04   ->     bit 16
+  bit 03   ->     bit 15
+  bit 02   ->     bit 14
+  bit 01   ->     bit 13
+  bit 00   ->     bit 12
+
+Here is a simple algorithme that make this translation:
+
+   A1 = CHECKCODE AND 0x0000001F
+   A2 = CHECKCODE AND 0x03E003E0
+   A3 = CHECKCODE AND 0xF8000400
+   A4 = CHECKCODE AND 0x0000F800
+   A5 = CHECKCODE AND 0x041F0000
+
+   A1 = A1 SHL 0x0C
+   A2 = A2 SHL 0x01
+   A3 = A3 SHR 0x0A
+   A4 = A4 SHL 0x10
+   A5 = A5 SHR 0x0F
+
+   CHECKCODETOINSERT = A1 + A2 + A3 + A4 + A5
+
+
+EXAMPLE
+=======
+
+  Suppose that CHECKCODE = 0xB0FF8A63
+
+    A1 = 0xB0FF8A63 AND 0x0000001F = 0x00000003
+    A2 = 0xB0FF8A63 AND 0x03E003E0 = 0x00E00260
+    A3 = 0xB0FF8A63 AND 0xF8000400 = 0xB0000000
+    A4 = 0xB0FF8A63 AND 0x0000F800 = 0x00008800
+    A5 = 0xB0FF8A63 AND 0x041F0000 = 0x001F0000
+
+    A1 = A1 SHL 0x0C = 0x00003000
+    A2 = A2 SHL 0x01 = 0x01C004C0
+    A3 = A3 SHR 0x0A = 0x002C0000
+    A4 = A4 SHL 0x10 = 0x88000000
+    A5 = A5 SHR 0x0F = 0x0000003E
+
+    CHECKCODETOINSERT = A1 + A2 + A3 + A4 + A5 = 0x89EC34FE
+
+    So FE 34 EC 89 will be insert into packet at pos 0x14 to 0x17.
+
+
+
+
+--------------------
+Sebastien Dault
+daus01@gel.usherb.ca

@@ -1,0 +1,61 @@
+(*=================================== FONTPRN.KB ===================================
+    This program will print out a list of available fonts for the selected device.
+    The devices supported are the screen and printer.
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+===================================================================================*)
+w1 is window ( quit ,25,3,44,18,'Print Font Descriptions',[popup,controlMenu,thickFrame,titleBar,showChildren,siblings,MinimizeBox] , , , ,close_event).
+icon is load_icon(kptool_icon).
+attach_icon(?w1, ?icon).
+text ('
+     This program prints a list of the fonts
+     available for the selected device.  
+
+     Make sure your printer is on line before 
+     you select OK.
+
+               Fonts descriptions to print:  
+
+ ').
+radio_button ([['Screen Fonts',15,9.5,t],['Printer Fonts',15,11]], radioTopic).
+select is [].
+b1 is button ('Print',ok ,9,13.5,10).
+button ('Quit',quit ,25,13.5,10).
+show_window ().
+set_focus (?b1).
+
+
+topic ok (item).
+  x is list_to_string (font_list (?select),',','[',']').
+  x is string_replace (?x,',[',',#n[',100).
+  if ?select is prn 
+     then header is 'Description of Printer Fonts#n'
+     else header is 'Description of Screen Fonts#n'.
+  print ( ?select,#n,?x).
+end.
+
+topic quit.
+  exit_kp ().
+end.
+
+topic radioTopic (item).
+  if ?item is 'Printer Fonts'
+     then select is prn
+     else select is ''.
+end.

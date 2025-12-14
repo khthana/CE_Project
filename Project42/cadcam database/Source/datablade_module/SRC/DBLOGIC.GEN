@@ -1,0 +1,135 @@
+BladeGen "3.1"
+
+module dblogic version "3.0" language C
+{
+	interface Loc : TextIO, BinIO, TextImpExp, BinImpExp, Compare, Equal
+	{
+		attribute mi_integer Xpos;
+		attribute mi_integer Ypos;
+		rename input 4a21b823-5e10-11d3-a6da-008048ed75bd as LocInput Comment "Support routine for opaque type Loc returns Loc.";
+		rename output 4a21b824-5e10-11d3-a6da-008048ed75bd as LocOutput Comment "Support routine for opaque type Loc returns lvarchar.";
+		rename send 4a21b821-5e10-11d3-a6da-008048ed75bd as LocSend Comment "Support routine for opaque type Loc returns sendrecv.";
+		rename receive 4a21b822-5e10-11d3-a6da-008048ed75bd as LocReceive Comment "Support routine for opaque type Loc returns Loc.";
+		rename equal 4a21b82a-5e10-11d3-a6da-008048ed75bd as LocEqual Comment "Support routine for opaque type Loc returns boolean.";
+		rename notequal 4a21b82b-5e10-11d3-a6da-008048ed75bd as LocNotEqual Comment "Support routine for opaque type Loc returns boolean.";
+		rename compare 4a21b829-5e10-11d3-a6da-008048ed75bd as LocCompare Comment "Support routine for opaque type Loc returns integer.";
+		rename import 4a21b825-5e10-11d3-a6da-008048ed75bd as LocImportText Comment "Support routine for opaque type Loc returns Loc.";
+		rename export 4a21b826-5e10-11d3-a6da-008048ed75bd as LocExportText Comment "Support routine for opaque type Loc returns impexp.";
+		rename importbinary 4a21b827-5e10-11d3-a6da-008048ed75bd as LocImportBinary Comment "Support routine for opaque type Loc returns Loc.";
+		rename exportbinary 4a21b828-5e10-11d3-a6da-008048ed75bd as LocExportBinary Comment "Support routine for opaque type Loc returns impexpbin.";
+	};
+
+
+	interface Component : TextIO, BinIO, TextImpExp, BinImpExp, BTree, Equal
+	{
+		attribute mi_integer Component_id;
+		attribute mi_integer Component_type;
+		attribute Loc Component_loc;
+		rename input 4a21b82e-5e10-11d3-a6da-008048ed75bd as ComponentInput Comment "Support routine for opaque type Component returns Component.";
+		rename output 4a21b82f-5e10-11d3-a6da-008048ed75bd as ComponentOutput Comment "Support routine for opaque type Component returns lvarchar.";
+		rename send 4a21b82c-5e10-11d3-a6da-008048ed75bd as ComponentSend Comment "Support routine for opaque type Component returns sendrecv.";
+		rename receive 4a21b82d-5e10-11d3-a6da-008048ed75bd as ComponentReceive Comment "Support routine for opaque type Component returns Component.";
+		rename notequal 4a21b836-5e10-11d3-a6da-008048ed75bd as ComponentNotEqual Comment "Support routine for opaque type Component returns boolean.";
+		rename lessthan 4a21b837-5e10-11d3-a6da-008048ed75bd as ComponentLessThan Comment "Support routine for opaque type Component returns boolean.";
+		rename greaterthan 4a21b838-5e10-11d3-a6da-008048ed75bd as ComponentGreaterThan Comment "Support routine for opaque type Component returns boolean.";
+		rename equal 4a21b835-5e10-11d3-a6da-008048ed75bd as ComponentEqual Comment "Support routine for opaque type Component returns boolean.";
+		rename lessthanorequal 4a21b839-5e10-11d3-a6da-008048ed75bd as ComponentLessThanOrEqual Comment "Support routine for opaque type Component returns boolean.";
+		rename greaterthanorequal 4a21b83a-5e10-11d3-a6da-008048ed75bd as ComponentGreaterThanOrEqual Comment "Support routine for opaque type Component returns boolean.";
+		rename compare 4a21b834-5e10-11d3-a6da-008048ed75bd as ComponentCompare Comment "Support routine for opaque type Component returns integer.";
+		rename import 4a21b830-5e10-11d3-a6da-008048ed75bd as ComponentImportText Comment "Support routine for opaque type Component returns Component.";
+		rename export 4a21b831-5e10-11d3-a6da-008048ed75bd as ComponentExportText Comment "Support routine for opaque type Component returns impexp.";
+		rename importbinary 4a21b832-5e10-11d3-a6da-008048ed75bd as ComponentImportBinary Comment "Support routine for opaque type Component returns Component.";
+		rename exportbinary 4a21b833-5e10-11d3-a6da-008048ed75bd as ComponentExportBinary Comment "Support routine for opaque type Component returns impexpbin.";
+	};
+
+
+	interface Pin : TextIO, BinIO, TextImpExp, BinImpExp, BTree, Equal
+	{
+		attribute mi_integer Pin_id;
+		attribute mi_integer Component_id;
+		attribute mi_integer Pin_value;
+		attribute mi_integer pinio;
+		attribute mi_integer isterminal;
+		rename input 4a21b83d-5e10-11d3-a6da-008048ed75bd as PinInput Comment "Support routine for opaque type Pin returns Pin.";
+		rename output 4a21b83e-5e10-11d3-a6da-008048ed75bd as PinOutput Comment "Support routine for opaque type Pin returns lvarchar.";
+		rename send 4a21b83b-5e10-11d3-a6da-008048ed75bd as PinSend Comment "Support routine for opaque type Pin returns sendrecv.";
+		rename receive 4a21b83c-5e10-11d3-a6da-008048ed75bd as PinReceive Comment "Support routine for opaque type Pin returns Pin.";
+		rename notequal 4a21b845-5e10-11d3-a6da-008048ed75bd as PinNotEqual Comment "Support routine for opaque type Pin returns boolean.";
+		rename lessthan 4a21b846-5e10-11d3-a6da-008048ed75bd as PinLessThan Comment "Support routine for opaque type Pin returns boolean.";
+		rename greaterthan 4a21b847-5e10-11d3-a6da-008048ed75bd as PinGreaterThan Comment "Support routine for opaque type Pin returns boolean.";
+		rename equal 4a21b844-5e10-11d3-a6da-008048ed75bd as PinEqual Comment "Support routine for opaque type Pin returns boolean.";
+		rename lessthanorequal 4a21b848-5e10-11d3-a6da-008048ed75bd as PinLessThanOrEqual Comment "Support routine for opaque type Pin returns boolean.";
+		rename greaterthanorequal 4a21b849-5e10-11d3-a6da-008048ed75bd as PinGreaterThanOrEqual Comment "Support routine for opaque type Pin returns boolean.";
+		rename compare 4a21b843-5e10-11d3-a6da-008048ed75bd as PinCompare Comment "Support routine for opaque type Pin returns integer.";
+		rename import 4a21b83f-5e10-11d3-a6da-008048ed75bd as PinImportText Comment "Support routine for opaque type Pin returns Pin.";
+		rename export 4a21b840-5e10-11d3-a6da-008048ed75bd as PinExportText Comment "Support routine for opaque type Pin returns impexp.";
+		rename importbinary 4a21b841-5e10-11d3-a6da-008048ed75bd as PinImportBinary Comment "Support routine for opaque type Pin returns Pin.";
+		rename exportbinary 4a21b842-5e10-11d3-a6da-008048ed75bd as PinExportBinary Comment "Support routine for opaque type Pin returns impexpbin.";
+	};
+
+
+	interface Wire : TextIO, BinIO, TextImpExp, BinImpExp, BTree, Equal
+	{
+		attribute mi_integer Wire_id;
+		attribute mi_integer First_comp_id;
+		attribute mi_integer First_pin_id;
+		attribute mi_integer Second_comp_id;
+		attribute mi_integer Second_pin_id;
+		attribute mi_integer Wire_value;
+		rename input 4a21b84c-5e10-11d3-a6da-008048ed75bd as WireInput Comment "Support routine for opaque type Wire returns Wire.";
+		rename output 4a21b84d-5e10-11d3-a6da-008048ed75bd as WireOutput Comment "Support routine for opaque type Wire returns lvarchar.";
+		rename send 4a21b84a-5e10-11d3-a6da-008048ed75bd as WireSend Comment "Support routine for opaque type Wire returns sendrecv.";
+		rename receive 4a21b84b-5e10-11d3-a6da-008048ed75bd as WireReceive Comment "Support routine for opaque type Wire returns Wire.";
+		rename notequal 4a21b854-5e10-11d3-a6da-008048ed75bd as WireNotEqual Comment "Support routine for opaque type Wire returns boolean.";
+		rename lessthan 4a21b855-5e10-11d3-a6da-008048ed75bd as WireLessThan Comment "Support routine for opaque type Wire returns boolean.";
+		rename greaterthan 4a21b856-5e10-11d3-a6da-008048ed75bd as WireGreaterThan Comment "Support routine for opaque type Wire returns boolean.";
+		rename equal 4a21b853-5e10-11d3-a6da-008048ed75bd as WireEqual Comment "Support routine for opaque type Wire returns boolean.";
+		rename lessthanorequal 4a21b857-5e10-11d3-a6da-008048ed75bd as WireLessThanOrEqual Comment "Support routine for opaque type Wire returns boolean.";
+		rename greaterthanorequal 4a21b858-5e10-11d3-a6da-008048ed75bd as WireGreaterThanOrEqual Comment "Support routine for opaque type Wire returns boolean.";
+		rename compare 4a21b852-5e10-11d3-a6da-008048ed75bd as WireCompare Comment "Support routine for opaque type Wire returns integer.";
+		rename import 4a21b84e-5e10-11d3-a6da-008048ed75bd as WireImportText Comment "Support routine for opaque type Wire returns Wire.";
+		rename export 4a21b84f-5e10-11d3-a6da-008048ed75bd as WireExportText Comment "Support routine for opaque type Wire returns impexp.";
+		rename importbinary 4a21b850-5e10-11d3-a6da-008048ed75bd as WireImportBinary Comment "Support routine for opaque type Wire returns Wire.";
+		rename exportbinary 4a21b851-5e10-11d3-a6da-008048ed75bd as WireExportBinary Comment "Support routine for opaque type Wire returns impexpbin.";
+	};
+
+
+	Function 8c13c9e0-ca93-11d3-a795-008048ed75bd  : void locSetxpos( Loc aloc, mi_integer xval ) Comment "Entrypoint for the SQL routine Setxpos (Loc,integer) returns void.";
+	Function 201e025a-a209-11d3-a757-008048ed75bd  : void wireSetall( Wire aWire, mi_integer wireid, mi_integer comp1, mi_integer pin1, mi_integer comp2, mi_integer pin2, mi_integer wirevalue ) Comment "Entrypoint for the SQL routine Setall (Wire,integer,integer,integer,integer,integer,integer) returns void.";
+	Function 5510bfaa-6c28-11d3-a6fa-008048ed75bd  : mi_integer pingetid( Pin apin ) Comment "Entrypoint for the SQL routine getid (Pin) returns integer.";
+	Function 1f5d3041-c406-11d3-a785-008048ed75bd  : mi_integer pingetio( Pin apin ) Comment "Entrypoint for the SQL routine getio (Pin) returns integer.";
+	Function 5510bfb2-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetfirstpin( Wire awire ) Comment "Entrypoint for the SQL routine getfirstpin (Wire) returns integer.";
+	Function 5510bfac-6c28-11d3-a6fa-008048ed75bd  : mi_integer pingetvalue( Pin apin ) Comment "Entrypoint for the SQL routine getvalue (Pin) returns integer.";
+	Function 8c13c9e1-ca93-11d3-a795-008048ed75bd  : void locSetypos( Loc aloc, mi_integer yval ) Comment "Entrypoint for the SQL routine Setypos (Loc,integer) returns void.";
+	Function 201e025e-a209-11d3-a757-008048ed75bd  : void wireSetseccomp( Wire aWire, mi_integer compid ) Comment "Entrypoint for the SQL routine Setseccomp (Wire,integer) returns void.";
+	Function 201e0253-a209-11d3-a757-008048ed75bd  : void compSettype( Component aComp, mi_integer comptype ) Comment "Entrypoint for the SQL routine Settype (Component,integer) returns void.";
+	Function 201e0258-a209-11d3-a757-008048ed75bd  : void pinSetvalue( Pin aPin, mi_integer pinvalue ) Comment "Entrypoint for the SQL routine Setvalue (Pin,integer) returns void.";
+	Function 5510bfb5-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetvalue( Wire awire ) Comment "Entrypoint for the SQL routine getvalue (Wire) returns integer.";
+	Function 5510bfaf-6c28-11d3-a6fa-008048ed75bd  : mi_integer locgetypos( Loc aloc ) Comment "Entrypoint for the SQL routine getypos (Loc) returns integer.";
+	Function 201e025c-a209-11d3-a757-008048ed75bd  : void wireSetfirstcomp( Wire aWire, mi_integer compid ) Comment "Entrypoint for the SQL routine Setfirstcomp (Wire,integer) returns void.";
+	Function 5510bfa9-6c28-11d3-a6fa-008048ed75bd  : mi_integer compgetypos( Component comp ) Comment "Entrypoint for the SQL routine getypos (Component) returns integer.";
+	Function 5510bfa3-6c28-11d3-a6fa-008048ed75bd  : mi_integer compgetxpos( Component comp ) Comment "Entrypoint for the SQL routine getxpos (Component) returns integer.";
+	Function 201e0256-a209-11d3-a757-008048ed75bd  : void pinSetid( Pin aPin, mi_integer pinid ) Comment "Entrypoint for the SQL routine Setid (Pin,integer) returns void.";
+	Function 5510bfb1-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetfirstcomp( Wire awire ) Comment "Entrypoint for the SQL routine getfirstcomp (Wire) returns integer.";
+	Function 5510bfab-6c28-11d3-a6fa-008048ed75bd  : mi_integer pingetcomp( Pin apin ) Comment "Entrypoint for the SQL routine getcomp (Pin) returns integer.";
+	Function 201e0251-a209-11d3-a757-008048ed75bd  : void compSetall( Component aComp, mi_integer compid, mi_integer comptype, mi_integer xpos, mi_integer ypos ) Comment "Entrypoint for the SQL routine Setall (Component,integer,integer,integer,integer) returns void.";
+	Function 5510bfb4-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetsecpin( Wire awire ) Comment "Entrypoint for the SQL routine getsecpin (Wire) returns integer.";
+	Function 5510bfad-6c28-11d3-a6fa-008048ed75bd  : mi_integer pincheckterm( Pin apin ) Comment "Entrypoint for the SQL routine checkterm (Pin) returns integer.";
+	Function 201e025f-a209-11d3-a757-008048ed75bd  : void wireSetsecpin( Wire aWire, mi_integer pinid ) Comment "Entrypoint for the SQL routine Setsecpin (Wire,integer) returns void.";
+	Function 201e0254-a209-11d3-a757-008048ed75bd  : void compSetxpos( Component aComp, mi_integer xpos ) Comment "Entrypoint for the SQL routine Setxpos (Component,integer) returns void.";
+	Function 5510bfae-6c28-11d3-a6fa-008048ed75bd  : mi_integer locgetxpos( Loc aloc ) Comment "Entrypoint for the SQL routine getxpos (Loc) returns integer.";
+	Function 201e0259-a209-11d3-a757-008048ed75bd  : void pinSetterm( Pin aPin, mi_integer pinterm ) Comment "Entrypoint for the SQL routine Setterm (Pin,integer) returns void.";
+	Function 5510bfa2-6c28-11d3-a6fa-008048ed75bd  : mi_integer compgettype( Component comp ) Comment "Entrypoint for the SQL routine gettype (Component) returns integer.";
+	Function 201e0252-a209-11d3-a757-008048ed75bd  : void compSetid( Component aComp, mi_integer compid ) Comment "Entrypoint for the SQL routine Setid (Component,integer) returns void.";
+	Function 201e025d-a209-11d3-a757-008048ed75bd  : void wireSetfirstpin( Wire aWire, mi_integer pinid ) Comment "Entrypoint for the SQL routine Setfirstpin (Wire,integer) returns void.";
+	Function 1f5d3042-c406-11d3-a785-008048ed75bd  : void pinsetio( Pin apin, mi_integer aio ) Comment "Entrypoint for the SQL routine setio (Pin,integer) returns void.";
+	Function 201e0257-a209-11d3-a757-008048ed75bd  : void pinSetcomp( Pin aPin, mi_integer compid ) Comment "Entrypoint for the SQL routine Setcomp (Pin,integer) returns void.";
+	Function 5510bfb3-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetseccomp( Wire awire ) Comment "Entrypoint for the SQL routine getseccomp (Wire) returns integer.";
+	Function 201e025b-a209-11d3-a757-008048ed75bd  : void wireSetid( Wire aWire, mi_integer wireid ) Comment "Entrypoint for the SQL routine Setid (Wire,integer) returns void.";
+	Function 22a4f680-9855-11d3-a74a-008048ed75bd  : void PinSetall( Pin PinOpaque, mi_integer Pin_id, mi_integer Comp_id, mi_integer Pin_value, mi_integer pio, mi_integer isterm ) Comment "Entrypoint for the SQL routine Setall (Pin,integer,integer,integer,integer,integer) returns void.";
+	Function 201e0260-a209-11d3-a757-008048ed75bd  : void wireSetvalue( Wire aWire, mi_integer wirevalue ) Comment "Entrypoint for the SQL routine Setvalue (Wire,integer) returns void.";
+	Function 201e0255-a209-11d3-a757-008048ed75bd  : void compSetypos( Component aComp, mi_integer ypos ) Comment "Entrypoint for the SQL routine Setypos (Component,integer) returns void.";
+	Function 5510bfb0-6c28-11d3-a6fa-008048ed75bd  : mi_integer wiregetid( Wire awire ) Comment "Entrypoint for the SQL routine getid (Wire) returns integer.";
+	Function 5510bfa1-6c28-11d3-a6fa-008048ed75bd  : mi_integer compgetid( Component comp ) Comment "Entrypoint for the SQL routine getid (Component) returns integer.";
+}
+ Comment "Generated for project dblogic.3.0.";

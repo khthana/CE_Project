@@ -1,0 +1,693 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0034)http://www.panmanee.com/keybrd.htm -->
+<!-- <SERVICE NAME="pop"> --><!-- </SERVICE> --><!-- <SERVICE NAME="watermark"> --><HTML><HEAD><TITLE>Interfacing the PC's Keyboard.</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<META 
+content="Details the AT Keyboard Interface and AT Keyboard Protocols. Includes an example Keyboard to ASCII decoder using a 68HC705J1A MCU." 
+name=description>
+<META content="Keyboard, Scan Code, AT, 101 key, HC705J1A, HC11" name=keywords>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<P align=center><FONT color=#0000ff face="Arial Narrow" size=5><B>Interfacing 
+the PC's keyboard. </B></FONT><FONT face="Arial Narrow"><BR></FONT></P>
+<HR>
+
+<P><FONT color=#ff0000 face="Arial Narrow">Disclaimer </FONT><FONT 
+face="Arial Narrow">:While every effort has been made to make sure the 
+information in this document is correct the author can not be liable for any 
+damages whatsoever for loss relating to this document. Use this information at 
+your own risk. </FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow">IBM Keyboards. Not really an interesting topic, 
+  one would expect. So why would you want to interface the Keyboard? The IBM 
+  keyboard can be a cheap alternative to a keyboard on a Microprocessor 
+  development system. Or maybe you want a remote terminal, just couple it with a 
+  LCD Module. </FONT>
+  <P><FONT face="Arial Narrow">Maybe you have a RS-232 Barcode Scanner or other 
+  input devices, which you want to use with existing software which only allows 
+  you to key in numbers or letters. You could design yourself a little box to 
+  convert RS-232 into a Keyboard Transmission, making it transparent to the 
+  software. </FONT></P>
+  <P><FONT face="Arial Narrow">An interfacing example is given showing the 
+  keyboard's protocols in action. This interfacing example uses a 68HC705J1A MCU 
+  to decode an IBM AT keyboard and output the ASCII equivalent of the key 
+  pressed at 9600 BPS. </FONT></P>
+  <P><FONT face="Arial Narrow">Note that this page only deals with AT Keyboards. 
+  If you have any XT keyboards, you wish to interface, consider placing them in 
+  a museum. We will not deal with this type of keyboard in this document. XT 
+  Keyboards use a different protocol compared to the AT, thus code contained on 
+  this page will be incompatible. </FONT></P></LI></UL>
+<HR>
+
+<P><FONT face="Arial Narrow" size=5><B>PC Keyboard Theory</B></FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow">The IBM keyboard you most probably have sitting 
+  in front of you, sends scan codes to your computer. The scan codes tell your 
+  Keyboard Bios, what keys you have pressed or released. Take for example the 
+  'A' Key. The 'A' key has a scan code of 1C (hex). When you press the 'A' key, 
+  your keyboard will send 1C down it's serial line. If you are still holding it 
+  down, for longer than it's typematic delay, another 1C will be sent. This 
+  keeps occurring until another key has been pressed, or if the 'A' key has been 
+  released. </FONT>
+  <P><FONT face="Arial Narrow">However your keyboard will also send another code 
+  when the key has been released. Take the example of the 'A' key again, when 
+  released, the keyboard will send F0 (hex) to tell you that the key with the 
+  proceeding scan code has been released. It will then send 1C, so you know 
+  which key has been released. </FONT></P>
+  <P><FONT face="Arial Narrow">Your keyboard only has one code for each key. It 
+  doesn't care it the shift key has been pressed. It will still send you the 
+  same code. It's up to your keyboard BIOS to determine this and take the 
+  appropriate action. Your keyboard doesn't even process the Num Lock, Caps Lock 
+  and Scroll Lock. When you press the Caps Lock for example, the keyboard will 
+  send the scan code for the cap locks. It is then up to your keyboard BIOS to 
+  send a code to the keyboard to turn on the Caps lock LED. </FONT></P>
+  <P><FONT face="Arial Narrow">Now there's 101 keys and 8 bits make 256 
+  different combinations, thus you only need to send one byte per key, right? 
+  </FONT></P>
+  <P><FONT face="Arial Narrow">Nop. Unfortunately a handful of the keys found on 
+  your keyboard are extended keys, and thus require two scan code. These keys 
+  are preceded by a E0 (hex). But it doesn't stop at two scan codes either. How 
+  about E1,14,77,E1,F0,14,F0,77! Now that can't be a valid scan code? Wrong 
+  again. It's happens to be sent when you press the Pause/break key. Don't ask 
+  me why they have to make it so long! Maybe they were having a bad day or 
+  something? </FONT></P>
+  <P><FONT face="Arial Narrow">When an extended key has been released, it would 
+  be expect that F0 would be sent to tell you that a key has been released. Then 
+  you would expect E0, telling you it was an extended key followed by the scan 
+  code for the key pressed. However this is not the case. E0 is sent first, 
+  followed by F0, when an extended key has been released. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Keyboard Commands</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">Besides Scan codes, commands can also be sent to 
+  and from the keyboard. The following section details the function of these 
+  commands. By no means is this a complete list. These are only some of the more 
+  common commands. </FONT></P>
+  <UL>
+    <LI><FONT face="Arial Narrow" size=5><B>Host Commands</B></FONT>
+    <HR>
+     
+    <P><FONT face="Arial Narrow">These commands are sent by the Host to the 
+    Keyboard. The most common command would be the setting/resetting of the 
+    Status Indicators (i.e. the Num lock, Caps Lock &amp; Scroll Lock LEDs). The 
+    more common and useful commands are shown below. </FONT></P>
+    <DIV align=center>
+    <CENTER>
+    <TABLE border=0 width="80%">
+      <TBODY>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>ED</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Set Status LED's - This command can 
+          be used to turn on and off the Num Lock, Caps Lock &amp; Scroll Lock 
+          LED's. After Sending ED, keyboard will reply with ACK (FA) and wait 
+          for another byte which determines their Status. Bit 0 controls the 
+          Scroll Lock, Bit 1 the Num Lock and Bit 2 the Caps lock. Bits 3 to 7 
+          are ignored. </B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">EE</FONT></TD>
+        <TD><FONT face="Arial Narrow">Echo - Upon sending a Echo command to 
+          the Keyboard, the keyboard should reply with a Echo (EE)</FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>F0</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Set Scan Code Set. Upon Sending F0, 
+          keyboard will reply with ACK (FA) and wait for another byte, 01-03 
+          which determines the Scan Code Used. Sending 00 as the second byte 
+          will return the Scan Code Set currently in Use </B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">F3</FONT></TD>
+        <TD><FONT face="Arial Narrow">Set Typematic Repeat Rate. Keyboard will 
+          Acknowledge command with FA and wait for second byte, which determines 
+          the Typematic Repeat Rate.</FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>F4</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Keyboard Enable - Clears the 
+          keyboards output buffer, enables Keyboard Scanning and returns an 
+          Acknowledgment.</B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">F5</FONT></TD>
+        <TD><FONT face="Arial Narrow">Keyboard Disable - Resets the keyboard, 
+          disables Keyboard Scanning and returns an Acknowledgment.</FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>FE</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Resend - Upon receipt of the resend 
+          command the keyboard will re- transmit the last byte 
+        sent.</B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">FF</FONT></TD>
+        <TD><FONT face="Arial Narrow">Reset - Resets the 
+      Keyboard.</FONT></TD></TR></TBODY></TABLE></CENTER></DIV>
+    <P><FONT face="Arial Narrow" size=5><B>Commands</B></FONT></P>
+    <HR>
+
+    <P><FONT face="Arial Narrow">Now if the Host Commands are send from the host 
+    to the keyboard, then the keyboard commands must be sent from the keyboard 
+    to host. If you think this way, you must be correct. Below details some of 
+    the commands which the keyboard can send. </FONT></P>
+    <DIV align=center>
+    <CENTER>
+    <TABLE border=0 width="80%">
+      <TBODY>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>FA</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Acknowledge</B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">AA</FONT></TD>
+        <TD><FONT face="Arial Narrow">Power On Self Test Passed (BAT 
+          Completed)</FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>EE</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>See Echo Command (Host 
+          Commands)</B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">FE</FONT></TD>
+        <TD><FONT face="Arial Narrow">Resend - Upon receipt of the resend 
+          command the Host should re-transmit the last byte sent. </FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow"><B>00</B></FONT></TD>
+        <TD><FONT face="Arial Narrow"><B>Error or Buffer 
+      Overflow</B></FONT></TD></TR>
+      <TR>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD>
+        <TD><FONT face="Arial Narrow"></FONT>&nbsp;</TD></TR>
+      <TR>
+        <TD vAlign=top><FONT face="Arial Narrow">FF</FONT></TD>
+        <TD><FONT face="Arial Narrow">Error or Buffer 
+      Overflow</FONT></TD></TR></TBODY></TABLE></CENTER></DIV></LI></UL></LI></UL>
+<HR>
+
+<P><FONT face="Arial Narrow" size=5><B>Scan Codes</B></FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow">The diagram below shows the Scan Code assigned 
+  to the individual keys. The Scan code is shown on the bottom of the key. E.g. 
+  The Scan Code for ESC is 76. All the scan codes are shown in Hex. </FONT>
+  <P><FONT face="Arial Narrow"><IMG alt="Scancodes - Keyboard" height=256 
+  src="keybrd_files/scancode.gif" width=587> <BR></FONT></P>
+  <UL>
+    <LI><FONT face="Arial Narrow">As you can see, the scan code assignments are 
+    quite random. In many cases the easiest way to convert the scan code to 
+    ASCII would be to use a look up table. Below is the scan codes for the 
+    extended keyboard &amp; Numeric keypad. </FONT></LI></UL>
+  <P><FONT face="Arial Narrow"><IMG alt="Scancodes -  Numeric Keypad" height=285 
+  src="keybrd_files/scancod1.gif" width=338> <BR></FONT></P></LI></UL>
+<HR>
+
+<P><FONT face="Arial Narrow" size=5><B>The Keyboard's Connector</B></FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow">The PC's AT Keyboard is connected to external 
+  equipment using four wires. These wires are shown below for the Male Plug. 
+  </FONT>
+  <DIV align=center>
+  <CENTER>
+  <TABLE border=0 width="70%">
+    <TBODY>
+    <TR>
+      <TD><FONT face="Arial Narrow"><IMG alt="5 Pin Din Numbering (Male Plug)" 
+        src=""></FONT></TD>
+      <TD><FONT face="Arial Narrow">1. KBD Clock<BR>2. KBD Data<BR>3. 
+        N/C<BR>4. GND<BR>5. +5V 
+  (VCC)<BR></FONT></TD></TR></TBODY></TABLE></CENTER></DIV>
+  <P><FONT face="Arial Narrow">A fifth wire can sometimes be found. This was 
+  once upon a time implemented as a Keyboard Reset, but today is left 
+  disconnected on AT Keyboards. Both the KBD Clock and KBD Data are Open 
+  Collector bi-directional I/O Lines. If desired, the Host can talk to the 
+  keyboard using these lines. </FONT></P>
+  <P><FONT face="Arial Narrow">Note: Most keyboards are specified to drain a 
+  maximum 300mA. This will need to be considered when powering your devices 
+  </FONT></P></LI></UL>
+<HR>
+
+<P><FONT face="Arial Narrow" size=5><B>The Keyboard's Protocol</B></FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow" size=5><B>Keyboard to Host</B></FONT>
+  <HR>
+   
+  <P><FONT face="Arial Narrow">As mentioned before, the PC's keyboard implements 
+  a bi-directional protocol. The keyboard can send data to the Host and the Host 
+  can send data to the Keyboard. The Host has the ultimate priority over 
+  direction. It can at anytime (although the not recommended) send a command to 
+  the keyboard. </FONT></P>
+  <P><FONT face="Arial Narrow">The keyboard is free to send data to the host 
+  when both the KBD Data and KBD Clock lines are high (Idle). The KBD Clock line 
+  can be used as a Clear to Send line. If the host takes the KBD Clock line low, 
+  the keyboard will buffer any data until the KBD Clock is released, ie goes 
+  high. Should the Host take the KBD Data line low, then the keyboard will 
+  prepare to accept a command from the host. </FONT></P>
+  <P><FONT face="Arial Narrow">The transmission of data in the forward 
+  direction, ie Keyboard to Host is done with a frame of 11 bits. The first bit 
+  is a Start Bit (Logic 0) followed by 8 data bits (LSB First), one Parity Bit 
+  (Odd Parity) and a Stop Bit (Logic 1). Each bit should be read on the falling 
+  edge of the clock. </FONT></P>
+  <P><FONT face="Arial Narrow"><IMG alt="Keyboard to Host Protocol Waveform" 
+  height=156 src="keybrd_files/keyboar1.gif" width=640> </FONT></P>
+  <P><FONT face="Arial Narrow">The above waveform represents a one byte 
+  transmission from the Keyboard. The keyboard may not generally change it's 
+  data line on the rising edge of the clock as shown in the diagram. The data 
+  line only has to be valid on the falling edge of the clock. The Keyboard will 
+  generate the clock. The frequency of the clock signal typically ranges from 20 
+  to 30 Khz. The Least Significant Bit is always sent first. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Host to Keyboard</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">The Host to Keyboard Protocol is initiated by 
+  taking the KBD data line low. However to prevent the keyboard from sending 
+  data at the same time that you attempt to send the keyboard data, it is common 
+  to take the KBD Clock line low for more than 60us. This is more than one bit 
+  length. Then the KBD data line is taken low, while the KBD clock line is 
+  released. </FONT></P>
+  <P><FONT face="Arial Narrow">The keyboard will start generating a clock signal 
+  on it's KBD clock line. This process can take up to 10mS. After the first 
+  falling edge has been detected, you can load the first data bit on the KBD 
+  Data line. This bit will be read into the keyboard on the next falling edge, 
+  after which you can place the next bit of data. This process is repeated for 
+  the 8 data bits. After the data bits come an Odd Parity Bit. </FONT></P>
+  <P><FONT face="Arial Narrow"><IMG alt="Host to Keyboard - Protocol Waveform" 
+  height=147 src="keybrd_files/keyboard.gif" width=745> </FONT></P>
+  <P><FONT face="Arial Narrow">Once the Parity Bit has been sent and the KBD 
+  Data Line is in a idle (High) state for the next clock cycle, the keyboard 
+  will acknowledge the reception of the new data. The keyboard does this by 
+  taking the KBD Data line low for the next clock transition. If the KBD Data 
+  line is not idle after the 10th bit (Start, 8 Data bits + Parity), the 
+  keyboard will continue to send a KBD Clock signal until the KBD Data line 
+  becomes idle. </FONT></P></LI></UL>
+<P><A name=1><FONT face="Arial Narrow"></FONT></A></P>
+<HR>
+
+<P><FONT face="Arial Narrow" size=5><B>Interfacing Example - Keyboard to ASCII 
+Decoder</B></FONT></P>
+<HR>
+
+<UL>
+  <LI><FONT face="Arial Narrow">Normally in this series of web pages, we connect 
+  something to the PC, to demonstrate the protocols at work. However this poses 
+  a problem with the keyboard. What could be possibly want to send to the 
+  computer via the keyboard interface? </FONT>
+  <P><FONT face="Arial Narrow">Straight away any devious minds would be going, 
+  why not a little box, which generates passwords!. It could keep sending 
+  characters to the computer until it finds the right sequence. Well I'm not 
+  going to encourage what could possibly be illegal practices. </FONT></P>
+  <P><FONT face="Arial Narrow">In fact a reasonably useful example will be given 
+  using a 68HC705J1A single chip microcontroller. We will get it to read the 
+  data from the keyboard, convert the scan codes into ASCII and send it out in 
+  RS-232 format at 9600 BPS. However we won't stop here, you will want to see 
+  the bi-directional use of the KBD Clock &amp; Data lines, thus we will use the 
+  keyboards status LEDS, Num Lock, Caps Lock and Scroll Lock. </FONT></P>
+  <P><FONT face="Arial Narrow">This can be used for quite a wide range of 
+  things. Teamed up with a reasonably sized 4 line x 40 character LCD panel, you 
+  could have yourself a little portable terminal. Or you could use it with a 
+  microcontroller development system. The 68HC705J1A in a One Time Programmable 
+  (OTP) is only a fraction of the cost of a 74C922 keyboard decoder chip, which 
+  only decodes a 4 x 4 matrix keypad to binary. </FONT></P>
+  <P><FONT face="Arial Narrow">The keyboard doesn't need to be expensive either. 
+  Most people have many old keyboards floating around the place. If it's an AT 
+  Keyboard, then use it (XT keyboards will not work with this program.) If we 
+  ever see the introduction of USB keyboards, then there could be many redundant 
+  AT keyboards just waiting for you to hook them up. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Features</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">Before we start with the technical aspects of the 
+  project, the salesman in me wants to tell you about the features packed into 
+  the 998 bytes of code. </FONT></P>
+  <UL>
+    <LI><FONT face="Arial Narrow">Use of the keyboard's bi-directional protocol 
+    allowing the status of the Num Lock, Caps Lock and Scroll Lock to be 
+    displayed on the Keyboards LEDs.</FONT> 
+    <LI><FONT face="Arial Narrow"><BR><BR></FONT>
+    <LI><FONT face="Arial Narrow">External Reset Line activated by ALT-CTRL-DEL. 
+    If you are using it with a Microcontroler development system, you can reset 
+    the MCU with the keyboard. I've always wanted to be able to use the three 
+    fingered solute on the HC11!</FONT> 
+    <LI><FONT face="Arial Narrow"><BR><BR></FONT>
+    <LI><FONT face="Arial Narrow">Scroll Lock and Num Lock toggles two Parallel 
+    Port Pins on the HC705. This can be used to turn things on or off, Select 
+    Memory Pages, Operating Systems etc</FONT> 
+    <LI><FONT face="Arial Narrow"><BR><BR></FONT>
+    <LI><FONT face="Arial Narrow">"ALTDEC" or what I call the Direct Decimal 
+    Enter Routine. Just like using a PC, when you enter a decimal number when 
+    holding down one of the ALT keys the number is sent as binary to the target 
+    system. E.g. If you press and hold down ALT, then type in 255 and release 
+    ALT, the value FF (Hex) will be sent to the system. Note. Unlike the PC, you 
+    can use both the numeric keypad or the numbers along the top of the 
+    keyboard. </FONT>
+    <LI><FONT face="Arial Narrow"><BR><BR></FONT>
+    <LI><FONT face="Arial Narrow">"CTRLHEX" or you guessed it, Direct 
+    Hexadecimal Enter Routine. This function is not found with the PC. If you 
+    hold CTRL down, you can enter a Hexadecimal number. Just the thing for 
+    Development Systems or even debugging RS-232 Comms?</FONT> 
+    <LI><FONT face="Arial Narrow"><BR><BR></FONT>
+    <LI><FONT face="Arial Narrow">Output is in ASCII using a RS-232 format at 
+    9600 BPS. If using it with a development System, you can tap it in after the 
+    RS-232 Line Transceivers to save you a few dollars on RS-232 Level 
+    Converters. </FONT></LI></UL>
+  <P><FONT face="Arial Narrow"><BR></FONT><FONT face="Arial Narrow" 
+  size=5><B>Schematic &amp; Hardware</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">The schematic below, shows the general 
+  connections of the keyboard to the HC705. The O.C. on the inverters denotes 
+  Open Collector outputs. I've used 74LS05 for the Open Collector Inverters, but 
+  it is up to you how you want to implement it. You can also use transistors 
+  with a suitable current limiting resistor, if you see fit. </FONT></P>
+  <P><FONT face="Arial Narrow"><IMG alt="Schematic for PC Keyboard Decoder" 
+  height=272 src="keybrd_files/keybrd05.gif" width=496> </FONT></P>
+  <P><FONT face="Arial Narrow">The TXD pin, while it transmits in RS-232 format, 
+  is not at RS-232 Voltage Levels. If you want to connect it to RS-232 Devices 
+  then you will need to attach a RS-232 Level Converter of some kind. If you are 
+  using it with a development system, you can bypass both RS-232 Level 
+  Converters and connect it directly to the RXD pin of the MCU. However the 
+  keyboard can't be a direct replacement for a terminal on a development system, 
+  unless you want to type in your code each time! You may want to place a jumper 
+  or switch inline to switch between your RS-232 Port and the keyboard. 
+  </FONT></P>
+  <P><FONT face="Arial Narrow">The circuit is designed to run on a 4Mhz crystal 
+  (2Mhz Bus Speed). The timing for the RS-232 transmission is based on the bus 
+  speed, thus this crystal has to be 4 Mhz. If you are lucky enough to have a 4 
+  Mhz E Clock on your development system you can use it. I might at a later date 
+  try to create a 2 Mhz version which will run happily off a HC11 with a 8 Meg 
+  Crystal. This will reduce the cost of the project even further. </FONT></P>
+  <P><FONT face="Arial Narrow">The power supply can also create a slight 
+  problem. A standard keyboard can drain about 300mA max, thus it would be 
+  recommended to use it's own regulator rather than taking a supply from 
+  elsewhere. Filter Capacitors are not shown on the general schematic but are 
+  implied for reliable operation. Consult your MC68HC705J1A Technical Data 
+  Manual for more information. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Reading Bytes from the 
+  Keyboard.</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">Now it is time to look at the code. I cannot 
+  include a description of all the code in this web page. The list file is just 
+  on 16 pages. Most of it (hopefully) is easy to follow. Just like other code, 
+  count the number of spelling errors, while you are at it. </FONT></P><PRE><FONT face="Arial Narrow">
+
+  Receive  ldx     #08                     ;Number of Bits
+           clra                            ;Clear Parity Register
+           bclr    clkout,PORTB            ;Clear to Send
+
+           brset   clkin,PORTB,*           ;wait for idle Clock
+           brset   datain,PORTB,Receive    ;False Start Bit, Restart
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">Remember the KBD Clock line? If you take it low, 
+  the keyboard will buffer any keys pressed. The Keyboard will only attempt to 
+  send when both the Data and Clock lines are idle (high). As it can take 
+  considerable time to decode the keys pressed, we must stop the keyboard from 
+  sending data. If not, some of the data may be lost or corrupted. </FONT></P>
+  <P><FONT face="Arial Narrow">The program, will keep the KBD Clock line low, 
+  unless it is ready to accept data. We will use a loop to retrieve the data 
+  bits from the keyboard, thus we will load index register X with the number of 
+  bits be want to receive. The Accumulator will be used to verify the parity 
+  bit. We must clear this first. </FONT></P>
+  <P><FONT face="Arial Narrow">We then place the KBD Clock line in the idle 
+  state so that the keyboard will start transmitting data if a key has been 
+  pressed. The program then loops while the Clock Line is Idle. One the KBD 
+  clock goes low, the loop is broken and the KBD Data Line is read. This should 
+  be the start bit which should be low. If not we branch to the start of the 
+  receive routine. </FONT></P><PRE><FONT face="Arial Narrow">
+
+  Recdata  ror     byte
+           jsr     highlow                 ;Wait for high to low Transition
+           brset   datain,PORTB,Recset
+           bclr    7,byte
+           jmp     Recnext
+  Recset   bset    7,byte
+           inca
+  Recnext  decx
+           bne     Recdata                 ;Loop until 8 bits been received
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">Once the Start bit has been detected, the 8 data 
+  bits must follow. The data is only valid on the falling edge of the clock. The 
+  subroutine highlow shown below will wait for the falling edge of the clock. 
+  </FONT></P><PRE><FONT face="Arial Narrow">
+
+  highlow brclr   clkin,PORTB,*         ;Loop until Clk High
+          brset   clkin,PORTB,*         ;Loop until Clk Low
+          rts
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">After the falling edge we read the level of the 
+  KBD Data line. If it is high we set the MSB of byte or if it is clear, we 
+  clear it. You will notice if the bit is set, we also increment the 
+  accumulator. This keeps track of the number of 1's in the byte and thus can be 
+  used to verify the Parity Bit. Index register X is decremented as we have read 
+  a byte. It then repeats the above process, until the entire 8 bits have been 
+  read. </FONT></P><PRE><FONT face="Arial Narrow">
+
+           jsr     highlow
+           eor     PORTB                   ;Parity Bit Detection
+           and     #$01
+           beq     r_error
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">After the 8 data bits, comes the dreaded Parity 
+  Bit. We could ignore it if we wanted to, but we may as well do something about 
+  it. We have been keeping a tally of the number of 1's in the Accumulator. The 
+  keyboard uses Odd parity, thus the parity bit should be the complement of the 
+  LSBit in the Accumulator. By exclusive OR-ing the Accumulator with the Parity 
+  Bit, we get a 1 if both the bits are different. I.e a '1' if the parity bit 
+  checks out. </FONT></P>
+  <P><FONT face="Arial Narrow">As we are only interested in the LSB we can quite 
+  happy XOR the accumulator with PORTB. However this means the KBD datain must 
+  be connected to PB0. This can be a slight catch if you alter the equates. Then 
+  we single out the LSB using the AND function. If the resultant is zero, then a 
+  parity error has occurred and the program branches to r_error. </FONT></P><PRE><FONT face="Arial Narrow">
+
+           jsr     highlow
+           brclr   datain,PORTB,r_error    ;Stop Bit Detection
+
+           bset    clkout,PORTB            ;Prevent Keyboard from sending data
+                                           ;(Clear to Send)
+           rts                             
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">After the Parity Bits comes the Stop Bit. Once 
+  again we can ignore it if we desire. However we have chosen to branch to an 
+  error routine if this occurs. The Stop bits should be set, thus an error 
+  occurs when it is clear. </FONT></P><PRE><FONT face="Arial Narrow">
+
+  r_error lda     #$FE                    ;Resend
+          sta     byte
+          jsr     Transmit                
+          jmp     Receive                 ;Try again
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">What you do as error handling is up to you. In 
+  most cases it will never be executed. In fact I don't yet know if the above 
+  error handling routine works. I need to program another HC705 to send a false 
+  parity bit. I've tried it out in close proximity to the Washing Machine, but I 
+  really need a controlled source! </FONT></P>
+  <P><FONT face="Arial Narrow">When an error occurs in the Parity or Stop Bit we 
+  should assume that the rest of the byte could have errors as well. We could 
+  ignore the error and process the received byte, but it could have unexpected 
+  results. Instead the keyboard has a resend command. If we issue a resend (FE) 
+  to the keyboard, the keyboard should send the byte back again. This is what 
+  occurs here. </FONT></P>
+  <P><FONT face="Arial Narrow">You may notice that we branch to the error 
+  routine which transmits a resend command straight away, without waiting for 
+  the corrupt transmission to finish. This is not a problem, as the keyboard 
+  considers any transmission to be successful, if the 10th bit is sent, i.e. the 
+  parity bit. If we interrupt the transmission before the parity bit is sent, 
+  the keyboard will place the current byte in it's buffer for later 
+  transmission. </FONT></P>
+  <P><FONT face="Arial Narrow">You may of noticed that reading a byte doesn't 
+  really require bi-directional data and clock lines. If you can process the 
+  byte fast enough then no handshaking (RTS) is required. This means you no 
+  longer need the Open Collector inverters and the 2 Parallel Port lines. I have 
+  successfully done this with the HC705, outputting only scan codes on a 
+  Parallel Bus. But as you can imagine, you must be quick in order to catch the 
+  next transmission. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Writing Bytes to the 
+  Keyboard.</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">Writing commands to the keyboard involves the use 
+  of the Open Collector inverters. If we require an idle line (+5v), then we 
+  must transmit a 0 (zero) to achieve this. Everything which is sent via the 
+  dataout and clockout lines must be inverted. </FONT></P><PRE><FONT face="Arial Narrow">
+
+  transmit ldx     #$08                    ;8 Data Bits
+           bset    clkout,PORTB            ;Set Clock Low
+           lda     #$13                    ;Delay 64uS
+           jsr     delay
+           clra                            ;Clear Parity Register
+           bset    dataout,PORTB           ;Set Data Low
+           bclr    clkout,PORTB            ;Release Clock Line
+           jsr     highlow
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">The routine given here is a generic one which can 
+  be used for your own purposes. During normal execution of this program the KBD 
+  clock line should be low, to prevent data being sent when the MCU isn't ready 
+  for it. However in this example, we take low the KBD clock line and wait for 
+  the 64uS which is pointless as the line is already low and has been like this 
+  for quite some time, since the end of the last Transmission or Reception. 
+  </FONT></P>
+  <P><FONT face="Arial Narrow">The program then initiates the Host to Keyboard 
+  transmission by taking the KBD data line low and releasing the KBD clock line. 
+  We must then wait for a high to low transition on the KBD clock, before we 
+  load the first bit on the KBD data line. - Something which is not clear in 
+  other FAQ's on the net. </FONT></P><PRE><FONT face="Arial Narrow">
+
+  loop     ror     byte
+           bcs     mark
+  space    bset    dataout,PORTB           ; Clear Bit
+           jmp     next
+  mark     bclr    dataout,PORTB           ; Clear Bit
+           inca                            ; Parity Calculation
+  next     jsr     highlow                 ; Wait for high to low transition
+           decx
+           bne     loop
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">The loading of the individual bits on the KBD 
+  data line is done in very similar fashion to the read cycle. However note that 
+  the bits are inverted. Also like the read cycle, we increment the accumulator 
+  so we can calculate the parity bit later on. </FONT></P><PRE><FONT face="Arial Narrow">
+
+           and     #$01
+           bne     clr_par
+  set_par  bclr    dataout,PORTB
+           jmp     tr_ackn
+  clr_par  bset    dataout,PORTB
+  tr_ackn  jsr     highlow
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">After the data bits have been sent, it is now 
+  time to send the parity bit. Unlike the read cycle, we can't ignore the parity 
+  bit. If we do the keyboard will issue a resend (FE) command if the parity bit 
+  is incorrect. </FONT></P><PRE><FONT face="Arial Narrow">
+
+           bclr    dataout,PORTB           ;Release Data Line
+           jsr     highlow
+           brset   datain,PORTB,error      ;Check for Ack
+           brclr   clkin,PORTB,*           ;Wait for idle line
+
+           bset    clkout,PORTB            ;Prevent Keyboard from sending data
+                                           ;(Clear to Send)
+           rts
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">Once the Parity bit has been set and the falling 
+  edge of the KBD clock detected, we must release the KBD data line, wait for 
+  another falling edge of the KBD clock to see if the Keyboard has acknowledged 
+  the byte. The keyboard does this by pulling the KBD data line low. If it is 
+  not low, then the program branches to an error handler. If all has been 
+  successful, the MCU pulls down the KBD clock, to prevent it from transmitting. 
+  </FONT></P><PRE><FONT face="Arial Narrow">
+
+  error    lda     #$FF      ;Reset
+           sta     byte
+           jsr     transmit
+           rts
+
+</FONT></PRE>
+  <P><FONT face="Arial Narrow">We have taken a harsher approach to handing any 
+  transmit errors. Ideally we should wait for the keyboard to send a resend 
+  command and then retransmit the byte. However what we have done is to issue a 
+  reset of the keyboard. So far I've never had an error, however if this starts 
+  to become a problem, then a better error handler will be written. </FONT></P>
+  <P><FONT face="Arial Narrow"><BR></FONT><FONT face="Arial Narrow" 
+  size=5><B>Download Source Code</B></FONT></P>
+  <HR>
+
+  <P><A href="http://www.senet.com.au/~cpeacock/files/keybrd05.zip"><FONT 
+  face="Arial Narrow">Download Keybrd05.zip </FONT></A><FONT 
+  face="Arial Narrow">- Source code for 68HC705J1A (7,590 Bytes) <BR>Note: The 
+  above program for the 68HC11 is also available, upon request. Email the Author 
+  for more details. </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Bugs</B></FONT></P>
+  <HR>
+
+  <P><FONT face="Arial Narrow">The only known bug at this moment occurs when you 
+  press the Pause/Break Key. In fact it could be passed off as a bug, as the 
+  keyboard pauses! However the program wasn't written to do this. When the Pause 
+  Break Key is pressed, it thinks the Right Ctrl key has been pressed, but not 
+  released. Therefore it enters the Direct Hexadecimal Routine waiting for the 
+  Right Ctrl key to be released. </FONT></P>
+  <P><FONT face="Arial Narrow">A cure for the problem is to press and release 
+  the Right Ctrl Key, which exits from the Direct Hexadecimal Routine, so you 
+  gain control of the keyboard again. </FONT></P>
+  <P><FONT face="Arial Narrow">The first version of this software (Released 2nd 
+  October 1997) had a little bug in line 152. pscrlck should in fact be pnumlck. 
+  </FONT></P>
+  <UL>
+    <LI><PRE><FONT face="Arial Narrow">
+   036C [02] A177       149  main9   cmp     #$77    ;Num Lock Pressed
+   036E [03] 2605       150          bne     main10
+   0370 [05] 0DC14D     151          brclr   pnumlck,status,nums
+   0373 [05] 1EC1       152          bset    pscrlck,status
+</FONT></PRE></LI></UL>
+  <P><FONT face="Arial Narrow">If you hold the NumLock down longer than the 
+  typematic delay, the 68HC705 thinks the Scroll Lock is pressed. However it 
+  never enters the scroll lock routine, thus you have to press the scroll lock 
+  twice to get it to work after pressing the holding down the NumLock. 
+  </FONT></P>
+  <P><FONT face="Arial Narrow">In this version, dated the 15th February 1998, 
+  the Bug has been Corrected. </FONT></P>
+  <P><FONT face="Arial Narrow">Good luck and don't wear out your keyboard! 
+  </FONT></P>
+  <P><FONT face="Arial Narrow" size=5><B>Links to other 
+  information.</B></FONT><FONT face="Arial Narrow"> <BR></FONT></P>
+  <HR>
+
+  <TABLE border=0>
+    <TBODY>
+    <TR>
+      <TD vAlign=top><A href="http://www.ezl.com/~rsch/projects.htm"><FONT 
+        face="Arial Narrow">Two Line Mini-Terminal</FONT></A><FONT 
+        face="Arial Narrow"> </FONT></TD>
+      <TD><FONT face="Arial Narrow">Roger Schaefer has developed a Mini RS-232 
+        Terminal using the 68HC11. As an input device the terminal uses a 
+        <B>standard IBM compatible PC keyboard.</B> In a normal full duplex mode 
+        the controller converts the keyboard scan codes to ASCII and transmits 
+        them to the RS-232 output. Input from the RS-232 is displayed on the 
+        LCD. <BR><BR></FONT></TD></TR></TBODY></TABLE></LI></UL>
+<HR>
+
+<P align=center><A href="http://www.panmanee.com/index1.htm" target=main><FONT 
+face="Arial Narrow"><STRONG>Back To Main 
+Page</STRONG></FONT></A></P></BODY></HTML>

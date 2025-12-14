@@ -1,0 +1,54 @@
+(* ======================= CHARTEST.KB ===========================
+   This short KB tells which event results from a combination of key presses and
+   which values are passed to the event topic.  The topic TRAP is set as an event
+   topic. Whenever either a sys_char_event or a char_event occurs
+   TRAP is called and is passed the name of the keys pressed in the case
+   of a sys_char_event or the ascii value of the key in the case of a char_event.
+   The event topic is also passed the name of the event and the handle of the
+   window in which the event occurred.  
+
+   Copyright (c) Knowledge Garden Inc. 1990-92
+
+                 Knowledge Garden Inc.
+                 Stony Brook Technology Center
+                 12-8 Technology Drive
+                 Setauket, NY 11733
+
+                 Phone (516) 246-5400
+                 Fax   (516) 246-5452
+
+   This source code may not be distibuted without permission of
+   Knowledge Garden Inc.
+
+   NOTE: This tool is designed to run in a separate instance of 
+         KnowledgePro. Therefore when you quit this tool, you
+         also terminate KnowledgePro.
+
+=================================================================*)
+
+set_event_topic ( trap, [char_event, sys_char_event] ).
+w1 is window (quit ,15,2,58,15,'Keyboard Events',[popup,thickFrame,titleBar,showChildren,siblings,ControlMenu,MinimizeBox],,,,close_event).
+icon is load_icon ( kptool_icon).
+attach_icon ( ?w1, ?icon ).
+text ('
+    
+     Type any key combinations to see the items passed 
+                    to the event topic by the event.
+
+                    Information:
+                    Event Name:
+
+      The final item passed is the handle of the active window.').
+
+button ('Quit', quit,27,11,7).
+eventWin is window ( ,28,5,100,4, ,[child, visible], ?w1, blue).
+show_window ( ?w1 ).
+
+topic trap (info,event,handle).
+  text (#e,#n, ?info, ?event ).
+  trap is true.
+end.
+
+topic quit.
+ exit_kp ().
+end.
