@@ -1,0 +1,21 @@
+<html>
+<body bgcolor=white>
+</body>
+<center>
+<u><font size=+2><b>บริการตรวจสอบสิทธิ์ในระบบเครือข่ายโดยใช้เคอร์บีรอส<br>Network authentication service using Kerberos</b></font></u>
+
+</center><p>
+<table>
+<tr><td>โดย<td>1. 40013244 เกียรติก้อง ทิพย์รัตน์</td>
+<tr><td>อาจารย์ที่ปรึกษา<td>1.อาจารย์ สุมณฑา  หลิมศิริวงษ์ </td>
+</table>
+<p><b>บทคัดย่อ</b><p>
+ในสภาพแวดล้อมที่ผู้ใช้สามารถใช้งานบริการเซิร์ฟเวอร์โดยผ่านระบบเครือข่าย เราต้องการให้เซิร์ฟเวอร์สามารถจำกัดการใช้บริการของผู้ใช้ที่มีสิทธิ์ใช้งานและมีสิทธิ์ใช้บริการนั้นๆ ในสภาพแวดล้อมเหล่านี้เราไม่สามารถมั่นใจได้ว่าผู้ใช้ที่ใช้อยู่คือผู้ที่ได้รับอนุญาตจริงๆ  ผู้ใช้สามารถที่จะแอบอ้างตนเองว่าเป็นผู้ใช้คนอื่น  หรือปลอมหมายเลขของเครื่องเป็นเครื่องที่ได้รับการอนุญาตจากที่ที่ไม่มีสิทธิ์  ทำการดักข้อมูลแล้วนำมาแอบอ้างใช้ภายหลัง  ในกรณีเหล่านี้ทำให้ผู้ใช้ที่ไม่ได้รับอนุญาตสามารถเข้ามาใช้งานหรือบริการได้   การเตรียมการสื่อสารที่มีการตรวจสอบสิทธิ์ของแต่ละเซิร์ฟเวอร์จึงเป็นสิ่งจำเป็นที่จะต้องมี Kerberos ได้จัดเตรียมเซิร์ฟเวอร์ตรวจสอบสิทธิ์ที่เป็นศูนย์กลางในการทำงาน โดยมีการตรวจสอบระหว่างผู้ใช้กับเซิร์ฟเวอร์และเซิร์ฟเวอร์กับผู้ใช้ Kerberos ทำให้เรามั่นใจในการส่งข้อมูลโดยการใช้การเข้ารหัสโดยใช้กุญแจสาธารณะ<p>
+<b>Abstract</b><p>
+In the open distributed environment in which users at workstations wish to access services on server distributed throughout the network.  We would like for server to be able restrict access to authorized user and to be able to authenticate request for service.  In this environment, a workstation cannot be trusted to identify its users correctly to network services.  A user may gain access to a particular workstation and pretend to be another user operating from that workstation, A user may alter the network address of workstation so that the requests sent from the altered workstation appear to come from the impersonated workstation.  A user may eavesdrop on exchanges and a replay attack to gain entrance to server or to disrupt operations.  In any of these cases, an unauthorized user may be able to gain access to services and data that he or she is not authorized to access. Rather than building in elaborate authentication protocol at each server, Kerberos provides a centralized authentication server whose function is to authenticate user to servers and servers to users. Unlike most other authentication, Kerberos relies exclusively on conventional encryption, making on use of public-key encryption.<p>
+<b>Document</b><p>
+Download <a href=../docs/Kerberos.doc>Kerberos.doc</a> doucument file in Microsoft Word format<p>
+Download <a href=../powerpoint/Kerberos.ppt>Kerberos.ppt</a> doucument file in Microsoft Powerpoint format<p><hr>
+<center>[<a href="../index.html">back to index</a>]</center>
+</body>
+</html>

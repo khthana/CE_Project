@@ -1,0 +1,28 @@
+<html>
+<body bgcolor=white>
+</body>
+<center>
+<u><font size=+2><b>โพรเซสและเทรดในระบบปฏิบัติการวินโดว์ เอ็นที<br>Process and Thread in Windows NT</b></font></u>
+
+</center><p>
+<table>
+<tr><td>โดย<td>1. 39014451 นาย วรทัศน์ สภานนท์</td>
+<tr><td><td>2. 39014459 นาย วรวิทย์  ธนสถิตย์ชัย</td>
+<tr><td>อาจารย์ที่ปรึกษา<td>1. อาจารย์บุญธีร์  เครือตราชู  </td>
+</table>
+<p><b>บทคัดย่อ</b><p>
+โพรเซสเป็นหลักในการแบ่งการทำงานและทรัพยากรในระบบวินโดวส์เอ็นที ระบบปฎิบัติการจะแบ่งงานออกเป็นฟังก์ชันเพื่อเพิ่มประสิทธิภาพในการใช้งานหน่วยประมวลผล นอกจากนี้วินโดวส์ยังแบ่งโพรเซสออกเป็นหน่วยย่อยของการทำงานที่เรียกว่าเทรด ซึ่งเทรดนี่เองที่จะทำให้โพรเซสสามารถทำงานที่ส่วนต่าง ๆ ของโปรแกรมของมันได้ในเวลาเดียวกัน เพื่อเป็นการเพิ่มประสิทธิภาพในการใช้งานหน่วยประมวลผลขึ้นไปอีกโดยเฉพาะในคอมพิวเตอร์ที่ทำงานแบบหลายหน่วยประมวลผล โพรเซสจะประกอบไปด้วยตำแหน่งหน่วยความจำและกลุ่มของทรัพยากรที่ซึ่งเทรดสามารถแบ่งไปใช้งานร่วมกันได้
+	โครงสร้างโพรเซสของเอ็นที โพรเซสเป็นพื้นฐานที่มีความยืดหยุ่นต่อระบบย่อยสภาพแวดล้อมในการสร้าง
+สิ่งต่าง ๆ ที่ ไคลเอ็นท์ของมันต้องการ ระบบย่อยสภาพแวดล้อมมีความเป็นอิสระในการจัดลำดับขั้นของโพรเซสเพื่อเอื้อต่อการถ่ายทอดทรัพยากร และการกำหนดตำแหน่งของหน่วยความจำเบื้องต้นให้เหมาะสมกับไคลเอ็นท์ของมัน นอกจากนี้ระบบย่อยสภาพแวดล้อมยังสามารถที่จะควบคุม โพรเซสของไคลเอ็นท์ได้ด้วยวิธีการต่าง ๆ เช่น การปฏิบัติการต่าง ๆ ในนามของไคลเอ็นท์ของมัน และการเขียนและอ่านหน่วยความจำเสมือนของไคลเอ็นท์ความสามารถ
+ทั้งหมดนี้แสดงออกโดยระบบรักษาความปลอดภัยที่คอยตรวจสอบการเข้าถึงข้อมูลของอ็อปเจ็คต่าง ๆ ที่มันต้องการให้เป็นไปอย่างถูกต้อง ก่อนที่จะทำการปฏิบัติงานให้
+<p>
+<b>Abstract</b><p>
+Processes are a fundamental division of labor and resource within Windows NT .They allow the operating system to divide its work into functional units to achieve efficient use of the processor .Windows NT divide processes into executable units called threads . Threads allows a single process to concurrently execute different parts of its program and achieve better processor utilization ,especially on multiprocessor computers. A process consist of an address space and a set of resource that all of its threads share as they execute.
+		The NT executive's process structure is primitive and flexible ,allowing environment subsystems to construct whatever semantics they require in order to support their  clients .They are  free to establish process hierarchies, to implement process inheritance, and   to initialize the address spaces of their clients as they see fit. They can also control client processes in other ways , by performing action on behalf of their clients and by reading and writing their client's virtual memory. All of these capabilities are monitored by the security system, which checks the access rights a process has on the objects it is trying to manipulate before allowing such operations.
+<p>
+<b>Document</b><p>
+Download <a href=../docs/WinNT1.doc>WinNT1.doc</a> doucument file in Microsoft Word format<p>
+Download <a href=../powerpoint/WinNT1.ppt>WinNT1.ppt</a> doucument file in Microsoft Powerpoint format<p><hr>
+<center>[<a href="../index.html">back to index</a>]</center>
+</body>
+</html>

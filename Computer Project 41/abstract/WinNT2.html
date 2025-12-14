@@ -1,0 +1,28 @@
+<html>
+<body bgcolor=white>
+</body>
+<center>
+<u><font size=+2><b>ระบบปฏิบัติการวินโดวส์เอ็นที<br>Windows NT  Operating System</b></font></u>
+
+</center><p>
+<table>
+<tr><td>โดย<td>1. 39014066 นางสาวจรณะ   ธงภักดิ์</td>
+<tr><td><td>2. 39014120 นายชัยณรงค์   ลิ้มเพียรชอบ</td>
+<tr><td>อาจารย์ที่ปรึกษา<td>1. ผศ.ดร. บุญธีร์   เครือตราชู   </td>
+</table>
+<p><b>บทคัดย่อ</b><p>
+โครงสร้างของระบบปฏิบัติการวินโดวส์เอ็นที สามารถแบ่งได้เป็น 2 ส่วนคือ ระบบในส่วนของผู้ใช้  (user mode) และในส่วนของระบบปฏิบัติการ ( kernel mode ) ในวินโดวส์เอ็นทีจะเรียก user mode และ kernel modeว่า protected subsystem และ NT executive ตามลำดับ และวินโดวส์เอ็นทีก็จะใช้รูปแบบไคลเอน/เซิฟเวอร์ เพื่อใช้ในการจัดการโปรแกรมที่ใช้งานและระบบปฏิบัติการพื้นฐานเช่น MS-DOS.OS/2
+	ระบบปฏิบัติการวินโดวส์เอ็นทีจะทำงานในลักษณะการส่งข่าวสาร (message passing)  ระหว่างไคเอนกับเซิฟเวอร์หรือระหว่างเซิฟเวอร์กับเซิฟเวอร์ ซึ่งทุกข่าวสารจะต้องผ่าน NT executive ด้วยหรือจะกล่าวได้ว่าการส่งข่าวสารจะต้องใช้ NT executive  และ NT executive ซึ่งก็คือระบบปฏิบัติการ  จะสามารถรองรับกระบวนการทำงานของเซิฟเวอร์หลาย ๆ ตัวได้
+	สำหรับในการส่งข่าวสารนั้น NT executive จะอาศัยวิธีการที่เรียกว่า LPC (local procedure call)ซึ่งเลียนแบบมาจากวิธีการ RPC (remote procedure call) ที่เป็นมาตรฐานในการส่งผ่านข้อมูลระหว่างไคเอนและเซิฟเวอร์ในระบบโครงข่ายคอมพิวเตอร์
+<p>
+<b>Abstract</b><p>
+	The structure of the Windows NT operating system can be divided into two parts :the user mode and kernel mode . In Windows NT , the user mode and kernel mode is called Protected subsystem and NT executive , respectively.
+	Windows NT also use Client/Server form for manage application and the base operating system such as MS-DOS ,OS/2 . Windows NT operating system will work by passing message between client and server or between server and server which every message must pass NT executive . In other word passing message must use NT executive, NT executive is operating system that support several server process.
+	For passing message ,NT executive will use LPC (local procedure call) which is mimics from RPC (remote procedure call) that is industry standard communication facility for client and sever in computer network
+<p>
+<b>Document</b><p>
+Download <a href=../docs/WinNT2.doc>WinNT2.doc</a> doucument file in Microsoft Word format<p>
+Download <a href=../powerpoint/WinNT2.ppt>WinNT2.ppt</a> doucument file in Microsoft Powerpoint format<p><hr>
+<center>[<a href="../index.html">back to index</a>]</center>
+</body>
+</html>
