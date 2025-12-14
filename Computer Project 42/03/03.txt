@@ -1,0 +1,14 @@
+บทคัดย่อ
+	ปัจจุบันการดำเนินธุรกิจเป็นแบบเครือข่าย มีการเชื่อมโยงผู้ใช้เป็นกลุ่ม จึงมีการใช้ซอฟต์แวร์ประเภท
+กรุ๊ปแวร์ เพื่อความสะดวกรวดเร็วและความปลอดภัยในการทำธุรกรรม ซึ่งโปรแกรมโลตัสโน๊ตมีความสามารถที่
+จะรองรับการทำงานแบบกรุ๊ปแวร์ได้ด้วยความสามารถที่โดดเด่น เช่น เวิร์กโฟลว์ การทำเรพลิเคชั่น โน๊ตเมล์และ
+ปฏิทิน เป็นต้น รวมทั้งสามารถเขียนสูตร และสคริปต์ เพื่อช่วยในการทำงานให้มีประสิทธิภาพเพิ่มขึ้น อีกทั้งยังมี
+ความสามารถด้านความปลอดภัย ซึ่งจำเป็นอย่างยิ่งสำหรับการทำธุรกรรมบนระบบเครือข่าย
+
+Abstract
+	Nowadays, we proceed the business by network.  It's linking to groups of user.  So, there are many 
+group of software category.  It's easy, fast and secure to the transaction work.  Lotus Notes can be support of 
+any kinds of work by groupware. It has an ability that remarkable for example, workflow, replication, Notes 
+mail, Calendar and so on.  It's also being able to write and create the formula and script too. And it's can also 
+have a very safety for doing a transaction work in the network system.  
+

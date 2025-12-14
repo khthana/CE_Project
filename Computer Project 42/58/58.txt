@@ -1,0 +1,22 @@
+		        การประมูลผ่านระบบอินเทอร์เน็ต
+			   Internet Auction
+
+		               นาย ณัฐกร ตั้งสุภกิจวงศ์
+		            นางสาว เดือนเพ็ญ สมพลทวีกุล
+		      อาจารย์ อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+
+บทคัดย่อ 
+	การประมูลผ่านทางอินเทอร์เน็ตเป็นหนึ่งในการทำธุรกิจในระบบการค้าอิเล็กทรอนิกส์ ซึ่งมี 2 รูปแบบหลัก ๆ คือ แบบบุคคลต่อบุคคล โดยมีเว็บไซต์ทำหน้าที่เป็นตัวกลางในการประมูล และแบบบริษัทต่อบุคคล  โดยเว็บไซต์เป็นผู้ขาย สินค้าโดยผ่านการประมูล ในแต่ละแบบ มีการใช้เทคนิคต่าง ๆ เพื่อสร้างการบริการและการสนับสนุนให้กับลูกค้า เพื่อเป็นการขยายฐานลูกค้าให้กว้างขึ้น ซึ่งในแต่ละเว็บไซต์ จะมีขั้นตอนในการเข้าร่วมทำการประมูลที่แตกต่างกัน และสำหรับกฎระเบียบหรือข้อตกลงต่าง ๆ ก็แตกต่างกันออกไปด้วย
+	ทั้งนี้ ถึงแม้ว่า ระบบการค้าทางอิเล็กทรอนิกส์ จะได้รับการยอมรับอย่างกว้างขวาง แต่ยังคงมีข้อจำกัด ที่ต้องได้รับการพัฒนาต่อไป โดยเฉพาะในประเทศไทย ระบบการค้าทางอิเล็กทรอนิกส์ ยังต้องการการพัฒนาอย่างมาก ทั้งในด้านกฎหมาย และในด้านเทคโนโลยีต่าง ๆ ด้วย
+
+Abstract
+	An Internet Auction is the another class of the Electronic Commerce that has two types. One is Person-to-Person that the website is a public place for the seller to bring the goods and open an auction; then the buyers come in and bid for the goods. The another type is Business-to-Person that the website has the goods and makes them available for auction; then the buyers come in and bid for the goods. Each type has many techniques for service and customer supports. Each website has its auction step and policies that may different from other website.
+	Although the Electronic Commerce has been accepted by the international, in Thailand, it has many legal and technological frameworks that must be developed.
+
+
+
+
+
+
+
+

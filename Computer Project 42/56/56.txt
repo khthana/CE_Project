@@ -1,0 +1,17 @@
+เทคโนโลยีการกระจายวัตถุ
+Object     Distribution   Technology
+
+นายคมสันต์      ทิวงศ์
+นายประยงค์      ทานนท์
+อาจารย์อภิเนตร    อูนากูล  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ระบบการกระจายวัตถุเป็นการขยายความสามารถของระบบการโปรแกรมเชิงวัตถุ โดยได้ย่อมให้มีการเรียกใช้งานวัตถุผ่านระบบเครือข่ายที่แตกต่างกัน ซึ่งจะทำให้วัตถุต่าง ๆ สามารถทำงานร่วมกันได้อย่างดีโดย วัตถุต่างๆ เหล่านี้ได้กระจายอยู่บนคอมพิวเตอร์ที่ต่อผ่านระบบเครือข่าย
+โดยปัจจุบันมีมาตรฐานในการติดต่อสื่อสารกันของวัตถุที่ได้รับความนิยมมีอยู่  3 รูปแบบ คือ  CORBA ของกลุ่ม  OMG( OBJECT MANAGEMENT GROUP)  DCOM ของบริษัทไมโครซอฟท์  และ  RMI ของบริษัทซันไมโครซิสเต็ม โดยแต่ละชนิดจะมีสถาปัตยกรรมในการติดต่อสื่อสารการทำงาน และโพรโตคอลที่แตกต่างกัน   
+	
+
+Abstract
+	Distributed object computing extends an object-oriented programming system by allowing objects to be distributed across a heterogeneous network, so that each of these distributed object components interoperate as a unified whole. These objects may be distributed on different computers throughout a network
+	Now,Three of the most popular distributed object paradigms are Microsoft's Distributed Component Object Model (DCOM), OMG's Common Object Request Broker Architecture (CORBA) and JavaSoft's Java/Remote Method Invocation (Java/RMI). In this article, let us examine the differences between these three models from  an architectural standpoint. At the end of this article, you will be able to better appreciate the merits and innards of each of the distributed object paradigms. 
+
+

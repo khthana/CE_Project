@@ -1,0 +1,14 @@
+			    การประมวลผลภาษาธรรมชาติ
+			Natural Language Processing
+
+			       นายสิทธิศักดิ์ งานรุ่งเรือง
+			       นายอดิศักดิ์ ศรีสุริยสวัสดิ์
+			อาจารย์ชม กิ้มปาน อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+
+รายงานเล่มนี้กล่าวถึงการประมวลผลภาษาธรรมชาติ ทั้งในด้านการทำความเข้าใจ และการควบคุมการทำงานของอุปกรณ์ต่างๆ ซึ่งการจะเข้าใจในภาษาธรรมชาติได้นั้น เราต้องศึกษาถึงการแยกคำชนิดต่าง ๆออกจากประโยค และความสัมพันธ์ของคำ ความเป็นไปได้ในการแยกคำในภาษาธรรมชาติ ความแตกต่างของภาษาอังกฤษ กับภาษาไทยในการทำความเข้าใจในภาษานั้นๆ และการเขียนโปรแกรมเพื่อแยกคำดังกล่าวทำได้อย่างไร ทั้งหมดนี้อยู่ในเรื่องการเข้าใจในภาษา ซึ่งเมื่อเราสามารถทำให้คอมพิวเตอร์เข้าใจในภาษาของเราได้แล้ว เราก็สามารถที่นำไปสื่อสารกับคอมพิวเตอร์ในด้านต่างๆ ได้
+
+Abstract
+
+	This report describes the Natural Language Processing. There is about how to understanding and control machine, how sentences decomposed into words. Words relationships and responsibility of word. The difference sentence between English and Thai. To encode the program separates the sentence into word. When we can take the computer to understand about our language, we can take it to word in many jobs.

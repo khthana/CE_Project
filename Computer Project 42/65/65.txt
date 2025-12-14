@@ -1,0 +1,14 @@
+เซ็กเคียวเชลล์โพรโตคอล
+SECURE SHELL PROTOCOL
+นายณัฐวสุ  ชมเพ็ญ
+นายธีรวุธ สันติสุธีรวุฒิ
+อาจารย์ ธนา  หงษ์สุวรรณ อาจารย์ที่ปรึกษา
+บทคัดย่อ
+	ในปัจจุบันนี้การสื่อสารข้อมูลมีมากมายหลายแบบ ระบบเน็ตเวิร์กและอินเทอร์เน็ตก็เป็นการสื่อสารอีกรูปแบบหนึ่งที่มีผู้ใช้กันมากและมีอัตราการเติบโตอย่างรวดเร็ว ซึ่งในการติดต่อสื่อสารในระบบเน็ตเวิร์กหรือในอินเตอร์เน็ตนั้นเราสามารถรับส่งจดหมายอิเล็กทรอนิกส์,ประชุมทางไกลหรือส่งข้อมูลที่ต่างๆที่เรามีอยู่ให้กับผู้อื่นที่อยู่ห่างไกลจากเรามาก 
+ผู้ที่ใช้ข้อมูลในระบบเน็ตเวิร์กหรืออินเตอร์เน็ตนั้นบางคนจำเป็นต้องใช้การติดต่อในแบบเก่าอยู่เช่นใช้เทลเน็ตในการรับส่งจดหมายอิเล็กทรอนิกส์ซึ่งในเทลเน็ตนั้นไม่มีความปลอดภัยในข้อมูลเพียงพอจึงมีผู้ที่คิดโพรโตคอลที่ทำงานได้เช่นเดียวกับเทลเน็ตแต่จะมีการเข้ารหัสข้อมูลทำให้มีความปลอดภัยในการติดต่อสื่อสารมากกว่า โดยโพรโตคอลนี้ชื่อว่าเซ็กเคียวเชลล์โพรโตคอล  ในบทความนี้จะกล่าวถึงองค์ประกอบของเซ็กเคียวเชลล์โพรโตคอล , การทำงานอย่างคร่าวๆ ,การพิสูจน์สิทธิ์ที่มันรองรับและความสามารถในการช่วยเข้ารหัสข้อมูลต่างที่ใช้งานบน TCP/IP ของเซ็กเคียวเชลล์โพรโตคอล
+
+Abstract
+	Nowadays technology is growing up rapidly and so many way to communicate with other people around the world. Network and Internet are one of communication method , you can send mail , talk to other people , tranfer file and data to other people . But some of these have no security ( e.g. telnet , ftp , send e-mail via talnet ). Intruder may gain to access your account or read your data that you have been send. 
+SSH Protocol provide storng  encryption , data integrity , more security than telnet and help protocol on TCP/IP has more security. This document describes the architecture of the SSH Protocol , supported authentication and used of  this protocol.       
+	
+

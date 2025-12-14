@@ -1,0 +1,12 @@
+การรู้จำลายเซ็นโดยใช้จีเนติกอัลกอริทึม
+Signature Recognition Using Genetic Algorithm
+นายวัชรบูรณ์ บุษรากุล
+ นายอิทธิพล ดิลกรัตนพิจิตร
+ผศ.ดร. เอื้อน ปิ่นเงิน อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	รายงานฉบับนี้นำเสนอการจำลายเซ็นโดยใช้จีเนติกอัลกอริทึม โดยมีการเก็บข้อมูลลายเซ็นของเจ้าของลายเซ็นไว้ในฐานข้อมูลจากนั้นจึงใช้จีเนติกอัลกอริทึมสร้างกลุ่มลายเซ็นใหม่จากลายเซ็นที่อ้างอิงในฐานข้อมูล เพื่อใช้เปรียบเทียบกับลายเซ็นที่ต้องการทดสอบว่าใช่ลายเซ็นที่ต้องการจริง ๆ หรือไม่ วิธีการที่ใช้ในการเก็บข้อมูลของลายเซ็นต้นแบบจะอยู่บนพื้นฐานของการตรวจสอบลายเซ็นแบบออนไลน์ นั่นคือข้อมูลลักษณะลายเซ็นต่าง ๆ ที่จะนำมาใช้เป็นข้อมูลอ้างอิงในการทดสอบได้มาขณะที่เจ้าของลายเซ็นกำลังเซ็นลายเซ็นอยู่ ข้อมูลที่ใช้ในการทดสอบได้แก่ ลำดับการเซ็น ความยาว การเปลี่ยนแปลงของตำแหน่งในแนวนอน การเปลี่ยนแปลงของตำแหน่งในแนวตั้ง ความเร็ว ความเร่งและทิศทางการเซ็น การใช้จีเนติกอัลกอริทึมในการจำลายเซ็นจะมีความยืดหยุ่นต่อความคลาดเคลื่อนของเจ้าของลายเซ็นเอง จากการศึกษาผลการทดลองที่ได้มีผู้ศึกษามาพบว่า  มีความถูกต้องในการจำลายเซ็นอยู่ในระดับที่น่าพอใจ นั่นคือสามารถตรวจสอบลายเซ็นจำนวน 200 ลายเซ็นได้ถูกต้องประมาณ 90 เปอร์เซ็นต์ อัตราความผิดพลาดในการยอมรับลายเซ็นปลอมประมาณ 9 เปอร์เซ็นต์ และอัตราความผิดพลาดในการปฏิเสธลายเซ็นจริงประมาณ 11 เปอร์เซ็นต์
+
+Abstract
+	This report presents signature recognition by using genetic algorithm. The reference signatures are kept in the database. The genetic algorithm will be used to produce groups of new signature to identify the signature that we want to test. The signature information is kept by using online - signature verification processes. With this method the reference signatures are kept while the owners are signing. The information we use in the test is such as order of signing, length, horizontal displacements, vertical displacements, violations, accelerations and directions of signing. This method is flexible the intrapersonal variability of each signature. According to the results of the experiments that have been made, the right recognition is satisfying that is from 20 signatures this algorithm can correctly recognize 90 percents, type I error is 9 and type II error is 11 percents. 
+

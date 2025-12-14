@@ -1,0 +1,17 @@
+						                การแบ่งภาพเพื่อการจดจำภาพ
+					      IMAGE SEGMENTATION FOR IMAGE RECOGNITION 
+
+							   นาย  ก่อเกียรติ   วัฒนะธนากร   
+							       นาย   ธีรนันท์     หุตางกูร           
+						          ดร.  เอื้อน  ปิ่นเงิน   อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	โครงการฉบับนี้ทำการศึกษาขั้นตอนการทำงานของขบวนการ ในการทำให้ระบบคอมพิวเตอร์มีความสามารถในการเรียนรู้และจดจำภาพของวัตถุได้ โดยได้ทำการศึกษาถึงขั้นตอนโดยรวมของขบวนการเพื่อการจดจำภาพของวัตถุและจะเน้นขั้นตอนในส่วนของการแบ่งภาพ ซึ่งเป็นขั้นตอนส่วนหนึ่งที่สำคัญยิ่งสำหรับขบวนการเรียนรู้เพื่อการจดจำภาพของวัตถุในระบบคอมพิวเตอร์ 
+	การศึกษาขั้นตอนในส่วนของการแบ่งภาพเพื่อการจดจำภาพวัตถุนี้ จะเป็นการกล่าวถึงเทคนิคและวิธีการซึ่งจะมีสามลำดับขั้นตอนการทำงาน คือ ลำดับแรกเป็นการทำงานโดยใช้ตัวเลขกลุ่มอาเรย์สำหรับทำการเก็บข้อมูลของภาพ, ลดสิ่งรบกวนที่ไม่ต้องการในภาพ,  หาโครงร่างของภาพวัตถุหรือขอบเขตในแต่ละองค์ประกอบ ลำดับกลางเป็นการเชื่อมต่อ และรวบรวมขอบเขตของแต่ละองค์ประกอบของภาพวัตถุที่ได้มาจากขั้นตอนแรกเข้าด้วยกัน รวมทั้งสร้างเป็นโครงร่างภาพของวัตถุขึ้นมา และลำดับสุดท้าย เป็นขั้นตอนการสร้างความสัมพันธ์ขององค์ประกอบต่างๆ คล้ายกับการอธิบายความสัมพันธ์เพื่อทำให้คอมพิวเตอร์เข้าใจความหมายของภาพวัตถุทั้งหมดได้  ซึ่งในส่วนนี้จะแบ่งออกเป็นสองแบบในการวิเคราะห์ คือ แบบแรกจะใช้ขอบเขตเป็นเกณฑ์ในการสร้างความสัมพันธ์ กับแบบที่สองจะใช้พื้นที่เป็นเกณฑ์ในการสร้างความสัมพันธ์ ซึ่งในโครงงานนี้ ทำการศึกษาว่าทั้งสองแบบนี้ว่ามีความสามารถ ข้อดีข้อเสีย ความเหมาะสมในการใช้งานกับภาพแบบใด
+
+Abstract
+	Project studies for process which make computer can learn and recognize the segmentation of image by studying for all process of image recognition and  especially for  process of image segmentation which is important to make computer can learn and recognize image.
+The study in the process of image segmentation is about technique and method with three steps. 
+First step, the low level is to use numerical array to store data of  image, reduce the irritate components (noise) in the image, and find the structure or border of each component.
+Second step, the intermediate level is to connect and combine all structures in the image into the new structure.
+Final step, the high level is to find the relation between each structure, it is the same way to describe the relation to make computer understand all of structures in the image. In this step divides into two pattern, explanation the relation between border of each component in the image by  image’s edge and explanation the relation between area of each component in the image by image’s region.

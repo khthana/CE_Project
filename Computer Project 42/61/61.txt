@@ -1,0 +1,16 @@
+สมาร์ทการ์ด
+Smart Card
+
+นาย วรเชษฐ์  ทรัพย์สมบูรณ์
+นาย เอกชัย  ลาน้ำคำ
+อาจารย์ อภิเนตร  อูนากูล  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+เทคโนโลยีสมาร์ทการ์ดเป็นเทคโนโลยีของบัตรที่สามารถเก็บและบันทึกข้อมูลได้  สมาร์ทการ์ดสามารถทำงานได้หลายอย่าง เช่น เป็นบัตรเครดิต  บัตรนักศึกษา บัตรผู้ป่วยโรงพยาบาล การ์ดโฟนสำหรับโทรศัพท์ รวมอยู่ในบัตรสมาร์ทการ์ดเพียงใบเดียว และยังสามารถประยุกต์ใช้งานต่างๆ ได้อีกมากมาย และมีแนวโน้มว่าจะมีการใช้งานเพิ่มมากขึ้นในอนาคตอันใกล้นี้
+สมาร์ทการ์ดเป็นบัตรพลาสติกขนาดเท่าบัตรเครดิตทั่วๆไป ที่มีไมโครชิปซึ่งเป็นแผ่นวงจรอิเล็กทรอนิกส์ขนาดเล็กบรรจุอยู่บนตัวบัตร  มีส่วนประกอบใหญ่ๆอยู่ 3 ส่วนคือ  การ์ดพลาสติก,แผ่นวงจร (Print Circuit) และ ชิป (Chip) ซึ่งประเภทของสมาร์ทการ์ดจะมีอยู่ 2 ประเภท คือ ประเภทที่มีแต่หน่วยความจำ (Memory Only Chip Card) และ ประเภทที่มีหน่วยประมวลผลบนบัตร (Microprocessor Card) ข้อดีของสมาร์ทการ์ดที่เห็นได้ชัดคือ ในเรื่องของความปลอดภัย  สมาร์ทการ์ดใช้เทคโนโลยีการเข้ารหัสทำให้มีความปลอดภัยสูง ด้วยเหตุนี้ทำให้เทคโนโลยีบัตรแถบแม่เหล็กกำลังจะถูกแทนที่ด้วยเทคโนโยลีสมาร์ทการ์ด
+
+Abstract               
+Smart card  is technology which can store and record information. It can be applied as credit card, phone card and so on. 
+Smart card is plastic card as size as credit cards, smart card used to store information on an integrated microprocessor chip located within the body of the card. Smart card include of three parts are plastic card, Print circuit and chip. There are two types of smart card; memory only chip card and microprocessor card. The most advantage of smart card is security which is cryptographic algorithms. Thus magnetic strip card technology is replaced by smart card technology.   
+	
+

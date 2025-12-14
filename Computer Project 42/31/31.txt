@@ -1,0 +1,20 @@
+พร็อกซี่เซิร์ฟเวอร์สำหรับอินเทอร์เน็ตของภาควิชาวิศวกรรมคอมพิวเตอร์ สจล.
+CE-Proxy Server
+
+นายจิราเจตน์ อ่อนสา
+นายสุริยะ บุตราศรี
+อาจารย์ชุติเมษฏ์ ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+รายงานนี้เป็นรายงานที่ค้นคว้าเกี่ยวกับเรื่องพร็อกซี่เซิร์ฟเวอร์ของภาควิชาวิศวกรรมคอมพิวเตอร์สถาบันเทคโนโลยี
+พระจอมเกล้าเจ้าคุณทหารลาดกระบัง เนื้อหาจะประกอบไปด้วยสองส่วนหลักๆคือ ในส่วนแรกจะกล่าวถึงหลักการของพร็อกซี่
+เซิร์ฟเวอร์อันประกอบไปด้วย ความหมายของพร็อกซี่เซิร์ฟเวอร์ , ประโยชน์ของพร็อกซี่เซิร์ฟเวอร์ , WWW Caching  และราย
+ละเอียดอื่นๆเกี่ยวกับพร็อกซี่ โดยจะเป็นหลักการพื้นฐานทั่วไปของพร็อกซี่ที่ควรทราบนั่นเอง
+	ในส่วนที่สองจะกล่าวถึง CE-Proxy Server โดยเริ่มด้วยเรื่องราวของประวัติของ CE-Proxy Server รวมไปถึงดูถึงการ
+ทำงานของ CE-Proxy Server ในปัจจุบันว่าเป็นอย่างไร มีปัญหาการใช้งานและแนวทางแก้ไขอย่างไร
+
+Abstract
+This report is divided into two parts presenting the structure and operation of KMIT’L Computer Engineering 
+Department’s proxy server. The first part is about the basic concept of proxy server, meaning of proxy server, advantage of 
+proxy server, WWW caching and the other detail of proxy. The second part is CE-Proxy Server, beginning with history of 
+CE-Proxy Server followed by the performance of CE-Proxy Server,the problems found and the solution.   

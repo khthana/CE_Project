@@ -1,0 +1,18 @@
+ระบบและการออกแบบ AS/400 ของไอบีเอ็ม
+IBM AS/400 System and Design
+
+นาย สุรเกียรติ  ธีระศักดิ์
+นาย อนิรุตต์  ปกสุข
+อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+
+
+บทคัดย่อ
+เอเอส/400 เป็นชื่อของคอมพิวเตอร์เซิร์ฟเวอร์ของไอบีเอ็มซึ่งได้ทำการออกแบบมาเพื่อเหมาะกับการทำธุรกิจโดยเฉพาะไม่เหมือนกับเซิร์ฟเวอร์อื่นๆ ซึ่งใช้เทคนิคและการคำนวณเป็นแบบเดิมๆ การใช้เทคโนโลยีของเอเอส/400จะแบ่งออกเป็นส่วนๆซึ่งได้แก่ ความเหมาะสม, ความน่าเชื่อถือ, ความปลอดภัย, และความเชื่อมั่นในการลงทุน
+ซึ่งในเอกสารนี้เราจะมาทำการเรียนรู้เกี่ยวกับสถาปัตยกรรมภายในของเอเอส/400ในส่วนที่เกี่ยวข้องกับฮาร์ดแวร์โดยเริ่มแรกเราจะทำการศึกษาเกี่ยวกับโพรเซสเซอร์ที่ใช้กับเอเอส/400ว่าทำงานอย่างไร จากนั้นเราจะมาทำการศึกษาเกี่ยวกับการจัดการเมโมรีและสตอร์เรจต่างๆ ลงท้ายด้วยเรื่องของการจัดการของไอ/โอ ซี่งเรื่องทุกเรื่องเป็นเรื่องที่น่าสนใจมาก
+
+
+Abstract
+AS/400 is a name of IBM computer. It is designed for business, optimized for business, and made for business. Unlike other servers, whose heritage is that of technical or personal computing, AS/400 has a  focus on one design point to make it one of the most popular and widely used servers for business computing. Technologies that set AS/400 apart in the areas of availability, reliability, security, and investment protection. 
+In this document we will learn about architecture of AS/400 include Processor, Memory & Storage Management, and I/O.    	
+

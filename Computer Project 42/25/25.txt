@@ -1,0 +1,13 @@
+การวิเคราะห์และออกแบบเชิงวัตถุ
+Object-Oriented Analysis and Design
+นายกรัณฑ์  ศิริกุล
+นายปรเมษ  หทัยรักษ์ธรรม
+อาจารย์บรรจง  ปิยธำรง อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+ปัจจุบันการเขียนโปรแกรมด้วยวิธีของออบเจ็กต์โอเรียนเต็ดนั้นเป็นวิธีหนึ่งที่ใช้ในการแก้ปัญหาในการเขียนโปรแกรมซึ่งได้นำวิธีการเขียนโปรแกรมแบบโครงสร้างมารวมกับแนวคิดใหม่ที่จะมองปัญหาต่างๆแยกออกเป็นกลุ่มย่อยๆที่มีความสัมพันธ์กัน  ดังนั้นก่อนที่เราจะทำการสร้างระบบงานใดๆเราควรที่จะมีการวิเคราะห์และออกแบบก่อน จะเห็นว่าการออกแบบเชิงวัตถุนั้นเราจะใช้คุณสมบัติต่างๆอัน ได้แก่เรื่องของออบเจ็กต์,คลาส,เอนแคปซูลเลชั่น,อินเฮอริต,โพลิมอร์ฟิซึม ถ้าหากระบบงานที่พวกเราได้ออกแบบนั้นมีประสิทธิภาพสูงการเขียนโปรแกรมก็สามารถที่จะทำได้รวดเร็วและแก้ไขปรับปรุงได้ง่ายจะเห็นว่าการออกแบบนั้นมีความสำคัญมากซึ่งมีเครื่องมือที่ช่วยในการออกแบบในที่นี้จะนำเสนอพาราดามพลัส ซึ่งเป็นเครื่องมือที่ช่วยในการออกแบบออบเจ็กต์โอเรียนเต็ด  พาราดามพลัสนั้นจะช่วยในการจัดการกับโปรเจ็กต์ที่ต้องการนำมาพัฒนาแก้ไขหรือต่อเติม   พาราดามพลัสเหมาะสำหรับในการออกแบบโปรเจ็กต์ที่คุณต้องการสร้างนั่นเอง
+            
+Abstract
+            Now  programming  with  method  of  Object-Oriented  that  it  is  one method  for  solve  about  programming . It  lead method  of   structured  programming   add  to  new  concept  of  several  problem  seeing  ,It  separate minor groups , It  have relation.  Therefore, before  we  made work system, we  should  have  analysis and  design. Object-Oriented  design  use  various property  such as  object , class, encapsulation, inheritance, polymorphism. If  we  design  work  system  that  it  has  high  efficiency ,writing  programming  can  do  fast  and  edit  easy. Design  has  high important , it  have  tool  for  design. We  present  paradigm  plus. It  is  tool  for  Object-Oriented  design.  Paradigm  plus  help  operation about  project  that  it  want  lead  develop, edit  or  add. Paradigm plus  is  suitable  for  design  project ,you  want  to  made  it.
+

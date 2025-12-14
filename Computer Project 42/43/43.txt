@@ -1,0 +1,12 @@
+การค้นคืนรูปภาพ
+Image Retrieval
+
+นายนนท์ จิตร์จำนงค์
+นายพีระพงศ์  เจริญพงศ์
+อาจารย์เอื้อน  ปิ่นเงิน  อาจารย์ที่ปรึกษา
+
+บทความคัดย่อ
+บทความนี้นำเสนอเกี่ยวกับพื้นฐานทางการค้นคืนสารสนเทศและการค้นคืนรูปภาพโดยอาศัยการยกตัวอย่างเพื่อแสดงถึงวิธีการในการค้นคืนรูปภาพ โดยตัวอย่างแรกเป็นการค้นคืนรูปภาพโดยอาศัยภาพระบายสีที่อธิบายถึงลักษณะของภาพที่ต้องการซึ่งเก็บอยู่ในฐานข้อมูล ส่วนตัวอย่างที่สองจะเป็นการค้นคืนรูปภาพโดยอาศัยคำสำคัญซึ่งปรากฏอยู่ในรูปภาพที่ต้องการ
+
+Abstract
+This article present  basic principles of information retrieval and image retrieval by giving two examples. First example for image retrieval, this query is a color painting picture which explains the property of desired picture in database. Second example,query is a keyword that correspond to appearance image on the desired picture.

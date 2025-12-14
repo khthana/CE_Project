@@ -1,0 +1,28 @@
+                        			     ระบบรหัสลับแบบกุญแจเหมือน
+                           Symmetric Cryptography System
+
+                                  นาย ไพฑูรย์ กุณโฮง  
+                                นาย ยุทธนา พงษ์ประดิษฐ์  
+
+                                   อาจารย์ที่ปรึกษา
+                              อาจารย์ อัครเดช วัชระภูพงษ์
+
+
+บทคัดย่อ
+	ระบบรหัสลับแบบกุญแจเหมือน เป็นการเข้ารหัสโดยกุญแจที่ใช้เข้ารหัส และถอดรหัสเป็นกุญแจดอก เดียวกันซึ่ง
+กระบวนการที่ใช้เข้ารหัสเกิดจากการเปลี่ยนลำดับ ,การแทนที่ และการ exclusive-or โดยการทำงาน 
+หลักจะนำขั้นตอนต่างๆ ที่กล่าวมามารวมกัน กระทำกับบล็อกข้อมูลที่มีขนาดคงที่ กระบวนการทั้งหมดจะถูกทำ
+ซ้ำหลายๆครั้งเพื่อทำให้กุญแจที่ใช้เข้าเกิดการเปลี่ยนแปลง หรือทำให้ผลลัพท์ที่ได้ เกิดการเปลี่ยนไปประมาณ 50 %
+ซึ่งประโยชน์จากการเข้ารหัสจะนำมาใช้ในการพิสูจน์ตัวตน (Authentication) และอื่นๆ ระบบรหัสลับแบบ 
+กุญแจเหมือนนี้มีอยู่ด้วยกันหลายชนิด แต่ที่จะกล่าวถึงในตอนแรก คือ DESโดยในเวลาต่อมาก็ได้มีการเข้ารหัส 
+แบบอื่นที่มี พื้นฐานมาจาก DES เช่น 3DES เป็น การนำกระบวนการของ DES มาทำให้ซับซ้อนมากขึ้น และ 
+Blowfish เป็นต้น
+
+
+Abstract 
+	Symmetric encryption , cryptography system that use encodeing key is the same 
+decodeing key so main algorithm that use in encryption consist of  permutation ,
+substitution and exclusive-or associate with block cipher all algorithm occurs via
+iteration result with  differ key or consequencediffer from original 50 percent 
+that useful in authenfication and other symmetric encryption that have several
+algorithm but I claim in main is DES by the next time that occur 3DES and Blowfish

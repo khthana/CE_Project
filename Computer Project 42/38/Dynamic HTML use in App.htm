@@ -1,0 +1,635 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0058)http://www.bratta.com/dhtml/index.html?noanim,pages/0.html -->
+<HTML><HEAD><TITLE>Have you ever experienced Dynamic HTML? DHTML Scripts, demos, tutorials and more, all Cross-browser!</TITLE>
+<META content="text/html; charset=windows-874" http-equiv=Content-Type>
+<META content="Thomas Brattli (webmaster@bratta.com)" name=Author>
+<META 
+content="Cross-browser Dynamic HTML scripts, tutorials, demos and more at Have you ever experienced DHTML?" 
+name=description>
+<META 
+content="DHTML, HTML, Dynamic HTML, Style sheets, Cross-browser, Cross browser, demos, Javascript, Free, Javascripts, CSS, Cascading Style Sheets, DOM, Crossbrowser, jScript, Scripts, VBscript" 
+name=keywords>
+<STYLE>BODY {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 10pt
+}
+A {
+	COLOR: #333399; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+A.clMain {
+	COLOR: black; FONT-FAMILY: Arial, Verdana, Helvetica, Helv; FONT-SIZE: 14px; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A.clSubb {
+	COLOR: #333333; FONT-FAMILY: Arial, Verdana, Helvetica, Helv; FONT-SIZE: 14px; TEXT-DECORATION: none
+}
+#spanLoading {
+	BORDER-BOTTOM: navy 2px inset; BORDER-LEFT: navy 2px inset; BORDER-RIGHT: navy 2px inset; BORDER-TOP: navy 2px inset; COLOR: #cccccc; FONT-FAMILY: arial,helvetica; FONT-SIZE: 15px; PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px; POSITION: relative; TEXT-ALIGN: center; WIDTH: 350px
+}
+DIV {
+	POSITION: absolute
+}
+#divEx {
+	Z-INDEX: 5
+}
+#divCircle {
+	VISIBILITY: hidden; WIDTH: 200px; Z-INDEX: 400
+}
+#divExplain {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 11px; HEIGHT: 300px; VISIBILITY: hidden; WIDTH: 150px
+}
+#divCircleBottom {
+	CLIP: rect(0px 0px 100px 0px); HEIGHT: 1000px; WIDTH: 1000px
+}
+#divCircleTop {
+	CLIP: rect(0px 400px 100px 400px); HEIGHT: 1000px; WIDTH: 1000px
+}
+DIV.clEnter {
+	COLOR: #cccccc; FONT-FAMILY: arial black,arial,helvetica; HEIGHT: 30px; LEFT: -50px; WIDTH: 30px; size: 18px
+}
+#divExCont {
+	BACKGROUND-COLOR: white; CLIP: rect(0px 0px 0px 0px); HEIGHT: 1500px; LEFT: -1px; TOP: -1px; WIDTH: 1500px; layer-background-color: white
+}
+#divLogo {
+	CLIP: rect(0px 300px 30px 0px); HEIGHT: 30px; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 5
+}
+#divTextCont {
+	HEIGHT: 400px; VISIBILITY: hidden; WIDTH: 800px; Z-INDEX: 4
+}
+#divTextTop {
+	HEIGHT: 99px; LEFT: 0px; TOP: 0px; VISIBILITY: inherit; WIDTH: 449px; Z-INDEX: 200
+}
+#divTextBottom {
+	HEIGHT: 99px; LEFT: 0px; TOP: 400px; VISIBILITY: inherit; WIDTH: 449px; Z-INDEX: 201
+}
+#divArrowDown {
+	HEIGHT: 20px; VISIBILITY: hidden; WIDTH: 20px; Z-INDEX: 202
+}
+#divArrowUp {
+	HEIGHT: 20px; VISIBILITY: hidden; WIDTH: 20px; Z-INDEX: 202
+}
+DIV.clButtons {
+	HEIGHT: 22px; LEFT: 98px; TOP: 0px; VISIBILITY: inherit; WIDTH: 22px; Z-INDEX: 4
+}
+#divCont {
+	CLIP: rect(0px 220px 220px 0px); HEIGHT: 220px; VISIBILITY: hidden; WIDTH: 220px; Z-INDEX: 30
+}
+#divCenter {
+	HEIGHT: 200px; LEFT: 10px; TOP: 10px; VISIBILITY: inherit; WIDTH: 200px; Z-INDEX: 2
+}
+DIV.clText {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 13px; LEFT: 10px; TOP: 40px; VISIBILITY: hidden; WIDTH: 380px; Z-INDEX: 2
+}
+DIV.clSub {
+	HEIGHT: 20px; LEFT: -50px; WIDTH: 20px; Z-INDEX: 3
+}
+#divSubText {
+	HEIGHT: 20px; WIDTH: 20px; Z-INDEX: 3
+}
+#divHide {
+	BACKGROUND-COLOR: white; CLIP: rect(0px 135px 0px 0px); HEIGHT: 135px; LEFT: 43px; TOP: 42px; WIDTH: 135px; Z-INDEX: 2; layer-background-color: white
+}
+#divIECont {
+	LEFT: 0px; POSITION: absolute; TOP: 0px; VISIBILITY: hidden
+}
+#divLoading {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 20px; FONT-WEIGHT: bold; HEIGHT: 139px; WIDTH: 200px
+}
+#divLoading2 {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 20px; FONT-WEIGHT: bold; HEIGHT: 139px; VISIBILITY: hidden; WIDTH: 200px; Z-INDEX: 50
+}
+#divLoad {
+	BACKGROUND-COLOR: #efefef; HEIGHT: 700px; LEFT: 0px; TOP: 0px; WIDTH: 700px; Z-INDEX: 20; layer-background-color: #EFEFEF
+}
+#divIE {
+	BACKGROUND-COLOR: white; HEIGHT: 80%; LEFT: 35px; TOP: 0px; WIDTH: 500px; Z-INDEX: 10
+}
+#divBanner {
+	HEIGHT: 60px; VISIBILITY: hidden; WIDTH: 480px; Z-INDEX: 50
+}
+#divAwards {
+	HEIGHT: 60px; VISIBILITY: hidden; WIDTH: 200px; Z-INDEX: 50
+}
+#divHeading {
+	HEIGHT: 35px; VISIBILITY: inherit; WIDTH: 300px; Z-INDEX: 201
+}
+.clTopMenu {
+	BACKGROUND-COLOR: #eeeeee; CLIP: rect(0px 101px 14px 0px); HEIGHT: 151px; VISIBILITY: hidden; WIDTH: 101px; Z-INDEX: 31; layer-background-color: #EEEEEE
+}
+.clTopMenuBottom {
+	BACKGROUND-COLOR: #cecfce; CLIP: rect(0px 101px 3px 0px); HEIGHT: 3px; TOP: 11px; WIDTH: 101px; Z-INDEX: 2; layer-background-color: #CECFCE
+}
+.clTopMenuText {
+	BACKGROUND-COLOR: #eeeeee; FONT-FAMILY: arial,helvetica; FONT-SIZE: 11px; LEFT: 5px; TOP: 15px; WIDTH: 91px; Z-INDEX: 1
+}
+DIV.clMenuTop {
+	POSITION: absolute; TEXT-ALIGN: center; WIDTH: 100px
+}
+DIV.clMenuSub {
+	LEFT: 0px; POSITION: absolute; TEXT-ALIGN: center; VISIBILITY: inherit; WIDTH: 100px
+}
+#divMenuCont {
+	HEIGHT: 400px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 100px
+}
+P {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 13px
+}
+LI {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 13px
+}
+TD {
+	FONT-FAMILY: arial,helvetica; FONT-SIZE: 13px
+}
+A.clPagesSub {
+	COLOR: #6380bc; FONT-FAMILY: tahoma, arial; FONT-SIZE: 11px
+}
+</STYLE>
+
+<SCRIPT language=JavaScript>
+	var n = (document.layers) ? 1:0;
+	var ie = (document.all) ? 1:0;
+	var browser=((document.layers || document.all) && parseInt(navigator.appVersion)>=4 && !(document.all && navigator.userAgent.indexOf("Mac")>-1)) 
+	if(!browser) location.href="sorry.html"
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/mainscript.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/scripts.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/circle.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/keyboard.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/menu.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="Dynamic HTML use in App_files/intro.js"></SCRIPT>
+
+<SCRIPT>
+/***************************************************************************
+Copyright (C) 1999 Thomas Brattli
+All scripts here are made by and copyrighted to Thomas Brattli from
+www.bratta.com and can under no circumstances be used anywhere else, if
+you want to use this or something, please take contact with me at
+dhtml@bratta.com.
+****************************************************************************/
+onload=init;
+var noIntro=false
+var intro_ready; 
+var currentUrl='pages/0.html'
+
+//Checking if we're gonne play the intro
+var vars=location.search
+if(vars){vars=vars.substr(1,vars.length); vars=vars.split(',')
+	if(vars[0]) noIntro=true; if(vars[1])	currentUrl=vars[1]
+}
+
+//preloading textbottm and texttop:
+preBottom=new Image(); preBottom.src="images/textbottom.gif"
+preTop=new Image(); preTop.src="images/texttop.gif"
+
+/**********************************************************************
+Init, Main elements.
+**********************************************************************/
+function init(){
+	page=new makePageCoords()
+	//hide loading span
+	if(ie && document.all.spanLoading)spanLoading.style.visibility="hidden"
+	else if(n && document.spanLoading)document.spanLoading.visibility="hidden"
+	oExCont=new makeObj('divExCont')
+	oLogo=new makeObj('divLogo','divExCont',page.x2-310,15)
+	oAwards=new makeObj('divAwards','divExCont',10,page.y2-75)
+	oBanner=new makeObj('divBanner','divExCont',page.x2-472,page.y2-67)
+	oHeading=new makeObj('divHeading','divExCont.document.divTextCont',20,20)
+	oLogo.place()
+	oBanner.place(); menu_init()
+	oAwards.place()
+	if(noIntro){
+		fadeHeading(0)
+		oExCont.clipTo(-20,page.x2+20,page.y2+20,-20)
+		noIntro_init()
+	}else intro_init()
+	if(n)window.captureEvents(Event.RESIZE);
+	setTimeout("window.onresize = resized",500);
+}
+/**********************************************************************
+Resizing
+**********************************************************************/
+function resized(){
+	if(n){
+		if(innerWidth!=page.x2) location.href="index.html?noanim,"+currentUrl
+	}else if(ie){
+		if(document.body.offsetWidth!=page.x2) location.href="index.html?noanim,"+currentUrl
+	}		
+}
+function skipIntro(){location.href="index.html?noanim,pages/0.html"}
+/**********************************************************************
+If no intro: ################################################################################################
+**********************************************************************/
+function noIntro_init(){
+	oTextCont=new makeObj('divTextCont','divExCont',page.x10,page.y10+5)
+	oTextCont.clipTo(0,page.x10*5,page.y10*8,0)
+	oTextBottom=new makeObj('divTextBottom','divExCont.document.divTextCont')
+	oTextTop=new makeObj('divTextTop','divExCont.document.divTextCont')
+	oTextBottom.writeIt('<img src="images/textbottom.gif" usemap="#mapBscroll" name="imgTextB" width='+page.x10*5 +' height='+99 +' border=0>')
+	oTextTop.writeIt('<img src="images/texttop.gif" name="imgTextT" usemap="#mapTscroll" width='+page.x10*5 +' height='+99 +' border=0>')
+	oArrowUp=new makeObj('divArrowUp','divExCont.document.divTextCont')
+	oArrowDown=new makeObj('divArrowDown','divExCont.document.divTextCont')
+	oArrowUp.moveIt(page.x10*5-30,20)
+	oArrowDown.moveIt(page.x10*5-30,page.y10*8-30)
+	if(ie)divIE.style.width=page.x10*5-60
+	if(ie) ifr=new makeObj('divIE')
+	if(n) ifr=new makeObj('ifrMain','divExCont.document.divTextCont')
+	oLoading=new makeObj('divLoading','divExCont.document.divTextCont.document.divLoad')
+	oLoad=new makeObj('divLoad','divExCont.document.divTextCont')
+	oLoad.clipTo(oLoading.y+10,oLoading.x+50,oLoading.y+10,oLoading.x+50)
+	oLoading.moveIt(page.x10*5/2-(oLoading.scrollWidth/2),page.y10*8/2-10)
+	oLoading2=new makeObj('divLoading2','divExCont.document.divTextCont',oLoading.x,oLoading.y)
+	goUrl(currentUrl)
+	topMenus_init()
+	keyboard_init()
+	if(noIntro) intro_ready=true
+	if(noIntro) placeAll()
+}
+function placeAll(){
+	if(noIntro) oCont.place()
+	oTextCont.place()
+	oHeading.place()
+	oTextBottom.moveIt(0,page.y10*8-99)
+	oExCont.clipTo(-20,page.x2+20,page.y2+20,-20)
+	if(noIntro) circleGo(radius,-moveAngle,startAngle,oBut[5].stop,xcenter,ycenter,'menuState=1')
+}
+/**********************************************************************
+Scroll text
+**********************************************************************/
+var checkscroll, sctim;
+imgDownA=new Image(); imgDownA.src="images/downarrow2.gif"
+imgUpA=new Image(); imgUpA.src="images/uparrow2.gif"
+function scrollUp(){
+	if(checkscroll){
+		if(ifr.y>=-(ifr.scrollHeight-(page.y10*8-100))){
+			ifr.moveBy(0,-10)
+			oArrowDown.ref.imgDownArrow.src=imgDownA.src
+			sctim=setTimeout("scrollUp()",40)
+		}
+	}
+}
+function scrollDown(){
+	if(checkscroll){
+		if(ifr.y<80){
+			oArrowUp.ref.imgUpArrow.src=imgUpA.src
+			ifr.moveBy(0,10)
+			sctim=setTimeout("scrollDown()",40)
+		}
+	}
+}
+function noScroll(){
+	clearTimeout(sctim)
+	oArrowDown.ref.imgDownArrow.src="images/downarrow.gif"
+	oArrowUp.ref.imgUpArrow.src="images/uparrow.gif"
+	checkscroll=false
+}
+/********************************************************
+*******IFRAME/LAYER****************
+Loading new url in the iframe/layer
+*********************************************************/
+var currentUrl, loading
+function goUrl(url){
+	loading=true
+	clearTimeout(sctim); ifr.moveIt(35,80)
+	oArrowUp.hideIt(); oArrowDown.hideIt()
+	currentUrl=url
+	if(ie) document.all["ifrIE"].src=url
+	else if(n)	ifr.css.load(url,((innerWidth*10/100)-5)*5-60)
+}
+/********************************************************
+Onload in the iframe/layer
+*********************************************************/
+function ifrinit(){
+	if(ie)divIE.innerHTML=ifrIE.document.body.innerHTML
+	if(menubig)oLoad.clipIt(oLoading.y+10,oLoading.x+50,oLoading.y+10,oLoading.x+50,20)
+	oLoading2.hideIt()
+	ifr.scrollHeight=n?ifr.ref.height:ifr.evnt.scrollHeight
+	if(ifr.y>=-(ifr.scrollHeight-(page.y10*8-100))){
+		oArrowUp.showIt(); oArrowDown.showIt()
+	}
+	loading=false
+}
+/********************************************************
+Changing header
+*********************************************************/
+colors='#707070'
+sections=new Array('[ a b o u t ]','[ d h t m l ]','[ s c r i p t o m a n i a ]','[ r e s o u r c e s ]','[ n e w s l e t t e r ]','[ c o n t a c t ]')
+function fadeHeading(num){
+	oHeading.writeIt('<font size="5" face="arial black,arial,helvetica" color="'+colors+'">'+sections[num]+'</font>')
+}
+/********************************************************
+Top Menus
+*********************************************************/
+function topMenus_init(){
+	oTopMenu=new Array(new Array(), new Array(), new Array())
+	oTopMenu[0][0]=new makeObj('divTopMenu0','divExCont',10,10)
+	oTopMenu[0][1]=new makeObj('divTopMenuBottom0','divExCont.document.divTopMenu0')
+	oTopMenu[0][2]=new makeObj('divTopMenuText0','divExCont.document.divTopMenu0')
+	oTopMenu[0][1].moveIt(0,11)
+	oTopMenu[1][0]=new makeObj('divTopMenu1','divExCont',120,10)
+	oTopMenu[1][1]=new makeObj('divTopMenuBottom1','divExCont.document.divTopMenu1')
+	oTopMenu[1][2]=new makeObj('divTopMenuText1','divExCont.document.divTopMenu1')
+	oTopMenu[1][1].moveIt(0,11)
+	oTopMenu[2][0]=new makeObj('divTopMenu2','divExCont',230,10)
+	oTopMenu[2][1]=new makeObj('divTopMenuBottom2','divExCont.document.divTopMenu2')
+	oTopMenu[2][2]=new makeObj('divTopMenuText2','divExCont.document.divTopMenu2')
+	oTopMenu[2][1].moveIt(0,11); oTopMenu[0][0].place()
+	oTopMenu[1][0].place(); oTopMenu[2][0].place()
+}
+function topMenu(num){
+	if(oTopMenu[num][1].y==11) oTopMenu[num][1].slideIt(0,oTopMenu[num][2].scrollHeight+20,10,40,'oTopMenu['+num+'][0].clipTo(0,101,oTopMenu['+num+'][1].y+3,0)','oTopMenu['+num+'][0].clipTo(0,101,oTopMenu['+num+'][1].y+3,0)')
+	else if(oTopMenu[num][1].y==oTopMenu[num][2].scrollHeight+20) oTopMenu[num][1].slideIt(0,11,10,40,'oTopMenu['+num+'][0].clipTo(0,101,oTopMenu['+num+'][1].y+3,0)','oTopMenu['+num+'][0].clipTo(0,101,oTopMenu['+num+'][1].y+3,0)')
+}
+/********************************************************
+Menu change
+*********************************************************/
+var menubig=1
+function changeMenu(){
+	if(menubig){
+		oMenuCont=new makeObj('divMenuCont')
+		oMenuCont.moveIt(oCont.x+50, oCont.y)
+		menuInit(); oCont.hideIt()
+		oMenuCont.showIt(); menubig=false
+	}else{
+		for(i=0;i<oMenuSub.length;i++){ oMenuSub[i].hideIt() }
+		oMenuCont.hideIt(); oMenuCont=null
+		oCont.showIt(); menubig=true
+	}
+}
+//openWin
+function openWin(url){
+	scriptWin=window.open(url, "scriptWin", "toolbar=no,directories=no,status=no,location=no,resizable=yes,scrollbars=no,menubar=no,width=600,height=400")
+}
+function openWin2(url){
+	howtoWin=window.open(url, "scriptWin", "toolbar=no,directories=no,status=no,location=no,resizable=yes,scrollbars=yes,menubar=no,width=600,height=400")
+}
+</SCRIPT>
+
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY bgColor=black onscroll=window.scroll(0,0) scroll=no marginheight="0" 
+marginwidth="0"><!-- Loading -->
+<TABLE align=center height="100%" width="100%" valign="middle">
+  <TBODY>
+  <TR>
+    <TD align=middle height="100%" vAlign=center width="100%">
+      <SCRIPT>if(!noIntro) document.write('<span id="spanLoading">'
++'Please wait while the page loads...........<p>'
++'This might take a little while but it\'s all worth it! <br><b>Intro updated!</b>'
++'<p align="right"><a href="index.html?noanim,pages/0.html"><font color="white">[skip intro]</font></A>'
++'<a href="scripts.html" target="_top"><font color="white">[scriptomania]</font></A></p></span>')
+</SCRIPT>
+    </TD></TR></TBODY></TABLE><!--intro-->
+<DIV id=divExCont>
+<DIV id=divExplain>Move your mouse around on the screen to see what's beneath 
+the light. Click when you're ready to proceed. </DIV>
+<DIV id=divCircle><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="showCont(); if(ie)this.blur(); return false"><IMG border=0 height=241 
+src="Dynamic HTML use in App_files/black_circle.gif" width=234></A> </DIV>
+<DIV id=divEx></DIV>
+<DIV id=divCircleTop><IMG border=0 height=47 
+src="Dynamic HTML use in App_files/circle_top.gif" width=400> </DIV>
+<DIV id=divCircleBottom><IMG border=0 height=45 
+src="Dynamic HTML use in App_files/circle_bottom.gif" width=400> </DIV>
+<DIV class=clEnter id=divEnter0><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>E</FONT></A></DIV>
+<DIV class=clEnter id=divEnter1><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>N</FONT></A></DIV>
+<DIV class=clEnter id=divEnter2><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>T</FONT></A></DIV>
+<DIV class=clEnter id=divEnter3><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>E</FONT></A></DIV>
+<DIV class=clEnter id=divEnter4><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>R</FONT></A></DIV>
+<DIV class=clEnter id=divEnter5><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="next2(); parent.focus(); return false"><FONT 
+color=#cccccc>!</FONT></A></DIV><!--Intro end-->
+<DIV id=divLogo><IMG border=0 height=26 
+src="Dynamic HTML use in App_files/logo.gif" width=297></DIV>
+<DIV id=divAwards>&nbsp;<A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="gameWin=window.open('mediakit/index.html','gameWin','height=400,width=500,resize=no,scrollbars=no,toolbars=no')"><FONT 
+face=arial size=1>Advertise on this site</FONT></A><BR><A 
+href="http://www.projectcool.com/"><IMG alt="" border=0 height=50 
+src="Dynamic HTML use in App_files/pc-badge.jpg" width=50></A> &nbsp;<A 
+href="http://www.dhtmlzone.com/"><IMG alt="" border=0 height=50 
+src="Dynamic HTML use in App_files/spotlight.gif" width=50></A> </DIV>
+<DIV id=divTextCont>
+<DIV id=divHeading></DIV>
+<DIV id=divLoad>
+<DIV id=divLoading>Loading text....</DIV></DIV>
+<DIV id=divLoading2>Loading text....</DIV><LAYER class=clText Z-INDEX="10" 
+top="40" left="35" name="ifrMain"></LAYER>
+<DIV id=divIE></DIV>
+<DIV id=divIECont><IFRAME frameBorder=No height="80%" name=ifrIE scrolling=no 
+src="Dynamic HTML use in App_files/0.htm" width=500></IFRAME></DIV><MAP 
+name=mapTscroll><AREA coords=50,0,900,40 
+  href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+  onclick=parent.focus() onmouseout=noScroll() 
+  onmouseover="checkscroll=true; scrollDown()" shape=RECT></MAP><MAP 
+name=mapBscroll><AREA coords=50,65,900,99 
+  href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+  onclick=parent.focus() onmouseout=noScroll() 
+  onmouseover="checkscroll=true; scrollUp()" shape=RECT></MAP>
+<DIV id=divTextTop></DIV>
+<DIV id=divTextBottom></DIV>
+<DIV id=divArrowUp><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick=parent.focus() onmouseout=noScroll() 
+onmouseover="clearTimeout(sctim); checkscroll=true; scrollDown()"><IMG border=0 
+height=13 name=imgUpArrow src="Dynamic HTML use in App_files/uparrow.gif" 
+width=21></A></DIV>
+<DIV id=divArrowDown><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick=parent.focus() onmouseout=noScroll() 
+onmouseover="clearTimeout(sctim); checkscroll=true; scrollUp()"><IMG border=0 
+height=13 name=imgDownArrow src="Dynamic HTML use in App_files/downarrow.gif" 
+width=21></A></DIV></DIV>
+<DIV id=divCont>
+<DIV id=divCenter><IMG alt="" border=0 height=200 name=imgCenter 
+src="Dynamic HTML use in App_files/center.gif" width=200></DIV>
+<DIV id=divHide></DIV>
+<DIV class=clButtons id=div0><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(0); parent.focus(); return false" onmouseout=mout(0) 
+onmouseover=mover(0)><IMG border=0 height=26 name=img0 
+src="Dynamic HTML use in App_files/1.gif" width=26></A></DIV>
+<DIV class=clButtons id=div1><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(1); parent.focus(); return false" onmouseout=mout(1) 
+onmouseover=mover(1)><IMG border=0 height=26 name=img1 
+src="Dynamic HTML use in App_files/2.gif" width=26></A></DIV>
+<DIV class=clButtons id=div2><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(2); parent.focus(); return false" onmouseout=mout(2) 
+onmouseover=mover(2)><IMG border=0 height=26 name=img2 
+src="Dynamic HTML use in App_files/3.gif" width=26></A></DIV>
+<DIV class=clButtons id=div3><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(3); parent.focus(); return false" onmouseout=mout(3) 
+onmouseover=mover(3)><IMG border=0 height=26 name=img3 
+src="Dynamic HTML use in App_files/4.gif" width=26></A></DIV>
+<DIV class=clButtons id=div4><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(4); parent.focus(); return false" onmouseout=mout(4) 
+onmouseover=mover(4)><IMG border=0 height=26 name=img4 
+src="Dynamic HTML use in App_files/5.gif" width=26></A></DIV>
+<DIV class=clButtons id=div5><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclick(5); parent.focus(); return false" onmouseout=mout(5) 
+onmouseover=mover(5)><IMG border=0 height=26 name=img5 
+src="Dynamic HTML use in App_files/6.gif" width=26></A></DIV>
+<DIV class=clSub id=divSub0><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="subClick(0); if(ie)this.blur(); return false" onmouseout=subOut(0) 
+onmouseover=subOver(0)><IMG alt="" border=0 height=11 
+src="Dynamic HTML use in App_files/sub1.gif" width=11></A></DIV>
+<DIV class=clSub id=divSub1><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="subClick(1); if(ie)this.blur(); return false" onmouseout=subOut(1) 
+onmouseover=subOver(1)><IMG alt="" border=0 height=11 
+src="Dynamic HTML use in App_files/sub1.gif" width=11></A></DIV>
+<DIV class=clSub id=divSub2><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="subClick(2); if(ie)this.blur(); return false" onmouseout=subOut(2) 
+onmouseover=subOver(2)><IMG alt="" border=0 height=11 
+src="Dynamic HTML use in App_files/sub1.gif" width=11></A></DIV>
+<DIV id=divSubText></DIV></DIV>
+<DIV class=clTopMenu id=divTopMenu0><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="topMenu(0); if(ie)this.blur(); return false" 
+onmouseout="oTopMenu[0][1].bgChange('#CECFCE')" 
+onmouseover="oTopMenu[0][1].bgChange('#6380BC')"><IMG align=top alt="" border=0 
+height=11 src="Dynamic HTML use in App_files/news.gif" width=101></A> 
+<DIV class=clTopMenuText id=divTopMenuText0>27. July. Added one new script and 
+one new demo, also added some links and books. <BR>NOTE: I am on vacation the 
+entire August, so I won't be able to answer much mail in that period. <A 
+href="mailto:experience_dhtml-subscribe@listbot.com">newsletter</A>! </DIV>
+<DIV class=clTopMenuBottom id=divTopMenuBottom0></DIV></DIV>
+<DIV class=clTopMenu id=divTopMenu1><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="topMenu(1); if(ie)this.blur(); return false" 
+onmouseout="oTopMenu[1][1].bgChange('#CECFCE')" 
+onmouseover="oTopMenu[1][1].bgChange('#6380BC')"><IMG align=top alt="" border=0 
+height=11 src="Dynamic HTML use in App_files/keycontrol.gif" width=101></A> 
+<DIV class=clTopMenuText id=divTopMenuText1>1-6=Menu 
+controls<BR>M=Menuchange<BR>N=News<BR>K=Key controls<BR>P=Page 
+control<BR>A=Scroll down<BR>Z=Scroll up<BR>S=Scriptomania<BR><BR></DIV>
+<DIV class=clTopMenuBottom id=divTopMenuBottom1></DIV></DIV>
+<DIV class=clTopMenu id=divTopMenu2><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="topMenu(2); if(ie)this.blur(); return false" 
+onmouseout="oTopMenu[2][1].bgChange('#CECFCE')" 
+onmouseover="oTopMenu[2][1].bgChange('#6380BC')"><IMG align=top alt="" border=0 
+height=11 src="Dynamic HTML use in App_files/pagecontrol.gif" width=101></A> 
+<DIV class=clTopMenuText id=divTopMenuText2><A 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="changeMenu(); return false">[menu]</A> </DIV>
+<DIV class=clTopMenuBottom id=divTopMenuBottom2></DIV></DIV>
+<DIV id=divBanner>
+<SCRIPT>
+		adnum=Math.round(Math.random()*9)+''+Math.round(Math.random()*9)+''+Math.round(Math.random()*9)+''+Math.round(Math.random()*9)+''+Math.round(Math.random()*9)+''+Math.round(Math.random()*9)
+		if(document.all){
+		document.write('<IFRAME SRC="http://ad.doubleclick.net/adi/bratta.adventure/1409;cat=1409;lan=01;typ=04;ref=01;pos=01;kw=DHTML;sz=468x60;ord='+adnum+'?" name="iframe1" width="468" height="60" frameborder="no" border="0" MARGINWIDTH="0" MARGINHEIGHT="0" SCROLLING="no">\n'
+		+'<A HREF="http://ad.doubleclick.net/jump/bratta.adventure/1409;cat=1409;lan=01;typ=04;ref=01;pos=01;kw=DHTML;sz=468x60;ord='+adnum+'?"><IMG SRC="http://ad.doubleclick.net/ad/bratta.adventures/1409;cat=1409;lan=01;typ=04;ref=01;pos=01;kw=DHTML;sz=468x60;ord='+adnum+'?" border=0 height="468" width="60"></A>\n'
+		+'</IFRAME>\n')
+		document.close()
+		}
+		if(document.layers){
+			document.write('<LAYER SRC="http://ad.doubleclick.net/adl/bratta.adventure/1409;cat=1409;lan=01;typ=04;ref=01;pos=01;kw=DHTML;sz=468x60;ord='+adnum+'?" width="468" height="60" visibility="hide" onLoad="visibility=\'show\';"></LAYER>')
+			document.close()
+		}
+		</SCRIPT>
+</SCRIPT></DIV></DIV>
+<DIV id=divMenuCont>
+<DIV class=clMenuTop id=divMenuTop0><A class=clMain 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="foldMenu(0); mclickq(0,0); return false">[about]</A><BR>
+<DIV class=clMenuSub id=divMenuSub0><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Me',0); return false">Me</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Site',0); return false">Site</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Link',0); return false">Link</A><BR></DIV><BR></DIV>
+<DIV class=clMenuTop id=divMenuTop1><A class=clMain 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="foldMenu(1); mclickq(1,1); return false">[dhtml]</A><BR>
+<DIV class=clMenuSub id=divMenuSub1><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('DHTML',1); return false">DHTML</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Books',1); return false">Books</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Software',1); return false">Software</A><BR></DIV><BR></DIV>
+<DIV class=clMenuTop id=divMenuTop2><A class=clMain 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="foldMenu(2); mclickq(2,2); return false">[scriptomania]</A><BR>
+<DIV class=clMenuSub id=divMenuSub2><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Scripts',2); return false">Scripts</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Tutorials',2); return false">Tutorials</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Demos',2); return false">Demos</A><BR></DIV><BR></DIV>
+<DIV class=clMenuTop id=divMenuTop3><A class=clMain 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="foldMenu(3); mclickq(3,3); return false">[resources]</A><BR>
+<DIV class=clMenuSub id=divMenuSub3><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('TutorialSites',3); return false">TutorialSites</A><BR><A 
+class=clSubb href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Demos&amp;Scripts',3); return false">Demos&amp;Scripts</A><BR><A 
+class=clSubb href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Other',3); return false">Other</A><BR></DIV><BR></DIV>
+<DIV class=clMenuTop id=divMenuTop4><A class=clMain 
+href="http://www.bratta.com/dhtml/" 
+onclick="foldMenu(4); mclickq(4,4); return false">[newsletter]</A><BR>
+<DIV class=clMenuSub id=divMenuSub4><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Join',4); return false">Join</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Leave',4); return false">Leave</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Archive',4); return false">Archive</A><BR></DIV><BR></DIV>
+<DIV class=clMenuTop id=divMenuTop5><A class=clMain 
+href="http://www.bratta.com/dhtml/" 
+onclick="foldMenu(5); mclickq(5,5); return false">[contact]</A><BR>
+<DIV class=clMenuSub id=divMenuSub5><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Bugs',5); return false">Bugs</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Feedback',5); return false">Feedback</A><BR><A class=clSubb 
+href="http://www.bratta.com/dhtml/index.html?noanim,pages/0.html#" 
+onclick="mclickq('Hire',5); return false">Hire</A><BR></DIV><BR></DIV></DIV>
+<SCRIPT>
+if(ie){
+	document.styleSheets(0).addRule("DIV A.clMain", "font-size:13px");
+	document.styleSheets(0).addRule("DIV A.clSubb", "font-size:12px");
+	document.styleSheets(0).addRule("DIV DIV.clTopMenuText", "font-size:10px");
+}
+</SCRIPT>
+</BODY></HTML>

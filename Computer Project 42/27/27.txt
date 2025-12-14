@@ -1,0 +1,25 @@
+การออกแบบโปรแกรมเชิงวัตถุ
+Object oreinted design
+
+นาย โยธิน  รอดแก้ว
+นาย สมศักดิ์  พัฒนาประทีป
+อาจารย์ บรรจง  ปิยธำรง  อาจารย์ที่ปรึกษา 
+
+บทคัดย่อ	
+ขั้นตอนในการพัฒนาระบบมี 5 ขั้นตอนด้วยกันคือ  วิเคราะห์ความต้องการ  วิเคราะห์ระบบ  ออกแบบระบบ  การเขียนโปรแกรม และ การทดสอบระบบ ในการออกแบบระบบด้วย UML นั้น จะทำการมองระบบด้วยวิวต่าง ๆ ซึ่งแต่ละวิวก็จะแสดงระบบในรูปแบบที่แตกต่างกัน  ยูส-เคสวิว  ลอจิคอลวิว   คอมโพเนนท์วิว   และดีพลอยเมนท์วิว    ซึ่งจะมีไดอะแกรม เป็นตัวอธิบายวิวต่างๆ อีกที ซึ่งไดอะแกรมมีทั้งหมด 9 ชนิด คือ ยูส-เคสไดอะแกรม  คลาสไดอะแกรม    ออบเจกต์ ไดอะแกรม    สเตทไดอะแกรม    ซีเควนไดอะแกรม    คอลลาบอเรชันไดอะแกรม    แอคติวิตี้ไดอะแกรม    คอมโพเนนท์ไดอะแกรม     และ ดีพลอยเมนท์ไดอะแกรม และยังมีตัวอย่างการนำไดอะแกรมไปใช้งาน
+
+
+Abstract
+	There are five phases of system development : requirement analysis, analysis, design, programing and                              testing.  In system development with UML, It sees various views of system. Which are different.  There are use-case view, logical view, component view and deployment view. Each view can be explained by diagrams.  There are nine types of diagrams : use-case diagram, class diagram, object diagram, state diagram, sequence diagram, collaboration diagram, activities diagram, component diagram and deployment diagram.  Also have the example of usage.
+
+
+
+
+
+
+
+
+
+
+
+1

@@ -1,0 +1,20 @@
+ปลั๊กอินสำหรับบราวเซอร์
+Plug - ins for Browser
+นายคณาธิป ไชยธนะสัณฑิต
+นายศุภโชค วังมะนาวพิทักษ์
+อาจารย์นวพร วรรณวิมลศรี อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+            เน็ตสเคปคอมมิวนิเคชันได้ริเริ่มใช้โปรแกรมปลั๊กอินในเน็ตสเคปเนวิเกเตอร์ 2.0 ซึ่งโปรแกรมปลั๊กอินนั้นจะเป็นโปรแกรมที่ใช้ขยายขีดความสามารถของเน็ตสเคปนาวิเกเตอร์ และบราวเซอร์ของบริษัทอื่นๆ ที่รองรับความสามารถนี้ ทำให้บราวเซอร์สามารถที่จะใช้ปลั๊กอินสำหรับเข้าไปเยี่ยมชมที่ใช้เทคโนโลยีเวอร์ชวลเรียลลิตี้ หรือใช้ในการรับฟังการกระจายเสียงของสถานีวิทยุ หรือแม้กระทั่งการสนทนากันทางอินเตอร์เน็ตได้ ปลั๊กอินสามารถดาวน์โหลดได้จากเว็บไซต์ต่างๆซึ่งจะมีบริการให้ดาวน์โหลด และหลังจากดาวน์โหลดมาและติดตั้งปลั๊กอินแล้ว บราวเซอร์จะสามารถใช้ความสามารถของปลั๊กอินได้เหมือนเป็นส่วนหนึ่งของบราวเซอร์
+       ...ฯลฯ...
+
+Abstract
+              Netscape Communication has introduced the concept of  plug - ins to Navigator 2.0.Basically, a plug - in is a special type of  program that extends the capabilities of  Netscape Navigator or other browser . For example, you can add plug - ins that enable you to visit virtual reality Web sites to listen to live radio broadcasts over the Net or to carry on a near - to - live " conversation ." There many plug - ins for browser that you can download various sites throughout the Internet. Once you download a plug - in and install it, the plug - in's capabilities become a part of  Browser. 
+         ...etc...   
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+                                                             จาวาบีนและเอ็นเตอร์ไพรส์จาวาบีน
+		                     JavaBeans and Enterprise JavaBeans
+
+                                                                       นายนรกิจ คูหาอภิรมย์
+			        นายอิศวพันธ์ เอี่ยมประเสริฐกุล
+		                   อาจารย์ชุติเมษฏ์ ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในปัจจุบันเทคโนโลยีซอฟต์แวร์คอมโพเน็นต์ที่ใช้ในการพัฒนาซอฟต์แวร์มีอยู่มากมาย   เทคโนโลยีจา
+วาบีนและเทคโนโลยีเอ็นเตอร์ไพรส์จาวาบีนเป็นเทคโนโลยีซอฟต์แวร์คอมโพเน็นต์ที่ช่วยให้ผู้พัฒนาซอฟต์แวร์สา
+มารถพัฒนาซอฟต์แวร์ได้สะดวกและมีประสิทธิภาพสูงขึ้น  บีนคอมโพเน็นต์ (บีน) เป็นทั้งคอมโพเน็นต์ที่เป็นกราฟ
+ฟิกและคอมโพเน็นต์ที่ไม่เป็นกราฟฟิก เช่น ปุ่ม  สกอร์ลบาร์  ไทเมอร์ และเคาน์เตอร์ เป็นต้น การสร้างซอฟต์แวร์
+สามารถทำได้โดยการนำบีนคอมโพเน็นต์ต่างๆ มาใช้งานร่วมกันประกอบเป็นซอฟต์แวร์ขึ้นมา  เทคโนโลยีเอ็นเตอร์
+ไพรส์จาวาบีนเป็นการพัฒนาที่สูงขึ้นจากจาวาบีน  เอ็นเตอร์ไพรส์จาวาบีนเป็นการนำจาวาบีนมาเพิ่มส่วนที่ให้การ
+สนับสนุนเซิร์ฟเวอร์คอมโพเน็นต์ โดยที่เซิร์ฟเวอร์คอมโพเน็นต์จะเป็นแอพพลิเคชันคอมโพเน็นต์ที่รันอยู่บนแอพ
+พลิเคชันเซิร์ฟเวอร์ ประโยชน์ที่ได้รับจากเทคโนโลยีเอ็นเตอร์ไพรส์จาวาบีน เช่น ความง่ายในการพัฒนา  ความสามารถ
+ในการเพิ่มขยายขนาดของงานได้และความสามารถในการนำไปใช้บนแอพพลิเคชันเซิร์ฟเวอร์ใดๆ ได้ เป็นต้น
+	รายงานนี้จะแบ่งออกเป็น 2 ส่วน คือส่วนที่ 1 กล่าวถึงเทคโนโลยีจาวาบีนและส่วนที่ 2 กล่าวถึงเทคโนโลยี
+เอ็นเตอร์ไพรส์จาวาบีน
+
+Abstract
+	There are many technologies in component software area including JavaBeans technology and Enterprise
+ JavaBeans technology. Such technologies help make software development process more efficient. There are graphical
+ and non-graphical Bean components. Examples of Bean components are button, scroll bar, timer and counter. The 
+software can be built by combining bean component.  Enterprise JavaBeans technology extends the JavaBeans technology
+ to support server component.  Server components are application components that run in an application server that take
+ the advantage from the Enterprise JavaBeans technology such as simplifying development, scalability and portability.
+	This paper is devided into two parts : JavaBeans technology and Enterprise JavaBeans technology.
+

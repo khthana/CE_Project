@@ -1,0 +1,16 @@
+
+			SOCKS Network Communication
+		               การเชื่อมต่อเครือข่ายผ่านระบบ SOCKS
+
+				นาย จุฑากร ปิงคลาศัย
+			อาจารย์ ธนา หงษ์สุวรรณ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในปัจจุบันเป็นยุคของการสื่อสารไร้พรมแดน ข่าวสารเป็นสิ่งสำคัญสำหรับประชาชนทุกคน จึงมีความต้องการการสื่อสารที่มีความแม่นยำและสะดวกรวดเร็วมากขึ้นเรื่อยๆ อินเทอร์เน็ตเป็นทางเลือกหนึ่งที่มีความรวดเร็วและมีราคาถูก แต่ยังขาดความปลอดภัยจากการดักข้อมูลที่เกิดขึ้นมากในปัจจุบัน ดังนั้นจึงจำเป็นต้องมีระบบรักษาความปลอดภัยที่ป้องกันไม่ให้ผู้ที่ดักข้อมูลไปสามารถนำไปใช้ประโยชน์ได้
+	SOCKS เป็นหนึ่งในโพรโตคอลที่มีระบบรักษาความปลอดภัยที่นิยมใช้กันแพร่หลาย เพราะมีความสามารถในการควบคุมการสื่อสารระหว่างระบบเครือข่ายและอินเทอร์เน็ตได้สะดวก และมีระบบรักษาความปลอดภัยที่ดี รวมไปถึงความสามารถในการเข้ารหัสข้อมูลเพื่อป้องกันการดักข้อมูลไปใช้และในปัจจุบันยังพัฒนาความสามารถในการพิสูจน์บุคคลอีกด้วย ดังนั้นผู้เขียนจึงได้ศึกษารวบรวมข้อมูลเกี่ยวกับ SOCKS ,การทำงานบนโอเอสไอเลเยอร์ ,ข้อดีข้อเสีย ,การใช้งานร่วมกับโปรแกรมหรือโพรโตคอลอื่นๆ และรายละเอียดต่างๆ ที่เกี่ยวข้องไว้เป็นบทความนี้
+
+ABSTRACT
+	It's a border-less communicationowadays. Information is very important for every people. So that demand of simply fast accurate communication is increasing extremely. Internet is another choice that is fast and cheap but don't have enough security from sniffing data that happens excessively today. So it's very important to have a reliable security to protect the hacker from using the sniffed data.
+	SOCKS is one of the most popular security protocol. Because of its network control ability between network and internet ,reliable security ,capable of data encryption and the latest technology "Authentication." So that I research all the details about SOCKS, how SOCKS works, advantages, disadvantages, what applications or protocols to work with and all the features for this article.
+
+

@@ -1,0 +1,26 @@
+ซีจีไอ
+CGI (Common Gateway Interface)
+
+นางสาวจิราพร ละมูล
+นายณัฐวุฒิ วัฒนวงค์พิทักษ์
+อาจารย์นวพร วรรณวิมลศรี อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ตลอดระยะเวลากว่าสิบปีที่ผ่านมา เทคโนโยลีทางด้านเครือข่ายมีการเจริญเติบโตอย่างรวดเร็ว
+เทคโนโลยีใหม่ ๆ ในอินเทอร์เน็ตทำให้เราสามารถเข้าถึงข่าวสารข้อมูลและการบริการต่าง ๆ ได้ทั่วทุกมุม
+โลก หนึ่งในเทคโนโลยีใหม่ ๆ เหล่านี้คือ คอมมอนเกตเวย์อินเทอร์เฟส หรือซีจีไอ
+	คอมมอนเกตเวย์อินเทอร์เฟสหรือซีจีไอเป็นตัวติดต่อระหว่างเว็บบราวเซอร์ของฝั่งไคลเอ็นต์
+กับเว็บเซิร์ฟเวอร์ ทำให้ผู้ใช้ติดต่อกับเว็บเพจได้โดยผ่านทางฟอร์มในภาษาเอชทีเอ็มแอล ในทางทฤษฎี
+ซีจีไอจะดึงเอาความสามารถของเซิร์ฟเวอร์มาใช้โดยรับค่าที่ป้อนเข้ามาจากเว็บบราวเซอร์และส่งผลลัพธ์
+แสดงให้ผู้ใช้ทราบ และในทางปฏิบัติซีจีไอช่วยให้โปรแกรมเมอร์ติดต่อกับเซิร์ฟเวอร์ได้โดยง่าย
+
+Abstract
+	Over the past decade, network technologies have rapidly grown. These new technologies 
+in combination with the Internet now give us the chance to access data and computation services 
+all over the world. One of these new technologies is Common Gateway Interface (CGI).
+	The Common Gateway Interface (CGI) is an interface between the Web browser (on 
+client side) and the Web server. Using CGI, you can interact with users who access your site 
+through form in HTML. On a theoretical level, CGI enables you to extend the capability of your 
+server to get input from the browser and return information based on user input. On a practical level, 
+CGI is an interface that enables the programmer to write programs that can easily communicate 
+with the server.

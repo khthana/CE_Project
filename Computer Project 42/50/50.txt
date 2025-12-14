@@ -1,0 +1,36 @@
+วิธีการเชิงวัตถุ
+Object-Oriented Methodology
+
+นาย ปัญจ แซ่อุย
+นาย ภรายุทธ วังวรัญญู
+อาจารย์ เอื้อน ปิ่นเงิน อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	     วิธีการเชิงวัตถุเป็นวิธีการอย่างหนึ่งที่ใช้ในการวิเคราะห์และออกแบบ
+        เพื่อพัฒนาระบบนอกเหนือจากวิธีการเชิงโครงสร้าง ในบทความฉบับนี้ จะกล่าวถึงแนวคิดเบื้องต้น
+        ของวิธีการเชิงวัตถุ เพื่อเป็นพื้นฐานในการทำความเข้าใจวิธีการเชิงวัตถุในแขนงต่าง ๆ
+        ไม่ว่าจะเป็น การโปรแกรม การวิเคราะห์ การออกแบบ และทางด้านฐานข้อมูล ซึ่งคำศัพท์พื้นฐาน
+        ก็มีส่วนสำคัญอย่างยิ่งในการทำความเข้าใจถึงแนวคิดของวิธีการเชิงวัตถุ
+	     การที่วิธีการเชิงวัตถุถูกนำมาใช้กันอย่างแพร่หลายในปัจจุบัน
+        ทำให้เกิดการเปรียบเทียบกันระหว่างวิธีการเชิงวัตถุกับวิธีการเชิงโครงสร้าง
+        ซึ่งเป็นวิธีการที่นักพัฒนาระบบคุ้นเคย เพื่อให้เห็นถึงประโยชน์ที่จะได้รับ
+        จากการนำวิธีการเชิงวัตถุมาใช้ และชี้ให้เห็นถึงข้อจำกัดของวิธีการเชิงวัตถุ
+        ซึ่งทำให้วิธีการนี้ยังไม่สามารถแทนที่วิธีการเชิงโครงสร้างได้อย่างสมบูรณ์
+	     ในตอนท้ายของบทความ ได้ยกตัวอย่างการนำวิธีการเชิงวัตถุไปใช้ในการออกแบบแบบจำลอง
+        ของระบบไคลเอ็นต์เซิร์ฟเวอร์ เพื่อให้เห็นถึงการนำเอาแนวความคิดของวิธีการเชิงวัตถุ
+        ไปใช้งานจริง
+Abstract
+	     Object-Oriented Methodology is a method, that used in analysis and design
+        for system development, besides a structure mothodology. This article say about
+        fundamental concept of Object-Oriented Methodology, for basic understanding in
+        other Object-Oriented for example Object-Oriented Programming (OOP),
+        Object-Oriented Analysis (OOA), Object-Oriented Design (OOD), Object-Oriented Database (OODB).
+        Basic term is very importance to understand concept of Object-Oriented Methodology.
+	     Today, Object-Oriented Methodogy is used in worldwide. Cause to comparison between
+        Object-Oriented Methodology and Structure Methodology, which developer familiar with,
+        that show the benefit from Object-Oriented Methodology and the limit of this method,
+        cause to this method can not replace structure method completely.
+	     At the end of this article present the example to apply the Object-Oriented Methodology
+        for design the model of  Client-Server system to show the using of  Object-Oriented methodology
+        in the real world.
+

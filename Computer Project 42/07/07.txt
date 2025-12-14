@@ -1,0 +1,28 @@
+การเขียนโปรแกรมเชิงวัตถุด้วยวิชวลซีพลัสพลัส
+Object-oriented programming with Visual C++
+
+นายสถาพน พัฒนะคูหา
+นายสรยุทธ กลมกล่อม
+ดร.วรวัฒน์  ลิ้มโภคา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การเขียนโปรแกรมเชิงวัตถุ  เป็นแนวคิดที่มีบทบาทสำคัญในการพัฒนาซอฟต์แวร์  โดยมีลักษณะที่ 
+สำคัญ 3 ประการ คือ เอนแคปซูเลชั่น อินเฮอริแทนซ์ และพอลิมอร์ฟิซึ่ม  แนวคิดนี้จะสนับสนุนการนำซอฟต์แวร์
+กลับมาใช้ใหม่  ช่วยให้กระบวนการพัฒนาซอฟต์แวร์มีประสิทธิภาพ และได้ซอฟต์แวร์ที่มีคุณภาพเพิ่มขึ้น      
+แนวความคิดของออบเจ็กต์โอเรียนเต็ดนี้ยังสามารถนำไปประยุกต์ใช้งานได้อย่างกว้างขวาง
+	ภาษาต่างๆ ก็ได้หันมาสนับสนุนแนวคิดการเขียนโปรแกรมเชิงวัตถุ ภาษาซีเป็นภาษาหนึ่งที่ได้รับความ
+นิยมในการเขียนโปรแกรมแบบโครงสร้าง  ถูกพัฒนาเป็นภาษาซีพลัสพลัส โดยได้รวมเอาแนวความคิดของการ
+เขียนโปรแกรมเชิงวัตถุเข้าไป  และได้รวมลักษณะของการเขียนโปรแกรมแบบวิชวลเป็น วิชวลซีพลัสพลัส    ซึ่ง
+เป็นเครื่องมือในการพัฒนาซอฟต์แวร์ภายใต้แนวความคิดของการเขียนโปรแกรมเชิงวัตถุ ที่มีคุณภาพและได้รับ
+ความนิยมอย่างกว้างขวาง
+
+Abstract
+	Object-oriented programming concept plays an important role in software development. It has three 
+important attributes which are encapsulation, inheritance, and polymorphism. This concept supports software 
+reusability , make software development process more effective and increase software quality. Object-oriented 
+concept can apply with wild variety use.
+	Programming languages have turned to support object-oriented programming. Popular one in 
+conventional programming, structure programming , is C language that was developed to C++ language by 
+integrating object-oriented feature. When visual programming arrived, C++  was developed to Visual C++. 
+Visual C++ is powerful and popular software development tool within object-oriented programming concept.
+

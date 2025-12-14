@@ -1,0 +1,24 @@
+การตรวจสอบระบบเครือข่ายโดยใช้โพรโตคอลเอสเอ็นเอ็มพี
+Network Monitoring Using SNMP
+
+นาย ณัฐวุฒิ  ตาทอง
+นาย พิเชษฐ์  ยาวิราช
+
+อาจารย์ ชุติเมษฏ์ ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การตรวจสอบระบบเป็นหน้าที่หนึ่งของการบริหารระบบเครือข่าย ซึ่งจะทำการวิเคราะห์ข้อมูลและตรวจสอบหาข้อผิดพลาดของระบบ โพรโตคอลเอสเอ็นเอ็มพีนั้นเป็นโพรโตคอลที่ช่วยในการจัดการบริหารระบบเครือข่ายเนื่องจากง่ายต่อการใช้งานกับอุปกรณ์ที่เชื่อมต่อกับระบบเครือข่าย ปัจจุบันโพรโตคอลเอสเอ็นเอ็มพีนั้นได้มีการพัฒนาอย่างต่อเนื่องจนมาถึงรุ่นที่ 3 แล้ว โดยโพรโตคอลเอสเอ็นเอ็มพีรุ่นที่ 1 มีความสะดวกต่อการใช้งานแต่ยังมีข้อจำกัดในการรับส่งข้อมูลขนาดใหญ่ ซึ่งสามารถแก้ไขได้ในโพรโตคอลเอสเอ็นเอ็มพีรุ่นที่ 2  ส่วนโพรโตคอลเอสเอ็นเอ็มพีรุ่นที่ 3 นั้นจะเพิ่มระบบรักษาความปลอดภัยของข้อมูลให้ดีขึ้น การที่จะนำโพรโตคอลเอสเอ็นเอ็มพีในแต่และรุ่นไปใช้งานในระบบเครือข่ายจึงต้องพิจารณาถึงความเหมาะสมด้วย
+
+Abstract
+	Monitoring is an important function in network management. Network monitoring helps analyze and detect errors in network system. SNMP is a protocol usually used in network management. It simplicity makes it easy to be use with network devices in the system. SNMP has been developed since 1988.It current version is SNMPv3. SNMPv1 is simple but it does not support large data transfer SNMPv2 corrects this weakness. SNMPv3 focuses on the security of data. However, the version of SNMP must be chosen based on the type and utilization of the network system in order to obtain the best monitoring results.
+
+
+
+
+
+
+
+
+
+
+

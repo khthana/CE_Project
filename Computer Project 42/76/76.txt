@@ -1,0 +1,16 @@
+
+ระบบทะเบียนผู้ใช้แบบNIS+
+NIS+ USER ACCOUNT SYSTEM
+
+นายมงคล พิทักษ์สุขสันติ
+นายสาโรจน์ พงษ์พานิช
+อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ระบบเครือข่ายเป็นระบบที่แพร่หลายในองค์กรต่างๆในปัจจุบัน  อาจจะกล่าวได้ว่าแทบจะไม่มีองค์กรขนาดใหญ่ใดที่ไม่มีการใช้การติดต่อผ่านระบบเครือข่าย ดังเช่นเครือข่ายอินเตอร์เนทที่เราพบว่าใช้งานกันอย่างแพร่หลายในปัจจุบัน จากที่กล่าวมานั้น เมื่อเรามีองค์กรที่มีเครือข่ายเป็นของตนเองไม่ว่าเครือข่ายนั้นจะติดต่อกับใครหรือไม่นั้น  ปัญหาที่มักจะเกิดกับผู้ใช้งานและผู้ดูแลระบบก็คือปัญหาด้านข้อมูลบนไคลเอนต์ต่างๆทั้งที่เป็นข้อมูลของผู้ใช้ที่ต้องเข้ามาใช้งานในระบบรวมถึงข้อมูลที่เป็นค่าติดตั้งของระบบด้วย เนื่องจากข้อมูลหลักของระบบมักจะเก็บไว้ที่เซิร์ฟเวอร์หลักทั้งหมดแล้ว ดังนั้นการที่เราต้องนำข้อมูลต่างๆไปติดตั้งบน ไคลเอนต์ทุกเครื่องนั้นเป็นการทำงานที่ซ้ำซ้อน และหากมีการเปลี่ยนแปลงค่าติดตั้งใดๆก็จะต้องสิ้นเปลืองเวลาในการทำงานดังที่กล่าวมาแล้ว
+	จากที่ได้กล่าวถึงเครือข่ายและปัญหาที่เราจะพบได้ในหลายๆองค์กร จึงมีความพยายามที่จะสร้างระบบที่สามารถแก้ปัญหาและตอบสนองความต้องการดังกล่าวของผู้ใช้และผู้ดูแลระบบ โดยระบบที่ได้กล่ามานี้เป็นระบบที่เรียกว่า NIS+ ซึ่งเป็นการพัฒนาอีกขั้นจากระบบ NIS การทำงานของระบบ NIS+ นั้นจะมาแก้ปัญหาส่วนที่ได้กล่าวมาข้างต้นเป็นระบบที่สามารถแก้ปัญหาด้านเครือข่ายที่ได้กล่าวมาแล้วได้อย่างมีประสิทธิภาพ 
+
+
+Abstract
+	Today the network system is found  in almost organization.  For example the internet system . The most problem which occur with user and administrator is about information's client. That information is about "User identify" and "System Configuration".  The principle information should store in the master server. Because if  the system have a lot of clients the information must store in all clients. When you change some configuration of system you must change  in all clients.  This operation is complex so much and lose the time.
+	As this problem , The new system is constructed to solve the problem that occur with user and administrator. That system is NIS+(Network information system Plus) which developed from NIS. The NIS+ have efficiency to solve that problem.

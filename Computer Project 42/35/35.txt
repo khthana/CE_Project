@@ -1,0 +1,15 @@
+ระบบออบเจ็กต์แบบกระจายด้วย CORBA และ DCOM
+Distributed Object using CORBA and DCOM
+
+นายพนิต เวชศิลป์
+นางสาวมนธิชา คงทวี
+อาจารย์ชุติเมษฏ์ ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในปัจจุบัน ระบบเครือข่ายมีการพัฒนาอย่างรวดเร็ว โปรแกรมประยุกต์ที่ทำงานร่วมกันบนเครือข่ายจะต้องมีมาตรฐานในการทำงานร่วมกัน จึงมีการพัฒนาระบบออบเจ็กต์แบบกระจายขึ้นมาตามหลักการของการเขียนโปรแกรมเชิงวัตถุ เพื่อช่วยให้โปรแกรมประยุกต์ต่างๆที่ทำงานร่วมกันบนเครือข่ายสามารถติดต่อสื่อสารกันได้สะดวกมากขึ้น โดยออบเจ็กต์ซึ่งอยู่ห่างไกลกันจะมีการติดต่อสื่อสารกันในลักษณะของไคลเอ็นต์/เซิร์ฟเวอร์ภายใต้องค์ประกอบที่ช่วยในการทำงานหลายส่วนเช่น  ORB ซึ่งทำหน้าที่เป็นตัวกลางการจัดการทั้งในเรื่องของการเรียกใช้บริการจากผู้ใช้ไปยังเซิร์ฟเวอร์และนำผลที่ได้กลับไปยังไคลเอ็นต์
+	ในรายงานฉบับนี้จะกล่าวถึง การเขียนโปรแกรมเชิงออบเจ็กต์ สถาปัตยกรรมของ CORBA (Common Object Request Broker) ซึ่งพัฒนาโดย OMG (Object Management Group) และ DCOM (Distributed Component Object Model) ซึ่งเป็นอีกมาตรฐานหนึ่งของออบเจ็กต์แบบกระจายที่พัฒนาโดยบริษัทไมโครซอฟท์ รวมทั้งมีการเปรียบเทียบการทำงานและสถาปัตยกรรมระหว่าง CORBA และ DCOM ใน 3 เลเยอร์คือ Basic Programming, Remitting และ Wire Protocol
+
+Abstract
+	Network system has been developed rapidly during the past decade. Applications on Client/Server system must have a standard to work together. Distributed Object Technology is developed from the concept of OOP (Object Oriented Programming). It makes the communication between applications on network system easier. Object is distributed on the network, client object can transparently invoke method call and pass parameters to objects on remote server. Following the Client/Server approach.
+	In this paper we describe about CORBA architecture, developed from OMG, and DCOM, another architecture from Microsoft.We also include architectural comparison of DCOM and CORBA at three different layers, Basic Programming, Remitting and Wire protocol.
+

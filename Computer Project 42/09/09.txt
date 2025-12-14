@@ -1,0 +1,16 @@
+อิเล็กทรอนิกส์พาณิชย์
+E-Commerce
+
+นางสาวสุจิตรา ไพบูลย์วาณิชย์
+นายสุรเชษฐ นิธิเสถียร
+ดร. วรวัฒน์ ลิ้มโภคา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ 
+	อิเล็กทรอนิกส์พาณิชย์นั้น ได้รวมเอาเทคโนโลยีทางด้านคอมพิวเตอร์และการสื่อสารเข้าด้วยกัน อิเล็กทรอนิกส์พาณิชย์นั้นไม่ใช่แค่การซื้อขายสินค้าผ่านทางอินเตอร์เน็ตเท่านั้น แต่คือการทำธุรกิจทุกรูปแบบโดยผ่านทางอินเตอร์เน็ต แม้จะเป็นส่วนใหญ่หรือส่วนน้อยของธุรกิจนั้นก็ตาม
+	โจทย์ข้อหนึ่งที่ต้องแก้ไขในระบบอิเล็กทรอนิกส์พาณิชย์ก็คือ "ความปลอดภัย" ทำอย่างไรจึงจะมั่นใจได้ว่าข้อมูลลับที่ส่งให้กับบุคคลคนหนึ่งจะไม่ถูกดักฟัง หรือถูกดัดแปลงระหว่างการส่งข้อมูลหรือข้อมูลที่ได้รับมานั้นจะมาจากบุคคลคนเดียวกับที่เขาได้แสดงตัวไว้ "ใบรับรองดิจิตอล" นั้นเป็นทางออกหนึ่งซึ่งในปัจจุบันเทคโนโลยีด้านนี้ได้มีการพัฒนาและมีผู้ให้บริการออกใบรับรองดิจิตอลเช่น VerisignTM ซึ่งให้บริการผลิตภัณฑ์เช่น VerisignTM OnSite เป็นต้น
+
+
+Abstract 
+	E-Commerce is concluding computer technology and telecommunication technology. E-Commerce not only sale and buy goods on the internet but it include all business that have internet in some path of business 
+	One problem of E-Commerce is "Security" how to ensure that secret information have not been reach by another party. One useful solution is "Digital Certificate" that have been developed. There is Digital Certificate Authority service that calls "Public Certificate Service (PCS)" such as VerisignTM OnSite.
+

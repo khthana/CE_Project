@@ -1,0 +1,13 @@
+โพรโตคอลเครือข่ายแบบ FDDI
+(FDDI Network Protocol)
+นางสาววราภรณ์ พงษ์ตานี  รหัส 40010693  ห้อง 3D/2
+นายสุรินทร์  อัศวชัยสิทธิกุล  รหัส 40010916 ห้อง 3D/2
+อาจารย์ประทีป บัญญัตินพรัตน์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+             FDDI (Fiber Distribute Data Interface) เป็นมาตรฐานสำหรับการเชื่อมต่อบนระบบแลน (Local Area Networks) เกิดขึ้นในปี 1987 และถูกพัฒนาโดย American National Standards Institute (ANSI) ได้รับการรับรองให้เป็นมาตรฐานนานาชาติโดย International Standards Organization (OSI)
+             FDDI ใช้เทคโนโลยีทางด้านใยแก้วนำแสง (Fiber optic) มีพื้นฐานการเชื่อมต่อแบบวงแหวน(ring)มีความเร็วในการส่งข้อมูล 100 เมกะบิต ต่อ วินาที (Mbps) และมีอัตราการส่งข้อมูลสูงถึง 2,500 หน้า ต่อ วินาที จากมาตรฐานของ FDDI สามารถแบ่ง Physical Layer ออกได้เป็น Physical Layer Medium Dependent (PMD) และ Physical Layer Medium Independent (PHY) แบ่ง Data-link Layer ออกได้เป็น Media Access Control (MAC) และ Logical Link Control (LLC) โดยมี Station Management (SMT) เป็นส่วนที่ใช้ในการควบคุมดูแล ในปัจจุบันสามารถทำงานครอบคลุมกับระบบคอมพิวเตอร์ต่างๆได้ทั้งหมด ไม่ว่าจะเป็น Supercomputers, Minicomputers, Workstations หรือ แม้กระทั่ง Personal computers
+
+Abstract
+           FDDI stands for Fiber Distribute Data Interface. It is fallow-on to current local area networks (LANs). FDDI interfaces started appearing in 1987 and was developed by The American Standards Institute (ANSI). FDDI was accepted to use as international by International Standards Organization (OSI).
+            FDDI uses fiber-optic technology and have ring basic to uses for linking. It offers a bandwidth of 100 Megabits per second (Mbps) and FDDI's data rate is equivalent to transmitting 2500 text pages per second. From FDDI standard can distributes Physical Layer to Physical Layer Medium Dependent (PMD) and Physical Layer Medium Independent (PHY), distributes Data-link Layer to Media Access Control (MAC) and Logical Link Control (LLC). The Station Management (SMT) is the part that uses for controlling. Today, they are already available for all major computer systems including supercomputers, Minicomputers, workstations, and personal computers.

@@ -1,0 +1,29 @@
+การเขียนโปรแกรมจาวา
+Java Programming
+
+นายยุทธพงษ์ มานุษยานนท์
+นายสุริยา จินตกานนท์
+อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	จาวาเป็นภาษาที่เกิดขึ้นใหม่ในวงการคอมพิวเตอร์ มีคุณสมบัติที่โดดเด่น คือ สามารถนำโปรแกรมจาวาที่เขียนบนเครื่อง
+คอมพิวเตอร์เครื่องหนึ่งไปใช้งานบนคอมพิวเตอร์เครื่องอื่นที่อาจมีหน่วยประมวลผลต่างกันได้โดยไม่ต้องคอมไพล์ใหม่ เรียก
+คุณสมบัตินี้ว่า "ไม่ผูกติดกับหน่วยประมวลผลรุ่นใด" จาวายังสนับสนุนการเขียนโปรแกรมเชิงวัตถุเต็มรูปแบบ มีความถูกต้อง
+แม่นยำสูง มีความปลอดภัยสูงในกรณีที่เขียนโปรแกรมส่งไปในระบบเครือข่าย มีกลไกของภาษาไม่มากไม่ซับซ้อน อีกทั้งยังใช้
+ไวยากรณ์ที่ใกล้เคียงกับภาษาซีพลัสพลัสที่ใช้กันอย่างแพร่หลายในการพัฒนาโปรแกรมประยุกต์ จาวาจึงเป็นภาษาที่ได้รับการยอมรับ
+อย่างรวดเร็วทั้งในการพัฒนาโปรแกรมและในสร้างโปรแกรมเพื่อใช้งานบนอินเทอร์เน็ต
+	ภายในบทความนี้กล่าวถึงประวัติความเป็นมา หลักการ กลไกการทำงานต่างๆ และทฤษฎีเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ
+เบื้องต้น เพื่อเป็นพื้นฐานในการใช้งาน และยังได้กล่าวถึงองค์ประกอบ ไวยากรณ์และข้อกำหนดกฎเกณฑ์ ที่ควรทราบก่อนการออกแบบ
+และใช้งานจาวาในการพัฒนาโปรแกรม พร้อมทั้งมีตัวอย่างโปรแกรมจาวาอย่างง่ายเพื่อใช้เป็นแนวทางในการพัฒนาโปรแกรมต่อไป
+	
+Abstract
+	Java is the moderate programming language. Their prominent property is the Java's applications can be 
+run on any computers that have various processors without the new compilation, called "platform independent".
+Java has full support object-oriented programming, has high accuracy and safety to using its application on 
+network system. Java has an easy syntax and its syntax is to be similar to C++ that been acquainted. Thus Java 
+is so popular to creating application and using on Internet.
+	In this paper presents history, mechanism of Java and basic theory of object-oriented that needs to 
+been a basic knowledge before using Java. And presents about constituent, syntax and rules that needs to know 
+before designing and using Java to develop applications program. Otherwise, there are basic Java's programs 
+that can used to been an example for creating applications.
+

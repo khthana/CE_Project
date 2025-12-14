@@ -1,0 +1,21 @@
+			อิเล็กทรอนิกส์พาณิชย์กับเอ็กซ์เอ็มแอล
+			        E-commerce and XML
+
+			             นาย ธนพล อัศวกุล
+			         นาย ธนาพงศ์ จารุสถิระกุล
+			อาจารย์ อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในปัจจุบัน อินเทอร์เน็ต ได้เข้ามามีบทบาทในชีวิตของเรามากขึ้น  ธุรกิจผ่านทางอินเทอร์
+เน็ตก็เป็นกระแสที่กำลังมาแรง ทำให้มีการพัฒนาเทคโนโลยีต่างๆ มารองรับการเติบโตของมัน  
+XML ถูกพัฒนาขึ้นมาเพื่อรองรับความต้องการใหม่ๆ มี่ HTML ไม่สามารถรองรับได้ โดยโครงงานนี้
+มีจุดมุ่งหมายหลักในการศึกษาทำความเข้าใจการเขียน XML document , การใช้ Document 
+Type Definition ,  การเขียน Stylesheet , การใช้  Xlinks  และ  Xpointers
+
+Abstract
+	In today's world, internet has become our basic needs. E-commerce is playing 
+an importing role on the internet. Technologies have been developed to support its 
+growth.  XML is one of the technologies developed to fill the need. In this term paper, we 
+focus on the understanding of  XML syntax, writing Document Type Definition, 
+Stylesheets, the use of  Xlinks and Xpointers.
+	

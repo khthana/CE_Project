@@ -1,0 +1,12 @@
+คอมพิวเตอร์กราฟิกส์
+Computer Graphics
+
+นายธารวิทย์  ดิษยวงศ์
+นายนัฐวัฒน์  ตันติฤทธิศักดิ์
+อาจารย์สมเกียรติ  วังศิริพิทักษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ทุกวันนี้ คอมพิวเตอร์กราฟิกส์ได้รับความนิยมและถูกนำมาใช้งานอย่างกว้างขวาง ความรู้ความเข้าใจในพื้นฐานของคอมพิวเตอร์กราฟิกส์จึงเป็ฯสิ่งที่จำเป็ฯสำหนับผู้ต้องที่ต้องการศึกษาการทำงานของคอมพิวเตอร์กราฟิกส์ ในรายงานฉบับนี้จะพูดถึงพื้นฐานของคอมพิวเตอร์กราฟิกส์เช่น การสร้างภาพ 2 มิติ, การแปลงภาพในแบบต่าง ๆ , การแปลงภาพ 3 มิติเป็น 2 มิติ, วิธีการกำหนดสีของภาพ, การให้แสงเงา, เทคนิคในการสร้างภาพแบบต่าง ๆ ซึ่งสิ่งเหล่านี้คือความรู้พื้นฐานของคอมพิวเตอร์กราฟิกส์ที่สามารถนำไปประยุกต์ใช้ได้
+
+Abstract
+	Nowadays Computer Graphics is widely used and is applied almost in every task. Understanding in the basis of computer graphics is the important things for anyone who wants to learn about how computer graphics work. In this book, it will tell about the basis of computer graphics such as Generating 2D primitives, Translations, Transformation, Coloring Technique, Shading and advanced modeling techinque. All of these is the basis of computer graphics that can be apply.

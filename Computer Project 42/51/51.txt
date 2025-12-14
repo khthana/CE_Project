@@ -1,0 +1,30 @@
+				การจดจำเสียง
+         			              Voice  Recognition
+
+ 			 นายกิตติพงษ์  ประโยชน์บริบูรณ์
+			       นายนฤชิต  ดำรงวิถีธรรม
+		      อาจารย์สมเกียรติ  วังศิริพิทักษ์  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การจดจำเสียงเป็นเทคโนโลยีที่ช่วยให้การติดต่อสื่อสารกันระหว่างมนุษย์และเครื่องจักรมีความสะดวก
+รวดเร็วมากยิ่งขึ้น  อีกทั้งยังสามารถป้องกันการล่วงละเมิดสิทธิ์จากผู้อื่น  ทำการศึกษาถึงคุณลักษณะของเสียง  
+ทำให้รู้ถึงความแตกต่างระหว่างเสียงของผู้พูดแต่ละคน  ศึกษาถึงปัญหาที่เกิดขึ้นในความพยายามที่จะสร้างเครื่อง
+จักรที่จดจำเสียงได้  เสียงที่มีคุณภาพจะต้องเป็นเสียงที่มีความคมชัด คือ มีการกำจัดเสียงรบกวนออกไป การที่เครื่อง
+จักรสามารถที่จะจดจำเสียงได้นั้น ต้องได้รับการฝึกฝนให้จดจำเสียงแบบต่าง ๆ ให้มากที่สุด มีหลายวิธีที่ใช้ในการ
+จดจำเสียง  เช่น  Hidden Markov Models ( HMMs) , Neural Network  ซึ่ง 2 วิธีนี้จะใช้งานร่วมกัน  เทคโนโลยีที่นำ
+มาใช้ในปัจจุบัน  มีการประยุกต์ใช้ในหลายด้าน  ไม่ว่าจะเป็น  Speaker  Verification  และ  Speaker  Identification
+นำมาใช้ในการระบุเสียงพูดว่า ใครเป็นเจ้าของเสียงพูดนั้น , ใช้เสียงพูดเป็นรหัสผ่าน  ซึ่งเป็นการยากที่ผู้อื่นจะมาละ
+เมิดหรือปลอมแปลงในสิทธิ์ส่วนบุคคล
+
+Abstract  
+	The voice recognition is  a technology that help not only make the communication between 
+people and machine faster and more comfortable but also protect the right's violation from other people.
+ Studying the voice's characteristic makes us know the differences between  each speaker's voice and 
+realize the problems of any efforts to build a machine which can recognize a voice effectively. Moreover ,
+the efficient voice has to be a clear voice and can get rid of a noise or unpleasant voice. The recognition 
+of voice of a machine has to be practiced to recognize every kind of voices as much as possible. There 
+are several ways to use for recognizing a voice, for example, Hidden Markov Models ( HMMs ) and Neural
+ Network. Both two ways can work together. Consequently, at present, the technology has been applied 
+for many ways, such as, for Speakers Verification and Speaker Identification. It uses  for identify whose 
+voice the owner is and  we can use the voice to be a password.  So, it is difficult for other people to violate
+ or imitate one personal right.

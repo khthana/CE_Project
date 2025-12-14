@@ -1,0 +1,18 @@
+เฟรมเวิร์กเชิงวัตถุและแนะนำเฟรมเวิร์กแบบพูม่า 
+Object Oriented Framework: An introuction of POOMA Framework
+
+
+นาย ยอดฟ้า บุษยาสกุล 
+นาย อวิรุทธ์  อำพันธุ์รัตน์ 
+อาจารย์ที่ปรึกษา อาจารย์ชุติเมษฎ์ ศรีนิลทา
+
+
+
+บทคัดย่อ
+ข้อมูลเกี่ยวกับออบเจกต์โอเรียนเต็ดเฟรมเวิร์ก ถูกแบ่งออกเป็นสามส่วน ได้แก่ " ความเข้าใจเกี่ยวกับ  เฟรมเวิร์ก " ซึงจะบอกเกี่ยวกับ ชนิดต่างๆของเฟรมเวิร์กและจะใช้งานเฟรมเวิร์กอย่างไร " การเพิ่มประโยชน์จากเฟรมเวิร์ก " กล่าวถึงการจัดการที่เราต้องเกี่ยวข้องที่จะไปกระทบกับการพัฒนาเฟรมเวิร์ก " การพัฒนาเฟรมเวิร์ก " ให้แนวทางเกี่ยวกับกระบวนการทางการกำหนดและออกแบบเฟรมเวิร์ก ในแต่ละส่วนจะมีเกร็ดเล็กน้อยสำหรับช่วยให้คุณพัฒนาเฟรมเวิร์กขึ้นมาเอง ในบทความนี้จะแนะนำคุณถึงเฟรมเวิร์กชนิดหนึ่งที่เรียกว่าพูม่า
+เฟรมเวิร์กพูม่า (Parallel Object-Oriented Methods and Application Framework หรือ POOMA Framework) เป็นเฟรมเวิร์กที่เขียนขึ้นด้วยภาษา C++ แบบ ANSI/ISO ที่ถูกออกแบบมาให้มีคุณสมบัติที่ยืดหยุ่นสำหรับการสร้างแอพพลิเคชันทางวิทยาศาสตร์แบบดาต้าพาราเรล (data parallel) เพื่อใช้ทั้งในเครื่องเวิร์กสเตชันและพาราเรลซูเปอร์คอมพิวเตอร์
+
+Abstract  
+The Information about Object Oriented Framework is organized into three section " Understanding Framework " describes different types of frameworks and how they are used. " Maximizing Framework Benefits " addresses organizational concerns that impact framework development. " Developing Framework " outlines a process for identifying and designing frameworks. Each section also includes some tips for build your own. This paper introduces you a class of framework that called POOMA.   
+POOMA Framework (Parallel Object-Oriented Methods and Application Framework) is written by C++ design to provide a flexible environment of data-parallel programming of scientific applications for used on both workstation and parallel supercomputer. 
+	

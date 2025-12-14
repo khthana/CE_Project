@@ -1,0 +1,26 @@
+Set font : AngsanaUPC / regular / 14 point
+				การประมวลผลเชิงภาพ (สำหรับงานทางด้านวิทยาศาสตร์)
+			                            Image Processing (for Scientific Applications)
+
+					นาย กอบโชค งามรัตนไพบูลย์
+					           นาย ภาคย์ อยู่รอต
+			              	                   อาจารย์ สมเกียรติ วังศิริพิทักษ์
+
+บทคัดย่อ
+	รายงานฉบับนี้นำเสนอหลักการเบื้องต้นของเทคโนโลยีการประมวลผลเชิงภาพ ซึ่งกำลังก้าวเข้ามามีบทบาทสำคัญต่อชีวิตประจำวันของเรา
+มากขึ้นทุกขณะ เพราะเทคโนโลยีทางด้านนี้ ได้ช่วยขยายขีดความสามารถทางการมองเห็นของมนุษย์ ให้กว้างไกลออกไปกว่าแต่ก่อนได้เป็นอย่างมาก 
+ทำให้เราสามารถมองเห็นวัตถุที่เล็กระดับอะตอม มองเห็นวัตถุที่อยู่ห่างไกลเช่นดวงดาวในกาแลกซีอื่น เห็นระดับพลังงานของการสังเคราะห์อาหาร
+ของพืช และการดำเนินไปของกระบวนการทางจลน์อื่นๆ ได้อย่างละเอียดอีกด้วย ซึ่งทั้งหมดนี้เป็นการเพิ่มขีดความสามารถให้กับงานวิจัยและพัฒนาทาง
+เทคโนโลยีให้ก้าวไปข้างหน้าอีกระดับ รายงานชุดนี้ประกอบไปด้วยสองส่วนด้วยกัน ในส่วนแรกนั้นจะเป็นการนำเสนอตัวอย่างงานทางวิทยาศาสตร์
+และเทคโนโลยีในสาขาวิชาต่างๆ ที่พัฒนาขึ้นมาเนื่องจากเทคโนโลยีทางการประมวลผลเชิงภาพนี้ พร้อมทั้งได้ยกตัวอย่างอุปกรณ์ และกรรมวิธีที่เหมาะสม
+กับงานแต่ละอย่างอีกด้วย ส่วนเนื้อหาในส่วนที่สองนั้นจะเกี่ยวข้องกับหลักการ และความเข้าใจพื้นฐานของการประมวลผลเชิงภาพเพื่องานทางด้านวิทยา-
+ศาสตร์และเทคโนโลยีนี้ว่ามีปัจจัย และขั้นตอนอะไรบ้างที่ควรให้ความสำคัญ และนำไปพิจารณาเพื่อให้การดำเนินงานสามารถสำเร็จลุล่วงไปได้ด้วยดี
+ต่อไปในที่สุด
+
+Abstract
+	This report presents the principle technology of Image Processing, continuously play an important role in our lives in these day. From the reason 
+that these technologies broaden the Human Vision better than before, make us see more things than we have ever seen before. Such as atom, Stars in other 
+Galaxy, Energy levels in Botany researches, and dynamic process easily. So these added more advantages for reserches and developments. The contents 
+of this report consist of two sections. In first section, we presents the example of various fields of scientific applications concerning with image processing. 
+In addition, we gives examples of device and methodology that are suitable for each example kinds of  task in image processing. Then, in last section, we 
+provides some of  basic concepts and recommended factors for consideration to achieve the image processing tasks.

@@ -1,0 +1,31 @@
+ไวรัสคอมพิวเตอร์
+Computer Virus
+
+น.ส. อรอุษา  แย้มเจริญ              3D/2        40010973
+นาย   เอกพันธ์  อัศวภาณุมาศ     3D/2        40011032
+
+อาจารย์ ธนา  หงษ์สุวรรณ        อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ไวรัสคอมพิวเตอร์ได้เกิดขึ้นครั้งแรกในปี ค.ศ.1987 โดยไวรัสตัวแรก
+ที่ถูกค้นพบเป็นไวรัสชื่อว่า Brain ทำลายข้อมูลเฉพาะเครื่องไอบีเอ็มพีซี 
+ต่อมาได้เริ่มมีไวรัสที่ถูกพบบนเครื่องมินิคอมพิวเตอร์ และเครื่องคอมพิวเตอร์
+ชนิดอื่นเพิ่มขึ้นอีกทั้งได้มีการพัฒนาให้เกิดไวรัสชนิดต่างๆ เช่น ไวรัสที่
+ติดบูตเซ็กเตอร์ ไวรัสที่ติดเอ็กซิคิวต์ไฟล์ ไวรัสที่ติดในไฟล์เอกสาร และ
+ยังมีไวรัสที่มีความสามารถหลายอย่าง มีการทำงานที่ซับซ้อน และมีแนวโน้ม
+เพิ่มขึ้น ก่อให้เกิดความเสียหายแก่ระบบที่ใช้คอมพิวเตอร์ในการทำงาน โดย
+ในรายงานนี้มีเนื้อหาเกี่ยวกับ ประวัติ ชนิดของไวรัส ไวรัสที่น่าสนใจ และ
+วิธีป้องกัน     ไวรัสคอมพิวเตอร์ ซึ่งจะทำให้ทราบหนทางในการป้องกันและ
+แก้ไขไวรัสคอมพิวเตอร์เพื่อให้เครื่องคอมพิวเตอร์มีความปลอดภัยมากขึ้น
+
+Abstract
+	A first virus computer ,which is discovered in 1987 ,is Brain 
+virus; specially destroyed in only IBM PC. Next, Other viruses are 
+found in other computers such as minicomputer etc. Furthermore,there 
+are many developments of  virus type such as  Boot virus, Executable 
+file virus, Macro virus and complicated virus; have more capacity . 
+Increasing  number of  viruses will make system (use computers  for 
+working)  damaged. In this report, it contain  a story of viruses ,kind
+ of viruses ,interested viruses and How to prevent viruses computer: 
+make we know the way to protect  computers from invasion viruses and 
+solve when the computers are infected viruses.

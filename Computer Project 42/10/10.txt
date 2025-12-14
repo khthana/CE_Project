@@ -1,0 +1,32 @@
+บทคัดย่อ
+	ในอดีต การพัฒนาซอฟต์แวร์ขึ้นมาสักอย่างนั้นไม่ใช่เรื่องที่ง่ายสำหรับคนๆ เดียวที่จะทำเลยเนื่องจากแต่
+ก่อนการพัฒนาซอฟต์แวร์นั้นผู้พัฒนาจำเป็นที่จะต้องออกแบบและเขียนโค้ดสำหรับทุกๆ ส่วนของโปรแกรม 
+แต่ว่าในปัจจุบันการพัฒนาซอฟต์แวร์นั้นไม่ได้ยุ่งยากเหมือนแต่ก่อนเนื่องจากการพัฒนาซอฟต์แวร์ในปัจจุบันจะ
+ใช้หลักการของออปเจ็กต์ โดยจะแบ่งซอฟต์แวร์ที่จะพัฒนาออกเป็นส่วนๆ แต่ละส่วนเป็นออบเจ็กต์ ซึ่งออบเจ็กต์
+แต่ละอันก็จะทำหน้าที่ของมันแต่ละอย่าง ดังนั้นการที่จะพัฒนาซอฟต์แวร์ที่มีความสามารถบางส่วนเหมือนกันกับ
+ที่เคยพัฒนามาแล้ว ผู้พัฒนาก็ไม่มีความจำเป็นที่จะต้องเขียนโค้ดใหม่เหมือนดังเช่นแต่ก่อน แต่สามารถนำส่วนที่
+เคยพัฒนามาแล้วมาใช้ใหม่ได้
+	เทคโนโลยีการพัฒนาซอฟต์แวร์ให้เป็นออบเจ็กต์นั้นมีมากมาย หนึ่งในนั้นคือเทคโนโลยี ActiveX ที่ถูก
+พัฒนาโดยไมโครซอฟต์ ซึ่งเป็นเทคโนโลยีที่ถูกจับรวมเข้ามากับวินโดว์ส 95 และวินโดว์ส NT ซึ่งเป็นระบบ
+ปฏิบัติการที่มีผู้นิยมใช้มากที่สุดในโลก ดังนั้นจึงไม่น่าแปลกใจที่ ActiveX จะเป็นเทคโนโลยีที่สามารถคาดเดาได้
+เลยว่าจะสยบเทคโนโลยีในทางเดียวกันนี้ทั้งหมด โดย ActiveX เป็นเทคโนโลยีที่ตั้งอยู่พบพื้นฐานของการใช้ 
+COM ออบเจ็กต์(Component Object Model) โดยออบเจ็กต็จะมีอินเทอร์เฟสได้หลายอินเทอร์เฟสและแต่ละอิน
+เทอร์เฟสจะมีเมธอดได้หลายเมธอด การเรียกใช้ความสามรถของออบเจ็กต์สามารถทำได้โดยเรียกใช้เมธอดของ
+ออบเจ็กต์
+	การทำ Compound Document ก็เป็นความสามารถหนึ่งที่มีอยู่ใน ActiveX โดยเป็นความสามารถที่จะ
+นำข้อมูลจากโปรแกรมหนึ่งไปใช้ในอีกโปรแกรมหนึ่ง และเราสามารถที่จะนำออบเจ็กต์ที่มีอยู่แล้วมาใช้ได้ โดย
+เราจะเรียกออบเจ็กต์นั้นว่า ActiveX Control  ซึ่งความสามารถต่างๆ เหล่านี้ทำให้เราสามารถทำงานที่ต่าง
+โปรแกรมกันได้สะดวกยิ่งขึ้น และช่วยให้การเขียนโปรแกรมง่ายขึ้นอีกด้วย
+	การติดต่อกันระหว่างออบเจ็กต์บนเครื่องเดียวกันจะใช้เทคโนโลยี COM การติดต่อกับออบเจ็กต์ที่อยู่
+ต่างเครื่องกันก็สามารถทำได้โดยอาศัยเทคโนโลยี DCOM (Distributed COM)
+
+Abstract
+	In the time before, software developers pained from many problems about developing application. 
+Because there’s no tools to help them and they had to design and code every part. But in the present, developing 
+software is not the same. Most of software developed  using object technologies that made software into many 
+parts. Each part is object that can do its particular job. If one needs to build an application that have some part’s 
+ability same as an exist one, it can reuse that part. 
+	The technology to make software to be object is plentiful. One of them, developed by Microsoft, is 
+ActiveX. Microsoft made ActiveX to be a part of Microsoft Windows 95 and Microsoft Windows NT, ones of 
+the most famous and popular of the world. So it’s predictable that ActiveX will become the brave to defeat 
+many other object technologies in short

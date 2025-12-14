@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://www.ruleweb.com/dhtml/magnifier/magnifier.html -->
+<HTML><HEAD><TITLE>The DHTML Magnifier</TITLE>
+<META content="text/html; charset=windows-874" http-equiv=Content-Type>
+<SCRIPT language=JavaScript>
+<!--
+
+n4 = (document.layers)? true:false;
+ie = (document.all)? true:false;
+ie4 = (ie && navigator.appVersion.indexOf('MSIE 4')>0)? true:false;
+ie5 = (ie && navigator.appVersion.indexOf('MSIE 5')>0)? true:false;
+
+div = new Array();
+
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 
+src="The DHTML Magnifier_files/library.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+<!--
+
+// Copyright (C) 1999 Richard Goode
+// Email <bigfat1@hotmail.com>
+
+var dragActive = false
+var proceed
+
+xsetoff=100;
+ysetoff=50;
+diameter=180;
+radius=90;
+
+document.onmousedown = mouseDown
+document.onmousemove = mouseMove 
+document.onmouseup = mouseUp
+if (n4) {document.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP)}
+
+
+function mouseDown(e) {
+//	if ((n4 && e.which!=1) || (ie4 && event.button!=1)) return true
+	dragActive = mouseOver(e);
+	dragClickX = x - div[5].x;
+	dragClickY = y - div[5].y;
+	if (dragActive) {
+	x = eventXcoord(e);
+	y = eventYcoord(e);
+	return false
+	}
+	else return true
+	}
+
+function mouseMove(e) {
+	if (dragActive) {
+	x = eventXcoord(e);
+	y = eventYcoord(e);
+	div[5].x = x - dragClickX;
+	div[5].y = y - dragClickY;
+	shiftTo(div[5],div[5].x,div[5].y)
+	clipBy(div[2],radius+div[5].y*2-ysetoff,radius+diameter+div[5].x*2-xsetoff,radius+diameter+div[5].y*2-ysetoff,radius+div[5].x*2-xsetoff);
+	shiftTo(div[2],(xsetoff-(radius+div[5].x)),(ysetoff-(radius+div[5].y)));
+	shiftTo(div[6],div[5].x,div[5].y);
+	return false
+	}
+	else return true
+}
+
+function mouseUp(e) {
+	x = eventXcoord(e);
+	y = eventYcoord(e);
+	dragActive = false
+	return true
+}
+
+function mouseOver(e) {
+	var hit= false;
+	x = eventXcoord(e);
+	y = eventYcoord(e);
+	if (x>=div[5].x && x<=div[5].x+div[5].w && y>=div[5].y && y<=div[5].y+div[5].h) {
+	hit = true;
+	}
+	return hit;
+	}
+
+
+
+//-->
+</SCRIPT>
+
+<STYLE type=text/css>#div1 {
+	CLIP: rect(0px 377px 384px 0px); HEIGHT: 384px; LEFT: 50px; POSITION: absolute; TOP: 25px; WIDTH: 377px
+}
+#div7 {
+	CLIP: rect(0px 200px 30px 0px); HEIGHT: 30px; LEFT: 75px; POSITION: absolute; TOP: 50px; WIDTH: 200px; Z-INDEX: 1
+}
+#div6 {
+	BACKGROUND-COLOR: #ffffff; CLIP: rect(0px 180px 180px 0px); HEIGHT: 180px; LEFT: 500px; POSITION: absolute; TOP: 100px; WIDTH: 180px; Z-INDEX: 2; layer-background-color: #ffffff
+}
+#div2 {
+	BACKGROUND-COLOR: #ffffff; CLIP: rect(0px 0px 0px 0px); HEIGHT: 180px; LEFT: 0px; POSITION: absolute; TOP: 0px; WIDTH: 180px; Z-INDEX: 3; layer-background-color: #ffffff
+}
+#div3 {
+	CLIP: rect(0px 180px 180px 0px); HEIGHT: 30px; LEFT: 500px; POSITION: absolute; TOP: 300px; WIDTH: 30px; Z-INDEX: 4
+}
+#div4 {
+	CLIP: rect(0px 180px 180px 0px); HEIGHT: 30px; LEFT: 500px; POSITION: absolute; TOP: 25px; WIDTH: 30px; Z-INDEX: 5
+}
+#div5 {
+	CLIP: rect(0px 180px 180px 0px); HEIGHT: 180px; LEFT: 500px; POSITION: absolute; TOP: 100px; WIDTH: 180px; Z-INDEX: 6
+}
+A {
+	COLOR: #996633; TEXT-DECORATION: none
+}
+</STYLE>
+
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff onload="if (n4 || ie){initLayers(7);hideObject(div[7]);}" 
+onscroll=window.scroll(0,0) scroll=no>Thanks to <A 
+href="http://members.xoom.com/_xoom/richardgoode/dhtml/magnifier/index.htm">Richard 
+Goode</A><BR>
+<DIV id=div1><IMG src="The DHTML Magnifier_files/niki.jpg" width=377></DIV>
+<DIV id=div7><I><B>Loading... please wait.</B></I></DIV>
+<DIV id=div2>
+<TABLE border=0 cellPadding=0 cellSpacing=0 width=1000>
+  <TBODY>
+  <TR>
+    <TD><IMG src="The DHTML Magnifier_files/niki.jpg" 
+width=754></TD></TR></TBODY></TABLE></DIV>
+<DIV id=div6></DIV>
+<DIV id=div3>
+<TABLE border=0 cellPadding=20 width=180>
+  <TBODY>
+  <TR>
+    <TD align=middle bgColor=#eeeeff><FONT size=-1>Click inside magnification 
+      frame above and drag magnifer over picture to obtain enlarged 
+    view</FONT></TD></TR></TBODY></TABLE></DIV>
+<DIV id=div4>
+<TABLE border=0 cellPadding=0 cellSpacing=0 width=180>
+  <TBODY>
+  <TR>
+    <TD align=middle><B>The DHTML Magnifier</B><BR><I>now featuring</I><BR><A 
+      href="http://www.nikitaylor.net/"><B>Niki 
+Taylor</B></A></TD></TR></TBODY></TABLE></DIV>
+<DIV id=div5>
+<TABLE border=3 cellPadding=0 cellSpacing=0 width=180>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE border=3 cellPadding=0 cellSpacing=0>
+        <TBODY>
+        <TR>
+          <TD><IMG height=164 src="The DHTML Magnifier_files/untitled.gif" 
+            width=164></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></BODY></HTML>

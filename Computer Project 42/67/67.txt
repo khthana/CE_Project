@@ -1,0 +1,29 @@
+ระบบการพิสูจน์ตน  Kerberos
+Kerberos Authentication System
+นาย  มารุต        นาสีเคน
+นาย  ศุภสิทธิ์     ทิชินพงศ์
+อาจารย์ ธนา หงษ์สุวรรณ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ 
+	ในสภาพแวดล้อมที่ผู้ใช้สามารถใช้งานบริการเซิร์ฟเวอร์โดยผ่านระบบเครือข่าย   เราต้องการให้
+เซิร์ฟเวอร์สามารถจำกัดการใช้บริการของผู้มีสิทธิ์ใช้งานและมีสิทธิ์ใช้บริการนั้นๆ  ในสภาพแวดล้อมเหล่านี้เรา
+ไม่สามารถมั่นใจได้ว่าผู้ใช้อยู่คือผู้ที่ได้รับอนุญาตจริงๆ  ผู้ใช้สามารถแอบอ้างตนเองว่าเป็นผู้ใช้คนอื่น  หรือปลอม
+หมายเลขบนเครื่องที่ได้รับอนุญาตจากที่ที่ไม่มีสิทธิ์  ทำการดักข้อมูลแล้วนำมาแอบอ้างใช้ภายหลัง  ในกรณีเหล่า
+นี้ทำให้ผู้ใช้ที่ไม่ได้รับอนุญาตสามารถเข้ามาใช้งานหรือบริการได้  การเตรียมการสื่อสารที่มีการตรวจสอบสิทธิ์
+ของแต่ละเซิร์ฟเวอร์จึงเป็นสิ่งจำเป็นที่จะต้องมี    Kerberos ได้จัดเตรียมเซิร์ฟเวอร์ตรวจสอบสิทธิ์ที่เป็นศูนย์กลาง
+ในการทำงาน   โดยมีการตรวจสอบระหว่างผู้ใช้กับเซิร์ฟเวอร์และเซิร์ฟเวอร์กับผู้ใช้  Kerberos  ทำให้เรามั่นใจใน
+การส่งข้อมูลโดยการใช้การเข้ารหัสโดยใช้กุญแจสาธารณะ
+
+ABSTRACT
+	In the open distributed environment in which user at workstations wish to access services on server 
+distributed throughout the network.   We would like for server to be able restrict access to authorized user and 
+to be able to authenticate request for service.  In this environment, a workstation cannot be trusted to identify its 
+users correctly to network services. A user may again access to a particular workstation and pretend to be 
+another user operating from that workstation, A user may alter the network address of workstation so that the 
+requests sent from that workstation appear to come from the impersonated workstation.  A user may eavesdrop 
+on exchanges and a replay attack to gain entrance to server or to disrupt operations. In any of these cases, an 
+unauthorized user may be able to gain access to services and data that he or she is not authorized to access.  
+Rather than building in elaborate authentication protocol at each server,  Kerberos  provides a centralized 
+authentication server whose function is to authenticate user to servers and servers to users. Unlike most other 
+authentication, Kerberos relies exclusively on conventional encryption, making on use of public-key encryption 
+

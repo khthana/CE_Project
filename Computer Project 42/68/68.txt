@@ -1,0 +1,11 @@
+ระบบบันทึกเหตุการณ์บนยูนิกซ์
+Unix Logging System
+นายจิรวุฒิ       สุวรรณรัตน์
+นายพัฒนพล  รัตนพงษ์พร
+อาจารย์ธนา  หงษ์สุวรรณ  อาจารย์ที่ปรึกษา
+บทคัดย่อ
+ปัจจุบันระบบปฏิบัติการยูนิกซ์ เป็นที่นิยม และใช้กันอย่างแพร่หลาย เนื่องจากยูนิกซ์เป็นระบบปฏิบัติการที่รองรับผู้ใช้งานหลายคน และทำงานหลายอย่างในเวลาเดียวกัน ดังนั้นระบบจึงจำเป็นต้องมีการบันทึกเหตุการณ์ต่างๆ เช่น เมื่อผู้ใช้งานทำการล็อกอินเข้ามาในระบบ, บันทึกคำสั่งต่างๆ ที่ถูกรันโดยผู้ใช้งานแต่ละคน และ ล็อกเอาท์ออกจากระบบ เป็นต้น  ซึ่งไฟล์ที่บันทึกนี้เรียกว่า "ไฟล์บันทึกเหตุการณ์ หรือ ล็อกไฟล์ (log files)"  ซึ่งไฟล์บันทึกเหตุการณ์นี้จะใช้ตรวจสอบว่ามีข้อผิดพลาดอันใดเกิดขึ้นกับระบบ  หรือมีผู้ที่ไม่ได้รับอนุญาตให้เข้ามาใช้งานในระบบของคุณหรือไม่ เนื้อหาในรายงานฉบับนี้กล่าวถึงไฟล์บันทึกเหตุการณ์ต่างๆ ได้แก่ utmp, wtmp, acct, lastlog, syslog, message, xferlog, sulog, และ .history  วิธีการนำข้อมูลในไฟล์มาใช้ให้เกิดประโยชน์ในการดูแลระบบสามารถทำได้อย่างไร  รวมถึงวิธีการป้องกันไม่ให้ไฟล์เหล่านี้เสียหายอันเกิดจากผู้บุกรุก
+
+Abstract
+	Nowadays, UNIX is very popular and widely used throughout the world. Since the system can serve a number of users (multi-user) and can perform a wide range of activities at the same time (multitasking), it is necessary to record actions such as the user login, the operation, and the user logout. These are operated by "log files", which also check any occurred defects as well as any illegal users trespassing the system.
+	This project concerns characteristics of various types of log files, which are utmp, wtmp, acct, lastlog, syslog, message, xferlog, sulog and .history, how to use information in those files to maintain the system, as well as how to protect files from intruders.

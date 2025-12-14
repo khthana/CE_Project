@@ -1,0 +1,18 @@
+การจดจำวัตถุ
+Object Recognition
+
+นาย จิตติเดช สวธนไพบูลย์
+นาย ชยันต์ เทพบุตร
+อาจารย์ เอื้อน ปิ่นเงิน อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+การพัฒนาการจดจำเสียงพูดทำให้เรานำคอมพิวเตอร์มาใช้ประโยชน์ได้อย่างมีประสิทธิภาพ    และยังเพิ่มความสะดวกรวดเร็วในการสั่งงานคอมพิวเตอร์อีกด้วย      ในการพัฒนาการจดจำเสียงพูดนั้น เราจำเป็นต้องเข้าใจเกี่ยวกับการเกิดเสียงและอวัยวะที่ใช้ในการเกิดเสียงเบื้องต้น วิธีการรับรู้เสียงของคอมพิวเตอร์ การเปลี่ยนสัญญาณเสียงเป็นสัญญาณอนาลอกและดิจิตอล       เมื่อเข้าใจหลักการเบื้องต้นแล้ว     เราจะต้องทำการวิเคราะห์รูปแบบของสัญญาณเสียง         การนำสัญญาณเสียงมาหาขอบเขตของคำ   แล้วนำคำที่ได้มาเปรียบเทียบกับรูปแบบอ้างอิงเพื่อทำการตัดสินใจแยกคำให้เข้ากลุ่มในรูปแบบอ้างอิง
+ปัจจุบันการพัฒนาการจดจำเสียงพูดยังมีปัญหาและอุปสรรคอีกมากที่ยังไม่สามารถแก้ไขได้   ในอนาคตเราอาจจะสามารถหาเทคนิคและวิธีการที่ซับซ้อนในการแก้ปัญหานี้
+
+
+Abstract
+	Speech   recognition  development  is  useful  and  comfortable  to  command  computer.  In  speech recognition development will understand of a speech production ,a organ of speech ,a method of  receive sound of computer ,a change of sound pattern to analog and digital. When understand a basis of this,  analyze the sound pattern and find a limit of  word  to compare  with a reference pattern and decision to group of a reference pattern.
+	In the present,   speech  recognition  development   has  many   problem  which  can not solve. In  the future, we will able to find technique and complex method to solve this problem.
+
+

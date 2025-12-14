@@ -1,0 +1,26 @@
+การรู้จำเสียงพูด
+Speech Recognition
+
+นายสินชัย  คารวุตม์
+นายอนุชิต  บุญเลิศเจริญสุข
+อาจารย์ประสาร  ตังติสานนท์  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+   	ระบบของการวิเคราะห์และจดจำคำพูดจะมีหน้าที่หลัก ๆ  ที่สำคัญ  คือ
+	1. เตรียมข้อมูลก่อนทำการประมวลผล   จะเป็นการแปลงอินพุตที่เป็นเสียงพูดให้อยู่ในรูปที่สามารถนำไปวิเคราะห์ถึงความหมายของคำพูดขึ้นได้
+	2. การรู้จำเสียงพูด   จะเป็นการรับรู้ถึงความต้องการของผู้พูดที่ต้องการให้ระบบกระทำการอย่างใดอย่างหนึ่ง  โดยจะนำค่าพารามิเตอร์ที่ได้จากขั้นตอนในข้อ 1  มาเทียบกับค่าพารามิเตอร์ที่เก็บไว้ในฐานข้อมูลของระบบ  โดยเทคโนโลยีในการเทียบส่วนมากที่พบจะเป็น
+	     - การเข้าคู่กันของเท็มเพล็ท
+	     - การวิเคราะห์โดยเทียบเสียงพยางค์ในสัญญาณเสียงที่เข้ามา
+	      - การประมวลผลแบบ  Stochastic
+เมื่อเราเทียบหาค่าพารามิเตอร์ที่ตรงกันได้แล้ว  ระบบก็จะรู้ว่าผู้พูดต้องการสิ่งใด
+	3. การติดต่อกับส่วนอื่น  จะเป็นการนำผลลัพธ์จากที่ได้วิเคราะห์แล้วส่งไปยังระบบของซอฟท์แวร์หรือฮาร์ดแวร์อื่น ๆ  ต่อไป
+
+Abstract
+	Speech recognition system perform three primary task
+	1. Preprocessing: Converts the spoken input into a form the recognizer can process.   Preprocessing will capture the speech signal.   Then input signal is sampling to slices of the speech signal and then convert it into acoustic parameter.
+ 	2. Recognition: Identifies what has been said.  This process will keep acoustic parameter from first process to compare with acoustic parameter that store in database of system.  The three recognition technologies found in commercial speech recognition systems are:
+? template matching
+? acoustic-phonetic recognition
+? stochastic processing
+When system have compared correctly they will know what has been said.
+	3. Communication: sends the recognized input to the software/hardware systems that need it.

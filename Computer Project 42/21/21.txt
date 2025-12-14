@@ -1,0 +1,25 @@
+การจดจำวัตถุ 3 มิติ
+3 – D Object Recognition
+
+นาย สิรเชษฐ์	ลี้ไพโรจน์กุล
+นาย อนันศักดิ์	จตุพรสมบัติ
+อาจารย์ ชม     กิ้มปาน      อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+	การจดจำวัตถุ 3 มิติเป็นการใช้ประโยชน์จากเครื่องจักรกลให้สามารถรับรู้วัตถุที่เห็นได้ว่าคืออะไรการ
+ทำงานของระบบเป็นการใช้ภาพซึ่งเป็น 2 มิติมาใช้แทนวัตถุที่เป็น 3 มิติ การทำงานจะเริ่มจากการประมวลผลภาพ
+เบื้องต้นเพื่อให้ได้ภาพที่เหมาะสมกับระบบการจดจำ ซึ่งจะรวมถึงการหาจุดที่เป็นขอบของวัตถุด้วย แล้วจึงทำการ
+แยกส่วนของวัตถุออกมาจากพื้นหลัง ซึ่งมีทั้งการแยกจากขอบวัตถุหรือแยกจากบริเวณภายในภาพ จากนั้นจะทำ
+การแยกลักษณะเด่นของวัตถุนั้นๆ ออกมา เพื่อจะนำลักษณะเด่นที่ได้ไปใช้ในกระบวนการจดจำวัตถุอีกทีหนึ่ง.
+
+
+Abstract
+	3 – D Object Recognition utilizes Machine to recognize object system. System use images those are 2 
+dimension to represent 3 – D object. It begin with the process calls preprocessing to make images suitable for 
+the system, includes edge detection. And segmentation segments the object from background. It has 2 types of 
+segmentations; segments by boundary and segments by region. Then feature extraction extracts feature of the 
+object. And the last process, recognition, recognizes the object from feature. It has 2 types of recognizable 
+methods: statistical and structural.
+
+

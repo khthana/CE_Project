@@ -1,0 +1,13 @@
+โรบอทของเสิร์ชเอ็นจิน
+Robot Of Search Engine
+
+น.ส. จารุวรรณ อังสนากุล
+นาย ชนินทร์ มหารักษ์
+อาจารย์นวพร วรรณวิมลศรี อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ปัจจุบันการใช้อินเทอร์เน็ตเป็นไปอย่างแพร่หลาย มีข้อมูลข่าวสารมากมายหลายเว็บไซต์ จึงเป็นการยากหากต้องการหาข้อมูลที่ผู้ใช้สนใจ ดังนั้นจึงได้มีการคิดค้นเสิร์ชเอ็นจินขึ้นเพื่อช่วยให้การค้นหาข้อมูลต่าง ๆ เป็นไปได้ง่ายขึ้น โดยเสิร์ชเอ็นจินมีส่วนประกอบหลัก ๆ 3 ประการ คือ 1.โรบอทเป็นโปรแกรมช่วยค้นหาไปตามเว็บไซต์ต่าง ๆ โดยการเดินทางผ่านลิงก์ต่าง ๆ ในเว็บไซต์อย่างอัตโนมัติ 2.อินเด็กซ์ ใช้เก็บข้อมูลต่าง ๆ ที่โรบอทเข้าไปค้นหา 3.โปรแกรมเสิร์ชเอ็นจินเป็นโปรแกรมที่เข้าไปหาคำที่ผู้ใช้ต้องการในอินเด็กซ์ หากตรงกันก็นำข้อมูลนั้นมาแสดง โดยบทความนี้ได้มีการยกตัวอย่างเสิร์ชเอ็นจินด้วย
+
+Abstract
+	Nowadays the use of  internet is widespread, there are so much information in many web sites so it's too difficult to find the information that users are interesting. Therefore there were a research about Search Engine helping searching information easier. There are 3 components of Search Engine, 1. Robot is a program that automatically traverses the web's hypertext structure through web's links 2. Index, everything the robot find goes into index 3. Search Engine software is a program that searches through index to match the keyword that users want to find. This article will also show example of  Search Engines.
+

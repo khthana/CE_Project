@@ -1,0 +1,48 @@
+              ระบบส่วนกลางเพื่อรับรองการพิสูจน์ตน
+                    CA: Certified Authority
+                               
+                  นายเกียรติศักดิ์  จิตทรงบุญ
+                  นางสาวนีรชา  เทียนพึ่งเวียน
+         อาจารย์ ธนา   หงษ์สุวรรณ     อาจารย์ที่ปรึกษา
+                               
+บทคัดย่อ
+          ในอดีตที่ผ่านมา
+การสื่อสารบนระบบเครือข่ายอินเตอร์เน็ตเป็นการติดต่อกันโดยการที่
+ผู้ส่ง ส่งข้อความอย่างไรก็เดินทางไปถึงผู้รับอย่างนั้น
+ซึ่งอาจมีผู้ประสงค์ร้ายแอบดักฟังข้อมูลหรือนำเอาข้อมูลของเราการ
+เปลี่ยนก่อนถึงมือผู้รับ
+ด้วยเหตุนี้จึงได้มีการพัฒนารูปแบบการสื่อสารให้ปลอดภัยคือ
+จะต้องมีการเข้ารหัส  และในปัจจุบันก็มีการเข้ารหัสหลายแบบ
+เช่นการเข้ารหัสแบบใช้กุญแจเดียวในการเข้ารหัส และถอดรหัส
+ซึ่งไม่ค่อยมีความปลอดภัยเท่าที่ควร  อีกวิธีหนึ่งที่ซึ่งนิยมกัน
+คือ การเข้า - ถอดรหัสแบบกุญแจสาธารณะ จะมีการใช้กุญแจสองดอก
+คือกุญแจสาธารณะและกุญแจส่วนบุคคล
+ในการเข้ารหัสจะใช้กุญแจสาธารณะซึ่งมีการกระจายออกไป
+และในการถอดรหัสจะใช้กุญแจส่วนบุคคลซึ่งเก็บไว้เป็นส่วนตัว
+ทำให้บุคคลที่เราส่งไปถึงทำการอ่านข้อความได้
+การกระจายกุญแจที่ดีที่สุดการนำไปเก็บไว้กับแหล่งรับรองกุญแจสาธา
+รณะโดยหน่วยงานรับรอง (CA) รูปแบบการรับรองกำหนดโดยมาตรฐาน X.509
+ฉะนั้นบทความนี้ จึงได้อธิบายถึงความสามารถของ CA วิธีการรับรอง
+และการใช้งาน
+          
+ABSTRACT
+          In   the  pasts,  The  telecommunication  is  called
+Internet. It contacts between computers. Message that is  sent
+is  a  plaintext (messages not encrypted).  It isn’t  security
+because  maybe  some people  eaves-drop the message  that  you
+sent. In secure transaction, data must have been encrypted. At
+present  we  have many way to encrypt data. For example,  only
+one  key  is used for both encryption and decryption.  So  the
+people who know this key will be able to decrypt this message.
+Another  the  public-key cryptography uses of  two  difference
+keys  a public-key and private-key. We use a public-key, which
+is  distributed  publicly, to encrypt a message.  And  uses  a
+private-key, which is kept privately, for decrypt the message.
+There are several methods for public-key distribution but  the
+problem  is how you can distribute the public key in a  secure
+manner  and  how you can trust the entity that gives  you  the
+key. The best way to distribute the public-key is certificated
+by  certificate authority (CA) that the format is set by X.509
+standard. So this article will explain the capability  of  CA,
+the way to uses and so on.
+

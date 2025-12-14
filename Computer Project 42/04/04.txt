@@ -1,0 +1,37 @@
+กลไกการค้นหาข้อมูลในอินเทอร์เน็ต
+Internet Search Engine
+
+นายภาณุพงศ์  ไวยเวช
+นายศรนินาท  วัฒนะจันทร์
+อาจารย์วรวัฒน์  ลิ้มโภคา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ปัจจุบันอินเทอร์เน็ตถือเป็นแหล่งข้อมูลข่าวสารที่สำคัญ ด้วยปริมาณข้อมูลข่าวสารอันมหาศาลที่มีอยู่ในอินเทอร์
+เน็ตนี้ทำให้การค้นหาสิ่งที่ต้องการไม่ใช่เรื่องง่าย  อินเทอร์เน็ตเสิร์ชเอ็นจินเป็นอีกทางเลือกหนึ่งที่จะช่วยให้การค้นหาข้อ
+มูลข่าวสารที่ต้องการให้ง่ายขึ้น  ปัจจุบันเทคโนโลยีของเสิร์ชเอ็นจินได้พัฒนาไปอย่างรวดเร็ว  ซึ่งนอกจากจะมีความ
+สามารถในการค้นหาข้อมูลข่าวสารที่ต้องการได้แล้ว แต่ละเสิร์ชเอ็นจินยังได้เพิ่มการทำงานที่เป็นประโยชน์แก่ผู้ใช้มาก
+ขึ้น เช่น มีฐานข้อมูลข่าวสารเป็นของตนเอง การให้บริการอีเมล์ ฯลฯ ดังนั้นการศึกษาถึงการทำงานของเสิร์ชเอ็นจินจึงเป็น
+เรื่องจำเป็น เพื่อที่จะสามารถค้นหาข้อมูลข่าวสารในอินเทอร์เน็ตได้อย่างมีประสิทธิภาพมากที่สุด
+	เสิร์ชเอ็นจินแต่ละแห่งมีประวัติความเป็นมาที่น่าสนใจ การศึกษาถึงประวัติของแต่ละเสิร์ชเอ็นจินจะทำให้เรา
+ทราบถึงหลักการพื้นฐานในการให้บริการของแต่ละเสิร์ชเอ็นจินนั้น ๆ หลักการทำงานของเสิร์ชเอ็นจินจะมีการทำงานอยู่
+บนพื้นฐานสำคัญ 2 ประการคือ การทำงานเป็นเสิร์ชเอ็นจินจริง ๆ กับการทำงานเป็นไดเรกทอรี ดังนั้นการศึกษาถึงการ
+ทำงานและวิธีการใช้งานของเสิร์ชเอ็นจินจะทำให้เราเข้าใจและสามารถใช้งานเสิร์ชเอ็นจินได้อย่างมีประสิทธิภาพ ด้วย
+ความหลากหลายของเสิร์ชเอ็นจินเราจึงจำเป็นต้องเลือกเสิร์ชเอ็นจินให้เหมาะสมกับการใช้งานของเราด้วย  ประโยชน์อีก
+อย่างหนึ่งของการศึกษาการทำงานของเสิร์ชเอ็นจินคือ ศึกษาวิธีการจัดอันดับผลลัพธ์ให้แก่ผู้ใช้ ซึ่งถ้าเจ้าของเว็บมีความรู้
+เกี่ยวกับวิธีการจัดอันดับนี้ก็จะสามารถทำให้ไซต์ของตนอยู่ในอันดับต้น ๆ และสามารถดึงดูดผู้เข้าชมได้
+
+Abstract
+	Today, Internet is an important source of information with millions of data.  Searching for satisfied 
+information is not easy.  Internet search engine is a tool that helps searching information a lot easier.  The search engine 
+technology has been developed expeditiously. Not only the capability of searching desired data, it provides other useful 
+functions such as its own useful information, free e – mail, etc.  The study on how search engine work is important for 
+getting the best performance of searching information.
+	Every search engine has an interesting history. Knowing of their history help us to know the basic service of 
+each search engine.  Search engine works on two basic methods, search engine and directory.  Studying of how it works 
+and how to use it will make working with search engine efficiently.  Because of  variety of search engines, it’s very 
+important to choose the matching search engine with the desire information.  Another usefulness of studying on search 
+engine is how it ranks the result, if the web owners know about this method, they can get a higher ranking for their 
+websites.
+
+หน้าที่ 1/20
+

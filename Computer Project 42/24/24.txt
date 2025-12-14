@@ -1,0 +1,13 @@
+แมทชีน วิชั่น
+Machine vision
+
+นาย สุรศักดิ์ ทับเที่ยง
+นาย สุรสิทธิ์ ทับเที่ยง
+อาจารย์ ชม กิ้มปาน อาจารย์ที่ปรึกษา 
+
+บทคัดย่อ
+	แสงที่ตกกระทบวัตถุต่างๆแล้วสะท้อนเป็นภาพเข้ามายังเซนเซอร์ เซนเซอร์จะทำการแปลงสัญญาณของจุดภาพใดๆเป็นระดับสัญญาณเรียกว่า เกรรีเวล  คอมพิวเตอร์จะนำค่าเหล่านี้มาใช้ในการประมวลผล หาลักษณะหลักของวัตถุในภาพเพื่อเข้าใจภาพที่เห็นได้ เริ่มต้นโดยการเตรียมภาพเช่น ตัดสัญญาณรบกวน แก้ภาพเบรอ จากนั่นจะทำการหาขอบของวัตถุต่างๆในภาพเพื่อนำค่าที่ได้นี้มาวิเคราะห์รูปทรงของวัตถุ การเก็บค่าขอบไว้เพื่อประหยัดหน่วยความจำจะเก็บแบบเชนโค้ด ค่าขอบนี้อาจนำไปหาข้อมูลเพิ่มเติมอื่นๆเพื่อใช้ในการจดจำวัตถุ เช่น จุดมุมของวัตถุ 
+
+Abstract
+	  Light striking the objects and  reflect image to sensor. Then sensor will converts this signal to level of signal called gray level. These value are  used  in  processing  to find base feature of  object so that understand image. The beginning by image pre-processing such as filter noise, to correct blur image, motion image. Then find  edge of objects  in  image for take the data to process  shape of object . The storing edge value  because  to economize memory . according to store in chian called chain-code.These  edge value can used to find  other  data  for object  recognization.such as corner of object. 
+

@@ -1,0 +1,20 @@
+เทคโนโลยีเชิงวัตถุ : จินี่
+Object - Oriented Technology: Jini
+
+นางสาว ทัศนีย์  เจริญวัฒน์
+นาย เรืองยศ  พันธุ์ไทย
+อาจารย์  อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในระบบเครือข่ายนั้น ถ้ามีการเพิ่มอุปกรณ์ใหม่เข้าไปเราก็จะต้องไปทำการเช็ตให้กับทุกเครื่องในเครือข่ายให้รู้จักอุปกรณ์ชิ้นใหม่นั้นซึ่งถ้าเป็นเครือข่ายขนาดจะเสียเวลามาก ดังนั้นจึงได้มีการนำเทคโนโลยีจินี่มาใช้ จินี่เป็นระบบปฏิบัติการขนาดเล็กที่อยู่ในอุปกรณ์ที่เป็นดิจิตอลที่จะรีจิสตัวเองเข้าสู่เครือข่าย โดยที่ลุคอัพเซอร์วิค (Look up service) จะเป็นตัวเก็บรายละเอียดต่างๆทั้งหมด เมื่อใดที่มีการเรียกใช้อุปกรณ์ชิ้นนั้นลุคอัพเซอร์วิคก็จะทำการโหลดค่าต่างๆไปให้ผู้เรียกใช้บริการ ซึ่งทำให้เกิดความสะดวกต่อการใช้งาน 
+	เทคโนโลยีที่ช่วยในลักษณะคล้ายกันนี้ก็ยังมีอีกซึ่งได้แก่ เจ็ตเซนต์ (Jetsend) ซึ่งตัวนี้เป็นโพรโตคอลที่ใช้ในการติดต่อกันระหว่างอุปกรณ์ที่เป็นดิจิตอลด้วยกัน ส่วนอีกเทคโนโลยีหนึ่งคือ อินเฟอร์โน (Inferno) ซึ่งเทคโนโลยีตัวนี้มีความใกล้เคียงกับจินี่มากที่สุด ซึ่งจะแตกต่างในส่วนโครงสร้าง
+
+Abstract
+	This paper is studied about Jini.  Jini is the small operating system in digital device. It is able to register itself to network.  After, look up service will keep all digital device data.  When the user demand service about that device, look up service will load that data to the user.  This process helps user to use their device more comfortable.
+	Other, now we have technology which can operating likes Jini.   For example Jetsend, this is the protocol, which uses in communication between digital devices.    Inferno, this technology is most similar to Jini but Inferno has different structure.
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+ระบบการเข้ารหัสลับแบบคีย์ต่าง
+Asymmetric Key Cryptography
+
+นายอรรถวุฒิ สุขผดุง
+นายเอกรินทร์ เสรีชื่นพอจิต
+อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+
+	ระบบการเข้ารหัสลับแบบคีย์ต่างเกิดขึ้นจากความพยายามแก้ไขปัญหาการกระจายคีย์
+ที่มีอยู่ในระบบการเข้ารหัสลับแบบคีย์เหมือน โดยมีการนำไปใช้ในกระบวนการพิสูจน์บุคคล
+และความถูกต้องของข้อมูล อัลกอริทึมที่นำมาใช้อย่างแพร่หลายก็คือ  อาร์เอสเอ (RSA)
+โดยผู้คิดค้น 3 คน คือ รอน ไรเวสต์, อาดี ชาเมียร์ และ ลีโอนาร์ด เอเดิลแมน ปัจจุบัน
+มีการกำหนดมาตรฐานการป้องกันด้วยการเข้ารหัสและการพิสูจน์ข้อมูลข่าวสารทางดิจิตอล
+ซอฟต์แวร์การเข้า-ถอดรหัสที่นิยมใช้กันอย่างแพร่หลายก็คือ พีจีพี (PGP)
+โดยให้บุคคลทั่วไปสามารถแลกเปลี่ยนข่าวสารกันได้อย่างปลอดภัย และมีระบบการพิสูจน์บุคคล
+ที่มีประสิทธิภาพสูง
+
+	บทความฉบับนี้ นำเสนอลักษณะสำคัญการเข้ารหัสลับแบบคีย์ต่าง อัลกอริทึมแบบอาร์เอสเอ ข้อดีข้อเสียการเข้ารหัสลับแบบคีย์ต่างเมื่อเปรียบเทียบกับการเข้ารหัสลับแบบคีย์เหมือน พร้อมทั้งเสนอแนวทางการผสมผสานระบบเข้ารหัสลับด้วยคีย์ทั้งสองแบบเพื่อนำไปประยุกต์ใช้ให้มีประสิทธิภาพในการใช้งานมากที่สุด 
+
+
+Abstract
+	The origin of asymmetric cryptosystem is attempting to solve the problem of
+key distribution in symmetric cryptosystem this applied to digital authentication and integrity.
+The most  widely  use algorithm is RSA which invented by Ron Rivest, Adi Shamir,
+and Leonard Adleman . Nowadays, there are standard specification for encryption protecting
+and digital authentication. A powerful cryptographic software that common widely use is
+PGP (Pretty Good Privacy) that enables people to securely exchange messages with both privacy
+and strong authentication.
+
+	This article will propose the characteristics of asymmetric encryption, RSA algorithm,
+the advantage and disadvantage of both cryptosystem which introduce hybrid system for the most
+effective applied

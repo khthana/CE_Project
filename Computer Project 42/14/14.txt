@@ -1,0 +1,14 @@
+ความปลอดภัยบนระบบเครือข่าย
+Network System Security
+
+นายศราวุธ จันทร์สด
+นายสกล สุวินัยตระกูล
+อาจารย์ประทีป บัญญัตินพรัตน์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การศึกษาเรื่องความปลอดภัยบนระบบเครือข่าย เป็นการศึกษาเกี่ยวกับโครงสร้างของความปลอดภัยบนระบบเครือข่าย โดยทำการศึกษาเกี่ยวกับลักษณะของปัจจัยต่าง ๆ ที่มีผลกระทบและคุกคามต่อความปลอดภัยของระบบเครือข่ายทั้งในรูปแบบของการอินเทอร์รัปชัน อินเทอร์เซ็ปชันโมดิฟิเคชัน และเฟบริเคชัน   รวมไปถึงศึกษาลักษณะความสามารถต่าง ๆ ที่ระบบเครือข่ายพึงมีในการรักษาความปลอดภัย และศึกษาเกี่ยวกับกลไกการรักษาความปลอดภัยบนระบบเครือข่ายใน 3 ลักษณะ คือ ความปลอดภัยทางกายภาพบนระบบเครือข่าย การควบคุมการเข้าถึงระบบเครือข่าย และการคริปโตกราฟี ข้อมูลข่าวสารบนระบบเครือข่าย
+	ความปลอดภัยทางกายภาพบนระบบเครือข่าย เป็นการรักษาความปลอดภัยที่ไม่ขึ้นอยู่กับฮาร์ดแวร์และซอฟต์แวร์ในระบบเครือข่าย   ส่วนการควบคุมการเข้าถึงระบบเครือข่ายเป็นการศึกษาในเรื่องของการล็อก - อิน พาสเวิร์ด โพรไฟล์ ของผู้ใช้ แอพพลิเคชันต่าง ๆ ที่ป้องกันการเข้าถึงระบบเครือข่ายโดยไม่ได้รับอนุญาต  รวมทั้งการใช้อุปกรณ์ไบโอเมตริกในระบบเครือข่ายที่ต้องการความปลอดภัยสูง      สำหรับการรักษาความปลอดภัยของข้อมูลข่าวสารบนระบบเครือข่าย จะใช้ กลไกการคริปโตกราฟี โดยศึกษาในเรื่องของการเข้ารหัสแบบมาตรฐาน และการเข้ารหัสแบบพับลิกคีย์   นอกจากนี้ยังศึกษาถึงระบบปฏิบัติการที่มีส่วนช่วยในการรักษาความปลอดภัยบนระบบเครือข่ายอีกด้วย เพื่อเป็นแนวทางในการศึกษาเรื่องความปลอดภัยบนระบบเครือข่ายชั้นสูงต่อไป
+
+Abstract
+	Network system security study is the study of network system security 's model which learns about any factor that effects and attacks the security of network system such as interruption, interception, modification and fabrication, then learns about any service that network system should have for enhancing the security and learns the security mechanism in three types : physical security, access control and cryptography.
+	 Physical security is independent of  hardware or software of the network system security. Access control learns the case of  logging - in, password, user profile, any application that prevents unauthorized person come into the network and the using of biometric instrument for the very important network. For security of the information transmitted on the network we use cryptography especially in Data Encryption Standard (DES) and Public - key encryption. Furthermore we learn about the Network Operating System (NOS) which manage security of network system. All above will be the guideline for studying the advance network system security in the future.

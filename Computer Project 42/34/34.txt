@@ -1,0 +1,29 @@
+ออบเจ็กต์แบบกระจายด้วย CORBA
+Distributed Object using CORBA
+
+นายภาณุ ลีลาลัคนา
+นายวัชรพล พฤกษสุขเกษม
+อาจารย์ชุติเมษฏ์ ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	CORBA (Common Object Request Broker Architecture) เป็นสถาปัตยกรรมหนึ่ง
+ที่เกี่ยวกับระบบการเรียกใช้บริการออบเจ็กต์แบบกระจาย ซึ่งลักษณะสำคัญของตัว CORBA ที่เหนือ
+กว่าสถาปัตยกรรมอื่น คือ การติดต่อออบเจ็กต์บนแพล็ตฟอร์มที่ต่างกัน และสามารถใช้ภาษาที่หลาก
+หลายในการเขียนแอพพลิเคชัน ทำให้ออบเจ็กต์เหล่านั้นติดต่อกันได้ โดย CORBA ใช้ ORB (Object 
+Request Broker) เป็นสื่อกลางในการติดต่อระหว่างแพล็ตฟอร์มที่แตกต่างกัน และใช้ IDL (Interface 
+Definition Language) เป็นภาษาที่กำหนดอินเทอร์เฟสในการติดต่อระหว่างออบเจ็กต์ด้วยกัน
+	ในปัจจุบันความต้องการงานทางด้านเรียวไทม์มีมากขึ้น จึงทำให้มีการพัฒนา CORBA 
+ให้ใช้ร่วมกับงานเรียวไทม์อย่างต่อเนื่อง ในการที่จะใช้ CORBA กับงานทางด้านเรียวไทม์จำเป็นต้อง
+มีการเพิ่มเติมบริการของ CORBA และ ORB จากเดิม ซึ่งโดยรวมแล้วจะเป็นการเพิ่มบริการที่เกี่ยวกับ
+ข้อกำหนดทางเวลาและการจัดการระดับความสำคัญของงาน
+
+Abstract
+CORBA (Common Object Request Broker Architecture) is one of the most popular 
+architectures that are used in distributed object system.  Major advantages over 
+other architectures are cross-platform and cross-language capabilities.  CORBA 
+uses ORB (Object Request Broker) to communicate between platforms and IDL 
+(Interface Definition Language) to define the interface between objects.
+The demand for realtime system has increased significantly in the past few years.  
+Therefore, CORBA has been enhanced to work in realtime environment.  A number 
+of services have been added to meet the requirements of realtime system.  Those 
+services are related to timing constraints and priority-based scheduling.

@@ -1,0 +1,18 @@
+ไดนามิค เอชทีเอ็มแอล
+   Dynamic HTML
+
+
+นาย มนูญ  ธัญญวิบูลย์
+                                                   นาย เมธา  ตันติวัฒนาศิริกุล
+		          อาจารย์ นวพร  วรรณวิมลศรี อาจารย์ที่ปรึกษา
+
+
+
+บทคัดย่อ
+	 ไดนามิคเอชทีเอ็มแอล นำเทคโนโลยีจำนวนหนึ่งมารวมกันทำให้ทำงานในโครงสร้างที่จัดการได้ง่าย  โดยการล้มล้างเทคโนโลยีที่มีอยู่  เช่น  ซีเอสเอส (CSS : Cascading Style sheet), แอคทีฟเอกซ์ (ActiveX), จาวาสคริปต์ (Java Script), และวีบีสคริปต์ (VBScript), ไดนามิคเอชทีเอ็มแอล จะทำให้โปรแกรมประยุกต์หลายตัวทำงานได้อย่างไม่น่าเชื่อ  อย่างไรก็ตาม ไดนามิคเอชทีเอ็มแอล เป็นมากกว่าการรวมเทคโนโลยีเก่า ๆ  ด้วยมีการเพิ่มความสามารถใหม่ ๆ เช่น ดาต้าไบนดิง (Data Binding) และ ดาต้าอแวร์เนส (Data  awareness) ไดนามิคเอชทีเอ็มแอล เพิ่มชั้นของการขยายที่ไม่เคยมีในเว็บก่อนหน้านี้  นำมารวมกันเป็นไดนามิคเอชทีเอ็มแอลออบเจ็กต์โมเดล (Dynamic HTML Object Model) ที่เปิดองค์ประกอบในเว็บเป็นสคริปต์และมีทำการเปลี่ยนแปลงได้อย่างที่ไม่เคยมีมาก่อน
+
+
+
+
+Abstract
+Dynamic HTML brings together a number of web technologies that work within an easily manageable structure. By leveraging existing technologies, such as Cascading Style Sheets, ActiveX, JavaScript, and VBScript, Dynamic HTML delivers an incredibly diverse range of application. Dynamic HTML ,however,  is more than just a category for old technology. With new features such as data binding and data awareness, Dynamic HTML adds a level of extensibility that was previously unavailable to the web. Holding it all together is the Dynamic HTML Object Model, which opens the elements on a web page to scripting and manipulation in ways never before possible

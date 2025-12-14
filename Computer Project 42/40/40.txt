@@ -1,0 +1,14 @@
+เอ็กซ์เอ็มแอล
+XML (Extensible Markup Language)
+
+นางสาวจินตนา เตียวแสงสุข
+นายชัยพร ศรีทอง
+อาจารย์นวพร วรรณวิมลศรี อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในอดีตการใช้เว็บเป็นเพียงการเชื่อมโยงเอกสารเท่านั้น แต่ในปัจจุบันการใช้เว็บได้เริ่มมีบทบาทในชีวิตประจำวันมากขึ้น เช่น การแลกเปลี่ยนข้อมูลผ่านอินเตอร์เน็ต, การค้าในอินเตอร์เน็ต (หรืออี-คอมเมิร์ช) มีความต้องการการแลกเปลี่ยนข้อมูลที่ดียิ่งขึ้น แต่ภาษาHTMLขยายความสามารถไม่ได้ จึงไม่เพียงพอต่อความต้องการเขียนเว็บในสมัยนี้
+	การเกิดขึ้นของภาษาXML ทำให้มีการแลกเปลี่ยนข้อมูลที่ดียิ่งขึ้น เพราะภาษาXMLมีการกำหนดโครงสร้างของเอกสาร คือ มีการกำหนดอิลิเมนต์, แอตทริบิวต์ และเอนติตี ด้วยตัวคุณเอง มันมีการแสดงผลของเอกสารที่ยืดหยุ่นโดยXSL มันมีความสามารถในการเชื่อมโยงเอกสารมากกว่าHTMLโดยเอ็กซ์ลิงก์และเอ็กซ์พอยน์เตอร์ และด้วยความสามารถที่จะขยายได้ ทำให้ภาษาXMLจะเป็นภาษาการเขียนเว็บในอนาคต
+
+Abstract
+	The use WEB only was link document in the past. Now the use WEB is the part of life rise up for example; exchange information via Internet, commerce in Internet (or E-Commerce) has demand in exchange good information. In contrast, HTML can’t enlarge ability thus it is in adequate for WEB writing now.
+	When XML has occurred, exchange information is grow up because XML has specification document’s structure that has markup for element, attribute and entity by yourself. It displays the result of flexible information by XSL. It is able to link document more than HTML by Xlink and Xpointer. And ability to enlarge will make XML is WEB writing language in the future. 	

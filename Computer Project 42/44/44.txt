@@ -1,0 +1,15 @@
+การรู้จำใบหน้ามนุษย์
+Human Face Recognition
+
+
+นายร่มธรรม สินธุประสิทธิ์
+นายวัลลภ วรกิจวิบูลย์
+อาจารย์เอื้อน ปิ่นเงิน อาจารย์ที่ปรึกษา
+
+
+
+บทคัดย่อ
+	บทความทางวิชาการนี้ทำการศึกษาเทคนิควิธีการต่าง ๆ ในการรู้จำใบหน้ามนุษย์ ประเภทของงานที่มีการใช้เทคนิคเหล่านี้  สิ่งที่มีผลต่อการรู้จำใบหน้า และประเภทของฐานข้อมูลที่ใช้งาน พร้อมทั้งนำเสนอการรู้จำใบหน้ามนุษย์โดยใช้การวิเคราะห์องค์ประกอบหลัก แสดงสมการที่ใช้ในการคำนวณหาใบหน้าไอเกน ความสัมพันธ์ของค่าผิดพลาดสมบูรณ์ระหว่างภาพใบหน้าต้นแบบกับภาพใบหน้าที่สร้างใหม่ภายใต้เงื่อนไขต่าง ๆ ได้แก่ ขนาดใบหน้า การให้แสง ลักษณะการวางตำแหน่งของศีรษะ ผลการทดลองแสดงให้เห็นว่าการเพิ่มจำนวนใบหน้าไอเกนให้มากขึ้นไม่มีความจำเป็นต่อการอธิบายลักษณะใบหน้า 
+
+Abstract
+	This paper studies face recognition techniques (FRT), categories of FRT's applications, effects of face recognition and types of database. We have represented the approach to face recognition using Principle Components Analysis (PCA). We derive some computational feasible formula to find the Eigenfaces, then investigate the relationship of mean absolute error between original face images and reconstructed images under various conditions such as face size, lighting and head orientation changes. The experiment result show that a large number of Eigenfaces are not necessary to describe and individual face.

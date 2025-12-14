@@ -1,0 +1,29 @@
+ซิงเกิลบอร์ดระดับสูง 
+Advanced Single Board
+
+นายมนตรี รัตนาวิวัฒน์พงศ์ 
+นายอานุภาพ ปกรณ์ยุทธ 
+ผศ. สมศักดิ์ มิตะถา  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ซิงเกิลบอร์ดเป็นอุปกรณ์ที่มีประโยชน์ในการช่วยพัฒนาโปรแกรม ซิงเกิลบอร์ดระดับสูงนี้เป็นโครงงานที่รุ่นก่อนได้พัฒนาไว้โดยใช้ MCS-51 ไมโครคอนโทรลเลอร์เป็นหน่วยประมวลผล แสดงผลบนจอ LCD มีคอมไพเลอร์และเอดิเตอร์ในตัวสามารถคีย์ข้อมูลเป็นรหัสนีโมนิกได้ ต่างจากซิงเกิลบอร์ดรุ่นอื่น ๆ ตามท้องตลาดที่โดยมากจะแสดงผลเป็นเซเว่นเซกเมนต์และไม่มีคอมไพเลอร์ในตัวต้องคีย์ข้อมูลเป็นเลขฐาน 16
+	ในส่วนของการประยุกต์ใช้งาน  ซิงเกิลบอร์ดจะถูกเชื่อมต่อเข้ากับอุปกรณ์โดยซิงเกิลบอร์ดจะส่งโปรแกรมที่คีย์เข้าไปผ่านทาง USER PORT เพื่อควบคุมการทำงานของอุปกรณ์ต่าง ๆ เช่น สเต็ปปิ้งมอเตอร์  เครื่องสร้างสัญญาณเสียง การควบคุมความร้อน ฯลฯ 
+ 
+Abstract
+	Single Board is a useful device for developing programming skill. Advance Single Board is project of  previous group by using microcontroller "MCS-51" as a processing unit, display on LCD, and have compiler, editor on board so it can key data as mnemonic that make it differ from any single board that display on 7-segment without compiler make it must key as heximal number. 
+	Application for using single board is interface single board by sent program pass USER PORT for control any device such as steping motor, sound generator and heat controller.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

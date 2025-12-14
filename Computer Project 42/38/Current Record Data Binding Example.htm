@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www.ruleweb.com/dhtml/Data_Binding/index.htm -->
+<HTML><HEAD><TITLE>Current Record Data Binding Example</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type><!--TOOLBAR_START--><!--TOOLBAR_EXEMPT--><!--TOOLBAR_END-->
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff leftMargin=40 link=#000066 text=#000000 topMargin=0 
+vLink=#666666><FONT face=verdana,arial,helvetica size=2>
+<META content="Microsoft FrontPage 2.0" name=GENERATOR><IMG border=0 height=27 
+src="Current Record Data Binding Example_files/titanic.gif" width=563><BR>
+<H2>Show Times for Titanic Special</H2>
+<HR>
+
+<P>Click the buttons below to move through show times.</P>
+<P>
+<OBJECT classid=clsid:333C7BC4-460F-11D0-BC04-0080C7055A83 height=0 id=quotelist 
+width=0 border="0"><PARAM NAME="DataURL" VALUE="quotes.txt"><PARAM NAME="UseHeader" VALUE="True"></OBJECT>
+<TABLE align=center cellPadding=3 cellSpacing=3>
+  <TBODY>
+  <TR>
+    <TD align=right><INPUT id=backward type=button value="   <   "></TD>
+    <TD 
+align=left><INPUT id=forward type=button value="   >   "></TD></TR></TBODY></TABLE>
+<P>
+<TABLE align=center cellPadding=0 cellSpacing=0>
+  <TBODY>
+  <TR>
+    <TD align=right vAlign=top><LABEL for=symbol>Show Title </LABEL></TD>
+    <TD align=left vAlign=top width=10></TD>
+    <TD align=left vAlign=top><INPUT dataFld=Symbol dataSrc=#quotelist 
+      id=symbol></TD></TR>
+  <TR>
+    <TD align=right vAlign=top><LABEL for=quote>Date: </LABEL></TD>
+    <TD align=left vAlign=top width=10></TD>
+    <TD align=left vAlign=top><INPUT dataFld=Quote dataSrc=#quotelist 
+    id=quote></TD></TR>
+  <TR>
+    <TD align=right vAlign=top><LABEL for=change>Start Time: </LABEL></TD>
+    <TD align=left vAlign=top width=10></TD>
+    <TD align=left vAlign=top><INPUT dataFld=Change dataSrc=#quotelist 
+      id=change></TD></TR>
+  <TR>
+    <TD align=right vAlign=top><LABEL for=volume>End Time: </LABEL></TD>
+    <TD align=left vAlign=top width=10></TD>
+    <TD align=left vAlign=top><INPUT dataFld=Volume dataSrc=#quotelist 
+      id=volume></TD></TR></TBODY></TABLE>
+<SCRIPT language=JavaScript>
+function backwardClick() {
+  if (quotelist.recordset.AbsolutePosition > 1) {
+    quotelist.recordset.movePrevious();
+  } else {
+    alert("Already at first element");
+  }
+}
+
+backward.onclick = backwardClick;
+
+function forwardClick() {
+  if (quotelist.recordset.AbsolutePosition != quotelist.recordset.RecordCount) {
+    quotelist.recordset.moveNext(); 
+  } else {
+    alert("Already at last element");
+  }
+}
+
+forward.onclick = forwardClick;
+
+</SCRIPT>
+
+<P><B>Description</B><BR>Current record binding is a key feature of the data 
+binding functionality included in Dynamic HTML. Current record binding allows a 
+page author to merge data with HTML elements on the client. The data is supplied 
+by a data source object included in the page. Individual HTML elements reference 
+the data source object using the DATASRC and DATAFLD attributes. DATASRC is set 
+to '#' plus the ID of the data source object. DATAFLD is set to the name of the 
+column name that holds the data. (DATASRC and DATAFLD are W3C-proposed 
+extensions to HTML.)</P>
+<P>The feature is named "current record binding" because the data displayed in 
+the bound elements is from the columns of the current record of the data source. 
+When the page author, through script or another element on the page, changes the 
+position of the current record, the data from the new, current record is 
+displayed in the elements. This is very much like the data binding supported in 
+Microsoft Visual Basic, but it does not require controls -- you can bind 
+directly to HTML elements.</P>
+<P>The key advantage to current record binding is that the data display is done 
+on the client. A round trip to the server is not necessary to obtain the next 
+record of the data set, you don't have to maintain the client state on the 
+server or hidden in the client page, and you don't have to write a CGI script. 
+With the enhanced user experience and increased speed of browsing, it's easy to 
+see the direct benefits of current record binding.</P>
+<P><B>Browser compatibility</B><BR>Today only Internet Explorer 4.0 supports 
+data binding. It is possible for other browsers to use server-side scripting to 
+provide similar functionality; however, you must keep track of the client state 
+and construct the pages on the server to send to the client.</P>
+<P>Sites that already support server-side data access might include a single 
+page that can take advantage of Internet Explorer 4.0 data binding features as 
+well as supporting down-level browsers. In general, this takes about 10 percent 
+more effort than building the page to support server-side data access alone. 
+This cost can be quickly recovered when considering the decreased number of 
+server hits and usability benefits to Internet Explorer 4.0 users.</P>
+<P><B>Usage</B><BR>The current record binding feature can be used to construct 
+data input forms and show detailed information on a record-by-record basis.</P>
+<P></FONT></P></BODY></HTML>

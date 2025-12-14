@@ -1,0 +1,12 @@
+การเขียนโปรแกรมเชิงวัตถุ
+ OOP using Delphi
+
+นายภัทรชัย   บรรจงวิเศษ 
+ นายวิทยา สุทธิวรรณารัตน์
+ ดร.วรวัฒน์   ลิ้มโภคา   อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การเขียนโปรแกรมเชิงวัตถุถือได้ว่าเป็นเทคนิคที่ช่วยให้การพัฒนาโปรแกรมเป็นไปได้ง่ายขึ้น เนื่องจากความสามารถในการนำกลับมาใช้ใหม่ได้ และมีความยืดหยุนในการพัฒนาโปรแกรมได้ดี หลักการเขียนโปรแกรมเชิงวัตถุจะประกอบด้วยความสามารถในการเอนแคปซูเลชั่น อินเฮอริแทนซ์ และโพลีมอร์ฟิซึม ภาษาเดลไฟนั้นก็เป็นภาษาหนึ่งที่ใช้เทคนิคการเขียนโปรแกรมเชิงวัตถุ เดลไฟเป็นภาษาที่แนะนำแนวคิดในเรื่องของคลาสซึ่งโครงสร้างของคลาสนี้จะทำให้เราสามารถใช้ความสามารถของโปรแกรมเชิงวัตถุได้ และยังมีคุณสมบัติในการแสดงออปเจกต์ในแบบวิชวล ทั้งยังมีวิธีจัดการติดต่ออีเวนภายนอก และยังสามารถใช้ทำงานกับ DLL และ ActiveX ได้อีกด้วย
+
+Abstract
+	Object Oriented Programming (OOP) Concept is a technique that can help the process of programming development more efficient. This is because the program itself is very flexible ad reusable. The major features of OOP consist of Encapsulation, Inheritance and Polymorphism. Delphi is the language that uses concept of OOP, it applies class in the program. Because of using class, we can gain the benefit of all OOP's features. Moreover, by applying OOP concept, Delphi can present the object visually and also be able to communicate with external events, which enable the program to work with DLL and ActiveX.

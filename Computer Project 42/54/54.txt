@@ -1,0 +1,27 @@
+ล่ามไทยบนเว็บ
+English-Thai Web Translator
+
+นางสาวอำภา  ทนุถนอมราษฎร์
+นายเอนก  กอธนสาร
+นายชนินทร์  สายน้ำเขียว
+อาจารย์อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+อินเตอร์เน็ตเป็นแหล่งความรู้สำคัญที่ทุกคนสามารถนำมาใช้ประโยชน์ได้ ในการที่จะนำความรู้เหล่านั้น
+มามีอยู่หลายวิธีการ แต่ที่นิยมคือ เวิลด์ไวด์เว็บ(WWW) ซึ่งความรู้ส่วนใหญ่เป็นหน้าข้อความภาษาอังกฤษที่เชื่อม
+โยงกัน เรียกว่า เว็บเพจ(web page) เว็บเพจภาษาอังกฤษเป็นข้อจำกัดสำหรับคนไทยบางกลุ่มที่มีปัญหาทางด้าน
+ภาษาอังกฤษ ถ้าสามารถเปลี่ยนหรือแปลเว็บเพจจากภาษาอังกฤษเป็นภาษาไทยได้จะเป็นการเปิดโอกาสของคน
+กลุ่มนี้ ในโครงการนี้แสดงให้เห็นถึงการให้บริการแปลภาษาแบบออนไลน์ที่มีส่วนประกอบ 3 ส่วน คือ การ
+บริการ, การวิเคราะห์ และตัวแปลภาษาจากภาษาอังกฤษสู่ภาษาไทยซึ่งได้รับการสนับสนุนจากหน่วยปฏิบัติการ
+วิจัยและพัฒนาวิศวกรรมภาษาและซอฟตแวร์ แห่งศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ หรือ
+เนคเทค(NECTEC)
+
+Abstract
+	The Internet is the several sources of knowledge which can be took by everyone. The methods for 
+taking those knowledge have several ways, but the like way is World Wide Web (WWW) which is the linked 
+English text called "web page". The English web pages are a big problem for Thai peoples, if they are 
+changed/translated form English to Thai, then they are useful for these peoples. In this project, show the way to 
+service these peoples in online. It have 3 parts: service, analyze and translator. The translator is supported by 
+Software and Language Engineering Laboratory of National Electronics and Computer Technology Center 
+(NECTEC). 
+

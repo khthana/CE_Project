@@ -1,0 +1,19 @@
+Network Protocol
+โพรโตคอลเครือข่าย
+
+นางสาววรรณฉัตร เทพสวัสดิ์
+นางสาววรรณิตา วีระมนตรี
+อาจารย์ประทีป บัญญัตินพรัตน์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+การวิเคราะห์ X.25 อาจพิจารณาได้จาก 3 เลเยอร์ล่างสุดของ OSI model แต่อย่างไรก็ตามมันไม่ได้สอดคล้องกับ model ของ OSI นัก
+เลเยอร์กายภาพ เป็นการส่งบิตข้อมูลที่ไม่เป็นโครงสร้างผ่านตัวกลางทางกายภาพ เกี่ยวข้องกับลักษณะเฉพาะทางกล ทางไฟฟ้า หน้าที่การทำงาน และลำดับขั้นวิธีการทำงานในตัวกลางทางกายภาพ ข้อเสนอทั้ง 4 ที่ถูกระบุต้องเขียนอยู่ในรูปของ X.21, X.21bis, RS-232 และ V.35 
+เลเยอร์เชื่อมต่อข้อมูลเป็นการถ่ายโอนข้อมูลผ่านการเชื่อมต่อทางกายภาพ โดยการส่งบล็อคของข้อมูล(เฟรม) เล-เยอร์นี้จะทำการซิงโครไนซ์ การตรวจสอบข้อผิดพลาด ควบคุมการไหลของข้อมูล ซึ่ง X.25 ใช้ HDLC และ LAPB ในการทำงานดังกล่าว
+เลเยอร์แพ็กเก็ตจัดการโอนย้ายข้อมูลและเทคโนโลยีการสวิทช์ที่ใช้ในการเชื่อมต่อระบบซึ่งทำให้เลเยอร์ขั้นสูงกว่าไม่เกี่ยวกับการถ่ายโอนข้อมูล โดยมีหน้าที่ในการเริ่มต้น รักษา และสิ้นสุดการติดต่อ ซึ่งใน X.25 ถูกแบ่งออกเป็นเล-เยอร์ย่อย  คือ bottom sublayer และ packer layer protocol (PLP) โดยเป็น connection-oriented sublayer
+
+Abstract
+X.25 analysis may be considered form it's  layer  however it doesn't exactly match with OSI model.
+Physical Layer : Concerned with transmission of unstructured bit stream over physical medium ; deals with the mechanical, electrical, functional and procedural characteristics to access the physical medium. 4 recommendation is identified for X.25 in form of X.21, X.21bis,RS-232 and V.35.
+Data Link Layer provides for the reliable transfer of information across the physical link; sends blocks of data (frames) with the necessary synchronization, error control and flow control. X.25 refer to HDLC and LAPB.
+Packet Layer provides upper layers with independence from the data transmission and switching technologies used to connect systems; responsible for establishing, maintaining and terminating connections. In X.25 packet layer is separated to sublayer, bottom sublayer and packet layer protocol (PLP), is connection-oriented sublayer, and provides and external virtual-circuit service.
+

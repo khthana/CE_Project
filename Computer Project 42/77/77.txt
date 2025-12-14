@@ -1,0 +1,16 @@
+ระบบพิสูจน์ตนเรเดียส
+RADIUS Authentication System
+
+นายปานกริช  ขันธสะอาด
+นายปิยะ  ผลิเจริญผล
+อาจารย์อัครเดช  วัชระภูพงษ์   อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+การจัดการเครือข่ายขนาดใหญ่มากๆ คงเป็นการไม่สะดวกหากเราต้องปรับตั้งคอนฟิกูเรชั่นในอุปกรณ์แต่ละตัว ยิ่งเครือข่ายมีขนาดใหญ่ขึ้นก็ยิ่งทำให้การดูแลไม่ทั่วถึง เกิดเป็นปัญหาระบบด้านรักษาความปลอดภัยตามมา ระบบพิสูจน์ตนเรเดียส ช่วยแก้ปัญหาดังกล่าวได้ เรเดียสมีลักษณะการทำงานแบบไคลเอ็นต์/เซิร์ฟเวอร์ โดยที่จะมีการควบคุมแบบรวมศูนย์ กล่าวคือฐานข้อมูลกลางของยูสเซอร์เก็บอยู่ที่เรเดียสเซิร์ฟเวอร์เพียงที่เดียว การจัดการและการควบคุมสามารถทำได้ง่าย เพียงแก้ไขในเซิร์ฟเวอร์เพียงแห่งเดียว การส่งพาสเวิร์ดระหว่างไคลเอ็นต์กับเซิร์ฟเวอร์มีการเข้ารหัสเพื่อสร้างความปลอดภัยในการสื่อสาร โดยเรเดียสเซิร์ฟเวอร์อาจเป็น ยูนิกซ์เซิร์ฟเวอร์ วินโดวส์เอ็นทีเซิร์ฟเวอร์ หรือ เน็ตแวร์เซิร์ฟเวอร์  ทางด้านไคลเอ็นต์ อาจใช้เน็ตเวิร์กแอคเซสเซิร์ฟเวอร์ หรือเดมอนล็อกอินที่สนับสนุกการพิสูจน์ตนแบบเรเดียส 
+โดยโครงงานนี้จะมุ่งเน้นศึกษากลไกการพิสูจน์ตน การพิสูจน์สิทธิ์ และระบบบันทึกพฤติกรรมโดยใช้เรเดียส 
+กลไกการทำงานของการพิสูจน์ตนเรเดียสกับโพรโตคอลการพิสูจน์ตนอื่นๆ เช่น โพรโตคอลพิสูจน์ตนแบบ PAP และ CHAP แสดงถึงการเปรียบเทียบการทำงาน รวมถึงการประยุกต์ใช้งานจริง วิธีการปรับแต่งค่าคอนฟิกูเรชั่นต่างๆเบื้องต้น
+
+Abstract
+In enterprise network management, it is inconvenient to setup each configuration in each network device. When network is bigger make system administrator can not see all over, it may cause security issue. RADIUS authentication system can solve this problem. RADIUS works with client/server model that it contains centralize control weather only RADIUS server will keep user's database. Management and control is simple, only update configuration at server will effect to its client. Improving security between client and server Communication by encrypts password before send over network. RADIUS server can be UNIX server, Windows NT server or NetWare server. RADIUS client can be network access server or login daemon that support RADIUS.
+This project will study about how radius authenticates authorization and accounting. How radius work with other authentication mechanism e.g. PAP, CHAP. How to implement RADIUS, basic configuration.

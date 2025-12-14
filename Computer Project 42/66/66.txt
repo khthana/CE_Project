@@ -1,0 +1,28 @@
+			                    ตัวตรวจจับความปลอดภัยสำหรับยูนิกซ์
+				                 Unix  Security Scanner
+
+				                      นายไกร  กาญจนวตี
+				                        นายก่อ กิตติกรณ์
+				อาจารย์ธนา หงษ์สุวรรณ อาจารย์ที่ปรึกษา
+
+
+
+บทคัดย่อ
+	ตัวตรวจจับความปลอดภัยในระบบยูนิกซ์ (Unix Scanner) พัฒนาขึ้นเพราะ ในปัจจุบันนี้เราเริ่มเห็นแล้ว
+ว่า ระบบคอมพิวเตอร์นั่นมีความเกี่ยวข้องกับระบบเน็ตเวิร์กมากขึ้นเรื่อยๆ และนั้นก็ทำให้เกิดข้อบกพร่องของ
+ระบบ ที่ทำให้ถูกโจมตีผ่านทางระบบเน็ตเวิร์กได้เช่นกัน  
+	SATAN เป็นโปรแกรมที่เป็นสแกนเนอร์ชนิดหนึ่ง ที่ช่วยผู้ดูแลระบบ ในด้านการรักษาความปลอดภัย
+ของระบบ SATAN รู้จักปัญหาของระบบเน็ตเวิร์ก และส่วนที่เกี่ยวข้องกับระบบ พร้อมการรายงานปัญหา โดย
+อธิบายปัญหาและผลกระทบที่สามารถเกิดขึ้นได้ รวมถึงการแก้ไขปัญหานั่นๆ ด้วย แต่ในขณะเดียวกัน SATAN ก็
+อาจถูกใช้โดยแฮกเกอร์หรือแครกเกอร์ ในการบุกรุกเข้าไปในระบบต่างๆ เพื่อก่ออาชญากรรมทางคอมพิวเตอร์ได้
+เช่นกัน
+
+
+Abstract
+	Unix  Scanner was developed because we realized that computer  systems are becoming more and 
+more dependent on the network , and at the same becoming more and  more vulnerable to attack via that same 
+network
+	SATAN is a scanner program that help systems administrator .it recognize several common 
+networking-relate security problems , reports the problem  with  explaining the problem and what its impact  
+could be  .And also explains what can be done about the problem . At the same time SATAN can be used by 
+hacker or cracker to brake in target host for  make computer crimes ,too.

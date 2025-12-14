@@ -1,0 +1,12 @@
+บทคัดย่อ
+โพรโตคอลเครือข่ายเป็นส่วนสำคัญในระบบการสื่อสารข้อมูล ดังนั้นในระบบการสื่อสารใด ๆ จึงต้องมีโพรโตคอลเพื่อกำหนดลักษณะและรูปแบบของการติดต่อในเครือข่าย โพรโตคอลมีให้เลือกใช้งานได้มากมายขึ้นอยู่กับความต้องการของระบบและระดับชั้นที่นำมาใช้งาน ซึ่งบางตัวสามารถใช้งานแทนกันได้ 
+อีเทอร์เน็ตก็เป็นโพรโตคอลประเภทหนึ่งที่นิยมใช้ในระบบแลน ซึ่งทำให้ระบบมีความเร็วสูง และมีสมรรถนะสูง ซึ่งอีเทอร์เน็ตจะควบคุมการติดต่อในระดับฟิสิคัลและดาต้าลิงค์ ตามรูปแบบมาตรฐาน OSI นั่นคือจะเกี่ยวกับลักษณะทางกายภาพ ทางกลและแพ็กเกจของระบบ
+วิธีการติดตั้งระบบอีเทอร์เน็ตสามารถทำได้โดยง่าย และมีลักษณะการเชื่อมต่อระบบหลายแบบที่ทำให้ระบบมีประสิทธิภาพเป็นไปตามที่ต้องการ โดยตัวกลางของอีเทอร์เน็ตมีหลายชนิดให้เลือกใช้ ได้แก่ สายโคแอ็กเชียลเคเบิลแบบหนา, สายโคแอ็กเชียลเคเบิลแบบบาง, สายคู่เกลียวและไฟเบอร์ ออปติก เป็นต้น ซึ่งประเภทของอีเทอร์เน็ตจะแบ่งตามลักษณะของตัวกลางที่ใช้เป็นสำคัญ และจะมีลักษณะและคุณสมบัติแตกต่างกันไป
+อีเทอร์เน็ตยังสามารถรองรับการส่งและรับข้อมูลของโพรโตคอลระดับบนได้ และมีรูปแบบเฟรมที่ใช้ในการส่งข้อมูลจำเพาะ ซึ่งจะทำให้หน่วยในระบบเข้าใจแพ็กเกจนั้น ๆ ได้ การปรับปรุงอีเทอร์เน็ตในด้านการเชื่อมต่อ และการรับส่งข้อมูล จะทำให้ระบบเครือข่ายมีประสิทธิภาพ และความเชื่อถือได้สูง
+
+Abstract
+	Network Protocol is the important part in data communication, so that, in any communications must have protocols for determined characteristics and formats of their network connection. Various protocols may be used depend on system requirements and layer that bring to use. Some protocol can be in placed of the others.
+	However, Ethernet is the one of protocol that is popular use in LANs. High speed and high performance was included from Ethernet, so, Ethernet will control connection in Physical and Data Link layer follows the OSI model that will involve in physical, mechanical and packages.
+	The installation of the Ethernet is easily, and characteristic of various connection systems will give high performance system that be required. The Ethernet mediums have several types to be used, such as, thick coaxial cable, thin coaxial cable, twisted pair cable and fiber optics. Type of  Ethernet was classified by the medium so the systems will have different characteristic and property.
+	Besides, Ethernet can support transmission and reception of upper layer protocol, it specifics their identical frames for understand in operation that packages. Ethernet improvement in connections, transmissions and receptions will make high performance and high reliability networks.
+

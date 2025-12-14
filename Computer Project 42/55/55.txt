@@ -1,0 +1,43 @@
+		   	การพัฒนาเกมคอมพิวเตอร์ด้วยเทคโนโลยีเชิงวัตถุ
+			    Computer game development using OOT
+
+				     นายเชิดศักดิ์  รุทธนานุรักษ์
+				       นายธีระพงษ์  สุขสุวรรณ
+			       อาจารย์อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ปัจจุบันนี้กระบวนทัศน์ในการออกแบบซอฟต์แวร์ที่กำลังเป็นกระแสหลักในวงการพัฒนาซอฟต์แวร์คือ
+กระบวนทัศน์แบบ ออบเจ็กต์-โอเรียนเต็ด ซึ่งซอฟแวร์แทบทุกตัวในท้องตลาดในขณะนี้ล้วนใช้กระบวนทัศน์แบบ
+นี้ในการพัฒนาทั้งสิ้น สาเหตุที่เป็นเช่นนี้ก็เพราะว่า ซอฟต์แวร์ที่พัฒนามาจากกระบวนทัศน์ดังกล่าวหากออก
+แบบมาอย่างดีพอ   จะมีลักษณะที่ยืดหยุ่นในการเพิ่มเติมแก้ไข ขยายขนาดและนอกจากนั้นยังสามารถนำรหัส
+โปรแกรมจากการพัฒนาที่ผ่าน ๆ มาหรือได้จากผู้อื่น นำมาใช้ในการพัฒนาซอฟต์แวร์ใหม่ได้โดยไม่ยุ่งยาก  นอก
+จากนั้นยังทำให้เกิดการผลิต การจำหน่าย แจกจ่าย ส่วนประกอบสำเร็จของซอฟต์แวร์ จนเห็นได้ว่าการปัจจุบันมี
+ซอฟต์แวร์ใหม่ๆออกมาเป็นจำนวนมากและมีการออกเวอร์ชันต่อๆมาถี่ขึ้น จนกล่าวได้ว่าเป็นกระแสหลักใน
+ปัจจุบันและเป็นแนวโน้มของอนาคต  ในการพัฒนาซอฟต์แวร์แบบออบเจ็กต์-โอเรียนเต็ดขั้นตอนส่วนที่สำคัญ
+และชี้ขาดถึงความสำเร็จขั้นพื้นฐานของการนำกระบวนทัศน์แบบออบเจ็กต์-โอเรียนเต็ด มาใช้คือขั้นตอนการ
+ออกแบบและการวิเคราะห์เชิงออบเจ็กต์ ซึ่งต้องใช้เครื่องมือและเทคนิคในการช่วยวิเคราะห์และออกแบบซึ่งมี
+มาตรฐานออกมาหลายๆมาตรฐาน ความรู้ความเข้าใจในมาตรฐานเหล่านี้นับเป็นปัจจัยหนึ่งที่สำคัญสำหรับการ
+พัฒนาซอฟต์แวร์แบบออบเจ็กต์-โอเรียนเต็ด 
+	เกมก็เป็นซอฟต์แวร์ประเภทซึ่งอยู่ในกระแสหลักนั้นด้วยเป็น และกระบวนทัศน์แบบออบเจ็กต์-โอเรียน
+เต็ดก็สอดคล้องเป็นอย่างยิ่งต่อการพัฒนาเกม กระบวนการในการออกแบบเกมแบบออบเจ็กต์-โอเรียนเต็ดก็มีรูป
+แบบโครงร่างที่เหมือนกับกับการพัฒนาซอฟต์แวร์แบบอื่น ในอีกแง่หนึ่งเกมก็สามารถพัฒนาได้โดยไม่ต้องพึ่งพา
+ผู้เชี่ยวชาญเฉพาะด้านเป็นจำนวนมากในการร่วมพัฒนา อีกทั้งเกมบางชนิดยังต้องการความสามารถที่ได้จาก
+การนำเอากระบวนทัศน์แบบออบเจ็กต์-โอเรียนเต็ดมาใช้ จึงเหมาะที่จะนำเกมมาเป็นกรณีศึกษาของการพัฒนา
+ซอฟต์แวร์แบบ ออบเจ็กต์-โอเรียนเต็ดอย่างยิ่ง 
+	
+Abstract
+	Now a day, the most common used paradigm in software development is object-Oriented. Almost 
+every software in the market today are developed using this paradigm.  Why? There are many reason. With 
+Object-Oriented technique and a good design, you will get software with flexibility and extensibility. Beside, 
+you can easily reuse existing code wrote in your passed works or by the others. These make possibility to 
+distribute some part of software, such as plug-in. As we now can see that there are many software released in 
+the market, both new software and new version of existing software. In Object-Oriented software development, 
+the important step and the key to success is Analysis and Design. This step requires tools and techniques, which 
+make it much easier. Many standards for tools and techniques are available. Comprehension in these standards 
+is an important thing in Object-Oriented software development.
+	Computer game is the most common one in software market. And it gained much support from 
+Object-Oriented paradigm in development. Computer game development cycle using Object-Oriented paradigm 
+has the same step as the others software development. But in details, it requires fewer experts to work in 
+development. In addition, some type of game need capability obtained from Object-Oriented paradigm. So it’s 
+appropriate to use computer game development as case study in Object-Oriented software development.
+

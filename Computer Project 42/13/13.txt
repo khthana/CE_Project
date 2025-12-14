@@ -1,0 +1,12 @@
+โรโบติก
+Robotic
+
+นางสาว อริสรา อนุชิตโอฬาร
+นางสาว อุทัยรัตน์ ดอกกุหลาบ
+ผศ. สมศักดิ์ มิตะถา  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	บทความเชิงวิชาการเรื่องโรโบติกนี้จัดทำขึ้นเพื่อเสนอความรู้พื้นฐานเกี่ยวกับหุ่นยนต์กลุ่มมาลีซึ่งเป็นหุ่นยนต์ตรวจสอบเส้นทางและขนย้ายของจากที่หนึ่งไปยังอีกที่หนึ่งโดยอุปกรณ์ด้านฮารด์แวร์ที่ใช้ คือ ซีพียู 80486 ไอซี8255 ไดร์ฟมอเตอร์ วงจรเซ็นเซอร์ แหล่งจ่ายไฟ วงจรสั่งงานทางโทรศัพท์ซึ่งใช้ไอซี MT8870 และใช้ภาษาปาสคาลในการเขียนโปรแกรมการทำงานของหุ่นยนต์
+
+Abstract
+	This article is narrated in order to present a fundamental concept of the Malee’s robot, which is used to detect the path and move things from one place to another. The hardware equipment used here is a 80486  CPU, IC 8255, motor driving circuit, sensor circuit, power supply, and control circuit using IC MT8870 via telephone system. Finally, the indispensable programming step using PASCAL to control the robot to work properly.

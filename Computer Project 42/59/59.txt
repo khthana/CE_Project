@@ -1,0 +1,25 @@
+			                   การสำรวจเทคโนโลยีของเอฟพีจีเอ
+                                                                           The  Survey  of  FPGA Technology
+
+				   นาย  นพดล    วัฒนาวงศ์ศิริ   
+	                                                           นาย  รัฐการ     ประทุมจร
+			           อาจารย์อภิเนตร         อูนากูล    อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ตั้งแต่ได้มีการสร้าง เอฟพีจีเอ ในกลางปี ค.ศ.1980  เป็นสิ่งที่ช่วยให้การพัฒนาชิ้นส่วนของคอมพิวเตอร์โดยเฉพาะ
+ในการสร้างต้นแบบของดิจิตอล     ซึ่งมีความยืดหยุ่น เป็นอุปกรณ์ด้านฮาร์ดแวร์ที่เป็นรากฐานให้งานสำเร็จไปได้ มีคุณภาพ
+และประสิทธิภาพในการใช้งานสูง     สำหรับโครงงานนี้จะอธิบายถึงข้อแตกต่างระหว่างเอฟพีจีเอกับอุปกรณ์พีแอลดี
+(Programmable Logic Device: PLD) อื่น ๆ  รวมถึงลักษณะของสถาปัตยกรรมและเทคนิคในการออกแบบเอฟพีจีเอ เพื่อ
+เป็นแนวทางในการนำไปใช้งานต่อไป
+
+Abstract
+	In the mid 1980s a new technology for implementing digital logic was introduced, the field-program gate array 
+(FPGA). They offer the potential to deliver high performance solutions to general computing tasks, especially for the 
+prototyping of digital. However to realize this potential requires a flexible, powerful hardware substrate and a complete, 
+high quality and high performance automatic mapping system. For this paper describes differences between  FPGA  and  
+others PLD (Programmable  Logic Device), otherwise describes architecture and  technique of design  for  use  tendency  
+to operate of other applications.
+
+
+ 
+

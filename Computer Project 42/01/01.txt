@@ -1,0 +1,24 @@
+ระบบฐานข้อมูลเชิงวัตถุสัมพันธ์
+Object-Relational Database System
+
+นางสาว  สุธาสินี เลี่ยวไพโรจน์
+นาย  สุรพงศ์   กนกทิพย์สถาพร
+อาจารย์  บัณฑิต  พัสยา  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	โปรเจ็กต์เล่มนี้เป็นส่วนหนึ่งของโปรเจ็กต์ระบบฐานข้อมูลเชิงวัตถุสัมพันธ์ (Object Relational Database Systems : ORDB) เพื่อทำการศึกษาระบบฐานข้อมูลแบบใหม่ที่พัฒนามาจากระบบฐานข้อมูลเชิงสัมพันธ์ (Relational Database Management System : RDBMS) เพื่อแก้ไขข้อจำกัดของระบบฐานข้อมูลแบบเดิม โดยในส่วนแรกจะกล่าวถึงความสามารถที่เพิ่มขึ้นมาของ ORDB คือ 
+	* Base Data Type Extension
+	* Complex Object
+	* Inheritance
+	* Rules   						
+และในส่วนที่สองจะกล่าวถึง SQL3 ซึ่งเป็นภาษาที่สนับสนุนการทำงานของ ORDBM โดย
+กล่าวจะถึง Abstract Data Type : ADT ซึ่งเป็นชนิดข้อมูลแบบออบเจ็กต์ที่จะระบุให้มีแอตทริบิวต์และโอเปอร์เรชันต่างๆซึ่งใช้สำหรับทำการเปรียบเทียบหรือทำลำดับและใช้ติดต่อกับภายนอก และจะแสดงการกำหนดรูปแบบของ ADT	
+
+Abstract
+	This project is the section of  Object-Relational Database System (ORDB) for study about new database that develop from Relational Database System (RDBM) that repair the limit of old database. In the first section is about the increase capability of  ORDB is 
+	* Base Data Type Extension
+	* Complex Object
+	* Inheritance
+	* Rules
+In the second section is about  SQL3. It is the language that support operation of  ORDB by  just say  about Abstract Data Type (ADT). It is the object datas that have attribute and operation for comparison  or  ordering and use to contact outside just show the pattern filling  of ADT.
+

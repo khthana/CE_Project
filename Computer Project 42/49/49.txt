@@ -1,0 +1,12 @@
+
+บทคัดย่อโครงข่ายประสาทเทียมเพื่อการเรียนรู้ของเครื่องโดยใช้แบบจำลองของโคโฮเนน
+Neural Network for Machine Learning using Kohonen's model
+
+นายศรุต พจนปรีชากุล
+นายศักดิ์พจน์ ทองเลี่ยมนาค
+อาจารย์เอื้อน ปิ่นเงิน อาจารย์ที่ปรึกษา
+
+	บทความฉบับนี้จะอธิบายความรู้เบื้องต้นเกี่ยวกับโครงข่ายประสาทเทียมอย่างง่ายๆ โดยพยายามหลีกเลี่ยงสมการและการพิสูจน์ทางคณิตศาสตร์ และเขียนในลักษณะสรุปใจความสำคัญและแนวคิดหลักๆ เกี่ยวกับ พื้นฐานทางชีววิทยา โครงสร้างของเซลล์ประสาท, แบบจำลองพื้นฐานของโครงข่ายประสาทเทียมซึ่งเป็นรูปแบบพื้นฐานของแบบจำลองอื่น ๆ , อัลกอริทึมการเรียนรู้ของโครงข่ายประสาทเทียม, เหตุผลในการใช้โครงข่ายประสาทเทียม, แบบจำลองต่าง ๆ ของโครงข่ายประสาทเทียม โดยเนื้อหาในส่วนนี้จะเน้นแบบจำลองของโคโฮเนน จากนั้นจะเป็นการประยุกต์ใช้แบบจำลองของ            โคโฮเนนกับการตรวจสอบเงื่อนไขการมีฝนตก/ไม่มีฝนตกบนพื้นดิน ท้ายสุดเราจะกล่าวถึงข้อจำกัดของโครงข่ายประสาทเทียม
+
+Abstract
+	This article describes about fundamental of neural network by avoid mathematics equation and proof. It 's wrote in "only-important-subject" style consist of biological background about structure of neuron, basic model of neural network that is the base of other models, learning algorithm of neural network, why neural network, models of  neural  network which  this section scope on Kohonen's model and the next is application of Kohonen's model about detection of rain/no rain condition on ground. At last we will talk about the limitation of neural network.

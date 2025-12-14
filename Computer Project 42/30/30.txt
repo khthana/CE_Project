@@ -1,0 +1,14 @@
+การประเมินผลประสิทธิภาพการทำงานของระบบคอมพิวเตอร์
+Computer System Performance Evaluation
+
+นายบดินทร์ ศรีรัตนพรพันธุ์
+นายสัญชัย  รุ่งเรืองชูสกุล
+อาจารย์ชุติเมษฏ์ ศรีนิลทา  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+การประเมินผลประสิทธิภาพการทำงานของระบบคอมพิวเตอร์เป็นสิ่งจำเป็นต่อการใช้งานและพัฒนาระบบคอมพิวเตอร์เป็นอย่างมาก การประเมินแบบต่างๆมีลักษณะการใช้ที่แตกต่างกันเพื่อจะนำไปปรับปรุงการทำงานของระบบคอมพิวเตอร์ให้เกิดประสิทธิภาพการทำงานสูงสุดที่ระบบคอมพิวเตอร์นั้นๆจะทำได้ การทำโมเดลเชิงวิเคราะห์(Analytical Modeling) เป็นตัวอย่างหนึ่งของวิธีประเมินผลการทำงานของระบบคอมพิวเตอร์โดยที่ไม่จำเป็นต้องทดสอบในระบบจริงและเป็นวิธีที่มีความรวดเร็วมาก นอกจากนี้เรายังมีการใช้ มาตรวัดการใช้งานของระบบ(Metrics) และเวิร์คโหลด(Workload) โดยข้อมูลที่ได้มาจากการมอนิเตอร์(Monitor) ซึ่งทั้งหมดนี้จะเป็นสิ่งสำคัญในการประเมินผลประสิทธิภาพการทำงานของระบบคอมพิวเตอร์ ค่าที่ได้จากการประเมินอาจจะอยู่ในรูปค่าเวลาตอบสนอง  ค่าประสิทธิภาพ และค่าอื่นๆที่วัดได้อีกมาก ซึ่งจะแสดงในรูปกราฟที่เราสามารถใช้เปรียบเทียบได้โดยง่าย เพื่อให้การใช้งานและพัฒนาระบบเป็นไปอย่างมีประสิทธิภาพ
+
+Abstract
+Computer system performance evaluation is important to the development  of a computer system. Evaluation techniques are used to improve computer system's performance so that it is operating at its maximum capacity. Analysis modeling is one of the computer system performance evaluation techniques. It is fast because it does not require an actual operation on the system.  Other issues relevant to performance evaluation discussed in this paper are Metrics, Workload and Performance Monitoring techniques. They play major roles in computer system performance evaluation. Evaluation results include response time and efficiency of the operation. They are usually represented in the from of graphs because graphs are compared and analyzed easily.   
+
+

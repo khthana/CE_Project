@@ -1,0 +1,14 @@
+ความปลอดภัยบนอินเทอร์เน็ต
+Internet Security
+นาย สรพงษ์  จรัญญากรณ์
+นาย สราวุธ  อมราสิงห์
+อาจารย์วรวัฒน์  ลิ้มโภคา  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+
+	ระบบรักษาความปลอดภัยเป็นสิ่งจำเป็นสำหรับอินเทอร์เน็ต  โดยในโครงงานนี้ได้ทำการศึกษาเรื่อง SSL (Secure Socket Layer) ซึ่งเป็นรูปแบบโพรโตคอลแบบหนึ่งของเซิร์ฟเวอร์ที่ใช้สำหรับตรวจสอบการเข้ารหัสข้อมูลของลูกค้าเพื่อป้องกันการดักจับข้อมูลจากผู้ไม่หวังดี      เพื่อทำให้ข้อมูลมีความปลอดภัยมากยิ่งขึ้น       นอกจากนี้ยังมี S-HTTP ซึ่งเป็นโพรโตคอลที่ใช้ป้องกันการแสดงข้อมูลรายการบนเว็บ ส่วน SET (Secure Electronic Transactions) ซึ่งเป็นระบบที่ใช้หน่วยงานกลางที่จัดตั้งขึ้นมาเพื่อยืนยันตัวตนของลูกค้าในการทำธุรกรรมต่าง ๆ เช่น การจ่ายเงินผ่านทางบัตรเครดิตบนระบบอินเทอร์เน็ต  นอกจากความปลอดภัยที่กล่าวมาแล้วนี้ยังมีไฟร์วอลล์ (Firewall) ซึ่งเป็นตัวที่เชื่อมต่อระหว่างเครือข่ายส่วนตัวกับอินเทอร์เน็ตเพื่อป้องกันผู้ไม่หวังดีต่อระบบเข้ามาก่อกวนผ่านทางเครือข่ายอินเทอร์เน็ต
+
+Abstract
+	
+Security is necessary for internet. This project is study in  SSL (Secure Socket  Layer)  that is protocol form of server to check data encryption for protect the data from third party. Besides the S-HTTP (Secure - HTTP) that is protocol used for prevent data lists on web.  While SET (Secure Electromic Transactions) is system  that used the central unit which to establish for certificate of customer in transactions such as payment by the credits card on the internet network.  Except this security  it have Firewall which is connect between internal network and internet  for protect from hacker to disturb system.
+

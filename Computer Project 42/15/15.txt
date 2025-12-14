@@ -1,0 +1,13 @@
+ความปลอดภัยบนระบบฐานข้อมูล
+Database System Security
+
+นางสาวสุพัณณดา โชติพันธ์
+นายเสริมศักดิ์ กิตติธนนพร
+อาจารย์ประทีป บัญญัตินพรัตน์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ในรายงานฉบับนี้ ได้พิจารณาถึงความปลอดภัยของระบบจัดการฐานข้อมูล ในที่นี้ได้อธิบายในเรื่องความปลอดภัยไว้ว่าเป็นการปกป้องระบบและส่วนประกอบภายในจากความเสียหาย หรือการถูกทำลาย ในส่วนแรกของรายงานได้สรุปถึงฐานข้อมูลในระดับพื้นฐานไว้ การรักษาความปลอดภัยของสารสนเทศในฐานข้อมูลประกอบด้วย 3 ส่วนหลัก คือ การป้องกัน หรือ การควบคุม (Protection) ความน่าเชื่อถือ (Reliability) และความสมบูรณ์ (Integrity) ซึ่งสามารถจำกัดความองค์ประกอบต่างๆได้ดังนี้ การป้องกัน หรือการควบคุม (Protection) หมายถึง การรวมและการควบคุมการเข้าถึงข้อมูลอย่างเหมาะสม ความสมบูรณ์ (Integrity) หมายถึง การรักษาความปลอดภัยในระบบที่มีผู้ใช้หลายคนที่ได้รับอนุญาตให้เข้าถึงระบบนั้นและใช้ฐานข้อมูลร่วมกัน นั่นคือความสมบูรณ์ของสารสนเทศคือ การป้องกัน การตรวจสอบ และการขัดขวางการปรับปรุงข้อมูลอย่างไม่เหมาะสม ความน่าเชื่อถือ (Reliability) หมายถึง การสนับสนุนหรือการปรับปรุงในการทำงานให้ดีขึ้น
+
+Abstract
+	In this report we consider the security of database management system. The term security is used here to describe the protection of systems and their content from destruction. We begin this report with a brief summary of introduction database. Information security in a database includes three main aspect : protection, reliability and integrity. Protection means understanding, organizing, and controlling access to data in accordance with specified rights. Integrity means maintenance of security in a system where multiple users are permitted to access the system and share the database. That is integrity of information means preventing / detecting / deterring improper denial of access to services provided by the system. Reliability means improving the probability that the system does what it is instructed to do.  
+

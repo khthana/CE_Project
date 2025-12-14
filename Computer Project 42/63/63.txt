@@ -1,0 +1,14 @@
+ระบบการเงินและการรักษาความปลอดภัยในอี-คอมเมิร์ซ
+E-Commerce Payment and Security
+
+นางสาว นภาพร จิรุภัณฑ์สวัสดิ์ 
+นางสาว นฤมล วงศ์อริยะกวี
+อาจารย์ อภิเนตร อูนากูล อาจารย์ที่ปรึกษา
+ 
+บทคัดย่อ
+	ในปัจจุบันนี้มีการนำเทคโนโลยีทางด้านอินเทอร์เน็ตมาใช้ในการทำธุรกิจมากขึ้น เช่น การซื้อขายผ่านทาง
+อินเทอร์เน็ต จึงมีความจำเป็นอย่างยิ่งที่จะต้องหันมาสนใจในเรื่องของการชำระเงินซึ่งมีหลายรูปแบบ แบ่งออกเป็นการชำระเงินโดยใช้บัตรเครดิต การใช้เงินสดดิจิตอล การใช้เช็คอิเล็กทรอนิกส์ ซึ่งแต่ละรูปแบบก็จะมีขั้นตอนรวมถึงข้อดีข้อเสียแตกต่างกันไป นอกจากนี้ยังต้องให้ความสนใจทางด้านระบบการรักษาความปลอดภัย โดยจะมีองค์กรออกใบรับรองดิจิตอลเป็นผู้รับรองความถูกต้องและยืนยันความมีตัวตนของทั้งผู้ซื้อและผู้ขาย เพื่อให้ผู้ซื้อมั่นใจได้ว่ารูปแบบการชำระเงินที่เลือกใช้นั้นปลอดภัยเพียงพอ และจะไม่โดนร้านค้าโกง ซึ่งถ้าระบบการชำระเงินมีการรักษาความปลอดภัยที่ดีเพียงพอ ก็จะยิ่งทำให้เกิดความก้าวหน้าทางด้านเทคโนโลยีมากยิ่งขึ้น
+
+Abstract
+	Nowadays people use Internet in business more than in the past such as electronic commerce. So it is necessary to be interested in payment systems in Internet. Payment systems are variable such as credit card, digital cash and electronic cheque. Each kind has a different process, advantage and disadvantage. Furthermore we should be interested in security systems. Certificate Authority authorize customers and merchants, so customers assure that payment system they use is safe enough and no fraud from merchants. By the way, if security in payment systems is good enough, electronic commerce will be improved increasingly.                                                         
+

@@ -1,0 +1,15 @@
+โพรโตคอลเครือข่ายแบบทีซีพี ไอพี
+TCP/IP Network Protocol
+
+นาย กิรพัฒน์ วรคุณพิสิฐ           รหัสนักศึกษา 40010065
+นาย เกรียงศักดิ์ จีระธัญญาสกุล รหัสนักศึกษา 40010072
+รศ. ประทีป บัญญัตินพรัตน์                  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+ทีซีพี ไอพี เป็นโพรโตคอลเครือข่ายที่มีการทำงานที่สัมพันธ์ระหว่าง ทีซีพีโพรโตคอล และ ไอพีโพรโตคอล โดยจะทำการศึกษาถึงโครงสร้าง และการทำงานของทั้ง 2 โพรโตคอล และการจัดการนำไอพีแอดเดรสมาใช้งาน ความหมายของดาต้าแกรม (Datagram) และ แฟรกเมนติง (Fragmenting) รวมไปถึงความสัมพันธ์ในการทำงานระหว่าง Internet Control Message Protocol (ICMP) และ ไอพีดาต้าแกรมในการส่งสัญญาณควบคุม หลักการเราต์ข้อมูลและหลักการของ Domain Name System (DNS) รวมไปถึงการศึกษาถึงพอร์ต และ ซ็อกเก็ตซึ่งเป็นการใช้หมายเลขในการรวมข้อมูลของกระบวนการ
+Telnet (Network terminal protocol) , FTP (File transfer protocol) และ SMTP (Simple mail transfer protocol) เป็นตัวอย่างในการนำหลักการของโพรโตคอลเครือข่ายแบบทีซีพีไอพี  มาประยุกต์ในการใช้งานจะช่วยให้เข้าใจในหลักการทำงานของทีซีพี ไอพีได้ง่ายขึ้น 
+
+Abstract
+TCP/IP Network Protocol is consisted in two parts or two protocols; TCP Protocol and IP Protocol. We will study on its structure and their works. The application on IP Address, meaning of Datagram and Fragmentating, the related between Internet Control Message Protocol (ICMP) and IP Datagram, the ways that Route meaning, and also the operation of Domain Name System (DNS) . Ports and Socket need to be one of our perspective.
+	Telnet (Network terminal protocol) , FTP (File transfer protocol) and SMTP (Simple mail transfer  protocol) is the appliacations which is based on TCP/IP Network Protocol 's Theory and make the reader get cleare on it structure and funtions.	
+

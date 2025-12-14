@@ -1,0 +1,13 @@
+อินเทลลิเจ้นท์อินพุทเอ้าต์พุท
+Intelligent Input/Output
+
+นาย บุญร่วม  ศิริพันธ์
+นาย ศุภชัย  บุญสมเชื้อ
+อาจารย์ อภิเนตร	 อูนากูล  อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	การทำงานในส่วนอินพุทเอ้าต์พุทของระบบคอมพิวเตอร์ได้ถูกพัฒนาขึ้นโดยกลุ่ม I2O SIG Group (เมื่อปี พ.ศ. 2539) เพื่อเพิ่มประสิทธิภาพการทำงานของระบบคอมพิวเตอร์ และเรียกระบบอินพุทเอ้าต์พุทนี้ว่า อินเทลลิเจ้นท์อินพุทเอ้าต์พุท หรือ ไอทูโอ ซึ่งประกอบด้วยสถาปัตยกรรมทางด้านฮาร์ดแวร์และซอฟต์แวร์ ในส่วนของฮาร์ดแวร์ได้แสดงส่วนประกอบต่างๆ ในระบบคอมพิวเตอร์ที่ใช้สถาปัตยกรรมไอทูโอ ส่วนซอฟต์แวร์นั้นได้กล่าวถึงการแยกส่วนของไดรเวอร์ออกเป็นสองโมดูลคือ โอเอสเอ็ม และ เอชดีเอ็ม การติดสื่อสารระหว่างโมดูลที่ใช้เมซเสจจิ้งเลเยอร์เป็นตัวนำส่งเมซเสจที่ใช้ติดต่อกัน การติดต่อกับหน่วยความจำของระบบและหน่วยความจำโลคอลของไอโอพี หรือ ไอโอแพลตฟอร์ม และตัวอย่างการเปรียบเทียบให้เห็นข้อแตกต่างเมื่อนำสถาปัตยกรรมไอทูโอไปใช้งาน 
+
+Abstract
+	The I/O operation in computer system has been developed by I2O SIG Group (in 1996) to make it more efficient. This called Intelligent Input/Output or I2O which includes hardware and software architecture. Hardware architecture represents I2O system components and software architecture describes the splitting driver into two modules; OSM (OS-Specific Module) and HDM (Hardware Device Module). The I2O communication is the massaging layer, which delivers I/O transaction messages from one software module to another. Accessing system memory and local memory on IOP (I/O platform) and the different examples when using I2O architecture.
+

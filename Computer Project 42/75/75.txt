@@ -1,0 +1,19 @@
+การเขียนโปรแกรมจาวาด้านเนตเวิร์ก
+Java network programming
+
+นายธานี รักษาสุธี
+นายเมธี ทองทัพ
+อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	ภาษาจาวาเป็นภาษาที่สนับสนุนการเขียนโปรแกรมทางด้านเน็ตเวิร์กให้เป็นเรื่องง่าย มีความปลอดภัยสูง และ ทำงานได้กับคอมพิวเตอร์ทุกแพลตฟอร์มโดยมีคลาสต่างๆที่อยู่ในแพ็กเกจ java.net คอยทำหน้าที่ให้ความช่วยเหลือการเขียนโปรแกรมทางด้านเน็ตเวิร์ก
+	จุดประสงค์อีกอย่างหนึ่งในการสร้างภาษาจาวาขึ้นมาก็คือ เป็นภาษาที่ใช้เขียนโปรแกรมที่ให้การสนับสนุนเทคโนโลยีใหม่ที่คิดขึ้นโดยบริษัทซันไมโครซีสเต็มส์อย่างเช่น Remote Method Invocations (RMI), Jini เป็นต้น ซึ่งเป็นเทคโนโลยีที่ทำให้ง่ายต่อการเชื่อมต่อ และเรียกใช้ข้อมูลหรืออุปกรณ์จากที่ต่างๆที่เชื่อมอยู่ในเน็ตเวิร์กมาใช้งานได้ ดังนั้นโปรแกรมที่เขียนขึ้นมาสามารถดึงทรัพยากรต่างๆที่มีอยู่ในระบบเน็ตเวิร์กมาใช้ได้ทั้งหมด จึงทำให้การเขียนโปรแกรมไม่ถูกจำกัดความสามารถอีกต่อไป
+	รายงานฉบับนี้อธิบายการเขียนโปรแกรมทางด้านเน็ตเวิร์กด้วยภาษาจาวาและหน้าที่การใช้งานของคสาลต่างๆที่สำคัญซึ่งอยู่ในแพ็คเคจ java.net จากนั้นอธิบายเทคโนโลยีของ RMI ว่าคืออะไร มีหลักการทำงานอย่างไร ใช้ประโยชน์อย่างไร และสุดท้ายอธิบายเทคโนโลยี Jini ว่าคืออะไร ใช้ทำอย่างไร มีประโยชน์อะไร มีโครงสร้างพื้นฐานอย่างไร
+ 
+Abstract
+	Java language supports network programming that makes it easy, high security and can run on all platforms. It has classes of java.net package which helps for network programming. 
+	In Addition, the purpose of Java that is to programs that supporting new technology of Sun Microsystems such as Remote Method Invocations (RMI), JINI and so on. These are easy to connect and can uses all object in network. That make to write programs with unlimited.     
+	This report describes writing of network programming with Java language and function of several classes with in java.net package. And describe what RMI technology, how work, how benefit and the last describe what jini technology.
+
+
+

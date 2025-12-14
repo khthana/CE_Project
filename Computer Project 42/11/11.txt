@@ -1,0 +1,14 @@
+การประยุกต์ใช้ไมโครคอนโทรลเลอร์
+Microcontroller  Application
+นางสาวเกศรา  โพธิปริพัตร
+นายวนัต  โตสุชาติ
+บทคัดย่อ
+	การใช้งานไมโครคอนโทรลเลอร์ในปัจจุบันมีความสำคัญมาก โดยเฉพาะในระบบคอมพิวเตอร์ เพราะจะช่วยในการควบคุมการทำงานของระบบคอมพิวเตอร์ จึงได้มีการประยุกต์ใช้ไมโครคอนโทรลเลอร์ในกิจกรรมต่าง ๆ ตามที่ต้องการ  เช่น การสร้างหุ่นยนตร์ การสร้างตัวไมโครเมาส์ ซึ่งทำให้มีการพัฒนาความสามารถในการใช้งาน ให้มีความก้าวหน้าและฉลาดมากยิ่งขึ้น
+	ไมโครเมาส์ เป็นอุปกรณ์ที่ได้จากการประยุกต์ใช้ไมโครคอนโทรลเลอร์ ซึ่งมีความสามารถในการเคลื่อนที่ตามที่ต้องการในเส้นทางที่สั้นที่สุด โดยการคำนวณอย่างชาญฉลาด การสร้างไมโครเมาส์ประกอบด้วยด้านฮาร์ดแวร์  คือส่วนที่เป็นอิเล็กทรอนิกส์ (บอร์ดคอนโทรลเลอร์ในการควบคุมการทำงานชนิดต่าง ๆ)  ส่วนที่เป็นกลไก(ล้อ  มอเตอร์  ฯลฯ) และด้านซอฟแวร์  คือโปรแกรมในการเก็บแผนที่  และโปรแกรมในการเคลื่อนที่ที่ได้จากการคำนวณหาระยะทางที่สั้นที่สุด  
+	ไมโครคอนโทรลเลอร์ที่ใช้เป็น MCS - 51 ซึ่งจะทำหน้าที่ควบคุมการทำงานของส่วนต่าง ๆ ของไมโครเมาส์ คำนวณเส้นทางที่สั้นที่สุด  ซึ่งจะมีโปรแกรมเป็นตัวควบคุม และมีตัวเซนเซอร์ ทำหน้าที่ตรวจจับเส้นทางเพื่อเก็บแผนที่ไว้และส่งให้ตัวไมโครคอนโทรลเลอร์ สเตปปิ้งมอเตอร์ เป็นมอเตอร์ที่ทำหน้าที่ขับไมโครเมาส์ให้เคลื่อนที่ซึ่งถูกควบคุมโดยไมโครคอนโทรลเลอร์
+
+Abstract
+Use microcontroller at present  is  very  important. Specific computer system. Because    it  help  to  control  computer  system's  working.  So use  microcontroller  apply  to  many  want  activities.  Such  as  to  built  robot, built  micromouth, so  develop  in  working  ability, more  progress  and  intelligence.
+Micromouse is  microcontroller  application. Able to  move  the way that you want  and  the way is shortest  way by  intelligent  compute. Built  micromouse consist of  hardware. Hardware  is  electronic  part (controller  board to control several working)  machinery  part (wheel, motor etc). And  software is program  to  keep map, program to move the way that shortest way from compute.
+This microcontroller  is  MCS - 51  that has task to control working of many parts' microconmouse, compute way that is shortest  by control program. And  have sensor  task  hold check  distance for keep map  and send to microcontroller. Stepping  Motor  is  motor  task  to drive micromouse  to move by  control of microcontroller.
+

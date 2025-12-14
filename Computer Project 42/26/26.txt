@@ -1,0 +1,14 @@
+การออกแบบเชิงวัตถุ
+Object-Oriented Design
+
+นางสาว จุฑาภรณ์ ชารินทร์
+นายวิเชษฐ์ เจือตี๋
+อาจารย์ บรรจง ปิยธำรง อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	บทความฉบับนี้ อธิบายหลักการการออกแบบเชิงวัตถุที่นำมาประยุกต์ใช้งานกับการพัฒนาระบบ ทำให้มองเห็นปัญหาหลักของระบบงาน,ลดขั้นตอนการวิเคราะห์ลงได้, ลดความซ้ำซ้อนของการพัฒนาระบบ,สามารถตรวจสอบแต่ละขั้นตอนได้ง่าย และเกิดประสิทธิภาพในการพัฒนาระบบ โดยเครื่องมือที่ใช้ในการพัฒนาระบบได้แก่ ออราเคิล ดีไซน์เนอร์/2000
+ออราเคิล ดีไซน์เนอร์ /2000 เป็นเครื่องมือที่ใช้สำหรับวิเคราะห์ความต้องการของธุรกิจ และสำหรับการออกแบบและเจนเนอเรท ระบบ ไคลเอ็นต์ /เซิร์ฟเวอร์ ตามความต้องการที่ได้กำหนดไว้ ออราเคิล ดีไซน์เนอร์ /2000 ช่วยสำหรับการจำลองกระบวนการต่าง ๆทางธุรกิจ ,การวิเคราะห์ระบบ,การออกแบบ ซอฟต์แวร์ และกระบวนการสร้างระบบซึ่ง ประกอบไปด้วย เครื่องมือที่ช่วยในการวิเคราะห์ และออกแบบระบบอยู่มากมาย สามารถนำมาใช้ในขั้นตอนการพัฒนาระบบ ทำให้ดำเนินการได้ง่ายและสะดวกต่อการปรับปรุงแก้ไข
+
+Abstract
+This paper describes the use of Object Oriented Design  to develop the system which enable system designer to discover the problem and reduce the redundant of system analysis process. This bring the designer the easy way to develop and verify the correctness of each process, thus the performance of development process is increased. Software tool used in this paper is Oracle Designer/2000 
+Oracle Designer/2000 is a software tool for analyzing business requirements and for designing and generating client/server systems that meet those requirements. Oracle Designer/2000 incorporates support for business process modeling, systems analysis, software design and system generation .Oracle Designer /2000 include of many of tools to analyze and design the system. When it is used as a development tools in the development process, the designer can design the system easier, and faster.

@@ -1,0 +1,16 @@
+    			ระบบและการโปรแกรมซูเปอร์คอมพิวเตอร์
+			Super Computer System and Programming
+
+				นายชลาพรรณ มานิตย์
+				นายนิธิพล ธรรมภูษิต
+			อาจารย์อัครเดช วัชระภูพงษ์ อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	งานทางด้านวิศวกรรมศาสตร์และวิทยาศาสตร์ที่เกี่ยวข้องกับการจำลองสถานะการณ์มักมีการคำนวณที่ซับซ้อนมีองค์ประกอบหรือตัวแปรต่างๆ จำนวนมากและเกี่ยวข้องกับการคำนวณซ้ำๆหลายรอบ เป็นเหตุให้เวลาที่ใช้ในการคำนวณบนเครื่องคอมพิวเตอร์ทั่วไปค่อนข้างนานบางครั้งเป็นเดือนหรือมากกว่านั้น ซูเปอร์คอมพิวเตอร์จึงมีความจำเป็นสำหรับงานทางด้านนี้เพราะว่าสามารถทำงานได้รวดเร็วกว่าคอมพิวเตอร์ทั่วไป 
+	หลักสำคัญที่ทำให้ซูเปอร์คอมพิวเตอร์ทำงานได้เร็วเพราะความสามารถในการประมวลผลแบบขนาน อีกประการหนึ่งคือ ระบบเชื่อมต่อภายในของซูเปอร์คอมพิวเตอร์มีประสิทธิภาพสูง การแบ่งประเภทของซูเปอร์คอมพิวเตอร์อาจแบ่งได้หลายลักษณะขึ้นอยู่กับมุมมอง อาจดูจากลักษณะการประมวลผลแบบขนานว่าเป็นแบบไหน, ดูจากลักษณะโครงสร้างทางกายภาพ หรือ ดูจากลักษณะโมเดลของหน่วยความจำ เป็นต้น ซูเปอร์คอมพิวเตอร์ต้องการโปรแกรมที่มีความสามารถในการทำงานแบบขนาน เพื่อดึงความสามารถของเครื่องออกมาใช้ให้คุ้มค่าที่สุด มีมาตรฐานหลายตัวที่รองรับการเขียนโปรแกรมแบบขนานโดยแต่ละตัวก็มีข้อดีข้อเสียแตกต่างกันไป การเลือกใช้ขึ้นอยู่กับลักษณะของซูเปอร์คอมพิวเตอร์ว่าเป็นประเภทไหน
+	บทความนี้กล่าวถึงสถาปัตยกรรมที่ใช้ในซูเปอร์คอมพิวเตอร์ รวมถึงระบบการเชื่อมต่อแบบต่างๆที่ใช้ในซูเปอร์คอมพิวเตอร์ และในส่วนสุดท้ายกล่าวถึงพื้นฐานในการเขียนโปรแกรมแบบขนานและลักษณะของมาตรฐานต่างๆ ในการเขียนโปรแกรมแบบขนานที่ใช้ในปัจจุบัน
+
+Abstract
+	Some problems in science and engineering job simulations are solved by iterative method and to involve with many variables. With general-purpose computer a large of computational time is requires for these problems, may be a month or more. Thus these jobs require supercomputer because supercomputer has the higher computing speeds more than general-purpose computer. 
+	Supercomputer has two basises to attain high speed. First, it can do parallel processing. Second it has the high-performance interconnection network. Super computer can classification by many viewpoints. May be classify by character of parallel processing, physical  model, memory model etc. Super computer requires parallel programming to increase processing performance. Parallel programming has many standards which have differ advantages and disadvantages. Characteristic of supercomputer necessary to choose standard for parallel programming. 
+	This article discusses about architecture of supercomputer. Include interconnection network that use in super computer. Last section pertaining to basic parallel programming and characteristic of  parallel programming standard.  

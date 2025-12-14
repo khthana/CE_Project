@@ -1,0 +1,13 @@
+เฟรมเวิร์กเชิงวัตถุ
+Object-Oriented Framework
+
+นายประชุมพร หงสกุล
+นายโสภณ มงคลลักษมี
+อาจารย์ชุติเมษฏ์    ศรีนิลทา อาจารย์ที่ปรึกษา
+
+บทคัดย่อ
+	จะสังเกตได้ว่าในโปรแกรมประยุกต์ประเภทเดียวกันก็จะมีพื้นฐานการทำงานที่คล้ายคลึงกันหรือเหมือนกัน แต่จะมีส่วนลักษณะเฉพาะที่แตกต่างกัน เฟรมเวิร์กเป็นวิธีการหนึ่งในการพัฒนาโปรแกรมประยุกต์ให้รวดเร็วและมีคุณภาพสูงโดยการนำส่วนที่คล้ายกันของโปรแกรมประยุกต์มาสร้างเป็นเฟรมเวิร์ก แล้วนำเฟรมเวิร์กมาพัฒนาต่อโดยเขียนโปรแกรมประยุกต์เพิ่มเติมในส่วนเฉพาะของงาน เมื่อสร้างเฟรมเวิร์กขึ้นมาแล้วเมื่อต้องการพัฒนาโปรแกรมประยุกต์ประเภทเดียวกันอีกก็สามารถนำเฟรมเวิร์กที่สร้างไว้แล้วมาใช้ได้ การสร้างจะเริ่มต้นด้วยการวิเคราะห์ขอบเขตของปัญหาที่จะนำมาสร้างเฟรมเวิร์กโดยหาส่วนที่เป็นพื้นฐานของปัญหานั้น และนำไปเปรียบเทียบกับปัญหาอื่น ๆ  ที่อยู่ในขอบเขตของปัญหาเดียวกัน แล้วเลือกรูปแบบการออกแบบและกฎการออกแบบที่เหมาะสมกับปัญหานั้นจากมาตรฐานการออกแบบต่อจากนั้นเริ่มเขียนโค้ดของเฟรมเวิร์กตามรูปแบบการออกแบบที่เลือกไว้
+	ในการที่จะสร้างเฟรมเวิร์กขึ้นมาใช้งานนั้นจะต้องคำนึงถึงความคุ้มค่าที่จะได้จากเฟรมเวิร์กที่สร้างขึ้นมา โดยต้องคำนึงว่าเฟรมเวิร์กที่สร้างขึ้นมาสามารถใช้กับโปรแกรมประยุกต์ที่จะสร้างขึ้นมาในอนาคตได้ด้วย
+
+ Abstract
+	Applications in the same category have similar basic features. These feature can be implemented once and shared among the applications. Framework is a methodology used in developing the basic part of the application in order to shorten the total development time as well as to increase the reliability of the application program. Since framework development requires time and effort, many factors must be taken into account in deciding whether to build a framework. Such factors include the utilization of the framework in the feature, time saved and the expense.

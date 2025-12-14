@@ -1,0 +1,13 @@
+แอคทีฟเซิร์ฟเวอร์เพจ
+Active Server Page
+นาย  กิติศักดิ์	อัตตสาร
+นาย  วรวิทย์	น้อยเกิด
+อาจารย์	นวพร	วรรณวิมลศรี	อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+	เนื้อหาที่มีอยู่ในโครงงานฉบับนี้เป็นการกล่าวถึง เทคโนโลยีที่ใช้ในการสร้างและพัฒนาแอพพลิเคชันของเว็บเซิร์ฟเวอร์  โดยไมโครซอฟท์ได้มีการพัฒนา แอคทีฟเซิร์ฟเวอร์เพจ หรือ เรียกสั้นๆ ว่า เอเอสพี ขึ้นมาเพื่อช่วยในการพัฒนาเว็ปเพจให้มีประสิทธิภาพมากยิ่งขึ้น โดยการทำงานของ เอเอสพี  นั้นจะทำงานทางด้านฝั่ง เซิร์ฟเวอร์ โดยเมื่อ บราวเซอร์ ร้องขอเอกสารจุด เอเอสพี มายัง เซิร์ฟเวอร์     เซิร์ฟเวอร์ จะทำการประมวลผลไฟล์นั้นแล้วส่งกลับไปให้ในรูปแบบของเอกสาร เอชทีเอ็มแอล ทำให้ง่ายต่อการแสดงผลในฝั่ง บราวเซอร์ นอกจากนั้นแล้ว เอเอสพี ยังสามารถติดต่อกับฐานข้อมูลได้ด้วย โดยอาศัย ODBC และ แอ็คทีฟเอ็กซ์คอมโพเน็นต์ เข้ามาช่วยและยังมี คอมโพเน็นต์ อื่น ๆอีก หลายตัว ทำให้ เอเอสพี เป็นเทคโนโลยีที่ใช้งานง่ายและสะดวก
+
+Abstract
+	The prepared content of this project has referred to the creating and developing technology of the Web Server 's application by Microsoft, which developed or called ASP for improving the efficient Web Page development. By the working process of ASP, it will proceed the work on the Server Side, while the Browser is requiring the file from ASP to Server. The Server will compile all data and respond with the form of HTML document.   While easily present the Browser Side 's output.  Besides above mentioned ASP is also able to communicate with the DataBase with an assistance of OBDC and ActiveX Component included other components. That causes ASP to be easily and conveniently accessed.
+

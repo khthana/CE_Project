@@ -1,0 +1,27 @@
+							การจดจำวัตถุสามมิติ
+						              3D-Object Recognition
+
+						นาย  อาทิตย์  ศรีทองอินทร์   40010998
+						นาย  อินทรชัย  สุคนธมาน  40011015
+						รศ. ดร.  ชม  กิ้มปาน อาจารย์ที่ปรึกษา
+
+
+บทคัดย่อ
+ 	การจดจำรูปร่างวัตถุสามมิติจากภาพสองระดับซึ่งเป็นภาพสองมิตินั้นมีวิวัฒนาการอย่างต่อเนื่อง  ในยุคแรก ๆ จะใช้วิธีจดจำรูปร่างวัตถุด้วยการ
+จำทุกๆจุดในภาพ ซึ่งทำให้สิ้นเปลืองหน่วยความจำเป็นจำนวนมากและการคำนวณเพื่อตรวจสอบชนิดของวัตถุก็ต้องใช้เวลานาน  วิทยานิพนธ์เล่มนี้จึงได้
+เสนอวิธีการจดจำรูปร่างวัตถุด้วยการหาขอบของวัตถุจากภาพสองระดับและนำมาเข้ารหัสทิศทาง ก่อนที่จะทำการตรวจสอบชนิดของวัตถุนั้นต่อไป ทั้งยัง
+แนะนำเทคนิคการหมุนภาพวัตถุให้ขอบของวัตถุมีแนวแกนหลักตรงกันกับแนวแกนหลักของวัตถุอ้างอิง และการตรวจจับหาจุดสำคัญซึ่งเป็นจุดเปลี่ยนแนว
+ของเส้นตรงต่างๆที่ประกอบขึ้นเป็นขอบของวัตถุ  ทำให้ได้รหัสลูกโซ่ของมุมและระยะทางที่มีขนาดสั้นลง ด้วยวิธีการเหล่านี้จะช่วยลดปริมาณหน่วยความจำ
+ที่ต้องใช้และเวลาสำหรับการตรวจสอบชนิดของวัตถุลงได้ เป็นการเพิ่มประสิทธิภาพให้กับระบบ  การประยุกต์วิธีการต่างๆ ในการจดจำรูปร่างวัตถุทำให้เรา
+สามารถหาวัตถุที่มีบางส่วนถูกบดบังได้     ส่วนสำคัญอีกส่วนหนึ่งในวิทยานิพนธ์เล่มนี้ได้กล่าวถึง การวิเคราะห์หาข้อมูลของภาพด้วยการใช้เทคนิคของ
+สเตอริโอ การพิจารณารูปร่างจากข้อมูลความเข้มแสงของภาพ,ข้อมูลเนื้อภาพ และในตอนท้ายกล่าวถึงการพัฒนาการการศึกษาค้นคว้าเพื่อสร้างกระบวนการ
+ในการจดจำวัตถุให้กับคอมพิวเตอร์ของนักคอมพิวเตอร์ยุคต่าง ๆ ที่เป็นพื้นฐานสำคัญของการศึกษาในด้านนี้ในอนาคตต่อไป
+
+
+Abstract
+	Today, there is a lot of interest in image understanding systems that remember and can recognize a large number of specific objects. 
+Original method in transfers binary image that is two dimension image to three dimension  machine must have to recognize all  dots in the object ,
+thus, it  takes a lot of available memory spaces  to utilize and require more time calculates . This thesis suggest the newer method using edge detection 
+based to obtain  the Freeman's chain code for object identification .  For more efficiency , rotation of axis to correspond considerate object and  reference 
+object is introduce , following by angle and distance code method . Now occlude object can be show .  Remain part of the thesis ,analyze the stereo 
+technique , shape from shading and shape from texture. Finally explain some concepts of the 3D recognition scheme  basis in vision system today.     
