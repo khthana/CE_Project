@@ -1,0 +1,2295 @@
+Globals(Bill)
+
+Event: [Decarlations]
+
+%INCLUDE "lsconst.lss"
+Dim workspace As NotesUIWorkspace
+Dim session As NotesSession
+Dim db As NotesDatabase
+Dim collection As NotesDocumentCollection
+Dim docH As NotesDocument
+Dim doc As NotesDocument
+Dim code(1 To 10) As String
+Dim menu(1 To 10) As String
+Dim amount(1 To 10) As String
+Dim perunit(1 To 10) As String
+Dim money(1 To 10) As String
+Dim maximum
+
+Event: Initialize
+
+Sub Initialize
+     maximum = 1
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Bill(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Bill";"Bill Profile")
+
+Event: Postopen
+
+Sub Postopen(Source As Notesuidocument)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_dept")
+     If temp = "" Then
+          Exit Sub
+     End If
+     
+     max = uidoc.FieldGetText("fld_max")
+     maximum = max
+
+'*************************************************************************
+'*************************** Keep every old value ****************************
+'*************************************************************************
+     For i = 1 To max
+          fld = "fld_code"&i
+          temp = uidoc.FieldGetText(fld)
+          code(i) = temp
+          
+          fld = "fld_amount"&i
+          temp = uidoc.FieldGetText(fld)
+          amount(i) = temp
+     Next
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_runnum(Field)
+
+Event: Default Value
+
+REM "'******************************************************************";
+REM "********************** Running Number of Bill ************************";
+REM "'******************************************************************";
+Temporary := @Environment("RunNumber");
+Temporary2 := @If(Temporary="";"0";Temporary);
+CurrentOrderNumber := @TextToNumber(Temporary2);
+NextOrderNumber := CurrentOrderNumber + 1;
+ENVIRONMENT RunNumber := @Text(NextOrderNumber);
+@If(@Length(@Text(NextOrderNumber))=1;"00"+RunNumber;
+@Length(@Text(NextOrderNumber))=2;"0"+Runnumber;Runnumber)
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_dept(Field)
+
+Event: Default Value
+"Library"
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_max(Field)
+
+Event: Default Value
+"1"
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_max")
+     
+'*************************************************************************
+'*********************** Warning some data maybe lost ************************
+'*************************************************************************
+     If Val(temp) < Val(maximum) Then
+          result = Messagebox ("You may lost data", MB_OKCANCEL+MB_ICONEXCLAMATION, "Alarm !")
+          If result = 2 Then
+               Call uidoc.FieldSetText("fld_max",maximum)
+               Messagebox "Please press F9 to retrive data", MB_ICONINFORMATION, "Retrive Data"
+               Exit Sub
+          End If
+     End If
+     Exit Sub	          
+'*************************************************************************
+'******************************* Clear no use data ***************************
+'*************************************************************************
+          k = Val(temp)+1
+          For i = k To maximum
+               Call uidoc.FieldSetText("fld_code"&i,"")
+               Call uidoc.FieldSetText("fld_menu"&i,"")
+               Call uidoc.FieldSetText("fld_amount"&i,"")
+               Call uidoc.FieldSetText("fld_perunit"&i,"")
+               Call uidoc.FieldSetText("fld_money"&i,"")
+          Next
+     maximum = temp
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_date(Field)
+
+Event: Default Value
+@Created
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     uidoc.GoToField("fld_company")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_company(Field)
+
+Event: Default Value
+"3M Company"
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code1(Field)
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_code1")
+     
+     If temp = code(1) Then
+          Exit Sub
+     End If
+     code(1 )= temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+          
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code1" )
+          Call uidoc.GoToField("fld_code1")
+          Exit Sub
+     Else  'if num <> 0 Then
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If 
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 2 To 10
+          fd = "fld_code"&i
+          tem = uidoc.FieldGetText(fd)
+          If tem = temp Then
+               Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+               Call uidoc.FieldClear( "fld_code1" )
+               Call uidoc.GoToField("fld_code1")      
+               Exit Sub
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu1",temp0)
+     Call uidoc.FieldSetText("fld_perunit1",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code2(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money1")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money1")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code2")
+     If temp = code(2) Then
+          Exit Sub
+     End If
+     code(2) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'*********************** Check Name match within database ********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code2" )
+          Call uidoc.GoToField("fld_code2")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 2 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code2" )
+                    Call uidoc.GoToField("fld_code2")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu2",temp0)
+     Call uidoc.FieldSetText("fld_perunit2",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code3(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money2")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money2")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code3")
+     If temp = code(3) Then
+          Exit Sub
+     End If
+     
+     code(3) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code3" )
+          Call uidoc.GoToField("fld_code3")
+          Exit Sub
+     Else  'if num <> 0 Then
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 3 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code3" )
+                    Call uidoc.GoToField("fld_code3")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu3",temp0)
+     Call uidoc.FieldSetText("fld_perunit3",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code4(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money3")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money3")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code4")
+     If temp = code(4) Then
+          Exit Sub
+     End If
+     code(4) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code4" )
+          Call uidoc.GoToField("fld_code4")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 4 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code4" )
+                    Call uidoc.GoToField("fld_code4")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu4",temp0)
+     Call uidoc.FieldSetText("fld_perunit4",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code5(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money4")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money4")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code5")
+     If temp = code(5) Then
+          Exit Sub
+     End If
+     code(5) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code5" )
+          Call uidoc.GoToField("fld_code5")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 5 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code5" )
+                    Call uidoc.GoToField("fld_code5")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu5",temp0)
+     Call uidoc.FieldSetText("fld_perunit5",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code6(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money5")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money5")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code6")
+     If temp = code(6) Then
+          Exit Sub
+     End If
+     code(6) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code6" )
+          Call uidoc.GoToField("fld_code6")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 6 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code6" )
+                    Call uidoc.GoToField("fld_code6")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu6",temp0)
+     Call uidoc.FieldSetText("fld_perunit6",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code7(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money6")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money6")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code7")
+     If temp = code(7) Then
+          Exit Sub
+     End If
+     code(7) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code7" )
+          Call uidoc.GoToField("fld_code7")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 7 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code7" )
+                    Call uidoc.GoToField("fld_code7")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu7",temp0)
+     Call uidoc.FieldSetText("fld_perunit7",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code8(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money7")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money7")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code8")
+     If temp = code(8) Then
+          Exit Sub
+     End If
+     code(8) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code8" )
+          Call uidoc.GoToField("fld_code8")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 8 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code8" )
+                    Call uidoc.GoToField("fld_code8")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu8",temp0)
+     Call uidoc.FieldSetText("fld_perunit8",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code9(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money8")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money8")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code9")
+     If temp = code(9) Then
+          Exit Sub
+     End If
+     code(9) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code9" )
+          Call uidoc.GoToField("fld_code9")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 10
+          If i <> 9 Then
+               fd = "fld_code"&i
+               tem = uidoc.FieldGetText(fd)
+               If tem = temp Then
+                    Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+                    Call uidoc.FieldClear( "fld_code9" )
+                    Call uidoc.GoToField("fld_code9")      
+                    Exit Sub
+               End If
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu9",temp0)
+     Call uidoc.FieldSetText("fld_perunit9",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_code10(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above line complete *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_money9")
+     If temp = "" Then
+          Messagebox "Above line not complete", MB_ICONSTOP, "Alarm !"     
+          uidoc.GoToField("fld_money9")
+          Exit Sub
+     End If
+End Sub
+
+Event: Entering
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_code10")
+     If temp = code(10) Then
+          Exit Sub
+     End If
+     code(10) = temp 
+     
+     Dim dateTime As New NotesDateTime( "01/01/1010" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+'*************************************************************************
+'******************** Check Name match within database ***********************
+'*************************************************************************
+     If num = 0 Then
+          Messagebox "Don't match any item", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_code10" )
+          Call uidoc.GoToField("fld_code10")
+          Exit Sub
+     Else
+          For i = 1 To num
+               Set doc = collection.GetNthdocument(i)
+               Set item=doc.getfirstitem("fld_code")
+               temp0 = item.text
+               If temp0  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp0 = item.text
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp1=item.text
+     
+'*************************************************************************
+'**************************** Check Unique Field ****************************
+'*************************************************************************
+     Set uidoc = workspace.CurrentDocument
+     For i = 1 To 9
+          fd = "fld_code"&i
+          tem = uidoc.FieldGetText(fd)
+          If tem = temp Then
+               Messagebox "This Menu has already at item "&i, MB_ICONEXCLAMATION, "Alarm !"
+               Call uidoc.FieldClear( "fld_code10" )
+               Call uidoc.GoToField("fld_code10")      
+               Exit Sub
+          End If
+     Next
+     
+'*************************************************************************
+     Call uidoc.FieldSetText("fld_menu10",temp0)
+     Call uidoc.FieldSetText("fld_perunit10",temp1)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu1(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount1")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu2(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount2")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu3(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount3")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu4(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount4")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu5(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount5")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu6(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount6")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu7(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount7")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu8(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount8")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu9(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount9")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu10(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount10")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount1(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code1")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 1 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code1")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     temp = uidoc.FieldGetText("fld_amount1")
+     If temp = "" Then Exit Sub
+     If temp = amount(1) Then Exit Sub
+     amount(1) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit1")
+     temp = Val(temp) * Val(temp1)
+     
+     Call uidoc.FieldSetText("fld_money1",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 1 Then
+          uidoc.GoToField("fld_code2")       
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount2(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount1")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount1")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code2")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 2 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code2")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount2")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(2) Then Exit Sub
+     amount(2) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit2")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money2",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 2 Then
+          uidoc.GoToField("fld_code3")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount3(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount2")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount2")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code3")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 3 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code3")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount3")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(3) Then Exit Sub
+     amount(3) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit3")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money3",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 3 Then
+          uidoc.GoToField("fld_code4")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount4(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount3")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount3")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code4")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 4 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code4")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount4")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(4) Then Exit Sub
+     amount(4) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit4")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money4",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 4 Then
+          uidoc.GoToField("fld_code5")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount5(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount4")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount4")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code5")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 5 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code5")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount5")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(5) Then Exit Sub
+     amount(5) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit5")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money5",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 5 Then
+          uidoc.GoToField("fld_code6")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount6(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount5")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount5")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code6")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 6 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code6")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount6")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(6) Then Exit Sub
+     amount(6) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit6")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money6",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 6 Then
+          uidoc.GoToField("fld_code7")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount7(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount6")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount6")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code7")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 7 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code7")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount7")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(7) Then Exit Sub
+     amount(7) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit7")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money7",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 7 Then
+          uidoc.GoToField("fld_code8")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount8(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount7")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount7")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code8")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 8 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code8")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount8")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(8) Then Exit Sub
+     amount(8) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit8")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money8",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 8 Then
+          uidoc.GoToField("fld_code9")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount9(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount8")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount8")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code9")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 9 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code9")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount9")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(9) Then Exit Sub
+     amount(9) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit9")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money9",temp)
+     temp = uidoc.FieldGetText("fld_max")
+     If temp > 9 Then
+          uidoc.GoToField("fld_code10")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount10(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'*************************************************************************
+'************************* Check above field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_amount9")
+     If temp = "" Then
+          uidoc.GoToField("fld_amount9")
+          Exit Sub
+     End If
+     
+'*************************************************************************
+'*************************** Check left field no blank *************************
+'*************************************************************************
+     temp = uidoc.FieldGetText("fld_code10")
+     If temp = "" Then
+          Messagebox "You must choose any choice in Line 10 before", MB_ICONEXCLAMATION, "Alarm !"     
+          uidoc.GoToField("fld_code10")
+          Exit Sub
+     End If
+End Sub
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp = uidoc.FieldGetText("fld_amount10")
+     
+     If temp = "" Then Exit Sub
+     If temp = amount(10) Then Exit Sub
+     amount(10) = temp
+     
+'*************************************************************************
+'**************************** Compute total money **************************
+'*************************************************************************
+     temp1 = uidoc.FieldGetText("fld_perunit10")
+     temp = Val(temp) * Val(temp1)
+     Call uidoc.FieldSetText("fld_money10",temp)
+     uidoc.GoToField("fld_dept")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit1(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount1")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit2(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount2")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit3(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount3")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit4(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount4")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit5(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount5")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit6(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount6")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit7(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount7")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit8(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount8")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit9(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount9")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit10(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount10")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money1(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount1")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money2(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount2")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money3(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount3")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money4(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount4")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money5(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount5")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money6(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount6")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money7(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount7")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money8(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount8")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money9(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount9")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money10(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_amount10")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_alltotal(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     uidoc.GoToField("fld_dept")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Complete(Action)
+
+Event: Click
+
+Sub Click(Source As Button)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     max = uidoc.FieldGetText("fld_max")
+     
+'*************************************************************************
+''********************* Check every  nessary field no blank *********************
+'*************************************************************************
+     For i = 1 To max
+          fld = "fld_code"&i
+          temp = uidoc.FieldGetText(fld)
+          If temp = "" Then
+               Messagebox "You don't choose Code"&i+" Value", MB_ICONSTOP,"Warning !"
+               uidoc.GoToField(fld)
+               Exit Sub
+          End If
+          
+          fld = "fld_amount"&i
+          temp = uidoc.FieldGetText(fld)
+          If temp = "" Then
+               Messagebox "You don't enter Amount"&i+" Value", MB_ICONSTOP,"Warning !"
+               uidoc.GoToField(fld)
+               Exit Sub
+          End If
+          
+          fld = "fld_money"&i
+          temp = uidoc.FieldGetText(fld)
+          If temp = "" Then
+               uidoc.GoToField(fld)
+               Exit Sub
+          End If
+          total% = Val(temp) + total%
+     Next
+     
+     string1$ = Str$(total%)
+     string1$ = Trim$(string1$)
+     Call uidoc.FieldSetText("fld_alltotal",string1$)
+
+'************************ Have a "Library" default value ***********************
+     temp = uidoc.FieldGetText(fld_dept)
+     If temp = "" Then
+          uidoc.GoToField(fld_dept)
+          Messagebox "You forget enter Department Name",MB_ICONEXCLAMATION,"Don't forget"
+          Exit Sub
+     End If
+     
+'*************************************************************************
+     temp = uidoc.FieldGetText(fld_company)
+     If temp = "" Then
+          uidoc.GoToField(fld_company)
+          Messagebox "You forget enter Company Name",MB_ICONEXCLAMATION,"Don't forget"
+          Exit Sub
+     End If
+     
+     Messagebox "You're Complete Form",MB_ICONINFORMATION,"Congratulation !"
+     Call uidoc.save
+     Call uidoc.close
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Distribute(Action)
+
+Event: Click
+
+Sub Click(Source As Button)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+
+     On Error Goto ProcessError     
+
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     total = uidoc.FieldGetText("fld_alltotal")
+     If total = "" Then Exit Sub
+
+     flag = uidoc.FieldGetText("fld_flag")
+     If flag = "0" Then Exit Sub     
+
+'*************************************************************************
+'**************************** Make Main Document **************************
+'*************************************************************************
+     runnum = uidoc.FieldGetText("fld_runnum")
+     dept = uidoc.FieldGetText("fld_dept")
+     max = uidoc.FieldGetText("fld_max")
+     temp1 = uidoc.FieldGetText("fld_date")
+     company = uidoc.FieldGetText("fld_company")
+     
+     Set doc = db.CreateDocument
+     Set DocH = doc
+     doc.Form = "Header"
+     
+     Set Item = Doc.ReplaceItemValue( "fld_runnum",runnum)
+     Set Item = Doc.ReplaceItemValue( "fld_dept",dept)
+     Set Item = Doc.ReplaceItemValue( "fld_numsub",max)
+     Set Item = Doc.ReplaceItemValue( "fld_alltotal",total)
+     Set Item = Doc.ReplaceItemValue( "fld_company",company)
+     
+'*************************************************************************
+'********************* Separate date to convert each data ***********************
+'*************************************************************************
+     length = Len(temp1)
+     count = 0
+     word = ""
+     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          If character = "/" Then  
+               count = count + 1
+               
+               If count = 1 Then
+                    Select Case word
+                    Case "01" : word = "January" 
+                    Case "02" : word = "February"
+                    Case "03" : word = "March" 
+                    Case "04" : word = "April"
+                    Case "05" : word = "May"
+                    Case "06" : word = "June"
+                    Case "07" : word = "July"
+                    Case "08" : word = "August"
+                    Case "09" : word = "September"
+                    Case "10" : word = "October"
+                    Case "11" : word = "November"
+                    Case Else : word = "December"
+                    End Select                         
+                    Set Item = Doc.ReplaceItemValue( "fld_month",word)
+               Else  
+                    Set Item = Doc.ReplaceItemValue( "fld_day",word)
+               End If
+               
+               word = ""
+               character = ""
+          End If
+          word = word  & character 
+     Next
+     
+     word = Val(word) + 2443
+     string1$ = Str$(word)
+     string1$ = Trim$(string1$)
+     Set Item = Doc.ReplaceItemValue( "fld_budget",string1$)
+     Call doc.save(True,True)
+
+'********************* This section keep data each line ************************
+     For i = 1 To max     
+          fld = "fld_menu"&i
+          temp = uidoc.FieldGetText(fld)
+          menu(i) = temp 
+          fld = "fld_perunit"&i
+          temp = uidoc.FieldGetText(fld)
+          perunit(i) = temp
+          
+          fld = "fld_money"&i
+          temp = uidoc.FieldGetText(fld)
+          money(i) = temp
+     Next     
+
+'*************************************************************************
+'************************** Make Response Document ************************
+'*************************************************************************
+     For i = 1 To max
+          Set doc = db.CreateDocument
+          doc.Form  = "Subdetails"
+          
+          Set Item = Doc.ReplaceItemValue( "fld_code",code(i))
+          Set Item = Doc.ReplaceItemValue( "fld_item",menu(i))
+          Set Item = Doc.ReplaceItemValue( "fld_order",amount(i))
+          Set Item = Doc.ReplaceItemValue("fld_unit",perunit(i))
+          Set Item = Doc.ReplaceItemValue( "fld_total",money(i))
+          
+          Set Item = Doc.ReplaceItemValue( "fld_runnum",runnum)
+          Call Doc.MakeResponse( docH )
+          Doc.Form = "Subdetails"
+          Call doc.Save( True, True)
+     Next
+     Messagebox "Distribute Document Complete",MB_ICONINFORMATION,"Congratulation !"
+     Messagebox "Now will delete this form",MB_ICONEXCLAMATION,"Complete"
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& runnum &""""
+     notesFormula = "Form = ""Bill"" &  @Contains(fld_runnum ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     Messagebox num
+     
+     Set doc = collection.GetFirstdocument
+     Call doc.Remove(True)
+     
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.Close
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_flag(Field)
+
+Event: Default Value
+"1"

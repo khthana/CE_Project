@@ -1,0 +1,122 @@
+<!-- This File is : Page for getting Subject ID to add that into database -->
+<!-- Last updat on : 26-03-1998 Status : ok -->
+<html>
+<head>
+<script language="JavaScript">
+function InCorrect(){
+	var str="รหัสวิชานำเข้าไม่ถูกต้อง... !! \n\nตัวอย่าง : '01193102' ";
+	alert(str);
+}
+function detect(Subj_value){  /* Function detect wrong ID of Subject */
+	var str=Subj_value;
+	if(str=='')
+		return true;
+	else
+		if (!(str.length==8)){	/* fixed length of student Id is 8 charecter */
+			InCorrect();
+			return false;
+		} else{
+			for(i=0 ; i<str.length ; i++){
+				var ch=str.charAt(i);
+				if (!( (ch>='0') && (ch<='9') )){	/* if not between 0-9 */
+					i=str.length;
+					InCorrect()
+					return false;
+				}
+			}
+			if (i==str.length)
+			return true;
+		}
+}
+function SendInfo(){
+	var str=document.formx.Std_Id.value;
+	document.formx.LoginName.value='s'+str.substring(1, 8); /* for s8013289 */
+}
+function chkSubj(){
+	n=document.formx.elements.length-8; /* -7 for start at subj1..subj5 */
+	nSubj=n+5; /* 5 is length of subj1..subj5 */
+	for(j=n; j<=nSubj; j++)	
+	for(i=3; i<document.formx.elements.length-8; i++) /* -7 is elements not interest */
+		if(document.formx.elements[j].value==document.formx.elements[i].value){ /* +2 is first two element */
+			i=document.formx.elements.length; /* break loop for(i) */
+			j=nSubj+1; /* break loop for(j) */
+			alert("Input subject Id. is repeated !");
+			return false;
+		}
+	if(i<document.formx.elements.length && j>nSubj)
+		return true;
+}
+/* Verify function is Option for check the Subject */
+function verify(theForm) {
+	var count=1;
+	if(	detect(document.formx.subj1.value) && detect(document.formx.subj2.value) &&
+		detect(document.formx.subj3.value) && detect(document.formx.subj4.value) &&
+		detect(document.formx.subj5.value) && chkSubj() ){
+		SendInfo(); /* call for set value to parameter before send to*/
+		strOut="แสดงรายวิชาหลังจาการเพิ่มรายวิชา : \n\n";
+		for(i=3; i<theForm.elements.length-8; i++) { /* only Subject */
+			strOut += "ลำดับที่ "+(i-2)+" : "+ theForm.elements[i].value + "\n";
+		}
+		for(j=theForm.elements.length-8; j<=theForm.elements.length-4; j++) /* length in subject for send */
+			if(theForm.elements[j].value!='')
+				strOut += "\nเพิ่มวิชา : "+theForm.elements[j].value+"\n";
+		strOut += "\nรายวิชาถูกต้องหรือไม่ ?";
+		/* copy passwd */
+		document.formx.Signature.value=parent.left.document.c3.Passwd.value;
+		return confirm(strOut);
+	} else	return false;
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<form name=formx action="http://161.246.6.32/scripts/Project97/toAdd.idc"
+	method=post onSubmit="return verify(this)">
+<%if msg_false eq ''%>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<center>
+	<input type=hidden name=Std_Id value='<%Std_Id%>'>
+	<input type=hidden name=LoginName>
+	<input type=hidden name=Term value='<%Term%>'>
+	<font size=-1>
+	ภาคการศึกษา : <b><%Term%></b> ปีการศึกษา : <b><%Year%></b><br>
+	ภาควิชา : <b><%Dept_name%></b> คณะ : <b><%Faculty_name%></b><br>
+	รหัสนักศึกษา : <b><%Std_Id%></b> ชั้นปี : <b><%YearStudy%></b>
+	 ชื่อ-สกุล : <b><%Std_Name_Eng%> <%Std_Sname_Eng%></b><br><br>
+	</font>
+	<b>======== รายวิชาที่ได้ทำการลงทะเบียนไว้แล้ว ========</b>
+	</center>
+	<center>
+	<table border=2>
+	<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+		<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+	<tr>	<td><input type=hidden value='<%Regis_Subj_Id%>'>
+		<%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+		<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+<%endif%>
+	</table>
+	</center>
+<%if CurrentRecord eq 0 %>
+	<center><font size=+2>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง<br>หรือ<br>ยังไม่ได้มีการลงทะเบียนรายวิชา</font></center>
+<%else%>
+	<center><b>========== กรุณาใส่รหัสวิชาที่ต้องการเพิ่ม ==========</b><br></center>
+	<center>
+	<font size=-1><b>ลำดับ 1.</b></font> : <input type=text name=subj1 size=9 maxlength=8 value=""><br>
+	<font size=-1><b>ลำดับ 2.</b></font> : <input type=text name=subj2 size=9 maxlength=8 value=""><br>
+	<font size=-1><b>ลำดับ 3.</b></font> : <input type=text name=subj3 size=9 maxlength=8 value=""><br>
+	<font size=-1><b>ลำดับ 4.</b></font> : <input type=text name=subj4 size=9 maxlength=8 value=""><br>
+	<font size=-1><b>ลำดับ 5.</b></font> : <input type=text name=subj5 size=9 maxlength=8 value=""><br>
+	<br>
+	<table>
+	<tr>	<td>	<input type=submit value="   ตกลง   "></td> 
+		<td>	<input type=reset value="   ยกเลิก  ">
+		<input type=hidden name="Signature"></td></tr>
+	</table>
+	</center>
+<%endif%>
+</form>
+</body>
+</html>
+

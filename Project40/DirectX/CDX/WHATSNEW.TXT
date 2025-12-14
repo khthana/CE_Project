@@ -1,0 +1,36 @@
+What's new in CDX 1.5:
+
+Compiled under DirectX 5.
+
+CDXLink class.  DirectPlay wrapper for multiplayer games.
+
+CDXResource class.  Store all your game files in one large file.
+
+CDXAvi class.  Play AVIs straight onto a CDXSurface, with sound
+and windowed/fullscreen support.
+
+CDXMusicCd class.  Play music tracks from CDs.
+
+Features added to CDXSurface class: Fill, DrawClipped changed.
+
+Features added to CDXInput class: COM Joystick, SetActiveDevices,
+Control panels, Absolute modes, Joystick range.
+
+CDXSprite::MoveTo and CDXSprite::SetVelocity removed, use SetPos
+and SetVel instead.
+
+Tile bitmaps now correctly restore when lost.
+
+Front and back buffers are now CDXSurface pointers.  This will
+affect anyone who is accessing these members directly.
+
+Safe to delete all classes on shut down without access violations
+(hopefully!).  This also means you can delete your screen object
+mid-game to perform mode switching.
+
+LPDIRECTDRAW2 used in CDXScreen.  This allows support for those
+good old standard VGA modes (Mode 13h), these perform much faster
+than the ModeX ones.
+
+
+Danny Farley (danny@jags.co.uk)

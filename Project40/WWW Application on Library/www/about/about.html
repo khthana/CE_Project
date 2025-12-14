@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<title>ข้อมูลเกี่ยวกับสำนักหอสมุดกลาง</title>
+</head>
+
+<body background="../images/bg_srv2.gif">
+<script language="JavaScript">
+<!-- script to switch out buttons -->-->
+function nbsp() {document.write("&nbsp;");}
+function copy() {document.write("&copy;");}
+var iversion = -1;
+
+function version() {
+        if (iversion != -1) return iversion;
+        if(navigator.appName.indexOf("Netscape") != -1){
+                if (navigator.userAgent.indexOf("Mozilla/2.0") != -1) 
+                                                iversion = 2;
+                        else
+                            if (navigator.userAgent.indexOf("Mozilla/3.0") != -1) 
+                                                        iversion = 3;
+                                        else
+                                        if (navigator.userAgent.indexOf("Mozilla/4.0") != -1)
+                                                iversion = 4;
+                                        else
+                                            iversion = 1;
+        }  else {  // Not netscape.
+                if(navigator.appName.indexOf("Internet Explorer") != -1){
+                     if (navigator.userAgent.indexOf("Mozilla/4.0") != -1) 
+                                iversion = 4; 
+                         else   
+                            iversion = 1;
+                     } else 
+                        iversion = 1;
+               }
+        return iversion;
+}
+
+
+if (3 <= version()) {
+        mainon = new Image();
+        mainon.src = "../images/menu_bar_on1.gif";
+        mainoff = new Image();
+        mainoff.src = "../images/menu_bar1.gif";
+        newson = new Image();
+        newson.src = "../images/news_bar_on1.gif";
+        newsoff = new Image();
+        newsoff.src = "../images/news_bar1.gif";
+        searchon = new Image();
+        searchon.src = "../images/search_bar_on1.gif";
+        searchoff = new Image();
+        searchoff.src = "../images/search_bar1.gif";
+        serveon = new Image();
+        serveon.src = "../images/serve_bar_on1.gif";
+        serveoff = new Image();
+        serveoff.src = "../images/serve_bar1.gif";
+        suggeston = new Image();
+        suggeston.src = "../images/suggest_bar_on1.gif";
+        suggestoff = new Image();
+        suggestoff.src = "../images/suggest_bar1.gif"; 
+}
+function rollon(imgName) {
+        if (3 <= iversion) {
+        imgOn = eval(imgName + "on.src");
+        document[imgName].src = imgOn;
+        }
+}
+function rolloff(imgName) {
+        if (3 <= iversion) {
+        document[imgName].src = eval(imgName + "off.src");
+        }
+}
+</script>
+
+
+<p><img src="../images/books.gif" alt="books.gif (8364 bytes)" WIDTH="120" HEIGHT="100"> &nbsp;&nbsp; <img src="../images/infor.gif" alt="infor.gif (4844 bytes)" WIDTH="480" HEIGHT="76"></p>
+<div align="center"><center>
+
+<table border="0" width="68%" cellspacing="0">
+  <tr>
+    <td width="100%" align="left" colspan="2"><a href="past.html"><img src="../images/about-past.gif" border="0" WIDTH="223" HEIGHT="53"></a></td>
+  </tr>
+  <tr>
+    <td width="9%"></td>
+    <td width="91%"><a href="org.html"><img src="../images/about-org.gif" border="0" WIDTH="294" HEIGHT="60"></a></td>
+  </tr>
+  <tr>
+    <td width="134%" align="center" colspan="2"><a href="quan.html"><img src="../images/about-quantity.gif" border="0" WIDTH="345" HEIGHT="36"></a></td>
+  </tr>
+  <tr>
+    <td width="137%" align="right" colspan="2"><a href="static.html"><img src="../images/about-static.gif" border="0" WIDTH="358" HEIGHT="53"></a></td>
+  </tr>
+</table>
+</center></div>
+<p align="center">
+<img src="../images/blue007.jpg" width="750" height="3" border="0"><br>
+<br>
+<center>
+
+<table border="0" width="63%" cellspacing="0">
+  <tr>
+    <td width="33%" align="center"><a href="../index.html" onmouseover="rollon('main'); return false" onmouseout="rolloff('main'); return false"><img src="../images/menu_bar1.gif" width="88" height="29"
+    alt="menu_bar1.gif (1478 bytes)" name="main" border="0"></td>
+    <td width="33%" colspan="2" align="center"><a href="../serve/serv.html" onmouseover="rollon('serve'); return false" onmouseout="rolloff('serve'); return false"><img src="../images/serve_bar1.gif" width="86"
+    height="29" alt="serve_bar1.gif (1427 bytes)" name="serve" border="0"></td>
+    <td width="34%" align="center"><a href="../cgi-bin/news.pl" onmouseover="rollon('news'); return false" onmouseout="rolloff('news'); return false"><img src="../images/news_bar1.gif" width="163" height="29"
+    alt="news_bar1.gif (1810 bytes)" name="news" border="0"></td>
+  </tr>
+  <tr>
+    <td width="50%" colspan="2" align="right"><a href="../search/search.html" onmouseover="rollon('search'); return false" onmouseout="rolloff('search'); return false"><img src="../images/search_bar1.gif" width="116"
+    height="29" alt="search_bar1.gif (1632 bytes)" name="search" border="0"></td>
+    <td width="50%" colspan="2" align="left"><a href="../suggest/suggest.html" onmouseover="rollon('suggest'); return false" onmouseout="rolloff('suggest'); return false"><img src="../images/suggest_bar1.gif" width="117"
+    height="29" alt="suggest_bar1.gif (1633 bytes)" name="suggest" border="0"></td>
+  </tr>
+</table>
+</center></div>
+
+
+</body>
+</html>

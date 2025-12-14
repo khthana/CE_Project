@@ -1,0 +1,89 @@
+//////////////////////////////////////////////////////////////////////////////////
+// Project Name: [ CDX Class Library - CDX.lib ]
+// Source File:  [ CDXLayer Implementation ]
+// Author:       [ Danny Farley - danny@jags.co.uk ]
+// Revision:     [ 1.5 ]
+//////////////////////////////////////////////////////////////////////////////////
+#include "CDX.h"
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer Constructor
+//////////////////////////////////////////////////////////////////////////////////
+CDXLayer::CDXLayer(CDXScreen *pScreen, char *szFilename)
+{	
+  m_lpDDS = DDLoadSizeBitmap(pScreen->m_lpDD, szFilename, &m_PixelWidth, &m_PixelHeight);
+  
+	m_pFilename = szFilename;
+	Screen = pScreen;
+
+	DestRect.top = 0;
+	DestRect.left = 0;
+	DestRect.bottom = m_PixelHeight;
+	DestRect.right = m_PixelWidth;
+
+	m_XOffset = 0;
+	m_YOffset = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer ScrollUp
+//////////////////////////////////////////////////////////////////////////////////
+void CDXLayer::ScrollUp(int Offset)
+{
+  m_YOffset += Offset;
+	if(m_YOffset > m_PixelHeight) m_YOffset -= m_PixelHeight;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer ScrollDown
+//////////////////////////////////////////////////////////////////////////////////
+void CDXLayer::ScrollDown(int Offset)
+{
+  m_YOffset -= Offset;
+	if(m_YOffset < 0) m_YOffset = m_PixelHeight + m_YOffset;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer ScrollLeft
+//////////////////////////////////////////////////////////////////////////////////
+void CDXLayer::ScrollLeft(int Offset)
+{
+  m_XOffset += Offset;
+	if(m_XOffset > m_PixelWidth) m_XOffset -= m_PixelWidth;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer ScrollRight
+//////////////////////////////////////////////////////////////////////////////////
+void CDXLayer::ScrollRight(int Offset)
+{
+  m_XOffset -= Offset;
+	if(m_XOffset < 0) m_XOffset = m_PixelWidth + m_XOffset;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer MoveTo
+//////////////////////////////////////////////////////////////////////////////////
+void CDXLayer::MoveTo(int XOffset, int YOffset)
+{
+  m_XOffset = XOffset;
+	m_YOffset = YOffset;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// CDXLayer Draw
+//////////////////////////////////////////////////////////////////////////////////
+HRESULT CDXLayer::Draw(CDXSurface* lpDDS)
+{
+	SetSrc(m_PixelHeight - m_YOffset, m_PixelWidth - m_XOffset, m_PixelHeight, m_PixelWidth);
+	lpDDS->m_lpDDS->BltFast(0, 0, m_lpDDS, &SrcRect, DDBLTFAST_WAIT);
+
+	SetSrc(m_PixelHeight - m_YOffset, 0, m_PixelHeight, m_PixelWidth - m_XOffset);
+	lpDDS->m_lpDDS->BltFast(m_XOffset, 0, m_lpDDS, &SrcRect, DDBLTFAST_WAIT);
+
+	SetSrc(0, m_PixelWidth - m_XOffset, m_PixelHeight - m_YOffset, m_PixelWidth);
+	lpDDS->m_lpDDS->BltFast(0, m_YOffset, m_lpDDS, &SrcRect, DDBLTFAST_WAIT);
+
+	SetSrc(0, 0, m_PixelHeight - m_YOffset, m_PixelWidth - m_XOffset);
+	return lpDDS->m_lpDDS->BltFast(m_XOffset, m_YOffset, m_lpDDS, &SrcRect, DDBLTFAST_WAIT);
+}

@@ -1,0 +1,72 @@
+ChkBorrow Agent
+
+'************************
+Event : Declarations
+
+Dim uidoc As NotesUIDocument
+Dim doc As NotesDocument       
+Dim db As NotesDatabase  
+Dim item As NotesItem
+Dim collection As NotesDocumentcollection
+Dim rtitem As NotesRichTextItem
+Dim dateRange As NotesDateRange
+Dim form As NotesForm
+Dim form_name As String
+
+'*************************
+Event : Initialize
+
+Sub Initialize
+     Dim strng As Variant
+     Dim datetime As New NotesDateTime("01/01/94")
+     Dim  expireDate As Variant
+     Set session = New NotesSession
+     Set db=session.currentDatabase
+     
+     searchFormula$ = "Form = ""BOR"" "
+     Set collection = db.Search( searchFormula$, dateTime, 0 ) '** search all borrow form in database
+     If collection.count<>0 Then 
+          For i =1 To  collection.count 
+               Set Doc = Collection.GetNthDocument(i)
+               Set item=doc.getFirstItem("Fld_BORsign") '** check each document sign or not?
+               sign=itemtext
+               If sign<>"" Then
+                    Set item=doc.getFirstItem("Fld_BORDateExp") '** if document sign ...check expire date
+                    expireDate=item.text '** get expire date 
+                    Call datetime.setnow '** get now date
+                    Dates = Leftbp$(datetime.localTime, 8) '** get date only 
+                    enddate = Datevalue(expiredate) '** convert expiredate to date enddate value
+                    todaydate=Datevalue(dates) '** convert dates to todaydate value
+                    
+                    If endDate<todaydate Then 
+                         num=(Day(todaydate)-Day(enddate)) '** calculate  day to  late
+                         num2=Month(todaydate)-Month(expdate) '** calcu;ate month to late
+                         If num2<>0 Then
+                              num2=Day(num2)
+                         Else
+                              num2=0
+                         End If
+                         num1=  (Year(todaydate)-Year(enddate)) '** calaulate year to late
+                         num1=num1*365
+                         num=num1+num
+                         pay=num*2   '** calculate amount of money to pay
+                    'mail to user notify expire date
+                         Set item=doc.getFirstItem("Fld_BORIDNum")   '** get user name for send mail
+                         user=item.text
+                         Set item=doc.getFirstItem("Fld_BORRegNum") '** get register number of book for notify to user
+                         reg=item.text
+                         doc.subject = ("You must return this book  "+" ' " + reg + " ' ") '** set mail subject
+                         doc.body=(" You must return  this book "+reg+" on  " + expiredate + " but now you are late." & Chr$(10) &_ '** set mail body
+                         "and must pay 2 bath /book/day" & Chr$(10) &_
+                         "amount = "+ pay+" Bath" & Chr$(10) &"    "&  Chr$(10) &_
+                         "                                                        Libralian")
+                         Call doc.send(False,user) '** send mail
+                    End If
+               Else 'sign=""
+                    Call doc.Remove( True ) ' ** delete document that not sign
+               End If'sing<>""
+               
+          Next
+     End If 'collection.count <> 0
+     
+End Sub

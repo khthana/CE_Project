@@ -1,0 +1,24 @@
+-----------------------------------------------------
+Error occurred on: Thu Jan 29 00:21:08 1998
+
+Error: Missing link= argument
+The args were: &style=led
+The referring document was: http://161.246.6.82/test.html
+-----------------------------------------------------
+-----------------------------------------------------
+Error occurred on: Fri Jan 30 13:47:21 1998
+
+Error: Out of Memory: malloc failed
+The args were: link=anotherpage&style=eggs
+The referring document was: http://161.246.37.100/test.html
+-----------------------------------------------------
+-----------------------------------------------------
+Error occurred on: Fri Jan 30 13:48:08 1998
+
+Error: counter.dat has been corrupted. Delete it to start over at 0, or try performing surgery.  The format is:
+ first line should be number of entries
+ subsequent lines should be link<space>num_hits
+
+The args were: link=anotherpage&style=eggs
+The referring document was: http://161.246.37.100/test.html
+-----------------------------------------------------

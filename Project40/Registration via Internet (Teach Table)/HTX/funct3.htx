@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Data of Room Details</title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td align="center"><hr>
+        <div align="left"><table border="1">
+            <caption align="top"><font face="JasmineUPC"><strong>ผลการค้นหา:</strong></font></caption>
+            <tr>
+                <th><font face="JasmineUPC"><b>รหัสวิชาเรียน</b></font></th>
+                <th><font face="JasmineUPC"><b>ชื่อวิชา</b></font></th>
+            </tr>
+<%begindetail%>            <tr>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Subj_Id%></b></font></th>
+                <th align="left" bgcolor="#FFFFFF"><font
+                face="JasmineUPC"><b><%Subj_Name_Eng%></b></font></th>
+            </tr>
+<%enddetail%>  	       </table>
+        </div></td>
+    </tr>
+</table>
+</center></div>
+<%if CurrentRecord EQ 0>
+        <h2 align="center"><font face="JasmineUPC">รหัสวิชาที่คุณใส่ไม่ถูกต้อง
+        <strong><%idc.Subj_Id%> 
+<h3 align="center"><a href="http://sura/Proj97Scripts/linkmn.htm"><font
+color="#FF00FF" face="JasmineUPC"><strong>กลับสู่เมนูหลัก</strong></font></a></h3>
+
+</body>
+</html>

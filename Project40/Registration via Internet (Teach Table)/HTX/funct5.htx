@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title></title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+<%begindetail%>
+<h4><font face="JasmineUPC">Student ID.= &quot;</font><font
+color="#0000FF" face="JasmineUPC"><%idc.stdid%></font><font face="JasmineUPC">&quot;</font></h4>
+
+<h4><font face="JasmineUPC">Student Name = &quot;</font><font
+color="#0000FF" face="JasmineUPC"><%std_name_eng%> <%std_sname_eng%> </font><font
+face="JasmineUPC">&quot;</font></h4>
+<%enddetail%>
+<table border="0">
+    <tr>
+        <td><hr>
+        <p><%std_title_eng%> </p>
+        <table border="1">
+            <caption align="top"></caption>
+            <tr>
+                <th align="left" bgcolor="#C0C0C0"><h5><font
+                face="JasmineUPC"><b>__________Time </b></font></h5>
+                <h5><font face="JasmineUPC"><b>Day</b></font></h5>
+                </th>
+                <th bgcolor="#00FFFF"><h5><font face="JasmineUPC"><b>P01</b></font></h5>
+                <h5><font face="JasmineUPC"><b>9:00-10:00</b></font></h5>
+                </th>
+                <th bgcolor="#00FFFF"><h5><font face="JasmineUPC"><b>P02</b></font></h5>
+                <h5><font face="JasmineUPC"><b>10:00-11:00</b></font></h5>
+                </th>
+                <th bgcolor="#00FFFF"><h5><font face="JasmineUPC"><b>P03</b></font></h5>
+                <h5><font face="JasmineUPC"><b>11:00-12:00</b></font></h5>
+                </th>
+                <th align="left" nowrap><h5><font
+                face="JasmineUPC">Noon</font></h5>
+                </th>
+                <th bgcolor="#008080"><h5><font face="JasmineUPC"><b>P04</b></font></h5>
+                <h5><font face="JasmineUPC"><b>13:00-14:00</b></font></h5>
+                </th>
+                <th bgcolor="#008080"><h5><font face="JasmineUPC"><b>P05</b></font></h5>
+                <h5><font face="JasmineUPC"><b>14:00-15:00</b></font></h5>
+                </th>
+                <th bgcolor="#008080"><h5><font face="JasmineUPC"><b>P06</b></font></h5>
+                <h5><font face="JasmineUPC"><b>15:00-16:00</b></font></h5>
+                </th>
+                <th bgcolor="#C0C0C0"><h5><font face="JasmineUPC"><b>P07</b></font></h5>
+                <h5><font face="JasmineUPC"><b>17:30-18:30</b></font></h5>
+                </th>
+                <th bgcolor="#C0C0C0"><h5><font face="JasmineUPC"><b>P08</b></font></h5>
+                <h5><font face="JasmineUPC"><b>18:30-19:30</b></font></h5>
+                </th>
+                <th bgcolor="#C0C0C0"><h5><font face="JasmineUPC"><b>P09</b></font></h5>
+                <h5><font face="JasmineUPC"><b>19:30-20:30</b></font></h5>
+                </th>
+            </tr>
+<%begindetail%>            <tr>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%datestr%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p1%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p2%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p3%></font></h5>
+                </th>
+                <th align="left" nowrap>&nbsp; </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p4%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p5%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p6%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p7%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p8%></font></h5>
+                </th>
+                <th bgcolor="#FFFFFF"><h5><font face="JasmineUPC"><%p9%></font></h5>
+                </th>
+            </tr>
+<%enddetail%>        </table>
+        </td>
+    </tr>
+</table>
+
+<h2 align="center"><a href="http://sura/Proj97Scripts/linkmn.htm"><font
+color="#FF00FF" face="JasmineUPC"><strong>กลับสู่เมนูหลัก</strong></font></a></h2>
+</body>
+</html>

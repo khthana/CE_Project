@@ -1,0 +1,39 @@
+<!-- This File is : Page show subject which pass the step of Change Subject  -->
+<!-- Last update : 26-03-1998 Status : ok -->
+<html>
+<head>
+<script language=JavaScript>
+function chkTF(){ /* check status of subject change */
+	var str='';
+	if(document.formx.Msg_F.value=='false')
+		str += "ไม่สามารถเปลี่ยนแปลงรายวิชาได้\n";		
+	if(document.formx.Msg_T.value=='true')
+		str += "การเปลี่ยนวิชาเรียนเสร็จสมบูรณ์\n";
+	if(document.formx.Msg_P.value=='notpre')
+		str += "   ไม่สามารถลงทะเบียนบางรายวิชาที่ไม่ผ่านวิชาต่อเนื่อง ( Prerequisite )   \n";
+	alert(str);
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif onLoad="chkTF()">
+<h3>รายวิชาที่ทำการลงทะเบียนไว้แล้วหลังจากการเปลี่ยนแปลงรายวิชา</h3>
+<form name=formx>
+<%begindetail%>
+<input type=hidden name=Msg_F value='<%msg_false%>'>
+<input type=hidden name=Msg_T value='<%msg_true%>'>
+<input type=hidden name=Msg_P value='<%msg_pre%>'>
+<%enddetail%>
+</form>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<font>ลำดับที่ : <%Regis_no%></font>
+<table border=2>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+<tr>	<td bgcolor=skyblue><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+	<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+</table>
+</body>
+</html>

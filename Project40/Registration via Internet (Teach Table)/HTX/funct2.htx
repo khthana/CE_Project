@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Authors Details</title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+
+<table border="0">
+    <tr>
+<%begindetail%>        <td><table border="0">
+            <tr>
+                <td><font face="JasmineUPC"><b>รหัสวิชา</b></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%subj_id%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><b>ปีการศึกษา</b></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%Academic_year%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><b>ภาคเรียนที่</b></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%Academic_Term%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td><font face="JasmineUPC"><b>ชื่อวิชา</b></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%Subj_Name_Eng%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><b>หน่วยกิตบรรยาย</b></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%Credit_Lec%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ปฏิบัติ</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><b><%Credit_Lab%></b></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td><font color="#400080" face="JasmineUPC"><strong><u>อาจารย์ผู้สอน</u></strong></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><font face="JasmineUPC"><strong>รหัสอาจารย์</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Teacher_Id%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ชื่ออาจารย์ผู้สอน</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Teacher_Name_Thai%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>นามสกุล</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Teacher_Sname_Thai%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td><font color="#400080" face="JasmineUPC"><strong><u>วัน-เวลาเรียน</u></strong></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><font face="JasmineUPC"><strong>วันเรียน</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Class_Day%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>เวลาเริ่ม</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Class_Time_Begin%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>เวลาเลิก</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Class_Time_End%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td><font color="#400080" face="JasmineUPC"><strong><u>ห้องเรียน</u></strong></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><font face="JasmineUPC"><strong>รหัสห้องเรียน</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Room_Code%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ชนิด</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Room_Type%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ความจุ</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Room_Capacity%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td><font face="JasmineUPC"><strong>ชั้น</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Room_Floor_No%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ชื่อตึกเรียน</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Building_Code%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+                <td><font face="JasmineUPC"><strong>ชื่ออาคารเรียน</strong></font></td>
+                <td><table border="1">
+                    <tr>
+                        <td bgcolor="#FFFFFF"><font
+                        face="JasmineUPC"><strong><%Building_Name%></strong></font></td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+        </table>
+        <h3 align="center"><font face="JasmineUPC">รายละเอียดของวิชาเรียนรหัส
+        </font><font color="#400080" face="JasmineUPC"><strong><%idc.Subj_Id%></strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong> </strong></font></h3>
+        <h3 align="center"><a
+        href="http://sura/Proj97Scripts/linkmn.htm"><font
+        color="#FF00FF" face="JasmineUPC"><strong>กลับสู่เมนูหลัก</strong></font></a></h3>
+        </td>
+    </tr>
+<%enddetail%>
+	  <%if CurrentRecord EQ 0>
+        <h1 align="center"><font face="JasmineUPC">ไม่พบข้อมูลของรหัสวิชา
+        <strong><%idc.Subj_Id%>
+<%endif%></table>
+</body>
+</html>

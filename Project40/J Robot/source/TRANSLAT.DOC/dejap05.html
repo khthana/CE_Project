@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE>[De-Jap Guide/text replacement new]</TITLE>
+</HEAD>
+<BODY bgcolor="#236321" background="tile03.gif" text="#ccffcc" link="#ffcfff" vlink=Purple alink="#cfff00" topmargin=0 leftmargin=0 bottommargin=0 rightmargin=0>
+<B><FONT face="Verdana, Arial" size=3><center>
+<TABLE border=0 width=85%>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+<font size=5 color=White>Text Replacement (New method)</font><BR>
+<BR>
+This new method is faster, but only works if you patched each 
+character in sequence (ie tile n is 'A', tile n+1 is 'B'...). 
+If this method works, you can save some time as there is less 
+work needed!<BR>
+<BR>
+Having replaced a font within the rom, most of the text using that 
+font will have been 'corrputed'. In other words, it will not make 
+sense as either Japanese or English. The following example shows 
+how to replace the text with your own messages.
+<BR>
+<BR>
+<font size=4 color=Yellow>Step 1: Select a Message to Translate</font><BR>
+<TABLE border=0>
+<TR><TD>
+<img src="dejap06.gif" border=0 align=middle WIDTH=224 HEIGHT=144>
+</TD>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Select a message within the text that has a fair number of converted 
+(English) characters in it. For example, the text 'EJY....' in the 
+menu to the left.
+<BR>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 2: Search for the text</font><BR>
+<TABLE border=0>
+<TR>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Use the program <a href="SearchR.zip">SearchRelative</a> to search 
+for the string 'EJY' in the rom, you can only search for characters 
+of the same case (upper/lower), so choose your message carefully!<BR>
+<BR>
+<font color="#ffddcc">
+eg. SearchR EJY Dragon6e.smc<BR>
+<BR>
+Search Relative v0.01 (c) 1997 [J3d!]<BR>
+<BR>
+Found at: 00017273<BR>
+Found at: 00040df1<BR>
+Found at: 0005251d<BR>
+Found at: 00052526<BR>
+Found at: 000639a6<BR>
+Found at: 00083c44<BR>
+Found at: 0008c2fe<BR>
+Found at: 0008c319<BR>
+<BR>
+etc...<BR>
+</font>
+<BR>
+(BTW, The correct offest for this example is 0x03B8A35)<BR>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 3: Find and Translate Message</font><BR>
+<TABLE border=0>
+<TR><TD>
+<img src="dejap08.gif" border=0 align=middle WIDTH=224 HEIGHT=144>
+</TD>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Try and pick a message with more than 3 consecutive upper or lower 
+case letters, or you will get quite a few results in the previous 
+step! Anyway, if you do get more than one result, use a hex editor 
+to edit the data at each of these locations until the message in 
+the game changes. Once you know which is the correct location, you
+can determine from the data the what number refers to what character 
+(eg. 'E'=0x14, 'J'=0x19, 'Y'=0x28) and use a normal hex search to
+replace all the other text data. (You can replace the data by any
+number to see what character that number refers to).
+<BR>
+</TD></TR>
+</TABLE>
+
+</B></font>
+</TD></TR>
+</TABLE>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

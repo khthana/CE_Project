@@ -1,0 +1,371 @@
+Book Form Code
+
+(Globals)Book
+
+Event: (Declarations)
+
+'********************************
+%INCLUDE "lsconst.lss"
+Dim workspace As  NotesUIWorkspace
+Dim uidoc As NotesUIDocument
+Dim db As NotesDatabase  
+Dim doc As NotesDocument 
+Dim doc1 As NotesDocument  
+Dim doc2 As NotesDocument 
+Dim doc3 As notesDocument
+Dim session As  NotesSession
+Dim collection As NotesDocumentCollection
+Dim collection1 As NotesDocumentCollection
+Dim collection2 As NotesDocumentCollection
+Dim currentResponse As NotesDocument
+Dim item As NotesItem
+Dim uidb As NotesUIDatabase , num As Long
+Dim acl As NotesACL
+Dim entry As NotesACLEntry
+
+'********************************
+
+Book (Form) 
+
+Event: (Window Title)
+
+@If(@IsNewDoc;"New Booking Profile";
+Fld_Title + " - Booking Profile")
+
+'********************************
+Create Book Detail Action
+Event : (Click)
+
+Sub Click(Source As Button)
+     
+     Set session = New NotesSession
+     Set workspace = New NotesUiWorkspace
+     Set db = session.currentDatabase
+     Set uidoc = workspace.CurrentDocument
+     Set acl = db.ACL
+     
+     user=session.UserName 
+     Set entry = acl.GetEntry( user )
+     If ( entry.Level < ACLLEVEL_DESIGNER ) Then
+          Messagebox "You don't have privilege to access.",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     Set uidoc = workspace.ComposeDocument _
+     ( "", "libnew.nsf", "Book Detail" )
+     
+     
+End Sub
+'********************************
+
+Exit Action
+
+@PostedCommand([FileCloseWindow])
+
+'********************************
+
+Save Action
+
+@PostedCommand([FileSave])
+
+'********************************
+Reserve Action
+
+Event : (Click)
+
+
+Sub Click(Source As Button)
+     Dim docchk As Notesdocument
+     Dim borArray1()
+     Redim borArray1(10)
+     
+     b1=0
+     Set workspace = New NotesUiWorkspace
+     Set Session = New NotesSession
+     Set uidoc = workspace.CurrentDocument
+     Set doc = uidoc.document
+     Set db = session.CurrentDatabase  
+     
+     '*******************************************     
+     'check if user reserve more than 3 so...disable....
+     
+     Dim dateTime As New NotesDateTime( "01/01/97" )  
+     searchFormula$ = "Form = ""REV""  & Fld_REVIDNum  = @Name([CN]; @V3UserName)"
+     Set collection1 = db.Search( searchFormula$, dateTime, 0 )
+     
+     num=0
+     'chk if doc not sign ..indicate that it's not reserve ...(save only not press reserve botton)
+     For i =1 To collection1.count
+          Set doc3 = collection1.GetNthDocument(i)
+          Set item=doc3.getfirstitem("Fld_REVsign")
+          sign=item.text
+          If sign<>"" Then
+               num=num+1
+          End If
+     Next
+     
+     If num >= 3 Then
+          Messagebox "Can't RESERVE.You reserve more than 3",MB_ICONEXCLAMATION,"Can not reserve"
+          Call uidoc.close
+          Exit Sub
+     End If
+     
+     If num<3 Then
+          idbook =uidoc.fieldGetText("Fld_IDBook")
+          
+          'check if idbook = idbook of reserved book then abort reserve
+          '**********************************************************
+          For i =1 To collection1.count
+               Set doc3 = collection1.GetNthDocument(i)
+               Set item=doc3.getfirstitem("Fld_REVsign")
+               sign=item.text
+               If sign<>""Then
+                    Set item=doc3.getfirstitem("Fld_REVID")
+                    id=item.text
+                    
+                    If idbook=id Then 
+                         Messagebox"you reserve this book already."&Chr(10)&"Can't reserve it"_
+                         ,MB_ICONEXCLAMATION,"Can not reserve"
+                         Exit Sub
+                    End If   'idbook=id
+                    
+               End If 'doc3 issigned
+          Next
+          '**********************************************************
+          searchFormula$ = "Form = ""Book Detail"" "
+          Set collection = db.Search( searchFormula$, dateTime, 0 )
+          Call collection.FTsearch(idbook,0)
+          For i = 1 To collection.count
+               Set doc = collection.GetNthDocument(i)
+               Set item=doc.getfirstitem("Fld_RegDetail")
+               reg=item.text
+               Set item=doc.getfirstitem("Fld_StatusDetail")
+               status=item.text
+               
+               If status="Free" Then
+                    result=reg
+                    boxType& = MB_YESNO + MB_ICONQUESTION
+                    answer% = Messagebox("This book is free You can Borrow ", boxType&, _ 
+                    "Borrow?")
+                    If answer%=IDYES Then 
+                         Call chkbrow(reg)
+                         Exit Sub
+                    End If
+                    Call uidoc.close
+                    Exit Sub
+               End If
+               'if status="reserve" can not reserve ..so jump to other register
+               
+               
+               If status="Borrow" Then
+                    searchFormula$ = "Form = ""BOR""  & Fld_BORIDNum  = @Name([CN]; @V3UserName)  "
+                    Set collection2 = db.Search( searchFormula$, dateTime, 0 )
+                    If collection2.count<>0 Then
+                         For h=1 To collection2.count
+                              Set doc2=collection2.GetNthDocument(h)
+                              Set item=doc2.getfirstitem("Fld_BORsign")
+                              sign=item.text
+                              If sign<>"" Then
+                                   Set item=doc2.getfirstitem("Fld_BORID")
+                                   idbor=item.text
+                                   If idbook=idbor Then
+                                        Messagebox "You can't Reserve because you borrow it",MB_ICONEXCLAMATION,"Can not reserve"
+                                        Call uidoc.close
+                                        Exit Sub
+                                   End If
+                              End If ' doc2.issigned
+                              
+                         Next
+                    End If ' collection2.count
+                    
+                    searchFormula$ = "Form = ""REV"""
+                    Set collection2 = db.Search( searchFormula$, dateTime, 0 )
+                    
+                    If collection2.count<>0 Then
+                         Call collection2.FTsearch(reg,0)
+                         chk=collection2.count
+                         If collection2.count=0 Then
+                              b1=b1+1
+                              borarray1(b1)=reg
+                         End If
+                         
+                        'if collection2.count<>0 but the document not sign 
+                         
+                         For x=1 To chk
+                              Set docchk=collection2.getNthDocument(x)
+                              Set item=docchk.getfirstitem("Fld_REVsign")
+                              sign=item.text
+                              
+                              If sign="" Then
+                                   borarray1(b1)=reg
+                                   b1=b1+1 
+                              End If
+                         Next
+                         
+                    Else
+                         b1=b1+1
+                         borarray1(b1)=reg
+                    End If
+                    
+               End If 'status=borrow
+          Next
+     End If
+     '**********************
+    'check the best result (register of book ) for user
+     For i=0 To b1 
+          result=borarray1(i)
+          If result<>"" Then
+               Goto exits
+          End If
+     Next
+          'result=reg
+     If result="" Then
+          Messagebox" Can not Reserve."&Chr(10)&" This book not availabel for reserve.",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     '**********************
+exits:
+     
+     Call     uidoc.close
+     Set uidoc = workspace.ComposeDocument _
+     ( "", "libnew.nsf", "REV" )
+     Call uidoc.fieldSetText("Fld_REVRegNum",result)
+     Call uidoc.fieldSetText("Fld_REVID",idbook)
+     username=session.CommonUserName
+     Call uidoc.fieldSetText("Fld_REVIDNum",username)
+End Sub
+
+'********************************
+Borrow Action
+
+Event : (Click)
+
+
+Sub Click(Source As Button)
+     Dim docchk As Notesdocument
+     Dim resvArray()
+     Redim resvArray1(10)
+     
+     r=0
+     Set workspace = New NotesUiWorkspace
+     Set Session = New NotesSession
+     Set uidoc = workspace.CurrentDocument
+     Set doc = uidoc.document
+     Set db = session.CurrentDatabase  
+     user=session.commonUserName
+     '*******************************************     
+     'check if user reserve more than 3 so...disable....
+     
+     Dim dateTime As New NotesDateTime( "01/01/97" )  
+     searchFormula$ = "Form = ""BOR""  & Fld_BORIDNum  = @Name([CN]; @V3UserName)"
+     Set collection1 = db.Search( searchFormula$, dateTime, 0 )
+     num=0
+     
+      'chk if doc not sign ..indicate that it's not reserve ...(save only not press reserve botton)
+     For i =1 To collection1.count
+          Set doc3 = collection1.GetNthDocument(i)
+          Set item=doc3.getfirstitem("Fld_BORsign")
+          sign=item.text
+          'if document is sign so increase num variable
+          If sign<>"" Then
+               num=num+1
+          End If
+     Next
+     
+     If num >= 3 Then
+          Messagebox "Can't BORROW."&Chr(10)&"You borrow more than 3"_
+          ,MB_ICONEXCLAMATION,"Can not borrow!"
+          Call uidoc.close 'close open document
+          Exit Sub ' terminate sub
+     End If
+     
+     If num<3 Then
+          idbook =uidoc.fieldGetText("Fld_IDBook")
+          
+          'check if idbook = idbook of reserved book then abort reserve
+          '**********************************************************
+          For i =1 To num
+               Set doc3 = collection1.GetNthDocument(i)
+               Set item=doc3.getfirstitem("Fld_BORsign")
+               sign=item.text
+               If sign<>""Then
+                    Set item=doc3.getfirstitem("Fld_BORID")
+                    id=item.text
+                    
+                    If idbook=id Then 
+                         Messagebox"You borrow  this book already."&Chr(10)&"Can't borrow  it."_
+                         ,MB_ICONEXCLAMATION,"Can not borrow!"
+                         Exit Sub
+                    End If   'idbook=id
+                    
+               End If 'doc3 issigned
+          Next
+          '**********************************************************
+          searchFormula$ = "Form = ""Book Detail"" "
+          Set collection = db.Search( searchFormula$, dateTime, 0 )
+          Call collection.FTsearch(idbook,0)
+          For i = 1 To collection.count
+               Set doc = collection.GetNthDocument(i)  ' ** get book detail document for process 
+               Set item=doc.getfirstitem("Fld_RegDetail") ' ** get register number of book detail
+               reg=item.text 
+               Set item=doc.getfirstitem("Fld_StatusDetail") '** get status of book detail
+               status=item.text
+               
+               
+               If status="Reserve" Then
+                    searchFormula$ = "Form = ""REV"" "
+                    Set collection2 = db.Search( searchFormula$, dateTime, 0 )
+                    Call collection2.FtSearch(reg,0)
+                    
+                    'if status = reserve then check that user that reserve is this user ? if yes he can borrow
+                    For h=1 To collection2.count
+                         Set doc=collection2.GetNthDocument(h)
+                         Set item=doc.GetFirstItem("Fld_REVsign")
+                         sign=item.text
+                         If sign<>"" Then
+                              Set item=doc.GetFirstItem("Fld_REVIDNum")
+                              userrev=item.text
+                              If user=userrev Then '  ** compare if this user reserve this book he can borro this book
+                                   result=reg
+                                   Goto exits
+                              End If
+                         End If
+                    Next
+               End If' status=reserve
+               
+               ' ** if status = free then keep the register number for calulate the register number for borrow
+               If status="Free" Then
+                    resvarray1(r)=reg
+                    
+               End If
+               
+          Next     
+     End If  'num<3
+     
+     '** get register number for give it to user for borrow
+     For i=0 To r 
+          If resvarray1(i)<>"" Then
+               result=resvarray1(i)
+               Goto exits
+          End If
+     Next
+     
+     ' if result = "" indicate that don't have register number of book for borrow    
+     If result="" Then
+          Messagebox" Can not borrow."&Chr(10)&" This book not availabel for borrow.",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     '**********************
+exits:
+     
+     Call     uidoc.close
+     'compose to Borrow form  for borrow 
+     Set uidoc = workspace.ComposeDocument _
+     ( "", "libnew.nsf", "BOR" )
+     Call uidoc.fieldSetText("Fld_BORRegNum",result) '** write register number of book for borrow to new borrow form
+     Call uidoc.fieldSetText("Fld_BORID",idbook) '** write idbook to new borrow form
+     username=session.CommonUserName
+     Call uidoc.fieldSetText("Fld_BORIDNum",username) '** write username to new borrow form
+End Sub

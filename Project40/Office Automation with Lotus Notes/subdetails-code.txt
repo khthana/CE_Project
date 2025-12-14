@@ -1,0 +1,114 @@
+[Globals]Subdetails
+
+Event: Declarations
+
+%INCLUDE "lsconst.lss"
+Dim db As NotesDatabase
+Dim collection As NotesDocumentCollection
+Dim doc As NotesDocument
+Dim oldtotal
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+Subdetails(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Subdetails";fld_item + " - Item Lists Profile")
+
+Event: Postopen
+
+Sub Postopen(Source As Notesuidocument)
+     Dim workspace As New NotesUIWorkspace
+     Dim session As New NotesSession
+     
+     Set uidoc = workspace.CurrentDocument     
+     oldtotal = uidoc.FieldGetText("fld_total")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_runnum(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_order")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_code(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_order")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_item(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_order")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_unit(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_order")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_total(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_order")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+fld_order(Field)
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Dim session As New NotesSession
+     
+     On Error Goto ProcessError
+     
+     Set uidoc = workspace.CurrentDocument     
+     temp1 = uidoc.FieldGetText("fld_order")
+     If temp1 = "" Then 
+          uidoc.GoToField("fld_order")
+          Exit Sub
+     End If
+     
+     temp2 = uidoc.FieldGetText("fld_unit")
+     temp = Val(temp1) * Val(temp2)
+     string1$ = Str$(temp)
+     string1$ = Trim$(string1$)
+     uidoc.GoToField("fld_total") 
+     Call uidoc.FieldSetText("fld_total",string1$)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+     
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////

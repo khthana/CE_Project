@@ -1,0 +1,77 @@
+<!-- This File is : Getting LoginName Passwd and Std_id for login to system -->
+<!-- Last Update : 26-03-1998 -->
+<HTML>
+<HEAD>
+<script language=JavaScript>
+function Tran(){  /* for copy value LoginName, Passwd and Std_id to store in mem */
+	Id=document.TForm.Std_id.value;
+	Login='s'+Id.substring(1,8);
+	document.TForm.LoginName.value=Login;
+	/* for c1 */
+	parent.left.document.c1.Std_id.value=Id;
+	parent.left.document.c1.LoginName.value=Login;
+	parent.left.document.c1.Passwd.value=document.TForm.Passwd.value;
+	/* for c2 */
+	parent.left.document.c2.Std_id.value=Id;
+	parent.left.document.c2.LoginName.value=Login;
+	parent.left.document.c2.Passwd.value=document.TForm.Passwd.value;
+	/* for c3 */
+	parent.left.document.c3.Std_id.value=Id;
+	parent.left.document.c3.LoginName.value=Login;
+	parent.left.document.c3.Passwd.value=document.TForm.Passwd.value;
+	/* for c4 */
+	parent.left.document.c4.Std_id.value=Id;
+	parent.left.document.c4.LoginName.value=Login;
+	parent.left.document.c4.Passwd.value=document.TForm.Passwd.value;
+	/* for c5 */
+	parent.left.document.c5.Std_id.value=Id;
+	parent.left.document.c5.LoginName.value=Login;
+	parent.left.document.c5.Passwd.value=document.TForm.Passwd.value;
+	/* for c6 */
+	parent.left.document.c6.Std_id.value=Id;
+	parent.left.document.c6.LoginName.value=Login;
+	parent.left.document.c6.Passwd.value=document.TForm.Passwd.value;
+}
+function InCorrect(){
+	alert("   รหัสนักศึกษาไม่ถูกต้อง ! -- ตัวอย่าง '38013289'   ");
+}
+function detect(){
+	var str=document.TForm.Std_id.value;
+	if (!(str.length==8)){	/* fixed length of student Id is 8 charecter */
+		InCorrect();
+		return false;
+	} else{
+		for(i=0 ; i<str.length ; i++){
+			var ch=str.charAt(i);
+			if (!( (ch>='0') && (ch<='9') )){	/* if not between 0-9 */
+				i=str.length;
+				InCorrect()
+				return false;
+			}
+		}
+		if (i==str.length){
+			Tran();
+			return true;
+		}
+	}
+}
+</script>
+</HEAD>
+<body background=..\Image\Bg_brown.gif>
+
+<center>
+<br>
+<table border=1 width=70% height=40%>
+<tr><td align=center bgcolor=gold><font size=+1 color=blue><b>นำเข้าข้อมูลผู้ใช้งานระบบ</b></font></td></tr>
+<tr><td align=center><br><table><tr><td><form name=TForm action=http://161.246.6.32/scripts/Project97/CheckId.idc onSubmit="return detect()">
+<b>Student ID</b></td><td><b> : </b><input type=text name=Std_id value=38013289 maxlength=8 size=10></td></tr>
+<tr><td><b>Password</b></td><td><b> : </b><input type=password name=Passwd value=s8013289 maxlength=8 size=10></td></tr>
+<tr><td colspan=2 align=center><br>
+<input type=hidden name=LoginName>
+<input type=submit value="    ตกลง    ">
+<input type=reset   value="    ยกเลิก    ">
+</form></td></tr></table>
+</td></tr></table>
+</center>
+</BODY>
+</HTML>

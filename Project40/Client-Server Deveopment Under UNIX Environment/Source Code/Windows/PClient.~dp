@@ -1,0 +1,15 @@
+program PClient;
+
+uses
+  Forms,
+  UClient in 'UClient.pas' {FormMain},
+  Uremote in '..\Sock\Uremote.pas' {FormAddr};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormAddr, FormAddr);
+  Application.Run;
+end.

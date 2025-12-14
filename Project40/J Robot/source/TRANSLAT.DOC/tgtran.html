@@ -1,0 +1,433 @@
+<html>
+
+<head>
+<title>RPGe: RPG Translations</title>
+</head>
+
+<body background="bgrnd.gif" bgcolor="#800000"
+text="#FFFFFF" link="#FFFF00" topmargin="0" leftmargin="0">
+<div align="center"><center>
+
+<table border="2" bgcolor="#000000">
+    <tr>
+        <td><p align="center"><font size="5" face="Arial"><b>&nbsp;TurboGrafx16
+        ROM Translation </b></font><font size="2" face="Arial"><br>
+        v0.10</font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><font size="5" face="Arial"><br>
+</font><font size="2" face="Arial">By Shadow, other information
+noted as donated<br>
+©1997-98 this and other documents maintain the copyright of
+their respective authors</font><font size="5" face="Arial"><br>
+<br>
+</font><font size="2" face="Arial">If something seems unexplain
+it is because it has already been explained in my SNES document.
+I suggest reading that first if you have not.</font><font
+size="5" face="Arial"><br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><font size="4" face="Arial"><b><u>Table of
+Contents</u></b></font><font size="5" face="Arial"> </font></p>
+
+<ol>
+    <li><p align="left"><a href="#intro"><font size="2"
+        face="Arial">Introduction</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#begin"><font size="2"
+                face="Arial">Before you Read on</font></a></p>
+            </li>
+            <li><p align="left"><a href="#disc"><font size="2"
+                face="Arial">Disclaimer</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#pg"><font size="2" face="Arial">Programs
+        You'll Need</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#sped"><font size="2"
+                face="Arial">SNES Sprite Editor</font></a></p>
+            </li>
+            <li><p align="left"><a href="#xchar"><font size="2"
+                face="Arial">X-Char</font></a></p>
+            </li>
+            <li><p align="left"><a href="#hw"><font size="2"
+                face="Arial">Hex Workshop</font></a></p>
+            </li>
+            <li><p align="left"><a href="#xlate"><font size="2"
+                face="Arial">X-Late</font></a></p>
+            </li>
+            <li><p align="left"><a href="#snestool"><font
+                size="2" face="Arial">SnesTool</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#tc"><font size="2" face="Arial">Bitplanes</font></a></p>
+    </li>
+    <li><p align="left"><a href="#ct"><font size="2" face="Arial">Patterns
+        of Text</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#un"><font size="2"
+                face="Arial">Finding the 16x16 Font</font></a></p>
+            </li>
+            <li><p align="left"><a href="#up"><font size="2"
+                face="Arial">Finding the 8x8</font></a></p>
+            </li>
+            <li><p align="left"><a href="#16"><font size="2"
+                face="Arial">16x16 Tiles</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#cg"><font size="2" face="Arial">Modifying
+        Graphics</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#up2"><font size="2"
+                face="Arial">Using X-Char</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#conclusion"><font size="2"
+        face="Arial">Polishing Up</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#cip"><font size="2"
+                face="Arial">Creating IPS Patches</font></a></p>
+            </li>
+            <li><p align="left"><a href="#fn"><font size="2"
+                face="Arial">Closing Statements</font></a></p>
+            </li>
+            <li><p align="left"><a href="#credits"><font size="2"
+                face="Arial">Credits</font></a></p>
+            </li>
+        </ul>
+    </li>
+</ol>
+
+<hr width="80%">
+
+<p align="left"><a name="intro"></a><font size="2" face="Arial"> <b><i><u>1.
+Introduction</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="begin" </a><font size="2" face="Arial"><b>Before
+you Read on</b><br>
+</font></a></p>
+
+<p align="left"><a name="begin" </a><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I
+wrote this guide for TurboGrafx translations because nobody else
+did, I learned how on my own, and I thought the translation scene
+could use expanding. SNES and NES translations were the limit to
+what could be done by the average joe. So for anyone who is a
+huge PCE fan, this is for you. See any errors in my guide? Well I
+can always be reached for flaming, complaining or correcting at </font></a><font
+size="2" face="Arial">shadow@dragonfire.net. </font></p>
+
+<p align="left"><a name="disc"></a><font size="2" face="Arial"> <b>Disclaimer</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Neither I nor any of the authors of respective pieces of
+information donated are responsible for the actions taken using
+this guide. All programs mentioned in this document maintain a
+copyright by their respected, official authors. Any violation of
+this or malignant action is your fault. By reading this document,
+you agree to abolish any sources mentioned above from any
+conviction. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="pg"></a><font size="2" face="Arial"> <b><i><u>2.
+Programs You'll Need</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="xchar"></a><font size="2" face="Arial"> </font><a
+href="faq/xchar.zip"
+onmouseover="window.status='Download X-Char'; return true"><font
+size="2" face="Arial"><b>X-Char</b></font></a><font size="2"
+face="Arial"> </font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This was the first SNES Sprite Editor available, it edits 1, 2,
+and 4 bitplane modes as well as 1 1/2 Kanji mode. It's Pea Soup
+colored palette may discourage some potentioal users but make no
+mistake, it is powerful. Unfortunatly it doesn't line the rows up
+very well but that being the only downside, I still like it :-)</font></p>
+
+<p align="left"><a name="sped"></a><font size="2" face="Arial"> </font><a
+href="faq/romedit.zip"
+onmouseover="window.status='Download Snes Sprite Editor'; return true"><font
+size="2" face="Arial"><b>ROM Edit</b></font></a><font size="2"
+face="Arial"><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+I can't make a plug on this one because I haven't used it.
+Apparently some people do and it comes with documentation. I
+posted it here as an alternate for those who are not pleased with
+X-Char.</font></p>
+
+<p align="left"><a name="hw"></a><font size="2" face="Arial"> </font><a
+href="ftp://ftp.uni-stuttgart.de/pub/systems/win95/tools/disk/hw32v25.exe"
+onmouseover="window.status='Download Hex Workshop'; return true"><font
+size="2" face="Arial"><b>Hex Workshop</b></font></a><font
+size="2" face="Arial"> </font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+I'm not gonna beat around the bush. Hex Workshop is the best Hex
+Editor anywhere! It has a great interface, and find/replace
+function (stay away from the all) function. It's also one of the
+easiest to use and best value around. If you're doing work with
+Hex, this is one godly tool. . Information on what it does and
+why you need it can be explained later. </font></p>
+
+<p align="left"><a name="xlate"></a><font size="2" face="Arial"> </font><a
+href="faq/xlate.zip"
+onmouseover="window.status='Download Xlate'; return true"><font
+size="2" face="Arial"><b>X-Late</b></font></a><font size="2"
+face="Arial"> </font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Yet another gem by BigWeird. This one changes the bytes offset to
+whatever you assign them to show in your table. Simply put, you
+can give hex bits whatever values you need. This was written in
+QBasic though so it's choppy and tends to crash. Still waiting
+for another version. If you're not too good at Hex, this is a
+good way to get experience with it. </font></p>
+
+<p align="left"><a name="snestool"></a><font size="2"
+face="Arial"> </font><a href="faq/snestool.zip"
+onmouseover="window.status='Download Snestool'; return true"><font
+size="2" face="Arial"><b>Snestool</b></font></a><font size="2"
+face="Arial"> </font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Snestool is a utility used for many console operations (though
+the name suggests otherwise). It does anything and everything you
+need it to.. The only function covered with it in this guide is
+it's ability to make IPS patches. Don't let the name fool you, it
+makes IPS patches for anything including EXE files and NES ROMS.
+I think this tool is invaluble. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="tc"></a><font size="2" face="Arial"> <b><i><u>3.
+Bitplanes</u></i></b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This is just a general guide to help you during tile editing. The
+topic, bitplanes. Below is a list of where to find what and in
+what bitplane mode;<br>
+</font></p>
+
+<ul>
+    <li><p align="left"><font size="2" face="Arial">16x16 tiles
+        (dialogue, sometimes battle menus) = 1 bitplane<br>
+        </font></p>
+    </li>
+    <li><p align="left"><font size="2" face="Arial">8x8 Text = I
+        only saw it in 1 game I worked with and it was 1 bitplane<br>
+        </font></p>
+    </li>
+    <li><p align="left"><font size="2" face="Arial">Graphical
+        Sprites = 1 or 2 bitplane</font></p>
+    </li>
+</ul>
+
+<p align="left"><font size="2" face="Arial">Hope this clarify's
+the use of bitplane modes and helps you to understand where you
+need to look. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="ct"></a><font size="2" face="Arial"> <b><i><u>4.
+Patterns of Text</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="un"></a><font size="2" face="Arial"> <b>Finding
+the Font</b><br>
+</font></p>
+
+<p align="left"><a name="tables"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This is real nitty gritty part of ROM translating. This example
+is from Bubblegum Crash so first get the ROM. Now open it in
+XChar (it tells how in the documentation if you can't spell DOS).
+CLick on the SNES box and switch to 1 bitplaneWhen you hit Byte
+Position 130824, you've gone far enough, you should see tiles
+that look like the sample below;<br>
+<br>
+</font></a></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td><font size="2" face="Arial"><img src="bcg.gif"
+        width="370" height="260" heigth="210"></font></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><a name="tables"><font size="2" face="Arial"><br>
+this is the 16x16 text from Bubblegum Crash. Now I won't go into
+finding addresses since you know that from the SNES
+documentation. You should notice the pattern of how tiles are
+assembled here;</font></a><font size="2" face="Arial"><br>
+</font><a name="tables"><font size="2" face="Arial"><br>
+</font></a></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td><img src="table3.gif" width="162" height="166"></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Now that you've got
+that down, you can see how all the other tiles fit together in
+sets of 4. Most all TurboGrafx RPGs use 16x16 text and very
+little 8x8. With that understood we can move on to recognization.</font></p>
+
+<p align="left"><a name="up"></a><font size="2" face="Arial"> <b>Finding
+the 8x8 Font</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+U8x8 fonts are not common in TurboGrafx ROMs. There is no reason
+why using 16x16 is better, it is most likely just a matter of
+programmers preference. One game that uses 8x8 text is Ninja
+Gaiden (japanese PCE version) so go get it. Open it up in XChar,
+switch to SNES Bitplane 1 and go to Byte Position 394128. This is
+what you'll find;<br>
+<br>
+</font></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td><img src="ninja.gif" width="352" height="246"></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Please, resist from
+yelling &quot;Shadow you moron! That's not 8x8, that's ROM code
+crap!&quot; because I'll beat you over the head with an umbrella.
+If you weren't so anxious and had looked a hair closer you would
+have seen the same stuff I did. Here's a blown up ordered image;<br>
+<br>
+</font></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td><img src="table4.gif" width="158" height="182"></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Now you see. This is
+a lot like how SNES 16x16's are made except when you count the
+pixels, these are each 8x8. Oh, they are also called like the
+SNES tiles, the system knows to overlap it like I had shown in
+the picture. Just thought I'd let you know.<br>
+<br>
+So are you having fun yet?<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="cg"></a><font size="2" face="Arial"> <b><i><u>5.
+Changing Graphics</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="up2"></a><font size="2" face="Arial"> <b>Using
+X-Char</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Editing graphics with X-Char is like using paintbrush. Here goes.
+Scroll through to the graphic as you did with SNES Sprite Editor.
+Now when you find it, right click on it then left click on the
+wokspace you want to drop it on (the 16x16 pixeled box in the
+upper right). Take a couple tiles, clic the paint icon. It wil
+appear full screen with a 4 color palette from which to pick your
+colors. Pick your color and draw it onto the tile. When you
+finish that tile, hit the little door icon and it brings you back
+to the main screen, do as many as you please. <br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="conclusion"></a><font size="2"
+face="Arial"> <b><i><u>6. Polishing Up</u></i></b> </font></p>
+
+<p align="left"><a name="cip"></a><font size="2" face="Arial"> <b>Creating
+IPS Patches</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If you're planning to give your work to someone or distribute
+your translation on the internet, you should make an IPS patch.
+Do this by opening up Snestool, clicking on Create IPS Patch,
+selecting the original, untranslated ROM, and then your version
+of it. That's all there is to it, you now have an IPS patch to
+distribute freely! </font></p>
+
+<p align="left"><a name="fn"></a><font size="2" face="Arial"> <b>Closing
+Statements</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+That's all for How to Translate SNES ROMs. If you understood this
+and plan to translate a game, let me know!. </font></p>
+
+<p align="left"><a name="credits"></a><font size="2" face="Arial">
+<b>Credits</b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Well, the people who helped out and what they did are in this
+neat table;</font></p>
+<div align="center"><center>
+
+<table border="2" bgcolor="#000000">
+    <tr>
+        <td><p align="center"><font color="#FFFF00" size="2"
+        face="Arial"><b>People</b></font></p>
+        </td>
+        <td><p align="center"><font color="#FFFF00" size="2"
+        face="Arial"><b>What they Did</b></font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><p align="right"><font color="#FFFF00" size="2"
+        face="Arial">Demi<br>
+        SoM2Freak</font></p>
+        </td>
+        <td><p align="left"><font color="#FFFF00" size="2"
+        face="Arial">- For writing an excellent ROMHACK document<br>
+        - For getting me going</font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p><font color="#FFFF00" size="2" face="Arial"><br>
+</font></p>
+
+<p><br>
+</p>
+</body>
+</html>

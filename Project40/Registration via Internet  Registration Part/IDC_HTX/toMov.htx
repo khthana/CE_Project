@@ -1,0 +1,26 @@
+<!-- This File is : Page show subject after pass the step of remove Subject  -->
+<!-- Last update : 26-03-1998 Status : ok -->
+<html>
+<head>
+<script language=JavaScript>
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<font size=+2 color=red><b><u>โปรดตรวจสอบรายวิชาที่ลงทะเบียน</u></b></font><br><br>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<font size=+1><b>รายการวิชาที่ลงทะเบียน</b></font>
+	<font size=-1>ลำดับที่ : <%Regis_No%></font>
+<table border=2>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+<tr>	<td bgcolor=skyblue><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+	<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+<%if CurrentRecord eq 0%>
+	<font size=+2>ไม่ปรากฏข้อมูลรายวิชา</font>
+<%endif%>
+</table>
+</body>
+</html>

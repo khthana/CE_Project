@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Data of Room Details</title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td align="center"><hr>
+        <table border="1">
+            <caption align="top"><font face="JasmineUPC"><strong>ผลการค้นหา:</strong></font></caption>
+            <tr>
+                <th><font face="JasmineUPC"><b>รหัสห้องเรียน</b></font></th>
+                <th><font face="JasmineUPC"><b>ชั้นที่</b></font></th>
+                <th><font face="JasmineUPC"><b>ชนิดของห้องเรียน</b></font></th>
+                <th><font face="JasmineUPC"><b>ความจุ</b></font></th>
+                <th><font face="JasmineUPC"><b>อาคาร</b></font></th>
+                <th><font face="JasmineUPC"><strong>ชื่ออาคาร</strong><b>เรียน</b></font></th>
+                <th><font face="JasmineUPC"><b>สถานที่</b></font></th>
+            </tr>
+<%begindetail%>            <tr>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Room_Code%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Room_Floor_No%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Room_Type%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Room_Capacity%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Building_Code%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Building_Name%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Building_Place%></b></font></th>
+            </tr>
+<%enddetail%>        </table>
+        </td>
+    </tr>
+</table>
+</center></div>
+<p>&nbsp;</p>
+</table>
+<%if CurrentRecord EQ 0>
+<center>
+        <h2><font face="JasmineUPC" align="center">ไม่พบข้อมูลห้องเรียนที่ทำการค้นหา
+        </font><font color="#0000FF" face="JasmineUPC"><strong><u><%idc.Subj_Id%>
+<%endif%>
+</center>
+<h3 align="center"><a href="http://sura/Proj97Scripts/linkmn.htm"><font
+face="JasmineUPC"><strong>กลับสู่เมนูหลัก</strong></font></a></h3>
+
+</body>
+</html>

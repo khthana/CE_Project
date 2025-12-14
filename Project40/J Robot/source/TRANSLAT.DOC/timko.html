@@ -1,0 +1,161 @@
+<html>
+
+<head>
+<title>RPGe: RPG Translations</title>
+</head>
+
+<body
+background="bgrnd.gif"
+bgcolor="#800000" text="#FFFFFF" link="#FFFF00" topmargin="0"
+leftmargin="0">
+<div align="center"><center>
+
+<table border="2" bgcolor="#000000">
+    <tr>
+        <td><p align="center"><font size="5" face="Arial"><b>&nbsp;</b><strong>How
+        to Edit 16x16 Tiles&nbsp;</strong></font> <font size="2"
+        face="Arial"><br>
+        v1.2</font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><font size="5" face="Arial"><br>
+</font><font size="2" face="Arial">By </font><a
+href="mailto:timko@inetport.com"><font size="2" face="Arial">David
+Timko</font></a><font size="5" face="Arial"><br>
+</font></p>
+
+<hr width="80%">
+
+<p align="center"><font size="4" face="Arial"><b><u>Table of
+Contents</u></b></font><font size="5" face="Arial"> </font></p>
+
+<p align="left"><font size="2" face="Arial">1. Introducton<br>
+<br>
+2. What Editor Can Edit 16x16 Tiles?<br>
+<br>
+3. How to Edit Them</font><br>
+</p>
+
+<hr width="80%">
+
+<p align="left"><font size="2" face="Arial"><b><i><u>1.
+Introduction</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="begin" </a><font size="2" face="Arial"><b>Before
+you Read on</b><br>
+</font></a></p>
+
+<p align="left"><a name="begin" </a><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></a><font
+size="2" face="Arial">Tiles that are 10 by 12 pixels (commonly
+referred to as 16x16 tiles, but are really 10x12 tiles) are
+commonly used in SNES games. Such examples are the SNES Final
+Fantasies (FF4, FF5, and FF6), the SNES Dragon Quest/Dragon
+Warrior Series (DQ 3 remake, DQ 1 &amp; 2 remake, DQ5, and DQ 6)
+and others. In reality, 10x12 tiles are not composed together in
+one tile, as many people believe. Instead, they are actually
+composed as 3 tiles, but are represented by only one address in
+the SNES. This makes it possible for the large characters seen in
+some games. These tiles are usually found in 1 bitplane mode.<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><font size="2" face="Arial"><b><i><u>2. What
+Editor Can Edit 16x16 Tiles?</u></i></b><br>
+</font></p>
+
+<p align="left"><font size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Just about any editor can edit them, but I recommend </font><a
+href="faq/xchar.zip"
+onmouseover="window.status='Download X-Char'; return true"><font
+size="2" face="Arial"><b>X-Char</b></font></a><font size="1"
+face="Arial"> </font><font size="2" face="Arial">(found at:
+http://www.parodius.com/~bigwierd/) or the SNES Sprite Editor
+(found at: http://www.public.iastate.edu/~jfries/DQ.htm). These
+sprite editors are capable of viewing tiles in 1 bitplane mode.
+This is useful, as the tiles are usually found in 1 bitplane
+mode.<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="tc"></a><font size="2" face="Arial"> <b><i><u>3.
+</u></i></b><em><strong><u>How to Edit Them</u></strong></em><br>
+</font></p>
+
+<p align="left"><font size="1" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font><font size="2" face="Arial">Okay, here comes the hard
+part. How in the blazes do you edit them things?? Well, simple.
+Here's how the 16x16 tile format works.</font><br>
+<br>
+</p>
+<div align="center"><center>
+
+<table border="3" cellspacing="1">
+    <tr>
+        <td><img
+        src="timko.gif"
+        width="579" height="166"></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><br>
+<font size="2" face="Arial">As you can see, the tile is split
+into 2 12x8 halves. You can do double letters easily by using one
+letter as the first half, and the second letter as the second
+half! This makes double letters easily without having to scrunch
+'em up in one tile. To edit them, draw one (or two, if you're
+trying the &quot;double letter method&quot;) 12x8 tile on paper
+(so you know what you're doing) and replace the japanese tile
+with the english one. If you are making only one letter for that
+tile, MAKE SURE the second half is completely blank (or else
+you'll still have japanese remnants in your tile!!) Some japanese
+chars have part of the tile as the first half, and part as the
+second half. You can do this too as a method as making wide
+tiles.<br>
+<br>
+Finding characters of these large tiles are easy. Remember that
+the entire thing (all 3 parts) count in a hexeditor as ONE TILE,
+so it's much easier than you think. From where the tile block
+ends (and the gabbledegook begins), count backward from FF (in
+hex) to where the 10x12's begin. For example, let's say
+&quot;z&quot; begins at FE (since FF is space), and after that is
+all ROM code (junk). You would make like this:<br>
+<br>
+FF = space<br>
+FE = z<br>
+FD = y<br>
+FC = x<br>
+FB = w <br>
+<br>
+and so on in that manner. But remember, you have to start at the
+LAST tile in that bunch (other sprites count, too). Also, FF
+usually is a space, so you will have to count spaces, too. Let's
+take an example. The power bar takes up addresses F6 to FE, and
+&quot;z&quot; was at F5. You would come up with something like
+this:<br>
+<br>
+</font></p>
+<div align="center"><center>
+
+<table border="3" cellspacing="1">
+    <tr>
+        <td><img
+        src="timko2.gif"
+        width="132" height="192"></td>
+    </tr>
+</table>
+</center></div>
+
+<p><br>
+<font size="2" face="Arial">and so on. This can get confusing, so
+if you have no clue as to what this is, e-mail me
+(timko@inetport.com)and I'll help you out. That's all folks! Now,
+go out and start messing with them tiles!!</font></p>
+</body>
+</html>

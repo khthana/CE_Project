@@ -1,0 +1,67 @@
+Secret of Mana 2 - Large font info
+==================================
+
+DO NOT SPREAD THIS TEXT WITHOUT PERMISSION.
+
+This game seems to have a packed font and text
+data to save space in the ROM. Luckily, it is
+fairly easy to work out how it is packed. 
+The following is my attempt to explain the layout
+of the main font in Mana 2. It may not be used
+in any other games, but people asked me to tell
+them about it. This is only for people who know
+how to hack ROM's, don't expect me to show you how
+to edit the font...
+
+
+- The font uses 988 characters.
+- Each char is made up of 25 bytes.
+- Each character is 14x13 pixels.
+
+- The data starts at 0x3e3100 (inc. 512 byte ROM header).
+- The data is (25 * 988) = 24700 bytes long.
+
+
+Ok, try to understand this diagram. On the left are
+the bytes used for each line of the character. On
+the right are the bits of those bytes in the order
+they are used (note that many bytes are used on more
+than one line...):
+
+
+                Pixel (column): 0  1  2  3  4  5  6  7  8  9 10 11 12 13
+
+Line 00: Bytes 00,01           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 01: Bytes 02,03           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 02: Bytes 04,05           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 03: Bytes 06,07           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 04: Bytes 08,09           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 05: Bytes 10,11           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 06: Bytes 12,13           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 07: Bytes 1,3,5,7,9,11,13 [1  0][1  0][1  0][1  0][1  0][1  0][1  0]
+Line 08: Bytes 14,15           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 09: Bytes 16,17           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 10: Bytes 18,19           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 11: Bytes 20,21           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+Line 12: Bytes 22,23           [7  6  5  4  3  2  1  0][7  6  5  4  3  2]
+
+If you want your font to appear correctly on snes9x,
+make sure it is 8x13 pixels, as snes9x does not show
+the rest of the font (yet...).
+
+Oh, this is not 100% complete, the font is probably 14x15,
+but I haven't worked out the last two lines. These lines
+are not really used much, so I have not bothered to find them.
+(only a couple of chars go beyond line 13 (p,q...)).
+Btw, these last lines will use bytes 24,25 and the last 2 bits
+of bytes 15,17,19,21 and 23 (probably). Mail me if you bother
+to work out what these bytes are for. If you work out how to
+edit the text messages in this game, also mail me, thanks.
+
+
+..Richard Bush [J3d!].......................................
+:  ICQ: 2365132                                            :
+:Email: rbush@firenet.net                                  :
+:  WWW: http://www.geocities.com/TimesSquare/Castle/6195/  :
+:..........................................................:
+

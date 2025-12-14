@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title></title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+<%if msg_false eq ''%><div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td><table border="2" cellpadding="0">
+            <tr>
+                <td><img src="kmitl.gif" width="100" height="90"></td>
+            </tr>
+        </table>
+        <p><br>
+        </p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><font color="#000000" face="JasmineUPC"><b>ยินดีต้อนรับนักศึกษาทุกท่าน</b><strong>เข้าสู่</strong></font><font
+face="JasmineUPC"><br>
+</font><font color="#000000" face="JasmineUPC"><b>ระบบลงทะเบียนผ่านเครือข่ายอินเตอร์เน็ต</b></font><font
+face="JasmineUPC"> </font><a
+href="http://sura/Proj97Scripts/linkmn.htm"><font color="#0000FF"
+face="JasmineUPC"><b>กรุณาเลือกรายการหลัก</b></font></a><font
+face="JasmineUPC"> <br>
+<br>
+</font></p>
+<%else%>
+<p align="center"><font face="JasmineUPC"><br>
+</font><img src="kmitl.gif" width="100" height="90"></p>
+
+<h3 align="center"><font face="JasmineUPC"><br>
+</font><font size="5" face="JasmineUPC"><b>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง</b></font><font
+face="JasmineUPC"> </font></h3>
+
+<h3 align="center"><a href="http://sura/Proj97Scripts/reg.htm"><font
+size="5" face="JasmineUPC"><strong>กลับสู่หน้าจอหลักเพื่อใส่ข้อมูลให้ถูกต้อง</strong></font></a></h3>
+<%endif%></body>
+</html>

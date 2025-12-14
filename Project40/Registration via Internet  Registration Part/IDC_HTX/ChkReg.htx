@@ -1,0 +1,76 @@
+<!-- This File is : Get command for show Subject list, Fee list or Grade list -->
+<!-- Last Update : 17/2/2541  Status= ok-->
+<HTML>
+<HEAD>
+<script language="JavaScript">
+function passValue(){
+	/* for formy รายวิชาลงทะเบียน*/
+	document.formy.ystd_id.value=parent.left.document.c5.Std_id.value;
+	document.formy.ysignature.value=parent.left.document.c5.Passwd.value;
+	document.formy.yLoginName.value=parent.left.document.c5.LoginName.value;
+	/* for formz ค่าธรรมเนียม*/
+	document.formz.zstd_id.value=parent.left.document.c5.Std_id.value;
+	document.formz.zsignature.value=parent.left.document.c5.Passwd.value;
+	document.formz.zLoginName.value=parent.left.document.c5.LoginName.value;	
+	/* for form_ ผลการเรียน*/
+	document.form_.std_id_.value=parent.left.document.c5.Std_id.value;
+	document.form_.signature_.value=parent.left.document.c5.Passwd.value;
+	document.form_.LoginName_.value=parent.left.document.c5.LoginName.value;	
+}
+function detect(){
+	passValue()
+	if( document.form_.term.value!='' && document.form_.year.value!='')
+		return checkTermYear();
+	else	return true;
+}
+function checkTermYear(){
+	var status=true;
+	chx=document.form_.term.value;
+	if( ((chx < '0') && (chx > '9')) || chx=='' ){
+		alert("   ข้อมูลภาคการศึกษาไม่ถูกต้อง   ");
+		status=false;
+	}
+	else	for(i=0; i<=3; i++){      /* 0-3 for 4 digit .. eq 2540 , 2538 , 2539 */
+			xch=document.form_.year.value;
+			ch = xch.charAt(i);
+			if( (ch < '0' && ch > '9') || ch==''){
+				i=4;
+				alert("   ข้อมูลปีการศึกษาไม่ถูกต้อง   ");
+				status=false;
+			}
+		}
+	return status;
+}
+</script>
+</HEAD>
+<body background=..\..\Image\Bg_brown.gif>
+<br>
+<%if msg_false eq ''%>
+<center>
+<table border=1 width=70%><tr><td align=center bgcolor=orange>
+<font size=+1 color=blue><b>เลือกรายการที่ต้องการตรวจสอบ</b></font></center></td></tr>
+<tr><td align=center><br>
+<form name=formy action="http://161.246.6.32/scripts/Project97/ChkSubj.idc" onSubmit="return detect()">
+	<input type=hidden name=ystd_id ><input type=hidden name=ysignature>
+	<input type=hidden name=yLoginName><input type=submit value="      รายวิชาลงทะเบียน      ">
+</form>
+<form name=formz action="http://161.246.6.32/scripts/Project97/ChkFee.idc" onSubmit="return detect()">
+	<input type=hidden name=zstd_id><input type=hidden name=zsignature>
+	<input type=hidden name=zLoginName><input type=submit value="รายการชำระค่าธรรมเนียม">
+</form>
+<form name=form_ action="http://161.246.6.32/scripts/Project97/ChkGrade.idc" onSubmit="return detect()">
+	<input type=hidden name=std_id_><input type=hidden name=signature_>
+	<input type=hidden name=LoginName_>
+	<font size=-1><b>ภาคการศึกษา : <input type=text name=term size=4 maxlength=1>
+			ปีการศึกษา : <input type=text name=year size=4 maxlength=4></b></font><br><br>
+	<input type=submit value="           ผลการเรียน           "><br><br>
+</form></td></tr></table>
+<br></center>
+<center>
+<font size=-1 color=red><b>*** กรณีตรวจสอบผลการเรียน กรุณานำเข้า - ภาคการศึกษา และ ปีการศึกษา ***</b></font><br>
+</center>
+<%else%><center><br><font size=+2>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง</font></center>
+<%endif%>
+
+</BODY>
+</HTML>

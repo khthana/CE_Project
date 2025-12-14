@@ -1,0 +1,128 @@
+<HTML>
+<HEAD>
+<TITLE>แนะนำหนังสือและบริการ</title>
+
+<BODY background="../images/bg_srv2.gif" bgcolor="#FFFFFF" text="#000000" link="#000080" vlink="#800080" alink="#0000FF">
+<script language="JavaScript">
+<!-- script to switch out buttons -->-->
+function nbsp() {document.write("&nbsp;");}
+function copy() {document.write("&copy;");}
+var iversion = -1;
+
+function version() {
+        if (iversion != -1) return iversion;
+        if(navigator.appName.indexOf("Netscape") != -1){
+                if (navigator.userAgent.indexOf("Mozilla/2.0") != -1) 
+                                                iversion = 2;
+                        else
+                            if (navigator.userAgent.indexOf("Mozilla/3.0") != -1) 
+                                                        iversion = 3;
+                                        else
+                                        if (navigator.userAgent.indexOf("Mozilla/4.0") != -1)
+                                                iversion = 4;
+                                        else
+                                            iversion = 1;
+        }  else {  // Not netscape.
+                if(navigator.appName.indexOf("Internet Explorer") != -1){
+                     if (navigator.userAgent.indexOf("Mozilla/4.0") != -1) 
+                                iversion = 4; 
+                         else   
+                            iversion = 1;
+                     } else 
+                        iversion = 1;
+               }
+        return iversion;
+}
+
+
+if (3 <= version()) {
+        mainon = new Image();
+        mainon.src = "../images/menu_bar_on1.gif";
+        mainoff = new Image();
+        mainoff.src = "../images/menu_bar1.gif";
+        newson = new Image();
+        newson.src = "../images/news_bar_on1.gif";
+        newsoff = new Image();
+        newsoff.src = "../images/news_bar1.gif";
+        searchon = new Image();
+        searchon.src = "../images/search_bar_on1.gif";
+        searchoff = new Image();
+        searchoff.src = "../images/search_bar1.gif";
+        serveon = new Image();
+        serveon.src = "../images/serve_bar_on1.gif";
+        serveoff = new Image();
+        serveoff.src = "../images/serve_bar1.gif";
+        abouton = new Image();
+        abouton.src = "../images/about_bar_on1.gif";
+        aboutoff = new Image();
+        aboutoff.src = "../images/about_bar1.gif"; 
+}
+function rollon(imgName) {
+        if (3 <= iversion) {
+        imgOn = eval(imgName + "on.src");
+        document[imgName].src = imgOn;
+        }
+}
+function rolloff(imgName) {
+        if (3 <= iversion) {
+        document[imgName].src = eval(imgName + "off.src");
+        }
+}
+</script>
+
+<FORM ACTION="../cgi-bin/registry.pl" METHOD=POST>
+<table border="0" width="100%" cellspacing="0">
+  <tr>
+    <td width="17%"><a href="../index.html"><img src="../images/books.gif" alt="books.gif (9040 bytes)" WIDTH="120" HEIGHT="100" border="0"></a></td>
+    <td width="83%"><img src="../images/suggest_title.gif" alt="serv_title.gif (13688 bytes)" WIDTH="480" HEIGHT="76"></td>
+  </tr>
+</table>
+
+<center>
+<table border="0" width="100%" cellspacing="0">
+  <tr>
+    <td width="17%"></td>
+    <td width="83%"> <b>ชื่อ :</b><BR><input type=text name="fullname" size=50><br></td>
+  </tr>
+  <tr>
+    <td width="17%"></td>
+    <td width="83%"><b>E-mail:</b><BR> <input type=text name="email" size=50></td>
+  </tr>
+  <tr>
+    <td width="17%"></td>
+    <td width="83%"><b>Homepage: ( อย่าลืมใส่ http:// )</b><BR><input type=text name="url" size=50> </td>
+  </tr>
+  <tr>
+    <td width="17%"></td>
+    <td width="83%"><b>แนะนำหนังสือ: </b><BR> <input type=text name="book" size=50></td>
+  </tr>
+  <tr>
+    <td width="17%"></td>
+    <td width="83%"><b>แนะนำบริการ: </b><BR> <textarea name="service" cols=50 rows=4 wrap=on></textarea></td>
+  </tr>
+</table>
+<br>
+<input type=submit value=" ตกลง "> <input type=reset value=" ยกเลิก "><p>
+<input type=hidden name="action" value="add">
+</FORM>
+<table border="0" width="62%" cellspacing="0">
+  <tr>
+    <td width="46%"><a href="../index.html" onmouseover="rollon('main'); return false" onmouseout="rolloff('main'); return false"><img src="../images/menu_bar1.gif" alt="menu_bar1.gif (1473 bytes)" border="0" name="main" WIDTH="88" HEIGHT="29"></a></td>
+    <td width="38%"><a href="../about/about.html" onmouseover="rollon('about'); return false" onmouseout="rolloff('about'); return false"><img src="../images/about_bar1.gif" alt="about_bar1.gif (1808 bytes)" border="0" name="about" WIDTH="163" HEIGHT="29"></a></td>
+    <td width="37%"><a href="../news/news.html" onmouseover="rollon('news'); return false" onmouseout="rolloff('news');" retuen false"><img src="../images/news_bar1.gif" alt="news_bar1.gif (1797 bytes)" border="0" name="news" WIDTH="163" HEIGHT="29"></a></td>
+  </tr>
+</table>
+
+<table border="0" width="38%" cellspacing="0">
+  <tr>
+    <td width="50%"><a href="../search/search.html" onmouseover="rollon('search'); return false" onmouseout="rolloff('search'); return false"><img src="../images/search_bar1.gif" alt="search_bar1.gif (1624 bytes)" border="0" name="search" WIDTH="116" HEIGHT="29"></a></td>
+    <td width="50%"><a href="../serve/serv.html" onmouseover="rollon('serve'); return false" onmouseout="rolloff('serve'); return false"><img src="../images/serve_bar1.gif" alt="serve_bar1.gif (1625 bytes)" border="0" name="serve" WIDTH="86" HEIGHT="29"></a></td>
+  </tr>
+</table>
+
+</center>
+<HR noshade size="1">
+<i><a href="http://161.246.37.100/cgi-bin/reg-admin.pl"><p align="right">Administrator</a></i>
+
+</BODY>
+</HTML>

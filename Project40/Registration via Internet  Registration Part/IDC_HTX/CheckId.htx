@@ -1,0 +1,21 @@
+<!-- This File is : Page After checked ID of user -->
+<!-- Last Update : 26-03-1998 -->
+<HTML>
+<HEAD>
+</HEAD>
+<BODY  background="..\..\Image\Bg_brown.gif">
+<%if msg_false eq ''%>
+<center>
+<table><tr><td>
+<table border=2 cellpadding=0><tr><td><img src=../../Image/king4.jpg border=0></td></tr></table><br>
+	</td></tr></table>
+<center><font color=black><b>ยินดีต้อนรับนักศึกษาทุกท่าน</b></font></center>
+<center><font color=blue><i>เข้าสู่</i></font><br><font color=black><b>ระบบลงทะเบียนผ่านเครือข่ายอินเตอร์เน็ต</b></font></center>
+<center><font color=blue><b>กรุณาเลือกรายการหลัก</b></font></center>
+</center>
+<%else%><br><br>
+	<center><font size=+2><b>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง</b></font></center>
+<%endif%>
+<%enddetail%>
+</BODY>
+</HTML>

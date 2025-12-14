@@ -1,0 +1,83 @@
+Super Dante - Large font info
+=============================
+
+DO NOT SPREAD THIS TEXT WITHOUT PERMISSION.
+THERE IS ALREADY A DANTE TRANSLATION IN
+PROGRESS, PLEASE DON'T START YOUR OWN!
+
+This game seems to have a packed font and text
+data to save space in the ROM. Luckily, it is
+fairly easy to work out how it is packed. 
+The following is my attempt to explain the layout
+of the large font in Super Dante. It may or may not
+be used in other snes games. This is only for people
+who know how to hack ROM's, don't expect me to show
+you how to edit the font...
+
+
+- The font uses 272 characters.
+- Each character is ??x16 pixels.
+- Characters have a variable width.
+
+- The data starts at 0x160a2 (no 512 byte ROM header).
+
+Due to the variable width of the font, each character
+takes a different number of bytes. The first byte of
+each character is the width of that character (in
+pixels). then the data for the character follows.
+This font is unusual, as the data is stored for each
+column of the character, instead of each row.
+Following the width byte, Column 0 has the next 2 bytes,
+column 1 the next 2 and so on. This table is supposed
+to show which bits represent which pixels:
+
+
+	Column: 0 1 2 3 4 5 6 7 etc...
+		---------------
+Row 0:		0 0 0 0 0 0 0 0
+Row 1:		1 1 1 1 1 1 1 1
+Row 2:		2 2 2 2 2 2 2 2
+Row 3:		3 3 3 3 3 3 3 3
+Row 4:		4 4 4 4 4 4 4 4
+Row 5:		5 5 5 5 5 5 5 5
+Row 6:		6 6 6 6 6 6 6 6
+Row 7:		7 7 7 7 7 7 7 7
+
+Row 8:		0 0 0 0 0 0 0 0
+Row 9:		1 1 1 1 1 1 1 1
+Row 10:		2 2 2 2 2 2 2 2
+Row 11:		3 3 3 3 3 3 3 3
+Row 12:		4 4 4 4 4 4 4 4
+Row 13:		5 5 5 5 5 5 5 5
+Row 14:		6 6 6 6 6 6 6 6
+Row 15:		7 7 7 7 7 7 7 7
+
+For each character:
+
+Byte| Used for
+----+----------------------------
+  0 | Width of character
+  1 | Top 8 pixels of column 0
+  2 | Bottom 8 pixels of column 0
+  3 | Top 8 pixels of column 1
+  4 | Bottom 8 pixels of column 1
+  5 | Top 8 pixels of column 2
+  6 | Bottom 8 pixels of column 2
+  7 | Top 8 pixels of column 3
+  8 | Bottom 8 pixels of column 3
+  9 | Top 8 pixels of column 4
+ 10 | Bottom 8 pixels of column 4
+ etc...
+
+So each character takes:
+
+1 byte for width
+width*2 bytes for data
+
+
+..Richard Bush [J3d!].......................................
+:  ICQ: 2365132                                            :
+:Email: rbush@firenet.net                                  :
+:  WWW: http://www.geocities.com/TimesSquare/Castle/6195/  :
+:..........................................................:
+

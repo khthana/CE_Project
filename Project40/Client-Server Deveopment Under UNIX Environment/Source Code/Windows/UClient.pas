@@ -1,0 +1,441 @@
+Unit UClient;
+
+interface
+
+{ Identifies all units used by the program. }
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Menus, StdCtrls, ExtCtrls, Winsock;
+
+{ The Const reserved word defines an identifier whose value
+ cannot change within the block containing the declaration }
+Const MaxBuffer = 1024;  { Max Buffer }
+      WM_WINSOCKTCP  = WM_USER + 1;  { WinSock Event In TCP Type }
+      WM_WINSOCKUDP  = WM_USER + 2;  { WinSock Event In UDP Type }
+      WM_SENDTCP     = WM_USER + 3;  { Message Event Send In TCP Type }
+      WM_SENDUDP     = WM_USER + 4;  { Message Event Send In UDP Type }
+      WM_SETCURSOR   = WM_USER + 5;  { Message Event Set Cursor }
+
+{A type declaration specifies an identifier that denotes a type.
+ A variable's type defines the set of values it can have and the
+ operations that can be performed on it. }
+type
+  TFClient = class(TForm)
+    Memoshow: TMemo;
+    MainMenu: TMainMenu;
+    SelectProtocol: TMenuItem;
+    RemoteSystem: TMenuItem;
+    Exit1: TMenuItem;
+    Panel1: TPanel;
+    Editsend: TEdit;
+    Label1: TLabel;
+    MTCP: TMenuItem;
+    TCP1: TMenuItem;
+    UDP1: TMenuItem;
+    MUDP: TMenuItem;
+    Exit2: TMenuItem;
+    CreateTCP: TMenuItem;
+    ConnectTCP: TMenuItem;
+    BindUDP: TMenuItem;
+    DisconnectTCP: TMenuItem;
+    CloseSocketUDP: TMenuItem;
+
+    procedure TCP1Click(Sender: TObject); { Select TCP Protocol }
+    procedure UDP1Click(Sender: TObject); { Select UDP Protocol }
+    procedure Exit1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure RemoteSystemClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CreateTCPClick(Sender: TObject);
+    procedure ConnectTCPClick(Sender: TObject);
+    procedure DisconnectTCPClick(Sender: TObject);
+    procedure BindUDPClick(Sender: TObject);
+    procedure EditsendKeyPress(Sender: TObject; var Key: Char);
+    procedure CloseSocketUDPClick(Sender: TObject);
+  private
+    { Private declarations }
+
+    { Connected socket desriptor }
+    Sd_UDP,Sd_TCP: TSocket;
+    { SockAddrIn structure is specification for Internet address family
+      Use to assign the components of an Internet Address}
+    SAddr_Loc, SockAddr: PSockAddrIn;
+    SAddr_to, SAddr_From: PSOCKAddrIn;
+    { A pointer to the WSADATA data structure that is to
+     receive details of the Windows Sockets implementation. }
+    WSData: TWSAData;
+    Version: Word; { Version of Winsock.DLL }
+    { Data Buffer For Send & Receive }
+    BufferTCP, BufferUDP: Array[0..MaxBuffer-1] Of Char;
+    ResultTCP, ResultUDP, LenBufferUDP: Integer;
+    { Counter For Send Data TCP & UDP }
+    CountSendTCP, CountSendUDP: Integer;
+    { Save Text From EditSend.Text }
+    TextTCP, TextUDP: String;
+    HostTCP,HostUDP: PHOSTENT;   { Keep  Address & Name Structure  }
+    SHostTCP, SHostUDP: String;  { Keep Server Name }
+
+    Procedure CheckErrorCode(Text: String);
+    { Windows Message For Event TCP From Winsock }
+    Procedure EventTCP(Var M: TMessage);Message WM_WINSOCKTCP;
+    { Windows Message For Event UDP From Winsock }
+    Procedure EventUDP(Var M: TMessage);Message WM_WINSOCKUDP;
+    { Windows Message For Send Event TCP }
+    procedure SendDataTCP(Var M: TMessage); Message WM_SENDTCP;
+    { Windows Message For Send Event UDP }
+    procedure SendDataUDP(Var M: TMessage); Message WM_SENDUDP;
+    { Windows Message For Set Cursor }
+    Procedure SetCursorX(VAr M: TMessage); Message WM_SETCURSOR;
+  public
+    { Public declarations }
+
+    { Variable Save Value IP ADDRESS and PORT }
+    IP_Text, Port_Text : String;
+  End;
+
+var
+  { Declaration Type to FClient }
+  FClient: TFClient;
+
+{ The implementation part of a unit defines the
+ block of all public procedures }
+implementation
+ Uses URemote;
+
+{$R *.DFM}
+
+
+
+procedure TFClient.TCP1Click(Sender: TObject); { Select TCP protocal }
+begin
+ IF Not TCP1.Checked Then  { Indicates whether the check menu is selected }
+ Begin
+  { TCP1 MenuItem is Selected }
+  { Enabled MTCP MenuItem controls whether the control
+    responds to mouse, keyboard, and timer events.  }
+  TCP1.Checked := True;
+  MTCP.Enabled := True;
+  {*********************}
+  { UDP1 MenuItem is UnSelected }
+  { Disabled MUDP MenuItem controls whether the control
+    responds to mouse, keyboard, and timer events.  }
+  UDP1.Checked := False;
+  MUDP.Enabled := False;
+ end;
+end;
+
+
+procedure TFClient.UDP1Click(Sender: TObject); { Select UDP protocal }
+begin
+ IF Not UDP1.Checked Then  { Indicates whether the check menu is selected }
+ begin
+  { UDP1 MenuItem is Selected }
+  { Enabled MUDP MenuItem controls whether the control
+    responds to mouse, keyboard, and timer events.  }
+  UDP1.Checked := True;
+  MUDP.Enabled := True;
+  {**********************}
+  { TCP1 MenuItem is UnSelected }
+  { Disabled MTCP MenuItem controls whether the control
+    responds to mouse, keyboard, and timer events.  }
+  TCP1.Checked := False;
+  MTCP.Enabled := False;
+ end;
+end;
+
+
+procedure TFClient.Exit1Click(Sender: TObject); { Close All Application }
+begin
+ { Closes a sockets. it releases the socket descriptor }
+ IF DisConnectTCP.Enabled Then ResultTCP := CloseSocket(Sd_TCP);
+ IF CloseSocketUDP.Enabled Then ResultUDP := CloseSocket(Sd_UDP);
+{ Releases memory allocated for a dynamic variable. }
+ Dispose(SockAddr);
+ Dispose(SAddr_Loc);
+ Dispose(SAddr_to);
+ Dispose(SAddr_From);
+ Close;  { Close All Application }
+end;
+
+
+procedure TFClient.FormActivate(Sender: TObject);  { Start Applcation }
+begin
+{ Create Pointer to Variable }
+ New(HostTCP);
+ New(HostUDP);
+ New(SockAddr);
+ New(SAddr_Loc);
+ New(SAddr_to);
+ New(SAddr_From);
+ Version := MAkeword(1,1);
+ ResultTCP := WSAStartUp(Version, WsData);   { Load Winsock.Dll }
+ If ResultTCP = 0 Then                       { WsaStartUp Successfull }
+ begin
+  { Show Description Winsock.DLL }
+  MemoShow.Lines.Add('Start Load..  Winsock.DLL OK');
+  MemoShow.Lines.Add(WsData.szDescription);
+  MemoShow.Lines.Add(WsData.szSystemStatus);
+ end Else
+ begin
+  MemoShow.Lines.Add('Start.. Can not Load Winsock.DLL ');
+ end;
+end;
+
+
+procedure TFClient.RemoteSystemClick(Sender: TObject);
+begin
+{ Show a form *FRemote* as a modal form. }
+ FRemote.Showmodal;
+end;
+
+procedure TFClient.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+{  The Windows Sockets WSACleanup function
+  terminates use of the Windows Sockets DLL.  }
+ WSACleanup();
+end;
+
+procedure TFClient.CreateTCPClick(Sender: TObject);
+ Var IPAddress: Array[0..20] of Char;
+Begin
+{ TheWindows Sockets socket function creates a TCP socket .
+  If the function succeeds, socket returns a descriptor referencing the new socket.
+  If the function fails, a value of INVALID_SOCKET is returned }
+ Sd_TCP := Socket(PF_INET, SOCK_STREAM, 0);
+ If Sd_TCP = INVALID_SOCKET Then  CheckErrorCode('Create')
+ Else
+ begin
+  MemoShow.Lines.Add('TCP Create Socket OK ');
+  StrPCopy(IPAddress,IP_Text);
+  { Set IP Address, Port for TSockAddrIn Structure To SockAddr Variable }
+  SockAddr.sin_family := PF_INET;
+  SockAddr.sin_addr.s_addr := Inet_Addr(IPAddress); { IP Server }
+  SockAddr.sin_port := htons(StrtoInt(Port_Text));  { Port Server }
+ end;
+end;
+
+procedure TFClient.CheckErrorCode(Text: String); { Check error Code }
+Var ErrorCode: Integer;
+    S: String;
+Begin
+ S := '';
+ { Gets the error status for the last operation that failed. }
+ ErrorCode := WsaGetLastError();
+ Case ErrorCode OF
+  WSAEADDRNOTAVAIL:  {10049}
+    S := 'The specified address is not available from the local computer.';
+  WSAECONNREFUSED:   {10061}
+    S := 'The attempt to connect was forcefully rejected.';
+  WSAENOTSOCK:       {10038}
+    S := 'The descriptor is not a socket.';
+ End;
+ If S <> '' Then S := '   *' + S + '*';
+ S := InttoStr(ErrorCode) + ':  ERROR ' + Text + S;
+ MemoShow.Lines.Add(S);
+end;
+
+
+
+procedure TFClient.ConnectTCPClick(Sender: TObject);
+Var H : Hwnd;
+begin
+ { Local Connect to Server }
+ SendMessage(Handle, WM_SETCURSOR, crHourGlass, 0);  { Set HourGlass Cursor }
+ ResultTCP := Connect(Sd_TCP,SockAddr^,Sizeof(SockAddr^)); { Connect to Server }
+ SendMessage(Handle, WM_SETCURSOR, CrDefault, 0);    { Set Default Cursor }
+ If ResultTCP = SOCKET_ERROR Then CheckErrorCode('Connect')
+ Else
+ begin
+  CreateTCP.Enabled := False;
+  ConnectTCP.Enabled := False;
+  DisconnectTCP.Enabled := True;
+  EditSend.SetFocus;
+  { The Windows Sockets WSAAsyncSelect function requests event notification for a socket. }
+  ResultTCP := WsAAsyncSelect(Sd_TCP,Handle,WM_WINSOCKTCP,FD_CONNECT OR FD_READ);
+  If ResultTCP = SOCKET_ERROR Then CheckErrorCode('WsaAsynSelect ');
+ end;
+end;
+
+{ Procedure Receive Message  Event WM_WINSOCKTCP   **TCP** }
+Procedure TFClient.EventTCP(Var M: TMessage);
+Begin
+ Case (M.LParam) Of
+  FD_CONNECT :    { Receive notification of completed connection }
+   begin
+    SendMessage(Handle, WM_SETCURSOR, crHourGlass, 0);  { Set HourGlass Cursor }
+    HostTCP := Gethostbyaddr(@SockAddr.sin_addr.s_addr, 4, PF_INET);
+    { Retrieves the hostname By IP Address from Database File (Hosts file) }
+    If HostTCP = Nil Then SHostTCP := Inet_ntoa(SockAddr.sin_addr)
+    Else SHostTCP := HostTCP.h_name;
+    SendMessage(Handle, WM_SETCURSOR, CrDefault, 0);    { Set Default Cursor }
+    MemoShow.Lines.Add('CONNECT TO #' + SHostTCP + '# SERVER ...OK');
+   end;
+  FD_READ :       { Receive notification of readiness for reading }
+   begin
+    BufferTCP := '';
+    { Receives data from a socket. }
+    ResultTCP := Recv(Sd_TCP,BufferTCP,MaxBuffer,0);
+    If ResultTCP = SOCKET_ERROR Then CheckErrorCode('Recv')
+     Else MemoShow.Lines.Add('Return From #' + SHostTCP + '# Server: ' + BufferTCP);
+    { Check Amount Send}
+    If CountSendTCP < 100 Then
+    begin
+     Inc(CountSendTCP);
+     { the window procedure is called immediately as a subroutine.
+      If the specified window was created by a different thread,
+      Windows switches to that thread and calls the
+      appropriate window procedure.  }
+     SendMessage(Handle,WM_SENDTCP,0,0); { Message to SendDataTCP procedure }
+    end Else CountSendTCP := 0;
+
+   end;{read}
+ end;{Case }
+end;
+
+{ Procedure Receive Message  Event WM_WINSOCKUDP  **UDP** }
+Procedure TFClient.EventUDP(Var M: TMessage);
+Begin
+ Case (M.LParam) Of
+  FD_READ :   { Receive notification of readiness for reading }
+   begin
+    BufferUDP := '';
+    LenBufferUDP := SizeOf(SAddr_From^);
+    { Receives a datagram and stores the source address. }
+    ResultUDP := RecvFrom(SD_UDP,BufferUDP,MaxBuffer,0,SAddr_From^,LenBufferUDP);
+    If ResultUDP = SOCKET_ERROR Then CheckErrorCode('RecvFrom')
+     Else MemoShow.Lines.Add('Return From #' + SHostUDP + '# Server: ' + BufferUDP);
+    If CountSendUDP < 100 Then
+    begin
+     Inc(CountSendUDP);
+     SendMessage(Handle,WM_SENDUDP,0,0); { Message to SendDataUDP procedure }
+    end Else CountSendUDP := 0;
+
+   end;{read}
+ End; {Case}
+End;
+
+
+
+procedure TFClient.DisconnectTCPClick(Sender: TObject); { End Connect TCP }
+begin
+ { Closes a sockets. it releases the tcp socket descriptor }
+ ResultTCP := CloseSocket(Sd_TCP);
+ If ResultTCP = SOCKET_ERROR Then CheckErrorCode('CloseSocket')
+ Else
+ begin
+  MemoShow.Lines.Add('Disconnect OK ....');
+  DisconnectTCP.Enabled := False;
+  CreateTCP.Enabled := True;
+  ConnectTCP.Enabled := True;
+ end;
+end;
+
+{ Create,Bind Local Socket and Set Address Server }
+procedure TFClient.BindUDPClick(Sender: TObject);
+Var IPAddress: Array[0..20] of Char;
+begin
+{ TheWindows Sockets socket function creates a UDP socket .
+  If the function succeeds, socket returns a descriptor referencing the new socket.
+  If the function fails, a value of INVALID_SOCKET is returned }
+ Sd_UDP := Socket(PF_INET, SOCK_DGRAM, 0);
+ If Sd_UDP = INVALID_SOCKET Then CheckErrorCode('Create')
+ Else
+ begin
+   MemoShow.Lines.Add('UDP Create Socket OK ');
+   BindUDP.Enabled := False;
+   CloseSocketUDP.Enabled := True;
+   EditSend.SetFocus;
+   MemoShow.Lines.Add('Create Socket OK');
+   { Set Address,Port For Local Address }
+   SAddr_Loc.sin_family := PF_INET;
+   SAddr_Loc.sin_addr.s_addr := htonl(INADDR_ANY);
+   SAddr_Loc.sin_port := htons(0); { Assign By System }
+   { Associates a local address with a socket. }
+   ResultUDP := Bind(Sd_UDP,SAddr_Loc^,Sizeof(SAddr_Loc^));
+   If ResultUDP = SOCKET_ERROR Then CheckErrorCode('Bind')
+   Else
+   begin
+    MemoShow.Lines.Add('UDP Bind OK');
+    { Request that the Windows Sockets DLL should send a message
+      to the window hWnd whenever it detects any of the network events
+     specified by the lEvent parameter. The message that should be
+     sent is specified by the wMsg parameter. }
+    ResultUDP := WsAAsyncSelect(Sd_UDP,Handle,WM_WINSOCKUDP, FD_READ);
+    If ResultUDP = SOCKET_ERROR Then CheckErrorCode('WsaAsyncSelect');
+   end;
+ end;
+ { Set Addr_In For Remote Machine **Server** }
+ StrPCopy(IPAddress,IP_Text);
+ SAddr_To.sin_family := PF_INET;
+ SAddr_To.sin_addr.s_addr := Inet_Addr(IPAddress);
+ SAddr_To.sin_port := htons(StrtoInt(Port_Text));;
+ SendMessage(Handle, WM_SETCURSOR, crHourGlass, 0);  { Set HourGlass Cursor }
+ HostUDP := Gethostbyaddr(@SAddr_To.sin_addr.s_addr, 4, PF_INET);
+ { Retrieves the hostname By IP Address from Database File (Hosts file) }
+ If HostUDP = Nil Then SHostUDP := Inet_ntoa(SockAddr.sin_addr)
+ Else SHostUDP := HostUDP.h_name;
+ SendMessage(Handle, WM_SETCURSOR, CrDefault, 0);    { Set Default Cursor }
+end;
+
+
+procedure TFClient.EditsendKeyPress(Sender: TObject; var Key: Char);
+Begin
+ If Key = Chr(13) Then { Check KeyPressed Enter }
+ Begin
+  IF TCP1.Checked Then
+  begin
+   CountSendTCP := 0;
+   TextTCP := EditSend.Text;
+   SendMessage(Handle,WM_SENDTCP,0,0); { Message to SendDataTCP procedure }
+  end
+  ELse IF UDP1.Checked Then
+  begin
+   CountSendUDP := 0;
+   TextUDP := EditSend.Text;
+   SendMessage(Handle,WM_SENDUDP,0,0); { Message to SendDataUDP procedure }
+  end;
+ end;
+End;
+
+
+procedure TFClient.SendDataTCP(Var M : Tmessage);
+begin
+ StrPCopy(BufferTCP, TextTCP + Inttostr(CountSendTCP));
+ { Sends data on a connected socket.}
+ ResultTCP := Send(SD_TCP, BufferTCP ,Length(BufferTCP) ,0);
+ If ResultTCP = SOCKET_ERROR Then CheckErrorCode('Send')
+End;
+
+
+procedure TFClient.SendDataUDP(Var M : Tmessage);
+begin
+ StrPCopy(BufferUDP, TextUDP + Inttostr(CountSendUDP));
+ { Sends data to a specific destination. }
+ ResultUDP := Sendto(Sd_UDP, BufferUDP, Length(BufferUDP), 0, SAddr_to^, Sizeof(SAddr_to^));
+ If ResultUDP = SOCKET_ERROR Then CheckErrorCode('Sendto')
+end;
+
+procedure TFClient.CloseSocketUDPClick(Sender: TObject);
+begin
+ { Closes a sockets. it releases the udp socket descriptor }
+ ResultUDP := CloseSocket(Sd_UDP);
+ If ResultUDP = SOCKET_ERROR Then CheckErrorCode('CloseSocket')
+ Else
+ begin
+  MemoShow.Lines.Add('CloseSocket UDP OK ....');
+  BindUDP.Enabled := True;
+  CloseSocketUDP.Enabled := False;
+ end;
+end;
+
+
+Procedure TFClient.SetCursorX(Var M: TMessage);  { Set Cursor }
+begin
+ EditSend.Cursor := M.WParam;
+ Panel1.Cursor   := M.WParam;
+ Memoshow.Cursor := M.WParam;
+ FClient.Cursor  := M.WParam;
+end;
+
+end.
+

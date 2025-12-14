@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<TITLE>แนะนำหนังสือและบริการ</title>
+
+<BODY background="../cgi-bin/bg2.gif" link=Navy vlink=Maroon>
+<FORM ACTION="../cgi-bin/registry.pl" METHOD=POST>
+<FONT size=+2 ><b>แนะนำหนังสือและบริการห้องสมุด</b><p></FONT>
+<HR>
+ชื่อ: <BR><input type=text name="fullname" size=50><br>
+E-mail: <BR><input type=text name="email" size=50><br>
+Homepage: ( อย่าลืมใส่ http:// )<BR><input type=text name="url" size=50><br>
+แนะนำหนังสือ: <BR><input type=text name="book" size=50><br>
+แนะนำบริการ: <BR>
+<textarea name="service" cols=40 rows=4 wrap=on></textarea><p>
+<input type=submit value=" ตกลง "> <input type=reset value=" ยกเลิก "><p>
+<input type=hidden name="action" value="add">
+<HR>
+<a href="http://161.246.37.100/">Home</a>
+<a href="http://161.246.37.100/cgi-bin/reg-admin.pl">Administrator</a>
+</FORM>
+</BODY>
+</HTML>

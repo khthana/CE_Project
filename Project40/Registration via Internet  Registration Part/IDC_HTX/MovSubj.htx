@@ -1,0 +1,126 @@
+<!-- This File is : Page getting the subject for remove  -->
+<!-- Last update : 26-03-1998 Status : ok -->
+<html>
+<head>
+<!-- The Function of this file is amout 'x' at first Id for that id is to move -->
+<script language="JavaScript">
+function AssignValueToElements() {
+	for(i=3; i<document.formx.elements.length-13; i++){ /* start at first Subj to end Subj*/
+		document.formx.elements[i].value='x'+document.formx.elements[i].value;
+	}
+}
+function AssignValueToSubj(){
+	n=document.formx.elements.length-13;
+	for(i=n; i<=n+9; i++) /* from Subj0..Subj9 */
+		document.formx.elements[i].value='xx'
+}
+function ChangeValue(ChkBoxValue){ /* Change Value for each check box */
+	for(i=3; i<document.formx.elements.length-13; i++){
+		if(document.formx.elements[i].value==ChkBoxValue){
+			document.formx.elements[i].value='x'+ChkBoxValue;
+			i=document.formx.elements.length;
+		}
+		else{
+			if(document.formx.elements[i].value==('x'+ChkBoxValue)){
+				document.formx.elements[i].value=ChkBoxValue;
+				i=document.formx.elements.length;
+			}
+		}
+	}
+}	
+function SendInfo(){
+	var str=document.formx.Std_Id.value;
+	var nSubj=document.formx.elements.length-13; /*start location of subj0..subj9 */
+	document.formx.LoginName.value='s'+str.substring(1, 8); /* for s8013289 */
+	AssignValueToSubj();  /* to Assign 'xx' to Subject */
+	for(i=3; i<document.formx.elements.length-13; i++)
+		 /* copy value from checkbox to hidden elements before send*/
+		if(document.formx.elements[i].value.charAt(0) != 'x'){
+		  document.formx.elements[nSubj].value=document.formx.elements[i].value;
+		  nSubj++;
+		}
+}
+/* Verify function is Option for check the Subject */
+function verify(theForm) {
+	SendInfo(); /* call for set value to parameter before send to*/
+	haveSubj=false;
+	strOut="แสดงวิชาหลังจากการถอนรายวิชา : \n\n";
+	for(i=3; i<theForm.elements.length-13; i++) { /* Start and end show at Subject */
+		if(theForm.elements[i].checked){
+			s_value = theForm.elements[i].value;
+			/* get subject id only */
+			strOut += "ลำดับที่ "+(i-2)+" : "+s_value.substring(1,9)+"\n";
+			haveSubj=true; /* status tell for have Subject not remove all */
+		}
+		else	strOut += "ลำดับที่ "+(i-2)+" : "+theForm.elements[i].value+"  *** ถอน ***\n";
+		/*strOut += theForm.elements[i].name + " : "+"\t" + theForm.elements[i].value + " \t\n";*/
+	}
+	strOut += "\nรายวิชาถูกต้องหรือไม่ ?";
+
+	if( haveSubj==false ){ /* if remove all of Subject */
+		alert ( "  ไม่สามารถถอนทุกรายวิชาได้ !  ");
+		return false;
+	}
+	else {
+		/* copy password */
+		document.formx.Signature.value=parent.left.document.c4.Passwd.value;
+		return confirm(strOut);
+	}
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif onLoad="AssignValueToElements()">
+<form name=formx action="http://161.246.6.32/scripts/Project97/toMov.idc"
+	method=post onSubmit="return verify(this)">
+<%if msg_false eq ''%>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<center>
+	<input type=hidden name=Std_Id value='<%Std_Id%>'>
+	<input type=hidden name=LoginName>
+	<input type=hidden name=Term value='<%Term%>'>
+	<font size=-1>
+	ภาคการศึกษา : <b><%Term%></b> ปีการศึกษา : <b><%Year%></b><br>
+	ภาควิชา : <b><%Dept_name%></b> คณะ : <b><%Faculty_name%></b><br>
+	รหัสนักศึกษา : <b><%Std_Id%></b> ชั้นปี : <b><%YearStudy%></b>
+	 ชื่อ-สกุล : <b><%Std_Name_Eng%> <%Std_Sname_Eng%></b><br><br>
+	</font>
+	<b>======== รายวิชาที่ได้ทำการลงทะเบียนไว้แล้ว ========</b>
+	</center>
+	<center>
+	<table border=2>
+	<tr>	<td bgcolor=skyblue>เลือก</td><td bgcolor=skyblue>รหัสวิชา</td>
+		<td bgcolor=skyblue>ชื่อวิชา</td><td bgcolor=skyblue>หน่วยกิตทฤษฎี</td>
+		<td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+	<tr>	<td bgcolor=skyblue><input type=checkbox value='<%Regis_Subj_Id%>'
+			 checked onClick="ChangeValue('<%Regis_Subj_Id%>')"></td>
+		<td><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+		<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+<%endif%>
+<%if CurrentRecord eq 0 %>
+	<center><font size=+2>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง<br>หรือ<br>ยังไม่ได้มีการลงทะเบียนรายวิชา</font></center>
+<%else%>
+	</table>
+	<font size=+1 color=red>
+	<blink><b>*** ลบเครื่องหมายหน้าวิชาที่ต้องการถอน ***</b></blink>
+	</font><br>
+	</center>
+	<input type=hidden name=subj0><input type=hidden name=subj1>
+	<input type=hidden name=subj2><input type=hidden name=subj3>
+	<input type=hidden name=subj4><input type=hidden name=subj5>
+	<input type=hidden name=subj6><input type=hidden name=subj7>
+	<input type=hidden name=subj8><input type=hidden name=subj9>
+	<center>
+	<table>
+	<tr>	<td>	<input type=hidden name="Signature">
+			<input type=submit value="   ตกลง   "></td> 
+		<td>	<input type=reset value="   ยกเลิก  "></td></tr>
+	</table>
+	</center>
+<%endif%>
+</form>
+</body>
+</html>
+

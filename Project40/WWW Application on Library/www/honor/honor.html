@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+<title>หอเทิดพระเกียรติ</title>
+</head>
+
+<body background="../images/bg_srv2.gif">
+<script language="JavaScript">
+<!-- script to switch out buttons -->-->
+function nbsp() {document.write("&nbsp;");}
+function copy() {document.write("&copy;");}
+var iversion = -1;
+
+function version() {
+        if (iversion != -1) return iversion;
+        if(navigator.appName.indexOf("Netscape") != -1){
+                if (navigator.userAgent.indexOf("Mozilla/2.0") != -1) 
+                                                iversion = 2;
+                        else
+                            if (navigator.userAgent.indexOf("Mozilla/3.0") != -1) 
+                                                        iversion = 3;
+                                        else
+                                        if (navigator.userAgent.indexOf("Mozilla/4.0") != -1)
+                                                iversion = 4;
+                                        else
+                                            iversion = 1;
+        }  else {  // Not netscape.
+                if(navigator.appName.indexOf("Internet Explorer") != -1){
+                     if (navigator.userAgent.indexOf("Mozilla/4.0") != -1) 
+                                iversion = 4; 
+                         else   
+                            iversion = 1;
+                     } else 
+                        iversion = 1;
+               }
+        return iversion;
+}
+
+
+if (3 <= version()) {
+        mainon = new Image();
+        mainon.src = "../images/menu_bar_on1.gif";
+        mainoff = new Image();
+        mainoff.src = "../images/menu_bar1.gif";
+        newson = new Image();
+        newson.src = "../images/news_bar_on1.gif";
+        newsoff = new Image();
+        newsoff.src = "../images/news_bar1.gif";
+        searchon = new Image();
+        searchon.src = "../images/search_bar_on1.gif";
+        searchoff = new Image();
+        searchoff.src = "../images/search_bar1.gif";
+        suggeston = new Image();
+        suggeston.src = "../images/suggest_bar_on1.gif";
+        suggestoff = new Image();
+        suggestoff.src = "../images/suggest_bar1.gif";
+        abouton = new Image();
+        abouton.src = "../images/about_bar_on1.gif";
+        aboutoff = new Image();
+        aboutoff.src = "../images/about_bar1.gif"; 
+}
+function rollon(imgName) {
+        if (3 <= iversion) {
+        imgOn = eval(imgName + "on.src");
+        document[imgName].src = imgOn;
+        }
+}
+function rolloff(imgName) {
+        if (3 <= iversion) {
+        document[imgName].src = eval(imgName + "off.src");
+        }
+}
+</script>
+
+
+<p><img src="../images/books.gif" alt="books.gif (8364 bytes)" WIDTH="120" HEIGHT="100">&nbsp;&nbsp;&nbsp; <img src="../images/honor.gif" alt="honor.gif (2466 bytes)" WIDTH="480" HEIGHT="76"></p>
+<p align="center"><!--webbot bot="ImageMap" rectangle="(55,123) (399, 168)  dumrus.html" rectangle="(46,67) (400, 91)  k4.html" src="../images/king.GIF" alt="king.GIF (88340 bytes)" border="0" startspan --><MAP NAME="FrontPageMap"><AREA SHAPE="RECT" COORDS="55, 123, 399, 168" HREF="dumrus.html"><AREA SHAPE="RECT" COORDS="46, 67, 400, 91" HREF="k4.html"></MAP><a href="../_vti_bin/shtml.dll/honor/honor.html/map"><img ismap usemap="#FrontPageMap" border="0" height="311" alt="king.GIF (88340 bytes)" src="../images/king.GIF" width="457"></a><!--webbot bot="ImageMap" endspan i-checksum="29576" --></p>
+<p><center>
+<table border="0" width="62%" cellspacing="0">
+  <tr>
+    <td width="46%"><a href="../index.html" onmouseover="rollon('main'); return false" onmouseout="rolloff('main'); return false"><img src="../images/menu_bar1.gif" alt="menu_bar1.gif (1473 bytes)" border="0" name="main" WIDTH="88" HEIGHT="29"></a></td>
+    <td width="38%"><a href="../about/about.html" onmouseover="rollon('about'); return false" onmouseout="rolloff('about'); return false"><img src="../images/about_bar1.gif" alt="about_bar1.gif (1808 bytes)" border="0" name="about" WIDTH="163" HEIGHT="29"></a></td>
+    <td width="37%"><a href="../news/news.html" onmouseover="rollon('news'); return false" onmouseout="rolloff('news');" retuen false"><img src="../images/news_bar1.gif" alt="news_bar1.gif (1797 bytes)" border="0" name="news" WIDTH="163" HEIGHT="29"></a></td>
+  </tr>
+</table>
+</center></div><div align="center">
+<center>
+
+<table border="0" width="38%" cellspacing="0">
+  <tr>
+    <td width="50%"><a href="../search/search.html" onmouseover="rollon('search'); return false" onmouseout="rolloff('search'); return false"><img src="../images/search_bar1.gif" alt="search_bar1.gif (1624 bytes)" border="0" name="search" WIDTH="116" HEIGHT="29"></a></td>
+    <td width="50%"><a href="../suggest/suggest.html" onmouseover="rollon('suggest'); return false" onmouseout="rolloff('suggest'); return false"><img src="../images/suggest_bar1.gif" alt="suggest_bar1.gif (1625 bytes)" border="0" name="suggest" WIDTH="117" HEIGHT="29"></a></td>
+  </tr>
+</table>
+</center></div>
+
+</body>
+</html>

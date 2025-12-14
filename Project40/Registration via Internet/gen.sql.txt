@@ -1,0 +1,283 @@
+CREATE TABLE "dba"."curiculum"
+                      ("curiculum_id" char(2) NOT NULL ,
+                     "curiculum_name_thai" char(30)  ,
+                     "curiculum_name_eng" char(30)  ,
+                     "faculty_id" char(2)  ,
+                     "dept_id" char(8)  ,
+                     "shortname_th" char(8)  ,
+                     "shortname_eng" char(8)
+              , PRIMARY KEY ("curiculum_id")
+       , FOREIGN KEY "fk_dept_id" ("dept_id"
+       ) REFERENCES "dba"."department"
+       ON DELETE  RESTRICT
+       , FOREIGN KEY "fk_fac_dept" ("faculty_id"
+       ) REFERENCES "dba"."faculty"
+       ON DELETE  RESTRICT
+       );
+ 
+CREATE UNIQUE INDEX "circulum"
+        ON "dba"."curiculum"
+        ("curiculum_id" ,
+       "curiculum_name_thai" ,
+       "curiculum_name_eng" );
+ 
+CREATE TABLE "dba"."curiculum"
+                      ("curiculum_id" char(2) NOT NULL ,
+                     "curiculum_name_thai" char(30)  ,
+                     "curiculum_name_eng" char(30)  ,
+                     "faculty_id" char(2)  ,
+                     "dept_id" char(8)  ,
+                     "shortname_th" char(8)  ,
+                     "shortname_eng" char(8)
+              , PRIMARY KEY ("curiculum_id")
+       , FOREIGN KEY "fk_dept_id" ("dept_id"
+       ) REFERENCES "dba"."department"
+       ON DELETE  RESTRICT
+       , FOREIGN KEY "fk_fac_dept" ("faculty_id"
+       ) REFERENCES "dba"."faculty"
+       ON DELETE  RESTRICT
+       );
+ 
+CREATE UNIQUE INDEX "circulum"
+        ON "dba"."curiculum"
+        ("curiculum_id" ,
+       "curiculum_name_thai" ,
+       "curiculum_name_eng" );
+
+CREATE TABLE "dba"."dad"
+               ("dad_id" char(8) NOT NULL ,
+              "dad_name" char(45)  ,
+              "dad_occupation" char(15)  ,
+              "dad_office" char(50)  ,
+              "dad_office_tel" char(15)  ,
+              "dad_addr" varchar(100)  ,
+              "dad_addr_tel" char(15)  ,
+              "dad_addr_fax" char(15)
+       , PRIMARY KEY ("dad_id"));
+ 
+CREATE UNIQUE INDEX "kkkk"
+        ON "dba"."dad"
+        ("dad_name" ,
+       "dad_id" );
+ 
+CREATE TABLE "dba"."department"
+                      ("dept_id" char(8) NOT NULL ,
+                     "dept_name" char(45)  ,
+                     "faculty_id" char(2)
+              , PRIMARY KEY ("dept_id")
+       , FOREIGN KEY "fk_fac_id" ("faculty_id"
+       ) REFERENCES "dba"."faculty"
+       ON DELETE  RESTRICT
+       );
+ 
+CREATE UNIQUE INDEX "department"
+        ON "dba"."department"
+        ("dept_id" ,
+       "dept_name" );
+ 
+CREATE TABLE "dba"."faculty"
+               ("faculty_id" char(2) NOT NULL ,
+              "faculty_name" char(50)
+       , PRIMARY KEY ("faculty_id"));
+ 
+CREATE UNIQUE INDEX "faculty"
+        ON "dba"."faculty"
+        ("faculty_id" ,
+       "faculty_name" );
+ 
+CREATE TABLE "dba"."major"
+               ("major_id" char(3) NOT NULL ,
+              "major_name" char(20)
+       , PRIMARY KEY ("major_id"));
+ 
+CREATE UNIQUE INDEX "idx_major"
+        ON "dba"."major"
+        ("major_id" ,
+       "major_name" );
+ 
+CREATE TABLE "dba"."minor"
+               ("minor_id" char(3) NOT NULL ,
+              "minor_name" char(20) NOT NULL
+       , PRIMARY KEY ("minor_id"));
+ 
+CREATE UNIQUE INDEX "idx_minor"
+        ON "dba"."minor"
+        ("minor_id" ,
+       "minor_name" );
+ 
+CREATE TABLE "dba"."mom"
+               ("mom_id" char(8) NOT NULL ,
+              "mom_name" char(45)  ,
+              "mom_occupation" char(15)  ,
+              "mom_office" char(50)  ,
+              "mom_office_tel" char(15)  ,
+              "mom_addr" varchar(100)  ,
+              "mom_addr_tel" char(15)  ,
+              "mom_addr_fax" char(15)
+       , PRIMARY KEY ("mom_id"));
+ 
+CREATE UNIQUE INDEX "mom"
+        ON "dba"."mom"
+        ("mom_id" ,
+       "mom_name" );
+ 
+CREATE TABLE "dba"."parent"
+               ("par_id" char(8) NOT NULL ,
+              "par_name" char(45)  ,
+              "par_occupation" char(15)  ,
+              "par_office" char(50)  ,
+              "par_office_tel" char(15)  ,
+              "par_relation" char(10)  ,
+              "par_addr_no" char(20)  ,
+              "par_addr_soi" char(20)  ,
+              "par_addr_road" char(20)  ,
+              "par_addr_district" char(20)  ,
+              "par_addr_border" char(20)  ,
+              "par_addr_province" char(20)  ,
+              "par_addr_code" char(5)  ,
+              "par_addr_tel" char(15)  ,
+              "par_addr_fax" char(15)  ,
+              "par_office_fax" char(10)
+       , PRIMARY KEY ("par_id"));
+ 
+CREATE UNIQUE INDEX "pppppp"
+        ON "dba"."parent"
+        ("par_id" ,
+       "par_name" );
+
+CREATE TABLE "dba"."sgroup"
+               ("sgroup_id" char(2) NOT NULL ,
+              "sgroup_name" char(25) NOT NULL
+       , PRIMARY KEY ("sgroup_id"));
+ 
+CREATE UNIQUE INDEX "pk_sgroup_id"
+        ON "dba"."sgroup"
+        ("sgroup_id" );
+ 
+CREATE TABLE "dba"."std"
+                      ("std_id" varchar(8) NOT NULL ,
+                     "std_title_thai" varchar(6)  ,
+                     "std_name_thai" varchar(25)  ,
+                     "std_sname_thai" varchar(25)  ,
+                     "std_title_eng" varchar(6)  ,
+                     "std_name_eng" varchar(25)  ,
+                     "std_sname_eng" varchar(25)  ,
+                     "std_birthday" date  ,
+                     "std_sex" char(1)  ,
+                     "std_nation" varchar(15)  ,
+                     "std_citizen" varchar(15)  ,
+                     "std_religion" varchar(15)  ,
+                     "std_blood" varchar(3)  ,
+                     "std_height" numeric(5,2)  ,
+                     "std_weight" numeric(5,2)  ,
+                     "std_addr_no" varchar(10)  ,
+                     "std_addr_soi" varchar(15)  ,
+                     "std_addr_road" varchar(15)  ,
+                     "std_addr_district" varchar(15)  ,
+                     "std_addr_border" varchar(15)  ,
+                     "std_addr_province" varchar(15)  ,
+                     "std_addr_code" varchar(5)  ,
+                     "std_addr_tel" varchar(15)  ,
+                     "std_addr_fax" varchar(15)  ,
+                     "std_taddr_no" varchar(10)  ,
+                     "std_taddr_soi" varchar(15)  ,
+                     "std_taddr_road" varchar(15)  ,
+                     "std_taddr_district" varchar(15)  ,
+                     "std_taddr_border" varchar(15)  ,
+                     "std_taddr_province" varchar(15)  ,
+                     "std_taddr_code" varchar(5)  ,
+                     "std_taddr_tel" varchar(15)  ,
+                     "std_taddr_fax" varchar(15)  ,
+                     "std_pregrad" varchar(5)  ,
+                     "std_school_name" varchar(50)  ,
+                     "std_school_situated" varchar(15)  ,
+                     "std_school_gpa" numeric(5,2)  ,
+                     "std_school_admission" date  ,
+                     "std_school_finish" date  ,
+                     "std_entype" varchar(2)  ,
+                     "std_campus" varchar(1)  ,
+                     "std_major_id" varchar(3)  ,
+                     "std_minor_id" varchar(3)  ,
+                     "std_status" varchar(1)  ,
+                     "std_resign_datetime" date  ,
+                     "par_id" varchar(8)  ,
+                     "dad_id" varchar(8)  ,
+                     "mom_id" varchar(8)  ,
+                     "dept_id" varchar(8)  ,
+                     "teacher_id" varchar(5)  ,
+                     "curiculum_id" varchar(2)  ,
+                     "std_total_credit" varchar(5)  ,
+                     "std_year_enter" varchar(4)  ,
+                     "std_bank_acc_no" varchar(10)  ,
+                     "yearstudy" char(1)  ,
+                     "faculty_id" char(2)
+              , PRIMARY KEY ("std_id")
+       , FOREIGN KEY "fk_std_fac_id" ("faculty_id"
+       ) REFERENCES "dba"."faculty"
+       ON DELETE  RESTRICT
+       );
+ 
+CREATE  INDEX "idx_id_name"
+        ON "dba"."std"
+        ("std_id" ,
+       "std_name_thai" );
+ 
+CREATE TABLE "dba"."subject"
+                      ("subj_id" char(8) NOT NULL ,
+                     "subj_name_thai" char(50)  ,
+                     "subj_name_eng" char(50)  ,
+                     "subj_type" char(2)  ,
+                     "subj_descript_thai" varchar(300)  ,
+                     "subj_descript_eng" varchar(300)  ,
+                     "credit_lec" smallint  ,
+                     "credit_lab" smallint  ,
+                     "year_begin" char(4)  ,
+                     "year_end" char(4)  ,
+                     "curiculum_id" char(2)  ,
+                     "year_study" char(2)  ,
+                     "subj_group" char(2)  ,
+                     "start_term" char(2)  ,
+                     "end_term" char(2)
+              , PRIMARY KEY ("subj_id")
+       , FOREIGN KEY "fk_subj_curiculum" ("curiculum_id"
+       ) REFERENCES "dba"."curiculum"
+       ON DELETE  RESTRICT
+       , FOREIGN KEY "fk_subj_group" ("subj_group"
+       ) REFERENCES "dba"."sgroup"
+       ON DELETE  RESTRICT
+       );
+ 
+CREATE UNIQUE INDEX "idx_subj_name"
+        ON "dba"."subject"
+        ("subj_id" ,
+       "subj_name_thai" ,
+       "subj_name_eng" );
+  
+CREATE TABLE "dba"."t_user"
+               ("user_id" char(20) NOT NULL ,
+              "password" char(20)  ,
+              "permission" integer
+       , PRIMARY KEY ("user_id"));
+ 
+CREATE UNIQUE INDEX "idx_user_id_pass"
+        ON "dba"."t_user"
+        ("user_id" ,
+       "permission" ,
+       "password" );
+  
+CREATE TABLE "dba"."teacher"
+               ("teacher_id" char(8) NOT NULL ,
+              "teacher_name" char(45)  ,
+              "teacher_occupation" char(15)  ,
+              "teacher_office" char(50)  ,
+              "teacher_office_tel" char(15)  ,
+              "teacher_addr" varchar(100)  DEFAULT autoincrement,
+              "teacher_addr_tel" char(15)  ,
+              "teacher_addr_fax" char(15)
+       , PRIMARY KEY ("teacher_id"));
+ 
+CREATE UNIQUE INDEX "ttttttttt"
+        ON "dba"."teacher"
+        ("teacher_id" ,
+       "teacher_name" );
+ 

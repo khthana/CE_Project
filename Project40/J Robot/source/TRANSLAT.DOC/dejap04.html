@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>[De-Jap Guide/text replacement old]</TITLE>
+</HEAD>
+<BODY bgcolor="#236321" background="tile03.gif" text="#ccffcc" link="#ffcfff" vlink=Purple alink="#cfff00" topmargin=0 leftmargin=0 bottommargin=0 rightmargin=0>
+<B><FONT face="Verdana, Arial" size=3><center>
+<TABLE border=0 width=85%>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+<font size=5 color=White>Text Replacement (Old method)</font><BR>
+<BR>
+This old method is slower, but works more often. Try the new method 
+first.<BR>
+<BR>
+Having replaced a font within the rom, most of the text using that 
+font will have been 'corrputed'. In other words, it will not make 
+sense as either Japanese or English. The following example shows 
+how to replace the text with your own messages.
+<BR>
+<BR>
+<font size=4 color=Yellow>Step 1: Guess at character values</font><BR>
+<TABLE border=0>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+This can be one of the hardest parts of the translation. You need 
+to work out what number corresponds to what character. Usually,
+you can do this by looking at the area of the rom where the character 
+tiles are held. If you look back into the rom you should be able to 
+find where the tiles seem to start. In this example, the letter 'A' 
+was put at 0x056E6C (see 8x8 font section). By looking back into the 
+rom, you can see that the pattern of the font data (nn FF nn FF...) 
+starts at 0x056D6C (the first tile's data is highlighted).
+<BR>
+</TD></TR>
+<TR><TD>
+<img src="dejap07.gif" border=0 align=middle WIDTH=620 HEIGHT=222>
+</TD></TR>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Now, you know where the font tiles start, you can work out each tile's 
+offset in the tile data.<BR>
+<BR>
+<font color="#ffddcc">
+eg. for 'A' which is located at 0x056E6C,<BR> 
+the offset is 0x056E6C - 0x056D6C = 0x0100.<BR>
+</font>
+<BR>
+Seeing as each tile is 16 bytes long (8 bytes data, mixed with 8 
+bytes of 0xFF (2 bitplanes)), you can calculate the 'number' of 
+each character in the set.<BR>
+<BR>
+<font color="#ffddcc">
+eg. for 'A' offset=0x0100, tile size=0x010 (=16 bytes)<BR>
+tile 'number' is 0x0100 / 0x010 = 0x010<BR>
+So, character 'A' is tile 'number' 0x10 = 16
+</font>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 2: Select a Message to Translate</font><BR>
+<TABLE border=0>
+<TR><TD>
+<img src="dejap06.gif" border=0 align=middle WIDTH=224 HEIGHT=144>
+</TD>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Select a message within the text that has a fair number of converted 
+(English) characters in it. For example, the text 'EJY....' in the 
+menu to the left.
+<BR>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 3: Convert the Message to 'numbers'</font><BR>
+<TABLE border=0>
+<TR>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Using the numbers found in step one, convert as much of the message as 
+you can into a sequence of bytes.<BR>
+<BR>
+<font color="#ffddcc">
+eg. 'EJY...' = 0x14, 0x19, 0x28...<BR>
+('E'=0x14, 'J'=0x19, 'Y'=0x28)
+</font>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 4: Find and Translate Message</font><BR>
+<TABLE border=0>
+<TR><TD>
+<img src="dejap08.gif" border=0 align=middle WIDTH=224 HEIGHT=144>
+</TD>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Search the rom for the sequence bytes. When you find them, replace 
+them with a new sequence that will display a relevant message. 
+In this case, the message 'Message speed?' (use the tile 'numbers' found 
+in step one to compose the message). If you do not find the bytes, 
+you have either got the tile 'numbers' wrong in part one, or the 
+text is somehow encrypted or packed into the rom. Until I find a 
+program to search for 'relative' strings, you will have to try again!
+<BR>
+</TD></TR>
+</TABLE>
+
+</B></font>
+</TD></TR>
+</TABLE>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

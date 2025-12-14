@@ -1,0 +1,128 @@
+<html>
+
+<head>
+<title>สำนักหอสมุดกลาง สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง</title>
+</head>
+
+<BODY bgcolor="White" text="Black" link="Navy" alink="Blue" vlink="Purple" onLoad="scroll_start()">
+<script language="JavaScript">
+<!--script to create scroll text-->
+var timed = 0;
+var scrollGo =false;
+var delay=80;
+var space=100;
+function scroll_start()
+{
+	var i=0;
+	msg="สำนักหอสมุดกลาง สถาบันเทคโนโลยีพระจอมเกล้า เจ้าคุณทหารลาดกระบัง ยินดีต้อนรับ..."
+	for (i=0;i<space;i++) msg=" "+msg;
+	scrollGo=true;
+	timerid=window.setTimeout("scrollmsg(0)",delay);
+}
+	
+	function scrollmsg(pos)
+{
+	var out = "";
+	scrollGo=false;
+	if (pos < msg.length) self.status = msg.substring(pos,msg.length);
+	else pos=-1;
+	++pos;
+	scrollGo=true;
+	timerid=window.setTimeout("scrollmsg("+pos+")",delay);
+}
+
+<!-- script to switch out buttons -->-->
+function nbsp() {document.write("&nbsp;");}
+function copy() {document.write("&copy;");}
+var iversion = -1;
+
+function version() {
+        if (iversion != -1) return iversion;
+        if(navigator.appName.indexOf("Netscape") != -1){
+                if (navigator.userAgent.indexOf("Mozilla/2.0") != -1) 
+                                                iversion = 2;
+                        else
+                            if (navigator.userAgent.indexOf("Mozilla/3.0") != -1) 
+                                                        iversion = 3;
+                                        else
+                                        if (navigator.userAgent.indexOf("Mozilla/4.0") != -1)
+                                                iversion = 4;
+                                        else
+                                            iversion = 1;
+        }  else {  // Not netscape.
+                if(navigator.appName.indexOf("Internet Explorer") != -1){
+                     if (navigator.userAgent.indexOf("Mozilla/4.0") != -1) 
+                                iversion = 4; 
+                         else   
+                            iversion = 1;
+                     } else 
+                        iversion = 1;
+               }
+        return iversion;
+}
+
+
+if (3 <= version()) {
+        newson = new Image();
+        newson.src = "images/news-ex.gif";
+		annouceon = new Image();
+		annouceon.src = "images/annouce-ex.gif";
+		abouton = new Image();
+		abouton.src = "images/about-ex.gif";
+		searchon = new Image();
+		searchon.src = "images/search-ex.gif";
+		servon = new Image();
+		servon.src = "images/serv-ex.gif"
+		suggeston = new Image();
+		suggeston.src = "images/suggest-ex.gif";
+		reporton = new Image();
+		reporton.src = "images/report-ex.gif";
+		honoron = new Image();
+		honoron.src = "images/honor-ex.gif";
+		mediaon = new Image();
+		mediaon.src = "images/media-ex.gif";
+		movieon = new Image();
+		movieon.src = "images/movie-ex.gif";
+        welcomeoff = new Image();
+		welcomeoff.src = "images/welcome2.gif";
+}
+function rollon(imgName) {
+        if (3 <= iversion) {
+		bg = 'welcome';
+        imgOn = eval(imgName + "on.src");
+        document[bg].src = imgOn;
+        }
+}
+function rolloff(){
+        if (3 <= iversion) {
+		imgName = 'welcome';
+        document[imgName].src = eval(imgName + "off.src");
+        }
+}
+</script>
+
+<p align="center"><img src="images/main3.GIF" alt="main3.GIF (21887 bytes)" WIDTH="683" HEIGHT="146"></p>
+<div align="center"><center>
+
+<table border="0" width="89%" cellspacing="0" height="99">
+  <tr>
+    <td width="53%" valign="bottom" align="left" height="77"><img src="images/sub_title2.GIF" alt="sub_title2.GIF (6432 bytes)" WIDTH="374" HEIGHT="74"></td>
+    <td width="50%" height="77"></td>
+  </tr>
+  <tr>
+    <td width="53%" valign="bottom" align="left" rowspan="2"><img src="images/lib_with_sky2.GIF" alt="lib_with_sky2.GIF (45540 bytes)" WIDTH="355" HEIGHT="223"></td>
+    <td width="50%"><!--webbot bot="ImageMap" rectangle=" (165,112) (311, 135)  movie/movie.html" rectangle=" (163,87) (311, 113)  movie/movie.html" rectangle=" (162,64) (311, 87)  media/media.html" rectangle=" (161,46) (311, 66)  report/report.html" rectangle=" (161,25) (311, 46)  serve/serv.html" rectangle=" (3,112) (161, 135)  suggest/signreg.html" rectangle=" (4,87) (154, 113)  search/search.html" rectangle=" (5,64) (154, 88)  about/about.html" rectangle=" (4,43) (154, 65)  annouce/annouce.html" rectangle=" (4,24) (153, 44)  news/news.html" src="images/menu.GIF" alt="menu.GIF (5955 bytes)" border="0" startspan -->
+	<MAP NAME="FrontPageMap"><AREA SHAPE="RECT" COORDS="165, 112, 311, 135" HREF="movie/movie.html" onmouseover="rollon('movie'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="163, 87, 311, 113" HREF="media/media.html" onmouseover="rollon('media'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="162, 64, 311, 87" HREF="honor/honor.html" onmouseover="rollon('honor'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="161, 46, 311, 66" HREF="report/report.html" onmouseover="rollon('report'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="161, 25, 311, 46" HREF="serve/serv.html" onmouseover="rollon('serv'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="3, 112, 161, 135" HREF="suggest/suggest.html" onmouseover="rollon('suggest'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="4, 87, 154, 113" HREF="search/search.html" onmouseover="rollon('search'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="5, 64, 154, 88" HREF="about/about.html" onmouseover="rollon('about'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="4, 43, 154, 65" HREF="annouce/annouce.html" onmouseover="rollon('annouce'); return false" onmouseout="rolloff(); return false"><AREA SHAPE="RECT" COORDS="4, 24, 153, 44" HREF="cgi-bin/news.pl" onmouseover="rollon('news'); return false" onmouseout="rolloff(); return false"></MAP><a href="_vti_bin/shtml.dll/index.html/map"><img ismap usemap="#FrontPageMap" border="0" height="136" alt="menu.GIF (5955 bytes)" src="images/menu.GIF" width="312"></a><!--webbot bot="ImageMap" endspan i-checksum="46022" --></td>
+
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/welcome2.GIF" alt="welcome2.GIF (4837 bytes)" WIDTH="283" HEIGHT="88" name="welcome"></td>
+  </tr>
+</table>
+</center></div>
+
+<p align="center"><br>
+<img src="images/blue007.jpg" width="750" height="3" border="0"><br>
+</p>
+</body>
+</html>

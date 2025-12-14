@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Authors Details</title>
+</head>
+
+<body background="backgrnd.gif" bgcolor="#C0C0C0">
+
+<table border="0">
+    <tr>
+        <td><hr>
+        <table border="1">
+            <caption align="top"><font face="JasmineUPC"><strong>QueryResult
+            </strong></font></caption>
+            <tr>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b>Room</b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b>Building</b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b>FloorNo</b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b>Type</b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b>Capacity</b></font></th>
+            </tr>
+<%begindetail%>            <tr>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%RoomCode%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%Building%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%RoomFloorNo%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%RoomType%></b></font></th>
+                <th bgcolor="#FFFFFF"><font face="JasmineUPC"><b><%RoomCapacity%></b></font></th>
+            </tr>
+<%enddetail%>        </table>
+        <p><font face="JasmineUPC">. </font></p>
+        <h3><font face="JasmineUPC">Room<strong>&quot;</strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong><%idc.T1%></strong></font><font
+        face="JasmineUPC"><strong>&quot;</strong></font></h3>
+        <h3><font face="JasmineUPC">Building<strong>&quot;</strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong><%idc.T2%></strong></font><font
+        face="JasmineUPC"><strong>&quot;</strong></font></h3>
+        <h3><font face="JasmineUPC">FloorNo<strong>&quot;</strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong><%idc.T3%></strong></font><font
+        face="JasmineUPC"><strong>&quot;</strong></font></h3>
+        <h3><font face="JasmineUPC">Type<strong>&quot;</strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong><%idc.T4%></strong></font><font
+        face="JasmineUPC"><strong>&quot;</strong></font></h3>
+        <h3><font face="JasmineUPC">Capacity<strong>&quot;</strong></font><font
+        color="#0000FF" face="JasmineUPC"><strong><%idc.T5%></strong></font><font
+        face="JasmineUPC"><strong>&quot;</strong></font></h3>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

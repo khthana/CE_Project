@@ -1,0 +1,694 @@
+<html>
+
+<head>
+<title>RPGe: RPG Translations</title>
+</head>
+
+<body background="images/bgrnd.gif" bgcolor="#800000"
+text="#FFFFFF" link="#FFFF00" vlink="#FFFF00" alink="#FFFF00"
+topmargin="0" leftmargin="0">
+<div align="center"><center>
+
+<table border="2" cellpadding="2" cellspacing="0"
+bgcolor="#000000">
+    <tr>
+        <td><p align="center"><font color="#FFFFFF" size="5"
+        face="Arial"><b>&nbsp;&nbsp;How to Translate SNES
+        Roms&nbsp;&nbsp;</b></font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p align="center"><font color="#FFFFFF" size="5" face="Arial"><br>
+</font><font color="#FFFFFF" size="2" face="Arial">By Shadow,
+other information noted as donated<br>
+©1997-98 this and other documents maintain the copyright of
+their respective authors</font><font color="#FFFFFF" size="5"
+face="Arial"><br>
+</font><font color="#FFFFFF" size="2" face="Arial">If any part of
+this does not make sense to you, do not email me for help.</font><font
+color="#FFFFFF" size="5" face="Arial"><br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><font color="#FFFFFF" size="4" face="Arial"><b><u>Table
+of Contents</u></b></font><font color="#FFFFFF" size="5"
+face="Arial"> </font></p>
+
+<ol>
+    <li><p align="left"><a href="#intro"><font color="#FFFFFF"
+        size="2" face="Arial">Introduction</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#begin"><font
+                color="#FFFFFF" size="2" face="Arial">Before you
+                Read on</font></a></p>
+            </li>
+            <li><p align="left"><a href="#disc"><font
+                color="#FFFFFF" size="2" face="Arial">Disclaimer</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#pg"><font color="#FFFFFF"
+        size="2" face="Arial">Programs You'll Need</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#sped"><font
+                color="#FFFFFF" size="2" face="Arial">Naga</font></a></p>
+            </li>
+            <li><p align="left"><a href="#xchar"><font
+                color="#FFFFFF" size="2" face="Arial">X-Late</font></a></p>
+            </li>
+            <li><p align="left"><a href="#hw"><font
+                color="#FFFFFF" size="2" face="Arial">Hex
+                Workshop</font></a></p>
+            </li>
+            <li><p align="left"><a href="#snestool"><font
+                color="#FFFFFF" size="2" face="Arial">SnesTool</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#tc"><font color="#FFFFFF"
+        size="2" face="Arial">Bitplanes</font></a></p>
+    </li>
+    <li><p align="left"><a href="#ct"><font color="#FFFFFF"
+        size="2" face="Arial">Modifying Text</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#un"><font
+                color="#FFFFFF" size="2" face="Arial">Using Hex
+                Workshop</font></a></p>
+            </li>
+            <li><p align="left"><a href="#up"><font
+                color="#FFFFFF" size="2" face="Arial">Using
+                X-Late</font></a></p>
+            </li>
+            <li><p align="left"><a href="#16"><font
+                color="#FFFFFF" size="2" face="Arial">16x16 Tiles</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#cg"><font color="#FFFFFF"
+        size="2" face="Arial">Modifying Graphics</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#up2"><font
+                color="#FFFFFF" size="2" face="Arial">Using
+                X-Late</font></a></p>
+            </li>
+            <li><p align="left"><a href="#uh"><font
+                color="#FFFFFF" size="2" face="Arial">Using
+                X-Late on Sprites</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#extras"><font color="#FFFFFF"
+        size="2" face="Arial">Rom Hacking Extras</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#sdump"><font
+                color="#FFFFFF" size="2" face="Arial">Script
+                Dumps</font></a></p>
+            </li>
+            <li><p align="left"><a href="#expand"><font
+                color="#FFFFFF" size="2" face="Arial">ROM
+                Expansion</font></a></p>
+            </li>
+            <li><p align="left"><a href="#assembler"><font
+                color="#FFFFFF" size="2" face="Arial">Assembler
+                Modification</font></a></p>
+            </li>
+        </ul>
+    </li>
+    <li><p align="left"><a href="#conclusion"><font
+        color="#FFFFFF" size="2" face="Arial">Polishing Up</font></a></p>
+        <ul>
+            <li><p align="left"><a href="#cip"><font
+                color="#FFFFFF" size="2" face="Arial">Creating
+                IPS Patches</font></a></p>
+            </li>
+            <li><p align="left"><a href="#fn"><font
+                color="#FFFFFF" size="2" face="Arial">Closing
+                Statements</font></a></p>
+            </li>
+            <li><p align="left"><a href="#credits"><font
+                color="#FFFFFF" size="2" face="Arial">Credits</font></a></p>
+            </li>
+        </ul>
+    </li>
+</ol>
+
+<hr width="80%">
+
+<p align="left"><a name="intro"></a><font color="#FFFFFF"
+size="2" face="Arial"> <b><i><u>1. Introduction</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="begin" </a><font color="#FFFFFF"
+size="2" face="Arial"><b>Before you Read on</b><br>
+</font></a></p>
+
+<p align="left"><a name="begin" </a><font color="#FFFFFF"
+size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I
+wrote this guide for SNES Translating simply because to date,
+only bits and pieces of info have been floating around on the
+web! I just want to attempt to keep this an up-to-date source of
+information about how to translate SNES ROMS. Hopefully, you will
+find this very useful on your quest. You will also almost
+definitly need a good knowledge of at least one programminf
+language in order to fully benefit from this guide. See any
+errors in my guide? Well I can always be reached for flaming,
+complaining or correcting at </font></a><font color="#FFFFFF"
+size="2" face="Arial">shadow@dragonfire.net. </font></p>
+
+<p align="left"><a name="disc"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Disclaimer</b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Neither I nor any of the authors of respective pieces of
+information donated are responsible for the actions taken using
+this guide. All programs mentioned in this document maintain a
+copyright by their respected, official authors. Any violation of
+this or malignant action is your fault. By reading this document,
+you agree to abolish any sources mentioned above from any
+conviction. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="pg"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b><i><u>2. Programs You'll Need</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="sped"></a><font color="#FFFFFF" size="2"
+face="Arial"> </font><a href="faq/naga.zip"
+onmouseover="window.status='Download Naga'; return true"><font
+color="#FFFFFF" size="2" face="Arial"><b>Naga</b></font></a></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Naga is an excellent tile editor by Ch33s3 and a few other guys.
+It supports many bitplanes, tile allignment, and many other
+fetures you may find necessary unfortunatly it only saves work to
+NAGA.SMC but you can just rename it. I highly reccomend this
+program.</font></p>
+
+<p align="left"><a name="xchar"></a><font color="#FFFFFF"
+size="2" face="Arial"> </font><a href="faq/xlate.zip"
+onmouseover="window.status='Download X-Late'; return true"><font
+color="#FFFFFF" size="2" face="Arial"><b>X-Late</b></font></a><font
+color="#FFFFFF" size="2" face="Arial"> </font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This is BiGWeIRD's tanslation suite. It has graphical editing on
+the NES, Gameboy, TG16, and SNES. You can select up to 255 tiles
+at a time for whatever purpose you need them for. Once pasted as
+the bank appears, you can open it as a graphical text editor and
+go through looking for the words and everything else. This one
+now has pallette editing support and many other features to make
+it the #1 choice. Just remember, you need DOS4GW in the same dir
+and the command line is DOS4GW XLATE.</font></p>
+
+<p align="left"><a name="hw"></a><font color="#FFFFFF" size="2"
+face="Arial"> </font><a
+href="ftp://ftp.uni-stuttgart.de/pub/systems/win95/tools/disk/hw32v25.exe"
+onmouseover="window.status='Download Hex Workshop'; return true"><font
+color="#FFFFFF" size="2" face="Arial"><b>Hex Workshop</b></font></a><font
+color="#FFFFFF" size="2" face="Arial"> </font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+I'm not gonna beat around the bush. Hex Workshop is the best Hex
+Editor anywhere! It has a great interface, and find/replace
+function (stay away from the all) function. It's also one of the
+easiest to use and best value around. If you're doing work with
+Hex, this is one godly tool. . Information on what it does and
+why you need it can be explained later. </font></p>
+
+<p align="left"><a name="snestool"></a><font color="#FFFFFF"
+size="2" face="Arial"> </font><a href="faq/snestool.zip"
+onmouseover="window.status='Download Snestool'; return true"><font
+color="#FFFFFF" size="2" face="Arial"><b>Snestool</b></font></a><font
+color="#FFFFFF" size="2" face="Arial"> </font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Snestool is a utility used for many console operations (though
+the name suggests otherwise). It does anything and everything you
+need it to.. The only function covered with it in this guide is
+it's ability to make IPS patches. Don't let the name fool you, it
+makes IPS patches for anything including EXE files and NES ROMS.
+I think this tool is invaluble. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="tc"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b><i><u>3. Bitplanes</u></i></b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This is just a general guide to help you during tile editing. The
+topic, bitplanes. Bitplanes are just the layering of hex data. It
+overlaps the 1 bitplane data to make more colors possible in
+sprites, ect. Below is a list of where to find what and in what
+bitplane mode;<br>
+</font></p>
+
+<ul>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">16x16 tiles (dialogue, sometimes battle
+        menus) = 1 bitplane (2 on occasion)<br>
+        </font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">Kanji = Whatever your 16x16 was in<br>
+        </font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">8x8 Text = commonly 1 or 2 bitplane<br>
+        </font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">Graphical Sprites = 4 bitplane for graphic
+        intense, maybe 2 bitplane for signs, ect</font></p>
+    </li>
+</ul>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">Hope
+this clarify's the use of bitplane modes and helps you to
+understand where you need to look. <br>
+<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="ct"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b><i><u>4. Changing Text</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="un"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Using Hex Workshop</b><br>
+</font></p>
+
+<p align="left"><a name="tables"><font color="#FFFFFF" size="2"
+face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This is real SNES ROM Hacking. Now, you first need to use a
+sprite editor and the Ranma RPG rom and our patch to find the
+text code in the ROM. To do so, just run X-Late, change to
+bitplane 2, and scroll through the endless ROM code until you
+find something like this (it's pretty far in);<br>
+<br>
+</font></a></p>
+<div align="center"><center>
+
+<table border="3">
+    <tr>
+        <td><a name="tables"><font color="#FFFFFF" size="2"
+        face="Arial"><img src="faq/ranma.gif" width="272"
+        height="283" heigth="210"></font></a></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><a name="tables"><font color="#FFFFFF" size="2"
+face="Arial"><br>
+this picture was taken right from X-Late. Each row is a number, 0
+- F as is each column so number it all and then you can start
+working. Think of battleship, if it's in row 0 column A it would
+be 0A.<br>
+<br>
+Now that you have your table, open up the ROM in Hex Workshop and
+click find. Enter the Hex bits for the thing you want to find. In
+order to find Okonmiaki you'll need to type &quot;18 2E 32 31 30
+2C 24 2E 2C&quot; and hit find. Those will turn up highlighted so
+you're ready to enter your new bits. Go about doing this for the
+rest of the ROM as you proceed along with your translation. </font></a></p>
+
+<p align="left"><a name="up"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Using X-Late</b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Open up your rom and scroll through till you get to that same
+thing, this time, start on the 0 and drag a select all over the
+whole bank shown above hten paste it into the manu at the side.
+Change to text edit mode and begin scrolling through. It will use
+the data from your bank in place of letters so it's a graphical
+text editor. When you get to Okonmiaki, right click the letter
+you want to put in place of &quot;O&quot; and paste it over the
+&quot;O&quot;. <br>
+Having fun yet?</font></p>
+
+<p align="left"><a name="16"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>16x16 Tiles</b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+16x16 Tiles work much like 8x8's but have a different system for
+layout. Below is an example of a 16x16 table from Final Fantasy
+5;<br>
+<br>
+</font></p>
+<div align="center"><center>
+
+<table border="2">
+    <tr>
+        <td><font color="#FFFFFF" size="2" face="Arial"><img
+        src="faq/16x16.gif" width="388" height="370" heigth="204"></font></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial"><br>
+Each of these tiles is assigned a hex bit just like the 8x8
+tiles, the layout from this example was 3 tiles. One tile has the
+first part, the top half of the next tile has the rest of the
+first part, the bottom of that one has the first part of the 2nd
+half, the next tile has the rest of the 2nd half. X-Char alignes
+these when choosing kanji mode. This picture was taken from
+X-Char. Other methods of dialogue tiles are 4 8x8's each
+containing 1/4 of the tile. Another layout is 1 1/2 8x8's one
+being the top and one being the bottom of the tile. To avoid
+confusion I posted the pixel sizes and the layouts for each of
+the tiles below;</font></p>
+
+<ul>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">16x16 - 4 8x8's each contain 1/4th the tile</font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">10x12 - 3 8x8s each containing part of the
+        tile</font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">8x12 - 2 tiles, 1 has top half, 2nd has half
+        of the bottom</font></p>
+    </li>
+    <li><p align="left"><font color="#FFFFFF" size="2"
+        face="Arial">8x16 - 2 tiles each has half the 16x16</font></p>
+    </li>
+</ul>
+
+<hr width="80%">
+
+<p align="left"><a name="cg"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b><i><u>5. Changing Graphics</u></i></b><br>
+</font></p>
+
+<p align="left"><a name="up2"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Using X-Late</b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Editing graphics with X-Late is like using paintbrush. Here goes.
+Scroll through to the graphic as you did before. Now when you
+find it, right click on it then left click on the wokspace you
+want to drop it on (the big box to the left). Take a couple
+tiles, click the paint icon. It wil appear full screen with a 4
+color palette from which to pick your colors. Pick your color and
+draw it onto the tile. When you finish that tile, hit the little
+door icon and it brings you back to the main screen, do as many
+as you please. </font></p>
+
+<p align="left"><a name="uh"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Using X-Late on Sprites</b><br>
+</font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Editing sprites with X-Late is probably the hardest thing in this
+guide. For this process you're going to need X-Late, to get
+various information about the graphic you are going to edit. For
+starters, load up Ranma RPG. Now scroll endlessly through the
+code until you find Genma (panda).</font></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td><font color="#FFFFFF"><img src="faq/ranma2.gif"
+        width="256" height="256"></font></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">Now,
+click on the tile once to load it into the workspace near the
+palette and continue to load one whole body into it (each few
+tiles is part of a different position, make one). Now we're gonna
+turn Genma the panda into Genma the Polar Bear. Before you start
+to color it though, you must know that a pallete is stored
+somewhere in the rom which tells it what color equals what. If
+you just draw all over it, the image WILL come out killed. You
+need to find the pallete and see how it works. However, to keep
+it simple, we're making him all white. Now if you look in the
+game, white is white, pinkish is grey, and maroon is black.
+Knowing this, we can easily make him all white with a greyish
+shadow so it still looks good, now draw all over the body like I
+told you to, save it under another name and run it in an
+emulator. Genma now is a polar bear. Woo hoo!!! I;m sure if
+you've been here you'll notice I killed the gex section, as
+X-Late lets you modify palletes there is no more need for that.
+Don't ask for it back because it is all gone.<br>
+</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="extras"></a> <font size="2" face="Arial"><em><strong><u>6.
+Rom Hacking Extras</u></strong></em></font></p>
+
+<p align="left"><a name="sdump"></a><font size="2" face="Arial"><strong>
+Script Dumps</strong></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+It is fairly obvious that going through the game and translating
+as you play it is porbably the least efficent way to go about it.
+To deal with this problem, a simple yet innovative C program was
+written by J3d! with the purpose of going through and pulling out
+text from start to finish and spitting it out as a file. His
+original source (with a bit more code notation) can be downloaded
+</font><a href="faq/dq6dump.zip"><font color="#FFFFFF" size="2"
+face="Arial">here</font></a><font color="#FFFFFF" size="2"
+face="Arial">. After entering all your rom's info, you will need
+to compile the program. I would reccomend DJGPP by </font><a
+href="http://www.delorie.com" target="_parent"><font
+color="#FFFFFF" size="2" face="Arial">Delorie software</font></a><font
+color="#FFFFFF" size="2" face="Arial"> as it is compact,
+effiecent, and most of all FREE! It is an excellent tool and
+since the time I downloaded it, I have not used anything else.
+Hopefully this will help you out a lot. I cannot provide support
+for this ebcause I didn't write it nor do I completely understand
+anything other than the mechanics by which it works. Don't bug
+J3d! to do it all for you, I suggest learning on your own how to
+overcome your problems.</font></p>
+
+<p align="left"><a name="expand"></a><font size="2" face="Arial"><strong>
+Rom Expansion</strong></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The complexity of this is far overrated. What I found to eb a
+very simple way to expand Ranma was simply this. Open your rom in
+a hex editor. You'll probably see a lot of &quot;padding&quot; of
+FF's of 00's at the end of your rom. This part is outside the
+code and is only there so it will check out okay witha n emultor.
+When you get a rom with a trainer or intro, 9 out of 10 times
+that intro is down here. Now having an extra 1k of text will not
+help you out very much so do this. First get </font><a
+href="files/ucon.zip"><font color="#FFFFFF" size="2" face="Arial">UCON</font></a><font
+color="#FFFFFF" size="2" face="Arial">, go to dos prompt and type
+&quot;<em>UCON o [rom name]&quot; </em>and you should get a
+screen telling you all of the rom's information like the one I
+have shown below;</font></p>
+<div align="center"><center>
+
+<table border="3" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="100%"><img src="faq/ucon1.gif" width="559"
+        height="255"></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Now you need to open
+up your ROM in a hex editor and see where it ends at. From that
+point you'll start adding the 00's of FF's. The was it works is
+this;</font></p>
+<div align="center"><center>
+
+<table border="0" cellpadding="4" cellspacing="4">
+    <tr>
+        <td><font color="#FFFFFF" size="2" face="Arial">&nbsp;</font><font
+        size="2" face="Arial">4.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$801F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font color="#FFFFFF" size="2" face="Arial">&nbsp;</font><font
+        size="2" face="Arial">8.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$1001F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">12.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$1801F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">16.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$2001F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">20.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$2801F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">24.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$3001F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">32.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$4001F0 as last line of
+        hex</font></td>
+    </tr>
+    <tr>
+        <td><font size="2" face="Arial">48.00 Mbit - </font></td>
+        <td><font size="2" face="Arial">$6001F0 as last line of
+        hex</font></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Now if you have a
+12.00 Mbit rom and want it to be 16.00 Mbit, you would go to the
+last line of the rom's padding which would be $1801F0 and add
+00's of FF's (depending on the rom) till you reach $2001F0. I
+have only done this on 3 roms but I'm pretty sure it would work
+on all roms. After this you need to work with the rom's pointer
+table to get text from the end. That I do not want to even get
+into in this document. This should at least help you move in the
+right direction.</font></p>
+
+<p align="left"><a name="assembler"></a><font size="2"
+face="Arial"><strong> Assembler Modification</strong></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+I don't care if God himself comes to you and tells you that this
+is explainable in a document because it is not. What I can tell
+you is this, you will need a series of tools to decompile and
+recompile the rom and you can get those right here;</font></p>
+<div align="center"><center>
+
+<table border="0" cellpadding="5" cellspacing="5">
+    <tr>
+        <td><p align="right"><a href="faq/x816112f.zip"><font
+        size="2" face="Arial">X816 assembler v1.12f.19970408</font></a><font
+        size="2" face="Arial"> - </font></p>
+        </td>
+        <td><font size="2" face="Arial">By minus/Ballistics, it
+        has been used to write a few <br>
+        demos. It's fairly good.</font></td>
+    </tr>
+    <tr>
+        <td><p align="right"><a href="faq/tracer.zip"><font
+        size="2" face="Arial">TRaCER</font></a><font size="2"
+        face="Arial"> - </font></p>
+        </td>
+        <td><font size="2" face="Arial">From the days of VSMC.
+        Still the best one there has<br>
+        been to date.</font></td>
+    </tr>
+    <tr>
+        <td><p align="right"><a href="faq/65816.tar"><font
+        size="2" face="Arial">65816 Cross Assembler</font></a><font
+        size="2" face="Arial"> - </font></p>
+        </td>
+        <td><font size="2" face="Arial">Made by Jeremy Gordan
+        back in 1994. This is a source<br>
+        distribution so you'll need a C compiler.</font></td>
+    </tr>
+    <tr>
+        <td><p align="right"><a href="faq/debug.zip"><font
+        size="2" face="Arial">SNES Debugger</font></a><font
+        size="2" face="Arial"> - </font></p>
+        </td>
+        <td><font size="2" face="Arial">Yes, it says SNESASM.EXE
+        but apparently it was never<br>
+        finished, never documented and ended up as a nice<br>
+        debugger that outputs to a text file.</font></td>
+    </tr>
+</table>
+</center></div>
+
+<p align="left"><font size="2" face="Arial">Now you'll have to
+learn assembler from the </font><a href="65816.doc"><font
+size="2" face="Arial">syntax document</font></a><font size="2"
+face="Arial"> all on your own. There's really nothing else to
+tell you but good luck, here's your diploma and try not to die.</font></p>
+
+<hr width="80%">
+
+<p align="left"><a name="conclusion"></a><font color="#FFFFFF"
+size="2" face="Arial"> <b><i><u>7. Polishing Up</u></i></b> </font></p>
+
+<p align="left"><a name="cip"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Creating IPS Patches</b></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If you're planning to give your work to someone or distribute
+your translation on the internet, you should make an IPS patch.
+Do this by opening up Snestool, clicking on Create IPS Patch,
+selecting the original, untranslated ROM, and then your version
+of it. That's all there is to it, you now have an IPS patch to
+distribute freely! </font></p>
+
+<p align="left"><a name="fn"></a><font color="#FFFFFF" size="2"
+face="Arial"> <b>Closing Statements</b></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+That's all for How to Translate SNES ROMs. If you understood this
+and plan to translate a game, let me know!. </font></p>
+
+<p align="left"><a name="credits"></a><font color="#FFFFFF"
+size="2" face="Arial"> <b>Credits</b></font></p>
+
+<p align="left"><font color="#FFFFFF" size="2" face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Well, the people who helped out and what they did are in this
+neat table;</font></p>
+<div align="center"><center>
+
+<table border="2" bgcolor="#000000">
+    <tr>
+        <td><p align="center"><font color="#FFFF00" size="2"
+        face="Arial"><b>People</b></font></p>
+        </td>
+        <td><p align="center"><font color="#FFFF00" size="2"
+        face="Arial"><b>What they Did</b></font></p>
+        </td>
+    </tr>
+    <tr>
+        <td><p align="right"><font color="#FFFF00" size="2"
+        face="Arial">Demi<br>
+        David Timko<br>
+        Square &amp; Enix<br>
+        Y0SHi</font></p>
+        </td>
+        <td><p align="left"><font color="#FFFF00" size="2"
+        face="Arial">- For writing an excellent ROMHACK document<br>
+        - For figuring out 16x16 and being an excellent team
+        member<br>
+        - For continuing to produce great games for us to
+        translate<br>
+        - For contributing so much to the entire SNES Programming
+        scene</font></p>
+        </td>
+    </tr>
+</table>
+</center></div>
+
+<p><font color="#FFFF00" size="2" face="Arial"><br>
+</font></p>
+
+<p><br>
+</p>
+</body>
+</html>

@@ -1,0 +1,276 @@
+Borrow Form Code
+
+(Global)Borrow
+
+Event : (Declations)
+
+'***********************
+%INCLUDE "lsconst.lss"
+Dim workspace As NotesUIWorkspace
+Dim uidoc As NotesUIDocument
+Dim collection As NotesDocumentCollection
+Dim doc As NotesDocument       
+Dim db As NotesDatabase  
+Dim session As  NotesSession
+Dim item As NotesItem
+Dim datetime As notesdatetime
+Dim acl As NotesACL
+Dim entry As NotesACLEntry
+'***********************
+Borrow Action
+
+Sub Click(Source As Button)
+     Set session = New NotesSession
+     Set workspace = New NotesUiWorkspace
+     Set db = session.currentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     Temp =  uidoc.FieldGetText( "Fld_BORsign" )
+     If Temp <> "" Then ' It may finish borrow form 
+          Messagebox ( "No effect for this")
+          Exit Sub     
+     End If
+     
+     reg=uidoc.FieldGetText("Fld_BORRegNum")
+     'seach all borrow document form 
+     Dim dateTime As New NotesDateTime( "01/01/97" )  
+     searchFormula$ = "Form = ""BOR"""
+     Set collection = db.Search( searchFormula$, dateTime, 0 )
+     Call collection.FtSearch(reg,0)
+     'check that have some one borrow this book but not complete...user can't to borrow it
+     For i=1 To collection.count 
+          Set doc=collection.GetNthDocument(i) '** get each document in document collection for check 
+          Set item=doc.GetFirstItem("Fld_BORsign")
+          sign=item.text
+          If sign<>"" Then ' ** if document is dign so have someone  borrow this book but he has not complete status
+               Messagebox"Sorry someone have the most priority"&Chr(10)&_
+               " for borrow this book.",MB_ICONEXCLAMATION,"Can not borrow!"
+               Exit Sub
+          End If
+     Next
+     
+     'sign this borrow form for indeicate that it's correct
+     Call uidoc.FieldSetText("Fld_BORsign","sign")
+     
+     Messagebox"You have privilege to borrow this book."&Chr(10)&_
+     "Plese take the book to  counter."&Chr(10)&"Borrow not complete."_
+     ,MB_ICONEXCLAMATION,"Take the book to counter"
+     
+     Call uidoc.FieldSetText("Fld_Complete","Not Complete") '** status not complete ..Librarian must press comfirm for complete status
+     
+     Call uidoc.save
+     Call uidoc.close
+     
+End Sub
+
+'***********************************
+Comfirm Action
+
+Sub Click(Source As Button)
+     
+     Set session = New NotesSession
+     Set workspace = New NotesUiWorkspace
+     Set db = session.currentDatabase
+     Set uidoc = workspace.CurrentDocument
+     Set acl = db.ACL
+     
+     'check that must have designer or higher level ACL ...can press this botton
+     user=session.UserName '** get username
+     Set entry = acl.GetEntry( user ) '** get ACL lavel
+     If ( entry.Level < ACLLEVEL_DESIGNER ) Then '** compare if below than designer can't press this borron
+          Messagebox "You don't have privilege to access.",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     Call workspace.EditDocument( True ) '** change mode of document to edit mode
+     reg=uidoc.FieldGetText("Fld_BORRegNum") '** get register number of book 
+     Dim dateTime As New NotesDateTime( "01/01/97" )   '**  search for book detail of this register number for change staus to borrow
+     searchFormula$ = "Form = ""Book Detail"""
+     Set collection = db.Search( searchFormula$, dateTime, 0 )
+     Call collection.Ftsearch(reg,0)
+     If collection.count=1 Then
+          Set doc=collection.GetFirstDocument ' ** get book detail document
+          Set Item = Doc.ReplaceItemValue("Fld_StatusDetail" , "Borrow" )  ' ** change status to Borrow
+          Call doc.save(True,True) '** save book detail document
+     Else
+          Messagebox"This register number not unique."&Chr(10)&"Please Check"_
+          ,MB_ICONEXCLAMATION,"Error!"
+     End If
+     
+                  '*************** date begin***************
+     Call dateTime.setnow  'set date of borrow and date of retun book
+     dates=dateTime.LocalTime
+     dates = Left$(dates, 8)
+     Call uidoc.FieldSetText("Fld_BORDateBegin", dates)
+     
+           '*************** date expire***************
+     
+     Call dateTime.setnow 
+     Call dateTime.AdjustDay( +7 )
+     dates=dateTime.LocalTime
+     dates = Left$(dates, 8)
+     Call uidoc.FieldSetText("Fld_BORDateExp", dates)
+     
+     Call uidoc.FieldSetText("Fld_Complete", "   Complete") ' set status of this borrow form to complete 
+     Call uidoc.save
+     Call uidoc.close
+End Sub
+'***********************************
+
+Return Action
+
+Sub Click(Source As Button)
+     Dim docmail As NotesDocument
+     Set session = New NotesSession
+     Set workspace = New NotesUiWorkspace
+     Set db = session.currentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+     'if this form not complete so can't press this botton
+     chk = uidoc.FieldGetText("Fld_Complete")
+     If chk=" Not Complete" Then
+          Messagebox"Not Complete"&Chr(10)&"Can't press Return Botton",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     'if user has ACL below than designer so can't press this botton
+     Set acl = db.ACL
+     user=session.UserName 
+     Set entry = acl.GetEntry( user )
+     If ( entry.Level < ACLLEVEL_DESIGNER ) Then
+          Messagebox "You don't have privilege to access.",MB_ICONEXCLAMATION,"Error!"
+          Exit Sub
+     End If
+     
+     'calculate the pay if user return book late
+     Set  dateTime= New NotesDateTime( "01/01/97" )  
+     
+     expdate=uidoc.FieldGetText("FLd_BORDateExp") '** get return date from this form
+     Call dateTime.setnow '** set time to now 
+     dates=dateTime.LocalTime '** adjust to local time
+     dates = Left$(dates, 8) '** get date
+     expdate = Datevalue(expdate)' ** convert expire  to date value
+     todaydate=Datevalue(dates)  '** convert todaydate to date value
+     
+     reg=uidoc.FieldGetText("FLd_BORRegNum") '** get register number of book
+     Set  dateTime= New NotesDateTime( "01/01/97" )  
+     
+     searchFormula$ = "Form = ""Book Detail"""
+     Set collectionDetail = db.Search( searchFormula$, dateTime, 0 )
+     Call collectionDetail.FtSearch(reg,0)
+     If collectionDetail.count=1 Then
+          Set docDetail=collectionDetail.GetFirstDocument
+     Else 
+          Messagebox"This register number "+reg+" not unique",MB_ICONEXCLAMATION,"Error!"
+     End If
+     
+     'search for if has some user reserve this book ...so send mail to him and change reserve status to 0
+     searchFormula$ = "Form = ""REV"""
+     Set collection = db.Search( searchFormula$, dateTime, 0 )
+     Call collection.FtSearch(reg,0)
+     If collection.count=1 Then
+          Set item=docDetail.ReplaceitemValue("Fld_StatusDetail","Reserve") '** change book detail status to Reserve
+          Call docDetail.save(True,True) '** save book detail document
+          Set doc=collection.getFirstDocument 
+          Set item=doc.getFirstItem("Fld_REVIDNum")
+          user=item.text '** get user name of user that reserve this book
+          Set item=doc.replaceItemValue("Rev_status","0") '** change reserve status to 0
+          
+          'set time in reserve form ...set begin and expire date that user have privilege to borrow book
+          Call dateTime.setnow 
+          dates=dateTime.LocalTime
+          dates = Left$(dates, 8)
+          Set item=doc.replaceItemValue("Fld_REVDateBegin", dates) '** write begin date  to reserve form
+               '*************** date expire***************
+          Call dateTime.setnow 
+          Call dateTime.AdjustDay( +3 )
+          dates=dateTime.LocalTime
+          dates = Left$(dates, 8)
+          Set item=doc.replaceItemValue("Fld_REVDateExp", dates) '** write expire date to reserve form
+          Call doc.save(True,True)
+       
+          Messagebox("Send Mail") '** send mail to user to reserve this book
+          doc.subject="You can borrow  this book ( Register number =  "+reg+"  ) " 
+          doc.body =" You can borrow  this book ( Register number =  "+reg+"  ) "&Chr(10)& _
+          "since today to " + dates
+          
+          Call doc.Send( False, user )
+          
+     End If
+     
+     'if don't have someone to reserve this book set Staus of book to Free
+     If collection.count=0 Then
+          If collectionDetail.count= 1 Then
+               Set item=docdetail.replaceitemvalue("Fld_StatusDetail","Free")
+               Call docdetail.save(True,True)
+          End If
+     End If
+     
+     'calculate the pay if user return book late
+     If expdate<todaydate Then
+          num=(Day(todaydate)-Day(expdate))
+          num2=Month(todaydate)-Month(expdate)
+          If num2<>0 Then
+               num2=Day(num2)
+          Else
+               num2=0
+          End If
+          num1=  (Year(todaydate)-Year(expdate))
+          num1=num1*365
+          num=num1+num+num2
+          ' must pay 2 bath /1 book / 1day 
+          pay=num*2
+          Messagebox"You are late "&Chr(10)&"Must pay = "+pay+" Bath"_
+          ,MB_ICONEXCLAMATION,"Pay Money!"
+     End If
+     Call putInHtry
+     
+     Call UIDoc.DeleteDocument
+     
+End Sub
+
+'***********************************
+
+Sub putInHtry
+     
+     Dim newdoc As NotesDocument
+     Set dateTime = New NotesDateTime( "12/01/94" )  
+     
+   '*****************************************************************************
+     'create copy of borrow  form and move to "Borrow History " Folder
+     
+     Set newdoc = db.CreateDocument
+     Call newdoc.save(True,True)
+     newdoc.Subject ="Borrow History"
+     newdoc.form="Borrow History"
+     Set doc=uidoc.document
+     
+     idbook= uidoc.fieldGetText("Fld_BORID") '** get value in Fld_BORID field
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORID_htry", idbook ) '** put that value in Fld_BORID_htry field in New Borrow history form
+     
+     complete = uidoc.fieldGetText("Fld_Complete")
+     Set Item = newdoc.ReplaceItemValue( "Fld_Complete_htry", complete )
+     
+     sign = uidoc.fieldGetText("Fld_BORsign")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORsign_htry", sign )
+     
+     id = uidoc.fieldGetText("Fld_BORIDNum")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORIDNum_htry", id )
+     
+     borReg = uidoc.fieldGetText("Fld_BORRegNum")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORRegNum_htry", borReg )
+     
+     borStatus = uidoc.fieldGetText("Fld_BORStatus")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORStatus_htry", borStatus )
+     
+     id = uidoc.fieldGetText("Fld_BORIDNum")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORIDNum_htry", id )
+     
+     begin = uidoc.fieldGetText("Fld_BORDateBegin")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORDateBegin_htry", begin )
+     
+     expire = uidoc.fieldGetText("Fld_BORDateExp")
+     Set Item = newdoc.ReplaceItemValue( "Fld_BORDateExp_htry", expire )
+     Call newdoc.save(True,True)
+          
+End Sub

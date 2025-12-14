@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<TITLE>[De-Jap Guide/Dumping Jap Text]</TITLE>
+</HEAD>
+<BODY bgcolor="#236321" background="tile03.gif" text="#ccffcc" link="#ffcfff" vlink="#ff55cc" alink="#cfff00" topmargin=0 leftmargin=0 bottommargin=0 rightmargin=0>
+<B><FONT face="Verdana, Arial" size=3><center>
+<TABLE border=0 width=85%>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+<BR>
+<font size=5 color=White>Dumping Japanese Text</font><BR>
+<BR>
+If you are trying to translate a large game with a lot of text 
+in it (or maybe your poor translators don't want to search the 
+ROM for text...) then this may help speed things up. The idea 
+is to dump all the game text to a file ready for translation. 
+You will need to of worked out how and where the text is stored 
+first, natch.<BR>
+<font color=White size=3>
+Before your read through this, you should know that I am giving 
+you a cut-down version of my text dumper for Dragon Quest 6. 
+This should make it much easier to write your own (just modify mine!)
+</font><BR>
+<BR>
+<font size=4>
+<a href="DQ6Dump.zip">Download Example Text Dumper</a>
+</font>
+<BR>
+<BR>
+<font size=4 color=Yellow>Step 1: Make sure you can view Japanese</font><BR>
+<TABLE border=0>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+This is a bit obvious, but maybe you don't have the software to 
+do it (yet). I use <font color=White>NJWin v1.5</font> (NJStar's CJK 
+Multilingual Support System!). Get it from 
+<a href="http://www.njstar.com/njstar/cgi-bin/link.pl?sec=Japanese&tit=DeJap+Translations&url=http://www.geocities.com/TimesSquare/Castle/6195/" target="_top">
+The NJStar Web Page</a>. 
+Don't worry, it's free/shareware. When you get it, install it and 
+come back to this page. The following text is in EUC-JIS format. 
+When you view this page with NJWin running in Japanese EUC-JIS mode, 
+the text should appear as in the image below it:
+<BR>
+<BR>
+<font face="system" color=White size=5>¤ª¤³¤Î¤ß¤Î  ¤Ò¤ç¤¦¤¸¤½¤¯¤É¤Ï¡©</font>
+</TD></TR>
+<TR><TD>
+<img src="dejap09.gif" border=0 align=middle WIDTH=448 HEIGHT=32>
+</TD>
+
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 2: Dump the text as tile numbers</font><BR>
+<TABLE border=0>
+<TR>
+<TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+This is not necessary yet, but I thought breaking down the 
+programming may help you. Here is some pseudo-code for what 
+your program should do (you should already know where in the 
+ROM the text data is stored):<BR>
+<BR>
+</B><font face="Fixedsys" color="#ffddcc" size=3><PRE>
+   for i=*text data start position* to *text data end position*
+      j=ROM[i]
+      if j=*string end byte*
+         printf("String end\n")
+      else
+         printf("%02x",j)
+      endif
+   next i
+</PRE></font><B>
+<BR>
+This is very basic, it will need adapting to your langauge 
+and you need to load in the ROM and stuff. Btw, You should 
+make it print useful info, like the position in the ROM that 
+each string starts at (needed when you insert new text!).
+<BR>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 3: Figure out the EUC-JIS text format</font><BR>
+<TABLE border=0>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+Ok, if you bothered with Step 2, you should have a program that 
+dumps all your text data to a file. Now you just need to modify 
+it to print the Japanese characters instead of a load of numbers. 
+This Step is not really anthing, just some information I found out. 
+<BR>
+I don't know much about EUC-JIS, but it seems to use 2 characters/bytes 
+for each Japanese character. Most Japanese word processors use it, 
+not just NJStar products. Anyway, I found that any byte higher than 
+0xA1 followed by another byte higher than 0xA1 seems to get converted 
+to Japanese or Chinese character with EUC-JIS. Hmm...
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 4: Convert the game font to EUC-JIS</font><BR>
+<TABLE border=0>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+We need to tell our program what Japanese character is represented 
+by which number, so it can print these instead. To do this, make 
+a text file containing the font in EUC-JIS format. For example, for 
+Dragon Quest 6, here is the 8x8 font and the EUC-JIS text version 
+I made for it:<BR>
+<BR>
+<img src="dejap0a.gif" border=0 align=middle WIDTH=512 HEIGHT=128>
+<BR><BR>
+</B><font face="Fixedsys" color=White size=3><PRE>
+00  £°£±£²£³£´£µ£¶£·£¸£¹£È£Í£Ğ£Ç¤¢¤¤¤¦¤¨¤ª¤«¤­¤¯¤±¤³¤µ¤·¤¹¤»¤½¤¿
+¤Á¤Ä¤Æ¤È¤Ê¤Ë¤Ì¤Í¤Î¤Ï¤Ò¤Õ¤Ø¤Û¤Ş¤ß¤à¤á¤â¤ä¤æ¤è¤é¤ê¤ë¤ì¤í¤ï¤ò¤ó¤Ã¤ã
+¤å¤ç¥¢¥¤¥¦¥¨¥ª¥«¥­¥¯¥±¥³¥µ¥·¥¹¥»¥½¥¿¥Á¥Ä¥Æ¥È¥Ê¥Ë¥Ì¥Í¥Î¥Ï¥Ò¥Õ¥Ø¥Û
+¥Ş¥ß¥à¥á¥â¥ä¥æ¥è¥é¥ê¥ë¥ì¥í¥ï¥ò¥ó¥Ã¥ã¥å¥ç¥¡¥£¥§¥©°ì¡©¡ª¢§>>¢ª¡£¡¥
+¡Ö¡Ä¡¿????¡§ExLv¡½¡ö??¡¥£Á£Â£Ã£Ä£Å£Æ£Ç£È£É£Ê£Ë£Ì£Í£Î£Ï£Ğ£Ñ£Ò£Ó£Ô
+£Õ£Ö£×£Ø£Ù£Ú??????¡úE ¨®¨¬¨­¨·¨¡¨­b1b2b3b4b5b6¡Á¡Ü__????bcbdbebf
+c0c1c2c3c4c5c6c7c8¤¬¤®¤°¤²¤´¤¶¤¸¤º¤¼¤¾¤À¤Â¤Å¤Ç¤É¤Ğ¤Ó¤Ö¤Ù¤Ü¥ô¥¬¥®
+¥°¥²¥´¥¶¥¸¥º¥¼¥¾¥À¥Â¥Å¥Ç¥É¥Ğ¥Ó¥Ö¥Ù¥Ü¤Ñ¤Ô¤×¤Ú¤İ¥Ñ¥Ô¥×¥Ú¥İ¡Á¡Üfeff
+</PRE></font><B>
+<BR>
+I left all the characters I could not find in EUC-JIS as '??'. 
+Also, I put all the seemingly unused characters to their tile 
+numbers in hexadecimal. However, I later found that some of the 
+unused numbers were used for 'special' characters (like the ones 
+with quotes in the top-right corner. Before you make a start on this, 
+you need some existing EUC-JIS text to grab characters from (unless 
+you have a Japanese keyboard?!). Save this page and cut-and-paste 
+characters from the EUC-JIS text above. Incase you need more 
+characters, here is the Mana2 font in EUC-JIS format (special thanks 
+to SoM2Freak, he did most of this font :) ). This font has a LOT of 
+characters, you should find every Japanese character you need here:
+<BR><BR>
+</B><font face="Fixedsys" color=White size=3><PRE>
+  ¡ª¡É¡È¢§¡ó¡Æ¡Ç¡Ê¡Ë¡ö¡Ü¡¤¡½¡¥¡¿£°£±£²£³£´£µ£¶£·£¸£¹¡§¡Ö¡×¡á¡û¡©
+¡ü£Á£Â£Ã£Ä£Å£Æ£Ç£È£É£Ê£Ë£Ì£Í£Î£Ï£Ğ£Ñ£Ò£Ó£Ô£Õ£Ö£×£Ø£Ù£Ú¡ß¡Ä»ş·îÆü
+¡Á£á£â£ã£ä£å£æ£ç£è£é£ê£ë£ì£í£î£ï£ğ£ñ£ò£ó£ô£õ£ö£÷£ø£ù£ú¡¢¡£¡¼¡ú¤¢
+¤¤¤¦¤¨¤ª¤«¤­¤¯¤±¤³¤µ¤·¤¹¤»¤½¤¿¤Á¤Ä¤Æ¤È¤Ê¤Ë¤Ì¤Í¤Î¤Ï¤Ò¤Õ¤Ø¤Û¤Ş¤ß¤à
+¤á¤â¤ä¤æ¤è¤é¤ê¤ë¤ì¤í¤ï¤ò¤ó¤Ã¤ã¤å¤ç¤¡¤£¤¥¤§¤©¥Ã¥ã¥å¥ç¥¡¥£¥¥¥§¥©¥¢
+¥¤¥¦¥¨¥ª¥«¥­¥¯¥±¥³¥µ¥·¥¹¥»¥½¥¿¥Á¥Ä¥Æ¥È¥Ê¥Ë¥Ì¥Í¥Î¥Ï¥Ò¥Õ¥Ø¥Û¥Ş¥ß¥à
+¥á¥â¥ä¥æ¥è¥é¥ê¥ë¥ì¥í¥ï¥ò¥ó¤¬¤®¤°¤²¤´¤¶¤¸¤º¤¼¤¾¤À¤Â¤Å¤Ç¤É¤Ğ¤Ó¤Ö¤Ù
+¤Ü¥¬¥®¥°¥²¥´¥¶¥¸¥º¥¼¥¾¥À¥Â¥Å¥Ç¥É¥Ğ¥Ó¥Ö¥Ù¥Ü¥ô¤Ñ¤Ô¤×¤Ú¤İ¥Ñ¥Ô¥×¥Ú¥İ
+¡Ø²¦¿ÍËâÍÍ½Ã¹Ô½÷»ä¸÷Ë¡  ¹ñ¸«À»ÎÏ»Êº×ÅÔ·õ´Ö»ÒÊ¼½Ğ¿À¹¶¼êÉ÷Âç¾ëÅ¨»Õ
+Êı±ÑÆşÍºÃæÄ®³¦Æ³²¿ÊìÃÏ²Ğ»È¼ÔÊ¹Àº»×»àÃ£À¤Á°ÂÔÃËÌëµ¤¸À»öÊÑ¹ÈÃÎ²óº£
+À¸ÌÜ»Î¡Ù¶á·âÎîÏ¡·¢Á¥Æ¶Æ»²ñ¶â°èºÇ¾å²¼ÀïÈ÷ÉğÌ¿²°´ï¼öÂìÉãÍè¹Á»Ô¿´Áü
+ÉüÌÀÁõÅğÌô°­¿åÍÑÍı°ì³«¶ô½ÑÃçÏÃÂ±ÎµÎ¹¶¯¼«¼é¾óÉÔ²¡¿¹Â¼Æ°°Ç¸¶ÃÄÌ¾·³
+½É¾¤¿¯¿ÈÂåÆâÊ¬µŞ»¦»ÂÀĞÄêÅÂÉ¬ÎÎ¡¦°á´­¸Å»ÏÀ­Á´Ã¯ÅÁÅÚËÜ°Ê²«¸å¹õ¹şºÉ
+»³»ı¼º¾ì¿ÆÀèÄÌ¡¹±ê³°´Ûµ³¶õÂÎÃ¦ËÉÌÚÍ¿Î©Îö¹â¼ù¾¦¾Ã¿¿ÁáÁğÉôÍîµÙ¶µ¶¶
+·ê¼Ù¼ç¾¡¿®ÀâÀêÁªÁäÄïÅ·ÊõË´Ìá²½¶¡¶ä·ìºÆ»Ä»ß½êÀûÃåÆ·Ç½ÈëÊÅÊÖ±Æ²Ö²æ
+´é·»·è·ë¸ò¸ı½õÆ±ÇòÉ¹ÉÊÉõÍ×Ï´Ïµ¢ª°Â°Å°Ï±¿²ç´¹µ»µã¶È¶ñ·Á¸µ¸Æ¸Ğ¸æº¬
+º½ºî¼ó¼ş¾¯ÀãÁöÂ°Â¾Ã«ÄëÅêÆÇÉ±Ì´ÍëÎ¢Î®°õ²»²È¸¸¸Ë¿²À×ÀßÁÒÅªÆ®ÆÍÈôÊÉ
+Ë¹Ì¼ÌÇÌıÍ³¡Ú¡Û°¦±©±ü³¤³Æ³×µ¢¶Ì·ú¸Ï¸ş¹Í¼Â¼ã¼ï¿·À¼ÁèÂ³ÄÉÅÙÆ¨ÇÈÈàÉ½
+ÉéÊªË¤ËÌÌ£ÌÌÍ§ÎØ°ä´íµö¶»¶Ø¸º¸½¹çºò¼£½ª½»½â½é½ñÀ±À¾ÀÎÃ±ÄºÅìÅöÆ¬Ç¦
+Ç®ÇäÈŞÉ´Ê¸Ë¾ËåÌ©Ì²ÌµÍÃÍÅÍğÎäÎõÏ¢¡Î¡Ï°Û²¾²Ã²Ä²ò³¹³Ù´¨´¶´äµ¡µÓµØµî
+µù¶Ë·Ã·ı¸¤¹¥¹¦º¢ºß»Ñ»å¼¡¼è¾®¿ôÀÄÀÖÀÚÁÛÁıÂ©Â­ÂĞÂÓÂâÄ¹Ä¾ÄìÅ´ÆîÆñÇÛ
+È¯È´È¾ÈòÊÄÊüÌ¸ÌÂÌîÎ»Îí¢«¢­°ã°æ±¦±«±ó²ø´¬´Ø´ß´üµÛµÜµğ¶ì·¯·Ï¸­¸Í¸î
+¹Ò¹ß»ú¼¨¼¼¼Ş¼å¼õ½¸½½¾ï¾ğ¾ş¿§¿Ê¿Ë¿ØÀªÀ®ÁêÁ÷ÁşÂ²ÂÇÂàÃ»ÃÊÃÍÃëÄ«Ä´ÅÜ
+ÅİÅãÆÉÆæÈ¿ÈéÉÂÉÏÉñÊ®Ê¿ÊÌÊÕÌ¤Í¦ÍøÎ¨Î¾ÎŞ¢¬°¤°Ì°Õ±Õ²Ù³²³Ê³Ğ´°´±´À´õ
+Èşµ®¸øÃµÎÉÍÔµ¯¾èÅçº²Í©Ç°´ã³èÄ¶Çì¼ßÂÄµß¶¦²ÌÃÇËºÇ¯¸úº¤Â¸Í½Á³»ÅÂ¿Æó
+¿¢ÀäÂÖÈáÏÇ¶²¸±¼ÎÀÅÍÄ°ú¼ıÅÓÈªÍãÏ­µÒÄíÆÀÇÔÇãÇñÌòÏÂ¹­Â¤É¤Í­Ï©°é²şµÑ
+µÕ¿¼¿áÃÙÄÁÎá±Ê²á³¬·Ñ¹ï»Ù¾õ¿©ÈÄÎéÏ··¸¸³½Å¾Ú´³ÀøÂ¦Â¹ÃÈÈ¢Ê´ÊèÍßÎĞÎø
+°÷³Øµ­µÁ¶§·Ğ·ç¸ç¹¬º¸ºÒ»¶»º½¤ÀµÀÃÁÇÂÀÅ«Å¹Æ©ÇØÇŞÇúÊâËöÌğÎÓÎãµİ¸ì¹¹
+¹Óºá¼ª½Ë¾­¾½¾İ¾Ş¿¨À£ÀşÁÏÄãÅ¾ÅıÉúÌçÎıÏ«°Ü±ß²¸²¹³¥¶­¶¸·ï¸¢¸¼¸×»Ş»ï
+¼Í¼ë½µ½ã½è½ü¾º¾×¿ıÀ©Á±ÁÎÁãÃÆÅÀÅàÇËÇÏÇÕÈ±Ë¦ËçÌ±ÌÊÌÓÌÔÍå±í±ö²µ²è´§
+µå·º¸¨¸õ¸ù¹áºÌ¼À¼Ø½¾¾¢¾²¾ô¿ŞÁ¬Á®Ã¢Ä»ÅáÉÍÍ¼ÍËÍÕÍÛÍòÎ¤Î·Î×        
+</PRE></font><B>
+</TD></TR>
+</TABLE>
+<BR>
+<font size=4 color=Yellow>Step 5: Adapt your code to use the EUC-JIS data</font><BR>
+<TABLE border=0>
+<TR><TD><font size=2 color="#ccffcc" face="Verdana, Arial"><B>
+If you did Step 2 and already have some wokring code, this step 
+will be less painful. Basically, you just add some code to load the 
+text file you made in Step 4 and replace the code that prints 
+the character number to print the relevant Japanese character 
+from the EUC text file. Remember that each EUC-JIS character takes 
+2 bytes, so you will probably have something like:<BR>
+</B><font face="Fixedsys" color="#ffddcc" size=3><PRE>
+   if j=*string end byte*
+      print "String end"
+   else
+      k=EUCfile[(j*2)]
+      print asc(k)
+      k=EUCfile[(j*2)+1]
+      print asc(k)
+   endif
+</PRE></font><B>
+</TD></TR>
+</TABLE>
+
+</B></font>
+</TD></TR>
+</TABLE>
+</TD></TR></TABLE>
+</BODY>
+</HTML>

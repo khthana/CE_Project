@@ -1,0 +1,71 @@
+ChkReserve Agent
+
+'*********************************
+Event : Declarations
+
+Dim uidoc As NotesUIDocument
+Dim doc As NotesDocument       
+Dim db As NotesDatabase  
+Dim item As NotesItem
+Dim collection As NotesDocumentcollection
+Dim rtitem As NotesRichTextItem
+Dim dateRange As NotesDateRange
+Dim form As NotesForm
+Dim form_name As String
+
+'**********************************
+Event : Initialize
+
+Sub Initialize
+     
+     Dim strng As Variant
+     Dim datetime As New NotesDateTime("01/01/94")
+     Dim  expireDate As Variant
+     Set session = New NotesSession
+     Set db=session.currentDatabase
+     
+     searchFormula$ = "Form = ""REV"" " '** search all Reserve form document
+     Set collection = db.Search( searchFormula$, dateTime, 0 )
+     If collection.count<>0 Then
+          For i =1 To  collection.count 
+               Set Doc = Collection.GetNthDocument(i) '** check each document sign or not?
+               Set item=doc.getFirstItem("Fld_REVsign")
+               sign=item.text
+               If sign<>"" Then
+                    Set item=doc.getFirstItem("Rev_status") '**if document sign ..get statusQ 
+                    statusQ=item.text
+                    If statusQ="0" Then
+                         Set item=doc.getFirstItem("Fld_REVDateExp") '** if statusQ=0 check expire date
+                         expireDate=item.text '** get expiredate
+                         Call datetime.setnow '** get now date
+                         Dates = Leftbp$(datetime.localTime, 8) '** get date only
+                         enddate = Datevalue(expiredate) '** convert expiredate to enddate value
+                         todaydate=Datevalue(dates) '** convert dates to todaydates values
+                         
+                         
+                         If endDate<todaydate Then
+                              
+                    'mail to user notify expire date
+                              Set item=doc.getFirstItem("Fld_REVIDNum")   ' ** get user name for send mail 
+                              user=item.text
+                              Set item=doc.getFirstItem("Fld_REVRegNum")'** get register number of book for notify to user
+                              reg=item.text
+                              doc.subject = ("You lost privilege to borrow  this book   "+" ' " + reg + " ' ") '** set mail subject
+                              doc.body=(" You lost privilege to borrow  this book register number = "+reg+" on  " + expiredate + " ." & Chr$(10) &_
+                              "Please try again." & Chr$(10) &_ '**  set mail body
+                              " " & Chr$(10) &"    "&  Chr$(10) &_
+                              "                                                        Libralian")
+                              Call doc.send(False,user)
+                         End If
+                    End If 'statusQ=0
+                    
+               Else 'sign=""
+                    Call doc.Remove( True ) '** if document not sign ..delete document
+               End If'sing<>""
+               
+          Next
+     End If 'collection.count <> 0
+     
+     
+End Sub
+'************************************

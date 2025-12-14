@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title> Que Publishing's Very Simple Demonstration Form </title>
+</head>
+<script language="JavaScript">
+function InCorrect(){
+	alert("   Subject Name is invalid.   ");
+}
+function detect(){
+	var str=document.formx.Subj_Name_Eng.value;
+	if (str==""){	/* fixed length of student Id is 8 charecter */
+		InCorrect();
+		return false;
+	}
+}
+</script>
+<body background="Granite%20Edifice.gif">
+
+<h1 align="center"><font face="JasmineUPC"><img src="kmitl.gif"
+width="100" height="90"></font></h1>
+
+<h1 align="center"><font face="JasmineUPC">สำนักทะเบียนและประมวลผล</font></h1>
+<div align="center"><center>
+
+<table border="2">
+    <tr>
+	  <FORM METHOD="POST" ACTION="funct7.idc" name = "formx" onsubmit="return detect()">
+        <td align="center"><h4><font face="JasmineUPC"><strong>กรุณาป้อนชื่อวิชาเรียนเพื่อค้นหา:
+        <input type="text" size="20" name="Subj_Name_Eng"></strong></font></h4>
+        <p><input type="submit" value="Run Query"> 
+        <input type="reset" value="Reset Query"> </p>
+        </td>
+    </tr>
+</table>
+</center></div>
+</body>
+</html>

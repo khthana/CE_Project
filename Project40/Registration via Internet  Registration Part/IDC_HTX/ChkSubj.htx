@@ -1,0 +1,53 @@
+<!-- This File is : Show Registed Subject of student -->
+<!-- Last Update : 26-03-1998 -->
+<html>
+<head>
+<script language=JavaScript>
+function showRegisDate(date){
+	if(date.charAt(8)=='0')
+		dd=date.charAt(9);
+	else 	dd=date.substring(8, 10);
+	var xdate = '<font size=-1> / วันที่ลงทะเบียน : <b>'+dd+'</b> เดือน <b>';
+	if(date.substring(5, 7)=='01') xdate +='มกราคม';
+	if(date.substring(5, 7)=='02') xdate +='กุมภาพันธ์';
+	if(date.substring(5, 7)=='03') xdate +='มีนาคม';
+	if(date.substring(5, 7)=='04') xdate +='เมษายน';
+	if(date.substring(5, 7)=='05') xdate +='พฤษภาคม';
+	if(date.substring(5, 7)=='06') xdate +='มิถุนายน';
+ 	if(date.substring(5, 7)=='07') xdate +='กรกฎาคม';
+	if(date.substring(5, 7)=='08') xdate +='สิงหาคม';
+	if(date.substring(5, 7)=='09') xdate +='กันยายน';
+	if(date.substring(5, 7)=='10') xdate +='ตุลาคม';
+	if(date.substring(5, 7)=='11') xdate +='พฤศจิกายน';
+ 	if(date.substring(5, 7)=='12') xdate +='ธันวาคม';
+	xdate += 	'</b> พ.ศ. <b>'+ (eval(date.substring(0, 4))+543)+
+			'</b> / เวลา : <b>'+date.substring(11, 16)+'</b> นาฬิกา</font>';
+	document.write(xdate);
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<font size=+2><b>แสดงผลการตรวจสอบรายวิชาที่ลงทะเบียน</b></font>
+<br><br>
+<%if msg_false eq ''%>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<font size=-1>ภาคการศึกษาที่:<b> <%term%> </b>ปีการศึกษาที่ :<b> <%year%> </b><br>
+	<font size=-1>ลำดับที่ :<b> <%Regis_No%> </b></font>
+	<script language=JavaScript>
+		showRegisDate('<%Regis_Date%>');
+	</script><br>
+	<font size=+1><b>รายการวิชาที่ลงทะเบียน</b></font>
+<table border=2>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+<tr>	<td bgcolor=skyblue><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+	<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+<%endif%>
+</table>
+	<%if CurrentRecord eq 0 %><font size=+2>ไม่ปรากฏข้อมูลทะเบียนวิชาเรียน</font>
+	<%endif%>
+</body>
+</html>

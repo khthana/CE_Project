@@ -1,0 +1,200 @@
+<!-- This File is : Page getting the Subject for registration -->
+<!-- Last updat on : 26-03-1998 Status : ok -->
+<html>
+<head>
+<script Language=JavaScript>
+var n_select=0; /* used for Student year 4 only*/
+var have_So_Hu=false; /* used for tell function for have Social and Human Subject */
+function changeNumOfSelect(){
+	if(document.info_std.term.value=='2' && document.info_std.YearStudy.value=='4')
+		n_select=2;
+	else 	n_select=1;
+}
+function verify(){ /* this function is get value from form then take into form for sending */
+	n=0;
+	msg='false';
+	/* section for pushing data of Subject in Checkbox */
+	for(i=0; i<(document.s_form.elements.length-n_select); i++){
+		svalue=document.s_form.elements[i].value;
+		if(svalue.charAt(0)!='x'){
+			document.send_form.elements[n].value=document.s_form.elements[i].value;
+			n++;
+			msg='true'; /* add for test .. when for long time can delete this line*/
+		}
+	}
+	/* section for pushing data of Select list into send_form form */
+	if( have_So_Hu==true ){
+	   if(document.s_form.Subj_list.options[0].selected){
+		alert("โปรดตรวจสอบวิชาเลือก เนื่องจากยังไม่ได้มีการเลือก !");
+	      }
+	   for(i=0; i<=document.s_form.Subj_list.length; i++){
+		  if(document.s_form.Subj_list.options[i].selected){
+			document.send_form.elements[n].value=document.s_form.Subj_list.options[i].value;
+			n++;
+			i=document.s_form.Subj_list.length+1;
+			msg='true';
+		  }
+	   }
+	   /* section for pushing Select list No.2 into form send_form */
+	   if(document.info_std.term.value=='2' && document.info_std.YearStudy.value=='4'){
+	     if(document.s_form.Subj_list.options[0].selected){
+		alert("โปรดตรวจสอบวิชาเลือก เนื่องจากยังไม่ได้มีการเลือก !");
+	      }
+	     for(i=0; i<=document.s_form.Subj_list2.length; i++){
+		  if(document.s_form.Subj_list2.options[i].selected){
+			document.send_form.elements[n].value=document.s_form.Subj_list2.options[i].value;
+			n++;
+			i=document.s_form.Subj_list2.length+1;
+			msg='true';
+		  }
+	     }
+	   }
+	}
+	if(msg=='true'){
+		conf_tx='แสดงวิชาที่จะทำการลงทะเบียน :\n\n';
+		for(i=0; i<=9 ; i++){
+			xsubj=document.send_form.elements[i].value;
+			if(xsubj.charAt(0)!='x')
+				conf_tx+="     ลำดับที่ "+(i+1)+" : "+xsubj+"\n";
+		}
+		/*copy password*/
+		document.send_form.Signature.value=parent.left.document.c1.Passwd.value;
+		return confirm(conf_tx+"\nรายการวิชาถูกต้องหรือไม่ ?");
+	}
+	else if(msg=='false') return false;
+}
+function ChangeValue(obj){ /* Change Value for each check box */
+	ss=document.s_form.elements[obj].value;
+	if(ss.charAt(0)!='x'){
+		document.s_form.elements[obj].value='x'+ss;
+	}
+	else{
+		document.s_form.elements[obj].value=ss.substring(1,9);
+	}
+}
+function selectSubjSO_HU(){
+	str = "<select name=Subj_list><option value='xx' selected>[เลือกจากรายการนี้ 1 วิชา]";
+	for(i=5; i<=document.formz.elements.length; i+=5){
+		s_type=document.formz.elements[i].value;
+		if(s_type=='05' || s_type=='03'){
+			s_id=document.formz.elements[i-4].value;
+			s_name=document.formz.elements[i-3].value;
+			s_lec=document.formz.elements[i-2].value;
+			s_lab=document.formz.elements[i-1].value;
+			str +=	"<option value="+s_id+"> วิชา : "+s_id+"  "+s_name+
+				" ทฤษฎี: "+s_lec+"  ปฏิบัติ: "+s_lab;
+		}
+	}
+	str += "</select>";
+	document.write(str);
+}
+function selectSubjSO_HU2(){
+	str = "<select name=Subj_list2><option value='xx'>[เลือกจากรายการนี้ 1 วิชา]";
+	for(i=5; i<=document.formz.elements.length; i+=5){
+		s_type=document.formz.elements[i].value;
+		if(s_type=='05' || s_type=='03'){
+			s_id=document.formz.elements[i-4].value;
+			s_name=document.formz.elements[i-3].value;
+			s_lec=document.formz.elements[i-2].value;
+			s_lab=document.formz.elements[i-1].value;
+			str +=	"<option value="+s_id+"> วิชา : "+s_id+"  "+s_name+
+				" ทฤษฎี: "+s_lec+"  ปฏิบัติ: "+s_lab;
+		}
+	}
+	str += "</select>";
+	document.write(str);
+}
+function showSubject(){
+	document.write("<form name=s_form><center>");
+	document.write("<table border=2><tr><td align=center bgcolor=skyblue>เลือก</td>"+
+			"<td align=center bgcolor=skyblue>รหัสวิชา</td>"+
+			"<td align=center bgcolor=skyblue>ชื่อวิชา</td>"+
+			"<td align=center bgcolor=skyblue>หน่วยกิตทฤษฎี</td>"+
+			"<td align=center bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>");
+	atObj=0; /* Set new value to new variable */
+	count=1; /* Set new value to new variable */
+	for(i=5; i<=document.formz.elements.length; i+=5){
+		s_type=document.formz.elements[i].value;
+		if(s_type!='03' && s_type!='05'){
+		  document.write("<tr><td align=center bgcolor=skyblue>"+
+			"<input type=checkbox value="+document.formz.elements[i-4].value+
+			" checked onClick=ChangeValue("+atObj+")></td>"+
+		  	"<td align=center>"+document.formz.elements[i-4].value+"</td>"+
+		 	"<td>"+document.formz.elements[i-3].value+"</td>"+
+		  	"<td align=center>"+document.formz.elements[i-2].value+"</td>"+
+		  	"<td align=center>"+document.formz.elements[i-1].value+"</td></tr>");
+		  atObj++;
+		  count+=5; /* count for next row of subject */
+		}
+	}
+	if(document.formz.elements.length != count){ /* check for have more subject ?*/
+	   have_So_Hu=true; /* set for tell all any function for this now have So and Hu subject*/	
+	   changeNumOfSelect()	 /* set n_select for number of select subject */
+	   document.write("<tr><td colspan=5>เลือก 1:"); /*if have then show */
+	   selectSubjSO_HU();
+	   if(document.info_std.term.value=='2' && document.info_std.YearStudy.value=='4'){
+		document.write("</td></tr>");
+		document.write("<tr><td colspan=5>เลือก 2: ");		
+		selectSubjSO_HU2();
+	   } 
+	}
+	document.write("</td></tr></table></form>");
+	document.write("<form name=send_form method=post action=http://161.246.6.32/scripts/Project97/Registry.idc onSubmit='return verify()'>");
+	document.write("<input type=hidden name=Subj_0 value='xx0'><input type=hidden name=Subj_1 value='xx1'>"+
+			"<input type=hidden name=Subj_2 value='xx2'><input type=hidden name=Subj_3 value='xx3'>"+
+			"<input type=hidden name=Subj_4 value='xx4'><input type=hidden name=Subj_5 value='xx5'>"+
+			"<input type=hidden name=Subj_6 value='xx6'><input type=hidden name=Subj_7 value='xx7'>"+
+			"<input type=hidden name=Subj_8 value='xx8'><input type=hidden name=Subj_9 value='xx9'>");
+	document.write("<table>");
+	document.write("<tr><td><input type=hidden name=Signature>");
+	document.write("<input type=submit value='   ตกลง   '></td>");
+	document.write("<td><input type=reset value='   ยกเลิก  '></td></tr>");
+	document.write("</table>");
+	str_id=document.formz.elements[0].value;
+	document.write("<input type=hidden name=LoginName value="+'s'+str_id.substring(1,8)+">");
+	document.write("<input type=hidden name=std_id value="+str_id+">");
+	document.write("<input type=hidden name=Fname value="+document.name_form.fn.value+">");
+	document.write("<input type=hidden name=Lname value="+document.name_form.ln.value+">");
+	document.write("</center></form>");
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<%if  msg_false eq '' %>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<center>
+	<form name=info_std>
+	<input type=hidden name=term value='<%Term%>'>
+	<input type=hidden name=YearStudy value='<%YearStudy%>'>
+	</form>
+	<font size=-1>
+	ภาคการศึกษา : <b><%Term%></b> ปีการศึกษา : <b><%Year%></b><br>
+	ภาควิชา : <b><%Dept_name%></b> คณะ : <b><%Faculty_name%></b><br>
+	รหัสนักศึกษา : <b><%Std_Id%></b> ชั้นปี : <b><%YearStudy%></b>
+	 ชื่อ-สกุล : <b><%Std_Name_Eng%> <%Std_Sname_Eng%></b>
+	</font>
+	</center>
+	<form name=name_form>
+		<input type=hidden name=fn value='<%Std_Name_Eng%>'>
+		<input type=hidden name=ln value='<%Std_Sname_Eng%>'>
+	</form>
+	<form name=formz>
+	<input type=hidden name=Std_Id_ value='<%Std_Id%>'>
+	<%endif%>
+	<input type=hidden value='<%Subj_Id%>'>
+	<input type=hidden value='<%Subj_Name_Eng%>'>
+	<input type=hidden value=<%Credit_Lec%>>
+	<input type=hidden value=<%Credit_Lab%>>
+	<input type=hidden value=<%Subj_type%>>
+<%enddetail%>
+	</form>
+<%endif%>
+<%if CurrentRecord eq 0 %>
+	<center><font size=+2>ข้อมูลนำเข้าจากผู้ใช้งานไม่ถูกต้อง<br>หรือ<br>มีการลงทะเบียนไว้แล้ว</font></center>
+<%else%>
+	<script language=JavaScript>showSubject();</script>
+<%endif%>
+</body>
+</html>
+

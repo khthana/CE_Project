@@ -1,0 +1,64 @@
+<!-- This File is : Show grade of student in any term and year -->
+<!-- Last Update : 26-03-1998 -->
+<html>
+<head>
+<script language=JavaScript>
+function Tran(iForm){
+	iForm.LoginName_.value=parent.left.document.c5.LoginName.value;
+	iForm.signature_.value=parent.left.document.c5.Passwd.value;
+	iForm.Std_id_.value=parent.left.document.c5.Std_id.value;
+	return true;
+}
+function showStatus(sts){
+	if( sts=='p')
+		document.write("<font size=-1>สถานะ : <input type=text value='ผ่าน ( Pass )'></b></font>");
+	else 	if( sts=='b')
+			document.write("สถานะ : วิทยาทัณฑ์ ( Probation )");
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<font size=+2 color=blue><b>แสดงผลการตรวจสอบผลการเรียน</b></font>
+<br>
+<%if msg_false eq ''%>
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<font size=-1>
+	ภาควิชา : <b><%Dept_name%></b> คณะ : <b><%Faculty_name%></b><br>
+	รหัสนักศึกษา : <b><%Regis_Std_Id%></b> ชื่อ-สกุล : <b><%Std_Name_Eng%> <%Std_Sname_Eng%></b>
+	</font>
+	<form method=post action="http://161.246.6.32/scripts/Project97/ChkGrade.idc" onSubmit="return Tran(this)">
+		<input type=hidden name=std_id_ value='<%Regis_Std_id%>'>
+		<font size=-1><b>ภาคการศึกษาที่ : 
+		<input type=text name=term value='<%Regis_term%>' size=4 maxlength=1>
+		ปีการศึกษาที่ : 
+		<input type=text name=year value='<%Regis_year%>' size=4 maxlength=4></b></font>
+		<input type=hidden name=LoginName_><input type=hidden name=signature_><input type=hidden name=Std_id_>
+		<input type=submit value='แสดงผล'>
+		<input type=reset   value=' ยกเลิก '>
+	</form>
+<table border=2>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td>
+	<td bgcolor=skyblue align=center>เกรด</td></tr>
+	<%endif%>
+<tr>	<td bgcolor=skyblue><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+	<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td>
+	<td align=center><%Regis_Subj_Grade%></td></tr>
+<%enddetail%>
+<%endif%>
+</table>
+	<%if CurrentRecord eq 0 %>
+	<font size=+1><b>ไม่ปรากฏ ข้อมูลผลการเรียน เนื่องจากข้อมูลนำเข้าไม่ถูกต้อง</b></font>
+	<%else%>
+		<br>
+		<%begindetail%>
+		<font size=-1>	เกรดเฉลี่ย : <input type=text value=<%GPS%> size=4></font>
+		<font size=-1> 	เกรดเฉลี่ยรวม : <input type=text value=<%GPA%> size=4></font>
+		<script language=JavaScript>
+			showStatus('<%Status%>');
+		</script>
+		<%enddetail%>
+	<%endif%>
+</body>
+</html>

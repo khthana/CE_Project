@@ -1,0 +1,104 @@
+<!-- This File is Last Update on : 6/1/2541  Status : Test -->
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title></title>
+</head>
+
+<body background="Granite%20Edifice.gif">
+<script language="JavaScript">
+function InCorrect(){
+	alert("   Student Id. is not correct ! -- eg. '38013305'   ");
+}
+function detect(){
+	var str=document.formx.std_id.value;
+	if (!(str.length==8)){	/* fixed length of student Id is 8 charecter */
+		InCorrect();
+		return false;
+	} else{	for(i=0 ; i<str.length ; i++){
+			var ch=str.charAt(i);
+			if (!( (ch>='0') && (ch<='9') )){	/* if not between 0-9 */
+				i=str.length;
+				InCorrect()
+				return false;
+			}
+		}
+		if (i==str.length){
+			document.formx.LoginName.value='s'+str.substring(1, 8); /* for s8013305 */
+			return true;
+		}
+	}
+}
+</script>
+
+<p align="center"><br>
+</p>
+
+<form action="CheckId.idc" method="POST" name="formx"
+onsubmit="return detect()">
+    <input type="hidden" name="LoginName" value><div
+    align="center"><center><table border="2" width="350">
+        <tr>
+            <td align="center" bgcolor="#3987C6"><font size="4"
+            face="JasmineUPC"><b>รหัสผ่านเข้าสู่ระบบ</b></font></td>
+        </tr>
+        <tr>
+            <td><font face="JasmineUPC"><br>
+            </font><div align="center"><center><table border="0">
+                <tr>
+                    <td><font face="JasmineUPC"><b>รหัสนักศึกษา</b></font></td>
+                    <td align="right"><font face="JasmineUPC">: <input
+                    type="text" size="20" maxlength="8"
+                    name="std_id" value="38013305"></font></td>
+                </tr>
+                <tr>
+                    <td><font face="JasmineUPC"><b>รหัสผ่าน</b></font></td>
+                    <td align="right"><font face="JasmineUPC">: <input
+                    type="password" size="20" maxlength="8"
+                    name="passwd" value="38013305"></font></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2"><font
+                    face="JasmineUPC"><br>
+                    <input type="submit" value="      OK      "> <input
+                    type="reset" value="   CANCLE"> <br>
+                    </font></td>
+                </tr>
+            </table>
+            </center></div></td>
+        </tr>
+    </table>
+    </center></div>
+</form>
+
+<p align="center"><br>
+<br>
+<font size="4" face="JasmineUPC"><b><u>วิธีใช้งาน</u></b></font><font
+face="JasmineUPC"><u> </u></font></p>
+<div align="center"><center>
+
+<table border="0">
+    <tr>
+        <td><font face="JasmineUPC">ผู้ใช้จะต้องป้อนข้อมูลดังนี้</font></td>
+    </tr>
+    <tr>
+        <td><font face="JasmineUPC">1. รหัสนักศึกษา
+        (ไม่เกิน 8 ตัวอักษร)</font></td>
+    </tr>
+    <tr>
+        <td><font face="JasmineUPC">2.
+        รหัสผ่านนักศึกษา </font></td>
+    </tr>
+    <tr>
+        <td><font face="JasmineUPC">เมื่อป้อนข้อมูลครบถ้วนแล้ว
+        ให้คลิกที่ &quot; OK &quot;
+        โปรแกรมจะทำการขั้นต่อไป</font></td>
+    </tr>
+</table>
+</center></div>
+</body>
+</html>

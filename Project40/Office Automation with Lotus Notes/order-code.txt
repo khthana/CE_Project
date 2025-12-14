@@ -1,0 +1,640 @@
+Globals(Bill)
+
+Event: [Decarlations]
+
+%INCLUDE "lsconst.lss"
+Dim db As NotesDatabase
+Dim session As NotesSession
+Dim docH As NotesDocument
+Dim doc As NotesDocument
+Dim uidoc As NotesUIDocument
+Dim collection As NotesDocumentCollection
+Dim workspace As NotesUIWorkspace
+
+Dim temp, fldmenu, fldperunit, oldno
+Dim No() As String
+Dim Menu() As String
+Dim Amount() As String
+Dim PerUnit() As String
+Dim Money() As String
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Order(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Order";"Order Profile")
+
+Event: Postopen
+
+Sub Postopen(Source As Notesuidocument)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     oldno = uidoc.FieldGetText("fld_no")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_runnum(Field)
+
+Event: Default Value
+
+REM "******************************************************************";
+REM "*************************Run Number of Order***********************";
+REM "******************************************************************";
+
+Temporary := @Environment("RunNumber");
+Temporary2 := @If(Temporary="";"0";Temporary);
+CurrentOrderNumber := @TextToNumber(Temporary2);
+NextOrderNumber := CurrentOrderNumber + 1;
+ENVIRONMENT RunNumber := @Text(NextOrderNumber);
+@If(@Length(@Text(NextOrderNumber))=1;"00"+RunNumber;
+@Length(@Text(NextOrderNumber))=2;"0"+Runnumber;Runnumber)
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_company(Field)
+
+Event: Default Value
+"3Com"
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_dept(Field)
+
+Event: Default Value
+"Library"
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_day(Field)
+
+Event: Default Value
+@Day(@Now)
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_month(Field)
+
+Event: Default Value
+@Select(@Month(@Now);"January";"February";"March";"April";"May";
+"June";"July";"August";"September";"October";"November";"December")
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_year(Field)
+
+Event: Default Value
+@Year(@Now) + 543
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_no(Field)
+
+Event: Exiting
+
+Sub Exiting(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     temp0 = uidoc.FieldGetText("fld_no")
+     If temp0 = "" Then Exit Sub
+     If temp0 = oldno Then Exit Sub
+     fldmenu = ""
+     fldperunit = ""	
+     
+'*************************************************************************
+'********************** This section find number of item ***********************
+'*************************************************************************
+     length = Len(temp0)
+     count = 1
+     For i = 1 To length
+          temp1 = Left(temp0,i)
+          character = Right(temp1,1)
+          If character = "," Then
+               count = count + 1
+          End If
+     Next
+   
+'*************************************************************************
+'************ This section separate multivalue fld_no to array Menu() ***************
+'*************************************************************************
+     j = 1     
+     For i = 1 To length
+          temp1 = Left(temp0,i)
+          character = Right(temp1,1)
+          If character = "," Then
+               j = j +1
+               Call Remain
+               If temp <> "" Then Exit Sub
+               word = word  & Chr(13) & Chr(10)
+          Elseif character = " " Then
+          Else
+               temp = temp & character
+               word = word  & character               
+          End If
+     Next
+     
+     Call Remain
+     If temp <> "" Then Exit Sub
+     
+     oldno = word
+     length = Len(fldmenu)
+     fldmenu = Right(fldmenu,length-2)
+     length = Len(fldperunit)
+     fldperunit = Right(fldperunit,length-2)
+     Call uidoc.FieldSetText("fld_menu",fldmenu)
+     Call uidoc.FieldSetText("fld_perunit",fldperunit)
+     Call uidoc.FieldSetText("fld_no",word)
+     
+     string1$ = Str$(count)
+     string1$ = Trim$(string1$)
+     Call uidoc.FieldSetText("fld_count",string1$)
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+Sub Remain
+'*************************************************************************
+'****************** Find number remain data of each item ***********************
+'*************************************************************************
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp &""""
+     notesFormula = "Form = ""Item"" &  @Contains(fld_code ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+     If num = 0 Then
+          Messagebox "Some item miss match", MB_ICONEXCLAMATION, "Alarm !"
+          Call uidoc.FieldClear( "fld_no" )
+          Call uidoc.GoToField("fld_no")
+          Exit Sub
+     Else
+          For k = 1 To num
+               Set doc = collection.GetNthdocument(k)
+               Set item=doc.getfirstitem("fld_code")
+               temp2 = item.text
+               If temp2  = temp Then
+                    Goto stopped
+               End If
+          Next
+     End If
+     
+Stopped :
+     Set item=doc.getfirstitem("fld_name")
+     temp2 = item.text
+     fldmenu = fldmenu & Chr(13) & Chr(10) & temp2
+     
+     Set item=doc.getfirstitem("fld_perunit")
+     temp3=item.text
+     fldperunit = fldperunit & Chr(13) & Chr(10) & temp3
+     temp = ""
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_menu(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     uidoc.GoToField("fld_amount")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_amount(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     temp0 = uidoc.FieldGetText("fld_no")
+     If temp0 = "" Then  
+          Messagebox "You must choose any item",MB_ICONEXCLAMATION,"Choose any item"
+          uidoc.GoToField("fld_no")
+     End If
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_perunit(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     uidoc.GoToField("fld_amount")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_money(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     uidoc.GoToField("fld_amount")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+fld_alltotal(Field)
+
+Event: Entering
+
+Sub Entering(Source As Field)
+     Dim workspace As New NotesUIWorkspace
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.GoToField("fld_dept")
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Done(Button)
+
+Event: Click
+
+Sub Click(Source As Button)
+     Dim session As New NotesSession
+     Dim workspace As New NotesUIWorkspace
+     Dim temp1, temp2 As String 
+     
+     On Error Goto ProcessError
+     
+     Set db = session.CurrentDatabase
+     Set uidoc = workspace.CurrentDocument
+     
+'------------------------------------------------------------------------------------------------------------
+'****************** Check every  nessary field no blank ************************
+'------------------------------------------------------------------------------------------------------------
+'************************ Have a "Library" default value ***********************
+
+     temp0 = uidoc.FieldGetText("fld_dept")
+     If temp0 = "" Then
+          uidoc.GoToField(fld_dept)
+          Messagebox "You forget enter Department Name",MB_ICONEXCLAMATION,"Don't forget"
+          Exit Sub
+     End If
+     
+'------------------------------------------------------------------------------------
+     temp0 = uidoc.FieldGetText("fld_company")
+     If temp0 = "" Then
+          uidoc.GoToField("fld_company") 
+          Messagebox "You forget enter Company Name",MB_ICONEXCLAMATION,"Don't forget"
+          Exit Sub
+     End If     
+     
+'------------------------------------------------------------------------------------
+     temp0 = uidoc.FieldGetText("fld_no")
+     If temp0 = "" Then
+          uidoc.GoToField("fld_no")
+          Messagebox "You must enter any item",MB_ICONEXCLAMATION,"Please enter"
+          Exit Sub
+     End If
+     
+'------------------------------------------------------------------------------------
+     temp0 = uidoc.FieldGetText("fld_amount")
+     If temp0 = "" Then
+          uidoc.GoToField("fld_amount")
+          Messagebox "You must enter number of item",MB_ICONEXCLAMATION,"Please enter"
+          Exit Sub
+     End If
+     
+'------------------------------------------------------------------------------------------------------------
+'************* This section separate multivalue fld_no to array No() **************
+'------------------------------------------------------------------------------------------------------------
+     
+     temp1 = uidoc.FieldGetText("fld_no")
+     length = Len(temp1)
+     
+'*************************** Find number of item ****************************
+     count = 1
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          If (temp = 10 ) Then
+               count = count + 1
+          End If
+     Next
+     Redim Amount(1 To count)
+     Redim PerUnit(1 To count)
+         
+'------------------------------------------------------------------------------------------------------------
+'********* This section separate multivalue fld_amount to array Amount() **********
+'------------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_amount")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               Amount(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     Amount(j) = word
+     word = ""
+     
+'------------------------------------------------------------------------------------------------------------
+'********* This section separate multivalue fld_perunit to array PerUnit() ***********
+'------------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_perunit")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               PerUnit(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     PerUnit(j) = word
+     word = ""
+     
+'--------------------------------------------------------------------------------------------------------------------
+'********************** Calculate and separate money field by line ********************
+'--------------------------------------------------------------------------------------------------------------------
+     For i = 1 To count
+          total = Val(Amount(i)) * Val(PerUnit(i))
+          string1$ = Str$(total)
+          string1$ = Trim$(string1$)
+          fldmoney = fldmoney & Chr(13) & Chr(10) & string1$
+          sum% = total + sum%
+     Next
+     
+     length = Len(fldmoney)
+     string1$ = Right(fldmoney,length-2)
+     Call uidoc.FieldSetText("fld_money",string1$)
+     
+     string1$ = Str$(sum%)
+     string1$ = Trim$(string1$)
+     Call uidoc.FieldSetText("fld_alltotal",string1$)
+     
+     string1$ = Str$(count)
+     string1$ = Trim$(string1$)
+     Call uidoc.FieldSetText("fld_count",string1$)
+     
+     Call uidoc.save
+     Call uidoc.close
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Distribute(Button)
+
+Event: Click
+
+Sub Click(Source As Button)
+     
+     Dim workspace As New NotesUIWorkspace
+     Dim temp1, temp2 As String 
+     
+     On Error Goto ProcessError
+     
+     Set uidoc = workspace.CurrentDocument
+     total = uidoc.FieldGetText("fld_alltotal")
+     If total = "" Then Exit Sub
+     count = uidoc.FieldGetText("fld_count")
+     If count = "" Then Exit Sub
+         
+     Redim No(1 To count)
+     Redim Menu(1 To count)
+     Redim Amount(1 To count)
+     Redim PerUnit(1 To count)
+     Redim Money(1 To count)
+     
+'-----------------------------------------------------------------------------------------------------------------
+'*************** This section separate multivalue fld_no to array No() ****************
+'------------------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_no")
+     length = Len(temp1)
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               No(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     No(j) = word
+     word = ""
+
+'-------------------------------------------------------------------------------------------------------------
+'*********** This section separate multivalue fld_menu to array Menu() *************
+'-------------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_menu")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               Menu(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     Menu(j) = word
+     word = ""
+
+'-----------------------------------------------------------------------------------------------------------
+'********* This section separate multivalue fld_amount to array Amount() **********
+'-----------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_amount")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               Amount(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     Amount(j) = word
+     word = ""
+
+'-----------------------------------------------------------------------------------------------------------
+'********* This section separate multivalue fld_perunit to array PerUnit() ***********
+'-----------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_perunit")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               PerUnit(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     PerUnit(j) = word
+     word = ""     
+
+'------------------------------------------------------------------------------------------------------------
+'********** This section separate multivalue fld_money to array Money() ***********
+'------------------------------------------------------------------------------------------------------------
+     temp1 = uidoc.FieldGetText("fld_money")
+     length = Len(temp1)
+     
+     j = 1     
+     For i = 1 To length
+          temp = Left(temp1,i)
+          character = Right(temp,1)
+          temp = Asc(character)
+          
+          If (temp <> 13 ) Then
+               If (temp <> 10) Then
+                    word = word  & character
+               End If
+          Else
+               Money(j) = word
+               j = j + 1
+               word = ""
+          End If
+     Next
+     Money(j) = word
+     word = ""     
+
+'--------------------------------------------------------------------------------------------------------------
+'************** This section separate each array to each document  ****************
+'--------------------------------------------------------------------------------------------------------------
+     temp0 = uidoc.FieldGetText("fld_runnum")
+     temp1 = uidoc.FieldGetText("fld_dept")
+     temp2 = uidoc.FieldGetText("fld_budget")
+     temp3 = uidoc.FieldGetText("fld_month")
+     temp4 = uidoc.FieldGetText("fld_alltotal")
+     temp5 = uidoc.FieldGetText("fld_day")
+     temp6 = uidoc.FieldGetText("fld_company")
+     
+'-----------------------------------------------------------------------------------------------------------------
+'******************************** Make Main Document ************************
+'-----------------------------------------------------------------------------------------------------------------
+     Dim session As New NotesSession
+     Set db = session.CurrentDatabase
+     Set doc = db.CreateDocument
+     Set docH = doc
+     doc.Form = "Header"
+     
+     Set Item = Doc.ReplaceItemValue( "fld_numsub",count)
+     Set Item = Doc.ReplaceItemValue( "fld_runnum",temp0)
+     Set Item = Doc.ReplaceItemValue( "fld_dept",temp1)
+     Set Item = Doc.ReplaceItemValue( "fld_budget",temp2)
+     Set Item = Doc.ReplaceItemValue( "fld_month",temp3)
+     Set Item = Doc.ReplaceItemValue( "fld_alltotal",temp4)
+     Set Item = Doc.ReplaceItemValue( "fld_day",temp5)
+     Set Item = Doc.ReplaceItemValue( "fld_company",temp6)
+     Call doc.save(True,True)
+     
+'-----------------------------------------------------------------------------------------------------------------
+'***************************** Make Response Document ***********************
+'-----------------------------------------------------------------------------------------------------------------
+     For i = 1 To count
+          Set doc = db.CreateDocument
+          doc.Form  = "Subdetails"
+          
+          Set Item = Doc.ReplaceItemValue( "fld_code",No(i))
+          Set Item = Doc.ReplaceItemValue( "fld_item",Menu(i))
+          Set Item = Doc.ReplaceItemValue( "fld_order",Amount(i))
+          Set Item = Doc.ReplaceItemValue("fld_unit",PerUnit(i))
+          Set Item = Doc.ReplaceItemValue( "fld_total",Money(i))
+          Set Item = Doc.ReplaceItemValue( "fld_runnum",temp0)          
+          
+          Call doc.MakeResponse( docH )
+          Doc.Form = "Subdetails"
+          Call doc.save(True,True)
+     Next
+     
+     Messagebox "Distribute Document Complete",MB_ICONINFORMATION,"Congratulation !"
+     Messagebox "Now will delete this form",MB_ICONEXCLAMATION,"Complete"
+     
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     tem = """"& temp0 &""""
+     notesFormula = "Form = ""Order"" &  @Contains(fld_runnum ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     
+     Set doc = collection.GetFirstdocument
+     Call doc.Remove(True)
+     
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.Close
+     Exit Sub
+     
+ProcessError:
+     Msgbox "Error (" & Cstr(Err) & " ) -> " & Error$(Err),16,"Exiting This Form"
+     Exit Sub
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////

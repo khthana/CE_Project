@@ -1,0 +1,73 @@
+--------------------Configuration: CDX - Win32 Debug--------------------
+Begining build with project "C:\Program Files\dxsdk\cdx\CDX.dsp", at root.
+Active configuration is Win32 (x86) Static Library (based on Win32 (x86) Static Library)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MLd /W3 /GX /Z7 /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp".\Debug/CDX.pch" /YX /Fo".\Debug/" /Fd".\Debug/" /FD /c "
+			"Browser Database Maker" with flags "/nologo /o".\Debug/CDX.bsc" "
+			"Library Manager" with flags "/nologo /out:".\Debug\CDX.lib" "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\WINDOWS\TEMP\RSPB1D1.TMP" with contents </nologo /MLd /W3 /GX /Z7 /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp".\Debug/CDX.pch" /YX /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\Program Files\dxsdk\cdx\DDUtils.cpp"
+"C:\Program Files\dxsdk\cdx\CDXLayer.cpp"
+"C:\Program Files\dxsdk\cdx\CDXMap.cpp"
+"C:\Program Files\dxsdk\cdx\CDXMusic.cpp"
+"C:\Program Files\dxsdk\cdx\CDXScreen.cpp"
+"C:\Program Files\dxsdk\cdx\CDXSound.cpp"
+"C:\Program Files\dxsdk\cdx\CDXSoundBuffer.cpp"
+"C:\Program Files\dxsdk\cdx\CDXSprite.cpp"
+"C:\Program Files\dxsdk\cdx\CDXSurface.cpp"
+"C:\Program Files\dxsdk\cdx\CDXTile.cpp"
+"C:\Program Files\dxsdk\cdx\CDXInput.cpp"
+"C:\Program Files\dxsdk\cdx\DXErrors.cpp"
+"C:\Program Files\dxsdk\cdx\CDXSpriteList.cpp"
+"C:\Program Files\dxsdk\cdx\CDXLink.cpp"
+"C:\Program Files\dxsdk\cdx\CDXResource.cpp"
+"C:\Program Files\dxsdk\cdx\CDXAvi.cpp"
+"C:\Program Files\dxsdk\cdx\CDXMusicCd.cpp"
+>
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSPB1D1.TMP" 
+Creating temp file "C:\WINDOWS\TEMP\RSPB1D2.TMP" with contents </nologo /out:".\Debug\CDX.lib" 
+".\Debug\DDUtils.obj"
+".\Debug\CDXLayer.obj"
+".\Debug\CDXMap.obj"
+".\Debug\CDXMusic.obj"
+".\Debug\CDXScreen.obj"
+".\Debug\CDXSound.obj"
+".\Debug\CDXSoundBuffer.obj"
+".\Debug\CDXSprite.obj"
+".\Debug\CDXSurface.obj"
+".\Debug\CDXTile.obj"
+".\Debug\CDXInput.obj"
+".\Debug\DXErrors.obj"
+".\Debug\CDXSpriteList.obj"
+".\Debug\CDXLink.obj"
+".\Debug\CDXResource.obj"
+".\Debug\CDXAvi.obj"
+".\Debug\CDXMusicCd.obj">
+Creating command line "link.exe -lib @C:\WINDOWS\TEMP\RSPB1D2.TMP" 
+Compiling...
+DDUtils.cpp
+CDXLayer.cpp
+CDXMap.cpp
+CDXMusic.cpp
+CDXScreen.cpp
+CDXSound.cpp
+CDXSoundBuffer.cpp
+CDXSprite.cpp
+CDXSurface.cpp
+CDXTile.cpp
+CDXInput.cpp
+DXErrors.cpp
+CDXSpriteList.cpp
+CDXLink.cpp
+CDXResource.cpp
+CDXAvi.cpp
+CDXMusicCd.cpp
+Creating library...
+
+
+
+CDX.lib - 0 error(s), 0 warning(s)

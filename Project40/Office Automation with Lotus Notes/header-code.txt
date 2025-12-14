@@ -1,0 +1,278 @@
+Header(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Header";"Header Profile")
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+Combine(Action)
+
+Event: Click
+
+'--------------------------------------------------------------------------------------------------------------
+'*********** This action combine Header and Sub details to Order form *************
+'--------------------------------------------------------------------------------------------------------------
+
+Sub Click(Source As Button)
+     Dim workspace As New NotesUIWorkspace
+     Dim session As New NotesSession
+     
+'***************************************************************************
+'*************************** Subtract running number ***************************
+'***************************************************************************
+     runnum% = session.GetEnvironmentValue( "RunNumber" )
+     runnum% = runnum% -1 
+     
+     Call session.SetEnvironmentVar( "RunNumber", runnum% )
+     Set uidoc = workspace.CurrentDocument     
+     Set doc = uidoc.Document
+     Set collection = doc.Responses
+     count = collection.Count 
+     
+'*****************************************************************************
+'******************* Combine response document to Order form *********************
+'*****************************************************************************
+     NewLine = Chr(13) + Chr(10)     
+     No = ""
+     Menu = ""
+     Amount = ""
+     PerUnit = ""
+     Money = ""
+     
+     For i =1 To count
+          Set CurrentResponse =collection.GetNthDocument(i)
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_no")
+          temp = item.text
+          If i = 1 Then
+               No = temp  
+          Else
+               No = No & NewLine & temp
+          End If
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_item")
+          temp = item.text
+          If i = 1 Then
+               Menu = temp  
+          Else
+               Menu = Menu & NewLine & temp
+          End If
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_order")
+          temp = item.text
+          If i = 1 Then
+               Amount = temp  
+          Else
+               Amount = Amount & NewLine & temp
+          End If
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_unit")
+          temp = item.text
+          If i = 1 Then
+               PerUnit = temp  
+          Else
+               PerUnit = PerUnit & NewLine & temp
+          End If
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_total")
+          temp = item.text
+          If i = 1 Then
+               Money = temp  
+          Else
+               Money = Money & NewLine & temp
+          End If
+          Call CurrentResponse.Remove(True)      
+     Next
+     
+     temp0 = uidoc.FieldGetText("fld_runnum")
+     temp1 = uidoc.FieldGetText("fld_dept")
+     temp2 = uidoc.FieldGetText("fld_budget")
+     temp3 = uidoc.FieldGetText("fld_month")
+     temp4 = uidoc.FieldGetText("fld_alltotal")
+     temp5 = uidoc.FieldGetText("fld_company")
+     temp6 = uidoc.FieldGetText("fld_day")
+     
+     Set uidoc = workspace.CurrentDocument
+     Call uidoc.close
+    
+'*****************************************************************************
+'****************************** Compose into Order form ************************
+'*****************************************************************************
+     Set uidoc= workspace.composeDocument("","","Order")
+     Set doc = uidoc.document
+
+     Set Item = Doc.ReplaceItemValue( "fld_runnum",temp0 )
+     Set Item = Doc.ReplaceItemValue( "fld_dept",temp1 )
+     Set Item = Doc.ReplaceItemValue( "fld_budget",temp2 )
+     Set Item = Doc.ReplaceItemValue( "fld_month",temp3 )
+     Set Item = Doc.ReplaceItemValue( "fld_alltotal",temp4 )
+     Set Item = Doc.ReplaceItemValue( "fld_company",temp5 )
+     Set Item = Doc.ReplaceItemValue( "fld_day",temp6 )
+     
+     Set Item = Doc.ReplaceItemValue( "fld_no",No)
+     Set Item = Doc.ReplaceItemValue( "fld_menu",Menu)
+     Set Item = Doc.ReplaceItemValue( "fld_amount",Amount)
+     Set Item = Doc.ReplaceItemValue("fld_perunit",PerUnit)
+     Set Item = Doc.ReplaceItemValue( "fld_money",Money)
+     
+'*****************************************************************************
+'******************************** Delete current form ****************************
+'*****************************************************************************
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     Dim session2 As New NotesSession
+     Set db = session2.CurrentDatabase
+     tem = """"& temp0 &""""
+     notesFormula = "Form = ""Header"" &  @Contains(fld_runnum ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     Set doc = collection.GetFirstdocument
+     Call doc.Remove(True)
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+Combine2(Action)
+
+Event: Click
+
+'---------------------------------------------------------------------------------------------------------------
+'************ This action combine Header and Sub details to Bill form ***************
+'---------------------------------------------------------------------------------------------------------------
+
+Sub Click(Source As Button)
+     Dim workspace As New NotesUIWorkspace
+     Dim session As New NotesSession
+     Dim item As NotesItem
+     
+'*****************************************************************************
+'*************************** Subtract running number *****************************
+'*****************************************************************************
+     runnum% = session.GetEnvironmentValue( "RunNumber" )
+     runnum% = runnum% -1 
+     
+     Call session.SetEnvironmentVar( "RunNumber", runnum% )
+     Set uidoc = workspace.CurrentDocument     
+     Set doc = uidoc.Document
+     
+     Set collection = doc.Responses
+     count = collection.Count 
+     
+'*****************************************************************************
+'********************* Combine response document to Bill form *********************
+'*****************************************************************************
+     For i =1 To count
+          Set CurrentResponse =collection.GetNthDocument(i)     
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_code")
+          temp = item.text
+          codes(i) = temp
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_item")
+          temp = item.text
+          menus(i) = temp
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_order")
+          temp = item.text
+          amounts(i) = temp
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_unit")
+          temp = item.text
+          perunits(i) = temp
+          
+          Set item = CurrentResponse.GetFirstItem("Fld_total")
+          temp = item.text
+          moneys(i) = temp
+          
+          Call CurrentResponse.Remove(True)      
+     Next
+     
+     temp0 = uidoc.FieldGetText("fld_runnum")
+     temp1 = uidoc.FieldGetText("fld_dept")
+     temp2 = uidoc.FieldGetText("fld_company")
+     temp3 = uidoc.FieldGetText("fld_alltotal")
+     
+     years = uidoc.FieldGetText("fld_budget")
+     months = uidoc.FieldGetText("fld_month")
+     days = uidoc.FieldGetText("fld_day")
+     
+'*****************************************************************************
+'**************** Convert day, month and year back to  date format *******************
+'*****************************************************************************
+     If Len(days) = 1 Then
+          days = "0"&days
+     End If
+     
+     Select Case months
+     Case  "January"            : months =  "01"
+     Case "February"            : months = "02"
+     Case "March"                : months =  "03"
+     Case "April"                   : months = "04"
+     Case "May"                   : months = "05"
+     Case "June"                  : months = "06"
+     Case "July"                   : months = "07"
+     Case "August"              : months = "08"
+     Case "September"        : months = "09"
+     Case "October"             : months = "10"
+     Case "November"         : months = "11"
+     Case Else                      : months = "12"
+     End Select
+     
+     years = Trim$(Str$(Val(years) - 2443))
+     dates = days & "/" & months & "/"& years
+     
+     Set uidoc = workspace.CurrentDocument
+'     Call uidoc.close
+     Call uidoc.DeleteDocument
+     
+'     Set doc = uidoc.Document
+'     Call doc.Remove(True)
+     
+'*****************************************************************************
+'********************************* Compose into Bill form ***********************
+'*****************************************************************************
+     Set uidoc= workspace.composeDocument("","","Bill")
+     Set doc = uidoc.document
+     
+     Set Item = Doc.ReplaceItemValue( "fld_runnum",temp0 )
+     Set Item = Doc.ReplaceItemValue( "fld_dept",temp1 )
+     Set Item = Doc.ReplaceItemValue( "fld_company",temp2 )
+     Set Item = Doc.ReplaceItemValue( "fld_alltotal",temp3 )
+     Set Item = Doc.ReplaceItemValue( "fld_date",dates )
+     Set Item = Doc.ReplaceItemValue( "fld_max",count )
+     Set Item = Doc.ReplaceItemValue( "fld_flag","0" )     
+
+     For i = 1 To count          
+          Set Item = Doc.ReplaceItemValue( "fld_code"&i,codes(i))
+          Set Item = Doc.ReplaceItemValue( "fld_menu"&i,menus(i))
+          Set Item = Doc.ReplaceItemValue( "fld_amount"&i,amounts(i))
+          Set Item = Doc.ReplaceItemValue("fld_perunit"&i,perunits(i))
+          Set Item = Doc.ReplaceItemValue( "fld_money"&i,moneys(i))
+     Next
+     
+'*****************************************************************************
+'******************************** Delete current form ****************************
+'*****************************************************************************
+     Dim dateTime As New NotesDateTime( "01/01/98" )
+     Dim session2 As New NotesSession
+     Set db = session2.CurrentDatabase
+     tem = """"& temp0 &""""
+     notesFormula = "Form = ""Header"" &  @Contains(fld_runnum ; " & tem & ")"
+     Set collection = db.Search(notesFormula, dateTime, 0)
+     num = collection.Count
+     Set doc = collection.GetFirstdocument
+     Call doc.Remove(True)
+End Sub
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Subdetails(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Subdetails";fld_item + " - Item Lists Profile")
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////
+
+Item(Form)
+
+Windows Title
+@If(@IsNewDoc;"New Item"; "Item Profile")
+
+'////////////////////////////////////////////////////// END ////////////////////////////////////////////////////////////////////

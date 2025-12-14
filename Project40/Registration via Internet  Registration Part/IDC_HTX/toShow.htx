@@ -1,0 +1,29 @@
+<!-- This File is : Page show subject of all student  -->
+<!-- Last update : 26-03-1998 Status : ok -->
+<html>
+<head>
+</head>
+<body background=..\..\Image\Bg_brown.gif>
+<br>
+<%begindetail%>
+<%if CurrentRecord eq 0%>
+<center>
+	<font size=+1><b>แสดงผลรายวิชาของนักศึกษาชั้นปีที่ <%idc.room%></b></font><br>
+	<font>ภาคการศึกษาที่ : <b><%term%></b> ปีการศึกษาที่ : <b><%year%></b></font>
+	<br><br>
+</center>
+<center>
+<table border=1>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+<%endif%>
+<tr>	<td><%subj_id%></td><td><%subj_name_eng%></td>
+	<td><%credit_lec%></td><td><%credit_lab%></td></tr>
+<%enddetail%>
+</table>
+</center>
+	<%if CurrentRecord eq 0 %>
+	<center><br><font size=+2>ไม่ปรากฏข้อมูลรายวิชา</font></center>
+	<%endif%>
+</body>
+</html>

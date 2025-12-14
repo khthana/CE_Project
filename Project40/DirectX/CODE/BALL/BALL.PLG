@@ -1,0 +1,27 @@
+--------------------Configuration: ball - Win32 Release--------------------
+Begining build with project "E:\xfinal\code\ball\ball.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /Fp"Release/ball.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "NDEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x41e /d "NDEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"Release/ball.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib dxguid.lib ddraw.lib dsound.lib dinput.lib winmm.lib cdx.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/ball.pdb" /machine:I386 /out:"Release/ball.exe" "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\WINDOWS\TEMP\RSP3385.TMP" with contents </nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /Fp"Release/ball.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\xfinal\code\ball\main.cpp"
+>
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSP3385.TMP" 
+Creating temp file "C:\WINDOWS\TEMP\RSP3386.TMP" with contents <kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib dxguid.lib ddraw.lib dsound.lib dinput.lib winmm.lib cdx.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/ball.pdb" /machine:I386 /out:"Release/ball.exe" 
+.\Release\main.obj>
+Creating command line "link.exe @C:\WINDOWS\TEMP\RSP3386.TMP" 
+Compiling...
+main.cpp
+Linking...
+
+
+
+ball.exe - 0 error(s), 0 warning(s)

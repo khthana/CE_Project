@@ -1,0 +1,55 @@
+<!-- This File is : Show Subject of all student in this System -->
+<!-- Last Update : 26-03-1998 -->
+<html>
+<head>
+<script language=JavaScript>
+function b4Get( iForm ){
+	iForm.Std_id.value=parent.left.document.c6.Std_id.value;
+	iForm.LoginName.value=parent.left.document.c6.LoginName.value;
+	iForm.Passwd.value=parent.left.document.c6.Passwd.value;
+}
+</script>
+</head>
+<body background=..\Image\Bg_brown.gif>
+<br>
+<center>
+<font size=+1><b>เลือกหัวข้อการแสดงรายวิชาแต่ละชั้นปี</b></font>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=1P>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="วศ.บ. คอมพิวเตอร์ ( ต่อเนื่อง ) ชั้นปีที่ 1P">
+</form>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=2P>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="วศ.บ. คอมพิวเตอร์ ( ต่อเนื่อง ) ชั้นปีที่ 2P">
+</form>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=3P>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="วศ.บ. คอมพิวเตอร์ ( ต่อเนื่อง ) ชั้นปีที่ 3P">
+</form>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=2D>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="         วศ.บ. คอมพิวเตอร์ ชั้นปีที่ 2D         ">
+</form>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=3D>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="         วศ.บ. คอมพิวเตอร์ ชั้นปีที่ 3D         ">
+</form>
+<form method=post action=http://161.246.6.32/scripts/Project97/toShow.idc onSubmit="b4Get( this )">
+	<input type=hidden name=room value=4D>
+	<input type=hidden name=Std_id>
+	<input type=hidden name=LoginName><input type=hidden name=Passwd>
+	<input type=submit value="         วศ.บ. คอมพิวเตอร์ ชั้นปีที่ 4D         ">
+</form>
+</center>
+</body>
+</html>

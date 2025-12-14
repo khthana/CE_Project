@@ -1,0 +1,75 @@
+Reserve Form Code
+
+(Global)Reserve form
+
+Event : (Declarations)
+
+'***************************
+%INCLUDE "lsconst.lss"
+Dim workspace As  NotesUIWorkspace
+Dim uidoc As NotesUIDocument
+Dim doc As NotesDocument       
+Dim db As NotesDatabase  
+Dim session As  NotesSession
+Dim item As NotesItem
+Dim collection As NotesDocumentcollection
+
+'***************************
+Event : Window title
+
+@If(@IsNewDoc;"New Reserve Form";
+Fld_REVIDNum+" ; " +Fld_REVRegNum + " ;  Reserve Form")
+
+'****************************
+Reserve Action
+
+Sub Click(Source As Button)
+     
+     '*************** Initial Section ***************     
+     Set session = New notesSession
+     Set Workspace = New NotesUiWorkspace
+     Set db = session.currentDatabase
+     Set uidoc = workspace.CurrentDocument
+     '************* End Initial Section ************
+     
+     '************* Test Before Done ************     
+     
+     Temp =  uidoc.FieldGetText( "Rev_status" )
+     If Temp <> "" Then ' It may already Reserve form 
+          Messagebox ( "No effect for this")    
+          Goto exits
+          
+     End If
+     
+     '************* End Test Before Done ************     
+     Dim dateTime As New NotesDateTime("01/01/96")     
+     temp=uidoc.FieldGetText("Fld_REVRegNum")   
+     
+     searchFormula$ = "Form = ""REV"""  
+     Set collection1 = db.Search( searchFormula$, dateTime, 0 )
+     num1=collection1.count
+      ' Get Collection of Document that corresponse condition
+     If num1>0 Then 
+          Call collection1.FTSearch(temp, 0)
+          num1=collection1.count
+          If num1>=1Then '** if have someonet to reserve this book user can't reserve it
+               Messagebox"This book not available to reserve."&Chr(10)&_
+               "Some people reserve it",MB_ICONEXCLAMATION,"Error!"
+               Call uidoc.close
+               Exit Sub
+          End If 
+     End If
+     '@@@@@@@@@@@@@@@
+     Call uidoc.FieldSetText("Rev_status","1") 'set reserve status to 1
+     Call uidoc.FieldSetText("Fld_REVsign","sign") ' ** sign this reserve form for indicate to correct
+     
+     '**********************
+Quitnow :
+     
+     Messagebox "Reserve Complete",MB_ICONEXCLAMATION,"Complete"                                    ' Tell Reserver to complete reserve
+exits:    
+     Call uidoc.save
+     Call uidoc.close
+     
+End Sub
+'****************************************

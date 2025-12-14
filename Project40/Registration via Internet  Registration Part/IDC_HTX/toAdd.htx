@@ -1,0 +1,76 @@
+<!-- This File is : Page show subject which pass step Add new subject-->
+<!-- Last update : 26-03-1998 Status : ok -->
+<html>
+<head>
+<script language=JavaScript>
+function showFeeList(){
+	var feecost=0;
+	document.write("<table border=2><tr><td bgcolor=gold>รายการค่าธรรมเนียม</td>"+
+			"<td bgcolor=gold>จำนวนเงิน (บาท)</td></tr>");
+	for(i=0; i<12; i++){ /* elements +11 for start at Fee Name */
+		if(document.formz.elements[i].value!=0){
+			document.write(	"<tr><td bgcolor=lightgreen>"+document.formz.elements[i+12].value+"</td><td align=center>"+document.formz.elements[i].value+"</td></tr>");
+			feecost += eval(document.formz.elements[i].value);	
+		}
+	}
+	document.write("<tr><td bgcolor=peachpuff align=center>รวม</td><td align=center>"+feecost+"</td></tr></table>");
+}
+function chkTFN(){
+	var str='';
+	if(document.formx.Msg_F.value=='false')
+		str +="ไม่สามารถเพิ่มบางรายวิชาได้\n";
+	if(document.formx.Msg_T.value=='true')
+		str +="การเพิ่มรายวิชาเรียนเสร็จสมบูรณ์\n";
+	if(document.formx.Msg_N.value=='none')
+		str +="ระบบไม่มีการเพิ่มเติมรายวิชา\n";
+	if(document.formx.Msg_P.value=='notpre')
+		str +="ไม่สามารถลงทะเบียนบางรายวิชาที่ไม่ผ่านวิชาต่อเนื่อง ( Prerequisite )\n";
+	alert(str);
+}
+</script>
+</head>
+<body background=..\..\Image\Bg_brown.gif onLoad="chkTFN()">
+<font size=+2 color=red><b><u>โปรดตรวจสอบรายวิชา และ รายการชำระค่าธรรมเนียม</u></b></font><br>
+<form name=formx>
+<%begindetail%>
+<input type=hidden name=Msg_P value='<%msg_pre%>'>
+<input type=hidden name=Msg_N value='<%msg_none%>'>
+<input type=hidden name=Msg_F value='<%msg_false%>'>
+<input type=hidden name=Msg_T value='<%msg_true%>'>
+<%enddetail%>
+</form>	
+<%begindetail%>
+	<%if CurrentRecord eq 0 %>
+	<font size=+1><b>รายการวิชา หลังการลงทะเบียนเพิ่มรายวิชา</b></font>
+	<font size=-1> - ลำดับที่ :<b> <%Regis_No%> </b></font>
+<table border=3>
+<tr>	<td bgcolor=skyblue>รหัสวิชา</td><td bgcolor=skyblue>ชื่อวิชา</td>
+	<td bgcolor=skyblue>หน่วยกิตทฤษฎี</td><td bgcolor=skyblue>หน่วยกิตปฏิบัติ</td></tr>
+	<%endif%>
+<tr>	<td bgcolor=skyblue><%Regis_Subj_Id%></td><td><%Subj_Name_Eng%></td>
+	<td align=center><%Credit_Lec%></td><td align=center><%Credit_Lab%></td></tr>
+<%enddetail%>
+</table>
+	<%if CurrentRecord eq 0%><font size+2>ไม่ปรากฏข้อมูลรายวิชา</font>
+	<%else%>
+	   <%begindetail%>
+		<%if CurrentRecord eq 0 %>
+		<form name=formz>
+		<input type=hidden name=Fee1 value=<%Fee_Type1%>><input type=hidden name=Fee2 value=<%Fee_Type2%>>
+		<input type=hidden name=Fee3 value=<%Fee_Type3%>><input type=hidden name=Fee4 value=<%Fee_Type4%>>
+		<input type=hidden name=Fee5 value=<%Fee_Type5%>><input type=hidden name=Fee6 value=<%Fee_Type6%>>
+		<input type=hidden name=Fee7 value=<%Fee_Type7%>><input type=hidden name=Fee8 value=<%Fee_Type8%>>
+		<input type=hidden name=Fee9 value=<%Fee_Type9%>><input type=hidden name=Fee10 value=<%Fee_Type10%>>
+		<input type=hidden name=Fee11 value=<%Fee_Type11%>><input type=hidden name=Fee12 value=<%Fee_Type12%>>
+		<%endif%>
+		<input type=hidden value='<%Fee_Type_Name%>'>
+	   <%enddetail%>
+		</form>
+		<%if CurrentRecord eq 0 %><font size=+2>ไม่ปรากฏข้อมูลรายการชำระค่าธรรมเนียม</font>
+		<%else%>
+			<font size=+1><b>รายการชำระค่าธรรมเนียม หลังการลงทะเบียนเพิ่มรายวิชา</b></font>
+			<script language=JavaScript> showFeeList(); </script>
+		<%endif%>
+	<%endif%>
+</body>
+</html>

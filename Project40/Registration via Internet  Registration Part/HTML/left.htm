@@ -1,0 +1,67 @@
+<!-- This File is : Main menu of function of Registration System -->
+<!-- Last Update : 26-03-1998 -->
+<HTML>
+<head>
+<script language=JavaScript>
+function csubmit(iForm){
+	if(iForm.LoginName.value=='' || iForm.Passwd.value=='' || iForm.Std_id.value==''){
+		alert("    กรุณาป้อนรหัสผ่านก่อนเข้าใช้งานระบบ    ");
+		return false;
+	}
+	else	return true;
+}
+</script>
+</head>
+<base target="body"></base>
+<BODY bgcolor=white>
+<center><a href="/Project97/body.htm" target=body>
+<img src="/Image/logo.gif" width=60% border=0 ></a><br>
+<font><b>รายการหลัก</b></font><br>
+
+<form method=post name=c1 action=http://161.246.6.32/scripts/Project97/Register.idc onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="     ลงทะเบียน   "><br>
+</form>
+
+<form method=post name=c2 action=http://161.246.6.32/scripts/Project97/ChgSubj.idc  onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="เปลี่ยนวิชาเรียน"><br>
+</form>
+
+<form method=post name=c3 action=http://161.246.6.32/scripts/Project97/AddSubj.idc  onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="  เพิ่มวิชาเรียน  "><br>
+</form>
+
+<form method=post name=c4 action=http://161.246.6.32/scripts/Project97/MovSubj.idc onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="  ถอนวิชาเรียน "><br>
+</form>
+
+<form method=post name=c5 action=http://161.246.6.32/scripts/Project97/ChkReg.idc onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="   ตรวจสอบ     "><br>
+</form>
+<form name=c6 action=http://161.246.6.32/Project97/ShowSubj.htm onSubmit="return csubmit(this)">
+<input type=hidden name=Std_id>
+<input type=hidden name=LoginName><input type=hidden name=Passwd>
+<input type=submit value="  แสดงรายวิขา  "><br>
+</form>
+<!-- This function is not in Project97 but uses to clear database-->
+<form action=http://161.246.6.32/Project97/ResetDB.htm>
+<input type=submit value=" Clear Data "><br>
+</form>
+<!-- This function is not in Project97 but uses to contact with end-user for comment -->
+<!--
+<form action=http://161.246.6.32/GstBook.htm>
+<input type=submit value="Guest Book "><br>
+</form>
+-->
+</center>
+</BODY>
+</HTML>
