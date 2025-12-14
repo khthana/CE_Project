@@ -1,0 +1,247 @@
+#!/usr/bin/perl
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+$amount = 0;
+
+while (defined(pop(@su_list))) {}
+while (defined(pop(@Sentence_suspect))) {}
+
+open (FILESU,"/etc/log.d/conf/su_file") or die "can't open...su_file";
+while ($ThisLine = <FILESU>)  {
+  chomp($ThisLine);
+  push(@su_list,$ThisLine);
+}
+close (FILESU);
+
+while (defined($ThisLine = <STDIN>)) {
+    # We do removeheaders HERE!!! and set $Time variable too
+    if (($Time) = ($ThisLine =~/^... .. (..:..:..) [^ ]* [^ ]*\[[0123456789]*\]:/)) {
+	$ThisLine =~s/^... .. ..:..:.. [^ ]* [^ ]*\[[0123456789]*\]: //;
+    }
+    if ( ( $ThisLine =~ /(.*) session closed for user .*$/ ) or
+	 ( $ThisLine =~ /^Logout user .* host .*$/ ) or
+	 ( $ThisLine =~ /^log: Password authentication/ ) or # apparently SSHD messages
+	 ( $ThisLine =~ /^log: Closing connection/ ) or # apparently SSHD messages
+	 ( $ThisLine =~ /^check pass; user unknown/ ) or
+	 ( $ThisLine =~ /^User account has expired/ ) or # This one is caught below (2-line message)
+	 ( $ThisLine =~ /^get passwd; pwdb: structure is no longer valid$/) or
+	 ( $ThisLine =~ /^fatal: Read error from remote host: Connection reset by peer$/) or 
+	 ( $ThisLine =~ /^new password not acceptable$/ ) or
+	 ( $ThisLine =~ /^FTP session closed$/) or
+	 ( $ThisLine =~ /^FTP LOGIN REFUSED/) or
+	 ( $ThisLine =~ /^FAILED LOGIN SESSION FROM \S+ FOR , Error in service module/) or
+	 ( $ThisLine =~ /^FTP LOGIN FROM/ ) # I will let ftpd handle FTP messages....
+         ) {
+	# We don't care about these
+    }
+    elsif ( $ThisLine =~ /password for \(.*\) changed by \(.*\)$/ ) {
+	chomp($ThisLine);
+	push @PWChanges, $ThisLine;
+    }
+    elsif ( ($RemoteHost,$User) = ( $ThisLine =~ /^failed login from ([^ ]+) \[.*\], ([^ ]+)$/)  or 
+($RemoteHost,$User) = ( $ThisLine =~ /^Login failure user=(\S+) host=([^ ]+)$/) ) {
+	chomp ($User);
+        push @{$FailedLogins{$RemoteHost}}, $User;
+    }
+    elsif ( $ThisLine =~ s/auth could not identify password for \[([^ ]+)\]$/$1/ ) {
+	chomp ($ThisLine);
+	$CouldNotIDPW{$ThisLine}++;
+    }
+    elsif ( $ThisLine =~ s/^expiry check failed for \'([^ ]+)\'/$1/ ) {
+	# user account expired?
+	chomp($ThisLine);
+	push @Expired, $ThisLine;
+    }
+    elsif ( $ThisLine =~ s/bad username \[(.*)\]$/$1/ ) {
+	chomp($ThisLine);
+	push @BadName, $ThisLine;
+    }
+    elsif ( ($Num,$StartName,$StartUID,$EndName,$ServiceName) =
+	    ( $ThisLine =~ m/^([0123456789]+) authentication failure.*; ([^ ]*)\(uid=([0123456789]+)\) -> ([^ ]+) for ([^ ]+) service$/ ) ) {
+	$StartName = " " if (!$StartName);
+        $ThisKey = $StartName . "(uid=" . $StartUID . ") -> " . $EndName;
+        $AuthFailures{$ThisKey}{$ServiceName}+=$Num;
+    }
+    elsif ( ($ThisKey,$ServiceName) = ( $ThisLine =~ /([^ ]+) authentication failed for ([^ ]+)$/ ) ) {
+	chomp($ThisKey); chomp($ServiceName);
+	$AuthFailures{$ThisKey}{$ServiceName}++;
+    }
+    elsif ( ($RemoteHost, $User) = ( $ThisLine =~ m/^FAILED LOGIN .* FROM ([^ ]+) FOR (.+), .*$/ ) ) {
+        push @{$FailedLogins{$RemoteHost}}, $User;
+    }
+    elsif ( $ThisLine =~ s/^ROOT LOGIN ON ([^ ]+)/$1/ ) {
+	chomp ($ThisLine);
+	$RootLogins{$ThisLine}++;
+    }
+    elsif ( ($User,$From) = ( $ThisLine =~ /^LOGIN ON [^ ]+ BY ([^ ]+) FROM ([^ ]+)$/ ) or 
+	    ($User,$From) = ( $ThisLine =~ /^Login user=([^ ]+) host=([^ ]+)$/ ) ) {
+	chomp ($From);
+	${$RemoteLogins{$User}}{$From}++;
+    }
+    elsif ( $ThisLine =~ s/^LOGIN ON [^ ]+ BY ([^ ]+$)/$1/ ) {
+	chomp ($ThisLine);
+	$LocalLogins{$ThisLine}++;
+    }
+    elsif ( ($Service, $User, $Orig) = ( $ThisLine =~ /^\((.*)\) session opened for user ([^ ]+) by (.*\(uid=.*\))/ ) ) {
+	# We add check su_file property HERE!!! and use $Time variables HERE!!!
+	if (( $Service eq "su" ) and (($from, $uid) = ($Orig =~ /([^ ]+)(\(uid=.*\))$/)) ) {
+	    $Temp = "  " . $from . " -> " . $User.$uid;
+            $SUList{$Temp}++;
+	    if (($User =~ /root/) and (($Suspect) = ($Orig =~ /^([^ ]+)\(uid=.*\)$/))) {
+		unless ($Suspect =~ /root/) {
+		    $auth = 0;
+		    foreach $name_in_list(@su_list)	{
+		        if (($Suspect eq $name_in_list) and ($auth eq "0")){
+			    $auth = 1;
+			}
+		    }
+		    if ($auth  eq "0") {
+			$Sentence_suspect[$amount] = $Suspect." -> root  at ".$Time;
+			$amount++;
+		    }
+		}
+	    }
+	}
+	else {
+	    ${$OpenedSessions{$Service}}{$User}++;
+        }
+    }
+    else{
+	# Report any unmatched entries...
+	chomp($ThisLine);
+	$OtherList{$ThisLine}++;
+    }
+}
+
+if ( (keys %SUList) or
+     ( $Detail >=10 ) and (keys %CouldNotIDPW) or
+     (@PWChanges) or
+     ( $Detail >=5 ) and  (@BadName) or
+     (@Expired) or
+     (keys %OpenedSessions) or
+     (keys %RemoteLogins) or
+     (keys %LocalLogins) or
+     (keys %RootLogins) or
+     ( $Detail >=5 ) and (keys %AuthFailures) or
+     ( $Detail >=5 ) and (keys %FailedLogins) or
+     (keys %OtherList) )
+{
+
+print "\n\n --------------------- PAM_pwdb Begin ------------------------ \n";
+if (keys %SUList){
+    print "\nSU Sessions:\n";
+    foreach $SU (keys %SUList) {
+        print "   " . $SU . " - " . $SUList{$SU} . " Time(s)\n";
+    }
+    if ($#Sentence_suspect > -1) {
+	print "\n           SU not in the su list:\n";
+        foreach $sentence (sort @Sentence_suspect) {
+		print "                   ".$sentence."\n";	    
+	}
+    }	
+}
+if ( $Detail >=10 ) {
+    if (keys %CouldNotIDPW) {
+        print "\nCould not identify password for:\n";
+        foreach $User (keys %CouldNotIDPW) {
+            print "   " . $User . " - " . $CouldNotIDPW{$User} . " Time(s)\n";
+        }
+    }
+}
+
+if (@PWChanges) {
+    print "\nPassword Changes:\n";
+    foreach $Change (@PWChanges) {
+        print "   " . $Change . "\n";
+    }
+}
+
+if ( $Detail >=5 ) {
+    if (@BadName) {
+        print "\nBad Usernames Received:\n";
+        foreach $User (@BadName) {
+            print "   " . $User . "\n";
+	}
+    }
+}
+
+if (@Expired) {
+    print "\nExpired User Accounts:\n";
+    foreach $User (@Expired) {
+        print "   " . $User . "\n";
+    }
+}
+
+if (keys %OpenedSessions) {
+    print "\nOpened Sessions:\n";
+    foreach $Service (keys %OpenedSessions) {
+        print "   Service: " . $Service . "\n";
+        foreach $User (keys %{$OpenedSessions{$Service}}) {
+	    print "      User " . $User . " - " . ${$OpenedSessions{$Service}}{$User} . " Time(s)\n";
+        }
+    }
+}
+
+if (keys %RemoteLogins) {
+    print "\nRemote Logins:\n";
+    foreach $User (keys %RemoteLogins) {
+        print "   User " . $User . ":\n";
+        foreach $Remote (keys %{$RemoteLogins{$User}} ) {
+	    print "      Remote Host " . $Remote . " - " . ${$RemoteLogins{$User}}{$Remote} . " Time(s)\n";
+	}
+    }
+}
+
+if (keys %LocalLogins) {
+    print "\nLocal Logins:\n";
+    foreach $User (keys %LocalLogins) {
+        print "   " . $User . " - " . $LocalLogins{$User} . " Time(s)\n";
+    }
+}
+
+if (keys %RootLogins) {
+    print "\nRoot Logins:\n";
+    foreach $tty (keys %RootLogins) {
+	print "   " . $tty . ": " . $RootLogins{$tty} . " time(s)\n";
+    }
+}
+
+if ( $Detail >=5 ) {
+    if (keys %AuthFailures) {
+	print "\nAuthentication Failures:\n";
+	foreach $Users (keys %AuthFailures) {
+	    print "   " . $Users . "\n";
+	    foreach $Service (keys %{$AuthFailures{$Users}}) {
+                print "      Service: " . $Service . ": " . ${$AuthFailures{$Users}}{$Service} . " time(s)\n";
+            }
+	}
+    }
+}
+
+if ( $Detail >=5 ) {
+    if (keys %FailedLogins) {
+	print "\nLogin Failures:\n";
+	foreach $RemoteHost (keys %FailedLogins) {
+	    print "   " . $RemoteHost . ": ";
+	    foreach $User ( @{$FailedLogins{$RemoteHost}} ) {
+		print $User . ", ";
+	    }
+            print "\n";
+        }
+    }
+}
+
+if (keys %OtherList) {
+    print "\n**Unmatched Entries**\n";
+    foreach $line (sort {$a cmp $b} keys %OtherList) {
+	print "$line: $OtherList{$line} Time(s)\n";
+    }
+}
+
+print "\n\n ---------------------- PAM_pwdb End ------------------------- \n\n";
+
+}
+
+exit(0);
+
+
+

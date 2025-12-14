@@ -1,0 +1,84 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+
+<head>
+<title>Equipment</title>
+<script language="JavaScript">
+
+var marquee = " . . . . WELCOME TO ESL LIBRARY . . . ."
+var delay = 180
+var timer_tap
+	function displayer() {		
+                                document.marquee1.elements[0].value = marquee
+		if (document.marquee1.elements[2].checked == true);
+                                else document.marquee1.elements[3].value = "";
+            		if (document.marquee1.elements[4].checked == true);
+                                else document.marquee1.elements[5].value = "";
+		if (document.marquee1.elements[6].checked == true);
+                                else document.marquee1.elements[7].value = "";
+		marquee = marquee.substring(1, marquee.length)+marquee.substring(0,1)
+		timer_tap = setTimeout("displayer()", delay)
+		}
+
+</script>
+</head>
+
+<body background="search13.jpg" onload="displayer()">
+
+<form name="marquee1" method="POST" action="/cgi-bin/esl_lib/OtherQuery.pl">
+  <div align="center"><center><p><input type="text" name="T1" size="30"></p>
+  </center></div><blockquote>
+    <div align="left"><p><b><font size="+2">&nbsp;&nbsp;&nbsp; </font><font size="5"><font
+    color="#408080">&nbsp; Type</font>&nbsp;&nbsp;</font><font size="-1">&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;<select name="D1" size="1">
+      <option selected value="CD-ROM">CD-ROM</option>
+      <option value="VDO">VDO</option>
+      <option value="TAPE">T ape</option>
+      <option value="Disk">Disk</option>
+    </select></font></b> <br>
+    &nbsp;<input type="checkbox" name="C1" value="ON"><font size="+2"><font color="#408080"><strong>Classification Number
+    </strong></font>&nbsp;&nbsp;&nbsp; </font>
+
+ <select SIZE='1' NAME='S_G' tabindex='1'>
+   <option selected value='301'> 301 Economic </option>
+   <option value='302'> 302 Education </option>
+   <option value='303'> 303 Religion&Philosophy </option>
+   <option value='304'> 304 Misc </option>
+   <option value='601'> 601 Application Software </option>
+   <option value='602'> 602 Artificial Inteligent </option>
+   <option value='603'> 603 Computer Design </option>
+   <option value='604'> 604 DataBase </option>
+   <option value='605'> 605 Data Structure </option>
+   <option value='606'> 606 Device </option>
+   <option value='607'> 607 Internet </option>
+   <option value='608'> 608 Microprocesser </option>
+   <option value='609'> 609 Multimedia&Graphic </option>
+   <option value='610'> 610 Network </option>
+   <option value='611'> 611 Object Oriented </option>
+   <option value='612'> 612 Operating System </option>
+   <option value='613'> 613 Programming Language </option>
+   <option value='614'> 614 Security </option>
+   <option value='615'> 615 Software Engineering </option>
+   <option value='616'> 616 Misc </option>
+ </select> </big></p>
+
+    <br>
+    &nbsp;<input type="checkbox" name="C2" value="ON"><font size="+2"><font color="#408080"><strong>Equipment Number</strong></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><input
+    type="text" name="T3" size="4"> <br>
+    &nbsp;<input type="checkbox" name="C3" value="ON"><font size="+2"><font color="#408080"><strong>Title</strong></font>&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><input
+    type="text" name="T4" size="20"> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input type="submit"
+    value="Submit" name="B1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset"
+    value="Reset" name="B2"> <br>
+    </p>
+    </div>
+  </blockquote>
+</form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<CEnter><Img Src="/logo8.gif" Border=0></center>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><Center><B>ขอบคุณที่ใช้บริการ</B></center></Font></TD></TR>
+</Table>
+</td></tr>
+</TABLE>
+</Center>
+<br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<Tr><td Bgcolor=LIGHTSTEELBLUE  Colspan=2><Font Color=White><center><B>เก็บคำแนะนำของท่านเรียบร้อยแล้ว </B></Center></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White><B>ชื่อผู้แนะนำ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Uname%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>หมายเลขโทรศัพท์</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Utel%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>คำแนะนำ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Udetail%></B></Font></td></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

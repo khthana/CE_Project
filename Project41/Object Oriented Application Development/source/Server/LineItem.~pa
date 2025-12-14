@@ -1,0 +1,66 @@
+unit LineItem;
+
+interface
+
+uses
+    Discount,MoneyDiscount,PercentDiscount,
+    ProductSpecification,Dialogs,Sysutils;
+
+type
+    TLineItem = class
+        ID : integer;
+        Quantity : integer;
+   ProdSpec : TProductSpecification;
+   Discounts : TDiscount;
+
+        procedure Init(ID:integer;Quantity:integer); virtual;
+        procedure SetProSpec(Spec:TProductSpecification);
+        function GetDiscount:real; virtual;
+        function SubTotal:real; virtual;
+        procedure SetDiscount(Disc : TDiscount);
+    end;
+
+
+implementation
+
+procedure TLineItem.Init(ID:integer;Quantity:integer);
+begin
+     Self.ID := ID;
+     Self.Quantity := Quantity;
+end;
+
+procedure TLineItem.SetProSpec(Spec:TProductSpecification);
+begin
+     Self.ProdSpec := TProductSpecification.Create;
+     Self.ProdSpec := Spec;
+end;
+
+function TLineItem.GetDiscount:real;
+//var Quantity : integer;
+begin
+     Quantity := Self.Quantity;
+     result := Self.Discounts.GetDiscount; //ProdSpec.GetDiscount(Quantity);
+end;
+
+function TLineItem.SubTotal:real;
+var Sub : real;
+begin
+     Sub := Self.Quantity * Self.ProdSpec.GetPrice;
+     showmessage(IntToStr(Self.Quantity)+'*'+floattostr(Self.ProdSpec.GetPrice)+'*'+floattostr(Self.Discounts.GetDiscount));
+     if Self.Discounts.ClassName='TMoneyDiscount' then
+         Result := Sub - Self.Discounts.GetDiscount
+     else
+         Result := Sub - (Sub*Self.Discounts.GetDiscount);
+     showmessage(
+      'ID :'+IntToStr(Self.ID) +
+      'SubTotal1 :'+FloatToStr(Sub)+
+      'SubTotal2 :'+FloatToStr(Result));
+end;
+
+procedure TLineItem.SetDiscount(Disc : TDiscount);
+begin
+     Self.Discounts := TDiscount.Create;
+     Self.Discounts := Disc;
+end;
+
+end.

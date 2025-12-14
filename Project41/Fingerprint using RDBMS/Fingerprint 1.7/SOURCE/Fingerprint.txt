@@ -1,0 +1,49 @@
+========================================================================
+                     DBDK DataBlade Project Fingerprint
+========================================================================
+
+
+BladeSmith Version 3.4 has created the Fingerprint DataBlade for you.  This
+application not only demonstrates the basics of using an Informix
+DataBlade but is also a starting point for writing your DataBlade application.
+
+This file contains a summary of what you will find in each of the files
+that make up your Fingerprint. DataBlade application.
+
+Fingerprint.c
+
+    This is the primary source file of the Fingerprint DataBlade.
+
+Fingerprint.h
+
+    This include file contains various definitions along with the
+    'C' definitions of your opaque types.
+
+Fingerprint.def
+
+    This file contains a list of the exported functions declared in
+    Fingerprint.c.
+
+Fingerprint.mak
+
+    This is the Microsoft VC++ 4.2 project file for your DataBlade.
+
+Fingerprint.txt
+
+    This file.
+
+WinNT.mak
+
+	This is a stand-alone make file for your NT project.
+
+UNIX.mak
+
+    This is the UNIX make file.
+
+========================================================================
+
+If you intend to compile your DataBlade for NT, you may either use
+WinNT.mak or Fingerprint.mak.  To load your DataBlade source files
+into Microsoft Visual C++ 4.2, select "Open Workspace..." from the menus.
+For the project name, type Fingerprint.mak.
+

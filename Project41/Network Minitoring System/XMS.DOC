@@ -1,0 +1,545 @@
+
+                                                                      Page 1
+
+    XMS Class Libraries: XMS, UMB, HMA and XMSarray.
+    ------------------------------------------------
+
+      Author: John English (je@unix.brighton.ac.uk)
+              Department of Computing
+              University of Brighton
+              Brighton BN2 4GJ, England.
+
+      Copyright (c) J.English 1993.
+
+      Permission is granted to use copy and distribute the
+      information contained in this file provided that this
+      copyright notice is retained intact and that any software
+      or other document incorporating this file or parts thereof
+      makes the source code for the library of which this file
+      is a part freely available.
+
+      If you use these classes, please contact me via the addresses
+      above; if you don't have e-mail access (or even if you have!)
+      please send me a postcard (I like postcards!) just to let me
+      know you've looked at them.  I don't want money (although I'm
+      prepared to be tempted!) but I'd like to know how many people
+      are using this library, either successfully or unsuccessfully.
+      Feel free to suggest enhancements, find bugs or (better still)
+      fix them and send me patches.  The more feedback I get the more
+      likely I am to update these classes or to continue producing
+      freeware programming tools.  Massage my ego, it doesn't cost
+      you much!
+
+
+    1. Introduction.
+    ----------------
+    The classes in this library provide a convenient object-oriented
+    interface to the functions provided by an XMS driver such as
+    HIMEM.SYS for programs compiled using Borland C++.  Three base
+    classes are provided corresponding to the three memory regions
+    that an XMS driver manages: class XMS deals with extended memory
+    blocks above the 1M address boundary that are not directly accessible
+    from DOS, class UMB deals with upper memory blocks allocated in the
+    system area between 640K and 1M, and class HMA deals with the high
+    memory area, an area of slightly less than 64K which is immediately
+    above the 1M address boundary.  To use these classes, include the
+    header file XMS.H in your program and link the compiled result with
+    XMS.OBJ (compiled from XMS.CPP).  A template class XMSarray is also
+    provided which allows large arrays of a specified type to be created
+    which can then be used just like normal arrays.
+
+    The destructors for these classes automatically take care of releasing
+    any memory allocated by the class constructors.  However, events which
+    cause a program to terminate unexpectedly will mean that the destructors
+    are not called, which will result in XMS-managed memory being permanently
+    and unrecoverably allocated.  The main culprits are control-break events
+    and critical errors (the familiar "abort, retry, fail?" error), so an
+    additional class DOSerror (which can also be used independently of this
+    library) is provided as a way of intercepting these events.  Certain
+    standard C++ library functions such as "abort" and "_exit" should not
+    be used (although "exit" can be used providing all local objects have
+    been destroyed, since this calls the destructors for global objects),
+    and DOS services such as INT 20h or INT 21h function 00 should also
+    be avoided.
+
+
+                                                                      Page 2
+
+    If you really need to, you can deliberately allocate XMS-managed memory
+    permanently by creating an object of one of these classes using "new"
+    without a corresponding call to "delete".  The memory so allocated will
+    remain allocated until the machine is rebooted.
+
+
+    2. Class XMS.
+    -------------
+    Declaring an object of class XMS allocates a new XMS block.  There
+    is a limit on the number of blocks which can be allocated at any one
+    time (imposed by the number of "handles" available to the underlying
+    XMS driver), so care should be taken not to allocate too many blocks
+    at the same time.
+
+    The constructor takes an optional long integer parameter which
+    gives the size of the XMS block to be allocated in bytes.  This
+    will be rounded up to at least the nearest K; if it is omitted,
+    a block size of zero is assumed.  For example:
+
+        XMS block1;                 // a block of zero bytes
+        XMS block2 (1000000);       // a block of one million bytes
+
+    In the second case, the block size will be rounded up to at least
+    1000488 bytes (977K).  The actual size can be obtained using the
+    member function "size":
+
+        cout << block2.size();      // display actual size of block2
+
+    The block size can be changed at any time with the "resize" member
+    function:
+
+        block1.resize (10240);      // resize block1 to 10240 bytes
+        block2.resize (10240);      // resize block2 to 10240 bytes
+
+    If the block is not allocated successfully (as a result of there
+    being insufficient memory or XMS handles, or because an XMS driver
+    is not present), "size" will return a result of zero bytes.  You
+    can tell whether a block was allocated successfully using the "valid"
+    member function or the "!" operator:
+
+        if (block1.valid()) ...     // block1 was created successfully
+        if (!block1) ...            // block1 was not created successfully
+
+    The actual value of the "!" operator is an code of the enumerated
+    type "XMS::error" which gives the reason why the block could not be
+    allocated.  The possible values of "XMS::error" are listed in the
+    header file XMS.H.  The "resize" member function described above
+    also returns a result of this type:
+
+        if (block1.resize() != XMS::SUCCESS)
+            cerr << "Block 1 resize failed!\n";
+
+    To find out how much XMS memory is actually available, there are two
+    static member functions "available" and "largest":
+
+        cout << XMS::available ();  // display available XMS size in bytes
+        cout << XMS::largest ();    // display size of largest available
+                                    // XMS block in bytes
+
+    Successfully allocated blocks can be copied to or from conventional
+    memory (below the 640K boundary), or from one XMS block to another.
+
+
+                                                                      Page 3
+
+    This is done using the static function "XMS::copy", which requires
+    three parameters: a source address, a destination address and the
+    number of bytes to be copied.  The source and destination address
+    can be either a normal pointer (anything which converts to "void*")
+    or an offset into an XMS block.  Offsets into XMS blocks can be
+    generated using either the "at" member function or the subscript
+    brackets operator "[]":
+
+        block1.at(100)              // 100 bytes past the start of block1
+        block1 [100]                // the same thing
+
+    The reason for providing two different ways of expressing the same
+    thing is that while "[]" is easier to use with normal objects, "at"
+    is easier to use with pointers to objects:
+
+        XMS* xmspointer;            // a pointer to an XMS object
+        (*xmspointer)[100]          // offset using "[]"
+        xmspointer->at(100)         // offset using "at"
+
+    Thus the following will copy 1000 bytes from an array "x" in conventional
+    memory to "block1", from "block1" to "block2", and from "block2" to an
+    array "y" in conventional memory:
+
+        XMS::copy (block1 [20], x, 1000);           // x to block1
+        XMS::copy (block2 [20], block1 [20], 1000); // block1 to block2
+        XMS::copy (y, block2 [20], 1000);           // block2 to y
+        
+    Each transfer begins 20 bytes from the start of the XMS blocks.  Note
+    that the destination is given before the source, just like an assignment
+    statement.
+
+    Copy operations should always specify an even number of bytes; if an
+    odd block length is specified, it will be rounded down to an even
+    number of bytes.  Also, the source and destination addresses should
+    not overlap if an XMS-to-XMS copy is made, as overlapping copies are
+    not guaranteed to work correctly.  "XMS::copy" returns a result of
+    type "XMS::error"; in the case of overlapping copies which fail, the
+    result will be the value "XMS::OVERLAP_ERROR".
+
+    Finally, you should be aware that performance may be degraded if
+    you copy data to or from an odd address in conventional memory.
+    Transferring data to or from a word-aligned address (or doubleword
+    aligned if you are using a 386 processor or above) can result in
+    much faster data transfer rates.
+
+
+    3. Class UMB.
+    -------------
+    Upper memory blocks (UMBs) are located in the system area between
+    640K and 1M.  They are therefore directly accessible to DOS programs
+    using normal pointers.  You can find out the size of the largest
+    available UMB using the static member function "largest":
+
+        cout << UMB::largest(); // display size of the largest available
+                                // UMB block in bytes
+
+    The constructor for class UMB takes a long integer specifying the
+    size of the block to be allocated in bytes.  This will be rounded
+    up to a multiple of at least 16 bytes.  You can find out the actual
+
+
+                                                                      Page 4
+
+    number of bytes allocated to a UMB using the member function "size".
+    For example:
+
+        UMB high (1000);        // allocate a 1000 byte UMB
+        cout << high.size();    // display the actual size
+
+    The actual size for this example will be at least 1008 bytes (the
+    nearest multiple of 16 above the requested size of 1000 bytes), but
+    may be higher depending on the XMS driver you are using.  If the
+    UMB could not be allocated, the size will be zero.  You can find
+    out if the allocation succeeded using the member function "valid"
+    or the "!" operator, which behave identically to the corresponding
+    operations in class XMS (as described above):
+
+        if (high.valid()) ...   // UMB was created successfully
+        if (!high) ...          // UMB was not created successfully
+
+    The address of the UMB can be obtained using the member function
+    "addr".  This can be cast to an appropriate type and assigned to
+    a pointer variable, which must be a far pointer (or a huge pointer
+    if the UMB is greater than 64K in size).  For example:
+
+        int far* hi = (int far*) high.addr();
+                                // use the UMB address as a pointer
+
+    This pointer can then be used to treat the UMB as a normal array:
+
+        hi[n] = 1234;           // assign a value to an integer in the UMB
+
+    It is your own responsibility to ensure that you do not write to memory
+    outside the bounds of the allocated block.  If you do not, data in the
+    system area will be corrupted, which may cause the system to crash.
+
+
+    4. Class HMA.
+    -------------
+    The high memory area (HMA) is a block of 65520 (64K - 16) bytes
+    located immediately above the 1M address boundary.  Due to a quirk
+    in the implementation of 286 and later processors, this area is
+    directly accessible to DOS programs.  The HMA can only be allocated
+    once; unlike XMS and UMBs, it is not possible to allocate multiple
+    HMA blocks.  The HMA can be allocated by declaring an object of
+    class HMA, whose constructor takes an optional unsigned integer
+    parameter specifying the size of the allocation required; if it
+    is omitted, the whole 65520 bytes will be allocated:
+
+        HMA hma1 (10000);       // allocate 10000 bytes in the HMA
+        HMA hma2;               // allocate 65520 bytes in the HMA
+
+    You can find out whether the HMA was allocated successfully using
+    the member function "valid" or the "!" operator, which behave in
+    exactly the same way as the corresponding operations defined in
+    class XMS:
+
+        if (hma1.valid()) ...   // HMA was allocated successfully
+        if (!hma1) ...          // HMA was not allocated successfully
+
+    Note that it is impossible for both declarations above to succeed in
+    allocating the HMA since it can only be allocated once.  Note also
+    that the XMS driver will refuse requests of less than a certain
+
+
+                                                                      Page 5
+
+    minimum size to maximise HMA usage.  This is normally set by the
+    /HMAMIN= driver parameter.  If the HMA is available but HMAMIN is
+    set to over 10000, the declaration of "hma1" above will fail but
+    the declaration of "hma2" will succeed.
+
+    Due to the peculiar nature of the HMA, the only completely safe
+    operation is to copy data to and from conventional memory.  A
+    similar scheme to that used in class XMS is provided in class
+    HMA for copying data to and fro.  Offsets into the HMA can be
+    generated using either the "at" member function or the subscript
+    brackets operator "[]":
+
+        hma1.at(100)            // 100 bytes past the start of the HMA
+        hma1 [100]              // the same thing
+
+    Thus the following will copy 100 bytes from an array called "x" in
+    conventional memory to "hma1" at offset 100, from "hma1" offset 100
+    to "hma1" offset 200, and from "hma1" offset 200 to an array "y" in
+    conventional memory:
+
+        HMA::copy (hma1 [100], x, 100);             // x to HMA
+        HMA::copy (hma1 [200], hma1 [100], 100);    // HMA to HMA
+        HMA::copy (y, hma1 [200], 100);             // HMA to y
+        
+    Note that the destination is given before the source, just like an
+    assignment statement.  Note also that the source and destination
+    areas should not overlap if an HMA-to-HMA copy is made; overlapping
+    copies are not guaranteed to work correctly.
+
+    "HMA::copy" returns the number of bytes actually copied.  If the
+    requested number of bytes would go beyond the HMA allocation as
+    specified when constructing the HMA object, only as many bytes as
+    will fit into the space available will be transferred.  Thus in
+    the case of "hma1" (which was declared with a desired HMA size of
+    10000 bytes), the call:
+
+        HMA::copy (hma1 [9000], x, 2000);
+
+    will only result in 1000 bytes being copied.  You can find out the
+    size of the HMA allocation using the member function "size";
+
+        cout << hma1.size();    // number of bytes of HMA allocated to "hma1"
+
+    The value of "size" will be zero if the HMA was not allocated
+    successfully.
+
+
+    5. Class DOSerror.
+    ------------------
+    Items stored in XMS are accessed using a "handle" allocated by the
+    XMS driver.  The XMS block referenced by this handle must be freed
+    by calling the XMS driver to deallocate the handle.  This will be
+    done automatically when exiting from the program, but unexpected
+    program terminations will exit the program without freeing the
+    handle.  This will result in a permanently allocated block of XMS
+    and an associated handle which cannot be freed.
+
+    To prevent this happening, you should ensure that programs using
+    XMS classes are only ever terminated by returning from "main" or
+    by calling the standard library function "exit" (and then only when
+
+
+                                                                      Page 6
+
+    any local XMS library objects have already been destroyed, as "exit"
+    only destroys globally-created objects).  You should avoid calling
+    the library functions "_exit" or "abort" or using DOS services such
+    as INT 20H to terminate your program.  You should also intercept
+    control-break interrupts and critical errors, as these can terminate
+    your program unexpectedly at any time (although critical errors are
+    only a problem if "abort" is selected at the DOS "abort, retry, fail?"
+    prompt when a disk or printer error occurs).
+
+    To guard against control-breaks and critical errors, an additional
+    class DOSerror is provided in the library distribution.  This will
+    intercept the control-break and critical error interrupts and call
+    virtual functions "controlBreak" and "criticalError" whenever either
+    of these occur.  The default actions for class DOSerror are to ignore
+    control-breaks and to respond to critical errors with a "fail" response.
+    If these are adequate for your application, all you need to do is to
+    include a declaration like:
+
+        DOSerror d;     // ignore control-breaks, fail critical errors
+
+    and as long as "d" is in scope, control-break events will be ignored
+    and critical errors will be failed automatically.
+
+    You can derive new application-specific error-handling classes from
+    DOSerror which overload the functions "controlBreak" and "criticalError"
+    to provide some appropriate behaviour; for example, if you wanted to
+    retry all critical errors and set a flag if control-break is pressed,
+    you could define the following class:
+
+        class MyDOSerror : public DOSerror {
+          public:
+            MyDOSerror () : DOSerror ()         { flag = 0; }
+            int broken ()                       { return flag; }
+          protected:
+            virtual error criticalError (int)   { return DOSerror::RETRY; }
+            virtual void  controlBreak  ()      { flag = 1;}
+          private:
+            int flag;                           // set to 1 by control-break
+        };
+    
+    The critical error handler has an integer parameter which is the DOS
+    code specifying the cause of the critical error.  It must return a
+    value of DOSerror::RETRY (retry the failed operation), DOSerror::IGNORE
+    (ignore the error and continue) or DOSerror::FAIL (fail the operation
+    which caused the error).  Any other value will cause the result to be
+    reported as DOSerror::FAIL.  Note that critical error handlers should
+    only use DOS (INT 21h) services 01h through 0Ch, which means that most
+    library I/O functions are unsafe for use in overloaded versions of
+    "criticalError".
+
+    To use this class, include the header file DOSERROR.H then link the
+    compiled result with DOSERROR.OBJ (generated from DOSERROR.CPP).
+
+
+    6. Class XMSarray.
+    ------------------
+    The class XMSarray is a template which allows you to declare large
+    arrays of a specified type to be held in extended memory (XMS).
+    There are no restrictions on the number of arrays you can create;
+    a single XMS handle is used for all arrays created with this class.
+
+
+                                                                      Page 7
+
+    The penalty for this is that arrays created with XMSarray cannot be
+    resized after they have been created.
+
+    To use class XMSarray, include the header file XMSARRAY.H and then
+    link the compiled result with XMSARRAY.OBJ and XMS.OBJ (generated
+    from XMSARRAY.CPP and XMS.CPP respectively).  Note that this class
+    was created and tested using Borland C++ version 3.1; some users of
+    earlier releases of this class have reported that it fails to compile
+    with version 3.0 of the compiler.  This appears to be a bug in the
+    implementation of templates, and no workaround has been suggested
+    for this as yet (other than upgrading to version 3.1!).  If you have
+    trouble compiling the applications supplied which use the template
+    classes defined in XMSARRAY.H, please contact the author at one of
+    the addresses listed above with details of the errors and the compiler
+    version being used.
+
+    An XMS array is created by a declaration in the following format:
+
+        XMSarray<T> array(n);
+
+    where "T" is the type of elements to be held in the array, "array"
+    is the name you have chosen for the array, and "n" is the number of
+    elements in the array.  T can be any type which does not have either
+    a constructor or a destructor (e.g. a built-in type or a "struct").
+    In addition, it must be possible to assign new values to objects of
+    type T (i.e. T must not be a const type).  Thus for example:
+
+        XMSarray<long> a(1000000);
+
+    declares an array of 1,000,000 long integers called "a".  You can then
+    check that the array has been allocated correctly by calling the member
+    function "valid" or the member operator "!":
+
+        if (a.valid()) ...      // "a" was allocated successfully
+        if (!a) ...             // "a" was not allocated successfully
+
+    which returns TRUE if the array has been allocated successfully and
+    FALSE otherwise (e.g. if there was insufficient free XMS available).
+    If the array is not allocated, it can still be used without causing
+    any errors to be reported but all operations performed on it will be
+    ignored.
+
+    Having declared the array, it can be subscripted in the same way as
+    any normal array:
+
+        long v;         // declare a long integer variable "v"
+        a[999999] = v;  // assign "v" to the last element of the array
+        v = a[999999];  // assign the last element of the array to "v"
+        a[0] = a[1];    // copy one array element to another
+        f (a[0]);       // pass an array element to a function
+
+    If the subscript is outside the permitted bounds for the array, the
+    access will be directed to an extra dummy element that is always
+    allocated (i.e. requesting N elements means that N+1 elements are
+    always allocated, with the last one being used for all accesses whose
+    subscript is out of range).  One major restriction is that you cannot
+    assign to individual fields of an array element if the element is a
+    structure or a class, and must use a cast to access the value of an
+    individual field:
+
+
+                                                                      Page 8
+
+        struct Pair { int x, y; };  // a pair of integers
+        XMSarray<Pair> a(100000);   // an array of pairs
+        int i = Pair(a[0]).x;       // this is OK...
+        int i = a[0].x;             // ...but this is not (cast needed)
+        a[0].x = i;                 // ...and neither is this (a[0].x
+                                    //    isn't an lvalue)
+
+    To achieve the equivalent effect to "a[0].x = i" you must copy the
+    array element to a variable in conventional memory, modify the field,
+    and then copy the modified variable back into the array:
+
+        Pair p = a[0];
+        p.x = i;
+        a[0] = p;
+
+    Note that XMS arrays, unlike conventional arrays, cannot be treated
+    as pointers.  Taking the address of an array element will produce
+    the address of the object used to represent the position of the
+    array element in XMS memory.
+
+    Accessing XMS is an expensive operation by comparison with accessing
+    conventional memory.  The overhead is much greater for arrays whose
+    elements are fairly small; the access time per byte is roughly 10
+    times greater for an array of 10-byte objects than for an array of
+    10000-byte objects.  To alleviate this, an internal cache is used to
+    minimise the number of transfers to and from XMS.  The default size
+    for this cache is 2K bytes, and this will be rounded up to a power
+    of 2 times the size of the items, so that for 10-byte items the
+    actual cache size will be 2560 bytes (256 items of 10 bytes each).
+    To maximise performance, you can specify the desired cache size when
+    you declare an array:
+
+        XMSarray<long> a(1000000, 8000);
+
+    The second parameter to the constructor is the size required for the
+    cache in bytes.  In this case 8000 bytes have been requested; since
+    long integers are 4 bytes long, the actual cache size will be 8192
+    bytes (due to rounding up, the cache will be large enough to hold
+    2048 items of 4 bytes each rather than 2000 items of 4 bytes each).
+
+
+    7. Test programs.
+    -----------------
+    A number of test programs have been included in the library distribution,
+    both as examples of using the library classes and as a means of using
+    them and obtaining performance data for them.  The test programs are as
+    follows:
+
+      * XMSTEST : test the operation of the XMS class.  This program uses
+        a simple menu-driven interface to allow you to create, copy and
+        destroy XMS blocks of different sizes and to display XMS usage
+        statistics.
+
+      * XMSTIME : time the speed of transfers to and from XMS.  You can use
+        this to transfer blocks of different sizes from conventional memory
+        to XMS, from XMS to XMS, and from XMS back to conventional memory.
+        Timing information is displayed for each transfer.
+
+      * UMBTEST : similar to XMSTEST, but for UMBs.
+
+
+                                                                      Page 9
+
+      * HMATEST : similar to XMSTEST, but for the HMA.
+
+      * XARRTEST : test the operation of the XMSarray class.  This program
+        uses a simple menu-driven interface to allow you to create, copy and
+        destroy XMS arrays of different sizes and element sizes and display
+        XMS usage statistics.
+
+      * XARRTIME : time the speed of transfers to and from XMS arrays.  You
+        can use this to transfer array elements of different sizes from
+        conventional memory to an XMS array and vice versa, and from XMS
+        to XMS.  Timing information is displayed for each transfer.  The
+        cache size can be altered to discover the effects of different
+        cache sizes on transfer rates; the tests include two copy tests,
+        one of which will always be copying a cached array element (the
+        same element is copied repeatedly) and the other should never
+        use the cache (elements from opposite ends of the array are used).
+
+    Note that there are no timing tests for UMBs and the HMA, since both
+    of these are accessed as conventional memory without the protected
+    mode driver overheads incurred by XMS accesses.
+
+
+    8. Omissions.
+    -------------
+    The XMS standard defines a number of other XMS services which these
+    libraries do not include.  There is no support for manipulating or
+    querying the state of the A20 address line (which is used when accessing
+    the HMA) or for locking and unlocking XMS blocks.  The information about
+    XMS handles is restricted to the block size; there are no functions at
+    present for reporting the number of free XMS handles or the number of
+    times an XMS block has been locked.  These functions may be provided
+    in a future release if enough users report a need for them.

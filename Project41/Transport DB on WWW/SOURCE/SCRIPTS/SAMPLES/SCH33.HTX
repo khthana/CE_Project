@@ -1,0 +1,55 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center><img src="/logo3.gif" border=0></Center><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<Tr><td Bgcolor=LIGHTSEAGREEN  Colspan=2><Font Color=White><center><B>รายละเอียดรถไฟ</B></Center></Font></td>
+    </tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White><B>รถไฟหมายเลข</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Id_tValue%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ชนิดรถไฟ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%detail_vehicle%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ต้นทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%start_station%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ปลายทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%dest_station%></B></Font></td></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<br>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=310>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>สถานีที่ผ่าน</B></Font></TH>
+<TH Bgcolor=WHITESMOKE><Font  Color=#FFCC00 ><B>เวลาออก</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ค่าบริการ จากสถานีหัวลำโพง</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR><TD Bgcolor=STEELBLUE><Font  Color=white ><B><%pass_place%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE ><center><B><%time_out%><%time_in%></B></center></Font></TD>
+<TD Bgcolor=STEELBLUE><Font  Color=white ><Center><B><%level3_charge%></B></Center></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=4><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=White><B>รถไฟหมายเลข  <Font color=#FFCC00><%idc.Id_tValue%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

@@ -1,0 +1,17 @@
+Line 2: Could not create reference: '{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.2#0'.
+Line 12: Class ComctlLib.Toolbar of control Toolbar1 was not a loaded control class.
+Line 100: Class ComctlLib.ImageList of control ImageList1 was not a loaded control class.
+Line 19: The property name _ExtentX in Toolbar1 is invalid.
+Line 20: The property name _ExtentY in Toolbar1 is invalid.
+Line 21: The property name ButtonWidth in Toolbar1 is invalid.
+Line 22: The property name ButtonHeight in Toolbar1 is invalid.
+Line 24: The property name ImageList in Toolbar1 is invalid.
+Line 25: The property name _Version in Toolbar1 is invalid.
+Line 98: The property name Buttons in Toolbar1 is invalid.
+Line 103: The property name _ExtentX in ImageList1 is invalid.
+Line 104: The property name _ExtentY in ImageList1 is invalid.
+Line 106: The property name ImageWidth in ImageList1 is invalid.
+Line 107: The property name ImageHeight in ImageList1 is invalid.
+Line 108: The property name MaskColor in ImageList1 is invalid.
+Line 109: The property name _Version in ImageList1 is invalid.
+Line 144: The property name Images in ImageList1 is invalid.

@@ -1,0 +1,754 @@
+
+//                #####################################
+//                #  BACKPROPAGATION NETWORK PROGRAM  #
+//                #####################################
+
+
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+
+const
+     n = 8;                     //Number of input units
+     np = 164;                  //Number of training input patterns
+     np_test = 40;              //Number of testing input patterns
+     p =6;                      //Number of hidden units(in second hidden layer)
+     fp =6;                     //Number of hidden units(in first hidden layer)
+     m = 1;                     //Number of output units
+     HiddenLayers = 1;          //Choose number of hidden layers(max=2)
+     learning_rate = 0.35;      //Using for updating weights
+     total_squared_error = 0.3; //Defined Value for stopping trainging loop
+     momentum = 0.5;            //Using for updating weights
+ //Identify min and max values of each input and output units
+     Max   =  0.9;
+     Min   =  0.1;
+ //Identify file names
+     MinMaxTarget = 'mm_tarn1';
+     IP_TrName = 'ip_tr3';
+     IP_TeName = 'ip_te3';
+     Tar_TrName = 'op_tr3.txt';
+     Tar_TeName = 'op_te3.txt';
+     InitW = 'iw1.txt';
+     ExistInitW = 'iw';
+     LastW = 'lw1.txt';
+     LAO = 'lao1.txt';
+     TLAO = 'tlao1.txt';
+     TimeName = 'time1.txt';
+     ListBoxFile = 'listbox.txt';
+
+
+type
+  TForm1 = class(TForm)
+    Start: TButton;
+    ListBox1: TListBox;
+    Add: TButton;
+    Edit1: TEdit;
+    Exit: TButton;
+    Clear: TButton;
+    procedure StartClick(Sender: TObject);
+    procedure AddClick(Sender: TObject);
+    procedure ExitClick(Sender: TObject);
+    procedure ClearClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+type array_hi  = array[0..n,1..fp]of real;
+     array_ij  = array[0..50,1..p]of real;
+     array_jk  = array[0..p,1..m]of real;
+     array_inp = array[0..n,1..np]of real;
+     array_OPk = array[1..m,1..np]of real;
+     array_min_max_tg = array[1..m]of real;
+
+var
+  Form1: TForm1;
+     Xin:array_inp;                 //Store all input patterns(include bias)
+     Xin_num:integer;               //Input pattern number
+     Tk:array_OPk;                  //Store target values of output units for each input patterns
+     OPk:array_OPk;                 //Store output values of output units for each input patterns
+     AmaxTG:array_min_max_tg;       //Store max values of targets(output units)
+     AminTG:array_min_max_tg;       //Store min values of targets(output units)
+     Uhi:array_hi;                  //Store all update weights of hidden units at t in first hidden layer
+     Uhi_old:array_hi;              //Store all update weights of hidden units at t-1 in first hidden layer
+     Uhi_old1:array_hi;             //Store all update weights of hidden units at t-2 in first hidden layer
+     Vij:array_ij;                  //Store all update weights of hidden units at t in second hidden layer
+     Vij_old:array_ij;              //Store all update weights of hidden units at t-1 in second hidden layer
+     Vij_old1:array_ij;             //Store all update weights of hidden units at t-2 in second hidden layer
+     Wjk:array_jk;                  //Store all update weights of output units at t
+     Wjk_old:array_jk;              //Store all update weights of output units at t-1
+     Wjk_old1:array_jk;             //Store all update weights of output units at t-2
+     Zi:array[0..fp]of real;        //Store all outputs from hidden units (include bias) in first hidden layer
+     Zj:array[0..p]of real;         //Store all outputs from hidden units in second hidden layer to output units
+                                    //(include bias)
+     Yk:array[1..m]of real;         //Store all outputs from output units
+     Z_ini:real;                    //Sum of input*weight(of hidden units in first hidden layer)
+     Z_inj:real;                    //Sum of Zi*weight(of hidden units in second hidden layer)
+     Y_ink:real;                    //Sum of Zj*weight(of output units)
+     error:array_OPk;               //Store all errors of output units for each input patterns
+     er_baht:array_OPk;             //Store all errors of output units for each input patterns:baht
+     er_per:array_OPk;              //Store all errors of output units for each input patterns:%
+     avg_er_baht:real;              //Store all average errors of output units for each input patterns:baht
+     avg_er_per:real;               //Store all average errors of output units for each input patterns:%
+     Ek:real;                       //Sum of all squared errors of output units for each input patterns
+     Ep:array[1..np]of real;        //Store all errors of input patterns
+     sum_Ep:real;                   //Sum of all squared errors of input patterns
+     diff_Yk:real;                  //Diff_Yk=f'(Y_ink)
+     diff_Zj:real;                  //Diff_Zj=f'(Z_inj)
+     diff_Zi:real;                  //Diff_Zi=f'(Z_ini)
+     factor_k:array[1..m]of real;   //Store all error correction weight adjustment for Wjk
+     factor_j:array[1..p]of real;   //Store all error correction weight adjustment for Vij
+     factor_inj:real;               //Sum of factor_k*Wjk
+     factor_i:array[1..fp]of real;  //Store all error correction weight adjustment for Uhi
+     factor_ini:real;               //Sum of factor_j*Wij
+     _Wjk:array_jk;                 //Store all _Wjk (_Wjk=learning_rate*factor_k)*Zj)
+     _Vij:array_ij;                 //Store all _Vij (_Vij=learning_rate*factor_j*Zi)
+     _Uhi:array_hi;                 //Store all _Uhi (_Uhi=learning_rate*factor_i*Xin)
+     avg_error:real;                //Total squared error of input patterns
+     num_loop:longint;              //Number of training loops
+     choice:integer;
+     hour,hour1,minute,minute1,second,second1:integer;
+     LineCount:integer;             //Count lines of listbox
+
+
+implementation
+
+{$R *.DFM}
+
+    {*********Store all input patterns(include bias)**********}
+procedure store_input_patterns(NumIPP:longint; Filename:string);
+var       i,j:integer;
+          InputFile:Text;
+          IP:real;
+begin   {Read and Store input patterns}
+           Assign(InputFile,Filename);
+           Reset(InputFile);
+                for j:=1 to NumIPP do
+                     for i:=1 to n do
+                     begin
+                          Readln(InputFile,IP);
+                          Xin[i][j]:=IP;
+                     end;
+           close(InputFile);
+        {store bias value(1) for every input patterns}
+           for i:=1 to NumIPP do
+              Xin[0][i]:=1;
+end;
+
+    {*****************Store all target values*******************}
+procedure store_target_values(NumIPP:longint; Filename:string);
+var       i,j:integer;
+          TargetFile:Text;
+          TG:real;
+begin    {Read and store target values}
+           Assign(TargetFile,Filename);
+           Reset(TargetFile);
+                  for j:=1 to NumIPP do
+                     for i:=1 to m do
+                     begin
+                          Readln(TargetFile,TG);
+                          Tk[i][j]:=TG;
+                     end;
+           close(TargetFile);
+end;
+
+    {*****************Store Min&Max for target values*******************}
+procedure store_min_max_of_target_values;
+var       i:integer;
+          MinMaxFile :Text;
+          _Min,_Max : real;
+begin    {Store min values of output units}
+           Assign(MinMaxFile,MinMaxTarget);
+           Reset(MinMaxFile);
+                for i:=1 to m do
+                begin
+                    Readln(MinMaxFile,_Min);
+                    AminTG[i]:=_Min;
+                end;
+         {Store max values of output units}
+                for i:=1 to m do
+                begin
+                    Readln(MinMaxFile,_Max);
+                    AmaxTG[i]:=_Max;
+                end;
+           close(MinMaxFile);
+end;
+
+    {************Set initial of Wjk(old)&Wjk(old1)**************}
+procedure set_init_W_old_W_old1(HL:integer);
+var       h,i,j,k,nn:integer;
+begin   nn:=n;
+        if HL=2 then                  {For two hidden layers}
+        begin
+          for h:=0 to n do
+            for i:=1 to fp do
+            begin
+                Uhi_old[h][i]:=0;
+                Uhi_old1[h][i]:=0;
+            end;       nn:=fp;
+        end;
+        for j:=0 to p do
+            for k:=1 to m do
+            begin
+                Wjk_old[j][k]:=0;
+                Wjk_old1[j][k]:=0;
+            end;
+        for i:=0 to nn do
+            for j:=1 to p do
+            begin
+                Vij_old[i][j]:=0;
+                Vij_old1[i][j]:=0;
+            end;
+end;
+
+    {*************Random and Store initial weights**************}
+procedure random_initial_weights(HL:integer);
+var       h,i,j,k,nn:integer;  v:real;
+begin {Random and store all initial weights of hidden units}
+        nn:=n;
+        Randomize;
+        if HL=2 then                  {For two hidden layers}
+        begin
+           for h:=0 to n do
+              for i:=1 to fp do
+              begin
+                        Uhi[h][i]:=-Random(2);
+                        v:=Random/2;
+                        if Uhi[h][i]=0 then Uhi[h][i]:=Uhi[h][i]+v
+                        else Uhi[h][i]:=Uhi[h][i]*v;
+              end;
+           nn:=fp;
+        end;
+        for i:=0 to nn do
+             for j:=1 to p do
+             begin
+                        Vij[i][j]:=-Random(2);
+                        v:=Random/2;
+                        if Vij[i][j]=0 then Vij[i][j]:=Vij[i][j]+v
+                        else Vij[i][j]:=Vij[i][j]*v;
+             end;
+      {Random and store all initial weights of output units}
+        for j:=0 to p do
+            for k:=1 to m do
+            begin
+                        Wjk[j][k]:=-Random(2);
+                        v:=Random/2;
+                        if Wjk[j][k]=0 then Wjk[j][k]:=Wjk[j][k]+v
+                        else Wjk[j][k]:=Wjk[j][k]*v;
+            end;
+end;
+
+    {***********Read and Store initial weights***********}
+procedure store_init_weight(HL:integer);
+var       h,i,j,k,nn:integer;
+          WeightFile:Text;
+          W : real;
+begin   {Read and store all initial weights of hidden units}
+            Assign(WeightFile,ExistInitW);
+            Reset(WeightFile);
+            nn:=n;
+            if hl=2 then                 {For two hidden layers}
+            begin
+              for h:=0 to n do
+                for i:=1 to fp do
+                begin
+                        Readln(WeightFile,W);
+                        Uhi[h][i]:=W;
+                end;
+              nn:=fp;
+            end;
+            for i:=0 to nn do
+            begin
+                for j:=1 to p do
+                begin
+                        Readln(WeightFile,W);
+                        Vij[i][j]:=W;
+                end;
+            end;
+        {Read and store all initial weights of output units}
+            for j:=0 to p do
+            begin
+                for k:=1 to m do
+                begin
+                        Readln(WeightFile,W);
+                        Wjk[j][k]:=W;
+                end;
+            end;
+            close(WeightFile);
+end;
+
+
+    {*************Write init/last weights on file****************}
+procedure  write_weight_file(XUhi:array_hi; XVij:array_ij; XWjk:array_jk; HL:integer; Filename:string);
+var        InitWfile:text;
+           Weight:real;
+           head:string;
+           h,i,j,k,nn:integer;
+begin
+         Assign(InitWfile,Filename);
+         Rewrite(InitWfile);
+         head:='    Weights File';
+         writeln(InitWfile,head);
+         nn:=n;
+         if hl=2 then                    {For two hidden layers}
+         begin
+              head:='Weights of first hidden units';
+              writeln(InitWfile,head);
+              for h:= 0 to n  do
+              begin
+                   head:='    ';
+                   writeln(InitWfile,head);
+                   for i:= 1 to  fp do
+                   begin
+                        Weight:=XUhi[h][i];
+                        writeln(InitWfile,Weight:2:6);
+                   end;
+              end;
+              nn:=fp;
+         end;
+         head:='Weights of hidden units';
+         writeln(InitWfile,head);
+         for i:= 0 to nn  do
+         begin
+              head:='    ';
+              writeln(InitWfile,head);
+              for j:= 1 to  p do
+              begin
+                   Weight:=XVij[i][j];
+                   writeln(InitWfile,Weight:2:6);
+              end;
+         end;
+         head:='Weights of output units ';
+         writeln(InitWfile,head);
+         for  j:=0 to p do
+         begin
+              for k:= 1 to m do
+              begin
+                   Weight:=XWjk[j][k];
+                   writeln(InitWfile,Weight:2:6);
+               end;
+         end;
+         close(InitWfile);
+end;
+
+    {********Calculate and Store outputs from hidden units******}
+procedure Calculate_output_hiddens(LUhi:array_hi; LVij:array_ij; HL:integer);
+var       h,i,j:integer;
+begin
+        if hl=2 then                      {For two hidden layers}
+        begin
+                Zi[0]:=1;                 {Store bias(1)}
+                for i:=1 to fp do
+                begin
+                     Z_ini:=0;
+                     for h:=0 to n do
+                         Z_ini:=Z_ini+(Xin[h][Xin_num]*LUhi[h][i]);
+                     Zi[i]:=1/(1+exp(-Z_ini)); {Calculate(By binary sigmoid function)&Store outputs from hidden units}
+                end;
+                Zj[0]:=1;                 {Store bias(1)}
+                for j:=1 to p do
+                begin
+                     Z_inj:=0;
+                     for i:=0 to fp do
+                         Z_inj:=Z_inj+(Zi[i]*LVij[i][j]);
+                     Zj[j]:=1/(1+exp(-Z_inj)); {Calculate(By binary sigmoid function)&Store outputs from hidden units}
+                end;
+        end
+        else  begin
+        Zj[0]:=1;                         {store bias(1)}
+        for j:=1 to p do
+        begin
+                Z_inj:=0;
+                for i:=0 to n do
+                    Z_inj:=Z_inj+(Xin[i][Xin_num]*LVij[i][j]);
+                Zj[j]:=1/(1+exp(-Z_inj));      {Calculate(By binary sigmoid function)&Store outputs from hidden units}
+        end;
+            end;
+end;
+
+    {*******Calculate and Store outputs from output units******}
+procedure Calculate_output_of_output_units(LWjk:array_jk);
+var       k,j:integer;
+begin
+        for k:=1 to m do
+        begin
+                Y_ink:=0;
+                for j:=0 to p do
+                    Y_ink:=Y_ink+(Zj[j]*LWjk[j][k]);
+                Yk[k]:=1/(1+exp(-Y_ink)); {Calculate(By binary sigmoid function)&Store outputs from output units}
+                OPk[k][Xin_num]:=Yk[k];
+         end;
+end;
+
+    {**Calculate and Store error of output units for each input pattern**}
+procedure Calculate_error_of_output_units;
+var       k:integer;
+begin
+        Ek:=0;
+        for k:=1 to m do
+        begin
+            error[k][Xin_num]:=Tk[k][Xin_num]-Yk[k];
+            Ek:=Ek+sqr(error[k][Xin_num]);
+        end;
+        Ep[Xin_num]:=(1*Ek)/2;
+end;
+
+    {**Calculate and Store weight adjustment of output units**}
+procedure Calculate_weight_adjustment_of_output_units;
+var       j,k:integer;
+begin
+        for k:=1 to m do
+            factor_k[k]:=error[k][Xin_num]*(Yk[k]*(1-Yk[k]));
+        for j:=0 to p do
+        begin
+            for k:=1 to m do
+                _Wjk[j][k]:=learning_rate*factor_k[k]*Zj[j];
+        end;
+end;
+
+    {**Calculate and Store weight adjustment of hidden units**}
+procedure Calculate_weight_adjustment_of_hidden_units(HL:integer);
+var       h,i,j,k:integer;
+begin
+        if hl=2 then                   {For two hidden layers}
+        begin
+             for j:=1 to p do
+             begin
+                  factor_inj:=0;
+                  for k:=1 to m do
+                      factor_inj:=factor_inj+(factor_k[k]*Wjk[j][k]);
+                  factor_j[j]:=factor_inj*(Zj[j]*(1-Zj[j]));
+             end;
+             for i:=0 to fp do
+                 for j:=1 to p do
+                     _Vij[i][j]:=learning_rate*factor_j[j]*Zi[i];
+             for i:=1 to fp do
+             begin
+                  factor_ini:=0;
+                  for j:=1 to p do
+                      factor_ini:=factor_ini+(factor_j[j]*Vij[i][j]);
+                  factor_i[i]:=factor_ini*(Zi[i]*(1-Zi[i]));
+             end;
+             for h:=0 to n do
+                 for i:=1 to fp do
+                     _Uhi[h][i]:=learning_rate*factor_i[i]*Xin[h][Xin_num];
+        end
+        else begin                     {For one hidden layer}
+        for j:=1 to p do
+        begin
+            factor_inj:=0;
+            for k:=1 to m do
+                factor_inj:=factor_inj+(factor_k[k]*Wjk[j][k]);
+            factor_j[j]:=factor_inj*(Zj[j]*(1-Zj[j]));
+        end;
+        for i:=0 to n do
+            for j:=1 to p do
+                _Vij[i][j]:=learning_rate*factor_j[j]*Xin[i][Xin_num];
+             end;
+end;
+
+    {***Update and Store weight&bias of output&hidden units***}
+procedure Update_weight_bias_of_output_hidden_units(HL:integer);
+var     h,i,j,k,nn:integer;
+begin   nn:=n;
+        for j:=0 to p do
+            for k:=1 to m do
+            begin
+                Wjk_old1[j][k]:=Wjk_old[j][k];
+                Wjk_old[j][k]:=Wjk[j][k];
+                Wjk[j][k]:=Wjk_old[j][k]+_Wjk[j][k]+(momentum*(Wjk_old[j][k]-Wjk_old1[j][k]));
+            end;
+        if hl=2 then
+        begin
+             for h:=0 to n do
+                 for i:=1 to fp do
+                 begin
+                      Uhi_old1[h][i]:=Uhi_old[h][i];
+                      Uhi_old[h][i]:=Uhi[h][i];
+                      Uhi[h][i]:=Uhi_old[h][i]+_Uhi[h][i]+(momentum*(Uhi_old[h][i]-Uhi_old1[h][i]));
+                 end;
+             nn:=fp;
+        end;
+        for i:=0 to nn do
+            for j:=1 to p do
+            begin
+                Vij_old1[i][j]:=Vij_old[i][j];
+                Vij_old[i][j]:=Vij[i][j];
+                Vij[i][j]:=Vij_old[i][j]+_Vij[i][j]+(momentum*(Vij_old[i][j]-Vij_old1[i][j]));
+            end;
+end;
+
+    {******Calculate average error(training/testing input patterns)******}
+procedure Calculate_average_error(NumIPP:longint);
+var     k:integer;
+        temp,temp1:string[10];
+begin
+        sum_Ep:=0;
+        for k:=1 to NumIPP do
+            sum_Ep:=sum_Ep+Ep[k];
+        avg_error:=sum_Ep;
+        temp:=FloatToStr(avg_error);
+        temp1:=IntToStr(num_loop);
+        Form1.ListBox1.ITEMS.Add('Average error : '+temp+'                                 Loop : '+temp1);
+        Form1.ListBox1.Refresh;
+end;
+
+    {*****Write num loop&avg error&output(training/testing input patterns)*****}
+procedure write_num_loop_avg_error_output(OPk:array_OPk; NumIPP:longint; Filename:string);
+var        LAOfile:text;
+           head:string;
+           j,k:integer;
+begin
+         Assign(LAOfile,Filename);
+         Rewrite(LAOfile);
+         head:='  Num_loop&Avg_error&Output File';
+         writeln(LAOfile,head);
+         head:='Number of loops';
+         writeln(LAOfile,head);
+         writeln(LAOfile,num_loop);
+         if NumIPP=np then
+         begin
+              head:='Average error';
+              writeln(LAOfile,head);
+              writeln(LAOfile,avg_error:2:6);
+         end;
+         head:='Average error(baht)';
+         writeln(LAOfile,head);
+         writeln(LAOfile,avg_er_baht:2:6);
+         head:='Average error(%)';
+         writeln(LAOfile,head);
+         writeln(LAOfile,avg_er_per:2:6);
+         head:='Error(Baht and %)';
+         writeln(LAOfile,head);
+         for j:=1 to NumIPP do
+             for k:=1 to m do
+             begin
+                 writeln(LAOfile,er_baht[k][j]:3:6,' baht');
+                 writeln(LAOfile,er_per[k][j]:3:6,' %');
+             end;
+         head:='Output Values';
+         writeln(LAOfile,head);
+         for k:= 1 to m  do
+              for j:= 1 to NumIPP do
+                   writeln(LAOfile,OPk[k][j]:2:6);
+         close(LAOfile);
+end;
+
+  {******Show percent of error(training/testing input patterns)******}
+procedure Show_percent_of_error(NumIPP:longint);
+var     num,k:integer;
+        sum_er_baht,sum_er_per:real;
+        temp,temp1:string[10];
+begin
+        sum_er_baht:=0;
+        sum_er_per:=0;
+        for num:=1 to NumIPP do
+        begin
+             for k:=1 to m do
+             begin
+                 er_baht[k][num]:=abs(error[k][num]{-0.1})*(AmaxTG[k]-AminTG[k])/(max-min){+AminTG[k]};
+                 sum_er_baht:=sum_er_baht+er_baht[k][num];
+                 er_per[k][num]:=100*er_baht[k][num]/((Tk[k][num]-min)*(AmaxTG[k]-AminTG[k])/(max-min)+AminTG[k]);
+                 sum_er_per:=sum_er_per+er_per[k][num];
+             end;
+             sum_er_baht:=sum_er_baht/m;
+             sum_er_per:=sum_er_per/m;
+        end;
+        avg_er_baht:=sum_er_baht/NumIPP;
+        avg_er_per:=sum_er_per/NumIPP;
+        Form1.ListBox1.ITEMS.Add('   ');
+        if NumIPP=np then Form1.ListBox1.ITEMS.Add('Avg Error of train input patterns : ')
+        else Form1.ListBox1.ITEMS.Add('Avg Error of test input patterns : ');
+        temp:=FloatToStr(avg_er_baht);
+        temp1:=FloatToStr(avg_er_per);
+        Form1.ListBox1.ITEMS.Add('avg error(baht) : '+temp+'                 avg error(%) : '+temp1);
+end;
+
+  {*************Write (start/finish)time of training*************}
+procedure Write_time_of_training(Filename:string);
+var       Timefile:text;
+begin
+         Assign(Timefile,Filename);
+         Rewrite(Timefile);
+         write(Timefile,'Start Time is ');
+         write(Timefile,hour);
+         write(Timefile,':');
+         write(Timefile,minute);
+         write(Timefile,':');
+         writeln(Timefile,second);
+         write(Timefile,'Finish Time is ');
+         write(Timefile,hour1);
+         write(Timefile,':');
+         write(Timefile,minute1);
+         write(Timefile,':');
+         write(Timefile,second1);
+         close(Timefile);
+end;
+
+  {*****************Start Program*******************}
+procedure TForm1.StartClick(Sender: TObject);
+begin
+        store_input_patterns(np,IP_TrName);
+        store_min_max_of_target_values;
+        store_target_values(np,Tar_TrName);
+        ListBox1.ITEMS.Add('    ');
+        ListBox1.ITEMS.Add('Choose random or read weights (1 or 2) : ');
+end;
+
+  {*************Train Backpropagation Network*************}
+procedure TForm1.AddClick(Sender: TObject);
+var     temp,temp1,temp2:string;
+begin
+        ListBox1.ITEMS.ADD(EDIT1.TEXT);
+        if Edit1.text='1' then
+        begin
+             random_initial_weights(HiddenLayers);
+             write_weight_file(Uhi,Vij,Wjk,HiddenLayers,InitW);
+        end
+        else  store_init_weight(HiddenLayers);
+        set_init_W_old_W_old1(HiddenLayers);
+        num_loop:=0;
+    {Gettime for starting training input patterns}
+       {Hours}
+        temp1 := TimeToStr(Time) ;
+        temp2 := '' ;
+        temp2 := temp2+temp1[1] ;
+        if temp1[2] <> ':' then temp2 := temp2+temp1[2] ;
+        hour := StrToInt(temp2) ;
+       {Minutes}
+        temp2 := '' ;
+        If temp1[2] = ':' then
+        begin
+            temp2 := temp2+temp1[3] ;
+            temp2 := temp2+temp1[4] ;
+        end
+        Else
+        begin
+            temp2 := temp2+temp1[4] ;
+            temp2 := temp2+temp1[5] ;
+        end;
+        minute := StrToInt(temp2) ;
+       {seconds}
+        temp2 := '' ;
+        If temp1[2] = ':' then
+        begin
+            temp2 := temp2+temp1[6] ;
+            temp2 := temp2+temp1[7] ;
+        end
+        Else
+        begin
+            temp2 := temp2+temp1[7] ;
+            temp2 := temp2+temp1[8] ;
+        end;
+        second := StrToInt(temp2) ;
+        temp:=IntToStr(hour);
+        temp1:=IntToStr(minute);
+        temp2:=IntToStr(second);
+        ListBox1.ITEMS.Add('    ');
+        ListBox1.ITEMS.Add('Start Time : '+temp+':'+temp1+':'+temp2);
+        LineCount:=0;
+{---------------------Train Backpropagation Network--------------------}
+        repeat
+            for Xin_num:=1 to np do
+            begin
+            {--------------Feedforward--------------}
+                   Calculate_output_hiddens(Uhi,Vij,HiddenLayers);
+                   Calculate_output_of_output_units(Wjk);
+            {--------Backpropagation of error-------}
+                   Calculate_error_of_output_units;
+                   Calculate_weight_adjustment_of_output_units;
+                   Calculate_weight_adjustment_of_hidden_units(HiddenLayers);
+            {-------Update weights and biases-------}
+                   Update_weight_bias_of_output_hidden_units(HiddenLayers);
+            end;
+            num_loop:=num_loop+1;
+            Calculate_average_error(np);
+            LineCount:=LineCount+1;
+          {Check for clearing all datas in listbox}
+            if LineCount>32650 then
+            begin
+               Form1.ListBox1.ITEMS.Clear;
+               LineCount:=0;
+            end;
+        until   avg_error<total_squared_error;
+    {Gettime for finishing training input patterns}
+      {Hours}
+       temp1 := TimeToStr(Time) ;
+       temp2 := '' ;
+       temp2 := temp2+temp1[1] ;
+       if temp1[2] <> ':' then temp2 := temp2+temp1[2];
+       hour1 := StrToInt(temp2) ;
+      {Minutes}
+       temp2 := '' ;
+       If temp1[2] = ':' then
+       begin
+            temp2 := temp2+temp1[3] ;
+            temp2 := temp2+temp1[4] ;
+       end
+       Else
+       begin
+            temp2 := temp2+temp1[4] ;
+            temp2 := temp2+temp1[5] ;
+       end;
+       minute1 := StrToInt(temp2) ;
+      {seconds}
+       temp2 := '' ;
+       If temp1[2] = ':' then
+       begin
+            temp2 := temp2+temp1[6] ;
+            temp2 := temp2+temp1[7] ;
+       end
+       Else
+       begin
+            temp2 := temp2+temp1[7] ;
+            temp2 := temp2+temp1[8] ;
+       end;
+       second1 := StrToInt(temp2) ;
+       temp:=IntToStr(hour1);
+       temp1:=IntToStr(minute1);
+       temp2:=IntToStr(second1);
+       ListBox1.ITEMS.Add('Finish Time : '+temp+':'+temp1+':'+temp2);
+       Write_time_of_training(TimeName);
+       write_weight_file(Uhi_old,Vij_old,Wjk_old,HiddenLayers,LastW);
+{--------------Feedforward(for training input patterns)--------------}
+        for Xin_num:=1 to np do
+            begin
+                   Calculate_output_hiddens(Uhi_old,Vij_old,HiddenLayers);
+                   Calculate_output_of_output_units(Wjk_old);
+                   Calculate_error_of_output_units;
+            end;
+        Show_percent_of_error(np);
+        write_num_loop_avg_error_output(OPk,np,LAO);
+{--------------Feedforward(for testing input patterns)--------------}
+        store_input_patterns(np_test,IP_TeName);
+        store_target_values(np_test,Tar_TeName);
+        for Xin_num:=1 to np_test do
+            begin
+                   Calculate_output_hiddens(Uhi_old,Vij_old,HiddenLayers);
+                   Calculate_output_of_output_units(Wjk_old);
+                   Calculate_error_of_output_units;
+            end;
+        Show_percent_of_error(np_test);
+        write_num_loop_avg_error_output(OPk,np_test,TLAO);
+        ListBox1.ITEMS.SaveToFile(ListBoxFile);
+end;
+
+  {****************Exit from program******************}
+procedure TForm1.ExitClick(Sender: TObject);
+begin
+     Application.Terminate;
+end;
+
+  {************Clear all datas in listbox************}
+procedure TForm1.ClearClick(Sender: TObject);
+begin
+     ListBox1.ITEMS.Clear;
+     Edit1.text:= ' ';     
+end;
+
+end.

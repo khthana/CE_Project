@@ -1,0 +1,648 @@
+unit ts_1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, Menus, StdCtrls, ComDrv32, ComCtrls, Buttons,mmsystem, FmxUtils,
+  OleCtnrs;
+const
+  cmand1= $61;
+  cmand2= $62;
+  cmand3= $63;
+  cmand4= $64;
+  cmand5= $65;
+  cmand6= $66;
+  cmand7= $67;
+  cmand8= $68;
+  cmand9= $69;
+  cmand10=$6A;
+  cmand11=$6B;
+  cmand12=$6C;
+  cmand13=$6D;
+  cmand14=$6E;
+  cmand15=$6F;
+  cmand16=$70;
+  cmand17=$71;
+  cmand18=$72;
+  ent=$0C;// a = simmulate key enter -30h
+  clr=$0B;// s = simmilate key cancel -30h
+type
+  TTS1 = class(TForm)
+    MainMenu1: TMainMenu;
+    Project1: TMenuItem;
+    Expert1: TMenuItem;
+    MailBox1: TMenuItem;
+    Recall1: TMenuItem;
+    Test1: TMenuItem;
+    Telephononly1: TMenuItem;
+    Electroniccontrol1: TMenuItem;
+    Setup1: TMenuItem;
+    Help1: TMenuItem;
+    Panel1: TPanel;
+    Content1: TMenuItem;
+    N1: TMenuItem;
+    A1: TMenuItem;
+    Exit1: TMenuItem;
+    Comport1: TMenuItem;
+    Panel2: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    SerialPort1: TMenuItem;
+    CommPortDriver1: TCommPortDriver;
+    RUN1: TMenuItem;
+    ComboBox1: TComboBox;
+    Label5: TLabel;
+    GroupBox1: TGroupBox;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    Panel3: TPanel;
+    SpeedButton10: TSpeedButton;
+    SpeedButton11: TSpeedButton;
+    SpeedButton12: TSpeedButton;
+    SpeedButton13: TSpeedButton;
+    SpeedButton14: TSpeedButton;
+    SpeedButton15: TSpeedButton;
+    StatusBar1: TStatusBar;
+    SpeedButton16: TSpeedButton;
+    SpeedButton17: TSpeedButton;
+    Label6: TLabel;
+    Label7: TLabel;
+    SetupTS1: TMenuItem;
+    Panel4: TPanel;
+    Timer1: TTimer;
+    SpeedButton18: TSpeedButton;
+    Image1: TImage;
+    Memo1: TMemo;
+    Label3: TLabel;
+    Edit1: TEdit;
+    Label4: TLabel;
+    Timer2: TTimer;
+    procedure Expert1Click(Sender: TObject);
+    procedure Exit1Click(Sender: TObject);
+    procedure MailBox1Click(Sender: TObject);
+    procedure Comport1Click(Sender: TObject);
+    procedure SerialPort1Click(Sender: TObject);
+    procedure CommPortDriver1ReceiveData(Sender: TObject; DataPtr: Pointer;
+      DataSize: Integer);
+    procedure FormCreate(Sender: TObject);
+    procedure Telephononly1Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
+    procedure SpeedButton9Click(Sender: TObject);
+    procedure SpeedButton13Click(Sender: TObject);
+    procedure SpeedButton14Click(Sender: TObject);
+    procedure SpeedButton15Click(Sender: TObject);
+    procedure RUN1Click(Sender: TObject);
+    procedure Recall1Click(Sender: TObject);
+    procedure SpeedButton17Click(Sender: TObject);
+    procedure Content1Click(Sender: TObject);
+    procedure A1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure SpeedButton18Click(Sender: TObject);
+    procedure SpeedButton16Click(Sender: TObject);
+    procedure SetupTS1Click(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure Timer2Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    d:string;// start directory
+    tsmode:string; // Telephone Service Mode
+    Buff:integer; // Buffer receive Share
+    Sbuff:integer; // Buffer Senddata  empty
+    talkflag:string;// flag assing talk
+    fwait:string;// flag wait
+    procedure inicom;// iniport com..
+    procedure sendstr(str:string);// packit
+    procedure sendchar(str:string);// unpack forack,nak
+    procedure sendint(int:integer);// packit
+    procedure await;
+  end;
+
+var
+  TS1: TTS1;
+  lstr:integer;// step receive
+  nkey:array[1..5] of byte;
+
+implementation
+
+uses ai1, mailbox, commu, U_setcom, recall, About, ts_setup, psound;
+
+{$R *.DFM}
+
+procedure TTS1.Expert1Click(Sender: TObject);
+begin
+form1.show;
+end;
+
+procedure TTS1.Exit1Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TTS1.MailBox1Click(Sender: TObject);
+begin
+form3.show;
+
+end;
+
+procedure TTS1.Comport1Click(Sender: TObject);
+begin
+comform.show;
+end;
+(* i make it *)
+procedure TTS1.inicom;
+begin
+ts1.CommPortDriver1.ComPort := TComPortNumber(ord(setcom.ComPortRG.ItemIndex));
+ts1.CommPortDriver1.ComPortDataBits := TComPortDataBits(setcom.DataBitsRG.ItemIndex);
+ts1.CommPortDriver1.ComPortParity := TComPortParity(setcom.ParityRG.ItemIndex);
+ts1.CommPortDriver1.ComPortSpeed := TComPortBaudRate(setcom.BaudRateRG.ItemIndex+1);
+end;
+procedure TTS1.await;
+begin
+ if fwait='go' then fwait:='';
+ if (timer2.enabled=false) then timer2.enabled:=true;
+ while true do
+  begin
+  application.ProcessMessages;
+  if fwait='go' then exit;
+  end;
+
+end;
+
+procedure TTS1.sendstr(str:string);//type Hex
+begin
+//b:=strtoint(str);
+//s:=':'+str+inttohex(not(b),2);
+//CommportDriver1.SendString(s);
+//label2.caption:=s;
+end;
+
+procedure TTS1.sendchar(str:string);
+begin
+CommportDriver1.SendString(str);
+label2.caption:=str;
+end;
+
+procedure TTS1.sendint(int:integer);
+var s:string;
+    b:byte;
+begin
+if sbuff=ord('@')then
+ begin
+ sbuff:=int;
+ b:=int;
+ s:=':'+inttohex(int,2)+inttohex(not(b)+1,2);
+ CommportDriver1.SendString(s);
+ label2.caption:=s;
+ Timer1.Enabled:=true;
+ while true do        // wait loop
+ begin
+ application.ProcessMessages;
+ if sbuff=ord('@') then exit;
+ end;
+ end;
+//CommportDriver1.SendData(@int,1);
+end;
+
+procedure TTS1.SerialPort1Click(Sender: TObject);
+begin
+setcom.show;
+end;
+
+procedure TTS1.CommPortDriver1ReceiveData(Sender: TObject;
+  DataPtr: Pointer; DataSize: Integer);
+var p:pchar;
+    s,smem:string;
+    b,b1,b2:byte;
+begin
+ p:=Dataptr;
+ while Datasize>0 do
+  begin
+  Smem:=Memo1.Lines[Memo1.Lines.Count-1];
+  Smem:=Smem+P^;
+  Memo1.Lines[Memo1.Lines.Count-1]:= smem;
+
+  if (P^='#')then
+   begin
+   sbuff:=ord('@');
+   end;
+  if (p^='!')then
+   begin
+   b:=sbuff;
+   s:=':'+inttohex(b,2)+inttohex(not(b)+1,2);
+   CommportDriver1.SendString(s);
+   label2.caption:=s;
+   Timer1.Enabled:=true; /////
+   end;
+  if (P^=':')then
+   if(lstr=0)then inc(lstr)
+     else
+     begin
+     sendint(ord('!')); // send nak
+     lstr:=0;
+     end;
+  if((P^<>':')and(P^<>'!')and(p^<>'#'))and(lstr<>0)then //data
+   begin
+     if(lstr)<>5 then
+      begin
+      if (P^>='0') and (P^<='9') then
+       begin
+       b:=ord(p^)-$30;
+       end;
+      if (P^>='A') and (P^<='F') then
+       begin
+       b:=ord(p^)-$37;
+       end;
+      nkey[lstr]:=b;
+      lstr:=lstr+1;   // add lstr next
+      if lstr=5 then // sol
+      begin
+      lstr:=0; // final pack
+      b1:=nkey[1]*16;
+      b1:=b1+nkey[2];
+      b2:=nkey[3]*16;
+      b2:=b2+nkey[4];
+      b:=b1+b2;
+      if b=0 then
+       begin
+       sendchar('#');
+       buff:=b1;
+       //S := format('c= %s',[p^]);
+
+       (***** Check Your flag TSMODE ******)
+         if Tsmode='expert_system' then
+          begin
+          if b1=$82 then
+          begin
+          sendint(cmand15); // ena soundi
+          sendint(cmand17); // ena soundo
+          mainform.playwave(ts1.d+'\Phnring.wav');
+          end;
+          if b1=$83 then
+          begin
+          sendint(cmand1); // off hook
+          sendint(cmand3); // ena dtmf
+          sendint(cmand7); // ena busy
+          sendint(cmand11); // dis q
+          sendint(cmand13); // ena q
+          getdir(0,form1.maindir);
+          Form1.pass;
+          end;
+          if b1=clr then // * clr
+          begin
+          timer1.Enabled:=false;
+          form1.clrlist;
+          mainform.StopButtonclick(self);
+          chdir(form1.maindir);
+          form1.directorylistbox1.Directory:=form1.maindir;
+          form1.pass;
+          end;
+          if b1=$87 then
+          begin
+          mainform.StopButtonclick(self);
+          sendint(cmand2);
+          sendint(cmand5);
+          chdir(form1.maindir);
+          end;
+          Form1.inkey;
+          end;
+         if Tsmode='mailbox' then
+          begin
+          if b1=$82 then
+          begin
+          sendint(cmand15); // ena soundi
+          sendint(cmand17); // ena soundo
+          mainform.playwave(ts1.d+'\Phnring.wav');
+          end;
+          if b1=$83 then
+          begin
+          sendint(cmand1); // off hook
+          sendint(cmand3); // ena dtmf
+          sendint(cmand7); // chk busy
+          sendint(cmand11); // dis q
+          sendint(cmand13); // ena q
+          Form3.pass;
+          end;
+          if b1=$87 then
+          begin
+          sendint(cmand2);//shall to return start dir
+          sendint(cmand5);
+          ChDir(ts1.d);
+          end;
+          Form3.inkey;
+          end;
+
+         if Tsmode='recall' then
+          begin
+          smem:=form4.telstr;
+          if b1=$87 then
+          begin
+          sendint(cmand2);//shall to return start dir
+          sendint(cmand5);
+          ChDir(ts1.d);
+          end;
+          if b1=$8B then
+           begin
+           for b2:=1 to length(form4.telstr)do
+           begin
+           s:=copy(smem,1,1);
+           smem:=copy(smem,2,length(smem));
+           if(s<>' ')or(s<>'')or(s<>'-')  then sendint(strtoint(s));
+           end;
+           sendint(cmand12);
+           sendint(cmand8); // dis busy
+           await;
+
+//         sendint(cmand7);//  ena busy
+           sendint(cmand10); //  ena ringb
+           end;
+          if b1=$93 then
+           begin
+           talkflag:='wait';
+           sendint(cmand10);
+           end;
+          if (b1=$83)and(talkflag='wait') then
+           begin
+           talkflag:='';
+           sendint(cmand17);
+           mainform.Playwave(ts1.d+'\recall\'+form4.Telwav+'.wav');
+           sendint(cmand10); //  ena ringb
+           end;
+          end;
+
+         if Tsmode='telephone_only' then
+          begin
+          end;
+         if Tsmode='electronic_control' then
+          begin
+          end;
+      end
+      else sendint(ord('!'));
+      end;
+    end
+   end;
+  dec(datasize);
+  inc(p);
+  end; // end
+end;  // end
+
+procedure TTS1.FormCreate(Sender: TObject);
+begin
+ talkflag:='';
+ fwait:='';
+ sbuff:=$40;//@
+ lstr:=0;
+ tsmode:='';
+ getdir(0,d);
+end;
+
+procedure TTS1.Telephononly1Click(Sender: TObject);
+begin
+tsmode:='telephone_only';
+groupbox1.Show;
+
+end;
+
+procedure TTS1.SpeedButton1Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'1';
+sendint(1);
+end;
+
+procedure TTS1.SpeedButton2Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'2';
+sendint(2);
+end;
+
+procedure TTS1.SpeedButton3Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'3';
+sendint(3);
+end;
+
+procedure TTS1.SpeedButton4Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'4';
+sendint(4);
+end;
+
+procedure TTS1.SpeedButton5Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'5';
+sendint(5);
+end;
+
+procedure TTS1.SpeedButton6Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'6';
+sendint(6);
+end;
+
+procedure TTS1.SpeedButton7Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'7';
+sendint(7);
+end;
+
+procedure TTS1.SpeedButton8Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'8';
+sendint(8);
+end;
+
+procedure TTS1.SpeedButton9Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'9';
+sendint(9);
+end;
+
+procedure TTS1.SpeedButton13Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'*';
+sendint(11);
+end;
+
+procedure TTS1.SpeedButton14Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'0';
+
+sendint(10);
+end;
+
+procedure TTS1.SpeedButton15Click(Sender: TObject);
+begin
+panel3.Caption:=panel3.Caption+'#';
+sendint(12);
+end;
+
+procedure TTS1.RUN1Click(Sender: TObject);
+begin
+if Run1.Caption='&Run' then
+ begin
+  inicom; (*   start communication  *)
+  if ts1.CommPortDriver1.Connect then
+  begin
+    label1.caption := 'Connected';
+    Statusbar1.SimpleText:='Connected';
+    (* define flag mode *)
+    sendint(cmand5); // enable ring 
+
+    if combobox1.Text='Expert System'then
+    begin
+     tsmode:='expert_system';
+     getdir(0,form1.maindir);  // edit
+     //sendint(cmand5);
+     //form1.pass;
+    end;
+    if combobox1.Text='Mailbox'then
+    begin
+     tsmode:='mailbox';
+     chdir(d);
+     //form3.pass;
+
+    end;
+    if combobox1.Text='Recall'then
+     tsmode:='recall';
+    if combobox1.Text='Telephon Only'then
+      begin
+       groupbox1.Show;
+       groupbox1.Enabled:=true;
+       tsmode:='telephone_only';
+      end;
+    if combobox1.Text='Electronic Control'then
+     tsmode:='electronic_control';
+    Run1.Caption:='&Reset';
+  end
+  else // Error !
+    begin
+    MessageBeep( 0 );
+    MessageDlg('Error: could not connect. Check COM port settings and try again.',
+    mterror, [mbYes], 0);
+    end;
+ end
+ else // disconnect
+    begin
+    sendint(cmand6); //disable ring
+    tsmode:=''; // clear flag tsmode
+    CommportDriver1.Disconnect;
+    label1.Caption:='Disconnected';
+    Statusbar1.SimpleText:='Disconnected';
+    Run1.Caption:='&Run';
+    end;
+
+end;
+
+procedure TTS1.Recall1Click(Sender: TObject);
+begin
+form4.show;
+end;
+
+
+
+procedure TTS1.SpeedButton17Click(Sender: TObject);
+begin
+sendint($62);
+panel3.Caption:='';
+end;
+
+procedure TTS1.Content1Click(Sender: TObject);
+begin
+  ExecuteFile('TS.hlp', '', TS1.d+'\', SW_SHOW);
+end;
+
+procedure TTS1.A1Click(Sender: TObject);
+begin
+form6.show;
+end;
+
+procedure TTS1.Timer1Timer(Sender: TObject);
+var b:byte;
+    s:string;
+begin
+if sbuff<>ord('@') then
+ begin
+ b:=sbuff;
+ s:=':'+inttohex(sbuff,2)+inttohex(not(b)+1,2);
+ CommportDriver1.SendString(s);
+ label2.caption:=s;
+ Timer1.Enabled:=true;
+ end
+else Timer1.Enabled:=false;
+end;
+
+procedure TTS1.SpeedButton18Click(Sender: TObject);
+begin
+sendint($6C);
+end;
+
+procedure TTS1.SpeedButton16Click(Sender: TObject);
+begin
+sendint($61);
+sendint($6F);
+sendint($71);
+
+end;
+
+procedure TTS1.SetupTS1Click(Sender: TObject);
+begin
+form5.show;
+end;
+
+
+
+
+procedure TTS1.Edit1KeyPress(Sender: TObject; var Key: Char);
+var i:integer;
+    s:string;
+begin
+ if key=#13 then
+  begin
+  s:=edit1.text;
+   for i := 1 to Length(s) do
+     s[i] := UpCase(s[i]);
+  edit1.text:=s;
+  if s='OFF HOOK'then sendint(cmand1);
+  if s='ON HOOK'then sendint(cmand2);
+  if s='ENA DTMF'then sendint(cmand3);
+  if s='DIS DTMF'then sendint(cmand4);
+  if s='ENA RING'then sendint(cmand5);
+  if s='DIS RING'then sendint(cmand6);
+  if s='ENA BUSY'then sendint(cmand7);
+  if s='DIS BUSY'then sendint(cmand8);
+  if s='ENA DIAL'then sendint(cmand9);
+  if s='ENA RINGB'then sendint(cmand10);
+  if s='DIS Q'then sendint(cmand11);
+  if s='TEL'then sendint(cmand12);
+  if s='ENA Q'then sendint(cmand13);
+  if s='ENA SOUNDI'then sendint(cmand15);
+  if s='DIS SOUNDI'then sendint(cmand16);
+  if s='ENA SOUNDO'then sendint(cmand17);
+  if s='DIS SOUNDO'then sendint(cmand18);
+  if s='EXPERT PASS'then form1.pass;
+  if s='MAILBOX PASS'then form3.pass;
+  end;
+end;
+
+procedure TTS1.Timer2Timer(Sender: TObject);
+begin
+fwait:='go';
+end;
+
+end.

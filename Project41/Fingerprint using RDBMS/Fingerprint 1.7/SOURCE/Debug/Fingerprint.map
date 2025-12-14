@@ -1,0 +1,180 @@
+ Fingerprint
+
+ Timestamp is 36f45aad (Sun Mar 21 09:34:21 1999)
+
+ Preferred load address is 10000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 0000670cH .text                   CODE
+ 0002:00000000 00000080H .rdata                  DATA
+ 0002:00000080 00000209H .edata                  DATA
+ 0003:00000000 00000004H .CRT$XCA                DATA
+ 0003:00000004 00000004H .CRT$XCZ                DATA
+ 0003:00000008 00000004H .CRT$XIA                DATA
+ 0003:0000000c 00000004H .CRT$XIZ                DATA
+ 0003:00000010 00001ef0H .data                   DATA
+ 0003:00001f00 00000014H .bss                    DATA
+ 0004:00000000 0000003cH .idata$2                DATA
+ 0004:0000003c 00000014H .idata$3                DATA
+ 0004:00000050 000000ccH .idata$4                DATA
+ 0004:0000011c 000000ccH .idata$5                DATA
+ 0004:000001e8 000002f4H .idata$6                DATA
+
+  Address         Publics by Value              Rva+Base   Lib:Object
+
+ 0001:00000000       _pnt_tInput                10001000 f Fingerprint.obj
+ 0001:000001af       _pnt_tOutput               100011af f Fingerprint.obj
+ 0001:00000388       _fing_tInput               10001388 f Fingerprint.obj
+ 0001:000005a6       _fing_tOutput              100015a6 f Fingerprint.obj
+ 0001:000007f0       _fing_tSend                100017f0 f Fingerprint.obj
+ 0001:000009b2       _fing_tReceive             100019b2 f Fingerprint.obj
+ 0001:00000b6c       _fing_tImportText          10001b6c f Fingerprint.obj
+ 0001:00000d8a       _fing_tExportText          10001d8a f Fingerprint.obj
+ 0001:00000fda       _fing_tImportBinary        10001fda f Fingerprint.obj
+ 0001:000011a1       _fing_tExportBinary        100021a1 f Fingerprint.obj
+ 0001:0000137c       _fing_tCompare             1000237c f Fingerprint.obj
+ 0001:00001557       _fing_tEqual               10002557 f Fingerprint.obj
+ 0001:00001575       _fing_tNotEqual            10002575 f Fingerprint.obj
+ 0001:00001594       _Gen_sscanf                10002594 f Fingerprint.obj
+ 0001:000036cc       _Gen_nstrwords             100046cc f Fingerprint.obj
+ 0001:000038c8       _Gen_Trace                 100048c8 f Fingerprint.obj
+ 0001:0000399a       _HoughIdxInput             1000499a f Fingerprint.obj
+ 0001:00003b83       _HoughIdxOutput            10004b83 f Fingerprint.obj
+ 0001:00003d91       _Hough1                    10004d91 f Fingerprint.obj
+ 0001:0000442a       _Hough1_1                  1000542a f Fingerprint.obj
+ 0001:00004acf       _Hough2                    10005acf f Fingerprint.obj
+ 0001:00004d6d       _box                       10005d6d f Fingerprint.obj
+ 0001:00004f8d       _score                     10005f8d f Fingerprint.obj
+ 0001:00005997       _score2                    10006997 f Fingerprint.obj
+ 0001:000063a2       _mi_close                  100073a2 f sapi:ONINIT.EXE
+ 0001:000063a8       _mi_get_varlen             100073a8 f sapi:ONINIT.EXE
+ 0001:000063ae       _mi_get_vardata            100073ae f sapi:ONINIT.EXE
+ 0001:000063b4       _mi_alloc                  100073b4 f sapi:ONINIT.EXE
+ 0001:000063ba       _mi_open                   100073ba f sapi:ONINIT.EXE
+ 0001:000063c0       _mi_set_varlen             100073c0 f sapi:ONINIT.EXE
+ 0001:000063c6       _mi_new_var                100073c6 f sapi:ONINIT.EXE
+ 0001:000063cc       _mi_put_integer            100073cc f sapi:ONINIT.EXE
+ 0001:000063d2       _mi_get_integer            100073d2 f sapi:ONINIT.EXE
+ 0001:000063d8       _dtcvasc                   100073d8 f sapi:ONINIT.EXE
+ 0001:000063de       _rstrdate                  100073de f sapi:ONINIT.EXE
+ 0001:000063e4       _deccvasc                  100073e4 f sapi:ONINIT.EXE
+ 0001:000063ea       _mi_free                   100073ea f sapi:ONINIT.EXE
+ 0001:000063f0       _mi_money_to_binary        100073f0 f sapi:ONINIT.EXE
+ 0001:000063f6       _mi_string_to_lvarchar     100073f6 f sapi:ONINIT.EXE
+ 0001:000063fc       _ifx_int8cvasc             100073fc f sapi:ONINIT.EXE
+ 0001:00006402       __ifx_gl_mbscpy@16         10007402 f sapi:ONINIT.EXE
+ 0001:00006408       _dectolong                 10007408 f sapi:ONINIT.EXE
+ 0001:0000640e       _dectodbl                  1000740e f sapi:ONINIT.EXE
+ 0001:00006414       _dectoint                  10007414 f sapi:ONINIT.EXE
+ 0001:0000641a       _ifx_gl_convert_number     1000741a f sapi:ONINIT.EXE
+ 0001:00006420       __ifx_gl_full_mblen@12     10007420 f sapi:ONINIT.EXE
+ 0001:00006426       __ifx_gl_full_mbsnext@12   10007426 f sapi:ONINIT.EXE
+ 0001:0000642c       __ifx_gl_im_ismctype@16    1000742c f sapi:ONINIT.EXE
+ 0001:00006432       _mi_get_locale             10007432 f sapi:ONINIT.EXE
+ 0001:00006438       _mi_db_error_raise         10007438 f sapi:ONINIT.EXE
+ 0001:0000643e       _mi_gl_tprintf             1000743e f sapi:ONINIT.EXE
+ 0001:00006444       _be_mapsym                 10007444 f sapi:ONINIT.EXE
+ 0001:0000644a       _mi_trace_getvect          1000744a f sapi:ONINIT.EXE
+ 0001:00006450       _mi_zalloc                 10007450 f sapi:ONINIT.EXE
+ 0001:00006456       _mi_fp_setfuncstate        10007456 f sapi:ONINIT.EXE
+ 0001:0000645c       _mi_dalloc                 1000745c f sapi:ONINIT.EXE
+ 0001:00006462       _mi_fp_funcstate           10007462 f sapi:ONINIT.EXE
+ 0001:00006468       _strlen                    10007468 f msvcrt:MSVCRT.dll
+ 0001:0000646e       _sprintf                   1000746e f msvcrt:MSVCRT.dll
+ 0001:00006474       _sscanf                    10007474 f msvcrt:MSVCRT.dll
+ 0001:0000647a       _memcpy                    1000747a f msvcrt:MSVCRT.dll
+ 0001:00006480       _strncmp                   10007480 f msvcrt:MSVCRT.dll
+ 0001:00006490       _sin                       10007490 f msvcrt:MSVCRT.dll
+ 0001:00006496       _cos                       10007496 f msvcrt:MSVCRT.dll
+ 0001:0000649c       __ftol                     1000749c f msvcrt:MSVCRT.dll
+ 0001:000064b0       __alloca_probe             100074b0   msvcrt:chkstk.obj
+ 0001:000064b0       __chkstk                   100074b0   msvcrt:chkstk.obj
+ 0001:000064e0       __CRT_INIT@12              100074e0 f msvcrt:crtdll.obj
+ 0001:000065b0       __DllMainCRTStartup@12     100075b0 f msvcrt:crtdll.obj
+ 0001:00006660       _free                      10007660 f msvcrt:MSVCRT.dll
+ 0001:00006666       __initterm                 10007666 f msvcrt:MSVCRT.dll
+ 0001:00006670       __onexit                   10007670 f msvcrt:atonexit.obj
+ 0001:000066a0       _atexit                    100076a0 f msvcrt:atonexit.obj
+ 0001:000066c0       _malloc                    100076c0 f msvcrt:MSVCRT.dll
+ 0001:000066d0       _DllMain@12                100076d0 f msvcrt:dllmain.obj
+ 0001:00006700       ___dllonexit               10007700 f msvcrt:MSVCRT.dll
+ 0001:00006706       _DisableThreadLibraryCalls@4 10007706 f kernel32:KERNEL32.dll
+ 0003:00000000       ___xc_a                    10009000   msvcrt:cinitexe.obj
+ 0003:00000004       ___xc_z                    10009004   msvcrt:cinitexe.obj
+ 0003:00000008       ___xi_a                    10009008   msvcrt:cinitexe.obj
+ 0003:0000000c       ___xi_z                    1000900c   msvcrt:cinitexe.obj
+ 0003:00001f04       __adjust_fdiv              1000af04   <common>
+ 0003:00001f08       ___onexitend               1000af08   <common>
+ 0003:00001f0c       ___onexitbegin             1000af0c   <common>
+ 0003:00001f10       __pRawDllMain              1000af10   <common>
+ 0004:00000000       __IMPORT_DESCRIPTOR_ONINIT 1000b000   sapi:ONINIT.EXE
+ 0004:00000014       __IMPORT_DESCRIPTOR_MSVCRT 1000b014   msvcrt:MSVCRT.dll
+ 0004:00000028       __IMPORT_DESCRIPTOR_KERNEL32 1000b028   kernel32:KERNEL32.dll
+ 0004:0000003c       __NULL_IMPORT_DESCRIPTOR   1000b03c   sapi:ONINIT.EXE
+ 0004:0000011c       __imp__DisableThreadLibraryCalls@4 1000b11c   kernel32:KERNEL32.dll
+ 0004:00000120       \177KERNEL32_NULL_THUNK_DATA 1000b120   kernel32:KERNEL32.dll
+ 0004:00000124       __imp___onexit             1000b124   msvcrt:MSVCRT.dll
+ 0004:00000128       __imp___adjust_fdiv        1000b128   msvcrt:MSVCRT.dll
+ 0004:0000012c       __imp____dllonexit         1000b12c   msvcrt:MSVCRT.dll
+ 0004:00000130       __imp___initterm           1000b130   msvcrt:MSVCRT.dll
+ 0004:00000134       __imp__free                1000b134   msvcrt:MSVCRT.dll
+ 0004:00000138       __imp__malloc              1000b138   msvcrt:MSVCRT.dll
+ 0004:0000013c       __imp__cos                 1000b13c   msvcrt:MSVCRT.dll
+ 0004:00000140       __imp__sin                 1000b140   msvcrt:MSVCRT.dll
+ 0004:00000144       __imp___ftol               1000b144   msvcrt:MSVCRT.dll
+ 0004:00000148       __imp__memcpy              1000b148   msvcrt:MSVCRT.dll
+ 0004:0000014c       __imp__sscanf              1000b14c   msvcrt:MSVCRT.dll
+ 0004:00000150       __imp__strncmp             1000b150   msvcrt:MSVCRT.dll
+ 0004:00000154       __imp__strlen              1000b154   msvcrt:MSVCRT.dll
+ 0004:00000158       __imp__sprintf             1000b158   msvcrt:MSVCRT.dll
+ 0004:0000015c       \177MSVCRT_NULL_THUNK_DATA 1000b15c   msvcrt:MSVCRT.dll
+ 0004:00000160       __imp__dectodbl            1000b160   sapi:ONINIT.EXE
+ 0004:00000164       __imp__dectolong           1000b164   sapi:ONINIT.EXE
+ 0004:00000168       __imp___ifx_gl_mbscpy@16   1000b168   sapi:ONINIT.EXE
+ 0004:0000016c       __imp__dectoint            1000b16c   sapi:ONINIT.EXE
+ 0004:00000170       __imp___ifx_gl_full_mblen@12 1000b170   sapi:ONINIT.EXE
+ 0004:00000174       __imp___ifx_gl_full_mbsnext@12 1000b174   sapi:ONINIT.EXE
+ 0004:00000178       __imp___ifx_gl_im_ismctype@16 1000b178   sapi:ONINIT.EXE
+ 0004:0000017c       __imp__ifx_gl_convert_number 1000b17c   sapi:ONINIT.EXE
+ 0004:00000180       __imp__mi_money_to_binary  1000b180   sapi:ONINIT.EXE
+ 0004:00000184       __imp__mi_gl_tprintf       1000b184   sapi:ONINIT.EXE
+ 0004:00000188       __imp__be_mapsym           1000b188   sapi:ONINIT.EXE
+ 0004:0000018c       __imp__mi_trace_getvect    1000b18c   sapi:ONINIT.EXE
+ 0004:00000190       __imp__mi_zalloc           1000b190   sapi:ONINIT.EXE
+ 0004:00000194       __imp__mi_fp_setfuncstate  1000b194   sapi:ONINIT.EXE
+ 0004:00000198       __imp__mi_dalloc           1000b198   sapi:ONINIT.EXE
+ 0004:0000019c       __imp__mi_fp_funcstate     1000b19c   sapi:ONINIT.EXE
+ 0004:000001a0       __imp__ifx_int8cvasc       1000b1a0   sapi:ONINIT.EXE
+ 0004:000001a4       __imp__mi_string_to_lvarchar 1000b1a4   sapi:ONINIT.EXE
+ 0004:000001a8       __imp__rstrdate            1000b1a8   sapi:ONINIT.EXE
+ 0004:000001ac       __imp__mi_free             1000b1ac   sapi:ONINIT.EXE
+ 0004:000001b0       __imp__deccvasc            1000b1b0   sapi:ONINIT.EXE
+ 0004:000001b4       __imp__mi_put_integer      1000b1b4   sapi:ONINIT.EXE
+ 0004:000001b8       __imp__dtcvasc             1000b1b8   sapi:ONINIT.EXE
+ 0004:000001bc       __imp__mi_get_integer      1000b1bc   sapi:ONINIT.EXE
+ 0004:000001c0       __imp__mi_open             1000b1c0   sapi:ONINIT.EXE
+ 0004:000001c4       __imp__mi_new_var          1000b1c4   sapi:ONINIT.EXE
+ 0004:000001c8       __imp__mi_set_varlen       1000b1c8   sapi:ONINIT.EXE
+ 0004:000001cc       __imp__mi_get_varlen       1000b1cc   sapi:ONINIT.EXE
+ 0004:000001d0       __imp__mi_alloc            1000b1d0   sapi:ONINIT.EXE
+ 0004:000001d4       __imp__mi_get_vardata      1000b1d4   sapi:ONINIT.EXE
+ 0004:000001d8       __imp__mi_get_locale       1000b1d8   sapi:ONINIT.EXE
+ 0004:000001dc       __imp__mi_close            1000b1dc   sapi:ONINIT.EXE
+ 0004:000001e0       __imp__mi_db_error_raise   1000b1e0   sapi:ONINIT.EXE
+ 0004:000001e4       \177ONINIT_NULL_THUNK_DATA 1000b1e4   sapi:ONINIT.EXE
+
+ entry point at        0001:000065b0
+
+ Static symbols
+
+
+FIXUPS: 6988 5f 2f 43 1b 137 1c 1a 19 1c 1a 762 306 e fffffe9f b8 15 13
+FIXUPS: 7636 ffffde78 299 28 17 21 25 17 2dc 53 2c 14 cf 79 16 14 19 16
+FIXUPS: 5d07 58 51 2c 1a3 5e 2f 43 1b 137 1c 1a 19 1c 1a ffffe168 333 31
+FIXUPS: 49dd 2c 40 54 34 34 34 2f 5e 2c 6d 2d c 20 c 20 c 20 c 5a 5e 2c
+FIXUPS: 5177 13 8e 1e 1e6 17 4c ffffcd07 5e 2c 74 dd 5f 2c 17b 1e 22e 49
+FIXUPS: 2a37 95 18 1a3 1a3 1ab 1a3 154 186 6f 1a9 66 12b 19f 181 158 3a
+FIXUPS: 3e0e 182 125 1b2 ffffd509 c 59 5e 2c 74 c4 5e 2c 7a c3 51 2c 2a
+FIXUPS: 1c61 64 3b 3b 34 5e 2c 99 5c c 27 c 27 c 5f 5e 2c 6a ffffef8d 29
+FIXUPS: 10a9 54 34 34 2f 5e 2c 64 2d c 20 c 20 c 5a 5e 2c 2a 5c 64 3b 3b
+FIXUPS: 158b 5e 2c 99 5c c 27 c

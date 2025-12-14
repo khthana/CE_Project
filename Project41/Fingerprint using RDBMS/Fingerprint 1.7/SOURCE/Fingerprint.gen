@@ -1,0 +1,50 @@
+BladeGen "3.1"
+
+module Fingerprint version "1.7.3p.41" language C
+{
+	interface pnt_t : TextIO
+	{
+		attribute mi_integer X;
+		attribute mi_integer Y;
+		attribute mi_integer Zeta;
+		rename input 78755522-bf71-11d2-806c-204c4f4f5020 as pnt_tInput Comment "Support routine for opaque type pnt_t returns pnt_t.";
+		rename output 78755523-bf71-11d2-806c-204c4f4f5020 as pnt_tOutput Comment "Support routine for opaque type pnt_t returns lvarchar.";
+	};
+
+
+	interface fing_t varlen : TextIO, BinIO, TextImpExp, BinImpExp, Compare, Equal
+	{
+		attribute pnt_t data [];
+		rename input fe73ada4-cc7b-11d2-b023-204c4f4f5020 as fing_tInput Comment "Support routine for opaque type fing_t returns fing_t.";
+		rename output fe73ada3-cc7b-11d2-b023-204c4f4f5020 as fing_tOutput Comment "Support routine for opaque type fing_t returns lvarchar.";
+		rename send fe73ada6-cc7b-11d2-b023-204c4f4f5020 as fing_tSend Comment "Support routine for opaque type fing_t returns sendrecv.";
+		rename receive fe73ada5-cc7b-11d2-b023-204c4f4f5020 as fing_tReceive Comment "Support routine for opaque type fing_t returns fing_t.";
+		rename equal 9fac02d1-cc80-11d2-b023-204c4f4f5020 as fing_tEqual Comment "Support routine for opaque type fing_t returns boolean.";
+		rename notequal 9fac02d2-cc80-11d2-b023-204c4f4f5020 as fing_tNotEqual Comment "Support routine for opaque type fing_t returns boolean.";
+		rename compare 9fac02d0-cc80-11d2-b023-204c4f4f5020 as fing_tCompare Comment "Support routine for opaque type fing_t returns integer.";
+		rename import fe73ada7-cc7b-11d2-b023-204c4f4f5020 as fing_tImportText Comment "Support routine for opaque type fing_t returns fing_t.";
+		rename export fe73ada8-cc7b-11d2-b023-204c4f4f5020 as fing_tExportText Comment "Support routine for opaque type fing_t returns impexp.";
+		rename importbinary fe73ada1-cc7b-11d2-b023-204c4f4f5020 as fing_tImportBinary Comment "Support routine for opaque type fing_t returns fing_t.";
+		rename exportbinary fe73ada2-cc7b-11d2-b023-204c4f4f5020 as fing_tExportBinary Comment "Support routine for opaque type fing_t returns impexpbin.";
+	};
+
+
+	interface HoughIdx : TextIO
+	{
+		attribute mi_integer S;
+		attribute mi_integer Z;
+		attribute mi_integer X;
+		attribute mi_integer Y;
+		rename input 1ab5ef50-ce02-11d2-b02a-204c4f4f5020 as HoughIdxInput Comment "Support routine for opaque type HoughIdx returns HoughIdx.";
+		rename output 1ab5ef51-ce02-11d2-b02a-204c4f4f5020 as HoughIdxOutput Comment "Support routine for opaque type HoughIdx returns lvarchar.";
+	};
+
+
+	Function b38ed351-d118-11d2-b037-204c4f4f5020  : HoughIdx box( fing_t Arg1 ) Comment "Entrypoint for the SQL routine Box (fing_t) returns HoughIdx.";
+	Function 23468d10-cdf5-11d2-b02a-204c4f4f5020  : HoughIdx Hough1( fing_t Arg1, fing_t Arg2 ) Comment "Entrypoint for the SQL routine Hough1 (fing_t,fing_t) returns HoughIdx.";
+	Function 203c7d20-d36a-11d2-b042-204c4f4f5020  : mi_double_precision score2( fing_t Arg1, fing_t Arg2 ) Comment "Entrypoint for the SQL routine score2 (fing_t,fing_t) returns double precision.";
+	Function 23468d11-cdf5-11d2-b02a-204c4f4f5020  : fing_t Hough2( fing_t Arg11, fing_t Arg22 ) Comment "Entrypoint for the SQL routine Hough2 (fing_t,fing_t) returns fing_t.";
+	Function bafa51d0-c0a0-11d2-806f-204c4f4f5020  : mi_double_precision score( fing_t query, fing_t reference ) Comment "Entrypoint for the SQL routine score (fing_t,fing_t) returns double precision.";
+	Function 42671e00-d055-11d2-b035-204c4f4f5020  : HoughIdx Hough1_1( fing_t Arg1, fing_t Arg2 ) Comment "Entrypoint for the SQL routine Hough1_1 (fing_t,fing_t) returns HoughIdx.";
+}
+ Comment "Generated for project Fingerprint.1.7.3p.41.";

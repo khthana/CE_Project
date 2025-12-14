@@ -1,0 +1,50 @@
+<HTML>
+<HEAD><TITLE>Result</TITLE></HEAD>
+<BODY BGCOLOR="FFFFFF">
+<Table border=0>
+<tr><td><Img Src=http://media03.ce.kmitl.ac.th/info_Top.gif></td><td></td><td></td></tr>
+<tr><td></td><td><Img Src=http://media03.ce.kmitl.ac.th/info_s.gif></td><td><%idc.info_s%></td></tr>
+<td></td><td><Img Src=http://media03.ce.kmitl.ac.th/info_d.gif></td><td><%idc.info_d%></td></tr>
+</Table>
+<hr>
+<%if CurrentRecord EQ 0 %>
+<Table Border=0>
+<Tr><Td Bgcolor=CYAN ><Font Size=2 Color=BLACK><B>ไม่พบทางเลือก</B></Font></A></Td></Tr>
+<Tr><Td></Td></Tr>
+<Tr><Td></Td></Tr>
+<Tr><Td></Td></Tr>
+<Tr><Td Bgcolor=RED>
+<A Href ="http://media03.ce.kmitl.ac.th/scripts/samples/Insert.idc">
+<Font Size=2 Color=Yellow><B>ต้องการให้ปรับปรุง</B></Font></A>
+</Td></Tr>
+</Table>
+<%else%>
+<Table Border=0>
+<Tr><Td Bgcolor=CYAN ><Font Size=2 Color=BLACK><B>พบทางเลือกสู่จุดหมายปลายทางที่เป็นไปได้</B></Font></A></Td></Tr>
+<Tr><td></td></Tr>
+<Tr><td></td></Tr>
+<Tr><td></td></Tr>
+<Tr><td></td></Tr>
+<Tr><Td Bgcolor=RED><A Href ="outputs_1.html"><Font Size=2 Color=Yellow><Center><B>นั่งรถ 1 ต่อถึงปลายทาง</B></Center></Font></A></Td></Tr>
+
+<Tr><td></td></Tr>
+<Tr><td></td></Tr>
+<Tr><Td Bgcolor=BLUE><A Href ="outputs_1.html"><Font Size=2 Color=Yellow><Center><B>นั่งรถ 2 ต่อถึงปลายทาง</B></Center></Font></A></Td></Tr>
+<Tr><td></td></Tr>
+<Tr><td></td></Tr>
+<Tr><Td Bgcolor=Red><A Href ="outputs_1.html"><Font Size=2 Color=Yellow><Center><B>นั่งรถ 3 ต่อถึงปลายทาง</B></Center></Font></A></Td></Tr>
+</Table>
+<Center>
+<TABLE  Border=1 Cellspacing=1>
+<TR>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ</B></Font></TH>
+</TR>
+<%begindetail%>
+<TR><TD><%id_vehicle1%></TD><TD align="right"><%Type_vehicle1%></TD></TR>
+<%enddetail%>
+</TABLE>
+<%endif%>
+</Center>
+</BODY>
+</HTML>

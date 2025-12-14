@@ -1,0 +1,32 @@
+<html>
+<%onerror error%>
+<title>Internet Service Manager <%if servid EQ 4%>WWW<%elif servid EQ 1%>FTP<%elif servid EQ 2%>Gopher<%endif%> Advanced Properties</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%if reqparam RF "cancel"%>
+<%goto end%>
+<%endif%>
+<%if reqparam RF "help"%>
+<%redirecthttp%><%msgbody.helptopic%><%/redirecthttp%>
+<%endif%>
+<%!PosDenyIpAccess urlparam%>
+<%!Update%>
+<%label end%>
+<%redirect%>/scripts/iisadmin/ism.dll?<%servname%>/adv<%/redirect%>
+<%label error%>
+<%if reqstatus EQ 4000%>
+ This address no longer exists.
+<%elif reqstatus EQ 2500%>
+ <%if rpcstatus EQ 5%>
+ Access denied to this service.
+ <%elif rpcstatus EQ 1062%>
+ This service has been stopped.
+ <%else%>
+ RPC error <%rpcstatus%>
+ <%endif%>
+<%elif reqstatus EQ 8000%>
+Invalid IP address
+<%else%>
+ Error encountered : <%reqstatus%>
+<%endif%>
+<p><a href="/scripts/iisadmin/ism.dll?<%servname%>/adv">OK</a>
+</body></html>

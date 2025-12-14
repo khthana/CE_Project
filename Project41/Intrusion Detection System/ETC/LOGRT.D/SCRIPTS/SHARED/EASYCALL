@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+
+$ua=new LWP::UserAgent;
+$ua->proxy('http','http://161.246.10.21:3128/'); 
+$ua->request(POST 'http://203.146.1.214/cgi-bin/web2pager.cgi',
+       [ namefrom  =>  $ARGV[0],
+         subject   =>  $ARGV[1],
+         message   =>  $ARGV[2]
+       ]);
+print("Ok...\n");
+exit;                                      

@@ -1,0 +1,24 @@
+<html>
+<%onerror error%>
+<title>WWW Administrator Update</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%!DelDenyIpAccess urlparam%>
+<%!SetDefaultIpAccessToGrant%>
+<%!Update%>
+<%redirect%>/scripts/iisadmin/ism.dll?<%servname%>/adv<%/redirect%>
+<%label error%>
+<%if reqstatus EQ 4000%>
+ This address no longer exists.
+<%elif reqstatus EQ 2500%>
+ <%if rpcstatus EQ 5%>
+ Access denied to this service.
+ <%elif rpcstatus EQ 1062%>
+ This service has been stopped.
+ <%else%>
+ RPC error <%rpcstatus%>
+ <%endif%>
+<%else%>
+ Error encountered : <%reqstatus%>
+<%endif%>
+<p><a href="/iisadmin/default.htm">Return to main menu</a>
+</body></html>

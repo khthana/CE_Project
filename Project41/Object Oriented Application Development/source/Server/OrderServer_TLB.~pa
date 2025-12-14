@@ -1,0 +1,128 @@
+unit OrderServer_TLB;
+
+// ************************************************************************ //
+// WARNING                                                                  //
+// -------                                                                  //
+// The types declared in this file were generated from data read from a     //
+// Type Library. If this type library is explicitly or indirectly (via      //
+// another type library referring to this type library) re-imported, or the //
+// 'Refresh' command of the Type Library Editor activated while editing the //
+// Type Library, the contents of this file will be regenerated and all      //
+// manual modifications will be lost.                                       //
+// ************************************************************************ //
+
+// PASTLWTR : $Revision:   1.11.1.62  $
+// File generated on 28/4/99 4:02:56 from Type Library described below.
+
+// ************************************************************************ //
+// Type Lib: D:\Project\V1.1\Server\OrderServer.tlb
+// IID\LCID: {04FAF061-FB02-11D2-A187-008048811E17}\0
+// Helpfile: 
+// HelpString: Project1 Library
+// Version:    1.0
+// ************************************************************************ //
+
+interface
+
+uses Windows, ActiveX, Classes, Graphics, OleCtrls, StdVCL;
+
+// *********************************************************************//
+// GUIDS declared in the TypeLibrary. Following prefixes are used:      //
+//   Type Libraries     : LIBID_xxxx                                    //
+//   CoClasses          : CLASS_xxxx                                    //
+//   DISPInterfaces     : DIID_xxxx                                     //
+//   Non-DISP interfaces: IID_xxxx                                      //
+// *********************************************************************//
+const
+  LIBID_OrderServer: TGUID = '{04FAF061-FB02-11D2-A187-008048811E17}';
+  IID_IOrderSystem: TGUID = '{04FAF062-FB02-11D2-A187-008048811E17}';
+  CLASS_OrderSystem: TGUID = '{04FAF064-FB02-11D2-A187-008048811E17}';
+type
+
+// *********************************************************************//
+// Forward declaration of interfaces defined in Type Library            //
+// *********************************************************************//
+  IOrderSystem = interface;
+  IOrderSystemDisp = dispinterface;
+
+// *********************************************************************//
+// Declaration of CoClasses defined in Type Library                     //
+// (NOTE: Here we map each CoClass to its Default Interface)            //
+// *********************************************************************//
+  OrderSystem = IOrderSystem;
+
+
+// *********************************************************************//
+// Interface: IOrderSystem
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {04FAF062-FB02-11D2-A187-008048811E17}
+// *********************************************************************//
+  IOrderSystem = interface(IDataBroker)
+    ['{04FAF062-FB02-11D2-A187-008048811E17}']
+    function StartOrder(const CustomerID: WideString): WideString; safecall;
+    procedure EndOrder; safecall;
+    function MakeLineItem(const UPC: WideString; QTY: Integer): WideString; safecall;
+    function DelLineItem(ID: Integer): WideString; safecall;
+    function Total: WideString; safecall;
+    function GetOrderID: Integer; safecall;
+    function GetCustomerID: WideString; safecall;
+    function GetOrderDate: WideString; safecall;
+    function Get_Table1: IProvider; safecall;
+    function Get_Table2: IProvider; safecall;
+    function Get_Table3: IProvider; safecall;
+    function Get_DataSetProvider1: IProvider; safecall;
+    function Get_DataSetProvider2: IProvider; safecall;
+    function DelOrder(const OrderID: WideString): WideString; safecall;
+    function EditOrder(const OrderID: WideString): WideString; safecall;
+    property Table1: IProvider read Get_Table1;
+    property Table2: IProvider read Get_Table2;
+    property Table3: IProvider read Get_Table3;
+    property DataSetProvider1: IProvider read Get_DataSetProvider1;
+    property DataSetProvider2: IProvider read Get_DataSetProvider2;
+  end;
+
+// *********************************************************************//
+// DispIntf:  IOrderSystemDisp
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {04FAF062-FB02-11D2-A187-008048811E17}
+// *********************************************************************//
+  IOrderSystemDisp = dispinterface
+    ['{04FAF062-FB02-11D2-A187-008048811E17}']
+    function StartOrder(const CustomerID: WideString): WideString; dispid 1;
+    procedure EndOrder; dispid 2;
+    function MakeLineItem(const UPC: WideString; QTY: Integer): WideString; dispid 3;
+    function DelLineItem(ID: Integer): WideString; dispid 4;
+    function Total: WideString; dispid 5;
+    function GetOrderID: Integer; dispid 6;
+    function GetCustomerID: WideString; dispid 7;
+    function GetOrderDate: WideString; dispid 8;
+    property Table1: IProvider readonly dispid 9;
+    property Table2: IProvider readonly dispid 10;
+    property Table3: IProvider readonly dispid 11;
+    property DataSetProvider1: IProvider readonly dispid 12;
+    property DataSetProvider2: IProvider readonly dispid 13;
+    function DelOrder(const OrderID: WideString): WideString; dispid 14;
+    function EditOrder(const OrderID: WideString): WideString; dispid 18;
+    function GetProviderNames: OleVariant; dispid 22929905;
+  end;
+
+  CoOrderSystem = class
+    class function Create: IOrderSystem;
+    class function CreateRemote(const MachineName: string): IOrderSystem;
+  end;
+
+implementation
+
+uses ComObj;
+
+class function CoOrderSystem.Create: IOrderSystem;
+begin
+  Result := CreateComObject(CLASS_OrderSystem) as IOrderSystem;
+end;
+
+class function CoOrderSystem.CreateRemote(const MachineName: string): IOrderSystem;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_OrderSystem) as IOrderSystem;
+end;
+
+end.

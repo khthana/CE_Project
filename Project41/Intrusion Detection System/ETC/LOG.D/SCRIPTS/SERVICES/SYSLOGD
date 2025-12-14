@@ -1,0 +1,44 @@
+#!/usr/bin/perl -w
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( $ThisLine =~ /^exiting on signal 15$/ ) {
+	$Kills++;
+    }
+    elsif ($ThisLine =~ /^syslogd .* restart\.$/) {
+	$Starts++;
+    }
+    elsif ($ThisLine =~ /^Cannot glue message parts together$/) {
+	$Errors++;
+    }
+    else {
+	# Report any unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+if (($#OtherList >= 0) or ($Errors) or ($Starts) or ($Kills)) {
+
+    print "\n\n ---------------------- Syslogd Begin ------------------------- \n\n";
+    
+    if ($Kills) {
+	print "\nExiting on signal 15 : ". $Kills . " Time(s)\n";
+    }
+    
+    if ($Errors) {
+	print "\nCould not glue message parts together " . $Errors . " Time(s)\n";
+    }
+
+    if ($Starts) {
+	print "\nSyslogd started " . $Starts . " Time(s)\n";
+    }
+
+    if ($#OtherList >= 0) {
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- Syslogd End ------------------------- \n\n";
+
+}
+
+exit(0);

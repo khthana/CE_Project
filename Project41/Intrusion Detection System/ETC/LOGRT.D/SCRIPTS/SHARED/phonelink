@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+
+$ua=new LWP::UserAgent;
+$ua->proxy('http','http://161.246.10.21:3128/'); 
+$ua->request(POST 'http://www.phonelink.net/cgi-bin/psnwp.pl',
+       [ Phone  => $ARGV[0],
+         Mesg   => $ARGV[1],
+         encode => 'spg.net'
+       ]);
+print("Ok...\n");
+exit;                                      

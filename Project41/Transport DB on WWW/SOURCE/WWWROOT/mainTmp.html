@@ -1,0 +1,170 @@
+<Html>
+<Head>
+	<Title>Traffic Search In Bangkok</Title>
+	<Script>
+
+var yak="<EMBED SRC=/ WIDTH=0 HEIGHT=0 PANEL=0 AUTOSTART=TRUE REPEAT=TRUE>"
+window.document.write(yak)
+
+	function warp(id,imN)
+	{
+	  document.images[id].src=imN;
+	}
+	function Reset_Value(objec)
+{
+	objec.checked=false;	
+	if(objec==document.Sch.VehicleMe1) 
+	{
+		document.Sch.VehicleP1.checked=false;
+		document.Sch.VehicleP2.checked=false;
+		document.Sch.VehicleP3.checked=false;
+		document.Sch.VehicleP4.checked=false;
+	}
+	else
+	if((document.Sch.VehicleP1.checked) ||
+	   (document.Sch.VehicleP2.checked) ||
+	   (document.Sch.VehicleP3.checked) ||
+	   (document.Sch.VehicleP4.checked) )
+	{
+	document.Sch.VehicleMe1.checked=true;
+	}
+
+}
+
+function setVehicle()
+{		
+	if(document.Sch.VehicleP1.checked)
+	{
+		document.Sch.bus.value="ขสมก";
+	}
+	 if(document.Sch.VehicleP2.checked) 
+	{
+		document.Sch.train.value="รถไฟ";
+	}
+	 if(document.Sch.VehicleP3.checked) 
+	{
+		document.Sch.chess.value="เรือ";
+	}
+	 if(document.Sch.VehicleP4.checked) 	
+	{
+		document.Sch.van.value="รถตู้";		
+	}
+/*
+	if(document.Sch.VehicleMe1.checked)
+	{
+
+		if(document.Sch.choice.options[0].selected)
+		{
+		document.Sch.action="/scripts/samples/sch1.idc";
+		}else
+		if(document.Sch.choice.options[1].selected)
+		{	
+		document.Sch.action="/scripts/samples/sch1_2.idc";
+		}else
+		if(document.Sch.choice.options[2].selected)
+		{		
+		document.Sch.action="/scripts/samples/sch1_3.idc";
+		}
+	} else
+	{
+		alert("a");
+		document.Sch.reset();
+	}
+*/
+}	
+	</Script>
+</Head>
+<Body bgcolor=white>
+
+<Table BORDER=0>
+<TR>
+	<TD><img src=Main_Logo.gif></TD>
+</TR>
+
+</Table>
+<br>
+<Table Boder=0  Align=Right  Cellpadding=0 Cellspacing=0 Width=600>
+<Tr>
+<Td>
+<Table BORDER=0>
+<TR><TD><A  Href="search5.html" onMouseOver="warp(1,'Wmenu5.gif')"  onMouseOut="warp(1,'menu5.gif')"><img src=menu5.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="/Tourist_P/Main_T.html"  onMouseOver="warp(2,'Wmenu6.gif')"  onMouseOut="warp(2,'menu6.gif')"><img src=menu6.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="search7.html"  onMouseOver="warp(3,'Wmenu7.gif')"  onMouseOut="warp(3,'menu7.gif')"><img src=menu7.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="/scripts/samples/sch9.idc"  onMouseOver="warp(4,'Wmenu8.gif')"  onMouseOut="warp(4,'menu8.gif')"><img src=menu8.gif Border=0></A></TD></TR>
+</Table>
+</td>
+<td>
+<Table BORDER=0>
+<Tr><TD><A Href="search1.html" onMouseOver="warp(5,'W_menu1_1.gif')"  onMouseOut="warp(5,'menu1.gif')"><img src=menu1.gif Border=0></A></TD></TR>
+<Tr><TD><A  Href="search2.html" onMouseOver="warp(6,'W_menu2_1.gif')"  onMouseOut="warp(6,'menu2.gif')"><img src=menu2.gif Border=0></A></TD></tr>
+<Tr><TR><TD><A  Href="search3.html" onMouseOver="warp(7,'W_menu3_1.gif')"  onMouseOut="warp(7,'menu3.gif')"><img src=menu3.gif Border=0></A></TD>
+<Tr><TD><A  Href="search4.html" onMouseOver="warp(8,'W_menu4_1.gif')"  onMouseOut="warp(8,'menu4.gif')"><img src=menu4.gif Border=0></A></TD></TR>
+</Table>
+</td>
+</tr>
+</Table>
+
+<br><br><br><br><br>
+<FORM ACTION="/scripts/samples/Rsch1.idc" 
+             METHOD=POST 
+	onSubmit="setVehicle()" 
+             Name=Sch> <!--  onSubmit="setVehicle()" -->
+
+<Table Border=0 Width=600 Cellspacing=0>
+	<Tr><td Bgcolor=SteelBlue Colspan=2><Font Color=Yellow><Center>ในกรณีที่คุณไม่มั่นใจ ในเรื่องของการป้อนข้อมูล  ชื่อประเภทสถานที่ , ชื่อสถานที่</Center></Font></td></Tr>
+	<Tr><td Bgcolor=SteelBlue Colspan=2><Font Color=Yellow>ให้คุณ <!--เลือกชื่อเขต
+	<Select Name=info_Z>
+	<Option>ลาดกระบัง 
+	</Select>
+	และให้คุณ--><A href=/scripts/samples/all.idc><Font Color=Red> Click ที่นี่</Font></a></Font></td></Tr>
+	<tr></tr>
+
+
+<tr>
+	<td Colspan=2 Bgcolor=LIGHTSLATEGRAY><img src=info_TOP.gif></td>
+</tr>
+<!--
+<tr>
+	<td> <img src=info_Ds.gif> <INPUT Type=Text Name=info_Ds Size=10></td>
+	<td> <img src=info_Dz.gif> <INPUT Type=Text Name=info_Dz Size=10></td>
+</tr> -->
+<tr>
+	<td><img src=infoTplace.gif> <INPUT Type=Text Name=tSplace Size=10></td>
+	<td><img src=infoTplace.gif> <INPUT Type=Text Name=tDplace  Size=10></td>
+</tr>
+<tr>
+	<td><img src=info_s.gif> <INPUT Type=Text Name=info_s Size=10></td>
+	<td><img src=info_d.gif> <INPUT Type=Text Name=info_d Size=10></td>
+</tr>
+<tr>
+	<td Colspan=2 Bgcolor=LIGHTSLATEGRAY><img src=info_TOP2.gif></td>
+</tr>
+<tr>
+	<td><INPUT Type=checkbox NAME=VehicleMe1 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi1_1.gif></td>
+	<td><!--<INPUT Type=checkbox NAME=VehicleMe2 onClick="Reset_Value(document.Sch.VehicleMe1)">--><a href="main_SearchM.html"><img src=info_vehi1.gif border=0></a></td>
+</tr>
+<tr><td><Font Color=WHITE>&#20</Font><INPUT Type="checkbox" NAME="VehicleP1" CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi2.gif></td></tr>
+<tr><td><Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP2 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi3.gif></td></tr>
+<tr><td><Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP3 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi4.gif></td></tr>
+<tr><td><Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP4 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi5.gif></td></tr> 
+
+
+
+<!--<Font Color=WHITE>&#20&#20&#20&#20&#20</Font>-->
+
+
+
+ 
+<Input Type=Hidden name=bus>
+<Input Type=Hidden name=van>
+<Input Type=Hidden name=chess>
+<Input Type=Hidden name=train>
+</Table>
+
+<Center>
+<input  type="image" name="Submit" src="SubmitB.gif"   border="0"><br>
+</Center>
+</Form>
+<A href=mailto:s9013238@kmitl.ac.th><Img src=mail.gif border=0></a>
+</body>
+</Html>

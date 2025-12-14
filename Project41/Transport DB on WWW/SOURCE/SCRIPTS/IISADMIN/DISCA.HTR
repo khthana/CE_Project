@@ -1,0 +1,8 @@
+<html>
+<%onerror error%>
+<title>Internet Service Manager</title>
+<%!DisconnectAll%>
+<%redirect%>/scripts/iisadmin/ism.dll?<%servname%>/serv<%/redirect%>
+<%label error%>
+Error encountered : <%reqstatus%>
+</html>

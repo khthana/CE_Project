@@ -1,0 +1,99 @@
+unit OrderSystems;
+
+interface
+
+uses
+    SysUtils,ProductSpecification,LineItem,Address,Customer,
+    Discount,MoneyDiscount,PercentDiscount,Order,dialogs;
+
+type
+    TOrderSysTems = class
+        Orders : TOrder;
+        procedure StartOrder(OrderID:integer;CustomerID:string;Disc:real);
+        procedure EndOrder;
+        procedure MakeLineItem(ID:integer;UPC:string;Quantity:integer;
+                  Price,Discounts:real;KindOf:integer);
+        procedure DelLineItem(ID:integer);
+        function Total:real;
+        function GetOrderID:integer;
+        function GetCustomerID:string;
+        function GetOrderDate:string;
+    end;
+
+implementation
+
+procedure TOrderSystems.StartOrder(OrderID:integer;CustomerID:string;Disc:real);
+var  Customers : TCustomer;
+     Discounts : TDiscount;
+     Present : TDateTime;
+     Year,Month,Day : word;
+     OrderDate : string;
+begin
+     Present := Now;
+     DecodeDate(Present,Year,Month,Day);
+     OrderDate := '';
+     OrderDate := IntToStr(Day)+ '/' +IntToStr(Month)+ '/' +IntToStr(Year+543);
+
+     Customers := TCustomer.Create;
+     Customers.Init(CustomerID,'','','');
+
+     Discounts := TDiscount.Create;
+     Discounts.Init(Disc);
+     Customers.SetDiscount(Discounts);
+
+     Self.Orders := TOrder.Create;
+     Self.Orders.Init(OrderID,OrderDate,'','');
+     Self.Orders.SetCustomer(Customers);
+end;
+
+procedure TOrderSystems.EndOrder;
+begin
+     Self.Orders.Free;
+end;
+
+procedure TOrderSystems.MakeLineItem(ID:integer;UPC:string;Quantity:integer;
+                  Price,Discounts:real;KindOf:integer);
+var  ProdSpec : TProductSpecification;
+     Disc : TDiscount;
+begin
+     ProdSpec := TProductSpecification.Create;
+     ProdSpec.Init(UPC,'',Price);
+     if KindOf = 0 then
+        Disc := TPercentDiscount.Create
+     else Disc := TMoneyDiscount.Create;
+     Disc.Init(Discounts);
+     ShowMessage(
+       ' QTY:' + IntToStr(Quantity ) +
+       ' PRC:' + FLoatToStr(Price) +
+       ' PRC:' + FLoatToStr(ProdSpec.Price)
+       ) ;
+
+     Self.Orders.MakeLineItem(ID,ProdSpec,Quantity,Disc);
+end;
+
+procedure TOrderSystems.DelLineItem(ID:integer);
+begin
+     Self.Orders.DelLineItem(ID);
+end;
+
+function TOrderSystems.Total:real;
+begin
+     Result := Self.Orders.Total;
+end;
+
+function TOrderSystems.GetOrderID:integer;
+begin
+     Result := Self.Orders.OrderID;
+end;
+
+function TOrderSystems.GetCustomerID:string;
+begin
+     Result := Self.GetCustomerID;
+end;
+
+function TOrderSystems.GetOrderDate:string;
+begin
+     Result := Self.GetOrderDate;
+end;
+
+end.

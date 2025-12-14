@@ -1,0 +1,63 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<img src="/Main_logo.gif" border=0><br><br>
+<Center>
+<Table Border=1>
+<Tr><Td>
+<TABLE  Border=0 Cellspacing=0  Width=600>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=White><B>สถานที่</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=White><B>ประเภทของสถานที่</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=White><B>เขตที่สังกัดของสถานที่</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR>
+<TD><%pass_place%></TD><TD><%type_place%></TD>
+<TD><%key_section%></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=3><Font Color=#FFCC00><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</TABLE>
+
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font Size=3 Color=White  Face=IrisUPC><B>ยานพาหนะหมายเลข  <Font color=#FFCC00><%idc.id_value%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<br>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+
+
+<!--
+
+<Center>
+
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=SteelBlue><Font Color=White><B>สถานที่</B></Font></TH>
+<TH Bgcolor=SteelBlue><Font Color=White><B>ประเภทของสถานที่</B></Font></TH>
+<TH Bgcolor=SteelBlue><Font Color=White><B>เขตที่สังกัดของสถานที่</B></Font></TH>
+</TR>
+<%endif%>
+<TR>
+<TD><%pass_place%></TD><TD align="right"><%type_place%></TD>
+<TD align="right"><%key_section%></TD>
+</TR>
+<%enddetail%>
+</TABLE>
+</Center>-->
+</BODY>
+</HTML>
+
+

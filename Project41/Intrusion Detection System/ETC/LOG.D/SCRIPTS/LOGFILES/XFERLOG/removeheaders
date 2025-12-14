@@ -1,0 +1,26 @@
+#!/usr/bin/perl -w
+##########################################################################
+# $Id: removeheaders,v 1.2 1998/02/23 01:16:53 kirk Exp $
+##########################################################################
+# $Log: removeheaders,v $
+# Revision 1.2  1998/02/23 01:16:53  kirk
+# Getting ready for a first distribution
+#
+# Revision 1.1  1998/02/22 20:05:47  kirk
+# Special filters for xferlog format
+#
+##########################################################################
+
+########################################################
+# This was written and is maintained by:
+#    Kirk Bauer <kirk@kaybee.org>
+#
+# Please send all comments, suggestions, bug reports,
+#    etc, to kirk@kaybee.org.
+#
+########################################################
+
+while (defined($ThisLine = <STDIN>)) {
+    $ThisLine =~ s/^... ... .. ..:..:.. .... [0123456789]+ //;
+    print $ThisLine;
+}

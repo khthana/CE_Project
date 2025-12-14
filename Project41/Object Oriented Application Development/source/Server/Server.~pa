@@ -1,0 +1,30 @@
+unit Server;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+{  ProductSpecification,LineItem,Address,Customer,
+  Discount,MoneyDiscount,PercentDiscount,Order,
+  OrderSystems,OrderSystemFr, Db, DBTables, Grids, DBGrids, DBClient,
+  MConnect, MidasCon;}
+
+type
+  TServerForm = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;               
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ServerForm: TServerForm;
+
+implementation
+
+{$R *.DFM}
+
+end.

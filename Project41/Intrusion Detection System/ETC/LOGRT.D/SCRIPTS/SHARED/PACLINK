@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+
+$ua=new LWP::UserAgent;
+$ua->proxy('http','http://161.246.10.21:3128/'); 
+$ua->request(POST 'http://www.paclink.co.th/phtml/send.phtml',
+       [ pager_number  => $ARGV[0],
+         message  => $ARGV[1]
+       ]);
+print("Ok...\n");
+exit;                                      

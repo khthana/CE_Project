@@ -1,0 +1,133 @@
+unit Report;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Db, DBTables, QuickRpt, Qrctrls, ExtCtrls, DBClient, MConnect, MidasCon;
+
+type
+  TQRMDForm = class(TForm)
+    QuickRep1: TQuickRep;
+    DetailBand1: TQRBand;
+    TitleBand1: TQRBand;
+    QRSysData1: TQRSysData;
+    QRSubDetail1: TQRSubDetail;
+    QRLabel3: TQRLabel;
+    RemoteServer1: TRemoteServer;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet2: TClientDataSet;
+    ClientDataSet3: TClientDataSet;
+    DataSource1: TDataSource;
+    ClientDataSet1ORDER_ID: TFloatField;
+    ClientDataSet1CUSTOMER_ID: TStringField;
+    ClientDataSet1ORDER_DATE: TStringField;
+    ClientDataSet1SHIP_DATE: TStringField;
+    ClientDataSet1SELLER_ID: TStringField;
+    ClientDataSet1LINE_ITEM: TDataSetField;
+    ClientDataSet3CUSTOMER_ID: TStringField;
+    ClientDataSet3FIRST_NAME: TStringField;
+    ClientDataSet3LAST_NAME: TStringField;
+    ClientDataSet3COMPANY: TStringField;
+    ClientDataSet3PERCENT_DISCOUNT: TFloatField;
+    ClientDataSet3ADDRESS: TADTField;
+    ClientDataSet3ADDRESS_ID: TStringField;
+    ClientDataSet3STREET: TStringField;
+    ClientDataSet3TAMBOL: TStringField;
+    ClientDataSet3AMPHOR: TStringField;
+    ClientDataSet3PROVINCE: TStringField;
+    ClientDataSet3ZIPCODE: TStringField;
+    ClientDataSet3TEL: TStringField;
+    ClientDataSet3VIA_TO: TADTField;
+    ClientDataSet3ADDRESS_ID2: TStringField;
+    ClientDataSet3STREET2: TStringField;
+    ClientDataSet3TAMBOL2: TStringField;
+    ClientDataSet3AMPHOR2: TStringField;
+    ClientDataSet3PROVINCE2: TStringField;
+    ClientDataSet3ZIPCODE2: TStringField;
+    ClientDataSet3TEL2: TStringField;
+    ClientDataSet2ID: TFloatField;
+    ClientDataSet2UPC: TStringField;
+    ClientDataSet2DESCRIPTION: TStringField;
+    ClientDataSet2PRICE: TFloatField;
+    ClientDataSet2QTY: TFloatField;
+    ClientDataSet2DISCOUNT: TFloatField;
+    ClientDataSet2DISCOUNTBaht: TFloatField;
+    ClientDataSet2SUB_TOTAL: TFloatField;
+    ClientDataSet2MATCH_STEP: TIntegerField;
+    QRBand1: TQRBand;
+    QRLabel4: TQRLabel;
+    QRSysData2: TQRSysData;
+    QRBand2: TQRBand;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText15: TQRDBText;
+    QRDBText16: TQRDBText;
+    QRDBText17: TQRDBText;
+    QRDBText18: TQRDBText;
+    QRDBText19: TQRDBText;
+    QRDBText20: TQRDBText;
+    QRDBText21: TQRDBText;
+    QRDBText22: TQRDBText;
+    QRDBText23: TQRDBText;
+    QRLabel1: TQRLabel;
+    QRExpr1: TQRExpr;
+    QRLabel2: TQRLabel;
+    QRDBText24: TQRDBText;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRExpr2: TQRExpr;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel16: TQRLabel;
+    QRLabel17: TQRLabel;
+    QRLabel18: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRLabel22: TQRLabel;
+    QRLabel23: TQRLabel;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRLabel26: TQRLabel;
+    QRLabel27: TQRLabel;
+    QRLabel28: TQRLabel;
+    QRLabel29: TQRLabel;
+    QRLabel30: TQRLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  QRMDForm : TQRMDForm;
+
+
+implementation
+
+{$R *.DFM}
+var
+   OrderID : integer;
+   Total : real;
+
+end.

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=WHITE  TEXT=#000000>
+<Center><img src="/logo1.gif" border=0></Center><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<Tr><td Bgcolor=LIGHTSEAGREEN Colspan=2 width=100><Font  Color=White ><Center><B>รายละเอียด</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ชื่อสถานที่</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Nplace_value%></B></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=WHITE ><B>ชนิดสถานที่</B></Font></td>
+    <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%idc.Type_value%></B></Font></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<br>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=400>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>หมายเลขรถ</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>เวลาให้บริการ</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ต้นทาง</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ปลายทาง</B></Font></TH>
+</TR>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%id_vehicle%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%service_time%></B></Font></TD>
+<TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%start_station%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%dest_station%></B></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=4><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=WHITE ><B>ไม่มีสถานที่ <Font color=#FFCC00><%idc.Nplace_value%></font> ซึ่งเป็น  <Font color=#FFCC00><%idc.Type_value%></Font> อยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center><img src="http://media03.ce.kmitl.ac.th/logo2.gif" border=0></Center><br><br><br>
+<%idc.bus%>
+<%idc.train%>
+<%idc.chess%>
+<%idc.van%>
+<Center>
+นั่งรถ 1 ต่อถึงปลายทาง
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%if MaxRecords EQ 0 %>
+<caption><Font Color=#000000>aaa</caption>
+<%else%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ</B></Font></TH>
+</TR>
+<%endif%>
+<TR><TD><%id_vehicle1%></TD><TD align="right"><%Type_vehicle1%></TD></TR>
+<%endif%>
+<%enddetail%>
+</TABLE>
+<Hr>
+นั่งรถ 2 ต่อถึงปลายทาง
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%if MaxRecords EQ 0 %>
+<%else%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ 1</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ 1</B></Font></TH>
+<TH Bgcolor=BLUE><Font Size=2 Color=White><B>จุดต่อรถ</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ 2</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ 2</B></Font></TH>
+</TR>
+<%endif%>
+<TR>
+<TD><%id_vehicle21%></TD>
+<TD align="right"><%Type_vehicle21%></TD>
+<TD align="right" Bgcolor=GREEN><%pass21%></TD>
+<TD><%id_vehicle22%></TD>
+<TD align="right"><%Type_vehicle22%></TD>
+</TR>
+<%endif%>
+<%enddetail%>
+</TABLE>
+<Hr>
+นั่งรถ 3 ต่อถึงปลายทาง
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%if MaxRecords EQ 0 %>
+<%else%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ 1</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ 1</B></Font></TH>
+<TH Bgcolor=BLUE><Font Size=2 Color=White><B>จุดต่อรถ</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขยานพาหนะ 2</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของพาหนะ 2</B></Font></TH>
+</TR>
+<%endif%>
+<%if CurrentRecord LT 10 %>
+<TR>
+<TD><%id_vehicle31%></TD>
+<TD align="right"><%Type_vehicle31%></TD>
+<TD align="right" Bgcolor=GREEN><%pass31%></TD>
+<TD><%id_vehicle32%></TD>
+<TD align="right"><%Type_vehicle32%></TD>
+</TR>
+<%endif%>
+<%endif%>
+<%enddetail%>
+</TABLE>
+</Center>
+</BODY>
+</HTML>
+
+

@@ -1,0 +1,72 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=WHITE TEXT=#000000>
+<Center><img src="/logo1.gif" border=0></Center><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0 width=500 >
+<Tr hight=3><td Bgcolor=LIGHTSEAGREEN Colspan=2><Font  Color=White ><Center><B>รายละเอียด</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>หมายเลขรถ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.id_value%></Center></B></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>เวลาที่ให้บริการ</B></Font></td>
+    <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%service_time%></Center></b></font></td></tr>
+</Table>
+</td></tr>
+</Table>
+<br>
+<TABLE border=1 >
+<tr>
+<td>
+	<Table Border=0 Cellspacing=0 Width=400>
+	<TR>
+		<Td Bgcolor=NAVY><Font  Color=MINTCREAM ><Center><B>รายละเอียดเส้นทาง เที่ยวไป</B></Center></Font></td>
+		<Td Bgcolor=NAVY><Font  Color=MINTCREAM ><Center><B>รายละเอียดเส้นทาง เที่ยวกลับ</B></Center></Font></td>
+	</tr>
+	<Tr>
+			<Td Bgcolor=LAVENDER><Font  Color=BLUE ><Center><B><%route_fwd%></B></Center></Font></td>
+			<Td Bgcolor=WHITESMOKE><Font  Color=BLUE ><Center><B><%route_rev%></B></Center></Font></td>
+	</Tr>
+	</Table>
+</td>	
+</tr>
+</Table>
+
+</Center>
+<br>
+<Center>
+<Table Border=1>
+<Tr><Td>
+<TABLE  Border=0 Cellspacing=0  Width=400>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>สถานที่</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ชนิดของสถานที่</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE align=center><Font  Color=BLUE ><B><%pass_place%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE  align=center><Font  Color=BLUE ><B><%type_place%></B></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=2><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</TABLE>
+
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=White><B>ยานพาหนะหมายเลข  <Font color=#FFCC00><%idc.id_value%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<br>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+
+</BODY>
+</HTML>
+
+

@@ -1,0 +1,3 @@
+<html>
+<%!DirView urlparam "/scripts/iisadmin/ism.dll?http/dirv"%>
+</html>

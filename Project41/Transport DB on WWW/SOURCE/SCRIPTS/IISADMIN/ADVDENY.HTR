@@ -1,0 +1,26 @@
+<HTML>
+<title>Internet Service Manager - Set Default to Deny</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+
+<!-- Header -->
+<TABLE BORDER=0>
+<TR VALIGN=CENTER>
+<TD>
+<A HREF="/iisadmin/default.htm">
+<IMG SRC="/iisadmin/logo.gif" ALT="" ALIGN=BOTTOM BORDER=0></A></TD>
+<TD><FONT SIZE=+2 COLOR=000000>
+<B><%if servid EQ 4%>WWW Administrator<%elif servid EQ 1%>FTP Administrator<%elif servid EQ 2%>Gopher Administrator<%endif%> - Set Default to Deny</B></FONT><BR>
+<FONT SIZE=+1 COLOR=000000>Administration on <%servname%>://<%hostname%></FONT>
+</TD></TR>
+</TABLE>
+<HR>
+<P>
+
+This action will disable access from all computers.<p> To allow you further access for administrative purpose, the address you are using for the current request can be added to the list of address being granted access to this service.<p>
+<DL>
+<DD><a href="/scripts/iisadmin/ism.dll?<%servname%>/advdeny2">
+<IMG SRC="/iisadmin/hand.gif" ALT="" BORDER=0>Set default to deny and add your address to the grant list</a><P>
+<DD><a href="/scripts/iisadmin/ism.dll?<%servname%>/adv">
+<IMG SRC="/iisadmin/hand.gif" ALT="" BORDER=0>Cancel</a>
+
+</html>

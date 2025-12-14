@@ -1,0 +1,62 @@
+
+##
+## BladePack v3.4  Bill Of Materials (BOM) data file 'Fingerprint.prd' Project
+################################################################################
+
+
+
+## Files to Install:
+
+
+                  install=true, \
+                     file=Fingerprint.bld, \
+                component=DataBlade, \
+                      dir=..\source\Debug, \
+              install_dir=extend/Fingerprint.1.7.3p.41, \
+                   update=locked, \
+                       os=all, \
+                     icon=false
+
+                  install=true, \
+                     file=prepare.sql, \
+                component=DataBlade, \
+                      dir=..\scripts, \
+              install_dir=extend/Fingerprint.1.7.3p.41, \
+                       os=all, \
+                     icon=false
+
+                  install=true, \
+                     file=objects.sql, \
+                component=DataBlade, \
+                      dir=..\scripts, \
+              install_dir=extend/Fingerprint.1.7.3p.41, \
+                       os=all, \
+                     icon=false
+
+                  install=true, \
+                     file=prepare.en_us.1252.sql, \
+                component=DataBlade, \
+                      dir=..\scripts, \
+              install_dir=extend/Fingerprint.1.7.3p.41, \
+                       os=all, \
+                     icon=false
+
+## Directories to Install:
+
+
+## Files to Delete:
+
+
+## Directories to Delete:
+
+
+## Changes to Ini Files:
+
+
+## Changes to Registry:
+
+
+## Routines:
+
+
+######################################## End Of Data File ########################################

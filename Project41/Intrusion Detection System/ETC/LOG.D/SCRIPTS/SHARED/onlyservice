@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+
+if ( $ENV{'DAILYCHECK_DEBUG'} > 5 ) {
+   print STDERR "DEBUG: Inside OnlyService...\n";
+}
+
+$ServiceName = $ARGV[0];
+
+while (defined($ThisLine = <STDIN>)) {
+    if ($ThisLine =~ m/^... .. ..:..:.. [^ ]* $ServiceName\[[0123456789]*\]: /io) {
+      print $ThisLine;
+    }
+    elsif ($ThisLine =~ m/^... .. ..:..:.. [^ ]* $ServiceName: /io) {
+      print $ThisLine;
+    }
+}

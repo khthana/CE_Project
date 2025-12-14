@@ -1,0 +1,107 @@
+#!/usr/bin/perl -w
+
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+
+$TotalBytesOut = 0;
+$TotalBytesIn = 0;
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( ($RemoteHost,$Size,$FileName,$Direction,$AccessMode,$UserName) = 
+	 ( $ThisLine =~ /^([^ ]+) ([0123456789]+) (.*) . . (.) (.) (.*) ftp . .*$/ ) ) {
+	if ( ( $AccessMode eq "a") or ( $AccessMode eq "g" ) ) {
+	    # Anonymous transfers
+	    if ( $Direction eq "o" ) {
+		# File was outgoing
+		$TotalBytesOut+= $Size;
+		if ($Detail >= 15) {
+		    $Temp = "   " . $FileName . " -> " . $RemoteHost . " (Email: " . $UserName . ")\n";
+		}		
+		else {
+		    $Temp = "   " . $FileName . " -> " . $RemoteHost . "\n";
+		}
+		push @AnonOut,$Temp;
+	    }
+	    else {
+		# File was incoming
+		$TotalBytesIn+= $Size;
+		if ($Detail >= 15) {
+		    $Temp = "   " . $RemoteHost . " -> " . $FileName . " (Email: " . $UserName . ")\n";
+		}		
+		else {
+		    $Temp = "   " . $RemoteHost . " -> " . $FileName . "\n";
+		}
+		push @AnonIn,$Temp;
+	    }
+	}
+	else {
+	    # User transfers
+	    if ( $Direction eq "o" ) {
+		# File was outgoing
+		$TotalBytesOut+= $Size;
+		$Temp = "   " . $FileName . " -> " . $RemoteHost . " (User: " . $UserName . ")\n";
+		push @UserOut,$Temp;
+	    }
+	    else {
+		# File was incoming
+		$TotalBytesIn+= $Size;
+		$Temp = "   " . $RemoteHost . " -> " . $FileName . " (User: " . $UserName . ")\n";
+		push @UserIn,$Temp;
+	    }
+	}
+    }			 
+    else {
+	# Report any unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+if ( 
+     ( (@AnonOut) and ($Detail >= 5 ) ) or
+     ( @AnonIn ) or
+     ( (@UserOut) and ($Detail >= 10 ) ) or
+     ( (@UserIn) and ($Detail >= 10 ) ) or
+     ( @OtherList ) 
+     ) {			 
+
+    print "\n\n --------------------- ftpd-xferlog Begin ------------------------ \n";
+
+    $TotalKBytesOut = int $TotalBytesOut/1000;
+    $TotalKBytesIn = int $TotalBytesIn/1000;
+    $TotalMBytesOut = int $TotalKBytesOut/1000;
+    $TotalMBytesIn = int $TotalKBytesIn/1000;
+    print "TOTAL KB OUT: " . $TotalKBytesOut . "KB (" . $TotalMBytesOut . "MB)\n";
+    print "TOTAL KB IN: " . $TotalKBytesIn . "KB (" . $TotalMBytesIn . "MB)\n";
+    
+    if (@AnonIn) {
+	print "\nIncoming Anonymous FTP Transfers:\n";
+	print @AnonIn;
+    }
+
+    if ( (@AnonOut) and ($Detail >= 5) ) {
+	print "\nOutgoing Anonymous FTP Transfers:\n";
+	print @AnonOut;
+    }
+
+    if ( (@UserIn) and ($Detail >= 10) ) {
+	print "\nIncoming User FTP Transfers:\n";
+	print @UserIn;
+    }
+
+    if ( (@UserOut) and ($Detail >= 10) ) {
+	print "\nOutgoing User FTP Transfers:\n";
+	print @UserOut;
+    }
+
+    if ($#OtherList >= 0) {
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- ftpd-xferlog End ------------------------- \n\n";
+
+}
+
+exit(0);
+
+
+

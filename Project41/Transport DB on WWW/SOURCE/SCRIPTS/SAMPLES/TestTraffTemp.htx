@@ -1,0 +1,34 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center>
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%enddetail%>
+<%if CurrentRecord GT 0 %>
+<A href="/scripts/samples/Test1.idc">Test1</a>
+<%endif%>
+
+<%begindetail%>
+
+<%enddetail%>
+<%if CurrentRecord GT 0 %>
+<A href="/scripts/samples/Test2.idc">Test2</a>
+<%endif%>
+
+<%begindetail%>
+
+<%enddetail%>
+<%if CurrentRecord GT 0 %>
+<A href="">Test3</a>
+<%endif%>
+
+</TABLE>
+</Center>
+</BODY>
+</HTML>
+
+
+<!--<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของยานพาหนะ</B></Font></TH>
+<TD align="right"><%type_vehicle%></TD>
+-->

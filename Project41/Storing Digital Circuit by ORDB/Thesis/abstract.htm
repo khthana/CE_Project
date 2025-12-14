@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>การจัดเก็บวงจรดิจิตอลโดยใช้ฐานข้อมูลเชิงวัตถุสัมพันธ์</TITLE>
+</HEAD>
+<BODY>
+
+<B><FONT FACE="Angsana New" SIZE=5 COLOR="#000080"><P ALIGN="CENTER">การจัดเก็บวงจรดิจิตอลโดยใช้ฐานข้อมูลเชิงวัตถุสัมพันธ์</P>
+</FONT><FONT SIZE=5>
+<P>&nbsp;</P>
+</B></FONT><FONT FACE="Angsana New" SIZE=5><P>นางสาว พิมพ์ผกา อังสวานนท์  38014347</P>
+<P>นาย ภุชงค์      ตั้งเจตน์               38014378</P>
+<P>รศ.ดร. ศุภมิตร จิตตะยโศธร อาจารย์ที่ปรึกษา</P>
+<P>ปีการศึกษา   2541</P>
+</FONT><FONT SIZE=5>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5 COLOR="#000080"><P>บทคัดย่อ</P>
+</B></FONT><FONT SIZE=5>
+<P>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>โมเดลของระบบฐานข้อมูลที่มีใช้กันอยู่ในปัจจุบันเป็นฐานข้อมูลเชิงสัมพันธ์ (Relational Database )  แต่ฐานข้อมูลเชิงสัมพันธ์นี้มีข้อจำกัดในหลายๆด้าน เช่น การใช้งานกับชนิดข้อมูลจะมีเพียงแต่ชนิดข้อมูลที่ง่ายๆเช่น Integer , Character  และ String เป็นต้นซึ่งไม่สามารถรองรับกับการใช้งานฐานข้อมูลในปัจจุบันที่ได้มีการใช้งานข้อมูลชนิดที่มีความซับซ้อนมากกว่า เช่น ข้อมูลทางมัลติมีเดีย ข้อมูล Geographic Information System (GIS) และ ไม่สามารถจัดการกับข้อมูลที่เป็นออบเจกต์ได้เพราะระบบฐานข้อมูลเชิงสัมพันธ์สามารถแสดงข้อมูลได้แต่เพียงตาราง ด้วยเหตุนี้จึงมีผู้ที่พยายามพัฒนาโมเดลอื่นๆเพื่อ ที่จะมาทดแทนข้อเสียของโมเดลนี้</P>
+<P>&#9;วิทยานิพนธ์ฉบับนี้เป็นการนำระบบฐานข้อมูลเชิงวัตถุสัมพันธ์ (Object-Relational) มาเป็นโมเดลข้อมูล ซึ่งโมเดลนี้เป็นโมเดลที่ได้แนวคิดมาจากโมเดลฐานข้อมูลเชิงสัมพันธ์และแนวคิดเชิงวัตถุ (Object-Oriented Concept) ซึ่งทำให้โมเดลนี้มีความสามารถทั้งในทางฐานข้อมูลเชิงสัมพันธ์ ได้แก่ การจัดการข้อมูลที่มีประสิทธิภาพ ความสามารถในการเข้าถึงข้อมูลของภาษา SQL และความสามารถในทางแนวคิดเชิงวัตถุ ได้แก่ ความสามารถในการปกป้องข้อมูล (Encapsulation) การถ่ายทอดคุณลักษณะ (Inheritance) และโพลิมอร์ฟิซึ่ม </P>
+<P>โดยฐานข้อมูลเชิงวัตถุสัมพันธ์นี้จะยังคงมองเห็นข้อมูลเป็นตารางในแบบเดียวกับฐานข้อมูลเชิงสัมพันธ์ โดยสามารถมีแอททริบิว (Attribute) เป็นแอททริบิวที่สามารถแบ่งย่อยได้อีก (Non-atomic Attribute) ในคอลัมน์สามารถเป็นได้ทั้งออบเจกต์หรือเป็นค่าหลายๆค่า (Multiple Value) เช่น ลิสท์ (List) หรือ เซต (Set) โดยทั่วไปโมเดลที่เป็นฐานข้อมูลเชิงวัตถุสัมพันธ์สามารถใช้งานเสมือนเป็นฐานข้อมูลเชิงสัมพันธ์ได้</P>
+<P>ในวิทยานิพนธ์ฉบับนี้ได้ทดลองสร้างโปรแกรมประยุกต์ (Application) ที่นำโมเดลฐานข้อมูลเชิงวัตถุสัมพันธ์มาใช้ในการจัดการกับข้อมูลที่เป็นออบเจกต์ซึ่งได้แก่วงจรเกททางดิจิตอลเพื่อเป็นกรณีศึกษาสำหรับการพัฒนาโมเดลฐานข้อมูลเชิงวัตถุสัมพันธ์</P>
+</FONT><FONT SIZE=5>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5 COLOR="#000080"><P ALIGN="CENTER">STORING  DIGITAL CIRCUIT  BY OBJECT-RELATIONAL DATABASE</P>
+</FONT><FONT SIZE=5><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+</B></FONT><FONT FACE="Angsana New" SIZE=5><P>Pimphaka&#9;Ungsvanonda</FONT><FONT SIZE=5>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>38014347</P>
+<P>Puchong&#9;Tangjade&#9;38014378</P>
+</FONT><FONT FACE="Angsana New" SIZE=5><P>Assoc. Prof. Dr. Suphamit chittayasothon&#9;Advisor</P>
+</FONT><FONT SIZE=5>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5 COLOR="#000080"><P>ABSTRACT</P>
+</B></FONT><FONT SIZE=5>
+<P>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>Relational Database is the database model that is widely used now but it has some limitations such as data type,which provides only simple type,integer,character,and string.In case that,it can not support some kind of application using complex data type,multimedia data or geographic information.Because of representing in table form,it is not appropriate for storing object  or non-atomic data.However,some researchers try to develop other model which will instead of some disadvantage of this model.</P>
+<P>&#9;This thesis is concerned with using object-relational database,which is combined with concept of object-oriented database and  relational database,be a data model.According to having feature of both relational and object-oriented concept,this model manage data efficiently and has a capability for accessing data by SQL command.Not only having feature of SQL language it also has an advantage of object-oriented concept such as encapsulation,inheritance and polymorphism .</P>
+<P>&#9;By the way,object-relational database still manage data in form of a relation,which like relational database,and its column can have non-atomic attribute,object or multiple  value such as set and list.It can  normally manipulate data as if it is a relational database.</P>
+<P>&#9;In thesis,it develops application that is used object-relational database model for managing object data type,digital circuit is our case study in term of applying data model with real world appliaction.We name this project " STORING  DIGITAL CIRCUIT  BY OBJECT-RELATIONAL DATABASE"</P>
+
+</FONT><FONT SIZE=4><P>&nbsp;</P></FONT></BODY>
+</HTML>

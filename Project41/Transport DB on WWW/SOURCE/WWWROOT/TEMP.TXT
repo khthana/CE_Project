@@ -1,0 +1,32 @@
+<Center>
+<Table Border=0>
+
+<Tr>
+<Td>
+<img src=info_TOP.gif><br>
+</Td>
+</Tr>
+<Tr>
+<Td>
+<img src=info_s.gif>: <INPUT Type=Text Name=info_s><br>
+<img src=info_d.gif>: <INPUT Type=Text Name=info_d><br>
+
+</Td>
+<Td>
+<img src=infoTplace.gif>: <INPUT Type=Text Name=tSplace><br>
+<img src=infoTplace.gif>: <INPUT Type=Text Name=tDplace><br>
+</Td>
+</Tr>
+<Tr><Td><img src=info_TOP2.gif></Td><Td></Td></Tr>
+<Tr><Td><INPUT Type=RADIO NAME=VehicleMe><img src=info_vehi1.gif></Td>
+       <Td><INPUT Type=RADIO NAME=VehicleMe><img src=info_vehi1_1.gif></Td>
+</Tr>
+<Tr><Td></Td><Td><INPUT Type=CHECKBOX NAME=VehicleP1><img src=info_vehi2.gif></Td></Tr>
+<Tr><Td></Td><Td><INPUT Type=CHECKBOX NAME=VehicleP2><img src=info_vehi3.gif></Td></Tr>
+<Tr><Td></Td><Td><INPUT Type=CHECKBOX NAME=VehicleP3><img src=info_vehi4.gif></Td></Tr>
+<Tr><Td></Td><Td><INPUT Type=CHECKBOX NAME=VehicleP4><img src=info_vehi5.gif></Td></Tr>
+<Tr><Td COLSPAN=2><Center><input  type="image" name="Submit" src="bsubmit.gif"   border="0"></Center></Td><Td></Td></Tr>
+
+</Table>
+
+</Center>

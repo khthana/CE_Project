@@ -1,0 +1,52 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center><img src="/logo5.gif" border=0></Center><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<Tr><td Bgcolor=LIGHTSEAGREEN Colspan=2><Font  Color=White ><center><B>รายละเอียดท่าเรือ</B></Center></Font></td>
+    </tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ชื่อท่าเรือ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><Center><B><%idc.NofficChValue%></B></Center></Font></td></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<br>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=600>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>หมายเลขของยานพาหนะ</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ชนิดของยานพาหนะ</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ต้นทาง</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ปลายทาง</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>เวลาที่ให้บริการ</B></Font></TH>
+</TR>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%Id_vehicle%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE ><B><%type_vehicle%></B></Font></TD>
+<TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%start_station%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font Color=BLUE ><B><%dest_station%></B></Font></TD>
+<TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%service_time%></B></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=5><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=White  ><B>ท่าเรือ <Font color=#FFCC00><%idc.NofficChValue%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

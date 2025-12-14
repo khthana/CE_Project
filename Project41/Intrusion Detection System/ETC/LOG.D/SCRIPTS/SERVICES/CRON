@@ -1,0 +1,72 @@
+#!/usr/bin/perl
+
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( ($User, $Command) = ($ThisLine =~ /^([^ ]+) \([^ ]+\) CMD \((.+)\)$/ ) ) {
+	$Runs->{$User}->{$Command}++;
+    }
+    elsif ( ($User) = ($ThisLine =~ /^([^ ]+) \([^ ]+\) (BEGIN|END) EDIT \((.+)\)$/ ) ) {
+	$Runs->{$User}->{'personal crontab editted'} += 0.5;
+    }
+    elsif ( ($User) = ($ThisLine =~ /^([^ ]+) \([^ ]+\) REPLACE \((.+)\)$/ ) ) {
+	$Runs->{$User}->{'personal crontab replaced'}++;
+    }
+    elsif ( ($User) = ($ThisLine =~ /^([^ ]+) \([^ ]+\) LIST \((.+)\)$/ ) ) {
+	$Runs->{$User}->{'personal crontab listed'}++;
+    }
+    elsif ( ($User) = ($ThisLine =~ /^([^ ]+) \([^ ]+\) DELETE \((.+)\)$/ ) ) {
+	$Runs->{$User}->{'personal crontab deleted'}++;
+    }
+    elsif ( $ThisLine =~ /^CRON \([^ ]+\) STARTUP \(fork ok\)$/ ) {
+	$Startups++;
+    }
+    elsif ( $ThisLine =~ /^\*system\* \([^ ]+\) RELOAD \(\/etc\/crontab\)$/ ) {
+	$Reloads++;
+    }
+    elsif ( $User = ($ThisLine =~ /^(.*) \([^ ]+\) RELOAD \(.*\)$/ ) ) {
+	$UserReloads{$User}++;
+    }
+    else {
+	# Report any unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+if ($Detail >= 5) {
+
+    print "\n\n --------------------- Cron Begin ------------------------ \n";
+
+    print "Commands Run:\n";
+    foreach $i (sort {$a cmp $b} keys %{$Runs}) {
+	print "   User " . $i . ":\n";
+	foreach $j (sort {$a cmp $b} keys %{$Runs->{$i}}) {
+	    print "      " . $j . ": " . $Runs->{$i}->{$j} . " Time(s)\n";
+	}
+    }
+
+    if (keys %UserReloads) {
+	print "   User crontabs reloaded:\n";
+	foreach $i (keys %UserReloads) {
+	    print '      ' . $i . ' ' . $UserReloads{$i} . " Time(s)\n";
+	}
+    }
+
+    if ($Startups) {
+	print "   CRON Restarted " . $Startups . " Time(s)\n";
+    }
+
+    if ($Reloads) {
+	print "   CRON Reloaded /etc/crontab " . $Reloads . " Time(s)\n";
+    }
+
+    if ($#OtherList >= 0) {
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- Cron End ------------------------- \n\n";
+
+}
+
+exit(0);

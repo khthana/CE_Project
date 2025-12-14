@@ -1,0 +1,36 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<CEnter><Img Src="/logo66.gif" Border=0></center>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font Color=#FFCC00 ><B>จุดที่มีการรายงาน</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font Color=#FFCC00 ><B>สภาพการจราจร</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font Color=#FFCC00><B>เวลาที่รายงานการจราจร</B></Font></TH>
+<tr></tr>
+</TR>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font Color=white><B><%point_traffic%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE><B><%report%></B></Font></TD>
+<TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%date_e%></B></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=3><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=White><B> ไม่มีการรายงาน</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+unit logo;
+
+interface
+
+uses
+  Windows, Messages, Controls, SysUtils, Classes, Graphics, Forms, Dialogs,
+  ExtCtrls;
+
+type
+  TLogoForm = class(TForm)
+    Panel1: TPanel;
+    Image1: TImage;
+    procedure Image1Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LogoForm: TLogoForm;
+
+implementation
+
+uses
+    Main_Menu;
+
+{$R *.DFM}
+
+procedure TLogoForm.Image1Click(Sender: TObject);
+begin
+     Self.hide;
+     MainMenu.show;
+end;
+
+procedure TLogoForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+     Self.hide;
+     MainMenu.show;
+end;
+
+end.

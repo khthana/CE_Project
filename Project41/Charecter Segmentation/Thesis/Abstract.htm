@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>ปริญญานิพนธ์ปีการศึกษา 2541</TITLE>
+</HEAD>
+<BODY>
+
+<B><FONT FACE="Angsana New" SIZE=5><P ALIGN="CENTER">ระบบแยกตัวอักขระ</P>
+</B></FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>นาย กิตติศักดิ์</FONT><FONT SIZE=5>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>บัญชาวิมลเชษฐ</FONT><FONT SIZE=5>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>39013230</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>นาย บุญฤทธิ์</FONT><FONT SIZE=5>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>วงศ์สุฤทธิ์</FONT><FONT SIZE=5>&#9;</FONT><FONT FACE="Angsana New" SIZE=5>39013239</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>รศ.ดร. ชม   กิ้มปาน   อาจารย์ที่ปรึกษา</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>ปีการศึกษา 2541</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5><P ALIGN="JUSTIFY">บทคัดย่อ</P>
+</B></FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="Angsana New" SIZE=5>โครงงานเป็นการแยกอักขระ ออกจากภาพ (Segmentation) ซึ่งเป็นองค์ประกอบหนึ่ง ที่สำคัญของการทำ Optical Character Recognition (OCR) ก็คือ การแยกเอาวัตถุที่ต้องการ ออกจากภาพซึ่งเป็น input หรือนำภาพผ่านกระบวนการ segmentation โดยวัตถุที่ได้นั่นก็คือ ตัวอักขระทุกตัว บนแผ่นกระดาษ</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="Angsana New" SIZE=5>โดยได้นำเสนอวิธีการ segment ไว้ด้วยกัน 2 วิธีคือ Contour Following และ Contour with Matrix และใช้ได้วิธีการของ Histogram ซึ่งเป็นทฤษฎีเสริม ที่ช่วยตัดสินใจ ในการแยกตัวอักขระที่ติดกัน Contour Following เป็นการตามรอยขอบ ของตัวอักขระ Contour with Matrix เป็นการคัดลอก ตามส่วนที่เป็นเนื้อของตัวอักขระ Histogram เป็นการช่วยตัดสินใจ ในแยกตัวอักขระที่ติดกัน โดยกำหนดค่าผิดพลาดให้กับ Histogram เพื่อทำการแยกตัวอักขระ</P>
+<P ALIGN="JUSTIFY">&#9;การทดลอง ในขั้นตอนการทำ segment ตัวอักขระภาษาไทย และภาษาอังกฤษ ข้อมูลที่นำมาเป็นอินพุท คือหน้าเอกสารทั่วไป ที่ผ่านการ scan เพื่อให้เครื่องคอมพิวเตอร์ สามารถนำมาทำการประมวลผล ซึ่งในการทดลองได้ทำการ scan ที่ค่าความละเอียด 300 dpi ข้อมูลที่ใช้ในการทดลอง มีลักษณะของ Font ต่างกัน 3 Font คือ Angsana New , Browallia New และ Cordia New และมีลักษณะของตัวอักขระ 3 แบบคือ ตัวอักขระปกติ ตัวเอียง และตัวหนา โดยใช้วิธีต่างๆ ข้างต้นมาใช้ในการทำ segment ตัวอักขระ</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="Angsana New" SIZE=5>จากการทดลองวิธี Contour Following และ Contour with Matrix ให้ผลการทำ segment ที่เหมือนกัน โดยภาษาไทยมี 618 ตัว ในการ Segment Font Angsana New ตัวปกติถูก 616 ผิด 2 ตัวเอียงถูก 612 ผิด 6 ตัวหนาถูก 612 ผิด 6 Font Browallia New ตัวปกติถูก 612 ผิด 6 ตัวเอียงถูก 610 ผิด 8 ตัวหนาถูก 612 ผิด 6 Font Cordia New ตัวปกติถูก 606 ผิด 12 ตัวเอียงถูก 606 ผิด 12 ตัวหนาถูก 586 ผิด 32</P>
+<P ALIGN="JUSTIFY">&#9;ภาษาอังกฤษมี 356 ตัว ในการ Segment Font Angsana New ตัวปกติถูก 344 ผิด 12 ตัวเอียงถูก 348 ผิด 8 ตัวหนาถูก 352 ผิด 4 Font Browallia New ตัวปกติถูก 350 ผิด 6 ตัวเอียงถูก 350 ผิด 6 ตัวหนาถูก 356 ผิด 0 Font Cordia New ตัวปกติถูก 354 ผิด 2 ตัวเอียงถูก 350 ผิด 6 ตัวหนาถูก 350 ผิด 6</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5><P ALIGN="CENTER">Characters Segmentation</P>
+</B></FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>Kittisak   Banchawimoncheat    </P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>Boonrit    Vongsurit</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;</FONT><FONT FACE="Angsana New" SIZE=5>Assoc. Prof. Dr. Chom  Kimpan  Advisor</P>
+</FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="Angsana New" SIZE=5><P ALIGN="JUSTIFY">ABSTRACT</P>
+</B></FONT><FONT SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="Angsana New" SIZE=5>The purpose of this project is Characters Segmentation, the necessary part for Optical Character Recognition (OCR). Conceptually, separate object we want from input image or pass the image through the segmentation process. The object is every character in the paper.</P>
+<P ALIGN="JUSTIFY">&#9;Two Segmentation methods are presented in this thesis. Contour Following and Contour with Matrix. Contour Following is following along edge of the character. Contour with Matrix is copying the entire pixel of the character. Histogram supplementary method are used to separate characters when have more than 2 characters are connected, we can evaluate error value to the histogram to separate connected characters properly. </P>
+<P ALIGN="JUSTIFY">&#9;Experiment for segmentation on Thai and English characters. Input for experiment is general paper passed from scanner. We setting resolution for scanning at 300 dpi and we use three difference fonts for experimenting are Angsana New, Browallia New and Crodia New. Each form of fonts we use are Normal, Italic and Bold form, then Segment them by our above methods.</P>
+<P ALIGN="JUSTIFY">&#9;The result we approached from Contour Following and Contour with Matrix are the same. Thai language 618 characters in Angsana New , normal font correct 616 incorrect 2 characters, italic font correct 612 incorrect 6 characters, Bold font correct 612 incorrect 6. Browallia New , normal font correct 612 incorrect 6 characters, italic font correct 610 incorrect 8 characters, Bold font correct 612 incorrect 6. Cordia New , normal font correct 606 incorrect 12 characters, italic font correct 606 incorrect 12 characters, Bold font correct 582 incorrect 32.</P>
+<P ALIGN="JUSTIFY">&#9;In English 356 characters in Angsana New , normal font correct 344 incorrect 12 characters, italic font correct 348 incorrect 8 characters, Bold font correct 352 incorrect 4. Browallia New , normal font correct 350 incorrect 6 characters, italic font correct 350 incorrect 6 characters, Bold font correct 356 incorrect 0. Cordia New , normal font correct 354 incorrect 2 characters, italic font correct 350 incorrect 6 characters, Bold font correct 350 incorrect 6.</P>
+<P ALIGN="JUSTIFY"></P></FONT></BODY>
+</HTML>

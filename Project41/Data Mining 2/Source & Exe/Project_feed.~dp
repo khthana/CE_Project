@@ -1,0 +1,15 @@
+program Project_feed;
+
+uses
+  Forms,
+  Unit_feed in 'Unit_feed.pas',
+  Unit_feed1 in 'Unit_feed1.pas' {Form2};
+
+  {$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

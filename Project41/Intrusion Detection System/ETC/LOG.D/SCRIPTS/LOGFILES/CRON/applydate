@@ -1,0 +1,26 @@
+#!/usr/bin/perl -w
+
+if ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "yesterday") {
+   $SearchDate = `/bin/date -d "1 day ago" +"%m/%d"`;
+}
+elsif ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "today") {
+   $SearchDate = `/bin/date +"%m/%d"`;
+}
+elsif ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "all") {
+   $SearchDate = "../..";
+}
+
+# get rid of any carriage return
+chomp($SearchDate);
+
+if ( $ENV{'DAILYCHECK_DEBUG'} > 5 ) {
+   print STDERR "DEBUG: Inside ApplyDate (cron)...\n";
+   print STDERR "DEBUG: Range: " . $ENV{'DAILYCHECK_DATE_RANGE'} . "\n";
+   print STDERR "DEBUG: Looking For: " . $SearchDate . "\n";
+}
+
+while (defined($ThisLine = <STDIN>)) {
+    if ($ThisLine =~ m/^[^ ]+ \($SearchDate-..:..:..-[0123456789]+\) /o) {
+      print $ThisLine;
+    }
+}

@@ -1,0 +1,175 @@
+ Fingerprint
+
+ Timestamp is 36d845a8 (Sun Feb 28 02:21:12 1999)
+
+ Preferred load address is 10000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00003660H .text                   CODE
+ 0002:00000000 00000010H .rdata                  DATA
+ 0002:00000010 000001d7H .edata                  DATA
+ 0003:00000000 00000004H .CRT$XCA                DATA
+ 0003:00000004 00000004H .CRT$XCZ                DATA
+ 0003:00000008 00000004H .CRT$XIA                DATA
+ 0003:0000000c 00000004H .CRT$XIZ                DATA
+ 0003:00000010 00000300H .data                   DATA
+ 0003:00000310 00000014H .bss                    DATA
+ 0004:00000000 0000003cH .idata$2                DATA
+ 0004:0000003c 00000014H .idata$3                DATA
+ 0004:00000050 000000b4H .idata$4                DATA
+ 0004:00000104 000000b4H .idata$5                DATA
+ 0004:000001b8 000002bcH .idata$6                DATA
+
+  Address         Publics by Value              Rva+Base   Lib:Object
+
+ 0001:00000000       _pnt_tInput                10001000 f Fingerprint.obj
+ 0001:00000170       _pnt_tOutput               10001170 f Fingerprint.obj
+ 0001:000002e0       _fing_tInput               100012e0 f Fingerprint.obj
+ 0001:000004c0       _fing_tOutput              100014c0 f Fingerprint.obj
+ 0001:00000690       _fing_tSend                10001690 f Fingerprint.obj
+ 0001:00000810       _fing_tReceive             10001810 f Fingerprint.obj
+ 0001:00000990       _fing_tImportText          10001990 f Fingerprint.obj
+ 0001:00000b70       _fing_tExportText          10001b70 f Fingerprint.obj
+ 0001:00000d40       _fing_tImportBinary        10001d40 f Fingerprint.obj
+ 0001:00000ec0       _fing_tExportBinary        10001ec0 f Fingerprint.obj
+ 0001:00001050       _fing_tCompare             10002050 f Fingerprint.obj
+ 0001:00001180       _fing_tEqual               10002180 f Fingerprint.obj
+ 0001:000011a0       _fing_tNotEqual            100021a0 f Fingerprint.obj
+ 0001:000011c0       _Hough2                    100021c0 f Fingerprint.obj
+ 0001:000012b0       _Hough1                    100022b0 f Fingerprint.obj
+ 0001:000017c0       _score                     100027c0 f Fingerprint.obj
+ 0001:000018b0       _Gen_sscanf                100028b0 f Fingerprint.obj
+ 0001:00002f10       _Gen_nstrwords             10003f10 f Fingerprint.obj
+ 0001:00003080       _Gen_Trace                 10004080 f Fingerprint.obj
+ 0001:00003140       _HoughIdxInput             10004140 f Fingerprint.obj
+ 0001:000032e0       _HoughIdxOutput            100042e0 f Fingerprint.obj
+ 0001:00003470       _sprintf                   10004470 f msvcrt:MSVCRT.dll
+ 0001:00003480       __ftol                     10004480 f msvcrt:MSVCRT.dll
+ 0001:00003486       _sscanf                    10004486 f msvcrt:MSVCRT.dll
+ 0001:0000348c       _strncmp                   1000448c f msvcrt:MSVCRT.dll
+ 0001:000034a0       __CRT_INIT@12              100044a0 f msvcrt:crtdll.obj
+ 0001:00003570       __DllMainCRTStartup@12     10004570 f msvcrt:crtdll.obj
+ 0001:00003620       __initterm                 10004620 f msvcrt:MSVCRT.dll
+ 0001:00003630       _DllMain@12                10004630 f msvcrt:dllmain.obj
+ 0003:00000000       ___xc_a                    10006000   msvcrt:cinitexe.obj
+ 0003:00000004       ___xc_z                    10006004   msvcrt:cinitexe.obj
+ 0003:00000008       ___xi_a                    10006008   msvcrt:cinitexe.obj
+ 0003:0000000c       ___xi_z                    1000600c   msvcrt:cinitexe.obj
+ 0003:00000010       ??_C@_05NHGJ@UGENE?$AA@    10006010   Fingerprint.obj
+ 0003:00000018       ??_C@_05MIPI@?$CFd?5?$CFn?$AA@ 10006018   Fingerprint.obj
+ 0003:00000020       ??_C@_05NMNM@UGEN2?$AA@    10006020   Fingerprint.obj
+ 0003:00000028       ??_C@_05HNPO@UGEND?$AA@    10006028   Fingerprint.obj
+ 0003:00000030       ??_C@_0L@NFHL@pnt_tInput?$AA@ 10006030   Fingerprint.obj
+ 0003:0000003c       ??_C@_0DM@KOBB@C?3?2informix?2My?5Project?2Fingerpri@ 1000603c   Fingerprint.obj
+ 0003:00000078       ??_C@_05CDGF@UGEN1?$AA@    10006078   Fingerprint.obj
+ 0003:00000080       ??_C@_0M@HLKP@Fingerprint?$AA@ 10006080   Fingerprint.obj
+ 0003:0000008c       ??_C@_03CPCE@?$CFd?5?$AA@  1000608c   Fingerprint.obj
+ 0003:00000090       ??_C@_0M@JJKH@pnt_tOutput?$AA@ 10006090   Fingerprint.obj
+ 0003:0000009c       ??_C@_0M@PDN@fing_tInput?$AA@ 1000609c   Fingerprint.obj
+ 0003:000000a8       ??_C@_0N@EGHN@fing_tOutput?$AA@ 100060a8   Fingerprint.obj
+ 0003:000000b8       ??_C@_0L@MJJE@fing_tSend?$AA@ 100060b8   Fingerprint.obj
+ 0003:000000c4       ??_C@_0O@FANP@fing_tReceive?$AA@ 100060c4   Fingerprint.obj
+ 0003:000000d4       ??_C@_0BB@PKNI@fing_tImportText?$AA@ 100060d4   Fingerprint.obj
+ 0003:000000e8       ??_C@_0BB@FECJ@fing_tExportText?$AA@ 100060e8   Fingerprint.obj
+ 0003:000000fc       ??_C@_0BD@DPIK@fing_tImportBinary?$AA@ 100060fc   Fingerprint.obj
+ 0003:00000110       ??_C@_0BD@PDI@fing_tExportBinary?$AA@ 10006110   Fingerprint.obj
+ 0003:00000124       ??_C@_0O@PPIA@fing_tCompare?$AA@ 10006124   Fingerprint.obj
+ 0003:00000134       ??_C@_0CK@P@Function?5Hough2?5has?5not?5been?5imp@ 10006134   Fingerprint.obj
+ 0003:00000160       ??_C@_06KPNJ@Hough2?$AA@   10006160   Fingerprint.obj
+ 0003:00000168       ??_C@_0BL@BFEG@memory?5failed?5in?5Zeta?5axis?$AA@ 10006168   Fingerprint.obj
+ 0003:00000184       ??_C@_0CB@HDCI@memory?5failed?5in?5Result?5allocate@ 10006184   Fingerprint.obj
+ 0003:000001a8       ??_C@_0BJ@MCMK@memory?5failed?5in?5Yn?5axis?$AA@ 100061a8   Fingerprint.obj
+ 0003:000001c4       ??_C@_0BJ@FCLP@memory?5failed?5in?5Xm?5axis?$AA@ 100061c4   Fingerprint.obj
+ 0003:000001e0       ??_C@_0BJ@CIGM@memory?5failed?5in?5Sk?5axis?$AA@ 100061e0   Fingerprint.obj
+ 0003:000001fc       ??_C@_06FAGA@Hough1?$AA@   100061fc   Fingerprint.obj
+ 0003:00000204       ??_C@_0CJ@DCDD@Function?5score?5has?5not?5been?5impl@ 10006204   Fingerprint.obj
+ 0003:00000230       ??_C@_05FILO@score?$AA@    10006230   Fingerprint.obj
+ 0003:00000238       ??_C@_05ICIM@UGENB?$AA@    10006238   Fingerprint.obj
+ 0003:00000240       ??_C@_05DHJL@?$CFT?5?$CFn?$AA@ 10006240   Fingerprint.obj
+ 0003:00000248       ??_C@_05GCLK@?$CFD?5?$CFn?$AA@ 10006248   Fingerprint.obj
+ 0003:00000250       ??_C@_05CIO@?$CFN?5?$CFn?$AA@ 10006250   Fingerprint.obj
+ 0003:00000258       ??_C@_05MHDK@?$CFm?5?$CFn?$AA@ 10006258   Fingerprint.obj
+ 0003:00000260       ??_C@_05JIAE@?$CFC?5?$CFn?$AA@ 10006260   Fingerprint.obj
+ 0003:00000268       ??_C@_02MHMJ@?$CFu?$AA@    10006268   Fingerprint.obj
+ 0003:0000026c       ??_C@_05CCAB@?$CFx?5?$CFn?$AA@ 1000626c   Fingerprint.obj
+ 0003:00000274       ??_C@_05BHBE@?$CFb?5?$CFn?$AA@ 10006274   Fingerprint.obj
+ 0003:0000027c       ??_C@_05HGIE@?$CF8?5?$CFn?$AA@ 1000627c   Fingerprint.obj
+ 0003:00000284       ??_C@_06BHIH@?$CFld?5?$CFn?$AA@ 10006284   Fingerprint.obj
+ 0003:0000028c       ??_C@_05ICFM@?$CFf?5?$CFn?$AA@ 1000628c   Fingerprint.obj
+ 0003:00000294       ??_C@_02GOLJ@?$CFe?$AA@    10006294   Fingerprint.obj
+ 0003:00000298       ??_C@_06FNCD@?$CFlf?5?$CFn?$AA@ 10006298   Fingerprint.obj
+ 0003:000002a0       ??_C@_02MECO@?$CFd?$AA@    100062a0   Fingerprint.obj
+ 0003:000002a4       ??_C@_05HNDF@UGENA?$AA@    100062a4   Fingerprint.obj
+ 0003:000002ac       ??_C@_05HHNN@UGEN9?$AA@    100062ac   Fingerprint.obj
+ 0003:000002b4       ??_C@_05NMBH@UGEN7?$AA@    100062b4   Fingerprint.obj
+ 0003:000002bc       ??_C@_05GHGH@?$CFs?5?$CFn?$AA@ 100062bc   Fingerprint.obj
+ 0003:000002c4       ??_C@_0L@ILG@FUNCTION?$CFs?$AA@ 100062c4   Fingerprint.obj
+ 0003:000002d0       ??_C@_0L@LBDG@FILENAME?$CFs?$AA@ 100062d0   Fingerprint.obj
+ 0003:000002dc       ??_C@_08MKLO@LINENO?$CFd?$AA@ 100062dc   Fingerprint.obj
+ 0003:000002e8       ??_C@_0O@BGF@HoughIdxInput?$AA@ 100062e8   Fingerprint.obj
+ 0003:000002f8       ??_C@_0P@HOHD@HoughIdxOutput?$AA@ 100062f8   Fingerprint.obj
+ 0003:00000314       __adjust_fdiv              10006314   <common>
+ 0003:00000318       ___onexitend               10006318   <common>
+ 0003:0000031c       ___onexitbegin             1000631c   <common>
+ 0003:00000320       __pRawDllMain              10006320   <common>
+ 0004:00000000       __IMPORT_DESCRIPTOR_ONINIT 10007000   sapi:ONINIT.EXE
+ 0004:00000014       __IMPORT_DESCRIPTOR_MSVCRT 10007014   msvcrt:MSVCRT.dll
+ 0004:00000028       __IMPORT_DESCRIPTOR_KERNEL32 10007028   kernel32:KERNEL32.dll
+ 0004:0000003c       __NULL_IMPORT_DESCRIPTOR   1000703c   sapi:ONINIT.EXE
+ 0004:00000104       __imp__DisableThreadLibraryCalls@4 10007104   kernel32:KERNEL32.dll
+ 0004:00000108       \177KERNEL32_NULL_THUNK_DATA 10007108   kernel32:KERNEL32.dll
+ 0004:0000010c       __imp___adjust_fdiv        1000710c   msvcrt:MSVCRT.dll
+ 0004:00000110       __imp___initterm           10007110   msvcrt:MSVCRT.dll
+ 0004:00000114       __imp__free                10007114   msvcrt:MSVCRT.dll
+ 0004:00000118       __imp__malloc              10007118   msvcrt:MSVCRT.dll
+ 0004:0000011c       __imp__sscanf              1000711c   msvcrt:MSVCRT.dll
+ 0004:00000120       __imp___ftol               10007120   msvcrt:MSVCRT.dll
+ 0004:00000124       __imp__strncmp             10007124   msvcrt:MSVCRT.dll
+ 0004:00000128       __imp__sprintf             10007128   msvcrt:MSVCRT.dll
+ 0004:0000012c       \177MSVCRT_NULL_THUNK_DATA 1000712c   msvcrt:MSVCRT.dll
+ 0004:00000130       __imp__dtcvasc             10007130   sapi:ONINIT.EXE
+ 0004:00000134       __imp__rstrdate            10007134   sapi:ONINIT.EXE
+ 0004:00000138       __imp__deccvasc            10007138   sapi:ONINIT.EXE
+ 0004:0000013c       __imp__mi_fp_funcstate     1000713c   sapi:ONINIT.EXE
+ 0004:00000140       __imp__mi_free             10007140   sapi:ONINIT.EXE
+ 0004:00000144       __imp__mi_money_to_binary  10007144   sapi:ONINIT.EXE
+ 0004:00000148       __imp__mi_string_to_lvarchar 10007148   sapi:ONINIT.EXE
+ 0004:0000014c       __imp__ifx_int8cvasc       1000714c   sapi:ONINIT.EXE
+ 0004:00000150       __imp___ifx_gl_mbscpy@16   10007150   sapi:ONINIT.EXE
+ 0004:00000154       __imp__mi_zalloc           10007154   sapi:ONINIT.EXE
+ 0004:00000158       __imp__mi_dalloc           10007158   sapi:ONINIT.EXE
+ 0004:0000015c       __imp__dectoint            1000715c   sapi:ONINIT.EXE
+ 0004:00000160       __imp__ifx_gl_convert_number 10007160   sapi:ONINIT.EXE
+ 0004:00000164       __imp___ifx_gl_full_mblen@12 10007164   sapi:ONINIT.EXE
+ 0004:00000168       __imp___ifx_gl_full_mbsnext@12 10007168   sapi:ONINIT.EXE
+ 0004:0000016c       __imp___ifx_gl_im_ismctype@16 1000716c   sapi:ONINIT.EXE
+ 0004:00000170       __imp__mi_get_locale       10007170   sapi:ONINIT.EXE
+ 0004:00000174       __imp__mi_gl_tprintf       10007174   sapi:ONINIT.EXE
+ 0004:00000178       __imp__be_mapsym           10007178   sapi:ONINIT.EXE
+ 0004:0000017c       __imp__mi_trace_getvect    1000717c   sapi:ONINIT.EXE
+ 0004:00000180       __imp__mi_fp_setfuncstate  10007180   sapi:ONINIT.EXE
+ 0004:00000184       __imp__mi_put_integer      10007184   sapi:ONINIT.EXE
+ 0004:00000188       __imp__mi_db_error_raise   10007188   sapi:ONINIT.EXE
+ 0004:0000018c       __imp__mi_get_integer      1000718c   sapi:ONINIT.EXE
+ 0004:00000190       __imp__mi_open             10007190   sapi:ONINIT.EXE
+ 0004:00000194       __imp__mi_new_var          10007194   sapi:ONINIT.EXE
+ 0004:00000198       __imp__mi_set_varlen       10007198   sapi:ONINIT.EXE
+ 0004:0000019c       __imp__mi_get_varlen       1000719c   sapi:ONINIT.EXE
+ 0004:000001a0       __imp__mi_alloc            100071a0   sapi:ONINIT.EXE
+ 0004:000001a4       __imp__mi_get_vardata      100071a4   sapi:ONINIT.EXE
+ 0004:000001a8       __imp__dectolong           100071a8   sapi:ONINIT.EXE
+ 0004:000001ac       __imp__mi_close            100071ac   sapi:ONINIT.EXE
+ 0004:000001b0       __imp__dectodbl            100071b0   sapi:ONINIT.EXE
+ 0004:000001b4       \177ONINIT_NULL_THUNK_DATA 100071b4   sapi:ONINIT.EXE
+
+ entry point at        0001:00003570
+
+ Static symbols
+
+
+FIXUPS: 41a4 3a 40 29 29 29 29 5e 29 3a 22 20 20 20 52 ae b8 15 13 11 ffffdc03
+FIXUPS: 2222 4b 36 54 29 2fb d 17e 53 29 4b 36 18c 50 e1 7c 6b 125 125
+FIXUPS: 2fc0 121 1d7 58 125 12f 1ff 1e1 1b2 1d8 233 27a ffffd670 67 29
+FIXUPS: 18ea 87 5d 29 2a 57 46 29 26 3f 66 29 6a 3b 20 1f 5c 67 29 5f 97
+FIXUPS: 1f02 29 6d 9d 56 29 dc 20 ffffee88 26 3a 40 29 29 29 58 29 3a 21
+FIXUPS: 1253 24 4e 59 29 2a 57 46 29 26 3f 66 29 6a 37 20 1f 5c 6b 29 6b

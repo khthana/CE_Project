@@ -1,0 +1,133 @@
+unit AttrMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+
+type
+    OrFeat = ^SubFeat;
+    SubFeat = record
+              Feat : word;
+              Attr : byte;
+              NextOr : OrFeat;
+              End;
+
+    AndFeat = ^GroupSub;
+    GroupSub = record
+               GroupOr : OrFeat;
+               NextAnd : AndFeat;
+               End;
+    CaseRec = record
+              SolNo : Word;
+              Feature : AndFeat;
+              End;
+
+  TAttrForm = class(TForm)
+    CaseNoLabel: TLabel;
+    SolNoLabel: TLabel;
+    SolNo: TEdit;
+    AttrButton: TButton;
+    OkButton: TButton;
+    ShowButton: TButton;
+    SaveButton: TButton;
+    LoadButton: TButton;
+    ExitButton: TButton;
+    EditButton: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure AttrButtonClick(Sender: TObject);
+    procedure OkButtonClick(Sender: TObject);
+    procedure ShowButtonClick(Sender: TObject);
+    procedure SaveButtonClick(Sender: TObject);
+    procedure LoadButtonClick(Sender: TObject);
+    procedure ExitButtonClick(Sender: TObject);
+    procedure EditButtonClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  AttrForm: TAttrForm;
+  CaseLib : Array[1..200] of CaseRec;
+  Index : Word;
+
+implementation
+
+uses AttrEnter, ShowAttr, SaveLib, LoadLib, EditLib;
+
+{$R *.DFM}
+
+
+procedure TAttrForm.FormCreate(Sender: TObject);
+begin
+     Index := 1;
+end;
+
+procedure TAttrForm.FormShow(Sender: TObject);
+var
+          TempStr : String;
+begin
+     Str(Index,TempStr);
+     AttrForm.CaseNoLabel.caption := '‡§ ∑’Ë ' + TempStr;
+end;
+
+procedure TAttrForm.AttrButtonClick(Sender: TObject);
+begin
+     AttrEnterForm.show;
+     AttrForm.hide;
+     CaseLib[Index].Feature := Nil;
+end;
+
+procedure TAttrForm.OkButtonClick(Sender: TObject);
+var
+   Error : integer;
+   TempStr : String;
+begin
+     Val(SolNo.text,CaseLib[Index].SolNo,Error);
+     If (Error = 0) then
+     begin
+        AttrButton.Enabled := True;
+        OkButton.Enabled := False;
+        Inc(Index);
+        Str(Index,TempStr);
+        AttrForm.CaseNoLabel.caption := '‡§ ∑’Ë ' + TempStr;
+        SolNo.Text := '';
+        AttrForm.SaveButton.Enabled := True;
+        AttrForm.LoadButton.Enabled := False;
+     end;
+end;
+
+procedure TAttrForm.ShowButtonClick(Sender: TObject);
+begin
+     ShowForm.show;
+     AttrForm.hide;
+end;
+
+procedure TAttrForm.SaveButtonClick(Sender: TObject);
+begin
+     SaveForm.show;
+     AttrForm.Hide;
+end;
+
+procedure TAttrForm.LoadButtonClick(Sender: TObject);
+begin
+     LoadForm.show;
+     AttrForm.Hide;
+end;
+
+procedure TAttrForm.ExitButtonClick(Sender: TObject);
+begin
+     AttrForm.close;
+end;
+
+procedure TAttrForm.EditButtonClick(Sender: TObject);
+begin
+     AttrForm.hide;
+     EditForm.show;
+end;
+
+end.

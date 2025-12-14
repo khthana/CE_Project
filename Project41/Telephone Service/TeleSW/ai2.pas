@@ -1,0 +1,142 @@
+unit ai2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Buttons, DXClass, DXSounds, Wave, ExtCtrls;
+
+type
+  TForm2 = class(TForm)
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    Edit1: TEdit;
+    BitBtn4: TBitBtn;
+    Label1: TLabel;
+    SaveDialog1: TSaveDialog;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
+  private
+    FCapture: TSoundCaptureStream;
+    FWaveStream: TWaveStream;
+    procedure CaptureFilledBuffer(Sender: TObject);
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.DFM}
+
+procedure TForm2.FormCreate(Sender: TObject);
+var i:integer;
+begin
+  for i:=0 to TSoundCaptureStream.Drivers.Count-1 do
+  ComboBox1.Items.Add(TSoundCaptureStream.Drivers[i].Description);
+  ComboBox1.ItemIndex := 0;
+  ComboBox1Change(nil);
+
+
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+     BitBtn2Click(nil);
+     FCapture.Free;FCapture:=nil;
+
+end;
+
+procedure TForm2.BitBtn3Click(Sender: TObject);
+begin
+    Form2.visible:=False;
+   //Close;
+end;
+
+procedure TForm2.ComboBox1Change(Sender: TObject);
+const
+  ChannelText: array[1..2] of string = ('Mono', 'Stereo');
+var
+  i: Integer;
+begin
+  FCapture.Free;
+  FCapture := TSoundCaptureStream.Create(nil);
+
+  ComboBox2.Items.Clear;
+  for i:=0 to FCapture.SupportedFormats.Count-1 do
+    with FCapture.SupportedFormats[i] do
+      ComboBox2.Items.Add(Format('%dHz %dbit %s', [SamplesPerSec, BitsPerSample, ChannelText[Channels]]));
+
+  ComboBox2.ItemIndex := ComboBox2.Items.Count-4;// 11025kHz 8 bit mono -1
+
+end;
+
+procedure TForm2.BitBtn1Click(Sender: TObject);
+begin
+ BitBtn2Click(nil);
+  try
+    FWaveStream := TWaveFileStream.Create(Edit1.Text, fmCreate);
+    with FCapture.SupportedFormats[ComboBox2.ItemIndex] do
+      FWaveStream.SetPCMFormat(SamplesPerSec, BitsPerSample, Channels);
+    FWaveStream.Open(True);
+
+    BitBtn1.Enabled := False;
+    ComboBox1.Enabled := False;
+    ComboBox2.Enabled := False;
+    BitBtn2.Enabled := True;
+    BitBtn4.Enabled := False;
+
+    Edit1.Color := clBtnFace;
+    Edit1.ReadOnly := True;
+
+    FCapture.OnFilledBuffer := CaptureFilledBuffer;
+
+    FCapture.CaptureFormat := ComboBox2.ItemIndex;
+    FCapture.Start;
+  except
+    BitBtn2Click(nil);
+    raise;
+  end;
+
+end;
+
+procedure TForm2.BitBtn2Click(Sender: TObject);
+begin
+  if FCapture<>nil then FCapture.Stop;
+  FWaveStream.Free; FWaveStream := nil;
+
+  BitBtn1.Enabled := True;
+  ComboBox1.Enabled := True;
+  ComboBox2.Enabled := True;
+  BitBtn2.Enabled := False;
+  BitBtn4.Enabled := True;
+
+  Edit1.Color := clWindow;
+  Edit1.ReadOnly := False;
+end;
+
+procedure TForm2.BitBtn4Click(Sender: TObject);
+begin
+  if SaveDialog1.Execute then
+    Edit1.Text := SaveDialog1.FileName;
+end;
+procedure TForm2.CaptureFilledBuffer(Sender: TObject);
+begin
+  FWaveStream.CopyFrom(FCapture, FCapture.FilledSize);
+  Label1.Caption := Format('%d byte', [FWaveStream.Size]);
+end;
+
+end.
+ 
+

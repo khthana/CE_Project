@@ -1,0 +1,12 @@
+
+##
+## BladePack v3.4  Project (PRD) data file 'Fingerprint.prd' Project
+################################################################################
+
+components               Fingerprint.cmp
+files                    Fingerprint.bom
+strings                  Fingerprint.str
+build                    'WinNT/i386','..\..\..\..\DBMS','Fingerprint.prd'
+
+
+######################################## End Of Data File ########################################

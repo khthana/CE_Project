@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=x-user-defined">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; I) [Netscape]">
+   <TITLE>main</TITLE>
+<SCRIPT>
+function Reset_Value(objec)
+{
+	objec.checked=false;	
+	if(objec==document.Sch.VehicleMe1) 
+	{
+		document.Sch.VehicleP1.checked=false;
+		document.Sch.VehicleP2.checked=false;
+		document.Sch.VehicleP3.checked=false;
+		document.Sch.VehicleP4.checked=false;
+	}
+	else
+	if((document.Sch.VehicleP1.checked) ||
+	   (document.Sch.VehicleP2.checked) ||
+	   (document.Sch.VehicleP3.checked) ||
+	   (document.Sch.VehicleP4.checked) )
+	{
+	document.Sch.VehicleMe1.checked=true;
+	}
+}
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<CENTER><IMG SRC="logo.gif" BORDER=0 ></CENTER>
+
+<CENTER><TABLE cellspelling="10" >
+<TR>
+<TD><IMG SRC="Bus.gif" ></TD>
+
+<TD><IMG SRC="car.gif" ></TD>
+
+<TD><IMG SRC="train.gif" ></TD>
+
+<TD><IMG SRC="van.gif" ></TD>
+
+<TD><IMG SRC="chess.gif" ></TD>
+</TR>
+</TABLE></CENTER>
+<FORM ACTION="http://media03.ce.kmitl.ac.th/scripts/samples/sch1.idc" 
+             METHOD=POST 
+             Name=Sch><IMG SRC="info_TOP.gif" >
+<BR><IMG SRC="info_s.gif" >&nbsp;<INPUT Type=Text Name=info_s Size=10><IMG SRC="infoTplace.gif" >&nbsp;<INPUT Type=Text Name=tSplace Width=10>
+<BR><IMG SRC="info_d.gif" >&nbsp;<INPUT Type=Text Name=info_d Size=10><IMG SRC="infoTplace.gif" >&nbsp;<INPUT Type=Text Name=tDplace>
+<BR>
+<HR><IMG SRC="info_TOP2.gif" >
+
+<P><INPUT Type=checkbox NAME=VehicleMe1 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><IMG SRC="info_vehi1_1.gif" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT Type=checkbox NAME=VehicleMe2 onClick="Reset_Value(document.Sch.VehicleMe1)"><IMG SRC="info_vehi1.gif" >
+<BR><INPUT Type="checkbox" NAME="VehicleP1" CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><IMG SRC="info_vehi2.gif" >
+<BR><INPUT Type=CHECKBOX NAME=VehicleP2 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><IMG SRC="info_vehi3.gif" >
+<BR><INPUT Type=CHECKBOX NAME=VehicleP3 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><IMG SRC="info_vehi4.gif" >
+<BR><INPUT Type=CHECKBOX NAME=VehicleP4 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><IMG SRC="info_vehi5.gif" >
+<CENTER><INPUT type="image" name="Submit" src="SubmitB.gif"   border="0"></CENTER>
+</FORM>
+</BODY>
+</HTML>

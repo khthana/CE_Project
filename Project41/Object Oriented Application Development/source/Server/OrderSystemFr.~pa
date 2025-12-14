@@ -1,0 +1,472 @@
+unit OrderSystemFr;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ComServ, ComObj, VCLCom, StdVcl, BdeProv, DataBkr, DBClient, OrderServer_TLB,
+  Db, DBTables,
+  ProductSpecification,LineItem,Address,Customer,
+  Discount,MoneyDiscount,PercentDiscount,Order,
+  OrderSystems, Provider;
+
+type
+  TOrderSystem = class(TRemoteDataModule, IOrderSystem)
+    Table1: TTable;
+    Table2: TTable;
+    Table3: TTable;
+    Table3CUSTOMER_ID: TStringField;
+    Table3FIRST_NAME: TStringField;
+    Table3LAST_NAME: TStringField;
+    Table3COMPANY: TStringField;
+    Table3PERCENT_DISCOUNT: TFloatField;
+    Table3ADDRESS: TADTField;
+    Table3ADDRESS_ID: TStringField;
+    Table3STREET: TStringField;
+    Table3TAMBOL: TStringField;
+    Table3AMPHOR: TStringField;
+    Table3PROVINCE: TStringField;
+    Table3ZIPCODE: TStringField;
+    Table3TEL: TStringField;
+    Table3VIA_TO: TADTField;
+    Table3ADDRESS_ID2: TStringField;
+    Table3STREET2: TStringField;
+    Table3TAMBOL2: TStringField;
+    Table3AMPHOR2: TStringField;
+    Table3PROVINCE2: TStringField;
+    Table3ZIPCODE2: TStringField;
+    Table3TEL2: TStringField;
+    NestedTable1: TNestedTable;
+    NestedTable2: TNestedTable;
+    NestedTable1ID: TFloatField;
+    NestedTable1UPC: TStringField;
+    NestedTable1QTY: TFloatField;
+    NestedTable2STEP: TFloatField;
+    NestedTable2DISCOUNT: TADTField;
+    NestedTable2BAHT: TFloatField;
+    NestedTable2PERCENT: TFloatField;
+    DataSetProvider1: TDataSetProvider;
+    DataSetProvider2: TDataSetProvider;
+    NestedTable1DESCRIPTION: TStringField;
+    NestedTable1PRICE: TFloatField;
+    NestedTable1DISCOUNT: TFloatField;
+    NestedTable1DISCOUNTBaht: TFloatField;
+    NestedTable1SUB_TOTAL: TFloatField;
+    Table1ORDER_ID: TFloatField;
+    Table1CUSTOMER_ID: TStringField;
+    Table1ORDER_DATE: TStringField;
+    Table1SHIP_DATE: TStringField;
+    Table1SELLER_ID: TStringField;
+    Table1LINE_ITEM: TDataSetField;
+    Query1: TQuery;
+    Table2UPC: TStringField;
+    Table2DESCRIPTION: TStringField;
+    Table2PRICE: TFloatField;
+    Table2DISCOUNT_LIST: TDataSetField;
+    NestedTable1MATCH_STEP: TIntegerField;
+    procedure NestedTable1CalcFields(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  protected
+    function StartOrder(const CustomerID: WideString): WideString; safecall;
+    procedure EndOrder; safecall;
+    function MakeLineItem(const UPC: WideString; QTY: Integer): WideString;
+      safecall;
+    function DelLineItem(ID: Integer): WideString; safecall;
+    function Total: WideString; safecall;
+    function GetOrderID: Integer; safecall;
+    function GetCustomerID: WideString; safecall;
+    function GetOrderDate: WideString; safecall;
+    function Get_Table1: IProvider; safecall;
+    function Get_Table2: IProvider; safecall;
+    function Get_Table3: IProvider; safecall;
+    function Get_DataSetProvider1: IProvider; safecall;
+    function Get_DataSetProvider2: IProvider; safecall;
+    function DelOrder(const OrderID: WideString): WideString; safecall;
+    function EditOrder(const OrderID: WideString): WideString; safecall;
+//    procedure CalcNested1(Param1: Integer); safecall;
+  end;
+
+var
+  OrderSystem: TOrderSystem;
+  OrderSys : TOrderSystems;
+
+implementation
+
+{$R *.DFM}
+
+function TOrderSystem.StartOrder(const CustomerID: WideString): WideString;
+var OrderID : integer;
+    Discount : real;
+begin
+     Self.Table1.Close;
+     Self.Table2.CLose;
+     Self.Table1.Open;
+     Self.Table2.Open;
+
+     Self.Table3.SetKey;
+     Self.Table3CUSTOMER_ID.AsString := CustomerID;
+     if Self.Table3.GotoKey then
+     begin
+          Discount := Self.Table3PERCENT_DISCOUNT.AsFloat;
+          Self.Table1.Last;
+          OrderID := Self.Table1ORDER_ID.AsInteger + 1;
+
+          OrderSys := TOrderSystems.Create;
+          OrderSys.StartOrder(OrderID,CustomerID,Discount);
+          Self.Table1.Insert;
+          Self.Table1ORDER_ID.AsString := IntToStr(OrderID);
+          Self.Table1CUSTOMER_ID.AsString := CustomerID;
+          Self.Table1ORDER_DATE.AsString := OrderSys.Orders.OrderDate;
+//
+          Self.Table1.ApplyUpdates;
+          sELF.Table1.CommitUpdates;
+//
+          Result := '';
+     end
+     else Result := 'ไม่พบรหัสลูกค้าหมายเลข '+CustomerID;
+
+
+end;
+
+procedure TOrderSystem.EndOrder;
+begin
+     OrderSys.EndOrder;
+     OrderSys.Free;
+end;
+
+function TOrderSystem.MakeLineItem(const UPC: WideString;
+  QTY: Integer): WideString;
+var ID : integer;
+    Baht,Percent,Price : real;
+begin
+     Self.Table1.Refresh;
+     Self.Table2.Refresh;
+
+     Self.Table1.SetKey;
+     Self.Table1ORDER_ID.AsInteger := OrderSys.GetOrderID;
+     Self.Table1.GotoKey;
+
+     Self.NestedTable1.Open;
+     Self.Table2.SetKey;
+     Self.Table2UPC.AsString := UPC;
+     if Self.Table2.GotoKey then
+     begin
+          Self.NestedTable1.Last;
+
+//          showmessage('BEFORE  '+Self.NestedTable1ID.AsString+'*'+IntToStr(Self.NestedTable1.RecNo)+'*'+IntToStr(Self.NestedTable1.RecordCount));
+
+          ID := Ordersys.Orders.Count;
+//          showmessage(IntToStr(ID));
+          ID := ID+1;
+
+//          showmessage(Self.NestedTable1ID.AsString+'*'+IntToStr(Self.NestedTable1.RecNo)+'*'+IntToStr(Self.NestedTable1.RecordCount)+'*'+IntToStr(ID));
+
+          Self.NestedTable1.Insert;
+          Self.NestedTable1ID.AsInteger := ID;
+          Self.NestedTable1UPC.AsString := UPC;
+          Self.NestedTable1QTY.AsInteger := QTY;
+//
+          Self.NestedTable1.ApplyUpdates;
+          Self.NestedTable1.CommitUpdates;
+          Self.Table1.ApplyUpdates;
+          Self.Table1.CommitUpdates;
+
+          Self.Table1.Refresh;
+          Self.Table1.SetKey;
+          Self.Table1ORDER_ID.AsInteger := OrderSys.GetOrderID;
+          Self.Table1.GotoKey;
+          Self.NestedTable1.Open;
+          Self.NestedTable1.First;
+          While (not Self.NestedTable1.Eof) and
+                (Self.NestedTable1UPC.AsString <> UPC)
+          do Self.NestedTable1.Next;
+          Baht := 0;
+          Percent := 0;
+          Baht := Self.NestedTable1DISCOUNTBaht.AsFloat;
+          Percent := Self.NestedTable1DISCOUNT.AsFloat;
+          Price := Self.NestedTable1PRICE.AsFloat;
+          ShowMessage(
+            ' Baht :: ' + FloatToStr(Baht) +
+            ' Percent :: ' + FloatToStr(Percent) +
+            ' Price :: ' + FloatToStr(Price) +
+            ' RecNo :: ' + IntToStr(Self.NestedTable1.RecNo)
+            );
+            //
+          if Baht<>0 then
+          begin
+             OrderSys.MakeLineItem(ID,UPC,QTY,Price,Baht,1);
+          end
+          else
+          begin
+             OrderSys.MakeLineItem(ID,UPC,QTY,Price,Percent,0);
+          end;
+          Result := '';
+     end
+     else Result := 'ไม่พบสินค้าที่ต้องการ';
+
+end;
+
+function TOrderSystem.DelLineItem(ID: Integer): WideString;
+begin
+     
+          OrderSys.DelLineItem(ID);
+
+          Result := '';
+end;
+
+function TOrderSystem.Total: WideString;
+var s : widestring;
+begin
+     s := FLoatToStr(OrderSys.Total);
+     Result := s;
+end;
+
+function TOrderSystem.GetOrderID: Integer;
+begin
+     Result := OrderSys.GetOrderID;
+end;
+
+function TOrderSystem.GetCustomerID: WideString;
+var s:widestring;
+begin
+     s := OrderSys.GetCustomerID;
+     Result := s;
+end;
+
+function TOrderSystem.GetOrderDate: WideString;
+var s:widestring;
+begin
+     s := OrderSys.GetOrderDate;
+     Result := s;
+end;
+
+function TOrderSystem.Get_Table1: IProvider;
+begin
+  Result := Table1.Provider;
+end;
+
+function TOrderSystem.Get_Table2: IProvider;
+begin
+  Result := Table2.Provider;
+end;
+
+function TOrderSystem.Get_Table3: IProvider;
+begin
+  Result := Table3.Provider;
+end;
+
+function TOrderSystem.Get_DataSetProvider1: IProvider;
+begin
+  Result := DataSetProvider1.Provider;
+end;
+
+function TOrderSystem.Get_DataSetProvider2: IProvider;
+begin
+  Result := DataSetProvider2.Provider;
+end;
+
+function TOrderSystem.DelOrder(const OrderID: WideString): WideString;
+begin
+     Self.Table1.SetKey;
+     Self.Table1ORDER_ID.AsString := OrderID;
+     if Self.Table1.GotoKey then
+     begin
+          //Self.Table1.Edit;
+          Self.Table1.Delete;
+//
+          Self.Table1.ApplyUpdates;
+          Self.Table1.CommitUpdates;
+//
+          Result := ('ลบใบสั่งซื้อหมายเลข '+OrderID+' เรียบร้อยแล้ว');
+     end
+     else Result := ('ไม่พบใบสั่งซื้อที่ต้องการ');
+end;
+
+function TOrderSystem.EditOrder(const OrderID: WideString): WideString;
+var Discount : real;
+    Baht,Percent : real;
+    ID,QTY,KindOf : integer;
+    CustomerID,UPC : string;
+    Price : real;
+    n,m : integer;
+begin
+     Self.Table1.Close;
+     Self.Table3.Close;
+
+     Self.Table1.Open;
+     Self.Table3.Open;
+
+
+     Self.Table1.SetKey;
+     Self.Table1ORDER_ID.AsString := OrderID;
+     if Self.Table1.GotoKey then
+     begin
+
+          Self.NestedTable1.Close;
+          Self.NestedTable1.Open;
+
+          CustomerID := Self.Table1CUSTOMER_ID.AsString;          Self.Table3.SetKey;
+          Self.Table3CUSTOMER_ID.AsString := CustomerID;
+          Self.Table3.GotoKey;
+          Discount := Self.Table3PERCENT_DISCOUNT.AsFloat;
+
+          OrderSys := TOrderSystems.Create;
+          OrderSys.StartOrder(StrToInt(OrderID),CustomerID,Discount);
+
+//          n := Self.NestedTable1.RecordCount;
+          Self.NestedTable1.First;
+//          m := 1;
+          while not Self.NestedTable1.Eof do
+          begin
+               ID := Self.NestedTable1ID.AsInteger;
+               UPC := Self.NestedTable1UPC.AsString;
+               QTY := Self.NestedTable1QTY.AsInteger;
+               Price := Self.NestedTable1PRICE.AsFloat;
+
+               //Self.NestedTable1.Edit;
+               //Self.NestedTable1.OnCalcFields;
+
+               Baht := 0;
+               Percent := 0;
+               Baht := Self.NestedTable1DISCOUNTBaht.AsInteger;
+               Percent := Self.NestedTable1DISCOUNT.AsInteger;
+               showmessage(FloatToStr(Baht)+'*'+FloatToStr(Percent)+'*'+IntToStr(QTY));
+               if Baht<>0 then
+                   OrderSys.MakeLineItem(ID,UPC,QTY,Price,Baht,1)
+               else
+                   OrderSys.MakeLineItem(ID,UPC,QTY,Price,Percent,0);
+
+//               m := m+1;
+               Self.NestedTable1.Next;
+          end;
+
+          Result := '';
+     end
+     else Result := 'ไมพบใบสั่งซื้อที่ต้องการ';
+end;
+
+{procedure TOrderSystem.NestedTable1CalcFields(DataSet: TDataSet);
+var QTY,Step : integer;
+    Price : real;
+    Baht,Percent : real;
+    UPC : string;
+begin
+     QTY := Self.NestedTable1QTY.AsInteger;
+     Price := Self.NestedTable1PRICE.AsFloat;
+     Baht := 0;
+     Percent := 0;
+
+     UPC := Self.NestedTable1UPC.AsString;
+     Self.Table2.SetKey;
+     Self.Table2UPC.AsString := UPC;
+     Self.Table2.GotoKey;
+
+     Self.NestedTable2.Last;
+     Step := Self.NestedTable2STEP.AsInteger;
+
+     while Step>QTY do
+     begin
+          Self.NestedTable2.Prior;
+     end;
+
+     Baht := Self.NestedTable2BAHT.AsFloat;
+     Percent := Self.NestedTable2PERCENT.AsFloat;
+
+     Self.NestedTable1DISCOUNTBaht.AsFloat := Baht;
+     Self.NestedTable1DISCOUNT.AsFloat := Percent;
+
+     Self.NestedTable1SUB_TOTAL.AsFloat := Price - Baht - ((Percent*Price)/100);
+
+end;}
+
+{procedure TOrderSystem.CalcNested1(Param1: Integer);
+var QTY,Step : integer;
+    Price : real;
+    Baht,Percent : real;
+    UPC : string;
+begin
+     QTY := Self.NestedTable1QTY.AsInteger;
+     Price := Self.NestedTable1PRICE.AsFloat;
+     Baht := 0;
+     Percent := 0;
+
+     UPC := Self.NestedTable1UPC.AsString;
+     Self.Table2.SetKey;
+     Self.Table2UPC.AsString := UPC;
+     Self.Table2.GotoKey;
+
+     Self.NestedTable2.Last;
+     Step := Self.NestedTable2STEP.AsInteger;
+
+     while Step>QTY do
+     begin
+          Self.NestedTable2.Prior;
+     end;
+
+     Baht := Self.NestedTable2BAHT.AsFloat;
+     Percent := Self.NestedTable2PERCENT.AsFloat;
+
+     Self.NestedTable1DISCOUNTBaht.AsFloat := Baht;
+     Self.NestedTable1DISCOUNT.AsFloat := Percent;
+
+     Self.NestedTable1SUB_TOTAL.AsFloat := Price - Baht - ((Percent*Price)/100);
+
+end;}
+
+
+procedure TOrderSystem.NestedTable1CalcFields(DataSet: TDataSet);
+var QTY,Step,MatchStep : integer;
+    Price : real;
+    Baht,Percent : real;
+    UPC,s : string;
+    Saveplace : TBookmark;
+
+begin
+     QTY := Self.NestedTable1QTY.AsInteger;
+     Price := Self.NestedTable1PRICE.AsFloat;
+     Baht := 0;
+     Percent := 0;
+     UPC := Self.NestedTable1UPC.AsString;
+     Self.Table2.Close;
+     Self.Table2.Open;
+     Self.Table2.SetKey;
+     Self.Table2UPC.AsString := UPC;
+     Self.Table2.GotoKey;
+
+     Self.NestedTable2.Open;
+
+     MatchStep := 0;
+     Self.NestedTable2.First;
+    while not Self.NestedTable2.Eof do
+     begin
+          Step := Self.NestedTable2STEP.AsInteger;
+          if (QTY>Step) and (Step>MatchStep) then
+          begin
+            MatchStep:=Step;
+          end;
+       Self.NestedTable2.Next;
+     end;
+    Self.NestedTable1MATCH_STEP.AsInteger := MatchStep;
+    if MatchStep <> 0 then
+    begin
+     Self.NestedTable2.First;
+     while (not Self.NestedTable2.Eof) and
+          (Self.NestedTable2STEP.AsInteger<>MatchStep)
+          do Self.NestedTable2.Next;
+     Baht := Self.NestedTable2BAHT.AsFloat;
+     Percent := Self.NestedTable2PERCENT.AsFloat;
+    end;
+
+     Self.NestedTable1DISCOUNTBaht.AsFloat := Baht;
+     Self.NestedTable1DISCOUNT.AsFloat := Percent;
+     Self.NestedTable1SUB_TOTAL.AsFloat
+     :=(Price*QTY) - Baht - ((Percent*Price*QTY)/100);
+end;
+
+initialization
+  TComponentFactory.Create(ComServer, TOrderSystem,
+    Class_OrderSystem, ciMultiInstance, tmApartment);
+end.

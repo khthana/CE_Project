@@ -1,0 +1,180 @@
+unit Order;
+
+interface
+
+uses
+    ProductSpecification,LineItem,Address,Customer,
+    Discount,MoneyDiscount,PercentDiscount,dialogs,sysutils;
+
+type
+    LineItemPtr = ^LineItemRec;
+    LineItemRec = record
+       Info : TLineItem;
+       Next : LineItemPtr;
+    end;
+
+    TOrder = class
+        OrderID : integer;
+        OrderDate : string;
+        ShipDate : string;
+        SalerID : string;
+        Count : integer;
+        First : LineItemPtr;
+        Last : LineItemPtr;
+        Customers : TCustomer;
+        procedure Init(OrderID:integer;
+                  OrderDate,ShipDate,SalerID:string);
+        procedure SetCustomer(Cust : TCustomer);
+        Procedure Add(LineItems:LineItemPtr);
+        Procedure DelLineItem(ID:integer);
+        procedure MakeLineItem(ID:integer;ProdSpec:TProductSpecification;
+                  Quantity:integer;Discounts:TDiscount);
+        function CountLineItem:integer;
+        function Total:real;
+        procedure Find(ID:integer;var Trav:LineItemPtr);
+        procedure Delete(var Trav:LineItemPtr);
+        procedure UpdateID(ID:Integer);
+        function GetCustomerID:string;
+    end;
+
+implementation
+
+procedure TOrder.Find(ID:integer;var Trav:LineItemPtr);
+begin
+     Trav := Self.First;
+     while (Trav^.Info.ID<>ID) and
+           (Trav<>nil) do
+     begin
+          Trav := Trav.Next;
+     end;
+end;
+
+procedure TOrder.Delete(var Trav:LineITemPtr);
+var Temp:LineItemPtr;
+begin
+     if (Trav=Self.First) then
+     begin
+       Self.First:=nil;
+       Self.Last:=nil;
+       Trav:=nil;
+       temp:=Trav;
+     end
+     else
+     begin
+       Temp := Self.First;
+       while Temp.Next<>Trav do
+         Temp := Temp.Next;
+       if Trav<>Self.Last then
+       begin
+          Temp.Next := Trav.Next;
+          Temp := Trav;
+          Trav := Trav.Next;
+       end
+       else
+       begin
+          Self.Last := Temp;
+          Temp := Temp.Next;
+          Self.Last.Next := NIL;
+       end;
+     end;
+     Temp^.Info.Free;
+     Self.Count := Self.Count-1;
+end;
+
+procedure TOrder.UpdateID(ID:Integer);
+var Trav:LineItemPtr;
+begin
+  Trav := Self.First;
+  while Trav<>nil do
+  begin
+    if Trav^.Info.ID>ID
+    then Trav^.Info.ID:=Trav^.Info.ID-1;
+    Trav := Trav.Next;
+  end;
+end;
+
+procedure TOrder.Init(OrderID:integer;OrderDate,ShipDate,SalerID:string);
+begin
+     Self.OrderID := OrderID;
+     Self.OrderDate := OrderDate;
+     Self.SalerID := SalerID;
+     Self.Count := 0;
+     new(Self.First);
+     Self.First := NIL;
+     new(Self.Last);
+     Self.Last := NIL;
+end;
+
+procedure TOrder.SetCustomer(Cust : TCustomer);
+begin
+     self.Customers := TCustomer.Create;
+     self.Customers := Cust;
+end;
+
+procedure TOrder.Add(LineItems:LineItemPtr);
+begin
+     if Self.First=NIL then
+     begin
+          Self.First := LineItems;
+          Self.First.Next := NIL;
+     end
+     else
+     begin
+          Self.Last.Next := LineItems;
+     end;
+     Self.Last := LineItems;
+     Self.Last.Next := NIL;
+     Self.Count:=Self.Count+1;
+end;
+
+procedure TOrder.DelLineItem(ID:integer);
+var Trav:LineItemPtr;
+begin
+     if Self.First<>nil then
+     begin
+       Self.Find(ID,Trav);
+       Self.Delete(Trav);
+       Self.UpdateID(ID);
+     end;
+end;
+
+procedure TOrder.MakeLineItem(ID:integer;ProdSpec:TProductSpecification;
+          Quantity:integer;Discounts:TDiscount);
+var LineItems:LineItemPtr;
+
+begin
+     new(LineItems);
+     LineItems^.Info := TLineItem.Create;
+     LineItems^.Info.Init(ID,Quantity);
+     LineItems^.Info.SetDiscount(Discounts);
+     LineItems^.Info.SetProSpec(ProdSpec);
+     Self.Add(LineItems);
+
+end;
+
+function TOrder.CountLineItem:integer;
+begin
+     Result := Self.Count;
+end;
+
+function TOrder.Total:real;
+var Trav:LineItemPtr;
+    Sum : real;
+begin
+     Sum := 0;
+     Trav := Self.First;
+     while Trav<>NIL do
+     begin
+          Sum := Sum + Trav^.Info.SubTotal;
+          Trav := Trav.Next;
+     end;
+     Sum := Sum - ((Sum*self.Customers.GetDiscount)/100);
+     Result := Sum;
+end;
+
+function TOrder.GetCustomerID:string;
+begin
+     Result := Self.Customers.CustomerID;
+end;
+
+end.

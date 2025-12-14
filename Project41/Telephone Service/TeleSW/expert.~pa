@@ -1,0 +1,145 @@
+unit expert;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  FileCtrl, StdCtrls, ExtCtrls, FmxUtils, Buttons, MMsystem, Grids;
+
+type
+  TForm1 = class(TForm)
+    DirectoryListBox1: TDirectoryListBox;
+    DriveComboBox1: TDriveComboBox;
+    FilterComboBox1: TFilterComboBox;
+    FileListBox1: TFileListBox;
+    Panel1: TPanel;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    Edit1: TEdit;
+    Label1: TLabel;
+    BitBtn3: TBitBtn;
+    SpeedButton1: TSpeedButton;
+    procedure FileListBox1Change(Sender: TObject);
+    procedure FileListBox1DblClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FileListBox1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+  TheFileName: string;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  // s:TSearchRec;
+
+implementation
+
+uses record2;
+
+{$R *.DFM }
+
+
+procedure TForm1.FileListBox1Change(Sender: TObject);
+begin
+  with FileListbox1 do
+  begin
+    if ItemIndex >= 0 then
+    begin
+      TheFileName := Items[ItemIndex];
+      Edit1.text:=TheFileName;
+      Panel1.Caption := Format('%s ', [TheFileName]);
+    end
+    else Panel1.Caption := '';
+  end;
+end;
+
+procedure TForm1.FileListBox1DblClick(Sender: TObject);
+begin
+ with FileListbox1 do
+  begin
+    //ExecuteFile(theFileName, '', Directory, SW_SHOW);
+    //FileListbox1.Cursor:= loadcursor(hInstance,'speaker1.cur');
+    PlaySound(PChar(theFileName),0,SND_ASYNC);
+  end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+    with FileListbox1 do
+    if MessageDlg('Delete ' + FileName + '?', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes then
+      if DeleteFile(theFileName) then Update;
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+//var s:string;
+begin
+     //GetDir(0,s);
+     //label1.caption:=s;
+
+     rmdir(edit1.text);{rmdir}
+      if IOResult<>0then
+       messagedlg('Cannot Remove directory',mtWarning,[mbOk],0)
+      else
+       DirectoryListBox1.Update;	      
+end;
+
+procedure TForm1.BitBtn1Click(Sender: TObject);
+begin
+      mkdir(edit1.text);{rmdir}
+      if IOResult<>0then
+       messagedlg('Cannot create directory',mtWarning,[mbOk],0)
+      else
+        DirectoryListBox1.Update;
+
+end;
+
+procedure TForm1.FileListBox1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if key=vk_delete then
+  begin
+   with FileListbox1 do
+    if MessageDlg('Delete ' + FileName + '?', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes then
+      if DeleteFile(theFileName) then Update;
+  end;   
+end;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+var s:string;
+begin
+     Form2.visible:=True;
+     GetDir(0,s);
+     Form2.Edit1.Text:=s;
+end;
+
+procedure TForm1.SpeedButton1Click(Sender: TObject);
+{var  found:integer;
+     sd:string;
+     i:integer;
+}
+begin
+{ i:=0;
+ GetDir(0,sd);
+ Found := FindFirst(sd+'\*.*',faDirectory,s);
+ while Found = 0 do
+    begin
+         i:=i+1;
+         found:= Findnext(s);
+         StringGrid1.Cells[1,i]:=s.name;
+    end;
+    FindClose(S);
+}
+end;
+
+end.
+
+

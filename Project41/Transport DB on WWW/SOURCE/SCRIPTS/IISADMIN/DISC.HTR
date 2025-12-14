@@ -1,0 +1,9 @@
+<html>
+<%onerror error%>
+<title>Internet Service Manager</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%!DisconnectUser urlparam%>
+<%redirect%>/scripts/iisadmin/ism.dll?<%servname%>/conn<%/redirect%>
+<%label error%>
+Error encountered : <%reqstatus%>
+</body></html>

@@ -1,0 +1,75 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    PALAXIS.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   RATANACHOTE PHOKANARAK
+COMPANY  KMITL
+DATE     13/03/99
+
+CHIP    PHASESHIFTGEN   PAL20V8
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          INA                  COMBINATORIAL             ; INPUT
+PIN  12         GND
+PIN  15         PhaseA               REGISTERED                ; OUTPUT
+PIN  16         PhaseB               REGISTERED                ; OUTPUT
+PIN  17         PhaseNotA            REGISTERED                ; OUTPUT
+PIN  18         PhaseNotB            REGISTERED                ; OUTPUT
+PIN  19         BITA                 REGISTERED                ; OUTPUT
+PIN  20         BITB                 REGISTERED                ; OUTPUT
+PIN  24         VCC
+
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+START_UP := POWER_UP -> STATE0              ;NOTE NEW START-UP STATE
+
+STATE0 = /BITA * /BITB
+STATE1 = /BITA *  BITB
+STATE2 =  BITA *  BITB
+STATE3 =  BITA * /BITB
+
+;TRANSITION EQUATIONS------------------
+STATE0    :=  GO_FORWARD         -> STATE1
+          +->               STATE3
+STATE1    :=  GO_FORWARD         -> STATE2
+          +->               STATE0
+STATE2    :=  GO_FORWARD         -> STATE3
+          +->               STATE1
+STATE3    :=  GO_FORWARD         -> STATE0
+          +->               STATE2
+;STATE0    :=  GO_BACKWARD         -> STATE3
+;          +->               STATE2
+;STATE3    :=  GO_BACKWARD         -> STATE2
+;          +->               STATE1
+;STATE2    :=  GO_BACKWARD         -> STATE1
+;          +->               STATE0
+;STATE1    :=  GO_BACKWARD         -> STATE0
+;          +->               STATE3
+
+;OUTPUT EQUATIONS----------------------
+STATE0.OUTF    =  PhaseA * /PhaseB * /PhaseNotA * PhaseNotB
+STATE1.OUTF    =  PhaseA *  PhaseB * /PhaseNotA * /PhaseNotB
+STATE2.OUTF    =  /PhaseA * PhaseB * PhaseNotA * /PhaseNotB
+STATE3.OUTF    =  /PhaseA * /PhaseB * PhaseNotA *PhaseNotB
+
+CONDITIONS
+GO_FORWARD = INA
+;GO_BACKWARD = /INA
+;----------------------------------- Simulation Segment ------------
+
+;SIMULATION
+;SETF INA
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+;SETF /INA
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+;CLOCKF CLOCK
+

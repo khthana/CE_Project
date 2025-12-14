@@ -1,0 +1,44 @@
+<HTML>
+<HEAD><TITLE>Date and Point Traffic Report</TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<Center><img src="/Main_logo.gif" border=0></Center>
+<BR>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+<BR>
+<Center>
+<Table Border=1>
+<Tr><Td>
+<Center><B>ตารางแสดงจุดที่มีการรายงานสภาพจราจรเข้ามาเก็บในฐานข้อมูล</B></Center>
+<TABLE  Border=1 Cellspacing=1 Width=550>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=Black><B>วัน/เดือน/ปี</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=Black><B>จุดที่มีการรายงานสภาพจราจร</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR>
+<TD Bgcolor=#c0c0c0><%date_e%></TD><TD Bgcolor=#c0c0c0><%point_traffic%></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=3><Font Color=#FFCC00><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</TABLE>
+
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font Size=3 Color=White  Face=IrisUPC><B>ไม่มีการรายงานสภาพจราจรเข้ามาในฐานข้อมูล</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+
+</BODY>
+</HTML>
+
+

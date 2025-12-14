@@ -1,0 +1,13 @@
+program Project_comp;
+
+uses
+  Forms,
+  Unit_new in 'c:\Project4d\data_mining\ProgramGA\comp\Unit_new.pas'; {Form1}
+
+  {$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

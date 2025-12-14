@@ -1,0 +1,34 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<img src="/logo2.gif" border=0><br><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0 width=500 >
+<Tr hight=3><td Bgcolor=Steelblue Colspan=2><Font  Color=White ><Center><B>รายละเอียดผลการสืบค้น</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ประเภทของสถานที่ปลายทาง</B></Font></td>
+    <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.tDplace%></Center></b></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>สถานที่ปลายทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.info_d%></Center></B></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>เขต</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%key_section%></Center></B></font></td></tr>
+</table>
+</td></tr>
+</table>
+<BR>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font Color=#FFCC00 ><B>ไม่มีสถานที่ประเภท<Font Color=#FFCCff > <%idc.tDplace%> </font> ชื่อ <Font Color=#FFCCff > <%idc.info_d%></font> ในฐานข้อมูล</B></Font></td></Tr>
+</td></tr>
+</Table>
+<%endif%>
+<br>
+<Center><br><A href="/map/main_searchM.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</Center>
+</BODY>
+</HTML>
+
+

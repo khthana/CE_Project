@@ -1,0 +1,60 @@
+<html>
+<title>Internet Service Manager</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<h1>Select Directory</h1>
+<%!GenerateDirList arg3%>
+
+
+<hr>
+<form method="POST" action="/scripts/iisadmin/ism.dll?dir/bdiru+<%arg1%>?<%arg2%>?<%"&z",rootdir%>">
+<table border=0 width=550 nowrap><tr>
+<td><FONT COLOR=000000> Selected Directory: </FONT><%rootdir%></td>
+<td align=right><input type="submit" name="ok" value="     OK     ">
+<input type="submit" name="cancel" value=" Cancel "></td>
+</tr></table></form>
+<hr>
+
+Drives:
+<dl>
+<%beginiteration drivecount%>
+<%if drivetypeentry EQ 3%>
+<img alt="Hard disk" src="/iisadmin/hd.gif">
+<a href="/scripts/iisadmin/ism.dll?dir/bdir+<%arg1%>?<%arg2%>?<%"&z",drivenameentry%>"><%drivenameentry%><%drivelabelentry%></a><br>
+<%elif drivetypeentry EQ 4%>
+<img alt="Network share" src="/iisadmin/nd.gif">
+<a href="/scripts/iisadmin/ism.dll?dir/bdir+<%arg1%>?<%arg2%>?<"&z",%drivenameentry%>"><%drivenameentry%><%drivelabelentry%></a><br>
+<%else%>
+<%endif%>
+<%enditeration%>
+</dl>
+<hr>
+
+Directories:
+<%beginiteration dircompcount%>
+<dl><img alt="Folder" src="/iisadmin/of.gif"><a href="/scripts/iisadmin/ism.dll?dir/bdir+<%arg1%>?<%arg2%>?<%"&z",dirfcompentry%>"><%dircompentry%></a>
+<%enditeration%><dl>
+
+<%beginiteration dircount%>
+<img alt="Folder" src="/iisadmin/cf.gif">
+<a href="/scripts/iisadmin/ism.dll?dir/bdir+<%arg1%>?<%arg2%>?<%"&z",basedir%>%5c<%direntry%>"><%direntry%></a><br>
+<%enditeration%>
+
+<%beginiteration dircompcount%>
+</dl>
+<%enditeration%>
+</dl>
+<hr><br>
+
+New directory name:
+<form method="POST" action="/scripts/iisadmin/ism.dll?dir/bdiru+<%arg1%>?<%arg2%>?<%"&z",rootdir%>">
+<table border=0 width=550 nowrap><tr>
+ <td><input type="text" name="cdirname" value="" size=40></td>
+ <td align=right><input type="submit" name="cdir" value="Create Directory"></td>
+</tr></table>
+</form>
+<hr><br>
+
+</form>
+
+</body>
+</html>

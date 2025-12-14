@@ -1,0 +1,60 @@
+#!/usr/bin/perl -w
+
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+
+sub LookupIP {
+   my ($name, $a1, $a2,$a3,$a4,$PackedAddr,$Addr);
+   $Addr = $_[0];
+   ($a1,$a2,$a3,$a4) = split /\./,$Addr;
+   $PackedAddr = pack('C4',$a1,$a2,$a3,$a4);
+   if ($name = gethostbyaddr ($PackedAddr,2)) {
+      return ($name . " (" . $Addr . ")");
+   } else {
+      return ($Addr);
+   }
+}
+
+
+while (defined($ThisLine = <STDIN>)) {
+    chomp($ThisLine);
+    next if ($ThisLine eq "");
+    if ( ($from,$on) = ( $ThisLine =~ /^Warning: possible SYN flood from ([^ ]+) on ([^ ]+):.+ Sending cookies/ ) ) {
+	$Fullfrom = LookupIP($from);
+	$Fullon = LookupIP($on);
+	$SYNflood{$Fullon}{$Fullfrom}++;
+    } else {
+	$Kernel{$ThisLine}++;
+    }
+}
+    
+if ( (keys %SYNflood) or
+     (($Detail >= 5) and (keys %Kernel)) ) {
+	
+    print "\n\n ---------------------- Kernel Begin ------------------------- \n\n";
+
+    if (keys %SYNflood) {
+	print "\nWarning: SYN flood on:\n";
+	foreach $ThisOne (sort {$a cmp $b} keys %SYNflood) {
+	    print "   " . $ThisOne . " from:\n";
+	    foreach $Next (sort {$a cmp $b} keys %{$SYNflood{$ThisOne}}) {
+		print "      " . $Next . ": $SYNflood{$ThisOne}{$Next} Time(s)\n";
+	    }
+	}
+    }
+
+    if ( ($Detail >= 5) and (keys %Kernel) ) {
+	print "\n";
+	foreach $ThisOne (sort {$a cmp $b} keys %Kernel) {
+	    print $Kernel{$ThisOne} . " Time(s): " . $ThisOne . "\n";
+	}
+    }
+
+    print "\n\n ---------------------- Kernel End ------------------------- \n\n";
+	
+}
+
+
+exit(0);
+
+
+

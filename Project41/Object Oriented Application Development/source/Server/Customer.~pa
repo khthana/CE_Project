@@ -1,0 +1,95 @@
+unit Customer;
+
+interface
+
+uses
+    Address,Discount,MoneyDiscount,PercentDiscount,
+    PartDiscount,AllDiscount;
+
+type
+    TCustomer = class
+        CustomerID : string;
+        FirstName : string;
+        LastName : string;
+        Company : string;
+        Discount : TDiscount;
+        Address : TAddress;
+        ViaTo : TAddress;
+
+        procedure SetCustomerID(CustomerID:string);
+        procedure SetFirstName(FirstName:string);
+        procedure SetLastName(LastNameD:string);
+        procedure SetCompany(Company:string);
+        procedure SetDiscount(Discount:TDiscount);
+        procedure Init(CustomerID,FirstName,LastName,Company:string);
+        function GetCustomerID:string;
+        function GetFirstName:string;
+        function GetLastName:string;
+        function GetCompany:string;
+        function GetDiscount:real;
+    end;
+
+implementation
+
+procedure TCustomer.SetCustomerID(CustomerID:string);
+begin
+     Self.CustomerID := CustomerID;
+end;
+
+procedure TCustomer.SetFirstName(FirstName:string);
+begin
+     Self.FirstName := FirstName;
+end;
+
+procedure TCustomer.SetLastName(LastNameD:string);
+begin
+     Self.LastName := LastName;
+end;
+
+procedure TCustomer.SetCompany(Company:string);
+begin
+     Self.Company := Company;
+end;
+
+procedure TCustomer.SetDiscount(Discount:TDiscount);
+begin
+     Self.Discount := Discount;
+end;
+
+procedure TCustomer.Init(CustomerID,FirstName,LastName,Company:string);
+begin
+     Self.CustomerID := CustomerID;
+     Self.FirstName := FirstName;
+     Self.LastName := LastName;
+     Self.Company := Company;
+     Self.Discount := TDiscount.Create;
+     Self.Address := TAddress.Create;
+     Self.ViaTo := TAddress.Create;
+end;
+
+function TCustomer.GetCustomerID:string;
+begin
+     Result := Self.CustomerID;
+end;
+
+function TCustomer.GetFirstName:string;
+begin
+     Result := Self.FirstName;
+end;
+
+function TCustomer.GetLastName:string;
+begin
+     Result := Self.LastName;
+end;
+
+function TCustomer.GetCompany:string;
+begin
+     Result := Self.Company;
+end;
+
+function TCustomer.GetDiscount:real;
+begin
+     Result := Self.Discount.GetDiscount;
+end;
+
+end.

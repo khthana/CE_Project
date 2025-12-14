@@ -1,0 +1,105 @@
+README file for Demo4.2.5, Feb. 1994, created by Chris Brislawn
+
+	FBI WSQ FINGERPRINT COMPRESSION DEMOS
+
+Files compressed w/ LANL software, version wsq4.2.5, using the bit
+allocation formula (with exception-handling option 1) described in
+
+	J. Bradley and C. Brislawn, "Proposed first-generation
+	WSQ bit allocation procedure," Tech. Rep. LA-UR-93-3354
+
+Files with .raw extensions are original, uncompressed images.
+
+Files with .FBI extensions are compressed data files in compliant interchange format.  
+
+To assist users of this demo set, we have added an extension 
+indicating the bit rate constraint, R, used to create the compressed 
+data files.  Files with an extension of the form .Rx.x have been 
+compressed with R = x.x bpp.  If the .FBI extension is present, the 
+data is in compressed form; names ending in a .Rx.x extension are
+quantized images that have been compressed and then reconstructed.
+
+EXAMPLES:	fp1.raw		original image
+		fp1.R1.FBI	compressed data coded at R = 1 bpp 
+		fp1.R.4		reconstructed image, R = .4 bpp
+
+Raw and reconstructed image files are 8-bit raster images, stored by
+rows, with no file header.  Thus, width x height  =  # bytes, exactly.
+Compression data and dimensions for all images are given below.
+---------------------------------------------------------------
+ 
+fp1 (the image from the 1993 SPIE conference paper, 155498.6m): 
+size = 768 x 768 (589824 bytes)
+R = 1.0, Output file size = 43366 bytes, Compression ratio = 13.60
+R = 0.6, Output file size = 24522 bytes, Compression ratio = 24.05
+R = 0.4, Output file size = 16811 bytes, Compression ratio = 35.09
+
+fp2 (image 155498.9m, cropped to remove blank space, offset=(194,100)): 
+size = 384 x 480 (184320 bytes)
+R = 1.0, Output file size  = 22225 bytes, Compression ratio = 8.29
+R = 0.6, Output file size  = 13074 bytes, Compression ratio = 14.10
+R = 0.4, Output file size  = 8845 bytes, Compression ratio = 20.84
+
+fp3 (image cs027ra.i):
+size = 750 x 750 (562500 bytes)
+R = 0.8, Output file size  = 37499 bytes, Compression ratio = 15.00
+R = 0.7, Output file size  = 32683 bytes, Compression ratio = 17.21
+R = 0.6, Output file size  = 27445 bytes, Compression ratio = 20.50
+
+fp4 (image 208030.07):
+size = 832 x 768 (638976 bytes)
+R = 0.8, Output file size  = 42606 bytes, Compression ratio = 15.00
+R = 0.7, Output file size  = 36770 bytes, Compression ratio = 17.38
+R = 0.6, Output file size  = 30960 bytes, Compression ratio = 20.64
+
+fp5 (image 208048.01, cropped to remove blank space, offset=(151,111)):
+size = 535 x 657 (351495 bytes)
+R = 0.8, Output file size  = 30324 bytes, Compression ratio = 11.59
+R = 0.7, Output file size  = 26387 bytes, Compression ratio = 13.32
+R = 0.6, Output file size  = 22559 bytes, Compression ratio = 15.58
+
+
+directory listings
+------------------
+
+[/Demo4.2.5] 215) ls -l rawLANL
+total 2320
+-rw-r--r--  1 brislawn   589824 Feb 11 14:33 fp1.raw
+-rw-r--r--  1 brislawn   184320 Feb 11 14:33 fp2.raw
+-rw-r--r--  1 brislawn   562500 Feb 11 16:52 fp3.raw
+-rw-r--r--  1 brislawn   638976 Feb 11 18:57 fp4.raw
+-rw-r--r--  1 brislawn   351495 Feb 14 15:25 fp5.raw
+[/Demo4.2.5] 216) ls -l compLANL
+total 412
+-rw-r--r--  1 brislawn    16811 Feb 11 14:33 fp1.R.4.FBI
+-rw-r--r--  1 brislawn    24522 Feb 11 14:33 fp1.R.6.FBI
+-rw-r--r--  1 brislawn    43366 Feb 11 14:33 fp1.R1.FBI
+-rw-r--r--  1 brislawn     8845 Feb 11 19:14 fp2.R.4.FBI
+-rw-r--r--  1 brislawn    13074 Feb 11 19:13 fp2.R.6.FBI
+-rw-r--r--  1 brislawn    22225 Feb 11 19:03 fp2.R1.FBI
+-rw-r--r--  1 brislawn    27445 Feb 11 19:18 fp3.R.6.FBI
+-rw-r--r--  1 brislawn    32683 Feb 11 19:17 fp3.R.7.FBI
+-rw-r--r--  1 brislawn    37499 Feb 11 19:15 fp3.R.8.FBI
+-rw-r--r--  1 brislawn    30960 Feb 14 14:26 fp4.R.6.FBI
+-rw-r--r--  1 brislawn    36770 Feb 14 14:28 fp4.R.7.FBI
+-rw-r--r--  1 brislawn    42606 Feb 14 14:28 fp4.R.8.FBI
+-rw-r--r--  1 brislawn    22559 Feb 14 15:33 fp5.R.6.FBI
+-rw-r--r--  1 brislawn    26387 Feb 14 15:32 fp5.R.7.FBI
+-rw-r--r--  1 brislawn    30324 Feb 14 15:29 fp5.R.8.FBI
+[/Demo4.2.5] 217) ls -l decompLANL
+total 6960
+-rw-r--r--  1 brislawn   589824 Feb 11 14:33 fp1.R.4
+-rw-r--r--  1 brislawn   589824 Feb 11 14:33 fp1.R.6
+-rw-r--r--  1 brislawn   589824 Feb 11 14:33 fp1.R1
+-rw-r--r--  1 brislawn   184320 Feb 14 14:32 fp2.R.4
+-rw-r--r--  1 brislawn   184320 Feb 14 14:32 fp2.R.6
+-rw-r--r--  1 brislawn   184320 Feb 14 14:33 fp2.R1
+-rw-r--r--  1 brislawn   562500 Feb 14 14:58 fp3.R.6
+-rw-r--r--  1 brislawn   562500 Feb 14 14:58 fp3.R.7
+-rw-r--r--  1 brislawn   562500 Feb 14 14:59 fp3.R.8
+-rw-r--r--  1 brislawn   638976 Feb 14 15:02 fp4.R.6
+-rw-r--r--  1 brislawn   638976 Feb 14 15:01 fp4.R.7
+-rw-r--r--  1 brislawn   638976 Feb 14 15:00 fp4.R.8
+-rw-r--r--  1 brislawn   351495 Feb 14 15:41 fp5.R.6
+-rw-r--r--  1 brislawn   351495 Feb 14 15:41 fp5.R.7
+-rw-r--r--  1 brislawn   351495 Feb 14 15:40 fp5.R.8

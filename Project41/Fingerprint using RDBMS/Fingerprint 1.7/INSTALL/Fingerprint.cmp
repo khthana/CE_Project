@@ -1,0 +1,27 @@
+
+##
+## BladePack v3.4  Component (CMP) data file 'Fingerprint.prd' Project
+################################################################################
+
+
+                     type=component, \
+                     name=DataBladeMain, \
+              description=Fingerprint Files., \
+                  compact=true, \
+                  typical=true, \
+                   custom=true, \
+             include_size=true, \
+                   hidden=false, \
+            special_flags=datablade
+
+                     type=subcomponent, \
+                     name=DataBlade, \
+              description=Fingerprint Files., \
+                  compact=true, \
+                  typical=true, \
+                   custom=true, \
+             include_size=true, \
+                   hidden=false
+
+
+######################################## End Of Data File ########################################

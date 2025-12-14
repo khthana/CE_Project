@@ -1,0 +1,38 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    PalMac2.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   Ratanachote Phokanarak
+COMPANY  RHA Room
+DATE     15/03/99
+
+CHIP  MAC_Decoder_II  PAL20V8
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          HCLK                  REGISTERED                ; INPUT
+PIN  2          INIRQX                COMBINATORIAL             ; INPUT
+PIN  3          HRDY                  COMBINATORIAL             ; INPUT
+PIN  4          DAC0                  COMBINATORIAL             ; INPUT 
+PIN  5          DAC1                  COMBINATORIAL             ; INPUT
+PIN  6          DACSLCT               COMBINATORIAL             ; INPUT
+PIN  7          IOW                   COMBINATORIAL             ; INPUT 
+PIN  8          IOR                   COMBINATORIAL             ; INPUT
+PIN  9          688FLAG               COMBINATORIAL             ; INPUT
+PIN  10         HA2                   COMBINATORIAL             ; INPUT
+PIN  11         HA3                   COMBINATORIAL             ; INPUT
+PIN  12         GND                                             ; INPUT
+PIN  22         OUTIRQX               COMBINATORIAL             ; OUTPUT
+PIN  21         SDAC1                 REGISTERED                ; OUTPUT
+PIN  20         SDAC2                 REGISTERED                ; OUTPUT
+PIN  19         BD7                   REGISTERED                ; OUTPUT
+PIN  24         VCC                                             ; INPUT
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+OUTIRQX       = /INIRQX
+BD7           = (/688FLAG * /HA2 * HA3 * /IOR) * HRDY
+SDAC1 	      = /DACSLCT * /DAC1 * /DAC0
+SDAC2         = /DACSLCT * /DAC1 * DAC0

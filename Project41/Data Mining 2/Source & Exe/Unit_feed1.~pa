@@ -1,0 +1,45 @@
+unit Unit_feed1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls;
+
+type
+  TForm2 = class(TForm)
+    Button1: TButton;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    procedure Button1Click(Sender: TObject);
+    procedure RadioButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  check  : boolean;
+
+implementation
+     uses unit_feed;
+{$R *.DFM}
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+     if check = true then
+     begin
+          Form2.hide;
+          Form1.show;
+     end;
+
+end;
+
+procedure TForm2.RadioButton1Click(Sender: TObject);
+begin
+     check := true;
+end;
+
+end.

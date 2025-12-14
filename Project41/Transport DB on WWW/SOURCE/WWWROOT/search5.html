@@ -1,0 +1,70 @@
+<Html>
+    <Head>
+        <Title> </Title>	
+    </Head>		
+<Script>
+function date1()
+	{	
+	 	CurrentDate = new Date();
+		var day = CurrentDate.getDate();
+		var mounth=CurrentDate.getMonth();
+		var TimeZone = CurrentDate.getTimezoneOffset();
+		var hour = CurrentDate.getHours();
+		var minute = CurrentDate.getMinutes();
+		var second = CurrentDate.getSeconds();
+		document.Sch6.dat_e.value=escape(day)+":"+escape(mounth)+":"+escape(hour)+":"+escape(minute)+":"+escape(second)+":"+escape(TimeZone);	
+	}
+function Reset_Value(objec)
+{
+	objec.checked=false;
+	if(document.Sch6.Question.checked == false &&
+	   document.Sch6.Report.checked	== false) document.Sch6.Report.checked=true;
+	if(document.Sch6.Report.checked==true)
+	{
+		document.Sch6.action="/scripts/samples/sch6.idc";
+	}
+	else
+	{
+		document.Sch6.action="/scripts/samples/sch66.idc";
+	}
+}
+</Script>
+    <Body Bgcolor=#FFFFFF>
+<img src=logo6.gif border=0>
+<br><br><br>
+<Form ACTION="/scripts/samples/sch6.idc"
+		Method=POST
+		Name=Sch6
+		onSubmit=date1()>
+<Table border=0 Width=600>
+<tr><td  Bgcolor=Steelblue ><Font Color=white><B>กรุณาป้อนรายละเอียด</B></Font></td></tr>
+<Tr><Td>
+<Input Type=hidden name=dat_e>
+<Input Type=Checkbox Name=Question onClick="Reset_Value(document.Sch6.Report)"><Img Src=S5_im1.gif Border=0><Input Type=text name=pointQ>
+<Font Color=blue Face=Angsanaupc size=+0>[ นึกไม่ออก <A href=/scripts/samples/help.idc><Font Color=Red><B><Blink>คลิ๊กที่นี่</Blink></Font></B></A> ]</Font>
+</td></tr>
+<tr>
+<td>
+<Input Type=Checkbox Name=Report Checked onClick="Reset_Value(document.Sch6.Question)"><Img Src=S5_im2.gif Border=0>
+</td>
+</tr>
+<tr>
+<td>
+<Img Src=S5_im3.gif Border=0> <Input Type=text name=point1><br>
+</td>
+</tr>
+<tr>
+<td colspan=2>
+<Img Src=S5_im4.gif Border=0><br>
+<Textarea Name=InDetail rows=5 cols=40></Textarea>
+</td>
+</tr>
+</table>
+<br><br><br>
+<Center>
+<input  type="image" name="Submit" src="okbutt.gif"   border="0">
+<A href="main.html"><Img Src=CommonS_B.gif Border=0></A>
+</Center>
+</Form>
+    </Body>
+</Html>

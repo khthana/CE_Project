@@ -1,0 +1,862 @@
+<HTML>
+<HEAD>
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>&#9;ในปัจจุบัน  คอมพิวเตอร์มีความสามารถในการถำนวณเชิงคณิตศาสตร์สูงมาก  และให้ความแม่นยำในการคำนวณได้รวดเร็ว   แต่ยังมีข้อจำกัดบางประการ  เช่น  การตีความหมายเชิงวัตถุของภาพ  ความสามารถในการเรียนรู้และตัดสินใจโดยใช้ประสบการณ์  เราจึงต้องการคอมพิวเตอร์ที่มีความ</TITLE>
+</HEAD>
+<BODY>
+
+<B><FONT FACE="AngsanaUPC" SIZE=6><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">บทที่  1</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER"> </FONT><B><FONT FACE="AngsanaUPC" SIZE=5>บทนำ&#9;</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">ในปัจจุบัน  คอมพิวเตอร์มีความสามารถในการคำนวณเชิงคณิตศาสตร์สูงมาก  และให้ความแม่นยำในการคำนวณได้รวดเร็ว   แต่ยังมีข้อจำกัดบางประการ  เช่น  การตีความหมายเชิงวัตถุของภาพ  ความสามารถในการเรียนรู้และตัดสินใจโดยใช้ประสบการณ์  เราจึงต้องการคอมพิวเตอร์ที่มีความสามารถในการทำงานในลักษณะข้างต้นที่จะต้องไม่ทำงานตามคำสั่งหรือโปรแกรมที่กำหนดให้เท่านั้น</P>
+<P ALIGN="JUSTIFY">&#9;จากเหตุผลดังกล่าวข้างต้น จึงทำให้นักวิชาการพยายามให้ความสำคัญในการออกแบบและสร้างระบบคอมพิวเตอร์ให้มีโครงสร้างการทำงานเลียบแบบการทำงานของเซลล์ในสมองของมนุษย์  หรือที่เรียกกันว่า  นิวรอล  ซึ่งนิวรอลจะทำงานในแง่ของสรีรวิทยาประสาท ที่จะต่อเชื่อมโยงกันเป็นโครงข่ายของหน่วยประสาท  หรือ  นิวรอลเน็ตเวิร์ค (Neural Network)  โดยใช้วิธีการประมวลผลแบบขนาน  และการกระจายการทำงาน  (Parallel Distributed Processing) เพื่อแปลงข้อมูลจากรูปแบบหนึ่งไปเป็นอีกรูปแบบหนึ่งตามที่ต้องการ</P>
+<P ALIGN="JUSTIFY">&#9;นอกจากนั้นคุณสมบัติของนิวรอลเน็ตเวิร์คยังแตกต่างจากหลักการทำงานในเชิงคณิตศาสตร์โดยทั่วไปในเรื่องของ  Massively  parallel  processing  ซึ่งคุณสมบัติประการแรก คือ Fault tolerance  หมายถึง  ระบบประมวลผลจะไม่หยุดทำงานกลางครัน  ถึงแม้ว่าหน่วยประมวลผลทางหน่วยได้รับความเสียหาย  จนทำงานไม่ได้ก็ตาม  คุณสมบัติอีกประการหนึ่งที่สำคัญคือ  Generalization  หมายถึง  นิวรอลเน็ตเวิร์คยังคงให้ผลลัพธ์ที่ต้องการได้ถึงแม้จะมีสัญญาณรบกวน  หรือข้อมูลขาดความสมบรูณ์หรือข้อมูลที่ไม่เคยเห็นมาก่อนแต่คล้ายกับข้อมูลที่เคยเข้ามาก่อนแล้ว  คุณสมบัติประการสุดท้ายคือ  Adaptability  หมายถึง  นิวรอลเน็ตเวิร์คสามารถเรียนรู้สภาพแวดล้อมใหม่ที่แตกต่างจากสภาพแวดล้อมเดิมได้อย่างรวดเร็ว</P>
+<P ALIGN="JUSTIFY">&#9;การทำงานของนิวรอลเน็ตเวิร์คจะอยู่ในรูปแบบของการฝึกสอน (Training) ทั้งนี้เพื่อปรับพื้นฐานความรู้ด้วยค่าตัวเลขน้ำหนัก (Weight) ทำให้ค่า input และ output ของระบบสอดคล้องกัน  จากนั้นจึงจะสามารถนำฐานความรู้ (Knowledge  base)  ที่ได้ไปใช้งานต่อไป</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<B><P ALIGN="JUSTIFY">1.1  วัตถุประสงค์และขอบเขตของการวิจัย</P>
+</B><P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;ศึกษาการทำงานของนิวรอลเน็ตเวิร์คและสามารถปรับความสามารถในการเรียนรู้ของนิวรอลเน็ตเวิร์คได้  และสามารถใช้ในการวิเคราะห์ตัวอักษรไม่จำกัดรูปแบบได้ โดยในเบื้องต้นจะอธิบายการทำงานอย่างคร่าว ๆ ของ Neural Network จากนั้นจะเข้าไปถึงในส่วนของการเรียนรู้แบบ Backpropagation ซึ่งเป็นการเรียนรู้ที่นิยมใช้กันมากที่สุดสำหรับปัญหาในแนวการทำงานในลักษณะนี้แต่การเรียนรู้แบบ  Backpropagation  ก็ยังมีข้อเสียตรงที่ไม่สามารถรู้ค่าของ Hidden unit ที่เหมาะสมได้จึงมีการอธิบายการพัฒนาการเรียนรู้แบบที่สามารถปรับค่าของ Hidden unit ได้  เมื่อมาถึงขั้นตอนนี้ก็จะอธิบายการทำ Pre-Processing เป็นการจัดรูปแบบต่าง ๆ ของค่า input ที่จะเข้าไปทำงานใน  Neural Network และสุดท้ายก็จะไปการอธิบายการใช้การ Software DEMO  นี้อย่างละเอียด</P>
+<P ALIGN="JUSTIFY">&#9;การทำงานของ Software DEMO นี้จะมีการทำงานคล้ายกับการทำงานของ Software อื่นตามทั่วไปแต่จะไม่มีการตกแต่งความสวยงามมากนักเนื่องจากไม่มีความจำเป็นเพราะต้องการศึกษาเฉพาะในแง่ของการทำงานของนิวรอลเน็ตเวิร์คและความเร็วที่เพิ่มขึ้นสำหรับการเรียนรู้แบบใหม่นี้เท่านั้น  ส่วนในแง่ของความถูกต้องของการทำงานนั้นเนื่องจากการทำวิจัยครั้งนี้ใช้จำนวนของ Hidden unit เพียงชั้นเดียวเท่านั้นจึงมีผลอย่างมากในการแบ่งแยกความแตกต่างของตัวอักษรผลที่ได้จึงอาจจะดีไม่เท่า Software ตามท้องตลาดอื่น  แต่ Software นี้จะมีส่วนดีตรงที่ใครต้องการจะทำการแบ่งแยกอะไรก็ได้ขอเพียงแค่มีตัวอักษรต้นแบบเท่านั้นก็สามารถที่จะสร้าง Neural Network ตามที่ตนต้องการได้ทันที</P>
+<P ALIGN="JUSTIFY"></P>
+<B><P ALIGN="JUSTIFY">1.2</B>  <B>อุปกรณ์ที่ใช้ในการวิจัย</P>
+</B><P ALIGN="JUSTIFY"></P>
+<OL>
+<DIR>
+<DIR>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>เครื่องคอมพิวเตอร์แบบใดก็ได้ของเพียงมี JAVA RUNTIME ENVIRONMENT ติดตั้งอยู่</LI></P>
+<P ALIGN="JUSTIFY"><LI>ตัวอย่างตัวอักษรที่ต้องการแบ่งแยกในที่นี้เนื่องจากเขียนโดยภาษา JAVA ภาพที่ต้องการจึงต้องเป็น Format แบบ  JPG หรือ GIF เท่านั้น</LI></P></OL>
+</DIR>
+</DIR>
+</OL>
+
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<B><P ALIGN="JUSTIFY">1.3  โครงร่างของงานวิจัย</P>
+</B><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;รายละเอียดของงานวิจัยประกอบด้วยบทต่าง ๆ ดังนี</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</P>
+<P ALIGN="JUSTIFY">&#9;&#9;บทที่   1   บทนำจะกล่าวถึงความเป็นมาแบะวัตถุประสงค์ของงานวิจัยนี้</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">บทที่ 2 อาร์ติฟิเชียลนิวรอลเน็ตเวิร์คและการเรียนรู้แบบ Backpropagation จะ         แสดงการทำงานของการเรียนรู้แบบ Backpropagation และประวัติความเป็นมาของอาร์ติฟิเชียลนิวรอลเน็ตเวิร์ค</P>
+<P ALIGN="JUSTIFY">บทที่   3   การเรียนรู้แบบ Backpropagation แบบที่ผสมกับการปรับค่า Hidden unit แบบอัตโนมัติ (Automatic change Hidden unit)  จะแสดงวิธีในการเรียนรู้แบบใหม่ที่สามารถหาค่าของ Hidden unit แบบมี Hidden Layer เพียง Layer เดียว</P>
+<P ALIGN="JUSTIFY">บทที่ 4 แสดงการทำงานในการประมวลผลข้อมูลการเข้า Neural Network ประกอบไปด้วยการทำงาน 3 แบบ คือ การแบ่งแยกตัวอักษรออกเป็นตัว ๆ ออกจากกัน ,การทำลายเส้นในบาง , การเปลี่ยนขนาด</P>
+<P ALIGN="JUSTIFY">บทที่    5   แนะนำวิธีการใช้งานโปรแกรมตัวอย่างเบื้องต้น</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=6><P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+
+<P ALIGN="CENTER">บทที่  2</P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER">อาร์ติฟิเชียลนิวรอลเน็ตเวิร์คและการเรียนรู้แบบ Backpropagation</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&#9;</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>ประวัติความเป็นมาของโครงข่ายหน่วยประสาทหรือ Artificial  neural  networks อาจกล่าวได้ว่า ปี  1943 เป็นปีที่เริ่มต้นของการพัฒนาระบบ Artificial  neural  networks เนื่องจาก MeCulloch และ Pitts ได้เสนอรูปแบบหน่วยประมวลผลทางนิวรอล  แต่การนำแนวความคิดไม่ใช้งานยังไม่เกิดผลเท่าที่ควร  ต่อมาในปี  1949 Donald Hebb ได้เสนอทฤษฎีการเรียนรู้สำหรับ Artificial  neural  networks  ซึ่งนักวิทยาศาสตร์สมัยนั้นเห็นว่าเน็ตเวิร์คของนิวรอลสามารถเรียนรู้ได้</P>
+<P ALIGN="JUSTIFY">&#9;ในปี  1950 ถึง 1960  มีกลุ่มผู้วิจัยทั้งนักชีววิทยาและนักฟิสิกส์ได้ผลิตอุปกรณ์วงจรอิเล็กทรอนิกส์ด้วยความรู้ทางด้าน Artificial  neural  networks  เป็นครั้งแรก  โดยการพัฒนาในครั้งนี้ Marvin Minsky ในปี 1954 และ Frank Rosenblatt ในปี 1958 และ Bernard Windrow and Mareian Hoff ในปี 1960 มีส่วนสำคัญยิ่ง  ซึ่งได้มีส่วนในการพัฒนาในครั้งนี้ในแบบ Network แบบ เลเยอร์เดียวของแบบจำลองนิวรอล ที่เรียกว่า เพอเซ็พตรอน ที่นำมาใช้กับปัญหาต่าง ๆ แต่ต่อมากลับพบว่าโครงสร้าง network ดังกล่าวไม่สามารถแก้ปัญหาผิวเผินบางอย่างได้สำเร็จ  ซึ่งต่อมา Minsky และ Seymore Papert ได้เขียนหนังสือขึ้นเพื่อพิสูจน์ว่า นิวรอลเน็ตเวิร์คแบบชั้นเดียวมีข้อจำกัดที่ไม่สามารถแก้ปัญหาบางประการได้</P>
+<P ALIGN="JUSTIFY">&#9;การพัฒนา Artificial  neural  networks ได้หยุดชะงักเป็นเวลานาน จนกระทั่ง Paul Werbos ในปี  1974 และ Parker ในปี 1986 และ David Rumelhart , James McCelland , Geoffrey Hinton ,Ronald William ในปี 1986 ได้มีผลจากการค้นคว้าเกี่ยวกับเน็ตเวิร์คแบบหลายเลเยอร์ ที่สามารถเรียนรู้ได้ด้วยความสามารถของ Backpropagation โดยเฉพาะ McCelland and Rumelhart ในปี 1986 และคณะผู้วิจัย ได้รวบรวมทฤษฎีและแนวทางการเรียนรู้ใหม่ ๆ ในหนังสือ 2 เล่ม เรื่อง "Parallel Distributed Processing" (PDP) ซึ่งเป็นการเปิดศักราชใหม่ในการคำนวณศักยภาพของเน็ตเวิร์คแบบหลายเลเยอร์ทำให้เกิดผลงานต่าง ๆ ขึ้นมากมาย</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">2.1  Backpropagation neural network</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>
+<P ALIGN="JUSTIFY">Backpropagation neural network หรือ Feedforward Backpropagation Network เป็น Neural network แบบหนึ่งที่ได้รับความนิยมในการใช้มากแบบหนึ่งในจำนวน Neural network ที่มีใช้กันอยู่ในปัจจุบัน ภายในของ Backpropagation neural network ไม่มีการเชื่อมต่อระหว่าง node ต่อ node (Connection link)  แบบ  Feedback เลยแต่ค่า Error ที่ได้จากการคำนวณในกระบวนการ Training จะถูกส่งกลับมาคำนวณ (Backpropagated)  ในระหว่างขั้นตอนการ Training </P>
+<P ALIGN="JUSTIFY">&#9;ในกระบวนการ  Training ของ Backpropagation จะประกอบไปด้วยขั้นตอนที่สำคัญทั้งหมด 3 ขั้นตอน คือ  การทำกระบวนการ  Feedforward  ของ Input  pattern ที่ต้องการ  Train ,  คำนวณค่าของ Error ที่ได้รับจากการ  Train  ,  ปรับปรุงค่าต่าง ๆ ใน Backpropagation  จากค่า Error ที่คำนวณได้จากกระบวนการที่ผ่านมา</P>
+<P ALIGN="JUSTIFY">&#9;โดยทั่ว ๆ ไปแล้ว  เราจะกำหนด  Hidden layer ของ Backpropagation neural network เป็นแบบ Single layer ซึ่งจะง่ายต่อการคำนวณต่าง ๆ และรวดเร็วในการเรียนรู้แต่บางงานการใช้เพียง Layer เดียวของ Hidden layer นั้นอาจจะไม่พอในการใช้งานเราจึงอาจจะต้องมีการเพิ่มจำนวนชั้นของ Hidden layer ในมากยิ่งขึ้น เพื่อประสิทธิภาพในการทำงานของ Backpropagation  neural network  แต่ทั้งนี้และทั้งนั้นก็ต้องขึ้นกับขั้นตอนกระบวนการ การทำงาน และความซับซ้อนของงาน</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;Output Layer</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;Hidden Layer</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;Input Layer</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;<B>ภาพที่   1  แสดงโครงสร้างของ neural network แบบหลายเลเยอร์</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI> โครงสร้างของ  Neural network</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY"></P>
+</B><P ALIGN="JUSTIFY">&#9;ใน  <B>ภาพที่  1</B>    เป็นภาพของ  Neural network แบบหลาย Layer (Multi-layer neural network) ซึ่งประกอบด้วยจำนวน Hidden layer จำนวน 1 ชั้น และจำนวน Bias ในชั้นจำนวน 1 ตัว ในการทำงานปกติ Backpropagation จะทำงานเฉพาะในลักษณะของ Feedforward จากนั้นจะนำค่าที่ได้จาก Output layer ไปใช้ในการทำงานได้ทันทีอาจจะต้องมีการปรับค่าของ Output ที่ได้นิดหน่อย  แต่เมื่อมาถึงในการทำงานในลักษณะของการ Learning นั้น  เมื่อค่าไปที่  Output  แล้วก็จะนำค่ามาคำนวณค่าของ Error  กลับไปใช้ในการปรับปรุงค่าต่าง ๆ ภายใน  Backpropagation neural network อีกต่อหนึ่ง</P>
+<P ALIGN="JUSTIFY"></P>
+<OL START=2>
+
+<OL>
+
+<B><P ALIGN="JUSTIFY"><LI> กระบวนการทำงาน</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</B>ในขั้นตอนการ Train Backpropagation จะประกอบด้วย ขั้นตอน 3 ขั้นตอน คือ  การทำกระบวนการ  Feedforward  ของ Input  pattern ที่ต้องการ  Train ,  คำนวณค่าของ Error ที่ได้รับจากการ  Train  ,  ปรับปรุงค่าต่าง ๆ ใน Backpropagation  จากค่า Error ที่คำนวณได้จากกระบวนการที่ผ่านมา</P>
+<P ALIGN="JUSTIFY">&#9;ในขั้นตอนแรก (Feedforward) ค่าใน Input unit แต่ละตัวจะรับค่า Input pattern จากนั้นจะส่งค่าที่ได้รับมาไปแบบ Broadcast  ไปที่ชั้นของ  Hidden layer  ใน  Hidden  unit  แต่ละตัวจะทำการคำนวณค่า  Activation  และส่งค่าที่ได้ไปยัง  output layer  เช่นเดียวกับใน  output  unit  แต่ละตัวก็จะทำการคำนวณ  Activation  เช่นเดียวกับในชั้นของ  Hidden layer</P>
+<P ALIGN="JUSTIFY">&#9;ในระหว่างกระบวนการ  Training  ภายใน output node แต่ละ node จะทำการเปรียบเทียบค่าของตัวเอง (Activation)  ที่ได้รับจากการ  Feedforward กับค่าที่ต้องการให้เป็น (Target  output)  เพื่อนำมากำหนดค่าของ  Error  สำหรับ Pattern unit นั้น ๆ ที่กำลัง  Training อยู่  เมื่อลงมาดูในการคำนวณ Error ค่าของ Factor   <FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>  (k=1 …. M) จะถูกคำนวณ  ซึ่ง  Factor  ตัวนี้จะนำมาใช้ในการกระจายค่า Error  ของ Output unit กลับไปให้กลับ Unit  ทุกตัวในชั้นที่ผ่านมา  นอกจากนี้ค่า  Factor  นี้ยังมีผลต่อการปรับปรุงเปลี่ยนแปลงค่าของ  Weight  ของการเชื่อมต่อระหว่าง Output layer และ  Hidden layer นอกจาก Factor ข้างต้นแล้วยังมี Factor  <FONT FACE="Symbol">&#100;</FONT>
+<SUB>j</SUB>   ซึ่ง  Factor นี้จะถูกคำนวณใน  Hidden unit   ค่าของ Factor   <FONT FACE="Symbol">&#100;</FONT>
+<SUB>j</SUB>     ตัวนี้ไม่จำเป็นต้องส่งค่า Error กลับไปที่  Input  layer  แต่  Factor<SUB>   <FONT FACE="Symbol">&#100;</FONT>
+j&#9;  </SUB>จะถูกใช้ในการปรับปรุงเปลี่ยนแปลงค่าของ Weight  ของการเชื่อมต่อระหว่าง  Hidden layer กับ  Input layer</P>
+<P ALIGN="JUSTIFY">&#9;หลังจากค่าของ  Factor ทั้งหมดได้ถูกกำหนดแล้ว  Weight  ต่าง ๆ ของทุก ๆ Layer  จะถูกปรับปรุงไปพร้อม ๆ กัน  การปรับปรุง Weight ของชั้นการเชื่อมต่อระหว่าง  Hidden layer กับ Output  layer  จะขึ้นอยู่กับ Factor   <FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>  และค่าของ Activation ของ Hidden unit  ส่วนในการปรับปรุง  Weight  ของชั้นการเชื่อมต่อระหว่าง  Input layer  กับ Hidden  layer  จะขึ้นอยู่กับ Factor   <FONT FACE="Symbol">&#100;</FONT>
+<SUB>j</SUB>  และค่าของ Activation ของInput unit แต่ละตัว</P>
+<P ALIGN="JUSTIFY">&#9;ตัวแปรต่าง ๆ ที่ใช้ในกระบวนการของ Backpropagation neural network</P>
+<P ALIGN="JUSTIFY">&#9;ตัวแปรต่าง ๆ ที่ใช้ใน  Backpropagation neural network ในการ Training จะมีดังต่อไปนี้</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;x   &#9;Input  training vector</P>
+<P ALIGN="JUSTIFY">&#9;&#9;x = (x<SUB>1</SUB>,x<SUB>2</SUB>, … ,x<SUB>n</SUB>)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;t&#9;Output  target vector</P>
+<P ALIGN="JUSTIFY">&#9;&#9;t = (t<SUB>1</SUB>,t<SUB>2</SUB>, … , t<SUB>m</SUB>)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>&#9;ตัวกำหนดความถูกต้องที่ได้จาก Error  ใช้สำหรับปรับปรุงเปลี่ยนแปลงค่าของ Weight ที่ W<SUB>jk</SUB>  ซึ่ง  W<SUB>jk </SUB> เป็นค่าของ Weight ที่เชื่อมระหว่าง Output unit Y<SUB>k</SUB>  กับ Hidden unit Z<SUB>j</SUB> ในชั้นของ Hidden layer</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#100;</FONT>
+j&#9;ตัวกำหนดความถูกต้องที่ได้จาก Error  ใช้สำหรับปรับปรุงเปลี่ยนแปลงค่าของ Weight  ที่ V<SUB>ij</SUB>  ซึ่ง V<SUB>ij</SUB> เป็นค่าของ Weight ที่เชื่อมระหว่าง Hidden unit Z<SUB>j</SUB>  กับ Input unit X<SUB>i</SUB> ในชั้นของInput layer</P>
+<P ALIGN="JUSTIFY"></P>
+
+<UL>
+
+<UL>
+<P ALIGN="JUSTIFY"><LI>Learning rate  (อัตราการเรียนรู้)</LI></P></UL>
+</UL>
+
+<P ALIGN="JUSTIFY"></P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">X<SUB>I&#9;</SUB>Input unit ที่ตำแหน่ง I</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">V<SUB>0j</SUB>&#9;Bias ของ Hidden unit ที่ j</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">Z<SUB>j</SUB>&#9;Hidden unit ที่ตำแหน่ง j ซึ่ง</P>
+<P ALIGN="JUSTIFY">&#9;&#9;z_in<SUB>j</SUB>   =   V<SUB>oj</SUB> +  <FONT FACE="Symbol">&#83;</FONT>
+X<SUB>i</SUB>V<SUB>ij</P>
+</SUB><P ALIGN="JUSTIFY">&#9;ซึ่งค่า  Output sigmoid  (Activation) ของ z_in<SUB>j</SUB> จะเป็น Z<SUB>j</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</SUB>Z<SUB>j     </SUB>= f (z_in<SUB>j</SUB>)</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">W<SUB>ok</SUB>&#9;Bias ของ Output unit ที่ตำแหน่ง k</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">Y<SUB>k</SUB>&#9;Output unit ที่ตำแหน่ง k ซึ่ง</P>
+<P ALIGN="JUSTIFY">&#9;&#9;y_in<SUB>k</SUB>   =   W<SUB>ok</SUB> +  <FONT FACE="Symbol">&#83;</FONT>
+Z<SUB>i</SUB>W<SUB>jk</P>
+</SUB><P ALIGN="JUSTIFY">&#9;ซึ่งค่า  Output sigmoid  (Activation) ของ y_in<SUB>k</SUB> จะเป็น Y<SUB>k</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</SUB>Y<SUB>k     </SUB>= f (y_in<SUB>k</SUB>)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<B><P ALIGN="JUSTIFY"></P></DIR>
+</DIR>
+
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">2.2 Activation function</P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</B>Activation function สำหรับ Backpropagation neural network นั้นจะต้องมีข้อกำหนดในการเป็น Function ที่สำคัญ คือ</P>
+<P ALIGN="JUSTIFY">   &#9;1.  Function  ที่จะเป็น Activation Function จะต้องต่อเนื่อง</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">2.  จะต้องสามารถหาค่าของ Function differential ได้</P>
+<P ALIGN="JUSTIFY">3.  ต้องเป็น Monotonically non-decreasing</P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">ทั้งนี้ที่ต้องกำหนดข้อจำกัดนี้เพื่อต้องการประสิทธิภาพและความสะดวกในการคำนวณ</P>
+<P ALIGN="JUSTIFY">&#9;รูปแบบหนึ่งที่นิยมใช้เป็น  Activation function คือ Binary sigmoid function ซึ่ง binary sigmoid function นี้จะให้ค่าของ Function ออกมาอยู่ในระหว่าง 0 ถึง 1 เท่านั้น</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;f<SUB>1</SUB>(x)   =     1/(1+exp(-x))  &#9;&#9;(Binary  sigmoid  function)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">และค่า  Differential function ของ Binary sigmoid function</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;f <SUB>1</SUB>’ (x)   =   f<SUB>1</SUB>(x)[1-f<SUB>1</SUB>(x)]</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;จาก  Binary sigmoid function ข้างต้น  เรายังมี  Activation  function ที่มีค่าของ Function อยู่ระหว่าง 1  ถึง –1  Function นี้เราจะเรียกว่า Bipolar  sigmoid  function</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;f<SUB>2</SUB>(x)   =   2 / ( 1 + exp.(-x) )   -  1</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">และค่า  Differential function ของ bipolar sigmoid function</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;f<SUB>2</SUB>’(x)   =   0.5 [ 1 + f<SUB>2</SUB>(x) ] [ 1 - f<SUB>2</SUB>(x) ]</P>
+<P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">2.3  ขั้นตอนการทำงานของกระบวนการ Training </P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+</B><P ALIGN="JUSTIFY">&#9;จากหัวข้อที่กล่าวผ่านมาในเรื่องของ Activation function เราจะนำกลับมาใช้ใน Backpropagation algorithm ซึ่งรูปแบบของข้อมูลก็สำคัญมากสำหรับการเลือก Activation function ในส่วนต่อไปนี้จะเป็นส่วนของกระบวนการ Training Algorithm ซึ่งจะมีขั้นตอนดังต่อไปนี้</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;Step 0&#9;กำหนดค่าของ Weight เริ่มต้น </P>
+<P ALIGN="JUSTIFY">&#9;&#9;(อาจจะกำหนดโดยการ Random ค่าของ Weight เป็นจำนวนน้อย ๆ)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;Step 1 ในขณะที่ Stopping condition ยังไม่เป็น false ทำ Step 2 ถึง Step 9</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;&#9;Step 2 สำหรับการ Training ของ Input แต่ละPattern ทำ Step 3 ถึง Step 8</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</P>
+<P ALIGN="JUSTIFY">&#9;&#9;<B>Feedforward</P>
+<P ALIGN="JUSTIFY"></P><DIR>
+<DIR>
+<DIR>
+<DIR>
+
+</B><P ALIGN="JUSTIFY">Step 3 สำหรับ Input unit  (X<SUB>I </SUB>, I=1 …. n)  แต่ละตัวจะได้รับ  Input  signal   </P>
+<P ALIGN="JUSTIFY">X<SUB>I</SUB>   และทำการ Broadcast signal ที่ได้รับไปยังทุก unit ในขั้นที่อยู่สูงกว่า (Hidden layer)</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;Step 4 แต่ละ Hidden unit  (Z<SUB>j</SUB> ,  j =1 … p)  </P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;z_in<SUB>j</SUB>   =   V<SUB>oj</SUB> +  <FONT FACE="Symbol">&#83;</FONT>
+X<SUB>i</SUB>V<SUB>ij</P>
+</SUB><P ALIGN="JUSTIFY">&#9;&#9;&#9;จากนั้นนำค่าที่ได้มาเข้า Activation function จะได้</P>
+<SUB><P ALIGN="JUSTIFY">&#9;&#9;</SUB>Z<SUB>j     </SUB>= f (z_in<SUB>j</SUB>)</P>
+<P ALIGN="JUSTIFY">&#9;&#9;จากนั้นจะส่งค่าไปยังชั้นที่อยู่สูงกว่า (Output layer)</P>
+<P ALIGN="JUSTIFY"></P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">&#9;Step 5 แต่ละ Output unit  (Y<SUB>k</SUB>  ,  k =1 … m)  </P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;y_in<SUB>k</SUB>   =   W<SUB>ok</SUB> +  <FONT FACE="Symbol">&#83;</FONT>
+Z<SUB>j</SUB>W<SUB>jk</P>
+</SUB><P ALIGN="JUSTIFY">&#9;&#9;&#9;จากนั้นนำค่าที่ได้มาเข้า Activation function จะได้</P>
+<SUB><P ALIGN="JUSTIFY">&#9;&#9;</SUB>Y<SUB>k    </SUB>= f (y_in<SUB>k</SUB>)</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<B><P ALIGN="JUSTIFY">Backpropagation of Error</P>
+<P ALIGN="JUSTIFY">&#9;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">&#9;</B>Step 6 แต่ละตัวของ Output unit  (Y<SUB>k </SUB>,  k=1 …  m)  จะนำค่า  Target pattern  มาเปรียบเทียบ  แลัวทำการหาค่า  Error</P></DIR>
+</DIR>
+
+<B><P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#100;</FONT>
+</B><SUB>k</SUB>   =  (t<SUB>k</SUB>  -  Y<SUB>k</SUB>) f’(y_in<SUB>k</SUB>)</P>
+<P ALIGN="JUSTIFY"></P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">คำนวณค่าของความถูกต้องของ Weight  (Weight correction)  เพื่อใช้ในการปรับปรุงค่าของ  W<SUB>jk</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+</SUB><P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#68;</FONT>
+W<SUB>0k</SUB>   = <FONT FACE="Symbol">&#97;</FONT>
+<FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>Z<SUB>j</P>
+</SUB><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">คำนวณค่า  Bias correction สำหรับใช้ในการปรับปรุงค่าของ W<SUB>ok</SUB>  จากนั้นจะส่งค่า  <FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>  ไปยัง  unit ที่อยู่ในชั้น  Layer ที่ต่ำกว่า  (Hidden layer)</P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">&#9;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">&#9;Step 7 แต่ละตัวของ Hidden unit (Z<SUB>j  </SUB>, j=1 … p)  รวมค่าของ  Delta  input  (ค่าที่ถูกส่งมาโดยขั้นที่สูงกว่า)</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#100;</FONT>
+_in<SUB>j</SUB>  =  <FONT FACE="Symbol">&#83;</FONT>
+<FONT FACE="Symbol">&#100;</FONT>
+<SUB>k</SUB>W<SUB>jk</P>
+</SUB><B><P ALIGN="JUSTIFY"></P>
+</B><P ALIGN="JUSTIFY">นำค่าของ  Delta input มาคูณด้วยค่า Differential activation function ของ Z_in<SUB>j</SUB> เพื่อนำค่ามาหาค่าของ Error information term<B>&#9;</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#100;</FONT>
+</B><SUB>j  </SUB> =   <FONT FACE="Symbol">&#100;</FONT>
+_in<SUB>j  </SUB>f ’(z_in<SUB>j</SUB>)</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">คำนวณค่า  Weight correction term ไว้ใช้ในการปรับปรุงค่าของ V<SUB>ij </SUB> ต่อไป</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;<FONT FACE="Symbol">&#68;</FONT>
+V<SUB>ij</SUB>   = <FONT FACE="Symbol">&#97;</FONT>
+<FONT FACE="Symbol">&#100;</FONT>
+<SUB>j</SUB>X<SUB>I</P>
+</SUB><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">จากนั้นคำนวณค่า  Bias correction term สำหรับในการปรับปรุงค่าของ  V<SUB>0j</SUB>  ต่อไป</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><FONT FACE="Symbol">&#68;</FONT>
+V<SUB>0j</SUB>   =  <FONT FACE="Symbol">&#97;</FONT>
+<FONT FACE="Symbol">&#100;</FONT>
+<SUB>j</P>
+</SUB><P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY"></P></DIR>
+</DIR>
+
+<B><P ALIGN="JUSTIFY">Update weight and bias</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;</B>Step 8 แต่ละ Output unit  (Y<SUB>k,</SUB> k= 1….  m) ปรับปรุงค่าของ Bias และ Weight  (j= 0 …  p)</P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;W<SUB> jk (new)</SUB>  = W <SUB>jk (old)</SUB>  + <FONT FACE="Symbol">&#68;</FONT>
+W <SUB>jk</P>
+<P ALIGN="JUSTIFY"></P><DIR>
+<DIR>
+
+</SUB><P ALIGN="JUSTIFY">แต่ละ  Hidden unit  (Z<SUB>j,</SUB> j= 1….  p) ปรับปรุงค่าของ Bias และ Weight  (i= 0 …  n)</P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">&#9;</P>
+<P ALIGN="JUSTIFY">&#9;V<SUB> ij (new)</SUB>  = V <SUB> ij(old)</SUB>  + <FONT FACE="Symbol">&#68;</FONT>
+V <SUB>if</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;</SUB>Step 9 ทดสอบ Stopping condition</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">&#9;&#9;  </P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=6><P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<P ALIGN="CENTER">บทที่  3</P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="CENTER">การเรียนรู้  Backpropagation แบบสามารถปรับ Hidden Unit ได้</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">         ในตามทฤษฎีของการเรียนรู้แบบ Backpropagation  นั้นเป็นการเรียนรู้ที่ได้รับความนิยมมาก  เนื่องจากได้ผลรับที่ดีมากกว่าวิธีอื่น ๆ เพราะนำค่า Error ที่ได้จากการ Train มา  คำนวณจริง ๆ ซึ่งค่าจะเปรียบเทียบกับ  Genetic Algorithm  ซึ่งใช้เพื่อหาค่าของ Weight ที่เหมาะสมแล้วนั้น  ทั้งรวดเร็วและไวกว่ามากมายนัก  ซึ่ง Genetic Algorithm ยังไม่ Guarantee ว่าจะสามารถหาค่าได้จริง ๆ เนื่องจากการทำงานแบบ Random  ส่วนการเรียนรู้แบบ Backpropagation จะ Guarantee ว่าจะหาค่าได้อย่างแน่นอน</P>
+<P ALIGN="JUSTIFY">  &#9;ในการหาค่าที่เหมาะสมสำหรับ  Weight ในการ Train ของ Data ชุดหนึ่ง ๆ องค์ประกอบที่มีความสำคัญมากองค์ประกอบหนึ่งก็เห็นจะเป็นจำนวนของ Hidden Unit เนื่องจากการกำหนดจำนวน Hidden Unit ที่เหมาะสมสามารถจะลดเวลาในการ Train ได้อย่างมากมายนัก ซึ่งแต่ละวิธีของการคำนวณ Hidden Unit ไม่ได้ระบุว่า Data ชนิดนี้จะต้องมี Hidden Unit เท่านี้ แต่จะคำนวณในลักษณะที่ว่าจำนวน Input เท่านี้ต้องการ Output เท่านั้น จะควรมี Hidden Unit เท่าใด (ซึ่งในกรณีนี้เราจะคิดเฉพาะในกรณีที่มี Layer ทั้งหมด 3 Layer คือ Input Layer, Hidden Layer, Output Layer โดยจะมีจำนวน Hidden Layer เพียง 1 Layer เท่านั้น</P>
+<P ALIGN="JUSTIFY">&#9;ฉะนั้นในการพัฒนาความสามารถในการ Train เพื่อหาค่าของ Hidden Unit ที่เหมาะสม จึงเป็นความสำคัญอย่างยิ่งเพื่อจะลดเวลาในการ Train Data Pattern ที่ต้องการ </P>
+<P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">3.1 Algorithm     </P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&#9;ในระหว่างการ Train N รอบ เราจะดูว่าอัตราการลดลงของ Error นั้นเป็นอย่างไร ถ้าอยู่ในระหว่างที่เราพอใจเราก็จะ Train ต่ออีก N รอบ แต่ตัวต่ำกว่าที่ต้องการก็จะมีกระบวนการ Add Node เข้าไป</P>
+<P ALIGN="JUSTIFY">&#9;ในที่นี่เราจะกำหนดให้ Train ทุก ๆ 100 รอบจะดูว่า อัตราการลดลงของค่า Error ลดลงถึง 1% หรือเปล่า ถ้าไม่ก็จะมีการ Add Hidden Unit 1 Unit ลงใน Hidden Layer</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><HR ALIGN="RIGHT" WIDTH="60%" SIZE=1><HR ALIGN="LEFT" WIDTH="22%" SIZE=1></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><HR ALIGN="LEFT" WIDTH="20%" SIZE=1><HR ALIGN="RIGHT" WIDTH="13%" SIZE=1></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><HR ALIGN="RIGHT" WIDTH="8%" SIZE=1></P>
+<P ALIGN="JUSTIFY"><HR WIDTH="12%" SIZE=1></P>
+<P ALIGN="JUSTIFY"><HR WIDTH="57%" SIZE=1></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<B><P ALIGN="CENTER">ภาพแสดงการทำงานของการ Train Backpropagation แบบ เพิ่ม Hidden Unit</P>
+<P ALIGN="JUSTIFY"></P>
+</B><P ALIGN="JUSTIFY"> Step 1 Start</P>
+<P ALIGN="JUSTIFY"> Step 2 N=0 Feed for Ward () Error 1= Average Error While (Not Stop)</P>
+<P ALIGN="JUSTIFY"> Step 3 Train Data Pattern </P>
+<P ALIGN="JUSTIFY">            Check stopping if</P>
+<P ALIGN="JUSTIFY">            Accept Error &gt; Average Error</P>
+<P ALIGN="JUSTIFY"> &#9;      Then Stop</P>
+<P ALIGN="JUSTIFY">            N=N+1</P>
+<P ALIGN="JUSTIFY">            It N=100 Then Error 2=Average Error</P>
+<P ALIGN="JUSTIFY">                      If Error 1-Error2&lt; 0.01*Error1</P>
+<P ALIGN="JUSTIFY">            Then Add Node ()</P>
+<P ALIGN="JUSTIFY">                       N=0</P>
+<P ALIGN="JUSTIFY"> </FONT><FONT FACE="AngsanaUPC" SIZE=5>       </P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">&#9;จากขั้นตอนทั้งหมดข้างต้นจะเห็นได้ว่าการทำงานของ Algorithm จะมีการ Train Data เป็นรอบ ๆ ซึ่งจะใช้ Data ที่ต้องการ Train จริง ๆ ซึ่งแต่ละรอบของการ Train จะตรวจดูว่าอัตราการลดลง Error ลดลงในอัตราที่น่าพอใจหรือไม่ ถ้าไม่ก็จะมีการ Add Node เข้าไปเพิ่มเพื่อจะต้องการเพิ่มอัตราการลดลงของ Error เมื่อได้ค่าที่เหมาะสมกับความต้องการแล้วก็จะหยุดการทำงานเหมือน Backpropagation ทุกอย่างยกเว้นเพียงแต่เพิ่มกระบวนการ Check จำนวนรับกับการวัดอัตราการลดลงของ Error และกระบวนการ Add Hidden Unit เท่านั้น</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">-  การเริ่มต้นและการเพิ่มของ Hidden Unit<B>  </P></DIR>
+</DIR>
+
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="AngsanaUPC" SIZE=5>ในตอนเริ่มต้นของการทำงานเราจะระบุให้จำนวน Hidden Unit มีค่าเท่ากับ 1 ซึ่งเป็นตัวที่น้อยที่สุด จากนั้นเมื่อต้องการจะเพิ่ม Hidden Unit ในแต่ละรอบจะเพิ่มเพียง 1 ตัวเท่านั้น ซึ่ง Weight ของการเชื่อมต่อระหว่าง Hidden Unit ตัวนี้กับ Input Layer และ Output Layer จะกำหนดให้มี Weight การเชื่อมต่อเป็น 0 ที่กำหนดเช่นนี้เพื่อที่จะไม่ให้มีผลกระทบกับค่าของ Average Error ที่ </P>
+<P ALIGN="JUSTIFY">ได้ Train ผ่าน ๆ มา ซึ่งค่าของ &#9;Average Error ก็จะลดลงเรื่อย ๆ</P>
+
+<UL>
+
+<UL>
+<P ALIGN="JUSTIFY"><LI>การ Add Node ก็เชื่อมต่อของ Node กับ Input Layer และ Output Layer จะมีค่าของ Weight = 0</LI></P></UL>
+</UL>
+
+<P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">3.2  ขั้นตอนการทดลอง</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY"></P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="AngsanaUPC" SIZE=5>เราจะนำตัวอักษร A-F มาทดลองโดยการใช้ Backpropagation แบบนี้กับ Algorithm ของการเปลี่ยนแปลงค่า Hidden Unit เพื่อเปรียบเทียบกับการ Train แบบธรรมดาโดยใช้เพียง Backpropagation ธรรมดาเท่านั้น</P>
+<P ALIGN="CENTER"><IMG SRC="Image1.gif" WIDTH=294 HEIGHT=209></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพที่  3.2.1  แสดงตัวอักษร A-F ชุดที่ 1</P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="JUSTIFY"><IMG SRC="Image2.gif" WIDTH=199 HEIGHT=158></P>
+<P ALIGN="CENTER">รูปภาพที่  3.2.2  แสดงตัวอักษร  A-F ชุดที่ 2</P>
+<P ALIGN="JUSTIFY"><IMG SRC="Image3.gif" WIDTH=171 HEIGHT=145></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="CENTER">รูปภาพที่  3.2.3  แสดงตัวอักษร A-F  ชุดที่ 3</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</P>
+<P ALIGN="JUSTIFY">&#9;เราจะทำการ  Train  โดยใช้  ภาพตัวอักษร A-F ทั้ง  3  ชุดซึ่งแต่ละในการ Train เราจะใช้จะNeural  Network ที่มีจำนวน  Hidden unit แตกต่างกัน (1,2,3,4,5)  แล้วนับจำนวนรอบของการ Train  ดังใน</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><HR WIDTH="55%" SIZE=1></P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&#9;แต่ถ้าเรานำมาเพิ่มกระบวนการ  Train แบบสามารถปรับเปลี่ยนจำนวน Hidden unit ได้เราจะได้ผลตามตารางข้างล่าง</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY"><HR WIDTH="62%" SIZE=1></P>
+<P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</P>
+<P ALIGN="JUSTIFY"></P>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&#9;จากผลการทดลองจะเห็นได้ว่า  ผลของ  Train  แบบปรับเปลี่ยนจำนวน Hidden unit ได้นั้นจะรวดเร็วกว่าการ Train แบบธรรมดาบางกรณี ซึ่งจำนวนรอบทั้งหมดของการ Train แบบปรับเปลี่ยนจำนวน Hidden unit ได้นั้นจะมีรอบการ Train ทั้งหมด 15 รอบ ซึ่งจะน้อยกว่าการ Train แบบธรรมดาแบบที่มีจำนวน Hidden unit 1 2 และ 4 ตัว แต่จะมากกว่าในกรณี 3 และ 5 ตัว  ซึ่งถ้าเราสามารถเลือกถูกว่าจำนวน Hidden unit  เป็นเท่าไรก็จะดีแต่ว่าเราไม่สามารถเลือกจำนวนที่ถูกต้องได้  อีกประเด็นหนึ่งที่สำคัญในการ  Train แบบ  ปรับค่า Hidden unit ได้นี้จะได้ค่าของ  Hidden unit ที่เหมาะสมและมีค่าที่น้อยที่สุด</P>
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=6><P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">บทที่  4</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER">การจัดการข้อมูลก่อนป้อนเข้านิวรอลเน็ตเวิร์ค</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P>&#9;การทำ  Pre-Processing หรือ การจัดการข้อมูลก่อนป้อนเข้านิวรอลเน็ตเวิร์คเป็นการจัดรูปแบบของข้อมูลทั้งหมดให้อยู่ในรูปแบบ (Format) เดียวกัน  เพื่อให้สามารถวิเคราะห์และทำงานในการแบ่งแยกตัวอักษรให้มีความละเอียดถูกต้องและเพื่อเป็นการสะดวกในการแบ่งแยกความแตกต่างของตัวอักษรอีกด้วย</P>
+<P>&#9;กระบวนการทำกับข้อมูลก่อนทำการประมวลผล (Pre - Processing ) ประกอบด้วยขั้นตอนต่าง ๆ กันตามงานวิจัยนี้จะแบ่งออกเป็น 3 ขั้นตอน</P>
+<OL>
+
+<OL>
+
+<LI>Segmentation เป็นการแบ่งแยกตัวอักษรออกจากกันเพื่อสะดวกในการทำงานโดยจะทำงานการแยกตัวอักษรที่ละตั</LI>
+<LI>การทำให้เส้นบาง  เนื่องจากตัวอักษรมีความหนาและบางไม่เท่ากันฉะนั้นเราจึงต้องทำให้มีขนาดความหนาเท่ากัน</LI>
+<LI>การเปลี่ยนขนาด เนื่องจากตัวอักษรมีขนาดไม่เท่ากัน</LI></OL>
+</OL>
+<DIR>
+<DIR>
+
+<P>สาเหตุที่ต้องมีการทำ pre-processing</P></DIR>
+</DIR>
+
+
+<UL TYPE="SQUARE"><DIR>
+<DIR>
+
+
+<UL TYPE="SQUARE">
+<LI>ขนาดตัวอักษรมีขนาดไม่เท่ากัน</LI>
+<LI>ขนาดความหนาของตัวอักษรเดียวกันบางครั้งไม่เท่ากัน</LI>
+<LI>ข้อมูลที่จะนำมาใช้ไม่มีการแบ่งแยกออกมาเป็นตัว ๆ อย่างชัดเจน</LI>
+<LI>ต้องการการทำงานโดยมีประสิทธิภาพในการประมวลรวดเร็ว</LI></UL>
+</DIR>
+</DIR>
+</UL>
+
+<P>&#9;จากสาเหตุดังกล่าวจึงจำเป็นต้องมีการทำ Pre-processing</P>
+
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P>4.1  Segmentation</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>
+<P>&#9;เป็นขั้นตอนการแบ่งแยกตัวอักษรออกเป็นตัว ๆ ออกจากชุดตัวอักษรอื่น ๆ ที่อยู่ในรูปภาพเดียวกันเพื่อจะนำตัวอักษรนั้นออกมาทำกระบวนการอื่น ๆ ต่อไป</P>
+<P>&#9;กระบวนการทำงานของการแบ่งแยกตัวอักษร</P>
+<OL>
+
+<OL>
+
+<LI>จะเริ่มจากหาเส้นขอบด้านบนของตัวอักษร</LI>
+<LI>จากเส้นขอบบนของตัวอักษรจะหาเส้นขอบด้านล่าง</LI>
+<LI>ระหว่างเส้นขอบด้านบนและด้านล่างหาเส้นขอบที่ชิดริมด้านซ้ายของตัวอักษร</LI>
+<LI>ระหว่างเส้นขอบด้านบนและด้านล่างโดยเริ่มต้นจากเส้นชิดขอบด้านซ้ายหาเส้นขอบด้านขวาของตัวอักษร</LI>
+<LI>ทำข้อ 1) และ 2 ) ใหม่อีกรอบ</LI></OL>
+</OL>
+
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><DIR>
+<DIR>
+
+<P><IMG SRC="Image4.gif" WIDTH=199 HEIGHT=158></P></DIR>
+</DIR>
+
+<P ALIGN="CENTER"><IMG SRC="Image5.gif" WIDTH=199 HEIGHT=158>รูปภาพที่  4.1.1   แสดงการหาเส้นขอบด้านบนของตัวอักษรโดยเริ่มจากเส้นกรอบด้านบนของภาพ</P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">รูปภาพที่  4.1.2   แสดงการหาเส้นขอบด้านล่างของตัวอักษรโดยเริ่มจากเส้นขอบด้านบนของตัวอักษร</P>
+<P><IMG SRC="Image6.gif" WIDTH=199 HEIGHT=158></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพที่  4.1.3   แสดงการหาเส้นขอบด้านซ้ายของตัวอักษรโดยเริ่มจากเส้นกรอบด้านซ้ายของภาพ</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER"><IMG SRC="Image7.gif" WIDTH=199 HEIGHT=158></P>
+<P ALIGN="CENTER">รูปภาพที่  4.1.4   แสดงการหาเส้นขอบด้านขวาของตัวอักษรโดยเริ่มจากเส้นขอบด้านซ้ายของตัวอักษร</P>
+<P ALIGN="CENTER"><IMG SRC="Image8.gif" WIDTH=59 HEIGHT=61></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพที่ 4.1.5  แสดงภาพของตัวอักษรที่ถูกเลือกแต่ยังไม่ได้รับการตัดเฉพาะตัวอักษร</P>
+<P ALIGN="CENTER"><IMG SRC="Image9.gif" WIDTH=199 HEIGHT=158><IMG SRC="Image10.gif" WIDTH=57 HEIGHT=56></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพที่ 4.1.6 แสดงภาพของตัวอักษรและภาพดังเดิมหลังจากทำงานเสร็จสำหรับตัวอักษรหนึ่ง ๆ แล้ว</P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>4.2  การทำลายเส้นให้บาง</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>
+<P ALIGN="JUSTIFY">การทำลายเส้นให้บางเป็นขั้นตอนพื้นฐานเริ่มแรกที่ใช้ในการวิเคราะห์รูปแบบ  ภาพที่ได้หลังจากทำลายเส้นให้บางกับภาพขาวดำจะถูกเรียกว่า  สเกลเลตัน   ประโยชน์อย่างหนึ่งที่ได้จากการทำลายเส้นให้บางคือ  การลดทอนพื้นที่หน่วยความจำที่จะใช้ในการเก็บค่าข้อมูลโครงสร้างของรูปแบบที่จะแสดงและทำให้โครงสร้างข้อมูลที่จะใช้ในการวิเคราะห์รูปแบบนั้นดูง่ายขึ้น</P>
+<P ALIGN="JUSTIFY">สเกลเลตันที่ได้จะยังคงรักษาค่า โทโปโลยี ของวัตถุไว้และแสดงข้อมูลรูปทรงของรูปแบบไว้  สเกลเลตันที่ได้จะต้องมีความกว้างของจุดภาพเพียง  หนึ่งจุดภาพและเป็นเส้นแกนกลางของวัตถุในภาพ  วิธีที่แตกต่างกันจะให้สเกลเลตันที่แตกต่างกัน  ซึ่งตามปกติขั้นตอนการทำวิธีลายเส้นให้บางจะแบ่งออกเป็น  2  แบบ คือ แบบลำดับ (Sequential)  และแบบขนาน  (Parallel)  ซึ่งมักเชื่อกันว่าขั้นตอนวิธีแบบตามลำดับจะทำงานได้เร็วกว่าขั้นตอนวิธีแบบขนาน  เมื่อขั้นตอนวิธีทั้ง   2  แบบถูกใช้งานในเครื่องคอมพิวเตอร์แบบ  อนุกรม(Serial  Computer)  และขั้นตอนวิธีแบบขนานจะทำงานได้อย่างมีประสิทธิภาพสูงสุดเมื่อถูกใช้งานบนเครื่องคอมพิวเตอร์แบบขนาน (Parallel  Computer)  หรือเครื่องคอมพิวเตอร์แบบ  Pipeline Computer</P>
+<P ALIGN="JUSTIFY">สเกลเลตันดิจิตอล (Digital  Skeleton) จะเกิดขึ้นภายหลังใช้ขั้นตอนวิธีการทำลายเส้นให้บางซึ่งมักจะใช้แสดงวัตถุในภาพขาวดำดิจิตอล  (Binary  Digital  Image)  ของการวิเคราะห์รูปทรงและการจำแนกประเภท (Classification)  มีขั้นตอนการทำลายเส้นให้บางเป็นจำนวนมากที่ได้ถูกสร้างขั้นโดยทั่วไป ซึ่งในการทำลายเส้นให้บางในงานวิจัยนี้ได้ทำการศึกษาละเอียดของขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีที่แตกต่างจำนวน  2  ขั้นตอนซึ่งมีขั้นตอนวิธีที่  1  เป็นขั้นตอนวิธีของ Zhang and Suen , ขั้นตอนวิธีที่ 2 เป็นขั้นตอนวิธีของ  A.DATTA and  S.K. PARUI  &#9;</P>
+<P ALIGN="JUSTIFY">&#9;</P>
+<OL>
+
+<OL>
+
+<B><P ALIGN="JUSTIFY"><LI> ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ  Zhang  and  Suen</B>&#9;</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY"></P>
+<P ALIGN="JUSTIFY">ในขั้นตอนวิธีทำลายเส้นให้บางตามวิธีของ  Zhang and Suen ที่นำมาแสดงนี้กระทำกับภาพขาวดำโดยให้  1  แสดงแทนจุดภาพของวัตถุในภาพ  และ  0   แสดงแทนจุดภาพของพื้นฉากในภาพ  ขั้นวิธีการทำลายเส้นให้บางวิธีนี้ประกอบด้วย   2  ขั้นตอนที่กระทำกับจุด  Contour   ของเนื้อวัตถุในภาพ  โดยจุด Contour  เป็นจุดที่มีค่าเป็น  1   และมีจุดรอบข้างของ  x<SUB>0</SUB>  อย่างน้อย  1  จุดที่มีค่าเป็น  0 </P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">ขั้นตอนที่  1  จุด Contour ของ x<SUB>0  </SUB>จะลบมีเงื่อนไขดังนี้</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI> 2  น้อยกว่าหรือเท่ากับ N(x<SUB>0</SUB>)  น้อยกว่าหรือเท่ากับ  6</LI></P>
+<P ALIGN="JUSTIFY"><LI> S(x<SUB>0</SUB>)  เท่ากับ  1  </LI></P>
+<P ALIGN="JUSTIFY"><LI> x<SUB>1</SUB>* x<SUB>3 </SUB>* x<SUB>7 </SUB>= 0</LI></P>
+<P ALIGN="JUSTIFY"><LI> x<SUB>1</SUB>* x<SUB>5 </SUB>* x<SUB>7 </SUB>= 0</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY">&nbsp;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">โดยที่  N(x<SUB>0</SUB>)  เป็นจำนวนจุดรอบข้างของ  x<SUB>0</SUB> ที่ไม่เป็น  0  นั้นคือ</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">N(x<SUB>0</SUB>)  =<SUB> </SUB>x<SUB>1</SUB>+ x<SUB>2 </SUB>+ x<SUB>3 </SUB>+ x<SUB>4</SUB>+ x<SUB>5 </SUB>+ x<SUB>6 </SUB>+ x<SUB>7</SUB>+ x<SUB>8</P></DIR>
+</DIR>
+
+</SUB><P ALIGN="JUSTIFY">&#9;</P><DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">และ S(x<SUB>0</SUB>)  เป็นจำนวนจุดที่มีการเปลี่ยนแปลงจาก  0 เป็น  1  ตามลำดับของ x<SUB>1</SUB>, x<SUB>2 </SUB>, x<SUB>3 </SUB>, x<SUB>4</SUB>, x<SUB>5 </SUB> ,x<SUB>6 </SUB>, x<SUB>7</SUB>, x<SUB>8  </SUB>ดังตัวอย่าง  N(x<SUB>0</SUB>)  =   4  และ  S(x<SUB>0</SUB>)  =  3  ดังข้างล่าง</P>
+<P ALIGN="JUSTIFY">&#9;   0    0    1</P>
+<P ALIGN="JUSTIFY">    &#9;   1    x<SUB>0</SUB>   0&#9;&#9;แสดงเงื่อนไข (1)  และ  (2)  ในกรณีนี้ </P>
+<P ALIGN="JUSTIFY">&#9;   1    0    1&#9;&#9;N(x<SUB>0</SUB>)  =   4  และ  S(x<SUB>0</SUB>)  =  3</P>
+<P ALIGN="JUSTIFY">&#9;</P></DIR>
+</DIR>
+
+<P ALIGN="JUSTIFY">โดยเงื่อนไขของ (3)  เป็นการตรวจสอบผลคูณของ x<SUB>1</SUB>* x<SUB>3 </SUB>* x<SUB>7 </SUB>= 0  และ  เงื่อนไขของ เป็น (4)  การตรวจสอบผลคูณของ x<SUB>1</SUB>* x<SUB>5 </SUB>* x<SUB>7 </SUB>= 0  ซึ่งเงื่อนไขของ  (3)  และ  (4) จะเป็นจริง  เมื่อมีค่าใดค่าหนึ่งตามนี้คือ  x<SUB>1 </SUB>=  0  หรือ  x<SUB>7</SUB> = 0 หรือ (x<SUB>3 </SUB> = 0  และ  x<SUB>5</SUB> =  0)</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">ขั้นตอนที่   2  เงื่อนไข (1)  และ  (2)  ยังคงเหมือนเดิมแต่เงื่อนไข (3)  และ  (4) ถูกเปลี่ยนเป็น</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>2  น้อยกว่าหรือเท่ากับ N(x<SUB>0</SUB>)  น้อยกว่าหรือเท่ากับ  6</LI></P>
+<P ALIGN="JUSTIFY"><LI> S(x<SUB>0</SUB>)  เท่ากับ  1  </LI></P>
+<P ALIGN="JUSTIFY"><LI> x<SUB>1</SUB>* x<SUB>3 </SUB>* x<SUB>5 </SUB>= 0</LI></P>
+<P ALIGN="JUSTIFY"><LI> x<SUB>3</SUB>* x<SUB>5 </SUB>* x<SUB>7 </SUB>= 0</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">เงื่อนไข  (1) และ (2)  จะมีวิธีในการหาค่าเหมือนกับ  เงื่อนไข (1)  และ  (2)  ที่อยู่ในขั้นตอนที่  1  โดยเงื่อนไขขั้นตอนที่  2 (3)  เป็นการตรวจสอบผลคูณของ x<SUB>1</SUB>* x<SUB>3 </SUB>* x<SUB>5 </SUB>= 0  และเงื่อนไขขั้นตอนที่  2 (4)  เป็นการตรวจสอบผลคูณของ x<SUB>3</SUB>* x<SUB>5 </SUB>* x<SUB>7 </SUB>= 0  ซึ่งเงื่อนไขของขั้นตอนที่  2  (3) (4)  จะเป็นจริง เมื่อมีค่าใดค่าหนึ่งตามนี้คือ  x<SUB>3 </SUB>=  0  หรือ  x<SUB>5</SUB> =  0 หรือ  (x<SUB>1</SUB> = 0  และ  x<SUB>7</SUB> = 0)</P>
+<P ALIGN="JUSTIFY">โดยจะมีขั้นตอนการทำงานอย่างคร่าว ๆ  คือ </P>
+<P ALIGN="JUSTIFY">ในขั้นตอนที่  1  จะประมวลผลกับจุดขอบภาพ(Border  Point) ของเนื้อวัตถุในภาพขาวดำภายใต้การพิจารณา  ถ้าไม่ตรงกับเงื่อนไขอันใดอันหนึ่งของ  (1)  ถึง  (4)  จุดภาพที่พิจารณาอยู่  จะไม่ถูกลบแต่ถ้าถูกต้องตามเงื่อนไข (1)-(4) จุดภาพที่พิจารณานั้นจะถูกลบ  แต่จุดภาพที่ถูกพิจารณาทั้งหมดจะไม่ถูกลบจนกระทั่งจุดขอบภาพของทั้งภาพถูกประมวลผล  โดยจะทำเครื่องหมาย (flag)  ของจุดที่จะไม่ถูกลบไว้ก่อน  ซึ่งจะป้องกันการเปลี่ยนแปลงโครงสร้างของข้อมูลระหว่างการดำเนินการของขั้นตอนวิธีการทำลายเส้นในบางตามวิธีของ  Zhang  and  Suen  ภายหลังจากขั้นตอนที่   1  ได้ถูกประมวลผลกับทุกจุดขอบภาพแล้ว   จุดที่ถูกทำเครื่องหมายไว้  จะถูกลบ(กล่าวคือ เปลี่ยนค่าเป็น  0)  จากนั้นขั้นตอนที่  /  จะประมวลผลกับภาพที่ได้จากการประมวลผลในขั้นตอนที่  1  แล้วด้วยวิธีการที่เหมือนกับขั้นตอนที่  1</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">โดยพื้นฐานของขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ Zhang  and  Suen นี้  สังเกตได้ว่า ประกอบด้วยขั้นตอนอย่างคร่าว ๆ  ดังนี้</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>ทำตามขั้นตอนที่  1</LI></P>
+<P ALIGN="JUSTIFY"><LI>ลบจุดภาพ</LI></P>
+<P ALIGN="JUSTIFY"><LI>ทำตามขั้นตอนที่   2  กับจุดขอบภาพที่ยังคงเหลือ</LI></P>
+<P ALIGN="JUSTIFY"><LI>ลบจุดขอบภาพ</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY">ซึ่งขั้นตอนทั้ง  4  ข้อนี้จะถูกกระทำซ้ำไปเรื่อย ๆ  จนกระทั่งไม่มีจุดภาพใด ๆ จะถูกลบอีก ซึ่งจะเป็นช่วงเวลาสิ้นสุดการทำงานของขั้นตอนการทำลายเส้นให้บางตามวิธีของ  Zhang and  Suen ที่เราจะได้สเกลเลตันของเนื้อวัตถุในภาพ </P>
+<B><P ALIGN="JUSTIFY">4.2.2  ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ  A.DATTA  and S.K.PARUI</P>
+</B><P ALIGN="JUSTIFY">ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ A.DATTA and S.K.PARUI จะทำการลบจุดภาพชั้นนอกในรอบต่าง ๆ และผลลัพธ์ที่ได้ในแต่ละรอบจะถูกนำไปใช้กับรอบถัดไปตามลำดับ  ซึ่งจุดของภาพจะไม่ถูกลบ  ถ้ามีเงื่อนไขตามนี้ คือ</P>
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>ถ้าการถูกลบ  จะไปเปลี่ยนแปลงค่าความเชื่อมต่อ (Connectivity)</LI></P>
+<P ALIGN="JUSTIFY"><LI>ถ้าการถูกลบ  จะไปทำให้ขาของสเกลเลตันสั้นขึ้น</LI></P></OL>
+<DIR>
+<DIR>
+
+<P ALIGN="JUSTIFY">และจะไม่ทำการลบจุดภาพ  ที่มีเงื่อนไขตามนี้ คือ</P></DIR>
+</DIR>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>เป็นส่วนที่เรียกว่า   จุดภาพวิกฤต</LI></P>
+<P ALIGN="JUSTIFY"><LI>เป็นส่วนที่เรียกว่า   จุดปลาย</LI></P></OL>
+
+<P ALIGN="JUSTIFY">ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ  A.DATTA  and  S.K.PARUI นี้ จะใช้แม่แบบขนาดเมตริกซ์  1 x  3 จำนวน  2 อัน  แม่แบบขนาดเมตริกซ์  3 x 1 จำนวน  2  อัน  และการใช้วินโดว์ขนาดเมตริกซ์  3 x 3 จำนวน 1 อัน </P>
+<B><P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">&nbsp;</P>
+<P ALIGN="JUSTIFY">ตามภาพแสดงแม่แบบ (1) ถึง (4) ที่ใช้ในการทำลายเส้นให้บาง ทั้ง   4  แบบและวินโดว์ (5) ขนาดเมตริกซ์  3 x  3</P>
+</B><P ALIGN="JUSTIFY">พิจารณาวินโดว์  3 x 3 ซึ่งอยู่อบจุดภาพ x<SUB>0 </SUB>จะเรียกแทนด้วย  W  โดยให้ S เป็นเซตของ 8 จุดภาพในวินโดว์ ยกเว้นจุด x<SUB>0</SUB> นั่นคือ</P>
+<P ALIGN="JUSTIFY">ถ้าเราสนใจภายในวินโดว์ W เท่านั้น  เราสามารถหาจุดวิกฤติได้จากทฤษฎีที่  1  และจุดปลายได้จากทฤษฎีที่  2</P>
+<P ALIGN="JUSTIFY">ทฤษฎีที่  1  ถ้า x<SUB>0</SUB> ตรงกับแม่แบบอันใดอันหนึ่งของทั้ง  4  แบบจาก ตรงกับแม่แบบอันใดอันหนึ่งของทั้ง  4  แบบดังในรูปแสดงแม่แบบ (1) ถึง (4) แล้วจุดวิกฤติจะมีค่าตามนี้</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>x<SUB>0</SUB> เป็นจุดวิกฤติ  ถ้า (x<SUB>3</SUB> = 0 และ x<SUB>2</SUB> = 1)  หรือ (x<SUB>7 </SUB>= 0  และ x<SUB>8</SUB> = 1)</LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0</SUB> เป็นจุดวิกฤติ  ถ้า (x<SUB>5</SUB> = 0 และ x<SUB>4</SUB> = 1)  หรือ (x<SUB>1 </SUB>= 0  และ x<SUB>2</SUB> = 1)</LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0</SUB> เป็นจุดวิกฤติ  ถ้า (x<SUB>3</SUB> = 0 และ x<SUB>4</SUB> = 1)  หรือ (x<SUB>7 </SUB>= 0  และ x<SUB>6</SUB> = 1)</LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0</SUB> เป็นจุดวิกฤติ  ถ้า (x<SUB>5</SUB> = 0 และ x<SUB>6</SUB> = 1)  หรือ (x<SUB>1 </SUB>= 0  และ x<SUB>8</SUB> = 1)</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY">ทฤษฎีที่  2  ถ้า  x<SUB>0</SUB> ตรงกับแม่แบบอันใดอันหนึ่งของทั้ง  4  แบบ  แล้วจุดปลายจะมีค่าตามนี้</P>
+<OL>
+
+<OL>
+
+<P ALIGN="JUSTIFY"><LI>x<SUB>0 </SUB>เป็นจุดปลาย  ถ้า  x<SUB>2 </SUB>, x<SUB>3 </SUB>, x<SUB>4 </SUB>, x<SUB>6 </SUB>, x<SUB>7 </SUB>, x<SUB>8 </SUB> เป็น  0 (มีค่าเท่ากับ x<SUB>2</SUB>+x<SUB>3</SUB>+ x<SUB>4</SUB>+ x<SUB>6</SUB>+ x<SUB>7</SUB>+x<SUB>8</SUB>=0) </LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0 </SUB>เป็นจุดปลาย  ถ้า  x<SUB>1 </SUB>, x<SUB>2 </SUB>, x<SUB>4 </SUB>, x<SUB>5 </SUB>, x<SUB>6 </SUB>, x<SUB>8 </SUB> เป็น  0 (มีค่าเท่ากับ x<SUB>1</SUB>+x<SUB>2</SUB>+ x<SUB>4</SUB>+ x<SUB>5</SUB>+ x<SUB>6</SUB>+x<SUB>8</SUB>=0)</LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0 </SUB>เป็นจุดปลาย  ถ้า  x<SUB>2 </SUB>, x<SUB>3 </SUB>, x<SUB>4 </SUB>, x<SUB>6 </SUB>, x<SUB>7 </SUB>, x<SUB>8 </SUB> เป็น  0 (มีค่าเท่ากับ x<SUB>2</SUB>+x<SUB>3</SUB>+ x<SUB>4</SUB>+ x<SUB>6</SUB>+ x<SUB>7</SUB>+x<SUB>8</SUB>=0)</LI></P>
+<P ALIGN="JUSTIFY"><LI>x<SUB>0 </SUB>เป็นจุดปลาย  ถ้า  x<SUB>1 </SUB>, x<SUB>2 </SUB>, x<SUB>4 </SUB>, x<SUB>5 </SUB>, x<SUB>6 </SUB>, x<SUB>8 </SUB> เป็น  0 (มีค่าเท่ากับ x<SUB>1</SUB>+x<SUB>2</SUB>+ x<SUB>4</SUB>+ x<SUB>5</SUB>+ x<SUB>6</SUB>+x<SUB>8</SUB>=0)</LI></P></OL>
+</OL>
+
+<P ALIGN="JUSTIFY">ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ  A.DATTA and  S.K.PARUI  ตามธรรมชาติจะมีการกระทำซ้ำ (Iteration)  โดยจะดำเนินการกำจัดจุดขอบภาพในแต่ละรอบการกระทำซ้ำทั้ง  4 รอบย่อย  ในแต่ละรอบย่อยจะกำจัดจุดภาพที่ตรงกับแต่ละแม่แบบ  กล่าวคือ  แม่แบบ  1 ถึง  4  จะถูกใช้ในการกำจัดจุดขอบภาพ  วินโดว์ขนาดเมตริกซ์  3 x 3 จะใช้ในการตรวจสอบการลบจุดภาพนั้นเพื่อให้ยังรักษาความเชื่อมต่อและขาสเกลเลตันจะไม่หดสั้น  ภายหลังสิ้นสุดการกระทำซ้ำ (จะขึ้นอยู่กับความหนาของรูปแบบวัตถุที่รับเข้าไป)  รูปแบบวัตถุที่รับเข้าไปจะเข้าสู่สเกลเลตันที่มีความหนาอยู่เพียง  1  จุดภาพและยังคงรักษาความเชื่อมต่อและขาสเกลเลตันไว้</P>
+<P ALIGN="JUSTIFY">ขั้นตอนวิธีการทำลายเส้นให้บางตามวิธีของ  A.DATTA and S.K.PARUI  สามารถแบ่งออกเป็นขั้นตอนได้  2  ขั้นตอนอย่างคร่าว ๆ ได้ตามนี้</P>
+<P ALIGN="JUSTIFY">ขั้นตอนที่  1 ลบทุกจุดภาพที่ตรงกับแม่แบบ  1 ถึง 4  โดยแบ่งเป็นรอบย่อย ๆ คือ</P>
+<P ALIGN="JUSTIFY">รอบที่  1  ลบทุกจุดภาพที่ตรงกับแม่แบบ  1  โดยไม่ลบจุดภาพที่เป็นจุดวิกฤติตามทฤษฎีที่  1  ในแม่แบบ 1  และไม่ลบจุดภาพที่เป็นจุดปลายตามทฤษฎีที่  2  ในแม่แบบ 1</P>
+<P ALIGN="JUSTIFY">รอบที่  2  ลบทุกจุดภาพที่ตรงกับแม่แบบ  2  โดยไม่ลบจุดภาพที่เป็นจุดวิกฤติตามทฤษฎีที่  1  ในแม่แบบ 2  และไม่ลบจุดภาพที่เป็นจุดปลายตามทฤษฎีที่  2  ในแม่แบบ 2</P>
+<P ALIGN="JUSTIFY">รอบที่  3  ลบทุกจุดภาพที่ตรงกับแม่แบบ  3  โดยไม่ลบจุดภาพที่เป็นจุดวิกฤติตามทฤษฎีที่  1 ในแม่แบบ 3  และไม่ลบจุดภาพที่เป็นจุดปลายตามทฤษฎีที่  2  ในแม่แบบ 3</P>
+<P ALIGN="JUSTIFY">รอบที่  4  ลบทุกจุดภาพที่ตรงกับแม่แบบ  4  โดยไม่ลบจุดภาพที่เป็นจุดวิกฤติตามทฤษฎีที่  4  ในแม่แบบ 1  และไม่ลบจุดภาพที่เป็นจุดปลายตามทฤษฎีที่  2  ในแม่แบบ 4</P>
+<P ALIGN="JUSTIFY">ขั้นตอนที่  2  กลับไปทำขั้นตอนที่  1 ไปเรื่อย ๆ  จนกระทั่งไม่มีการเปลี่ยนแปลงใด ๆ เกิดขึ้นในภาพ  กล่าวคือไม่มีการลบจุดภาพ</P>
+<P ALIGN="JUSTIFY">จากขั้นตอนวิธีการทำลายเส้นในบางที่กล่าวมาแล้วทั้ง  2  ขั้นตอนในวิธีของ Zhang and Suen และวิธีของ  A.DATTA  and S.K.PARUI  มีขั้นตอนที่ง่ายไม่ซับซ้อน  อีกทั้งในขั้นตอนของการทำลายเส้นในบางตามแบบของ  A.DATTA and S.K.PARUI  ใช้แบบแม่ในการทำลายเส้นให้บางจำนวนน้อย  ซึ่งทำให้เราคาดคะเนได้ว่า  การทำลายเส้นให้บางทั้ง  2  วิธีที่กล่าวมา ใช้เวลาในการประมวลผลน้อย  แต่เมื่อพิจารณาจากภาพลายเส้นที่ได้จากการทำลายเส้นในบางตามวิธีของ Zhang  and  Suen  พบว่า  มีบางส่วนของลายเส้นที่หนา  และเมื่อพิจารณาจากภาพลายเส้นที่ได้จากการทำลายเส้นให้บางตามวิธีของ  A.DATTA  and S.K.PARUI  พบว่า  จะให้ลายเส้นที่บาง  จึงทำให้เราทราบว่า  การทำลายเส้นให้บางตามวิธีของ  A.DATTA  and  S.K.PARUI  นั้นให้ผลที่ดีกว่าการทำลายเส้นให้บางตามวิธีของ  Zhang  and   Suen </P>
+<P ALIGN="JUSTIFY"></P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P>4.3  การทำให้ตัวอักษรอยู่ในขนาดมาตาฐาน</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>
+<P>&#9;การทำให้ตัวอักษรอยู่ในขนาดมาตรฐาน  คือ การที่ทำให้ทุกตัวอักษรมีขนาดเดียวกันโดยใช้หลักการเทียบสัดส่วน</P>
+<P>&#9;ในการทำให้ตัวอักษรมีขนาดมาตราฐานมีขั้นตอนดังต่อไปนี้</P>
+<OL>
+
+<OL>
+
+<LI>การกำหนดขนาดของภาพกว้าง M ยาว N โดยแต่ละจุดในภาพจะมีฟังก์ชั่น f(x,y) เป็นฟังก์ชั่นแบบ  Binary  ระบุว่าตัวอักษรที่จุด (x,y) ในภาพเป็นส่วนหนึ่งของตัวอักษรหรือไม่ถ้าเป็นจะมีค่าของฟังก์ชั่น เป็น 1 แต่ถ้าไม่อยู่ในตัวอักษรจะมีค่าเป็น 0</LI>
+<LI>หาค่าของฟังก์ชั่นในแนวนอน H(i) ของแต่ละจุด  i  ในระนาบโดยที่</LI></OL>
+</OL>
+
+<P>&#9;&#9;&#9;H(i)  =  <FONT FACE="Symbol">&#83;</FONT>
+<SUB>j=1</SUB><SUP>N  </SUP> f(i , j)  + <FONT FACE="Symbol">&#97;</FONT>
+<SUB>H</P>
+<P>&#9;           </SUB>โดยที่   i  เป็นค่าระบุตำแหน่งของจุดในแนวนอน  และ  j  เป็นค่าระบุตำแหน่งในแนวตั้งของจุดในระนาบ  N  คือ  จุดที่มีค่ามากที่สุดในแนวตั้งของพื้นที่  และ <FONT FACE="Symbol">&#97;</FONT>
+<SUB>H</SUB>  เป็นค่าคงที่ซึ่งในทฤษฎีกำหนดให้เป็น  0  หรือ  2  แต่เราจะใช้  0 </P>
+<P>&#9;       หาค่าของฟังก์ชั่นในแนวตั้ง V(j) ของแต่ละจุด j ในระนาบที่ให้ตัวอักษรโดย</P>
+<P>                   &#9;&#9;&#9;V(j) = <FONT FACE="Symbol">&#83;</FONT>
+<SUP>M</SUP><SUB>i=1</SUB>f(i , j) +<FONT FACE="Symbol">&#97;</FONT>
+<SUB>v</P>
+</SUB><P>&#9;       โดย i เป็นค่าระบุตำแหน่งในแนวนอนของจุด และ j เป็นค่าระบุตำแหน่งในแนวตั้งของจุดในแนวนอนของพื้นที่ที่ตัวอักษร  และ <FONT FACE="Symbol">&#97;</FONT>
+<SUB>v</SUB> เป็นค่าคงที่ซึ่งในทฤษฎีกำหนดให้เป็น 0 หรือ 2 แต่เราใช้ 0</P>
+<OL START=3>
+
+<OL>
+
+<LI>ทำการหาตำแหน่งของจุดหลังจากที่ทำการ Normalize ขนาดแล้วโดยหาได้จากสูตรดังต่อไปนี้</LI></OL>
+</OL>
+
+<P>&#9;&#9;&#9;x = (<FONT FACE="Symbol">&#83;</FONT>
+<SUP>x</SUP><SUB>i=1</SUB>H(i) * ขนาดมาตรฐานตามแนวนอน) / <FONT FACE="Symbol">&#83;</FONT>
+<SUP>M</SUP><SUB>i =1</SUB>h(i)  โดยที่</P>
+<P>&#9;&#9;x  คือ ตำแหน่งตามแนวนอนของจุดหลังถูกแปลงให้อยู่ในขนาดมาตราฐาน</P>
+<P>&#9;&#9;x  คือ ตำแหน่งตามแนวนอนของจุดก่อนแปลงให้อยู่ในขนาดมาตราฐาน</P>
+<P>&#9;&#9;m  คือ จุดที่มีค่ามากที่สุดในแนวนอนของพื้นที่ที่ตัวอักษร</P>
+<P>&#9;&#9;&#9;y = (<FONT FACE="Symbol">&#83;</FONT>
+<SUP>y</SUP><SUB>j=1</SUB>v(j) * ขนาดมาตราฐานตามแนวตั้ง) / <FONT FACE="Symbol">&#83;</FONT>
+<SUP>n</SUP><SUB>j=1</SUB>v(j) โดยที่</P>
+<P>&#9;&#9;y  คือ ตำแหน่งตามแนวตั้งของจุดหลังถูกแปลงให้อยู่ในขนาดมาตราฐาน</P>
+<P>&#9;&#9;Y  คือ ตำแหน่งตามแนวตั้งของจุดก่อนถูกแปลงให้อยู่ในขนาดมาตราฐาน</P>
+<P>&#9;&#9;N  คือ จุดที่มีค่ามากที่สุดในแนวตั้งของพื้นที่ที่ตัวอักษร</P>
+
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=6><P ALIGN="CENTER">บทที่  5</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">    </P>
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER">แนะนำวิธีการใช้งานโปรแกรมตัวอย่างเบื้องต้น</P>
+
+<P>&nbsp;</P>
+<P>&#9;</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>ในบทนี้จะกล่าวถึงการใช้งานของโปรแกรมตัวอย่างที่ทำขึ้นมาเพื่อแนะนำการทำงานของ Neural Network เพื่อใช้ในงานการแบ่งแยกตัวอักษรตามที่ได้กล่าวมาถึงในบทก่อนหน้านี้  ซึ่งจะเป็นการใช้งานอย่างละเอียดทุกขั้นตอนแบบ Step - to - Step </P>
+<P>&#9;การใช้งานโปรแกรมตัวอย่างนี้ใช้งานได้ง่ายมากและไม่ขึ้นกับระบบปฎิบัติการอีกด้วยไม่ว่าจะใช้ระบบปฎิบัติการ Window 95 หรือ Window 98  หรือ X-Window ใน Linux ขอเพียงมีตัว Java Runtime Environment เพื่อใช้ในการ Run แบบ Interpreter ตอนทำงานเท่านั้น</P>
+<P>&#9;โปรแกรมตัวอย่างนี้ประกอบด้วยการทำงานใน 2 รูปแบบ คือ</P>
+<OL>
+
+<OL>
+
+<LI>การทำงานในรูปแบบฝึกสอน (Training Mode)</LI>
+<LI>การทำงานในรูปแบบการทำงานเพื่อแบ่งแยกตัวอักษร (Classification Mode)</LI></OL>
+</OL>
+
+
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>5.1  เริ่มแรกการใช้งานโปรแกรมตัวอย่าง</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5>
+<P>&#9;เมื่อเริ่มรันโปรแกรมตัวอย่างนี้จะปรากฎหน้าจอดังรูปข้างล่างนี้</P>
+<P><IMG SRC="Image11.gif" WIDTH=315 HEIGHT=197></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพ 5.1 ภาพแสดงรูปของการทำงานโปรแกรมตอนเริ่มต้น</P>
+
+<P>&#9;จากภาพ 5.1 จะประกอบไปด้วยปุ่ม 3 ปุ่ม คือ Train , Run , Exit</P>
+
+<UL TYPE="SQUARE">
+
+<UL TYPE="SQUARE">
+<LI>Train Button มีไว้สำหรับใน Mode Train จะ Click เมื่อต้องการที่จะ Train  เมื่อ Train เสร็จแล้วก็จะได้ Neural Network ที่ต้องการเพื่อแบ่งแยกตัวอักษร</LI>
+<LI>Run Button มีไว้สำหรับใน Mode Run จะ Click เมื่อต้องการจะทดสอบค่าที่ได้จากการ Train </LI>
+<LI> Exit Button มีไว้สำหรับต้องการออกจากโปรแกรมตัวอย่าง</LI></UL>
+</UL>
+
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<OL START=2>
+
+</FONT><B><FONT FACE="AngsanaUPC" SIZE=5><LI>การทำงานในรูปแบบฝึกสอน</LI></OL>
+
+
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P>&#9;เมื่อ Click ใน Train Button ตามภาพตัวอย่างในรูป 5.1 ก็จะเข้ามาทำงานในรูปแบบการฝึกสอนจากภาพข้างล่างจะเป็นหน้าตาของ User Interface ใน Mode การทำงานในรูปแบบการฝึกสอน</P>
+<P><IMG SRC="Image12.gif" WIDTH=524 HEIGHT=431></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพ 5.2 แสดงหน้าตาของ User Interface ใน Mode Train</P>
+<P ALIGN="CENTER"></P>
+<P>&#9;จากภาพรูปที่  5.2 จะประกอบด้วยปุ่มทั้งหมด  5  ปุ่ม คือ</P>
+
+<UL TYPE="SQUARE">
+
+<UL TYPE="SQUARE">
+<LI>Load Button  เป็นปุ่มที่ใช้ในการโหลดภาพที่เป็นรูปแบบของภาพตระกูล Gif และ Jpg  เมื่อนำมาเป็น Input ของ Neural Network</LI>
+<LI>Next Button   เป็นปุ่มที่ใช้ในการแสดงตัวอักษรที่จะเป็นตัว Input ตัวต่อไปมาแสดงให้ User ดูเพื่อป้อนข้อมูลบอกกับ Neural Network ได้อย่างถูกต้อง ซึ่งในการแสดงผลนั้นจะเป็นการแสดงผลที่จะเข้าไปใน Neural Network จริง ๆ</LI>
+<LI>Save Button  เป็นการบันทึกข้อมูลของภาพที่ได้เมื่อป้อนบอก Neural Network แล้วไว้เป็น File เพื่อสามารถนำมาใช้ในการสอนใหม่อีกกี่ครั้งก็ได้</LI>
+<LI>Train Button  ก่อนที่จะ Click ปุ่มนี้ได้จะต้องมีการโหลดข้อมูลที่ได้จาก File ที่บันทึกโดย Save Button ก่อน  ปุ่มนี้จะเป็นการเริ่มต้นกระบวนการ Train ของ Neural Network</LI>
+<LI>Save Network  เป็นการบันทึกข้อมูลของ Neural Network ที่ได้จากการ Train แล้ว</LI></UL>
+</UL>
+
+<P ALIGN="CENTER"></P><DIR>
+<DIR>
+
+<P ALIGN="CENTER"><IMG SRC="Image13.gif" WIDTH=426 HEIGHT=282></P>
+<P ALIGN="CENTER">รูปภาพที่  5.2.1 แสดงผลเมื่อมีการกดปุ่ม Load Button</P>
+<B><P ALIGN="CENTER"></P>
+</B><P ALIGN="CENTER"><IMG SRC="Image14.gif" WIDTH=524 HEIGHT=431></P>
+<P ALIGN="CENTER">รูปภาพที่ 5.2.2 แสดงผลหลังจากมีการเลือกภาพเสร็จ</P>
+<B><P ALIGN="CENTER"></P></DIR>
+</DIR>
+
+</B><P>ก่อนที่เราจะกดปุ่ม Next นั้นเราจะต้องป้อนค่าของรูปที่เราเห็น ซึ่งจะแสดงให้เห็นในกรอบสี่เหลี่ยมด้านบนในการป้อนค่าจะป้อนลงในช่องว่างตามที่กำหนดไว้ให้ในโปรแกรมตัวอย่างนี้</P><DIR>
+<DIR>
+
+<P ALIGN="CENTER"><IMG SRC="Image15.gif" WIDTH=524 HEIGHT=431></P>
+<P ALIGN="CENTER">รูปภาพที  5.2.3 แสดงผลหลังจากมีการกดปุ่ม Next</P>
+<P ALIGN="CENTER"></P></DIR>
+</DIR>
+
+<P><IMG SRC="Image16.gif" WIDTH=300 HEIGHT=120>&#9;หลังมีการ Save ข้อมูลแล้วก็จะเป็นกระบวนการ Train เมื่อกดปุ่ม Train ก็จะขึ้นหน้าต่างมาเพื่อให้เราเลือกข้อมูลที่จะเข้าไป Train ใน Neural Network</P>
+<B>
+<P>&nbsp;</P><DIR>
+<DIR>
+
+</B><P ALIGN="CENTER">รูปภาพที่ 5.2.5 แสดงผลหลังจากมีการกดปุ่ม Train </P>
+<B><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+
+</B><P>ในรูปภาพที่ 5.2.5 จะประกอบด้วยหน้าต่างย่อยแสดงผลของการ Train เพื่อติดตามการทำงาน ประกอบไปด้วย ค่าของ Error เฉลี่ย และจำนวน Hidden Unit ในขณะนั้น ซึ่งบางครั้งเมื่อค่าของ Error เฉลี่ยลดลงในระดับที่พอใจแล้วเราสามารถหยุดได้เอง</P>
+<P>เมื่อ Train ได้ผลลัพธ์ที่ต้องการแล้วก็จะ Save Neural Network ลง File</P>
+<B>
+<OL START=3>
+
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><LI>การทำงานในรูปแบบการแบ่งแยกตัวอักษร</LI></OL>
+
+</B>
+</FONT><FONT FACE="AngsanaUPC" SIZE=5><P>&#9;เมื่อ Click ใน Run Button ตามภาพตัวอย่างในรูป 5.1 ก็จะเข้ามาทำงานในรูปแบบของการแบ่งแยกตัวอักษรจากภาพ   </P>
+<P><IMG SRC="Image17.gif" WIDTH=526 HEIGHT=460></P>
+<P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">รูปภาพที่ 5.3.1 หน้าตา User interface ของโปรแกรมในรูปแบบการแบ่งแยกตัวอักษร</P>
+<B><P ALIGN="CENTER"></P>
+<P>&#9;</B>จากภาพที่ 5.3.1 จะประกอบไปด้วยปุ่ม 3 ปุ่ม </P>
+
+<UL TYPE="SQUARE">
+
+<UL TYPE="SQUARE">
+<LI>Load Pictureใช้สำหรับ โหลดภาพที่ต้องการจะแบ่งแยกตัวอักษร</LI>
+<LI>Load Neural Network ใช้สำหรับ โหลด Neural Network ที่ต้องการจาก File</LI>
+<LI><IMG SRC="Image18.gif" WIDTH=526 HEIGHT=460>Run  ใช้สำหรับ  ประมวลผลใน Neural Network เพื่อแบ่งแยกตัวอักษร</LI></UL>
+</UL>
+
+<DIR>
+<DIR>
+
+<P ALIGN="CENTER">รูปภาพที่ 5.3.2 แสดงผลเมื่อกดปุ่ม Run</P>
+<B><P ALIGN="CENTER"></P>
+<P ALIGN="CENTER">&nbsp;</P>
+<P ALIGN="CENTER">&nbsp;</P>
+</B></FONT><FONT FACE="AngsanaUPC" SIZE=5><P ALIGN="CENTER">&nbsp;</P></DIR>
+</DIR>
+</FONT></BODY>
+</HTML>

@@ -1,0 +1,23 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Img src=/logo9.gif>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=500>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<Th Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>รายละเอียดข่าวสารต่างๆ</B></Font></Th>
+</TR>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%news%></B></Font></TD></TR>
+<%enddetail%>
+</Table>
+</td></tr>
+</TABLE>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

@@ -1,0 +1,154 @@
+<Html>
+    <Head>
+        <Title> </Title>	
+<Script>
+function Reset_Value(objec)
+{
+	objec.checked=false;
+	if(document.Sch3.Id_t.checked == false && 	   document.Sch3.N_office.checked == false) 
+	{
+	document.Sch3.N_office.checked=true;
+	}
+
+if(document.Sch3.N_office.checked == true)
+	{
+	document.Sch3.action="/scripts/samples/sch3.idc";
+	}
+	else 
+	{
+	document.Sch3.action="/scripts/samples/sch33.idc";
+	}
+}
+</Script>
+    </Head>		
+
+    <Body Bgcolor=#FFFFFF>
+<img src=/Main_Logo.gif border=0>
+<Center>
+<center><Font Color=green><B><I>หากท่านต้องการทราบเวลารถไฟทั่วประเทศไทยโปรด</B></I><A Href="Thai_Train.html" ><B><BLINK>เลือกที่นี่</BLINK></B></A></Font></center>
+<Table cellspelling=10>
+<tr><td><img src="/train.gif"></td></tr>	
+</Table>
+</Center>
+<br>
+	<Form ACTION="/scripts/samples/sch3.idc"
+		Method=POST
+		Name=Sch3>
+<Table border=0 Width=600>
+<tr><td  Bgcolor=Steelblue><Font Color=white><B>กรุณาป้อนรายละเอียด</B></Font></td></tr>
+<Tr><Td>
+		<Input Type=checkbox Name=N_office CHECKED onClick="Reset_Value(document.Sch3.Id_t)"><Img Src=S2_im2.gif>
+<SELECT NAme=N_officeValue>
+<Option Value=คลองตัน>คลองตัน
+<Option Value=ซอยวัดลานบุญ>ซอยวัดลานบุญ
+<Option Value=ดอนเมือง>ดอนเมือง
+<Option Value=บางเขน>บางเขน
+<Option Value=บางซื่อ>บางซื่อ
+<Option Value=บ้านทับช้าง>บ้านทับช้าง
+<Option Value=พระจอมเกล้า>พระจอมเกล้า
+<Option Value=มักกะสัน>มักกะสัน
+<Option Value=รังสิต>รังสิต
+<Option Value=ลาดกระบัง>ลาดกระบัง
+<Option Value=สามเสน>สามเสน
+<Option Value=หลักสี่>หลักสี่
+<Option Value=หัวตะเข้>หัวตะเข้
+<Option Value=หัวลำโพง>หัวลำโพง
+<Option Value=หัวหมาก>หัวหมาก
+</SELECT>
+<!-- <Input Type=Text Name=N_officeValue Size=10> -->
+<td>
+</tr>
+<tr><td>
+		<Input Type=checkbox Name=Id_t onClick="Reset_Value(document.Sch3.N_office)"><Img Src=S2_im1.gif>
+<SELECT NAME=Id_tVAlue>
+<Option Value="101">101
+<Option Value="105">105
+<Option Value="109">109
+<Option Value="110">110
+<Option Value="152">152
+<Option Value="153">153
+<Option Value="154">154
+<Option Value="155">155
+<Option Value="156">156
+<Option Value="161">161
+<Option Value="163">163
+<Option Value="167">167
+<Option Value="180">180
+<Option Value="181">181
+<Option Value="182">182
+<Option Value="183">183
+<Option Value="184">184
+<Option Value="185">185
+<Option Value="186">186
+<Option Value="187">187
+<Option Value="188">188
+<Option Value="189">189
+<Option Value="191">191
+<Option Value="192">192
+<Option Value="193">193
+<Option Value="194">194
+<Option Value="196">196
+<Option Value="199">199
+<Option Value="200">200
+<Option Value="201">201
+<Option Value="202">202
+<Option Value="203">203
+<Option Value="204">204
+<Option Value="225">225
+<Option Value="233">233
+<Option Value="234">234
+<Option Value="239">239
+<Option Value="240">240
+<Option Value="241">241
+<Option Value="242">242
+<Option Value="251">251
+<Option Value="252">252
+<Option Value="35">35
+<Option Value="36">36
+<Option Value="37">37
+<Option Value="38">38
+<Option Value="5">5
+<Option Value="53">53
+<Option Value="54">54
+<Option Value="57">57
+<Option Value="58">58
+<Option Value="59">59
+<Option Value="6">6
+<Option Value="60">60
+<Option Value="7">7
+<Option Value="8">8
+<Option Value="901">901
+<Option Value="902">902
+<Option Value="903">903
+<Option Value="904">904
+<Option Value="905">905
+<Option Value="906">906
+<Option Value="907">907
+<Option Value="908">908
+<Option Value="91">91
+<Option Value="915">915
+<Option Value="917">917
+<Option Value="929">929
+<Option Value="930">930
+<Option Value="951">951
+<Option Value="952">952
+<Option Value="953">953
+<Option Value="954">954
+<Option Value="955">955
+<Option Value="956">956
+<Option Value="961">961
+<Option Value="963">963
+</SELECT>
+<!-- <Input Type=Text Name=Id_tValue Size=10>		 -->
+</td>
+</tr>
+</table>
+<br><br>
+<Center>
+<input  type="image" name="Submit" src="SubmitB.gif"   border="0">
+<A href="main.html"><Img Src=CommonS_B.gif Border=0></A>
+</Center>
+	</Form>
+
+    </Body>
+</Html>

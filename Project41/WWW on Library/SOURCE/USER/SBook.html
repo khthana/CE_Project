@@ -1,0 +1,85 @@
+<html>
+
+<head>
+<title>Book</title>
+</head>
+
+<body background="search13.jpg" onload="displayer()">
+
+<p><br>
+<script language="JavaScript">
+
+var marquee = " . . . . WELCOME TO ESL LIBRARY . . . . Please select . . . ."
+var delay = 180
+var timer_tap
+	function displayer() {		
+                                document.marquee1.elements[0].value = marquee
+		if (document.marquee1.elements[1].checked == true);
+                                else document.marquee1.elements[2].value = "";
+            		if (document.marquee1.elements[3].checked == true);
+                                else document.marquee1.elements[4].value = "";
+		if (document.marquee1.elements[5].checked == true);
+                                else document.marquee1.elements[6].value = "";
+		if (document.marquee1.elements[7].checked == true);
+                                else document.marquee1.elements[8].value = "";
+		if (document.marquee1.elements[9].checked == true);
+                                else document.marquee1.elements[10].value = "";
+		marquee = marquee.substring(1, marquee.length)+marquee.substring(0,1)
+		timer_tap = setTimeout("displayer()", delay)
+		}
+
+</script> </p>
+
+<form name="marquee1" action="/cgi-bin/esl_lib/BookQuery.pl" method="POST">
+  <div align="center"><center><p><input type="text" name="Title" size="29"> </p>
+  </center></div><blockquote>
+    <div align="left"><p><input type="checkbox" name="C1" value="ON"><font size="+2"><strong><font
+    color="#408080">Classification Number&nbsp;</font></strong>&nbsp;&nbsp;
+    &nbsp; </font>
+ <select SIZE='1' NAME='S_G' tabindex='1'>
+   <option selected value='301'> 301 Economic </option>
+   <option value='302'> 302 Education </option>
+   <option value='303'> 303 Religion&Philosophy </option>
+   <option value='304'> 304 Misc </option>
+   <option value='601'> 601 Application Software </option>
+   <option value='602'> 602 Artificial Inteligent </option>
+   <option value='603'> 603 Computer Design </option>
+   <option value='604'> 604 DataBase </option>
+   <option value='605'> 605 Data Structure </option>
+   <option value='606'> 606 Device </option>
+   <option value='607'> 607 Internet </option>
+   <option value='608'> 608 Microprocesser </option>
+   <option value='609'> 609 Multimedia&Graphic </option>
+   <option value='610'> 610 Network </option>
+   <option value='611'> 611 Object Oriented </option>
+   <option value='612'> 612 Operating System </option>
+   <option value='613'> 613 Programming Language </option>
+   <option value='614'> 614 Security </option>
+   <option value='615'> 615 Software Engineering </option>
+   <option value='616'> 616 Misc </option>
+ </select> </big></p>
+
+     </p>
+    </div><p><input type="checkbox" name="C2" value="ON"><font size="+2"><strong><font
+    color="#408080">Book Number </font></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font><input type="text" name="T2" size="4"> </p>
+    <p><input type="checkbox" name="C3" value="ON"><font size="+2"><strong><font
+    color="#408080">Title </font></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </font><input type="text" name="T3" size="20"> </p>
+    <p><input type="checkbox" name="C4" value="ON"><font size="+2"><font color="#408080"><strong>Author
+    </strong></font>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><input
+    type="text" name="T4" size="20"> </p>
+    <p><input type="checkbox" name="C5" value="ON"><font size="+2"><strong><font
+    color="#408080">Imprint</font></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp; </font><input type="text" name="T5" size="20"> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input type="submit"
+    value="Submit" name="B1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset"
+    name="B2"> <br>
+    </p>
+  </blockquote>
+</form>
+</body>
+</html>

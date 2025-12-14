@@ -1,0 +1,45 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    PalMac1.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   Ratanachote Phokanarak
+COMPANY  RHA Room
+DATE     15/03/99
+
+CHIP  MAC_Decoder_II  PAL20V8
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          HCLK                   COMBINATORIAL             ; INPUT
+PIN  2          CPW                    COMBINATORIAL             ; INPUT
+PIN  3          AD0                    COMBINATORIAL             ; INPUT
+PIN  4          AD1                    COMBINATORIAL             ; INPUT 
+PIN  5          AD2                    COMBINATORIAL             ; INPUT
+PIN  6          AD3                    COMBINATORIAL             ; INPUT
+PIN  7          HA2                    COMBINATORIAL             ; INPUT
+PIN  8          HA3                    COMBINATORIAL             ; INPUT
+PIN  9          IOW                    COMBINATORIAL             ; INPUT 
+PIN  10         IOR                    COMBINATORIAL             ; INPUT
+PIN  11         688FLAG                COMBINATORIAL             ; INPUT 
+PIN  14         HA8                    COMBINATORIAL             ; INPUT
+PIN  23         HA9                    COMBINATORIAL             ; INPUT
+PIN  15         RESDRV                 COMBINATORIAL             ; INPUT
+PIN  12         GND                                              ; INPUT
+PIN  22         DDAC                   REGISTERED                ; OUTPUT
+PIN  21         RESET                  REGISTERED                ; OUTPUT
+PIN  20         HREAD                  REGISTERED                ; OUTPUT
+PIN  19         HWRITE                 REGISTERED                ; OUTPUT
+PIN  18         HSLCT                  REGISTERED                ; OUTPUT
+PIN  17         688EN                  REGISTERED                ; OUTPUT
+PIN  16         HAEN                   COMBINATORIAL             ; INPUT
+PIN  24         VCC                                              ; INPUT
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+DDAC      = /CPW * AD0 * AD1* AD2 * AD3
+/RESET    = (/688FLAG * /HA2 * HA3 * /IOW)+RESDRV
+/HREAD    = /688FLAG * /HA2 * /HA3 * /IOR
+/HWRITE   = /688FLAG * /HA2 * /HA3 * /IOW
+/HSLCT    = /688FLAG * /HA2 * /HA3 * (/IOR + /IOW)
+/688EN    = HA8 * HA9 * HAEN

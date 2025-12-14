@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+$base_path = $ENV {'RTCHECK_BASEDIR'};
+
+while (defined(pop @namelogin)) {}
+while (defined(pop @su_list)) {}
+while (defined(pop @temp)) {}
+while (defined(pop @root_icq_no)) {}
+while (defined(pop @pager_list)) {}
+
+
+################ G E T   N A M E   F R O M   M E S S A G E S  #########################
+
+while (defined($ThisLine = <STDIN>)) {
+    chomp($ThisLine);
+    if ((($for,$by) = ($ThisLine =~ m/^... .. ..:..:.. [^ ]* PAM_pwdb\[[0123456789]*\]: \(su\) session opened for user ([^ ]*) by ([^ ]+)\([^ ]*\)/io)) and ($for eq "root") and ($by ne "root")) {
+	unless (grep m/$by/,@temp) {
+	    push @temp,$by;
+	}   
+    }
+}
+
+############ G E T   S U   L I S T ##################
+open (HANDTRUST,$base_path."/conf/su_file") or die "...can't open su_file";
+while (defined($ThisLine = <HANDTRUST>)) {
+    chomp($ThisLine);
+    push @su_list,$ThisLine;
+}
+close (HANDTRUST);
+
+
+################ C O M P A R E ###################
+$mess = "";
+$alert = 0;
+
+foreach $temp(@temp) {
+    $auth = 0;
+    foreach $su_name(@su_list) {
+	if (($su_name eq $temp) and ($auth eq "0")) {
+	    $auth = 1;	
+	}
+    }
+    if ($auth eq "0") {
+    $mess .= $temp."  ";
+    $alert = 1;
+    }
+}
+
+############# A L E R T ##############
+
+if ($alert eq "1") {
+    $message = "Has illegal su by >>  $mess<<";
+    $alert_path = $base_path."/scripts/shared/alert" ;
+    `$alert_path "$message"`;
+}

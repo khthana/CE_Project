@@ -1,0 +1,27 @@
+#!/usr/bin/perl -w
+
+if ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "yesterday") {
+   $SearchDate = `/bin/date -d "1 day ago" +"%b %d"`;
+}
+elsif ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "today") {
+   $SearchDate = `/bin/date +"%b %d"`;
+}
+elsif ( $ENV{'DAILYCHECK_DATE_RANGE'} eq "all") {
+   $SearchDate = "... ..";
+}
+
+# The date might be "Dec 09", but it needs to be "Dec  9"...
+$SearchDate =~ s/ 0/  /;
+chomp($SearchDate);
+
+if ( $ENV{'DAILYCHECK_DEBUG'} > 5 ) {
+   print STDERR "DEBUG: Inside ApplyDate (xferlog)...\n";
+   print STDERR "DEBUG: Range: " . $ENV{'DAILYCHECK_DATE_RANGE'} . "\n";
+   print STDERR "DEBUG: Looking For: " . $SearchDate . "\n";
+}
+
+while (defined($ThisLine = <STDIN>)) {
+    if ($ThisLine =~ m/^... $SearchDate ..:..:.. ..../o) {
+      print $ThisLine;
+    }
+}

@@ -1,0 +1,2 @@
+in_program echo "%u %r" >> /tmp/loginlog2
+

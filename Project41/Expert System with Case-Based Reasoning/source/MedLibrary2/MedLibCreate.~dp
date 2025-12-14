@@ -1,0 +1,18 @@
+program MedLibCreate;
+
+uses
+  Forms,
+  MainForm in 'MainForm.pas' {MedForm},
+  LoadMed in 'LoadMed.pas' {LoadForm},
+  SaveMed in 'SaveMed.pas' {FileEnter};
+
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TMedForm, MedForm);
+  Application.CreateForm(TLoadForm, LoadForm);
+  Application.CreateForm(TFileEnter, FileEnter);
+  Application.Run;
+end.

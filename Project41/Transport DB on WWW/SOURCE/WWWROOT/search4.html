@@ -1,0 +1,157 @@
+<Html>
+    <Head>
+        <Title> </Title>
+<Script>
+function Reset_Value(objec)
+{
+	objec.checked=false;
+	if(document.Sch5.N_Chess.checked == false &&
+	   document.Sch5.NofficCh.checked	== false) document.Sch5.N_Chess.checked=true;
+	if(document.Sch5.N_Chess.checked==true)
+	{
+		document.Sch5.action="/scripts/samples/sch5.idc"			
+	}
+	else
+	{
+		document.Sch5.action="/scripts/samples/sch55.idc"			
+	}
+}
+	function LoadImage(obj)
+	{
+		document.Mapvehicle.src=obj;
+	}
+
+</Script>
+	
+    </Head>		
+    <Body Bgcolor=#FFFFFF>
+<img src=Main_Logo.gif border=0>
+<Center>
+<Table cellspelling=10>
+<tr><td><img src="intro.gif" width=200 height=150></td></tr>	
+</Table>
+</Center>
+	<Form ACTION="/scripts/samples/sch5.idc"
+		Method=POST
+		Name=Sch5>
+<Table border=0 Width=600>
+<tr><td  Bgcolor=Steelblue Colspan=2><Font Color=white><B>กรุณาป้อนรายละเอียด</B></Font></td></tr>
+<Tr><Td>
+		<Input Type=checkbox Name=N_Chess CHECKED onClick="Reset_Value(document.Sch5.NofficCh)"><Img Src=S4_im1.gif>
+	<SELECT Name=N_ChessValue>
+		<Option Value=ธรรมดา>ธรรมดา
+		<Option Value=ด่วนธงแดง>ด่วนธงแดง
+		<Option Value=ด่วนธงแดง2>ด่วนธงแสดแดง 
+		<Option Value=ด่วนธงเหลือง>ด่วนธงเหลือง
+		<Option Value=ด่วนธงเขียว>ด่วนธงเขียว
+	</SELECt>
+	<!-- <Input Type=Text Name=N_ChessValue Size=10> -->
+</td>
+<td>		<Img Src=S4_im2.gif>
+		<SELECT NAme=IdChessValue>
+		<Option Value=001>หมายเลข 001
+		<Option Value=002>หมายเลข 002
+		<Option Value=003>หมายเลข 003
+		<Option Value=004>หมายเลข 004
+		<Option Value=005>หมายเลข 005
+		</SELECT>
+	<!--<Input Type=Text Name=IdChessValue Size=10>-->
+</td>
+</tr>
+<tr><td>
+		<Input Type=checkbox Name=NofficCh onClick="Reset_Value(document.Sch5.N_Chess)"><Img Src=S4_im3.gif>
+<SELECT NAME=NofficChValue>
+<Option Value="ท่ากรมเจ้าท่า">"ท่ากรมเจ้าท่า"
+<Option Value="ท่ากรมชลประทาน">"ท่ากรมชลประทาน"
+<Option Value="ท่ากรมชลประทาน2">"ท่ากรมชลประทาน2"
+<Option Value="ท่าเกียกกาย">"ท่าเกียกกาย"
+<Option Value="ท่าช้าง">"ท่าช้าง"
+<Option Value="ท่าเตียน">"ท่าเตียน"
+<Option Value="ท่าเทเวศน์">"ท่าเทเวศน์"
+<Option Value="ท่านนทบุรี">"ท่านนทบุรี"
+<Option Value="ท่าบางนา">"ท่าบางนา"
+<Option Value="ท่าบางโพ">"ท่าบางโพ"
+<Option Value="ท่าปากเกร็ด">"ท่าปากเกร็ด"
+<Option Value="ท่าพระปิ่นเกล้า">"ท่าพระปิ่นเกล้า"
+<Option Value="ท่าพระราม7">"ท่าพระราม7"
+<Option Value="ท่าพระอาทิตย์">"ท่าพระอาทิตย์"
+<Option Value="ท่าพายัพ">"ท่าพายัพ"
+<Option Value="ท่าพิบูลสงคราม1">"ท่าพิบูลสงคราม1"
+<Option Value="ท่าพิบูลสงคราม2">"ท่าพิบูลสงคราม2"
+<Option Value="ท่าพิบูลสงคราม4">"ท่าพิบูลสงคราม4"
+<Option Value="ท่ารถไฟ">"ท่ารถไฟ"
+<Option Value="ท่าราชวงศ์">"ท่าราชวงศ์"
+<Option Value="ท่าราชินี">"ท่าราชินี"
+<Option Value="ท่าราษฎร์บูรณะ">"ท่าราษฎร์บูรณะ"
+<Option Value="ท่าวังหลัง">"ท่าวังหลัง"
+<Option Value="ท่าวัดกลางเกร็ด">"ท่าวัดกลางเกร็ด"
+<Option Value="ท่าวัดเขมา">"ท่าวัดเขมา"
+<Option Value="ท่าวัดเขียน">"ท่าวัดเขียน"
+<Option Value="ท่าวัดตึก">"ท่าวัดตึก"
+<Option Value="ท่าวัดเทพนารี">"ท่าวัดเทพนารี"
+<Option Value="ท่าวัดปรมัย">"ท่าวัดปรมัย"
+<Option Value="ท่าวัดม่วงแค">"ท่าวัดม่วงแค"
+<Option Value="ท่าวัดราชสิงขร">"ท่าวัดราชสิงขร"
+<Option Value="ท่าวัดวรจรรยาวาศ">"ท่าวัดวรจรรยาวาศ"
+<Option Value="ท่าวัดสร้อยทอง">"ท่าวัดสร้อยทอง"
+<Option Value="ท่าวิสุทธิกษัตริย์">"ท่าวิสุทธิกษัตริย์"
+<Option Value="ท่าสะพานกรุงธน">"ท่าสะพานกรุงธน"
+<Option Value="ท่าสะพานพระนั่งเกล้า">"ท่าสะพานพระนั่งเกล้า"
+<Option Value="ท่าสะพานพุทธ">"ท่าสะพานพุทธ"
+<Option Value="ท่าสาธร">"ท่าสาธร"
+<Option Value="ท่าสาธุประดิษฐ์">"ท่าสาธุประดิษฐ์"
+<Option Value="ท่าสี่พระยา">"ท่าสี่พระยา"
+<Option Value="ท่าโอเรียลเต็ล">"ท่าโอเรียลเต็ล"
+</SELECT>
+<!-- <Input Type=Text Name=NofficChValue Size=10> -->
+</td></tr>
+</table>
+<br>
+<Center>
+<input  type="image" name="Submit" src="SubmitB.gif"   border="0">
+<A href="main.html"><Img Src=CommonS_B.gif Border=0></A>
+</Center>
+	</Form>
+<Center>
+<Form name = sch4_2>
+ 
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0 width=650 >
+<Tr hight=3><td Bgcolor=LIGHTSEAGREEN Colspan=5><Font Size=3 Color=White face=IrisUPC><Center><B>รายละเอียด รูปภาพเส้นทางการเดินเรือ</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=STEELBLUE><Font Size=3 Color=white face=IrisUPC><Center><B>เรือด่วนธรรมดา</B></Center></Font></td>
+     <td Bgcolor=STEELBLUE><Font Size=3 Color=white  face=IrisUPC><B><Center>เรือด่วนธงแดง</Center></B></font></td>
+    <td Bgcolor=STEELBLUE><Font Size=3 Color=WHITE  face=IrisUPC><B>เรือด่วนธงแสดแดง</B ></font></td>
+    <td Bgcolor=STEELBLUE><Font Size=3 Color=white  face=IrisUPC><B>เรือด่วนธงเหลือง</B ></font></td>   
+    <td Bgcolor=STEELBLUE><Font Size=3 Color=WHITE  face=IrisUPC><B>เรือด่วนเขียว</B ></font></td></tr>
+<tr></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=White face=IrisUPC><A href =#im onClick="LoadImage('black1.gif')"><B>หมายเลข 001</B ></a></Font></td>
+     <td Bgcolor=WHITESMOKE><Font Size=3 Color=BLUE  face=IrisUPC><A href =#im onClick="LoadImage('red1.gif')"><B>หมายเลข 002</B ></a></font></td>
+    <td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=white  face=IrisUPC><A href =#im onClick="LoadImage('orange1.gif')"><B>หมายเลข 003</B ></a></font></td>
+    <td Bgcolor=WHITESMOKE><Font Size=3 Color=BLUE  face=IrisUPC><B><A href =#im onClick="LoadImage('yellow1.gif')"><B>หมายเลข 004</B ></a></font></td>
+   <td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=white  face=IrisUPC><A href =#im onClick="LoadImage('green1.gif')"><B>หมายเลข 005</B ></a></font></td></tr>
+
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=LIGHTSLATEGRAY  face=IrisUPC>a</Font></td>
+     <td Bgcolor=WHITESMOKE><Font Size=3 Color=WHITESMOKE  face=IrisUPC>a</font></td>
+    <td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=LIGHTSLATEGRAY  face=IrisUPC>a</font></td>
+    <td Bgcolor=WHITESMOKE><Font Size=3 Color=WHITESMOKE  face=IrisUPC><B></font>a</td>
+   <td Bgcolor=LIGHTSLATEGRAY><Font Size=3 Color=LIGHTSLATEGRAY  face=IrisUPC>a</font></td></tr>
+
+</Table>
+</td></tr>
+</Table>
+</form>
+<Table Border=0>
+<Tr><td Bgcolor=STEELBLUE colspan=4><Font Size=3 Color=White face=IrisUPC><Center><B>ภาพเส้นทางเดินเรือประเภทต่างๆ</B></Center></Font></td></tr>
+</Table>
+
+<Table Border=0 Cellspacing=0 Cellpadding=0>
+<TR><td colspan=3 BGcolor=WhiteSmoke><Center><img src=BorderTopBus.gif boder=0></Center></td></tr>
+<TR BGcolor=WhiteSmoke><td align=LEFT><img src=BorderLeftBus.gif boder=0></td><td align=Center BGcolor=WhiteSmoke><A name = im><img src="final_boat.gif" name=Mapvehicle  border=5  height=1000></a></td><td align=RIGHT BGcolor=WhiteSmoke><img src=BorderRightBus.gif boder=0></td></tr>
+<TR><td colspan=3 BGcolor=WhiteSmoke><Center><img src=BorderButBus.gif boder=0></Center></td></tr>	
+</Table>
+</Center>
+
+    </Body>
+</Html>

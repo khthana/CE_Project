@@ -1,0 +1,56 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<img src="/logo2.gif" border=0><br><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0 width=500 >
+<Tr hight=3><td Bgcolor=Steelblue Colspan=2><Font  Color=White ><Center><B>รายละเอียดการค้นหา</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>สถานที่ต้นทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.info_s%></Center></B></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ประเภทของสถานที่ต้นทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.tSplace%></Center></B></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>สถานที่ปลายทาง</B></Font></td>
+    <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.info_d%></Center></b></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ประเภทของสถานที่ปลายทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.tDplace%></Center></B></font></td></tr>
+</Table>
+</td></tr>
+</Table>
+<br>
+
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 Width=600>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR><TD Colspan=2 Bgcolor=black><Center><Font  Color=pink><B>รายละเอียดของยานพาหนะ</B></Font></Center></TD></TR>
+<TR>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>หมายเลขยานพาหนะ</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ชนิดของพาหนะ</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE align=center><Font Color=BLUE ><B><%id_vehicle11%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE  align=center><Font  Color=BLUE ><B><%Type_vehicle11%></B></Font></TD>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=2><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</TABLE>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font Color=#FFCC00 ><B>ยานพาหนะ <%idc.bus%> <%idc.train%> <%idc.chess%> <%idc.van%> ไม่สามารถไปจากสถานที่ <%idc.info_s%> ถึง <%idc.info_d%> ได้</B></Font></td></Tr>
+</td></tr>
+</Table>
+<%endif%>
+<br>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</Center>
+</BODY>
+</HTML>
+
+

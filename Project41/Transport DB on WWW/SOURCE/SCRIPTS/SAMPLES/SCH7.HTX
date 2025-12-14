@@ -1,0 +1,51 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<center><Img Src="/logo77.gif" Border=0></Center>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=600>
+ <Tr><td Bgcolor=LIGHTSEAGREEN Colspan=2><Font Color=White><center><B>รายละเอียดของสถานที่ท่องเที่ยว</B></Center></Font></td>
+    </tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White><B>ชื่อสถานที่</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font Size=3 Color=BLUE><Center><B><%idc.NplaceValue%></B></Center></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Color=White><B>ชนิดของสถานที่</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE><Center><B><%idc.TypeValue%></B></Center></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Color=White><B>ประวัติสถานที่</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE ><Center><B><%comment%></B></Center></td></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<br>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=400>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<Th Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>หมายเลขของยานพาหนะ</B></Font></Th>
+<Th Bgcolor=STEELBLUE><Font  Color=#FFCC00 ><B>ชนิดของยานพาหนะ</B></Font></Th>
+</TR>
+<tr></tr>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%id_vehicle%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE ><Center><B><%type_vehicle%></B></Center></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=2><Font Color=#FFCC00><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Fon Color=White><B> สถานที่ <Font color=#FFCC00><%idc.NplaceValue%></Font> ซึ่งเป็น <Font color=#FFCC00><%idc.TypeValue%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

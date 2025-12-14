@@ -1,0 +1,217 @@
+#!/usr/bin/perl
+
+$Ignore = $ENV{'ignore_services'};
+$amount_untrust = 0;
+
+sub LookupIP {
+   my ($name, $a1, $a2,$a3,$a4,$PackedAddr,$Addr);
+   $Addr = $_[0];
+   ($a1,$a2,$a3,$a4) = split /\./,$Addr;
+   $PackedAddr = pack('C4',$a1,$a2,$a3,$a4);
+   if ($name = gethostbyaddr ($PackedAddr,2)) {
+      return ($name);
+   } else {
+      return ($Addr);
+   }
+}
+
+sub NameToIP {
+    my ($name,$host_ipp,$host_ip);
+    $name = $_[0];
+    $host_ipp = (gethostbyname($name)) [4];
+    $host_ip = join(".",unpack("C4",$host_ipp));
+    return ($host_ip);
+}
+
+while (defined(pop @trust_file)) {}
+while (defined(pop @Sentence_untrust)) {}
+
+open (FILETRUST,"/etc/log.d/conf/trust_file") or die "can't open.....trust_file";
+
+while (defined($ThisLine = <FILETRUST>)) {
+    chomp($ThisLine);
+#   $ThisIP = NameToIP($ThisLine);
+    push (@trust_list,$ThisLine); ##ThisIP
+}
+close (FILETRUST);
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( ($Host,$User) = ($ThisLine =~ /^... .. ..:..:.. [^ ]+ login: FAILED LOGIN [0123456789]+ FROM ([^ ]+) FOR ([^,]+),/ ) ) {
+	$FailedLogins->{$User}->{$Host}++;
+    }
+    elsif ( ($Time,$Service,$IP) = ($ThisLine =~ /^... .. (..:..:..) [^ ]+ ([^ ]+)\[[0123456789]+\]: connect from ([0123456789]+\.[0123456789]+\.[0123456789]+\.[0123456789]+)$/) ) {
+        $trust = 0;
+	if ($Name = LookupIP ($IP)) {
+	    foreach $trust_name (@trust_list) {
+		if (($Name eq $trust_name) and ($trust eq "0")) {
+		    $trust = 1;
+		}
+	    }	
+	}
+	else {
+	    $Name = $IP;
+	    foreach $trust_to_IP (@trust_list) {
+		$trust_IP = NameToIP($trust_to_IP);
+		    if (($Name eq $trust_IP) and ($trust eq "0")) {
+			$trust = 1;
+		    }
+	    }
+	}
+
+	if ($trust eq "0") {
+	    unless ($Name eq "localhost") {
+		$Sentence_untrust[$amount_untrust] = $Name." at ".$Time." by ".$Service;
+		$amount_untrust++;
+	    }
+	}
+	$Connections->{$Service}->{$Name}++;
+    }
+    elsif ( ($Service,$IP) = ($ThisLine =~ /^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: refused connect from ([0123456789]+\.[0123456789]+\.[0123456789]+\.[0123456789]+)$/) ) {
+	if ($DoLookup) {
+	    $Name = LookupIP ($IP);
+	}
+	else {
+	    $Name = $IP;
+	}
+	$Refused->{$Service}->{$Name}++;
+    }
+    elsif ( ($Service,$Name) = ($ThisLine =~ /^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: connect from ([^ \n]+)$/) ) {
+	$Connections->{$Service}->{$Name}++;
+    }
+    elsif ( $ThisLine =~ s/^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: warning: can\'t get client address: No route to host$/$1/ ) {
+	chomp ($ThisLine);
+	$NoIP->{$ThisLine}++;
+    }
+    elsif ( $ThisLine =~ m/^... .. ..:..:.. [^ ]+ [^ ]+\[[0123456789]+\]: connect from localhost$/ ) {
+	#ignore...
+    }
+    elsif ( $ThisLine =~ s/^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: warning: can\'t get client address: Network is unreachable$/$1/ ) {
+	chomp ($ThisLine);
+	$NoIP->{$ThisLine}++;
+    }
+    elsif ( $ThisLine =~ s/^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: warning: can\'t get client address: Connection reset by peer$/$1/ ) {
+	chomp ($ThisLine);
+	$NoIP->{$ThisLine}++;
+    }
+    elsif ( $ThisLine =~ s/^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: warning: can\'t get client address: Connection timed out$/$1/ ) {
+	chomp ($ThisLine);
+	$NoIP->{$ThisLine}++;
+    }
+    elsif ( $ThisLine =~ s/^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: connect from unknown$/$1/ ) {
+	chomp ($ThisLine);
+	$NoIP->{$ThisLine}++;
+    }
+    elsif ( ($Service,$Err) = ($ThisLine =~ /^... .. ..:..:.. [^ ]+ ([^ ]+)\[[0123456789]+\]: error: (.+)$/) ) {
+        chomp($Err);
+	$Error{$Service}{$Err}++;
+    }
+    elsif ( ($Service,$Err) = ($ThisLine =~ /^... .. ..:..:.. [^ ]+ ([^ ]+): (FAILED LOGIN SESSION FROM [^ ]+ FOR , .*)$/ ) ) {
+      chomp($Err);
+      $Error{$Service}{$Err}++;
+    }
+    elsif ( $ThisLine =~ /warning: can.t get client address: Connection refused/) {
+      # Nothing
+    }
+    else {
+	# Unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+
+if ( (keys %{$Connections}) or
+     (keys %{$Refused}) or
+     (keys %{$FailedLogins}) or
+     (keys %{$NoIP}) or 
+     (keys %{Error}) or
+     ($#OtherList >= 0)
+     ) {
+
+print "\n\n ---------------- Connections (secure-log) Begin ------------------- \n";
+
+if (keys %{$Connections}) {
+    print "\nConnections:\n";
+    foreach $ThisOne (keys %{$Connections}) {
+      unless ($Ignore =~ /$ThisOne/) { 
+        print "   Service " . $ThisOne . ":\n";
+	foreach $OtherOne (keys %{$Connections->{$ThisOne}}) {
+	    print "      " . $OtherOne . ": " . $Connections->{$ThisOne}->{$OtherOne} . " Time(s)\n";
+	}
+      }
+    }
+
+    if ($#Sentence_untrust > -1) {
+    
+	open (FILESUSPECT,"> /etc/log.d/conf/suspect_file") or die "can't open...suspect_file";
+	print FILESUSPECT "\n---------------------------------------------------------\n\n";
+	for ($i=0;$i<=$#Sentence_untrust;$i++) {
+	    ($Name,$Other) = split / at /,$Sentence_untrust[$i];
+	    unless (grep m/$Name/,@NameArray) {
+		push (@NameArray,$Name);
+	    }
+	}
+	foreach $Name(@NameArray) {
+	    print FILESUSPECT $Name."\n";
+ 	}
+	print FILESUSPECT "\n---------------------------------------------------------\n";
+	close (FILESUSPECT);
+	
+	print "\n         HOST not in the host list:\n";
+        foreach $sentence (@Sentence_untrust) {
+	    print "            ".$sentence."\n";
+        }
+    }
+}
+
+if (keys %{$Refused}) {
+    print "\nRefused Connections:\n";
+    foreach $ThisOne (keys %{$Refused}) {
+        print "   Service " . $ThisOne . ":\n";
+	foreach $OtherOne (keys %{$Refused->{$ThisOne}}) {
+	    print "      " . $OtherOne . ": " . $Refused->{$ThisOne}->{$OtherOne} . " Time(s)\n";
+	}
+    }
+}
+
+if (keys %{$FailedLogins}) {
+    print "\nFailed logins:\n";
+    foreach $ThisOne (keys %{$FailedLogins}) {
+	print "   User " . $ThisOne . ":\n";
+	foreach $OtherOne (keys %{$FailedLogins->{$ThisOne}}) {
+	    print "      " . $OtherOne . ": " . $FailedLogins->{$ThisOne}->{$OtherOne} . " Time(s)\n";
+	}
+    }
+}
+ 
+if (keys %{$NoIP}) {
+    print "\nCouldn't get client IPs for connections to:\n";
+    foreach $ThisOne (keys %{$NoIP}) {
+	print "   " . $ThisOne . ": " . $NoIP->{$ThisOne} . " Time(s)\n";
+    }
+}
+
+if (keys %{Error}) {
+    print "\nErrors:\n";
+    foreach $Service (sort {$a cmp $b} keys %{Error}) {
+        print "   Service " . $Service . ":\n";
+        foreach $Err (sort {$a cmp $b} keys %{$Error{$Service}}) {
+            print "      " . $Err . ": " . $Error{$Service}{$Err} . " Time(s)\n";
+        }
+    }
+}
+
+if ($#OtherList >= 0) {
+    print "\n**Unmatched Entries**\n";
+    print @OtherList;
+}
+print "\n************************************************************************\n";
+print "       *********	Don't forget to check the suspect_file **********\n";
+print "************************************************************************\n";
+print "\n\n ----------------- Connections (secure-log) End -------------------- \n\n";
+
+}
+
+exit(0);
+
+
+

@@ -1,0 +1,9 @@
+<html>
+<%onerror error%>
+<title>WWW Administrator Update</title>
+<%!SetDefaultIpAccessToGrant%>
+<%!Update%>
+<%redirect%>/scripts/iisadmin/ism.dll?<%servname%>/adv<%/redirect%>
+<%label error%>
+Error encountered : <%reqstatus%>
+</html>

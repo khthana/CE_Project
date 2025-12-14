@@ -1,0 +1,45 @@
+#!/usr/bin/perl -w
+
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( ( $ThisLine =~ /^pam_get_user: no username obtained$/ ) or
+	 ( $ThisLine =~ /^pam_end: NULL pam handle passed/ ) ) { 
+	# We don't care about these
+    }
+    elsif ( $ThisLine =~ s/^FAILED LOGIN SESSION FROM ([^ ]+) FOR .*$/$1/ ) {
+	$FailedLogins{$ThisLine}++;
+    }
+    else {
+	# Report any unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+if (
+    (@OtherList) or
+    ( (keys %FailedLogins) and ($Detail >= 10) )
+    ) {
+
+    print "\n\n --------------------- pam Begin ------------------------ \n";
+
+    if ( (keys %FailedLogins) and ($Detail >= 10) ) {
+	print "\nFailed Login Sessions:\n";
+	foreach $ThisOne (keys %FailedLogins) {
+	    print "   " . $FailedLogins{$ThisOne} . " from " . $ThisOne;
+	}
+    }
+
+    if ($#OtherList >= 0) {
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- pam End ------------------------- \n\n";
+
+}
+
+exit(0);
+
+
+

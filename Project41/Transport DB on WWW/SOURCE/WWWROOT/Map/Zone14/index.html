@@ -1,0 +1,85 @@
+<html>
+	<head><Title></Title>
+	<Script>
+	var Col,Row;
+	var MaxC,MaxR;
+	Col=1;
+	Row=1;	
+	MaxC=2;
+	MaxR=3;
+		function Slid(TypBot)		
+		{
+			if(TypBot=="Right")
+			{
+				if(Col<MaxC) Col++;				
+			}else
+			if(TypBot=="Left")
+			{
+				if(Col>1) Col--;				
+			}else
+			if(TypBot=="Top")
+			{
+				if(Row>1) Row--;				
+			}else
+			if(TypBot=="Bottom")
+			{
+				if(Row<MaxR) Row++;				
+			}
+			document.Map.src="p"+Row+Col+".gif"
+		}
+	</Script>
+	</head>
+	<body bgcolor=White>
+	<Img src=/Map/Logo_Z.gif border=0>
+	<Center>
+	<Table Border=0 Width=600 Cellspacing=0>
+	<tr><Td Bgcolor=Black><Center><Font Color=White><B>ในการค้นหาโดยใช้แผนที่นั้น จะต้องใช้ปุ่มต่าง ๆ  ดังต่อไปนี้เข้าช่วย</B></Font></Center></td></tr>
+	<tr></tr>
+	<tr><Td Bgcolor=Steelblue><Font Color=White><Img src=/Map/Left.gif Border=0><Font Color=Steelblue>&nbsp;&nbsp;&nbsp;</Font>ในการเลื่อนแผนที่ของเขต ทางด้านทิศตะวันตกมาแสดง</Font></td></tr>
+	<tr><Td Bgcolor=SteelBlue><Font Color=White><Img src=/Map/Top.gif Border=0><Font Color=Steelblue>&nbsp;&nbsp;&nbsp;</Font>ในการเลื่อนแผนที่ของเขต ทางด้านทิศเหนือมาแสดง</Font></td></tr>
+	<tr><Td Bgcolor=SteelBlue><Font Color=White><Img src=/Map/Bottom.gif Border=0><Font Color=Steelblue>&nbsp;&nbsp;&nbsp;</Font>ในการเลื่อนแผนที่ของเขต ทางด้านทิศใต้มาแสดง</Font></td></tr>
+	<tr><Td Bgcolor=SteelBlue><Font Color=White><Img src=/Map/Right.gif Border=0><Font Color=Steelblue>&nbsp;&nbsp;&nbsp;</Font>ในการเลื่อนแผนที่ของ ขต ทางด้านทิศตะวันออกมาแสดง</Font></td></tr>
+	<tr><Td Bgcolor=SteelBlue><Font Color=white><b><Font Color=Steelblue>&nbsp;&nbsp;&nbsp;</Font>สำหรับขอบเขตของแต่ละเขตนั้นจะแบ่งแยกโดย ภาพส่วนที่ แลเงา</Font></b></td></tr>
+	</Tr>
+	<tr><td><br></td></tr>
+
+	<tr><Td Bgcolor=Black><Center><Font Color=White><B>ภาพแผนที่</B></Font></Center></td></tr>	
+	<tr></tr>
+	<tr>
+	<td>
+	<Center>
+	<Table Border=2>
+	<Tr><Td>
+		<Table Border=0 Bgcolor=SteelBlue  Width=300>
+		<Tr><Td><Center>
+		<Img src=p11.gif Border=0 Name=Map>
+		</Center></Td></TR>
+		</Table>
+	</Center>
+	</Td></TR>
+	</Table>
+	</Center>
+	</td>
+	</tr>
+	</Table>
+	<Form>
+	<Table>
+	<Tr>
+	<Td>
+		<Input Type=Button onClick=Slid("Left")      Value="  Left   ">
+	</td>
+	<Td>
+	<Input Type=Button onClick=Slid("Top")     Value="  Top  ">
+	</td>
+	<Td>
+	<Input Type=Button onClick=Slid("Bottom") Value="Bottom">
+	</td>
+	<Td>
+	<Input Type=Button onClick=Slid("Right")    Value=" Right  ">
+	</td>
+	</Tr>
+	</Table>
+	</Form>
+	<a href="/main.html"><Center><img src= "/Map/CommonS_B.gif" name=Coms align=center border=0></a>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<img src="/logo2.gif" border=0><br><br><br>
+<br>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 Width=650>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<Tr hight=3><td Bgcolor=Steelblue Colspan=5><Font  Color=White ><Center><B>รายละเอียดผลการสืบค้น</B></Center></Font></td>
+</tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>ประเภทของสถานที่ปลายทาง</B></Font></td>
+    <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.tDplace%></Center></b></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>สถานที่ปลายทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%idc.info_d%></Center></B></font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font  Color=White ><B>เขต</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font  Color=BLUE  ><B><Center><%key_section%></Center></B></font></td></tr>
+<%endif%>
+<tr></tr>
+<%enddetail%>
+<tr><TD Bgcolor=STEELBLUE colspan=5><Font  Color=#FFCC00 ><B><Center>  สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</TABLE>
+</TABLE>
+<br>
+<Center><br><A href="/map/main_searchM.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</Center>
+</BODY>
+</HTML>
+
+

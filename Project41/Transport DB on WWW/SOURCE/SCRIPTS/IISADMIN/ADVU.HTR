@@ -1,0 +1,17 @@
+<html>
+<title>Internet Service Manager <%if servid EQ 4%>WWW<%elif servid EQ 1%>FTP<%elif servid EQ 2%>Gopher<%endif%> Advanced Properties</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%onerror error%>
+<%if reqparam RF "cancel"%>
+<%goto end%>
+<%endif%>
+<%if reqparam RF "help"%>
+<%redirecthttp%><%msgbody.helptopic%><%/redirecthttp%>
+<%endif%>
+<%!Clear globalisbandwidthlimited%>
+<%!Update%>
+<%label end%>
+<%redirect%>/iisadmin/default.htm<%/redirect%>
+<%label error%>
+Error encountered : <%reqstatus%>
+</body></html>

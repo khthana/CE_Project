@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+$LastLine = "";
+
+while (defined($ThisLine = <STDIN>)) {
+   if ($ThisLine =~ m/last message repeated ([0123456789]+) times$/) {
+      for ($i=0;$i<$1;$i++) {
+         print $LastLine;
+      }
+   }
+   else {
+      print $ThisLine;
+      $LastLine = $ThisLine;
+   }
+}

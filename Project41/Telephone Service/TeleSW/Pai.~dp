@@ -1,0 +1,17 @@
+program Pai;
+
+uses
+  Forms,
+  ai1 in 'ai1.pas' {Form1},
+  ai2 in 'ai2.pas' {Form2},
+  psound in 'psound.pas' {MainForm};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TMainForm, MainForm);
+  Application.Run;
+end.

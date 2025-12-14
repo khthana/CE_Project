@@ -1,0 +1,123 @@
+#!/usr/bin/perl
+
+$base_path = $ENV{'RTCHECK_BASEDIR'} ;
+
+while (defined(pop @Sentencefrommessages)) {}
+while (defined(pop @domain_list)) {}
+while (defined(pop @dailymail)) {}
+while (defined(pop @suddenlymail)) {}
+
+##### G E T  N A M E   F R O M   M E S S A G E S  ######
+
+while (defined($ThisLine = <STDIN>)) {
+    chomp ($ThisLine);
+    if (($Time,$User,$Hostname) = ($ThisLine =~ /^... .. (..:..:..) [^ ]+ login\[[0123456789]+\]: LOGIN ON ttyp[0123456789]+ BY ([^ ]+) FROM ([^ ]+)$/)) {
+	$Sentence = $Time." ".$User." ".$Hostname;
+	unless (grep m/$User/,@Sentencefrommessages) {
+	    push @Sentencefrommessages,$Sentence;
+	}
+    }    
+}
+
+### G E T  N A M E   F R O M   L O G I N W A T C H 2 ####
+
+if ( -f "/tmp/loginlog2" ){
+    unlink("/tmp/loginlog2") ;
+}
+
+$loginwatch_path = $base_path."/scripts/shared/loginwatch -c ".$base_path."/conf/config2";
+`$loginwatch_path`;
+
+open (HANDLOGIN,"/tmp/loginlog2") or die "...can't open loginlog2 file";
+while (defined($ThisLine = <HANDLOGIN>)) {
+    chomp ($ThisLine);
+    if ($ThisLine =~ /^[^ ]+ [^ ]+/) {
+	push @Sentencefromloginlog2,$ThisLine;
+    }
+}
+close (HANDLOGIN);
+
+########### G E T  D O M A I N  F I L E ####################
+
+open (HANDDOMAIN,$base_path."/conf/domain_file") or die "...can't open domain_file";
+while (defined($ThisLine = <HANDDOMAIN>)) {
+    chomp ($ThisLine);
+    push @domain_list,$ThisLine;
+}	
+close (HANDDOMAIN);
+
+
+############# C O M P A R E #############
+$alert =0;
+$alertmsg = "";
+
+foreach $message(@Sentencefrommessages) {
+    foreach $login(@Sentencefromloginlog2) {
+	$auth = 0;
+	($userlog,$hostlog) = split/ /,$login;
+	($Time,$usermsg,$hostmsg) = split/ /,$message;
+	if ($userlog eq $usermsg) {
+	    if ($hostlog ne $hostmsg) {
+		if (($domainlog) = ($hostlog =~ /[^ ]+\.([^ ]+\.[^ ]+\.[^ ]+)/))  {}
+		else (($domainlog) = ($hostlog =~ /[^ ]+\.[^ ]+\.([^ ]+\.[^ ]+\.[^ ]+)/));
+		
+		if (($domainmsg) = ($hostmsg =~ /[^ ]+\.([^ ]+\.[^ ]+\.[^ ]+)/)) {}
+		else (($domainmsg) = ($hostmsg =~ /[^ ]+\.[^ ]+\.([^ ]+\.[^ ]+\.[^ ]+)/));
+		
+		if ($domainlog eq $domainmsg) {
+		    foreach $domain_name(@domain_list) {
+			if (($domain_name eq $domainmsg) and ($auth eq "0")) {
+			    $auth = 1;
+			}
+		    }
+		    if ($auth eq "0") {
+			$SentenceMail = $usermsg." at ".$Time." from ".$domainlog; 
+			push @dailymail,$SentenceMail;
+		    }    
+		}
+		else {
+		    $mailmsg = $usermsg." at ".$Time." from ".$hostlog." and ".$hostmsg;
+		    push @suddenlymail,$mailmsg;
+		    $alert = 1;
+		    $alertmsg .= "$usermsg ";
+		}
+	    }
+	}
+    }
+}
+
+######## S U D D E N L Y ########
+
+if ($alert eq "1") {
+    @sort_suddenlymail = sort (@suddenlymail);
+    $mailto = "root";
+
+    open (HANDMAILS,"> /tmp/mails");
+    print HANDMAILS "\n\n------------------------ suddenly mail-----------------------\n\n";
+    foreach $sudden(@sort_suddenlymail) {
+        print HANDMAILS "$sudden\n";
+    }
+    print HANDMAILS "\n\n------------------------ suddenly mail-----------------------\n\n";
+    close (HANDMAILS);
+
+    $mail_path = "/tmp/mails";
+    `/bin/cat $mail_path |/usr/sbin/sendmail "root"`;
+}
+
+###### D A I L Y   M A I L ########
+
+@sort_dailymail = sort (@dailymail);
+open (HANDMAIL,"> /tmp/mail");
+foreach $daily(@sort_dailymail) {
+    print HANDMAIL "$daily\n";
+}
+close (HANDMAIL);
+
+####### A L E R T ###########
+if ($alert eq "1") {
+    $mess = "Has too many domain by >> $alertmsg<<";
+    $alert_path = $base_path."/scripts/shared/alert";
+    `$alert_path "$mess"`;
+}
+
+

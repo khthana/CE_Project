@@ -1,0 +1,95 @@
+#!/usr/bin/perl
+
+$Detail = $ENV{'DAILYCHECK_DETAIL_LEVEL'};
+$IgnoreUnmatched = $ENV{'ftpd_ignore_unmatched'};
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( ( $ThisLine =~ /^FTP session closed$/ ) or
+	 ( $ThisLine =~ /^getpeername \(in.ftpd\): Transport endpoint is not connected$/ ) or
+	 ( $ThisLine =~ /^User .* timed out after .* seconds at .*$/ ) or  
+	 ( $ThisLine =~ /^failed login from ([^ ]+) \[(.*)\], (.*)$/ ) ) {
+	# We don't care about these
+    }				 
+    elsif ( ($Host,$IP,$Email) = ( $ThisLine =~ /^ANONYMOUS FTP LOGIN FROM ([^ ]+) \[(.*)\], (.*)$/ ) ) {
+	$Temp = "   " . $Host . " (" . $IP . "): " . $Email . " - ";
+	$AnonLogins{$Temp}++;
+    }
+    elsif ( ($Host,$IP,$User) = ( $ThisLine =~ /^FTP LOGIN FROM ([^ ]+) \[(.*)\], (.*)$/ ) ) {
+	$Temp = "   " . $Host . " (" . $IP . "): " . $User . " - ";
+	$UserLogins{$Temp}++;
+    }
+    elsif ( ($Host,$IP,$User) = ( $ThisLine =~ /^FTP LOGIN REFUSED \(.+\) FROM ([^ ]+) \[(.*)\], (.*)$/ ) ) {
+	$Temp = "   " . $Host . " (" . $IP . "): " . $User . " - ";
+	$FailedLogins{$Temp}++;
+    }
+    elsif ( ($IP,$Host) = ( $ThisLine =~ /^refused PORT ([0123456789.]+),[0123456789]+ from (.*)$/ ) ) {
+	$Temp = "   " . $Host . " (" . $IP . ") - ";
+	$RefusedPorts{$Temp}++;
+    }
+    elsif ( ($User,$Host,$IP,$File) = ( $ThisLine =~ /^([^ ]+) of ([^ ]*) \[(.*)\] deleted (.*)$/ ) ) {
+	$Temp = "   " . $Host . " (" . $IP . "): " . $User . "\n";
+	$Temp2 = "      " . $File . "\n";
+	push @{$DeletedFiles{$Temp}}, $Temp2;
+    }			 
+    else {
+	# Report any unmatched entries...
+	push @OtherList,$ThisLine;
+    }
+}
+
+if ( 
+     ( (keys %AnonLogins) and ($Detail >= 5 ) ) or
+     ( (keys %FailedLogins) and ($Detail >= 5 ) ) or
+     ( (keys %DeletedFiles) and ($Detail >= 10 ) ) or
+     ( @OtherList ) or
+     ( keys %UserLogins )
+     ) {		
+
+    print "\n\n --------------------- ftpd-messages Begin ------------------------ \n";
+    
+    if ( (keys %AnonLogins) and ($Detail >= 5) ) {
+	print "\nAnonymous FTP Logins:\n";
+	foreach $ThisOne (keys %AnonLogins) {
+	    print $ThisOne . $AnonLogins{$ThisOne} . " Time(s)\n";
+	}
+    }
+
+    if ( (keys %DeletedFiles) and ($Detail >= 10) ) {
+	print "\nFiles deleted through FTP:\n";
+	foreach $ThisOne (keys %DeletedFiles) {
+	    print $ThisOne;
+	    print @{$DeletedFiles{$ThisOne}};
+	}
+    }
+
+    if (keys %UserLogins) {
+	print "\nUser FTP Logins:\n";
+	foreach $ThisOne (keys %UserLogins) {
+	    print $ThisOne . $UserLogins{$ThisOne} . " Time(s)\n";
+	}
+    }
+
+    if ( (keys %FailedLogins) and ($Detail >= 5) ) {
+	print "\nFailed FTP Logins:\n";
+	foreach $ThisOne (keys %FailedLogins) {
+	    print $ThisOne . $FailedLogins{$ThisOne} . " Time(s)\n";
+	}
+	print "\nRefused PORTs:\n";
+        foreach $ThisOne (keys %RefusedPorts) {
+	  print $ThisOne . $RefusedPorts{$ThisOne} . " Time(s)\n";
+        }
+    }
+
+    if (($#OtherList >= 0) and (not $IngoreUnmatched)){
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- ftpd-messages End ------------------------- \n\n";
+
+}
+
+exit(0);
+
+
+

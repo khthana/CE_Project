@@ -1,0 +1,13 @@
+#!/usr/bin/perl -w
+if ( $ENV{'DAILYCHECK_DEBUG'} > 5 ) {
+   print STDERR "DEBUG: Inside RemoveService...\n";
+}
+
+$ServiceName = $ARGV[0];
+
+while (defined($ThisLine = <STDIN>)) {
+    unless ( ($ThisLine =~ m/^... .. ..:..:.. [^ ]* $ServiceName\[[0123456789]*\]: /oi) or
+             ($ThisLine =~ m/^... .. ..:..:.. [^ ]* $ServiceName: /oi) ) {
+      print $ThisLine;
+    }
+}

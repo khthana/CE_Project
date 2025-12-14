@@ -1,0 +1,31 @@
+<html>
+<%onerror error%>
+<title>Internet Service Manager <%if servid EQ 4%>WWW<%elif servid EQ 1%>FTP<%elif servid EQ 2%>Gopher<%endif%> Directory Properties</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%!DelVirtDir urlparam%>
+<%!Update%>
+<%if servid EQ 4%>
+<%redirect%>/scripts/iisadmin/ism.dll?http/dir<%/redirect%> 
+<%endif%>
+<%if servid EQ 1%>
+<%redirect%>/scripts/iisadmin/ism.dll?ftp/dir<%/redirect%> 
+<%endif%>  
+<%if servid EQ 2%>
+<%redirect%>/scripts/iisadmin/ism.dll?gopher/dir<%/redirect%> 
+<%endif%>
+<%label error%>
+<%if reqstatus EQ 4000%>
+ This directory no longer exists.
+<%elif reqstatus EQ 2500%>
+ <%if rpcstatus EQ 5%>
+ Access denied to this service.
+ <%elif rpcstatus EQ 1062%>
+ This service has been stopped.
+ <%else%>
+ RPC error <%rpcstatus%>
+ <%endif%>
+<%else%>
+ Error encountered : <%reqstatus%>
+<%endif%>
+<p><a href="/iisadmin/default.htm">Return to main menu</a>
+</body></html>

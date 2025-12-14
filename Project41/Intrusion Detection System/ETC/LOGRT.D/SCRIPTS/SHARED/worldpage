@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+
+$ua=new LWP::UserAgent;
+$ua->proxy('http','http://161.246.10.21:3128/'); 
+$ua->request(POST 'http://www.worldpage.co.th/cgi-bin/Squeue.cgi',
+       [ page_no  =>  $ARGV[0],
+         caller_pwd => '',
+         code_name => '',
+         msgarea => $ARGV[1],
+         day =>'now',
+         month =>'now',
+         year =>'now',
+         hours =>'now',
+         minutes =>'now'
+       ]);
+print("Ok...\n");
+exit;                                      

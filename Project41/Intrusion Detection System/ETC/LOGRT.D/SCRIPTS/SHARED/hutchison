@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+
+$ua=new LWP::UserAgent;
+$ua->proxy('http','http://161.246.10.21:3128/'); 
+$ua->request(POST 'http://www.hutchison.co.th/html/cyberpage/cybermsg.asp',
+       [ pager_no  => '202525',
+         accesspw  => '2525',
+         subject => 'Hello World',
+         from  => 'korn' ,
+       ]);
+print("Ok...\n");
+exit;                                      

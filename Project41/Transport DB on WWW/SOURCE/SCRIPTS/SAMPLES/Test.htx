@@ -1,0 +1,12 @@
+<html>
+<title>Guestbook Entry Details</title>
+<BODY BACKGROUND="/samples/images/backgrnd.gif">
+<BODY BGCOLOR="FFFFFF">
+<TABLE>
+<tr>
+	<td><%T1%></td>
+	<td><%T2%></td>
+</tr>
+</TABLE>
+</body>
+</html>

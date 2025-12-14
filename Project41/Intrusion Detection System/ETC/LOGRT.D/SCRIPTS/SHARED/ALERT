@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+$message = $ARGV[0];
+
+while (defined(pop @root_icq_list)) {}
+while (defined(pop @pager_list)) {}
+
+################ K E E P   A D M I N  P A G E R #################
+
+open (HANDPAGER,"/etc/logrt.d/conf/pager_file") or die "...can't open icq_file";
+while (defined($ThisLine = <HANDPAGER>)) {
+    chomp($ThisLine);
+    push @pager_list,$ThisLine;
+}
+close (HANDPAGER);
+
+################ K E E P   A D M I N   I C Q #################
+
+open (HANDICQ,"/etc/logrt.d/conf/icq_file") or die "...can't open icq_file";
+while (defined($ThisLine = <HANDICQ>)) {
+    chomp($ThisLine);
+        push @root_icq_list,$ThisLine;
+    }
+close (HANDICQ);
+
+################### S E N D   T O   C O N S O L E  #######################
+
+$mailto = "root";
+`echo $message |/usr/bin/write $mailto`;
+
+################### S E N D   P A G E R #######################
+
+for ($i=0;$i<=$#pager_list;$i++) {
+    if ($pager_list[$i] =~ /easycall/) {      ###### 1500 #######
+        $pager_list[$i] =~ s/ = / rtcheck /;
+	$pager_path = "/etc/logrt.d/scripts/shared/".$pager_list[$i] ;
+        `$pager_path "$message"`;
+    }
+    if ($pager_list[$i] =~ /phonelink/) {	####### 152 #######
+        $pager_list[$i] =~ s/ = / /;
+        $mess = "rtcheck : ".$message;
+	$pager_path = "/etc/logrt.d/scripts/shared/".$pager_list[$i] ;
+        `$pager_path "$mess" "spg.net"`;
+    }
+}
+
+##################### S E N D   I C Q ###########################
+
+$root_icq = "";
+foreach $root_icq_no(@root_icq_list) {
+    $root_icq = $root_icq." ".$root_icq_no.'@pager.mirabilis.com';
+}    
+    `echo "$message" | /usr/sbin/sendmail $root_icq`;
+		    
+												 		

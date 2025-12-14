@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+$base_path = $ENV{'RTCHECK_BASEDIR'}; 
+
+while (defined(pop @black_list)) {}
+while (defined(pop @namelogin)) {}
+
+
+############# G E T  N A M E   F R O M   M E S S A G E S ################
+while (defined($ThisLine = <STDIN>)) {
+    chomp ($ThisLine);
+    if (($Time,$User) = ($ThisLine =~ /^... .. (..:..:..) [^ ]+ login\[[0123456789]+\]: LOGIN ON ttyp[0123456789]+ BY ([^ ]+) FROM ([^ ]+)$/)) {
+        $Sentence = $User." ".$Time;
+        unless (grep m/$User/,@namelogin) {
+	    push @namelogin,$Sentence;
+        }
+    }
+}
+
+###### G E T   B L A C K  L I S T #########
+
+open (HANDBLACK,$base_path."/conf/black_file") or die "...can't open black_file";
+while (defined($ThisLine = <HANDBLACK>)) {
+    chomp($ThisLine);
+    push @black_list,$ThisLine;
+}
+close (HANDBLACK);	
+
+########### C O M P A R E ##########
+
+$mess = "";
+$alert = 0;
+
+foreach $namelog(@namelogin) {
+    ($name,$Time) = split/ /,$namelog;
+    $auth = 1;
+    foreach $black_name(@black_list) {
+	if (($name eq $black_name) and ($auth eq "1")) {
+	    $auth = 0;
+	}
+    }
+    if ($auth eq "0") {
+	$alert = 1;
+	$mess .=  "$namelog"; 
+    }
+}
+
+$message = "Has login from Blacklist >>  ".$mess."<<";
+
+########## A L E R T ##########
+
+if ($alert eq "1") {
+    $alert_path = $base_path."/scripts/shared/alert";
+    `$alert_path "$message"`;
+}						

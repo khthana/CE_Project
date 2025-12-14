@@ -1,0 +1,103 @@
+unit Main_menu;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Db, DBClient, MConnect, MidasCon, Grids, DBGrids, DBTables;
+
+type
+  TMainMenu = class(TForm)
+    GroupBox1: TGroupBox;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    RemoteServer1: TRemoteServer;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button4Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+//
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MainMenu: TMainMenu;
+
+implementation
+
+uses
+    Open_Order;
+
+{$R *.DFM}
+
+procedure TMainMenu.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+     Self.RemoteServer1.Connected := false;
+     Application.Terminate;
+end;
+
+procedure TMainMenu.Button4Click(Sender: TObject);
+begin
+//     Self.RemoteServer1.AppServer.endorder;
+     Application.Terminate;
+end;
+
+procedure TMainMenu.Button1Click(Sender: TObject);
+var s:string;
+    Rs : widestring;
+begin
+     s := inputbox('เปิดใบสั่งซื้อสินค้าใหม่','กรุณาป้อนรหัสลูกค้า','');
+     if s<>'' then
+     begin
+          Rs := RemoteServer1.AppServer.StartOrder(s);
+          if Rs<>'' then
+              showmessage(Rs)
+          else OpenOrders.Show;
+     end;
+
+end;
+
+procedure TMainMenu.Button2Click(Sender: TObject);
+var s:string;
+    Rs:widestring;
+begin
+     s := '';
+     s := inputbox('แก้ไขใบสั่งซื้อสินค้า','กรุณาป้อนรหัสใบสั่งซื้อสินค้า','');
+     if s<>'' then
+     begin
+          Rs := RemoteServer1.AppServer.EditOrder(s);
+          if Rs<>'' then
+              showmessage(Rs)
+          else OpenOrders.Show;
+     end;
+end;
+
+procedure TMainMenu.Button3Click(Sender: TObject);
+var s:string;
+    RS : widestring;
+begin
+     s := '';
+     s := inputbox('ลบใบสั่งซื้อสินค้า ','กรุณาป้อนรหัสใบสั่งซื้อสินค้า','');
+     if s<>'' then
+     begin
+          Rs := RemoteServer1.AppServer.DelOrder(s);
+          showmessage(Rs);
+     end;
+end;
+
+
+
+procedure TMainMenu.FormActivate(Sender: TObject);
+begin
+     Self.RemoteServer1.Connected := true;
+end;
+
+end.

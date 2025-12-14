@@ -1,0 +1,160 @@
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<Script>
+	function setAgain1(bus,van,chess,train,info_Ds,info_Dz,tSplace,tDplace,info_s,info_d,idcfiles)
+	{	
+		document.Sch.bus.value =bus;
+		document.Sch.van.value =van;
+		document.Sch.chess.value=chess;
+		document.Sch.train.value=train;
+		document.Sch.info_Ds.value=info_Ds;
+		document.Sch.info_Dz.value=info_Dz;
+		document.Sch.tSplace.value=tSplace;
+		document.Sch.tDplace.value=tDplace;
+		document.Sch.info_s.value=info_s;
+		document.Sch.info_d.value=info_d;
+		document.Sch.action=idcfiles;
+	}
+	function setAgain2(bus,van,chess,train,info_Ds,info_Dz,tSplace,tDplace,info_s,info_d,idcfiles)
+	{
+
+		document.Sch2.bus.value =bus;
+		document.Sch2.van.value =van;
+		document.Sch2.chess.value=chess;
+		document.Sch2.train.value=train;
+		document.Sch2.info_Ds.value=info_Ds;
+		document.Sch2.info_Dz.value=info_Dz;
+		document.Sch2.tSplace.value=tSplace;
+		document.Sch2.tDplace.value=tDplace;
+		document.Sch2.info_s.value=info_s;
+		document.Sch2.info_d.value=info_d;
+		document.Sch2.action=idcfiles;
+		
+	}
+
+	function setAgain3(bus,van,chess,train,info_Ds,info_Dz,tSplace,tDplace,info_s,info_d,idcfiles)
+	{
+
+		document.Sch3.bus.value =bus;
+		document.Sch3.van.value =van;
+		document.Sch3.chess.value=chess;
+		document.Sch3.train.value=train;
+		document.Sch3.info_Ds.value=info_Ds;
+		document.Sch3.info_Dz.value=info_Dz;
+		document.Sch3.tSplace.value=tSplace;
+		document.Sch3.tDplace.value=tDplace;
+		document.Sch3.info_s.value=info_s;
+		document.Sch3.info_d.value=info_d;
+		document.Sch3.action=idcfiles;		
+	}
+
+
+	</Script>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<img src=/Main_Logo.gif>
+<Center>
+<Table Border=0 Width=600>
+	<tr><Td Bgcolor=Steelblue><Font Color=Yellow>รายงานการค้นหา</Font></Td></tr>
+</Table>
+<TABLE  Border=0 Cellspacing=10>
+<%begindetail%>
+<%enddetail%>
+<%if CurrentRecord GT 0 %>
+<Form Name=Sch onSubmit="setAgain1('<%idc.bus%>','<%idc.van%>','<%idc.chess%>','<%idc.train%>','<%idc.info_Ds%>','<%idc.info_Dz%>','<%idc.tSplace%>','<%idc.tDplace%>','<%idc.info_s%>','<%idc.info_d%>','/scripts/samples/sch1.idc')">
+
+<Tr>
+	<Td><input  type="image" name="Submit" src="/thailand.gif"  border="0"><!--<Img src=/thailand.gif Border=0>--></Td>
+	<Td>
+
+<Font color=Steelblue>กรุณา Click ที่ รูปภาพ สำหรับการเดินทางจาก <Font Color=Red><%idc.info_s%></Font> ไปยัง <Font Color=Red><%idc.info_d%></Font> ใช้ 1 ต่อการเดินทาง</Font>
+<Input Type=Hidden name=bus>
+<Input Type=Hidden name=van>
+<Input Type=Hidden name=chess>
+<Input Type=Hidden name=train>
+<Input Type=Hidden name=info_Ds>
+<Input Type=Hidden name=info_Dz>
+<Input Type=Hidden name=tSplace>
+<Input Type=Hidden name=tDplace>
+<Input Type=Hidden name=info_s>
+<Input Type=Hidden name=info_d>
+	</Td>
+</Tr>
+</Form>
+<%else%>
+<Tr><Td><Img src=/thailand.gif Border=0></Td><Td>
+<Font color=Darkgray>การเดินทางจาก <Font Color=Green><%idc.info_s%></Font> ไปยัง <Font Color=Green><%idc.info_d%></Font> ไม่สามารถใช้ 1 ต่อการเดินทางได้</Font></a>
+</Td></Tr>
+<%endif%>
+
+<%begindetail%>
+
+<%enddetail%>
+<br>
+<%if CurrentRecord GT 0 %>
+<Form Name=Sch2 onSubmit="setAgain2('<%idc.bus%>','<%idc.van%>','<%idc.chess%>','<%idc.train%>','<%idc.info_Ds%>','<%idc.info_Dz%>','<%idc.tSplace%>','<%idc.tDplace%>','<%idc.info_s%>','<%idc.info_d%>','/scripts/samples/sch1_2.idc')">
+<Tr>
+	<Td>
+		<input  type="image" name="Submit" src="/thailand.gif"  border="0"><!--<Img src=/thailand.gif Border=0>-->
+	</Td>
+	<Td>
+<Font color=Steelblue>กรุณา Click ที่ รูปภาพ สำหรับการเดินทางจาก <Font Color=Red><%idc.info_s%></Font> ไปยัง <Font Color=Red><%idc.info_d%></Font> ใช้ 2 ต่อการเดินทาง</Font>
+<Input Type=Hidden name=bus>
+<Input Type=Hidden name=van>
+<Input Type=Hidden name=chess>
+<Input Type=Hidden name=train>
+<Input Type=Hidden name=info_Ds>
+<Input Type=Hidden name=info_Dz>
+<Input Type=Hidden name=tSplace>
+<Input Type=Hidden name=tDplace>
+<Input Type=Hidden name=info_s>
+<Input Type=Hidden name=info_d>
+	</Td>
+</Tr>
+</Form>
+<%else%>
+<Tr><Td><Img src=/thailand.gif Border=0></Td><Td>
+<Font color=Darkgray>การเดินทางจาก <Font Color=Green><%idc.info_s%></Font> ไปยัง <Font Color=Green><%idc.info_d%></Font> ไม่สามารถใช้ 2 ต่อการเดินทางได้</Font></a>
+</Td></Tr>
+<%endif%>
+
+<%begindetail%>
+
+<%enddetail%>
+<br>
+<%if CurrentRecord GT 0 %>
+<Form Name=Sch3 onSubmit="setAgain3('<%idc.bus%>','<%idc.van%>','<%idc.chess%>','<%idc.train%>','<%idc.info_Ds%>','<%idc.info_Dz%>','<%idc.tSplace%>','<%idc.tDplace%>','<%idc.info_s%>','<%idc.info_d%>','/scripts/samples/sch1_3.idc')">
+<Tr>
+	<Td><input  type="image" name="Submit" src="/thailand.gif"  border="0"><!--<Img src=/thailand.gif Border=0>--></Td>
+	<Td>
+<Font color=Steelblue>กรุณา Click ที่ รูปภาพ สำหรับการเดินทางจาก <Font Color=Red><%idc.info_s%></Font> ไปยัง <Font Color=Red><%idc.info_d%></Font> ใช้ 3 ต่อการเดินทาง</Font>
+<Input Type=Hidden name=bus>
+<Input Type=Hidden name=van>
+<Input Type=Hidden name=chess>
+<Input Type=Hidden name=train>
+<Input Type=Hidden name=info_Ds>
+<Input Type=Hidden name=info_Dz>
+<Input Type=Hidden name=tSplace>
+<Input Type=Hidden name=tDplace>
+<Input Type=Hidden name=info_s>
+<Input Type=Hidden name=info_d>
+	</Td>
+</Tr>
+</Form>
+<%else%>
+<Tr><Td><Img src=/thailand.gif Border=0></Td><Td>
+<Font color=Darkgray>การเดินทางจาก <Font Color=Green><%idc.info_s%></Font> ไปยัง <Font Color=Green><%idc.info_d%></Font> ไม่สามารถใช้ 3 ต่อการเดินทางได้</Font></a>
+</Td></Tr>
+<%endif%>
+
+
+
+</TABLE>
+
+<br>
+<A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A>
+</Center>
+
+</BODY>
+</HTML>

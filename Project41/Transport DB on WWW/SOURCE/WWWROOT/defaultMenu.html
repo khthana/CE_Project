@@ -1,0 +1,136 @@
+<Html>
+<Head>
+	<Title>Traffic Search In Bangkok</Title>
+	<Script>
+
+	function warp(id,imN)
+	{
+	  document.images[id].src=imN;
+	}
+	function Reset_Value(objec)
+{
+	objec.checked=false;	
+	if(objec==document.Sch.VehicleMe1) 
+	{
+		document.Sch.VehicleP1.checked=false;
+		document.Sch.VehicleP2.checked=false;
+		document.Sch.VehicleP3.checked=false;
+		document.Sch.VehicleP4.checked=false;
+	}
+	else
+	if((document.Sch.VehicleP1.checked) ||
+	   (document.Sch.VehicleP2.checked) ||
+	   (document.Sch.VehicleP3.checked) ||
+	   (document.Sch.VehicleP4.checked) )
+	{
+	document.Sch.VehicleMe1.checked=true;
+	}
+}
+function setVehicle()
+	{		
+	if(document.Sch.VehicleP1.checked)
+	{
+		document.Sch.bus.value="ขสมก";
+	}
+	 if(document.Sch.VehicleP2.checked) 
+	{
+		document.Sch.train.value="รถไฟ";
+	}
+	 if(document.Sch.VehicleP3.checked) 
+	{
+		document.Sch.chess.value="เรือ";
+	}
+	 if(document.Sch.VehicleP4.checked) 	
+	{
+		document.Sch.van.value="รถตู้";		
+	}
+	if(document.Sch.VehicleMe1.checked)
+	{
+
+		if(document.Sch.choice.options[0].selected)
+		{
+		document.Sch.action="http://media03.ce.kmitl.ac.th/scripts/samples/sch1.idc";
+		}else
+		if(document.Sch.choice.options[1].selected)
+		{	
+		document.Sch.action="http://media03.ce.kmitl.ac.th/scripts/samples/sch1_2.idc";
+		}else
+		if(document.Sch.choice.options[2].selected)
+		{		
+		document.Sch.action="http://media03.ce.kmitl.ac.th/scripts/samples/sch1_3.idc";
+		}
+	} else
+	{
+		alert("a");
+		document.Sch.reset();
+	}
+}	
+	</Script>
+</Head>
+
+<Body background=BackG2.gif>
+
+
+<Table BORDER=0 Align=Right>
+<Tr><TD><A Href="search1.html" onMouseOver="warp(0,'W_menu1_1.gif')"  onMouseOut="warp(0,'menu1.gif')"><img src=menu1.gif Border=0></A></TD></TR>
+<Tr><TD><A  Href="search2.html" onMouseOver="warp(1,'W_menu2_1.gif')"  onMouseOut="warp(1,'menu2.gif')"><img src=menu2.gif Border=0></A></TD></tr>
+<Tr><TR><TD><A  Href="search3.html" onMouseOver="warp(2,'W_menu3_1.gif')"  onMouseOut="warp(2,'menu3.gif')"><img src=menu3.gif Border=0></A></TD>
+<Tr><TD><A  Href="search4.html" onMouseOver="warp(3,'W_menu4_1.gif')"  onMouseOut="warp(3,'menu4.gif')"><img src=W_menu4_1.gif Border=0></A></TD></TR>
+</Table>
+<Table BORDER=0 Align=Right>
+<TR><TD><A  Href="search5.html" onMouseOver="warp(4,'Wmenu5.gif')"  onMouseOut="warp(4,'menu5.gif')"><img src=menu5.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="search6.html"  onMouseOver="warp(5,'Wmenu6.gif')"  onMouseOut="warp(5,'menu6.gif')"><img src=menu6.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="search7.html"  onMouseOver="warp(6,'Wmenu7.gif')"  onMouseOut="warp(6,'menu7.gif')"><img src=menu7.gif Border=0></A></TD></TR>
+<TR><TD><A  Href="search8.html"  onMouseOver="warp(7,'Wmenu8.gif')"  onMouseOut="warp(7,'menu8.gif')"><img src=menu8.gif Border=0></A></TD></TR>
+</Table>
+<Table BORDER=0 Align=Top>
+<TR><TD><img src=Main_Logo.gif></TD></TR>
+</Table>
+<pre>
+
+</pre>
+<Center>
+<Table cellspelling=10>
+<tr><td><img src="Bus.gif"></td><td><img src="car.gif"></td><td><img src="train.gif"></td><td><img src="van.gif"></td><td><img src="chess.gif"></td></tr>	
+</Table>
+</Center>
+<br>
+<FORM ACTION="http://media03.ce.kmitl.ac.th/scripts/samples/sch1.idc" 
+             METHOD=POST 
+             Name=Sch
+             onSubmit="setVehicle()">
+<img src=info_TOP.gif><br>
+<img src=info_Ds.gif> <INPUT Type=Text Name=info_Ds Size=10> <img src=info_Dz.gif> <INPUT Type=Text Name=info_Dz Size=10><br>
+<img src=info_s.gif> <INPUT Type=Text Name=info_s Size=10> <img src=info_d.gif> <INPUT Type=Text Name=info_d Size=10><br>
+<img src=infoTplace.gif> <INPUT Type=Text Name=tSplace Size=10> <img src=infoTplace.gif> <INPUT Type=Text Name=tDplace  Size=10><br>
+<Hr>
+<img src=info_TOP2.gif><br><br>
+<INPUT Type=checkbox NAME=VehicleMe1 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi1_1.gif>
+<Font Color=WHITE>&#20&#20&#20&#20&#20</Font>
+<INPUT Type=checkbox NAME=VehicleMe2 onClick="Reset_Value(document.Sch.VehicleMe1)"><a href="main_SearchM.html"><img src=info_vehi1.gif border=0></a>
+<br>
+<Font Color=WHITE>&#20</Font><INPUT Type="checkbox" NAME="VehicleP1" CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi2.gif><br>
+<Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP2 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi3.gif><br>
+<Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP3 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi4.gif><br>
+<Font Color=WHITE>&#20</Font><INPUT Type=CHECKBOX NAME=VehicleP4 CHECKED onClick="Reset_Value(document.Sch.VehicleMe2)"><img src=info_vehi5.gif><br>
+<Input Type=Hidden name=bus>
+<Input Type=Hidden name=van>
+<Input Type=Hidden name=chess>
+<Input Type=Hidden name=train>
+<Br>
+<img src=info_TOP3.gif><br>
+
+<Font Face=IrisUPC Size=2>
+<Select name=choice>
+<Option value=one Selected>จำนวน 1 ต่อ
+<Option value=two>จำนวน 2 ต่อ
+<Option value=three>จำนวน 3 ต่อ
+</Select>
+</Font>
+<Center>
+<input  type="image" name="Submit" src="SubmitB.gif"   border="0"><br>
+</Center>
+</Form>
+
+</body>
+</Html>

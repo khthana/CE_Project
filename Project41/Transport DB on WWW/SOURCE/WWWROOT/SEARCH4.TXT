@@ -1,0 +1,12 @@
+<Html>
+    <Head>
+        <Title> </Title>	
+    </Head>		
+    <Body Bgcolor=#FFFFFF>
+	<Form Name=Sch1>
+		<Input Type=checkbox Name=N_Chess CHECKED><Img Src=S4_im1.gif><Input Type=Text Name=N_ChessValue Size=10>
+		<Img Src=S4_im2.gif><Input Type=Text Name=IdChessValue Size=10><br>
+		<Input Type=checkbox Name=NofficCh><Img Src=S4_im3.gif><Input Type=Text Name=NofficChValue Size=10>
+	</Form>
+    </Body>
+</Html>

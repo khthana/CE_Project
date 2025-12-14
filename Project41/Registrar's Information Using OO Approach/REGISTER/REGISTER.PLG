@@ -1,0 +1,125 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: register - Win32 Final--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x41e /fo"register___Win32_Final/register.res" /d "NDEBUG" /d "_AFXDLL" "C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\register.rc"" 
+Creating temporary file "C:\TEMP\RSP43.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"register___Win32_Final/register.pch" /Yu"stdafx.h" /Fo"register___Win32_Final/" /Fd"register___Win32_Final/" /FD /c 
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\CurriculumDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\Department.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\DepartmentAddDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\DepartmentDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\DepartmentfnDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\Faculty.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\FacultyAddDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\FacultyDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\FacultyfnDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\MainDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\msflexgrid.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\OtherinfoDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\register.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\registerDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\RegisterInfoDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\RoomDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\SelectStdIdDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\StdAddDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\StdEditDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\StdinfoDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\StdSelectDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\Stdset.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\Subject.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\SubjectAddDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\SubjectDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\SubjectInfoDlg.cpp"
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\SubjectSelDlg.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP43.tmp" 
+Creating temporary file "C:\TEMP\RSP44.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"register___Win32_Final/register.pch" /Yc"stdafx.h" /Fo"register___Win32_Final/" /Fd"register___Win32_Final/" /FD /c 
+"C:\WINNT2\Profiles\Administrator\Desktop\DEMO\register 28\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP44.tmp" 
+Creating temporary file "C:\TEMP\RSP45.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"register___Win32_Final/register.pdb" /machine:I386 /out:"register___Win32_Final/register.exe" 
+".\register___Win32_Final\CurriculumDlg.obj"
+".\register___Win32_Final\Department.obj"
+".\register___Win32_Final\DepartmentAddDlg.obj"
+".\register___Win32_Final\DepartmentDlg.obj"
+".\register___Win32_Final\DepartmentfnDlg.obj"
+".\register___Win32_Final\Faculty.obj"
+".\register___Win32_Final\FacultyAddDlg.obj"
+".\register___Win32_Final\FacultyDlg.obj"
+".\register___Win32_Final\FacultyfnDlg.obj"
+".\register___Win32_Final\MainDlg.obj"
+".\register___Win32_Final\msflexgrid.obj"
+".\register___Win32_Final\OtherinfoDlg.obj"
+".\register___Win32_Final\register.obj"
+".\register___Win32_Final\register.res"
+".\register___Win32_Final\registerDlg.obj"
+".\register___Win32_Final\RegisterInfoDlg.obj"
+".\register___Win32_Final\RoomDlg.obj"
+".\register___Win32_Final\SelectStdIdDlg.obj"
+".\register___Win32_Final\StdAddDlg.obj"
+".\register___Win32_Final\StdAfx.obj"
+".\register___Win32_Final\StdEditDlg.obj"
+".\register___Win32_Final\StdinfoDlg.obj"
+".\register___Win32_Final\StdSelectDlg.obj"
+".\register___Win32_Final\Stdset.obj"
+".\register___Win32_Final\Subject.obj"
+".\register___Win32_Final\SubjectAddDlg.obj"
+".\register___Win32_Final\SubjectDlg.obj"
+".\register___Win32_Final\SubjectInfoDlg.obj"
+".\register___Win32_Final\SubjectSelDlg.obj"
+]
+Creating command line "link.exe @C:\TEMP\RSP45.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+CurriculumDlg.cpp
+Department.cpp
+DepartmentAddDlg.cpp
+DepartmentDlg.cpp
+DepartmentfnDlg.cpp
+Faculty.cpp
+FacultyAddDlg.cpp
+FacultyDlg.cpp
+FacultyfnDlg.cpp
+MainDlg.cpp
+msflexgrid.cpp
+OtherinfoDlg.cpp
+register.cpp
+registerDlg.cpp
+RegisterInfoDlg.cpp
+RoomDlg.cpp
+SelectStdIdDlg.cpp
+StdAddDlg.cpp
+StdEditDlg.cpp
+StdinfoDlg.cpp
+Generating Code...
+Compiling...
+StdSelectDlg.cpp
+Stdset.cpp
+Subject.cpp
+SubjectAddDlg.cpp
+SubjectDlg.cpp
+SubjectInfoDlg.cpp
+SubjectSelDlg.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+register.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

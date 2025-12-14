@@ -1,0 +1,53 @@
+program Doctor;
+
+uses
+  Forms,
+  SelectFile in 'SelectFile.pas' {SelectFileForm},
+  MainScreen in 'MainScreen.pas' {MainScreenForm},
+  AttrEnter in 'AttrEnter.pas' {AttrEnterForm},
+  General in 'General.pas' {GeneralForm},
+  Head in 'Head.pas' {HeadForm},
+  Stomach in 'Stomach.pas' {StomachForm},
+  Ear in 'Ear.pas' {EarForm},
+  Face in 'Face.pas' {FaceForm},
+  Skin in 'Skin.pas' {SkinForm},
+  Heart in 'Heart.pas' {HeartForm},
+  History in 'History.pas' {HistoryForm},
+  Urine in 'Urine.pas' {UrineForm},
+  Female in 'Female.pas' {FemaleForm},
+  Result in 'Result.pas' {ResultForm},
+  DetailResult in 'DetailResult.pas' {DetailResultForm},
+  MedDetail in 'MedDetail.pas' {MedDetailForm},
+  AllMatch in 'AllMatch.pas' {AllMatchForm},
+  SolDetail in 'SolDetail.pas' {SolDetailForm},
+  CreateCase in 'CreateCase.pas' {CreateCaseForm},
+  CreateSol in 'CreateSol.pas' {CreateSolForm},
+  CreateMed in 'CreateMed.pas' {CreateMedForm};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TSelectFileForm, SelectFileForm);
+  Application.CreateForm(TMainScreenForm, MainScreenForm);
+  Application.CreateForm(TAttrEnterForm, AttrEnterForm);
+  Application.CreateForm(TGeneralForm, GeneralForm);
+  Application.CreateForm(THeadForm, HeadForm);
+  Application.CreateForm(TStomachForm, StomachForm);
+  Application.CreateForm(TEarForm, EarForm);
+  Application.CreateForm(TFaceForm, FaceForm);
+  Application.CreateForm(TSkinForm, SkinForm);
+  Application.CreateForm(THeartForm, HeartForm);
+  Application.CreateForm(THistoryForm, HistoryForm);
+  Application.CreateForm(TUrineForm, UrineForm);
+  Application.CreateForm(TFemaleForm, FemaleForm);
+  Application.CreateForm(TResultForm, ResultForm);
+  Application.CreateForm(TDetailResultForm, DetailResultForm);
+  Application.CreateForm(TMedDetailForm, MedDetailForm);
+  Application.CreateForm(TAllMatchForm, AllMatchForm);
+  Application.CreateForm(TSolDetailForm, SolDetailForm);
+  Application.CreateForm(TCreateCaseForm, CreateCaseForm);
+  Application.CreateForm(TCreateSolForm, CreateSolForm);
+  Application.CreateForm(TCreateMedForm, CreateMedForm);
+  Application.Run;
+end.

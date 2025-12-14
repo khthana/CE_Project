@@ -1,0 +1,372 @@
+unit mailbox;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Grids, DBGrids, ExtCtrls, DBCtrls, Db, DBTables, StdCtrls, Mask;
+
+type
+  TForm3 = class(TForm)
+    Table1: TTable;
+    Table2: TTable;
+    DBNavigator1: TDBNavigator;
+    DBGrid1: TDBGrid;
+    Edit1: TEdit;
+    GroupBox1: TGroupBox;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    Panel1: TPanel;
+    Query1: TQuery;
+    Button1: TButton;
+    Edit2: TEdit;
+    DBEdit1: TDBEdit;
+    Timer1: TTimer;
+    Timer2: TTimer;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    Datasource3: TDataSource;
+    Datasource2: TDataSource;
+    Datasource1: TDataSource;
+    DBEdit5: TDBEdit;
+    DBEdit6: TDBEdit;
+    DBEdit7: TDBEdit;
+    DBEdit8: TDBEdit;
+    Edit3: TEdit;
+    Panel2: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    procedure RadioButton2Click(Sender: TObject);
+    procedure RadioButton1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure Edit3KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    keystore,nummess:integer;
+    userID,password:string;
+    m_state:string;// flag show main or submenu
+    procedure pass;
+    procedure inkey;
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+uses psound, ts_1, ai2;
+
+{$R *.DFM}
+
+procedure TForm3.pass;
+begin
+  m_state:='mainmenu';
+  mainform.playwave('askmail1.wav');
+end;
+
+procedure Tform3.inkey;
+var
+ name:string;
+ l:integer;
+begin
+
+ form3.show;
+ if (ts1.buff>=0) and (ts1.buff<=9) then
+  begin
+  keystore:=(keystore*10)+ts1.buff;
+  end;
+ if (ts1.buff=clr) then // Return mainmenu
+  begin
+  pass;
+  end;
+
+// ******* Main menu ************
+ if (ts1.buff=ent)and (m_state='mainmenu') then // 'a' edit to '#'phone key
+  begin
+  ts1.buff:=0;  // clear keybuff;
+  name:=inttostr(keystore);
+  keystore:=0;
+  if name='1' then
+   begin
+   m_state:='consign';
+   mainform.playwave('askuser.wav');
+   end
+  else if name='2' then
+   begin
+   m_state:='readdel1';
+   mainform.playwave('askUpass.wav');
+   end
+  else if name='3' then
+   begin
+   // exit Mailbox
+   end
+  else
+   begin
+   mainform.playwave('askmail1.wav');
+   end;
+  end;
+ if (ts1.buff=ent)and (m_state='consign') then // 'a' edit to '#'phone key
+  begin
+   ts1.buff:=0;  // clear keybuff;
+   userID:=inttostr(keystore);
+   edit1.Text:=userid;
+   keystore:=0; // clear keystore;
+   table1.setkey;
+   table1.fields[0].asstring:=userID;
+   table1.gotokey;  // or table1.gotonearest;
+   if dbedit2.Text=userID then
+   begin
+   mainform.playwave('startmail.wav');
+   timer1.Enabled:=true;
+   end
+   else
+    begin
+    m_state:='usererror';
+    table1.First;
+    mainform.playwave('usererror.wav');
+    timer1.Enabled:=true;
+    end;
+  end;
+ if (ts1.buff=ent)and (m_state='readdel1') then // 'a' edit to '#'phone key
+  begin
+   ts1.buff:=0;  // clear keybuff;
+   UserID:=inttostr(keystore);
+   edit1.Text:=userid;
+   keystore:=0; // clear keystore;
+   table1.setkey;
+   table1.fields[0].asstring:=userID;
+   table1.gotokey;  // or table1.gotonearest;
+   if dbedit2.Text=userID then
+   begin
+   m_state:='readdel2';
+   end
+   else
+    begin
+    m_state:='usererror';
+    table1.First;
+    mainform.playwave('usererror.wav');
+    timer1.Enabled:=true;
+    end;
+  end;
+ if (ts1.buff=ent)and (m_state='readdel2') then // 'a' edit to '#'phone key
+  begin
+   m_state:='submenu';
+   ts1.buff:=0;  // clear keybuff;
+   password:=inttostr(keystore);
+   keystore:=0; // clear keystore;
+   edit2.Text:=password;
+   if dbedit3.Text=password then
+   begin
+   mainform.playwave('asksubmenu.wav');
+   end
+   else
+   begin
+   m_state:='passworderror';
+   table1.First;
+   mainform.playwave('passerror.wav');
+   timer1.Enabled:=true;
+   end;
+  end;
+
+// ********** Sub menu *********
+ if (ts1.buff=ent)and (m_state='submenu') then // 'a' edit to '#'phone key
+  begin
+  ts1.buff:=0;  // clear keybuff;
+  name:=inttostr(keystore);
+  keystore:=0;
+  if name='1' then
+   begin
+   DBGrid1.DataSource:=DataSource3;
+   DBNavigator1.DataSource:=DataSource3;
+   query1.Close;
+   query1.sql.Clear;
+   query1.SQL.Add('select * from mailmessage');
+   query1.SQL.Add('where user_id="'+userid+'"');
+   query1.Open;
+   query1.First;
+   l:=0;
+   while not query1.EOF do
+   begin
+   inc(l);
+   query1.next;
+   end;
+   nummess:=l;
+   m_state:='readmess';
+   mainform.playwave('readmess.wav');
+   timer1.Enabled:=true;
+   end
+  else if name='2' then
+   begin
+   m_state:='delmess';
+   mainform.playwave('delmess.wav');
+   end
+  else if name='3' then
+   begin
+   m_state:='mainmenu';
+   pass;
+   end
+  else
+   begin
+   mainform.playwave('askmail1.wav');
+   end;
+  end;
+
+  if (ts1.buff=ent)and (m_state='playmess') then // 'a' edit to '#'phone key
+  begin
+  ts1.buff:=0;  // clear keybuff;
+  query1.First;
+  while keystore<>1 do
+   begin
+   query1.next;
+   dec(keystore);
+   end;
+  name:=dbedit4.Text;
+  mainform.playwave(Ts1.d+'\Mailbox\'+name+'.wav');
+  query1.First;
+  keystore:=0;
+  end;
+
+if (ts1.buff=ent)and (m_state='delmess') then // 'a' edit to '#'phone key
+  begin
+  ts1.buff:=0;  // clear keybuff;
+  query1.First;
+  while keystore<>1 do
+   begin
+   query1.next;
+   dec(keystore);
+   end;
+   name:=dbedit4.Text;
+   DeleteFile(Ts1.d+'\Mailbox\'+name+'.wav');
+   RadioButton1click(self);
+   table2.setkey;
+   table2.fields[0].asstring:=userID;
+   table2.Fields[1].asstring:=name;
+   table2.gotokey;  // or table2.gotonearest;
+   if (dbedit5.Text=userid) and (dbedit6.text=name) then
+   table2.Delete;
+   DBGrid1.DataSource:=datasource3;
+   DBNavigator1.DataSource:=datasource3;
+   query1.Refresh;
+   query1.First;
+   keystore:=0;
+  end;
+end;
+
+
+procedure TForm3.RadioButton2Click(Sender: TObject);
+begin
+ DBGrid1.DataSource:=DataSource1;
+ DBNavigator1.DataSource:=DataSource1;
+end;
+
+procedure TForm3.RadioButton1Click(Sender: TObject);
+begin
+ DBGrid1.DataSource:=DataSource2;
+ DBNavigator1.DataSource:=DataSource2;
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+ pass;
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+ m_state:='mainmenu';
+end;
+
+procedure TForm3.Timer1Timer(Sender: TObject);
+var nmess,temp:string;
+    num:integer;
+begin
+  if (mainform.Label1.caption='Stop')then
+  begin
+   ts1.sendint(cmand7);      ////////////
+   timer1.Enabled:=false;
+   if(m_state='usererror')then
+    begin
+    pass;
+    end;
+   if(m_state='passworderror')then
+    begin
+    pass;
+    end;
+   if(m_state='consign')then
+    begin
+    DBGrid1.DataSource:=DataSource3;
+    DBNavigator1.DataSource:=DataSource3;
+    query1.Close;
+    query1.SQL.Clear;
+    query1.SQL.Add('select * from mailmessage');
+    query1.SQL.Add('where User_ID ="'+userid+'"');
+    query1.Open;
+    query1.First;
+    nmess:=dbedit4.Text;
+    query1.Next;
+    while nmess<>dbedit4.Text do
+     begin
+     nmess:=dbedit4.Text;
+     query1.Next;
+     end;
+    if nmess<>''then
+    begin
+    temp:=copy(nmess,6,4);
+    num:=strtoint(temp);
+    inc(num);
+    temp:=inttostr(num);
+    nmess:=userid+'_'+temp;
+    end
+    else nmess:=userid+'_1';
+    form2.show;
+    form2.Edit1.text:=ts1.d+'\Mailbox\'+nmess+'.wav';
+    form2.BitBtn1click(self);
+    timer2.Enabled:=true;
+    RadioButton1click(self);
+    table2.Insert;
+    dbedit5.Text:=userid;
+    dbedit6.Text:=nmess;
+    dbedit7.Text:=DateToStr(Date);// date
+    dbedit8.Text:=TimeToStr(Time);// time
+    table2.Post;
+    end;
+   if(m_state='readmess')then
+    begin
+     mainform.playwave(inttostr(nummess)+'.wav');
+     m_state:='playmess';
+    end;
+  end;
+end;
+
+procedure TForm3.Timer2Timer(Sender: TObject);
+begin
+ Timer2.Enabled:=false;
+ form2.BitBtn2click(self);
+end;
+
+procedure TForm3.Edit3KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if key=13 then
+  begin
+  query1.Close;
+  query1.sql.Clear;
+  query1.SQL.Add(edit3.Text);
+  query1.Open;
+  query1.First;
+  DBGrid1.DataSource:=DataSource3;
+  DBNavigator1.DataSource:=DataSource3;
+  end;
+end;
+
+
+
+end.

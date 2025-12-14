@@ -1,0 +1,51 @@
+<HTML>
+<HEAD><TITLE></TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center><img src="/logo5.gif" border=0></Center><br><br>
+<Center>
+<Table Border=1>
+<tr><td>
+<Table Border=0 Cellspacing=0  Width=500>
+<Tr><td Bgcolor=LIGHTSEAGREEN Colspan=2><Font  Color=White ><center><B>รายละเอียดเรือ</B></Center></Font></td>
+    </tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Color=White><B>ต้นทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font Color=BLUE><center><B><%start_station%></B></Center></Font></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Color=White><B>ปลายทาง</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font Color=BLUE><center><B><%dest_station%></B></Font></Center></td></tr>
+<Tr><td Bgcolor=LIGHTSLATEGRAY><Font Color=White><B>เวลาที่ให้บริการ</B></Font></td>
+     <td Bgcolor=WHITESMOKE><Font Color=BLUE><center><B><%service_time%></B></Font></Center></td></tr>
+</Table>
+</td></tr>
+</Table>
+</Center>
+<br>
+<Center>
+<Table border=1>
+<tr><td>
+<TABLE  Border=0 Cellspacing=0 width=400>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=STEELBLUE><Font Color=#FFCC00><B>สถานีที่ผ่าน</B></Font></TH>
+<TH Bgcolor=STEELBLUE><Font Color=#FFCC00 ><B>ชนิดของสถานที่</B></Font></TH>
+</TR>
+<tr></tr>
+<%endif%>
+<TR><TD Bgcolor=LIGHTSTEELBLUE><Font  Color=white ><B><%pass_place%></B></Font></TD>
+<TD Bgcolor=WHITESMOKE><Font  Color=BLUE><Center><B><%type_place%></B></Center></Font></TD>
+</TR>
+<%enddetail%>
+<tr></tr>
+<tr><TD Bgcolor=STEELBLUE colspan=2><Font  Color=#FFCC00 ><B><Center>สิ้นสุดข้อมูล</center></B></Font></td></tr>
+</Table>
+</td></tr>
+</TABLE>
+<%if CurrentRecord EQ 0 %>
+<TABLE  Border=0 Cellspacing=0>
+<Tr Bgcolor=STEELBLUE><Td><Font  Color=White  ><B> เรือชื่อ <Font color=#FFCC00><%idc.N_ChessValue%></Font> หมายเลข  <Font color=#FFCC00><%idc.IdChessValue%></Font> ไม่มีอยู่ใน Database</B></Font></td></Tr>
+</Table>
+<%endif%>
+</Center>
+<Center><br><A href="/main.html"><Img Src="/CommonS_B.gif" Border=0></A></Center>
+</BODY>
+</HTML>

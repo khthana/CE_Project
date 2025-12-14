@@ -1,0 +1,47 @@
+<HTML>
+<title>Internet Service Manager - Deny Access</title> 
+
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+
+<!-- Header -->
+<TABLE BORDER=0>
+<TR VALIGN=CENTER>
+<TD>
+<A HREF="/iisadmin/default.htm">
+<IMG SRC="/iisadmin/logo.gif" ALT="" ALIGN=BOTTOM BORDER=0></A></TD>
+<TD><FONT SIZE=+2 COLOR=000000>
+<B><%if servid EQ 4%>WWW<%elif servid EQ 1%>FTP<%elif servid EQ 2%>Gopher<%endif%> Administrator - Deny Access</B></FONT><BR>
+<FONT SIZE=+1 COLOR=0000CD>Administration on <%servname%>://<%hostname%></FONT>
+</TD></TR>
+</TABLE>
+<HR>
+<P>
+<table BORDER=0 BGCOLOR=C0C0C0 NOWRAP>
+
+<FONT COLOR=RED><%if servid EQ 4%>Deny WWW access to the following :<%elif servid EQ 1%>Deny FTP access to the following :<%elif servid EQ 2%>Deny Gopher access to the following :<%endif%>
+</FONT>
+<P>
+<form method="POST" action="/scripts/iisadmin/ism.dll?<%servname%>/advadddu">
+<input type="radio" name="denyisipsingle" value=1 CHECKED> Single Computer<p>
+<input type="radio" name="denyisipsingle" value=0> Group of Computers<p>
+IP Address : <input type="text" name="denyipaddr" value=""><p>
+A subnet mask is only necessary when you deny access to a group of computers<p>
+Subnet Mask : <input type="text" name="denyipmask" value=""><p>
+
+<!-- OK/CANCEL/RESET Buttons -->
+<TABLE WIDTH=500 HEIGHT=30 BORDER=0 NOWRAP>
+<TR><TD ALIGN=RIGHT>
+<input type="submit" value="     OK     ">
+<input type="submit" name="cancel" value=" Cancel ">
+<input type="reset" value="  Reset  ">
+<%if 1 EQ 1%>
+<input type="hidden" name="helptopic" value="/iisadmin/<%if servid EQ 4%>htadvda.htm<%elif servid EQ 1%>ftadvda.htm<%elif servid EQ 2%>goadvda.htm<%endif%>">
+<input type="submit" name="help" value="  Help  ">
+<%endif%>
+</TD></TR>
+</TABLE>
+
+</TABLE>
+
+</form>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<%onerror error%>
+<title>Internet Service Manager <%if servid EQ 4%>WWW<%elif servid EQ 1%>FTP<%elif servid EQ 2%>Gopher<%endif%> Logging Properties</title>
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+<%if reqparam RF "cancel"%>
+<%goto end%>
+<%endif%>
+<%if reqparam RF "help"%>
+<%redirecthttp%><%msgbody.helptopic%><%/redirecthttp%>
+<%endif%>
+<%if reqparam RF "bdir"%>
+<%redirect%>/scripts/iisadmin/ism.dll?dir/bdir+<%servname%>/log?logdir?<%msgbody.logdir%><%/redirect%>
+<%endif%>
+<%!Clear enablelog%>
+<%!Clear enablenewlog%>
+
+<%if reqparam RF "enablelog"%>
+ <%if reqparam RF "enablenewlog"%>
+  <%if msgbody.enablelog EQ "1"%>
+   <%if msgbody.enablenewlog EQ "1"%>
+    <%if reqparam RF "logperiod"%>
+     <%goto ok%>
+    <%else%>
+     You must specify when to create a new log file.<p>
+     <%goto retm%>
+    <%endif%>
+   <%endif%>
+  <%endif%>
+ <%endif%>
+<%endif%>
+
+<%if reqparam RF "enablelog"%>
+ <%if reqparam RF "logtype"%>
+  <%goto ok%>
+ <%else%>
+   You must specify a log destination.<p>
+   <%goto retm%>
+ <%endif%>
+<%endif%>
+
+<%label ok%>
+<%!Update%>
+<%label end%>
+<%redirect%>/iisadmin/default.htm<%/redirect%>
+<%label error%>
+<%if reqstatus EQ 2500%>
+ <%if rpcstatus EQ 5%>
+ Access denied to this service.
+ <%elif rpcstatus EQ 3%>
+ Invalid ( or missing ) log file directory.
+ <%elif rpcstatus EQ 31%>
+ The specified log settings are incorrect.
+ <%elif rpcstatus EQ 1062%>
+ This service has been stopped.
+ <%elif rpcstatus EQ 2%>
+ The specified directory does not exist.
+ <%else%>
+ RPC error <%rpcstatus%>
+ <%endif%>
+<%elif reqstatus EQ 8000%>
+<%if invalidlogupdate EQ 1%>
+You cannot modify the file settings while logging to an ODBC source.
+<%elif invalidlogupdate EQ 2%>
+You cannot modify the ODBC settings while logging to a file.
+<%elif invalidlogupdate EQ 4%>
+Invalid modification to the log file settings.
+<%else%>
+ One or more of the parameters are incorrect.
+<%endif%>
+<%else%>
+ Error encountered : <%reqstatus%>
+<%endif%>
+<br>
+<%label retm%>
+<a href="/iisadmin/default.htm">Return to main menu</a>
+</html>

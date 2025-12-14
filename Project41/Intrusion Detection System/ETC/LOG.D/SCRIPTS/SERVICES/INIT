@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+
+#$Detail = $ENV{'DAILYCHECK_DEBUG'};
+
+while (defined($ThisLine = <STDIN>)) {
+    if ( $ThisLine =~ s/Switching to runlevel: (.)$/$1/ ) {
+	# Which runlevel did we change to?
+	chomp ($ThisLine);
+	$RunLevel{$ThisLine}++;
+    }
+    else {
+	# report any unmatched entries
+	push @OtherList,$ThisLine;
+    }
+}
+				 
+if ( (keys %RunLevel) or (@OtherList) ) {
+	
+    print "\n\n ---------------------- Init Begin ------------------------- \n\n";
+	
+    if (keys %RunLevel) {
+	foreach $Level (sort keys %RunLevel) {
+	    print "   Switched to runlevel " . $Level . " - " . $RunLevel{$Level} . " Time(s)\n";
+	}
+    }
+    
+    if ($#OtherList >= 0) {
+	print "\n**Unmatched Entries**\n";
+	print @OtherList;
+    }
+
+    print "\n\n ---------------------- Init End ------------------------- \n\n";
+	
+}
+
+exit(0);
+
+
+

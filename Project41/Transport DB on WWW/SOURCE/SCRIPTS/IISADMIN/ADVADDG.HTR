@@ -1,0 +1,44 @@
+<title>Internet Service Manager - Grant Access</title>
+
+<BODY BGCOLOR=#FFFFFF LINK=000000 VLINK=000000>
+
+<!-- Header -->
+<TABLE BORDER=0>
+<TR VALIGN=CENTER>
+<TD>
+<A HREF="/iisadmin/default.htm">
+<IMG SRC="/iisadmin/logo.gif" ALT="" ALIGN=BOTTOM BORDER=0></A></TD>
+<TD><FONT SIZE=+2 COLOR=000000>
+<B><%if servid EQ 4%>WWW Administrator<%elif servid EQ 1%>FTP Administrator<%elif servid EQ 2%>Gopher Administrator<%endif%> - Grant Access</B></FONT><BR>
+<FONT SIZE=+1 COLOR=000000>Administration on<%servname%>://<%hostname%></FONT>
+</TD></TR>
+</TABLE>
+<HR>
+<P>
+<table BORDER=0 BGCOLOR=C0C0C0 NOWRAP>
+<%if servid EQ 4%>Grant WWW access to the following :<%elif servid EQ 1%>Grant FTP access to the following :<%elif servid EQ 2%>Grant Gopher access to the following :<%endif%>
+<P>
+
+<form method="POST" action="/scripts/iisadmin/ism.dll?<%servname%>/advaddgu">
+<input type="radio" name="grantisipsingle" value=1 CHECKED> Single Computer<p>
+<input type="radio" name="grantisipsingle" value=0> Group of Computers<p>
+IP Address : <input type="text" name="grantipaddr" value=""><p>
+A subnet mask is only necessary when you deny access to a group of computers<p>
+Subnet Mask : <input type="text" name="grantipmask" value=""><p>
+
+<!-- OK/CANCEL/RESET Buttons -->
+<TABLE WIDTH=500 HEIGHT=30 BORDER=0 NOWRAP>
+<TR><TD ALIGN=RIGHT>
+<input type="submit" value="     OK     ">
+<input type="submit" name="cancel" value=" Cancel ">
+<input type="reset" value="  Reset  ">
+<%if 1 EQ 1%>
+<input type="hidden" name="helptopic" value="/iisadmin/<%if servid EQ 4%>htadvga.htm<%elif servid EQ 1%>ftadvga.htm<%elif servid EQ 2%>goadvga.htm<%endif%>">
+<input type="submit" name="help" value="  Help  ">
+<%endif%>
+</TD></TR>
+</TABLE>
+
+</TABLE>
+</form>
+</html>

@@ -1,0 +1,29 @@
+<HTML>
+<HEAD><TITLE>Authors and YTD Sales</TITLE></HEAD>
+<BODY BGCOLOR=#FFFFFF>
+<Center>
+
+<TABLE  Border=1 Cellspacing=1>
+<%begindetail%>
+<%if CurrentRecord EQ 0 %>
+<TR>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>สถานที่</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของสถานที่</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>หมายเลขของยานพาหนะ</B></Font></TH>
+<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของยานพาหนะ</B></Font></TH>
+</TR>
+<%endif%>
+<TR>
+<TD><%pass_place%></TD><TD align="right"><%type_place%></TD>
+<TD align="right"><%id_vehicle%></TD><TD align="right"><%type_vehicle%></TD>
+</TR>
+<%enddetail%>
+</TABLE>
+</Center>
+</BODY>
+</HTML>
+
+
+<!--<TH Bgcolor=GREEN><Font Size=2 Color=White><B>ชนิดของยานพาหนะ</B></Font></TH>
+<TD align="right"><%type_vehicle%></TD>
+-->

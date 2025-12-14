@@ -1,0 +1,188 @@
+unit Unit_new_1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Buttons, ExtCtrls;
+
+type
+  TForm5 = class(TForm)
+    GroupBox1: TGroupBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Edit9: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    GroupBox2: TGroupBox;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Edit10: TEdit;
+    Label11: TLabel;
+    procedure Calculate;
+    procedure Receive_input;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+const   min1=58.6578; max1=70.6743;
+        min2=20.796;  max2=24.3557;
+        min3=27.8294; max3=32.7498;
+        min4=4.5635;  max4=5.59;
+        min5=20.3;    max5=25.1589;
+        min6=-3.7706000991;  max6=2.7530986884;
+        min7=35.2983; max7=43.3965;
+        n=8; p=10; m=1;
+var
+  Form5: TForm5;
+  IP :array[0..n] of real;
+  result    :Text;
+
+implementation
+
+uses Unit_proj;
+
+{$R *.DFM}
+
+
+procedure TForm5.Receive_input;
+type  array_series = array[1..4]of real;
+      array_fact = array[1..3]of real;
+var   TseriesIP:array_series;
+      Tk :  array_series;
+      T :  array_series;
+      Factor:array_fact;
+      i:integer;
+
+begin
+      IP[0] := 1;
+      IP[1] := (0.8*(strtofloat(edit1.text)- min1)/(max1-min1))+0.1  ;
+      IP[2] := (0.8*(strtofloat(edit2.text)- min2)/(max2-min2))+0.1;
+      IP[3] := (0.8*(strtofloat(edit3.text)- min3)/(max3-min3))+0.1;
+      IP[4] := (0.8*(strtofloat(edit4.text)- min4)/(max4-min4))+0.1;
+      IP[5] := (0.8*(strtofloat(edit5.text)- min5)/(max5-min5))+0.1;
+      TseriesIP[1] := strtofloat(edit6.text);
+      TseriesIP[2] := strtofloat(edit7.text);
+      TseriesIP[3] := strtofloat(edit8.text);
+      TseriesIP[4] := strtofloat(edit9.text);
+      factor[1] := 0.011713179040;
+      factor[2] := 0.0172889311;
+      factor[3] := 0.0221787669;
+
+      for i:=1 to 3 do
+          T[i]:=(TseriesIP[4]-TseriesIP[4-i])/(TseriesIP[4]*factor[i]);
+  //      TseriesIP[i]:=(TseriesIP[4]-TseriesIP[4-i])/(TseriesIP[4]*factor[i]);
+
+      for i:=1 to 3 do
+      Tk[i]:=(0.8*(T[i]-min6)/(max6-min6))+0.1;
+//    TseriesIP[i]:=(0.8*(TseriesIP[i]-min6)/(max6-min6))+0.1;
+
+      for i:=6 to 8 do
+          IP[i] := Tk[i-5];
+     //   IP[i] := TseriesIP[i-5];
+
+     Assignfile(result,'buf2.txt');
+     rewrite(result);
+  //   for i:= 1 to 3 do  writeln(result,T[i]:0:5);
+     for i:=1 to 8 do writeln(result,IP[i]:0:5);
+     closefile(result);
+
+end;
+
+procedure TForm5.Calculate;
+type
+       arrayHD =array[0..p]of real;  {Hidden unit=2,bias=1}
+       arrayVij=array[0..n,1..p]of real;
+       arrayWjk=array[0..p]of real;
+var    HD    :arrayHD;
+       OP    :real;
+       Vij   :arrayVij;
+       Wjk   :arrayWjk;
+       WeightFile:TextFile;
+       weight,sum:real;
+       i,j   :integer;
+       OP1   :string[5];
+
+begin
+          AssignFile(WeightFile,'W_bp.txt');
+          Reset(WeightFile);
+          for i:=0 to n do
+               for j:=1 to p do
+               begin
+                   readln(WeightFile,Weight);
+                   Vij[i][j]:=Weight;
+               end;
+
+          for j:=0 to p do
+          begin
+               readln(WeightFile,Weight);
+               Wjk[j]:=Weight;
+          end;
+          CloseFile(WeightFile);
+          HD[0]:=1{bias};
+           for j:=1 to p do
+           begin
+               sum:=0;
+               for i:=0 to n do
+                   sum:=sum+IP[i]*Vij[i][j];
+               HD[j]:=1/(1+exp(-sum));
+           end;
+          sum:=0;
+          for j:=0 to p do
+               sum:=sum+HD[j]*Wjk[j];
+               OP:=1/(1+exp(-sum));
+               OP:=((OP-0.1)*(max7-min7)/0.8) + min7;
+               OP1:=FloatToStr(OP);
+               Edit10.text:=OP1+'   '+'บาท';
+
+end;
+
+
+procedure TForm5.Button1Click(Sender: TObject);
+begin
+       Receive_input;
+       Calculate;
+end;
+
+procedure TForm5.Button2Click(Sender: TObject);
+begin
+        edit1.text :=' ';
+        edit2.text :=' ';
+        edit3.text :=' ';
+        edit4.text :=' ';
+        edit5.text :=' ';
+        edit6.text :=' ';
+        edit7.text :=' ';
+        edit8.text :=' ';
+        edit9.text :=' ';
+        edit10.text:=' ';
+end;
+
+procedure TForm5.Button3Click(Sender: TObject);
+begin
+         Form5.hide;
+         Form3.show;
+
+end;
+
+end.
